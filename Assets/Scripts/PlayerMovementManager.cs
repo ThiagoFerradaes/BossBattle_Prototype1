@@ -2,8 +2,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerMovementManager : MonoBehaviour
-{
+public class PlayerMovementManager : MonoBehaviour {
     #region Parameters
 
     // Movement floats
@@ -33,9 +32,8 @@ public class PlayerMovementManager : MonoBehaviour
 
     #region Initialize
 
-    private void Awake()
-    {
-        anim = GetComponentInChildren<Animator>(); 
+    private void Awake() {
+        anim = GetComponentInChildren<Animator>();
         rb = GetComponent<Rigidbody>();
     }
 
@@ -43,9 +41,8 @@ public class PlayerMovementManager : MonoBehaviour
 
     #region Input Events
 
-    public void OnMove(InputAction.CallbackContext ctx)
-    {
-        if (!_canMove || !_canWalk) return; 
+    public void OnMove(InputAction.CallbackContext ctx) {
+        if (!_canMove || !_canWalk) return;
 
         var value = ctx.ReadValue<Vector2>();
 
@@ -53,29 +50,26 @@ public class PlayerMovementManager : MonoBehaviour
         zInput = value.y;
     }
 
+    public void OnDash(InputAction.CallbackContext ctx) {
+        if (ctx.performed) BlockMovement(!_canMove);
+    }
+
     #endregion
 
     #region Update
-    private void FixedUpdate()
-    {
+    private void FixedUpdate() {
         Walk();
     }
 
-    private void Walk()
-    {
-        if (!_canMove || !_canWalk)
-        {
+    private void Walk() {
+        if (!_canMove || !_canWalk) {
             xInput = 0;
             zInput = 0;
-            rb.linearVelocity = Vector3.zero;
-        }
-        else
-        {
-            rb.linearVelocity = new Vector3(xInput * speed, 0, zInput * speed);
-            anim.SetFloat(xMovementParameterName, xInput);
-            anim.SetFloat(zMovementParameterName, zInput);
         }
 
+        rb.linearVelocity = new Vector3(xInput * speed, 0, zInput * speed);
+        anim.SetFloat(xMovementParameterName, xInput);
+        anim.SetFloat(zMovementParameterName, zInput);
     }
     #endregion
     #region Setters

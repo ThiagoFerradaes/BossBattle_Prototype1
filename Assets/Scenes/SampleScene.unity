@@ -639,7 +639,19 @@ MonoBehaviour:
     m_ActionId: d13d8522-2f60-45a8-acff-ea5f4d580676
     m_ActionName: 'Player/Ultimate[/Keyboard/q]'
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1088792250}
+        m_TargetAssemblyTypeName: PlayerMovementManager, Assembly-CSharp
+        m_MethodName: OnDash
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 09fce56e-afb3-44c7-93dc-d4857873f1c9
     m_ActionName: 'Player/Dash[/Keyboard/shift]'
   m_NeverAutoSwitchControlSchemes: 0
