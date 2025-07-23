@@ -72,11 +72,13 @@ public class PlayerMovementManager : MonoBehaviour {
         anim.SetFloat(zMovementParameterName, zInput);
     }
     #endregion
+
     #region Setters
-    public void BlockMovement(bool block) => _canMove = block;
-    public void BlockWalk(bool block) => _canWalk = block;
-    public void BlockRotation(bool block) => _canRotate = block;
-    public void BlockDash(bool block) => _canDash = block;
+    public void BlockMovement(bool block) => _canMove = !block;
+    public void BlockWalk(bool block) => _canWalk = !block;
+    public void BlockRotation(bool block) => _canRotate = !block;
+    public void BlockDash(bool block) => _canDash = !block;
 
     #endregion
+
 }
