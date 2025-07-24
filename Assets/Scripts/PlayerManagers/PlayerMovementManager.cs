@@ -2,24 +2,23 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+public enum RotationType { MouseRotation, MoveRotation }
 public class PlayerMovementManager : MonoBehaviour {
     #region Parameters
 
     // Movement floats
-    float zInput;
-    float xInput;
+    float _zInput;
+    float _xInput;
 
     // Booleans
     bool _canMove = true;
     bool _canWalk = true;
     bool _canRotate = true;
     bool _canDash = true;
-    bool _rotateWithMouse = false;
 
     // Animation
     [Header("Animation")]
     [SerializeField] string walkingAnimationParameter;
-    //[SerializeField] string zMovementParameterName;
 
     // Components
     Animator anim;
@@ -36,6 +35,7 @@ public class PlayerMovementManager : MonoBehaviour {
 
     // Rotation
     Vector2 _mousePosition;
+    RotationType _rotationType = RotationType.MoveRotation;
 
     #endregion
 
@@ -55,8 +55,8 @@ public class PlayerMovementManager : MonoBehaviour {
 
         var value = ctx.ReadValue<Vector2>();
 
-        xInput = value.x;
-        zInput = value.y;
+        _xInput = value.x;
+        _zInput = value.y;
 
         if (ctx.phase == InputActionPhase.Started) anim.SetBool(walkingAnimationParameter, true); 
         else if (ctx.phase == InputActionPhase.Canceled) anim.SetBool(walkingAnimationParameter, false);
@@ -82,17 +82,17 @@ public class PlayerMovementManager : MonoBehaviour {
 
     private void Walk() {
         if (!_canMove || !_canWalk) {
-            xInput = 0;
-            zInput = 0;
+            _xInput = 0;
+            _zInput = 0;
         }
 
-        rb.linearVelocity = new Vector3(xInput * speed, 0, zInput * speed);
+        rb.linearVelocity = new Vector3(_xInput * speed, 0, _zInput * speed);
     }
 
     void Rotate() {
         if (!_canRotate) return;
 
-        if (_rotateWithMouse) {
+        if (_rotationType == RotationType.MouseRotation) {
             Ray ray = Camera.main.ScreenPointToRay(_mousePosition);
 
             if (Physics.Raycast(ray, out RaycastHit hit, 100f, floorLayer)) {
@@ -107,7 +107,7 @@ public class PlayerMovementManager : MonoBehaviour {
         }
 
         else {
-            Vector3 moveDirection = new (xInput, 0f, zInput);
+            Vector3 moveDirection = new (_xInput, 0f, _zInput);
 
             if (moveDirection.sqrMagnitude > 0.001f) {
                 Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
@@ -122,6 +122,7 @@ public class PlayerMovementManager : MonoBehaviour {
     public void BlockWalk(bool block) => _canWalk = !block;
     public void BlockRotation(bool block) => _canRotate = !block;
     public void BlockDash(bool block) => _canDash = !block;
+    public void ChangeRotationType(RotationType type) => _rotationType = type;
 
     #endregion
 

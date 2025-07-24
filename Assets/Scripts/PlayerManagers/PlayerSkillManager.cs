@@ -10,6 +10,7 @@ public enum SkillSlot {
     Ultimate = 3
 }
 public class PlayerSkillManager : MonoBehaviour {
+    #region Parameters
     // Booleans
     bool _canBaseAttack;
     bool _canUseCommonSkill;
@@ -34,6 +35,8 @@ public class PlayerSkillManager : MonoBehaviour {
     // Events
     public event Action OnPreCastingSkill;
     public event Action OnSkillRelease;
+
+    #endregion
 
     #region Initialize
     private void Awake() {

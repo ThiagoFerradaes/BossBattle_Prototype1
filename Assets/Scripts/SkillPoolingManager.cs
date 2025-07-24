@@ -3,10 +3,13 @@ using UnityEngine;
 
 public class SkillPoolingManager : MonoBehaviour
 {
+    #region Parameters
     public static SkillPoolingManager Instance;
 
     Dictionary<string, List<GameObject>> listOfObjects = new();
+    #endregion
 
+    #region Methods
     private void Awake() {
         if (Instance == null) Instance = this;
         else Destroy(this);
@@ -25,4 +28,6 @@ public class SkillPoolingManager : MonoBehaviour
         list.Add(newObject);
         return newObject;
     }
+
+    #endregion
 }
