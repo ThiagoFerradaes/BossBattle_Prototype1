@@ -19,5 +19,4 @@ public abstract class SkillSO : ScriptableObject
     public bool BlockWalkWhilePreCasting;
     public bool BlockDashWhilePreCasting;
 
-    public abstract void UseSKill(Animator anim);
 }
