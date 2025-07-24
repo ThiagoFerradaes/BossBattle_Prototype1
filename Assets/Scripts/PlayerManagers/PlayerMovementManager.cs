@@ -14,11 +14,12 @@ public class PlayerMovementManager : MonoBehaviour {
     bool _canWalk = true;
     bool _canRotate = true;
     bool _canDash = true;
+    bool _rotateWithMouse = false;
 
     // Animation
-    [Header("Animation")]
-    [SerializeField] string xMovementParameterName;
-    [SerializeField] string zMovementParameterName;
+    //[Header("Animation")]
+    //[SerializeField] string xMovementParameterName;
+    //[SerializeField] string zMovementParameterName;
 
     // Components
     Animator anim;
@@ -27,6 +28,13 @@ public class PlayerMovementManager : MonoBehaviour {
     // Atributes
     [Header("Atributes")]
     [SerializeField] float speed;
+
+    // LayerMask
+    [Header("Layer")]
+    [SerializeField] LayerMask floorLayer;
+
+    // Rotation
+    Vector2 mousePosition;
 
     #endregion
 
@@ -48,6 +56,15 @@ public class PlayerMovementManager : MonoBehaviour {
 
         xInput = value.x;
         zInput = value.y;
+
+        if (ctx.phase == InputActionPhase.Started) anim.SetBool("Walking", true); 
+        else if (ctx.phase == InputActionPhase.Canceled) anim.SetBool("Walking", false);
+    }
+
+    public void OnRotate(InputAction.CallbackContext ctx) {
+        if (!_canRotate || !_canMove) return;
+
+        mousePosition = ctx.ReadValue<Vector2>();
     }
 
     public void OnDash(InputAction.CallbackContext ctx) {
@@ -59,6 +76,7 @@ public class PlayerMovementManager : MonoBehaviour {
     #region Update
     private void FixedUpdate() {
         Walk();
+        Rotate();
     }
 
     private void Walk() {
@@ -68,8 +86,35 @@ public class PlayerMovementManager : MonoBehaviour {
         }
 
         rb.linearVelocity = new Vector3(xInput * speed, 0, zInput * speed);
-        anim.SetFloat(xMovementParameterName, xInput);
-        anim.SetFloat(zMovementParameterName, zInput);
+        //anim.SetFloat(xMovementParameterName, xInput);
+        //anim.SetFloat(zMovementParameterName, zInput);
+    }
+
+    void Rotate() {
+        if (!_canRotate) return;
+
+        if (_rotateWithMouse) {
+            Ray ray = Camera.main.ScreenPointToRay(mousePosition);
+
+            if (Physics.Raycast(ray, out RaycastHit hit, 100f, floorLayer)) {
+                Vector3 direction = hit.point - transform.position;
+                direction.y = 0;
+
+               if (direction.sqrMagnitude > 0.001f) {
+                    Quaternion targetRotation = Quaternion.LookRotation(direction);
+                    transform.rotation = targetRotation;
+                } 
+            }
+        }
+
+        else {
+            Vector3 moveDirection = new (xInput, 0f, zInput);
+
+            if (moveDirection.sqrMagnitude > 0.001f) {
+                Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
+                transform.rotation = targetRotation;
+            }
+        }
     }
     #endregion
 

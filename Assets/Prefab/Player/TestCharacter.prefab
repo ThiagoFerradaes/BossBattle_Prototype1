@@ -149,6 +149,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 09fce56e-afb3-44c7-93dc-d4857873f1c9
     m_ActionName: 'Player/Dash[/Keyboard/shift]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1713622384440033257}
+        m_TargetAssemblyTypeName: PlayerMovementManager, Assembly-CSharp
+        m_MethodName: OnRotate
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 9f5048a4-3374-4584-8dbf-488eeee535b9
+    m_ActionName: 'Player/Rotate[/Mouse/position]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -166,9 +182,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9690cd017da4554f935b861e03e6b44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xMovementParameterName: XMove
-  zMovementParameterName: ZMove
-  speed: 2
+  speed: 2.7
+  floorLayer:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!54 &3160985740282346584
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -211,7 +228,7 @@ MonoBehaviour:
   baseAttackSkill: {fileID: 0}
   skillOne: {fileID: 0}
   skillTwo: {fileID: 0}
-  supreme: {fileID: 0}
+  ultimate: {fileID: 0}
 --- !u!1001 &8919010732312894223
 PrefabInstance:
   m_ObjectHideFlags: 0
