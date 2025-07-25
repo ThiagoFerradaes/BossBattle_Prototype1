@@ -1,12 +1,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SkillPoolingManager : MonoBehaviour
-{
+public class SkillPoolingManager : MonoBehaviour {
     #region Parameters
     public static SkillPoolingManager Instance;
 
-    Dictionary<string, List<GameObject>> listOfObjects = new();
+    // Dicionários
+    Dictionary<string, List<GameObject>> listOfHitboxes = new();
+    Dictionary<string, GameObject> listOfManagers = new();
+
+    // Transforms
+    [SerializeField] Transform hitboxContainer, managerContainer;
+
     #endregion
 
     #region Methods
@@ -15,18 +20,36 @@ public class SkillPoolingManager : MonoBehaviour
         else Destroy(this);
     }
 
-    public GameObject ReturnObjectFromPool(string objectName, GameObject prefab) {
+    public GameObject ReturnHitboxFromPool(string objectName, GameObject prefab) {
 
-        var list = listOfObjects[objectName];
+        if (!listOfHitboxes.ContainsKey(objectName)) {
+            listOfHitboxes[objectName] = new List<GameObject>();
+        }
+
+        var list = listOfHitboxes[objectName];
 
         for (int i = 0; i < list.Count; i++) {
             if (!list[i].activeInHierarchy) return list[i];
         }
 
-        GameObject newObject = Instantiate(prefab);
+        GameObject newObject = Instantiate(prefab, hitboxContainer);
         newObject.SetActive(false);
         list.Add(newObject);
         return newObject;
+    }
+
+    public GameObject ReturnManagerFromPool(string managerName, GameObject prefab) {
+
+        if (listOfManagers.TryGetValue(managerName, out GameObject manager)) {
+            return manager;
+        }
+
+        else {
+            GameObject newManager = Instantiate(prefab, managerContainer);
+            newManager.SetActive(false);
+            listOfManagers[managerName] = newManager;
+            return listOfManagers[managerName];
+        }
     }
 
     #endregion

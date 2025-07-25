@@ -1,7 +1,7 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "SpearSkillSO", menuName = "Scriptable Objects/SpearSkillSO")]
-public class SpearSkillSO : ScriptableObject
+[CreateAssetMenu(menuName = "Skills / SpearAttack")]
+public class SpearSkillSO : SkillSO
 {
     
 }

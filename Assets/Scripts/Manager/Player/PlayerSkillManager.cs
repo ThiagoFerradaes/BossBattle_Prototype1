@@ -12,12 +12,12 @@ public enum SkillSlot {
 public class PlayerSkillManager : MonoBehaviour {
     #region Parameters
     // Booleans
-    bool _canBaseAttack;
-    bool _canUseCommonSkill;
-    bool _canUseCommonSkillOne;
-    bool _canUseCommonSkillTwo;
-    bool _canUseSupreme;
-    bool _canUseAnySkill;
+    bool _canBaseAttack = true;
+    bool _canUseCommonSkill = true;
+    bool _canUseCommonSkillOne = true;
+    bool _canUseCommonSkillTwo = true; 
+    bool _canUseSupreme = true;
+    bool _canUseAnySkill = true;
 
     // Components
     Animator anim;
@@ -82,6 +82,7 @@ public class PlayerSkillManager : MonoBehaviour {
 
     #region Skills
     void UseSkill(InputAction.CallbackContext ctx, SkillSO skill, SkillSlot slot) {
+        Debug.Log("Input taken");
         if (ctx.phase == InputActionPhase.Started) {
             OnPreCastingSkill?.Invoke();
             PreCastingSkill(skill, slot);
@@ -92,24 +93,28 @@ public class PlayerSkillManager : MonoBehaviour {
         }
     }
     void PreCastingSkill(SkillSO skill, SkillSlot slot) {
+        Debug.Log("Pre Casting");
         moveManager.BlockDash(skill.BlockDashWhilePreCasting);
         moveManager.BlockWalk(skill.BlockWalkWhilePreCasting);
+        moveManager.ChangeRotationType(RotationType.MouseRotation);
         BlockSkillInputs(slot, true);
 
         SetSkillRangeIndicator(skill);
     }
     void ReleaseSkill(SkillSO skill) {
-
+        Debug.Log("Release");
         ReleaseSkillRangeIndicator();
+        moveManager.ChangeRotationType(RotationType.MoveRotation);
 
-         GameObject skillManager = SkillPoolingManager.Instance.ReturnObjectFromPool(skill.SkillManagerName, skill.SkillManagerObject.gameObject);
-        skillManager.GetComponent<SkillObjectManager>().OnStart(skill);
+        GameObject skillManager = SkillPoolingManager.Instance.ReturnManagerFromPool(skill.SkillManagerName, skill.SkillManagerObject.gameObject);
+        SkillObjectManager manager = skillManager.GetComponent<SkillObjectManager>();
+        manager.OnStart(skill);
     }
 
     void SetSkillRangeIndicator(SkillSO skill) {
-        _currentSkillRange = SkillPoolingManager.Instance.ReturnObjectFromPool(skill.SkillObjectRangeName, skill.SkillObjectRangeObject);
+        _currentSkillRange = SkillPoolingManager.Instance.ReturnHitboxFromPool(skill.SkillObjectRangeName, skill.SkillObjectRangeObject);
         _currentSkillRange.transform.SetParent(this.transform);
-        _currentSkillRange.transform.SetLocalPositionAndRotation(new Vector3(0, -0.5f, 0), Quaternion.identity);
+        _currentSkillRange.transform.SetLocalPositionAndRotation(new Vector3(0, 0, 0), Quaternion.identity);
         _currentSkillRange.SetActive(true);
     }
 

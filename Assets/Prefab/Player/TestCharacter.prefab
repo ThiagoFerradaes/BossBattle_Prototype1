@@ -122,7 +122,19 @@ MonoBehaviour:
     m_ActionId: 9caa3d8a-6b2f-4e8e-8bad-6ede561bd9be
     m_ActionName: UI/TrackedDeviceOrientation
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5235028921305784554}
+        m_TargetAssemblyTypeName: PlayerSkillManager, Assembly-CSharp
+        m_MethodName: OnSkillOne
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 988b3ab5-00d8-4310-9921-b9694cab3761
     m_ActionName: 'Player/SkillOne[/Mouse/rightButton]'
   - m_PersistentCalls:
@@ -228,7 +240,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseAttackSkill: {fileID: 0}
-  skillOne: {fileID: 0}
+  skillOne: {fileID: 11400000, guid: 2a2f0c440aad73745bb1212b46923cdd, type: 2}
   skillTwo: {fileID: 0}
   ultimate: {fileID: 0}
 --- !u!1001 &8919010732312894223
