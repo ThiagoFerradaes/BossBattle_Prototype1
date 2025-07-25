@@ -20,6 +20,7 @@ public class PlayerSkillManager : MonoBehaviour {
     bool _canUseCommonSkillTwo = true;
     bool _canUseSupreme = true;
     bool _canUseAnySkill = true;
+    bool _preCasted;
 
     // Components
     [HideInInspector] public Animator anim;
@@ -87,10 +88,12 @@ public class PlayerSkillManager : MonoBehaviour {
     void UseSkill(InputAction.CallbackContext ctx, SkillSO skill, SkillSlot slot) {
         Debug.Log("Input taken");
         if (ctx.phase == InputActionPhase.Started) {
+            _preCasted = true;
             OnPreCastingSkill?.Invoke();
             PreCastingSkill(skill, slot);
         }
-        if (ctx.phase == InputActionPhase.Canceled) {
+        if (ctx.phase == InputActionPhase.Canceled && _preCasted) {
+            _preCasted = false;
             OnSkillRelease?.Invoke();
             ReleaseSkill(skill, slot);
         }

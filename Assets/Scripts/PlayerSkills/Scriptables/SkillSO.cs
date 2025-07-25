@@ -1,6 +1,13 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public class SkillAnimationEvent {
+    public float timeToSpawnHitBox;
+    public GameObject hitboxPrefab;
+    public string hitboxName;
+}
 public abstract class SkillSO : ScriptableObject
 {
     [Header("Skill Manager")]
@@ -8,8 +15,7 @@ public abstract class SkillSO : ScriptableObject
     public string SkillManagerName;
 
     [Header("Skill Prefabs")]
-    public List<GameObject> SkillPrefabObjects = new();
-    public List<string> SkillPrefabNames = new();
+    public List<SkillAnimationEvent> Prefabs; 
 
     [Header("Skill Range Object")]
     public GameObject SkillObjectRangeObject;
