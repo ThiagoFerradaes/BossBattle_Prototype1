@@ -6,6 +6,10 @@ public enum RotationType { MouseRotation, MoveRotation }
 public class PlayerMovementManager : MonoBehaviour {
     #region Parameters
 
+    // Inputs
+    [Header("Input Action Reference")]
+    [SerializeField] private InputActionReference moveActionReference;
+
     // Movement floats
     float _zInput;
     float _xInput;
@@ -49,19 +53,6 @@ public class PlayerMovementManager : MonoBehaviour {
     #endregion
 
     #region Input Events
-
-    public void OnMove(InputAction.CallbackContext ctx) {
-        if (!_canMove || !_canWalk) return;
-
-        var value = ctx.ReadValue<Vector2>();
-
-        _xInput = value.x;
-        _zInput = value.y;
-
-        if (ctx.phase == InputActionPhase.Started) anim.SetBool(walkingAnimationParameter, true); 
-        else if (ctx.phase == InputActionPhase.Canceled) anim.SetBool(walkingAnimationParameter, false);
-    }
-
     public void OnRotate(InputAction.CallbackContext ctx) {
         if (!_canRotate || !_canMove) return;
 
@@ -85,8 +76,15 @@ public class PlayerMovementManager : MonoBehaviour {
             _xInput = 0;
             _zInput = 0;
         }
+        else {
+            Vector2 value = moveActionReference.action.ReadValue<Vector2>();
+            _xInput = value.x;
+            _zInput = value.y;
+        }
 
         rb.linearVelocity = new Vector3(_xInput * speed, 0, _zInput * speed);
+
+        UpdateWalkingAnimation();
     }
 
     void Rotate() {
@@ -99,15 +97,15 @@ public class PlayerMovementManager : MonoBehaviour {
                 Vector3 direction = hit.point - transform.position;
                 direction.y = 0;
 
-               if (direction.sqrMagnitude > 0.001f) {
+                if (direction.sqrMagnitude > 0.001f) {
                     Quaternion targetRotation = Quaternion.LookRotation(direction);
-                    transform.rotation = targetRotation;
-                } 
+                    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
+                }
             }
         }
 
         else {
-            Vector3 moveDirection = new (_xInput, 0f, _zInput);
+            Vector3 moveDirection = new(_xInput, 0f, _zInput);
 
             if (moveDirection.sqrMagnitude > 0.001f) {
                 Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
@@ -119,11 +117,26 @@ public class PlayerMovementManager : MonoBehaviour {
 
     #region Setters
     public void BlockMovement(bool block) => _canMove = !block;
-    public void BlockWalk(bool block) => _canWalk = !block;
+    public void BlockWalk(bool block) {
+        _canWalk = !block;
+        UpdateWalkingAnimation();
+    }
     public void BlockRotation(bool block) => _canRotate = !block;
     public void BlockDash(bool block) => _canDash = !block;
     public void ChangeRotationType(RotationType type) => _rotationType = type;
 
+    #endregion
+
+    #region Animation
+    public void UpdateWalkingAnimation() {
+        if (!_canMove || !_canWalk) {
+            anim.SetBool(walkingAnimationParameter, false);
+            return;
+        }
+
+        bool isWalking = new Vector2(_xInput, _zInput).magnitude > 0.1f;
+        anim.SetBool(walkingAnimationParameter, isWalking);
+    }
     #endregion
 
 }

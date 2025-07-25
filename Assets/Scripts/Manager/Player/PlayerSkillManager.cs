@@ -21,7 +21,7 @@ public class PlayerSkillManager : MonoBehaviour {
 
     // Components
     Animator anim;
-    PlayerMovementManager moveManager;
+    [HideInInspector] public PlayerMovementManager moveManager;
 
     // Skills
     [Header("Skills")]
@@ -108,7 +108,7 @@ public class PlayerSkillManager : MonoBehaviour {
 
         GameObject skillManager = SkillPoolingManager.Instance.ReturnManagerFromPool(skill.SkillManagerName, skill.SkillManagerObject.gameObject);
         SkillObjectManager manager = skillManager.GetComponent<SkillObjectManager>();
-        manager.OnStart(skill);
+        manager.OnStart(skill, this);
     }
 
     void SetSkillRangeIndicator(SkillSO skill) {
