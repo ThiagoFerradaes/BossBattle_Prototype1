@@ -117,10 +117,7 @@ public class PlayerMovementManager : MonoBehaviour {
 
     #region Setters
     public void BlockMovement(bool block) => _canMove = !block;
-    public void BlockWalk(bool block) {
-        _canWalk = !block;
-        UpdateWalkingAnimation();
-    }
+    public void BlockWalk(bool block) => _canWalk = !block;
     public void BlockRotation(bool block) => _canRotate = !block;
     public void BlockDash(bool block) => _canDash = !block;
     public void ChangeRotationType(RotationType type) => _rotationType = type;
@@ -129,11 +126,6 @@ public class PlayerMovementManager : MonoBehaviour {
 
     #region Animation
     public void UpdateWalkingAnimation() {
-        if (!_canMove || !_canWalk) {
-            anim.SetBool(walkingAnimationParameter, false);
-            return;
-        }
-
         bool isWalking = new Vector2(_xInput, _zInput).magnitude > 0.1f;
         anim.SetBool(walkingAnimationParameter, isWalking);
     }

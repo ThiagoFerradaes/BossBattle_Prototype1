@@ -1,5 +1,7 @@
+using NUnit.Framework;
 using System;
-using UnityEditor.Experimental.GraphView;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -15,12 +17,12 @@ public class PlayerSkillManager : MonoBehaviour {
     bool _canBaseAttack = true;
     bool _canUseCommonSkill = true;
     bool _canUseCommonSkillOne = true;
-    bool _canUseCommonSkillTwo = true; 
+    bool _canUseCommonSkillTwo = true;
     bool _canUseSupreme = true;
     bool _canUseAnySkill = true;
 
     // Components
-    Animator anim;
+    [HideInInspector] public Animator anim;
     [HideInInspector] public PlayerMovementManager moveManager;
 
     // Skills
@@ -31,6 +33,7 @@ public class PlayerSkillManager : MonoBehaviour {
     [SerializeField] SkillSO ultimate;
     SkillSO _currentSkill;
     GameObject _currentSkillRange;
+    List<float> _listOfCooldowns = new() { 0, 0, 0, 0};
 
     // Events
     public event Action OnPreCastingSkill;
@@ -47,7 +50,7 @@ public class PlayerSkillManager : MonoBehaviour {
 
     #region Inputs
     public void OnBasAttack(InputAction.CallbackContext ctx) {
-        if (!_canBaseAttack || !_canUseAnySkill) return;
+        if (!_canBaseAttack || !_canUseAnySkill || _listOfCooldowns[(int)SkillSlot.BaseAttack] > 0) return;
 
         if (baseAttackSkill != null) {
             _currentSkill = baseAttackSkill;
@@ -55,7 +58,7 @@ public class PlayerSkillManager : MonoBehaviour {
         }
     }
     public void OnSkillOne(InputAction.CallbackContext ctx) {
-        if (!_canUseCommonSkill || !_canUseAnySkill || !_canUseCommonSkillOne) return;
+        if (!_canUseCommonSkill || !_canUseAnySkill || !_canUseCommonSkillOne || _listOfCooldowns[(int)SkillSlot.SkillOne] > 0) return;
 
         if (skillOne != null) {
             _currentSkill = skillOne;
@@ -63,7 +66,7 @@ public class PlayerSkillManager : MonoBehaviour {
         }
     }
     public void OnSkillTwo(InputAction.CallbackContext ctx) {
-        if (!_canUseCommonSkill || !_canUseAnySkill || !_canUseCommonSkillTwo) return;
+        if (!_canUseCommonSkill || !_canUseAnySkill || !_canUseCommonSkillTwo || _listOfCooldowns[(int)SkillSlot.SkillTwo] > 0) return;
 
         if (skillTwo != null) {
             _currentSkill = skillTwo;
@@ -71,7 +74,7 @@ public class PlayerSkillManager : MonoBehaviour {
         }
     }
     public void OnUltimate(InputAction.CallbackContext ctx) {
-        if (!_canUseSupreme || !_canUseAnySkill) return;
+        if (!_canUseSupreme || !_canUseAnySkill || _listOfCooldowns[(int)SkillSlot.Ultimate] > 0) return;
 
         if (ultimate != null) {
             _currentSkill = ultimate;
@@ -89,7 +92,7 @@ public class PlayerSkillManager : MonoBehaviour {
         }
         if (ctx.phase == InputActionPhase.Canceled) {
             OnSkillRelease?.Invoke();
-            ReleaseSkill(skill);
+            ReleaseSkill(skill, slot);
         }
     }
     void PreCastingSkill(SkillSO skill, SkillSlot slot) {
@@ -101,14 +104,14 @@ public class PlayerSkillManager : MonoBehaviour {
 
         SetSkillRangeIndicator(skill);
     }
-    void ReleaseSkill(SkillSO skill) {
+    void ReleaseSkill(SkillSO skill, SkillSlot slot) {
         Debug.Log("Release");
         ReleaseSkillRangeIndicator();
         moveManager.ChangeRotationType(RotationType.MoveRotation);
 
         GameObject skillManager = SkillPoolingManager.Instance.ReturnManagerFromPool(skill.SkillManagerName, skill.SkillManagerObject.gameObject);
         SkillObjectManager manager = skillManager.GetComponent<SkillObjectManager>();
-        manager.OnStart(skill, this);
+        manager.OnStart(skill, this, anim, slot);
     }
 
     void SetSkillRangeIndicator(SkillSO skill) {
@@ -188,4 +191,17 @@ public class PlayerSkillManager : MonoBehaviour {
     #region Getters
     public SkillSO ReturnCurrentSkill() => _currentSkill;
     #endregion
+
+    public void SetCooldown(SkillSlot slot, float cooldown) {
+        _listOfCooldowns[(int)slot] = cooldown;
+        StartCoroutine(DecreaseCooldown(slot));
+    }
+
+    IEnumerator DecreaseCooldown(SkillSlot slot) {
+        while (_listOfCooldowns[(int)slot] > 0) {
+            _listOfCooldowns[(int)slot] -= Time.deltaTime;
+            yield return null;
+        }
+        Debug.Log("Cooldown ended");
+    }
 }
