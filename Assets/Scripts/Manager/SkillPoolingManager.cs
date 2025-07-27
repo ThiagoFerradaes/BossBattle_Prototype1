@@ -46,6 +46,7 @@ public class SkillPoolingManager : MonoBehaviour {
 
         else {
             GameObject newManager = Instantiate(prefab, ManagerContainer);
+            newManager.transform.SetParent(ManagerContainer.transform);
             newManager.SetActive(false);
             listOfManagers[managerName] = newManager;
             return listOfManagers[managerName];

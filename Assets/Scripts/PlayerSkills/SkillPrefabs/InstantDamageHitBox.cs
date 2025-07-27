@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class InstantDamageAttack : MonoBehaviour
+public class InstantDamageHitBox : MonoBehaviour
 {
     float _damage;
     float _duration;

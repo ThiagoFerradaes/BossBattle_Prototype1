@@ -7,11 +7,14 @@ public abstract class SkillObjectManager : MonoBehaviour
     bool _preCasted;
     bool _hasStarted;
 
-    protected PlayerSkillManager _skillManager;
-    protected PlayerMovementManager _movementManager;
-    protected GameObject _parent;
+    protected PlayerSkillManager skillManager;
+    protected PlayerMovementManager movementManager;
+    protected GameObject parent;
+    protected GameObject currentSkillRange;
+    protected SkillSlot slot;
+    protected Animator anim;
+    protected PlayerSkillCooldownManager cooldownManager;
 
-    GameObject _currentSkillRange;
     #endregion
 
     #region Methods
@@ -20,9 +23,12 @@ public abstract class SkillObjectManager : MonoBehaviour
         if (!_hasStarted)
         {
             _hasStarted = true;
-            _skillManager = parent.GetComponent<PlayerSkillManager>();
-            _movementManager = parent.GetComponent<PlayerMovementManager>();
-            _parent = parent;
+            skillManager = parent.GetComponent<PlayerSkillManager>();
+            movementManager = parent.GetComponent<PlayerMovementManager>();
+            this.parent = parent;
+            this.slot = slot;
+            anim = parent.GetComponentInChildren<Animator>();
+            cooldownManager = parent.GetComponent<PlayerSkillCooldownManager>();
         }
         
         HandleInput(skill, slot, ctx);
@@ -47,10 +53,10 @@ public abstract class SkillObjectManager : MonoBehaviour
         if (skill.PreCastOn)
         {
             Debug.Log("Pre Casting");
-            _movementManager.BlockDash(skill.BlockDashWhilePreCasting);
-            _movementManager.BlockWalk(skill.BlockWalkWhilePreCasting);
-            _movementManager.ChangeRotationType(RotationType.MouseRotation);
-            _skillManager.BlockSkillInputs(slot, true);
+            movementManager.BlockDash(skill.BlockDashWhilePreCasting);
+            movementManager.BlockWalk(skill.BlockWalkWhilePreCasting);
+            movementManager.ChangeRotationType(RotationType.MouseRotation);
+            skillManager.BlockSkillInputs(slot, true);
 
             SetSkillRangeIndicator(skill);
         }
@@ -62,30 +68,31 @@ public abstract class SkillObjectManager : MonoBehaviour
     {
         Debug.Log("Release");
         ReleaseSkillRangeIndicator();
-        _movementManager.ChangeRotationType(RotationType.MoveRotation);
+        movementManager.ChangeRotationType(RotationType.MoveRotation);
+        skillManager.BlockSkillInputs(slot, false);
 
-        UseSkill(skill, slot);
+        UseSkill(skill);
     }
 
-    void SetSkillRangeIndicator(SkillSO skill)
+    public virtual void SetSkillRangeIndicator(SkillSO skill)
     {
-        _currentSkillRange = SkillPoolingManager.Instance.ReturnHitboxFromPool(skill.SkillObjectRangeName, skill.SkillObjectRangeObject);
-        _currentSkillRange.transform.SetParent(_parent.transform);
-        _currentSkillRange.transform.SetLocalPositionAndRotation(new Vector3(0, 0, 0), Quaternion.identity);
-        _currentSkillRange.SetActive(true);
+        currentSkillRange = SkillPoolingManager.Instance.ReturnHitboxFromPool(skill.SkillObjectRangeName, skill.SkillObjectRangeObject);
+        currentSkillRange.transform.SetParent(parent.transform);
+        currentSkillRange.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+        currentSkillRange.SetActive(true);
     }
 
     void ReleaseSkillRangeIndicator()
     {
-        if (_currentSkillRange == null) return;
+        if (currentSkillRange == null) return;
 
-        _currentSkillRange.SetActive(false);
-        _currentSkillRange.transform.SetParent(SkillPoolingManager.Instance.HitboxContainer);
-        _currentSkillRange = null;
+        currentSkillRange.SetActive(false);
+        currentSkillRange.transform.SetParent(SkillPoolingManager.Instance.HitboxContainer);
+        currentSkillRange = null;
 
     }
 
-    public virtual void UseSkill(SkillSO skill, SkillSlot slot) { }
+    public virtual void UseSkill(SkillSO skill) { }
 
     #endregion
 }

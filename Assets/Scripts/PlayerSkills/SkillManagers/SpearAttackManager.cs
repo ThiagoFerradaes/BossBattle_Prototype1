@@ -3,15 +3,12 @@ using UnityEngine;
 
 public class SpearAttackManager : SkillObjectManager {
     SpearSkillSO _info;
-    Animator _anim;
-    SkillSlot _slot;
-    PlayerSkillCooldownManager _cooldownManager;
 
-    public override void UseSkill(SkillSO skill, SkillSlot slot)
+    public override void UseSkill(SkillSO skill)
     {
         Debug.Log("Spear Test");
 
-        Initialize(skill, slot);
+        Initialize(skill);
         if (!gameObject.activeInHierarchy)
         {
             gameObject.SetActive(true);
@@ -20,43 +17,41 @@ public class SpearAttackManager : SkillObjectManager {
 
     }
 
-    void Initialize(SkillSO skill, SkillSlot slot) {
+    void Initialize(SkillSO skill) {
         if (_info == null) {
             _info = skill as SpearSkillSO;
-            _slot = slot;
-            _anim = _parent.GetComponentInChildren<Animator>();
-            _cooldownManager = _skillManager.CooldownManager;
+            cooldownManager = skillManager.CooldownManager;
         }
     }
 
     void UnblockMove() {
-        _skillManager.MoveManager.BlockDash(false);
-        _skillManager.MoveManager.BlockWalk(false);
-        _skillManager.MoveManager.ChangeRotationType(RotationType.MoveRotation);
+        skillManager.MoveManager.BlockDash(false);
+        skillManager.MoveManager.BlockWalk(false);
+        skillManager.MoveManager.ChangeRotationType(RotationType.MoveRotation);
     }
 
     IEnumerator Attack() {
-        _cooldownManager.SetCooldown(_slot, _info.SpearAttackCooldown);
-        _anim.SetTrigger(_info.SpearAttackTriggerName);
+        cooldownManager.SetCooldown(slot, _info.SpearAttackCooldown);
+        anim.SetTrigger(_info.SpearAttackTriggerName);
 
-        AnimatorStateInfo stateInfo = _anim.GetCurrentAnimatorStateInfo(0);
+        AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
         while (!stateInfo.IsName(_info.AnimationName)) {
             yield return null;
-            stateInfo = _anim.GetCurrentAnimatorStateInfo(0);
+            stateInfo = anim.GetCurrentAnimatorStateInfo(0);
         }
 
         SkillAnimationEvent prefabInfo = _info.Prefabs[0];
         float targetNormalizedTime = prefabInfo.timeToSpawnHitBox; 
-        while (_anim.GetCurrentAnimatorStateInfo(0).normalizedTime < targetNormalizedTime) {
+        while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < targetNormalizedTime) {
             yield return null;
         }
 
         GameObject attackHitBox = SkillPoolingManager.Instance.ReturnHitboxFromPool(prefabInfo.hitboxName, prefabInfo.hitboxPrefab);
-        attackHitBox.transform.SetParent(_parent.transform);
+        attackHitBox.transform.SetParent(parent.transform);
         attackHitBox.transform.SetLocalPositionAndRotation(_info.HitBoxPosition, Quaternion.identity);
-        attackHitBox.GetComponent<InstantDamageAttack>().Initialize(_info.Damage, _info.HitBoxDuration);
+        attackHitBox.GetComponent<InstantDamageHitBox>().Initialize(_info.Damage, _info.HitBoxDuration);
 
-        while (_anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f) {
+        while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f) {
             yield return null;
         }
 
