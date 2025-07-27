@@ -1,5 +1,3 @@
-using System;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,21 +5,23 @@ public enum SkillSlot {
     BaseAttack = 0,
     SkillOne = 1,
     SkillTwo = 2,
-    Ultimate = 3
+    Ultimate = 3,
+    Dash = 4
 }
 public class PlayerSkillManager : MonoBehaviour {
     #region Parameters
     // Booleans
-    bool _canBaseAttack;
-    bool _canUseCommonSkill;
-    bool _canUseCommonSkillOne;
-    bool _canUseCommonSkillTwo;
-    bool _canUseSupreme;
-    bool _canUseAnySkill;
+    bool _canBaseAttack = true;
+    bool _canUseCommonSkill = true;
+    bool _canUseCommonSkillOne = true;
+    bool _canUseCommonSkillTwo = true;
+    bool _canUseSupreme = true;
+    bool _canUseAnySkill = true;
 
     // Components
-    Animator anim;
-    PlayerMovementManager moveManager;
+    [HideInInspector] public Animator Anim;
+    [HideInInspector] public PlayerMovementManager MoveManager;
+    [HideInInspector] public PlayerSkillCooldownManager CooldownManager;
 
     // Skills
     [Header("Skills")]
@@ -30,24 +30,20 @@ public class PlayerSkillManager : MonoBehaviour {
     [SerializeField] SkillSO skillTwo;
     [SerializeField] SkillSO ultimate;
     SkillSO _currentSkill;
-    GameObject _currentSkillRange;
-
-    // Events
-    public event Action OnPreCastingSkill;
-    public event Action OnSkillRelease;
 
     #endregion
 
     #region Initialize
     private void Awake() {
-        anim = GetComponentInChildren<Animator>();
-        moveManager = GetComponent<PlayerMovementManager>();
+        Anim = GetComponentInChildren<Animator>();
+        MoveManager = GetComponent<PlayerMovementManager>();
+        CooldownManager = GetComponent<PlayerSkillCooldownManager>();
     }
     #endregion
 
     #region Inputs
     public void OnBasAttack(InputAction.CallbackContext ctx) {
-        if (!_canBaseAttack || !_canUseAnySkill) return;
+        if (!_canBaseAttack || !_canUseAnySkill || CooldownManager.ReturnCooldown(SkillSlot.BaseAttack) > 0) return;
 
         if (baseAttackSkill != null) {
             _currentSkill = baseAttackSkill;
@@ -55,7 +51,7 @@ public class PlayerSkillManager : MonoBehaviour {
         }
     }
     public void OnSkillOne(InputAction.CallbackContext ctx) {
-        if (!_canUseCommonSkill || !_canUseAnySkill || !_canUseCommonSkillOne) return;
+        if (!_canUseCommonSkill || !_canUseAnySkill || !_canUseCommonSkillOne || CooldownManager.ReturnCooldown(SkillSlot.SkillOne) > 0) return;
 
         if (skillOne != null) {
             _currentSkill = skillOne;
@@ -63,7 +59,7 @@ public class PlayerSkillManager : MonoBehaviour {
         }
     }
     public void OnSkillTwo(InputAction.CallbackContext ctx) {
-        if (!_canUseCommonSkill || !_canUseAnySkill || !_canUseCommonSkillTwo) return;
+        if (!_canUseCommonSkill || !_canUseAnySkill || !_canUseCommonSkillTwo || CooldownManager.ReturnCooldown(SkillSlot.SkillTwo) > 0) return;
 
         if (skillTwo != null) {
             _currentSkill = skillTwo;
@@ -71,7 +67,7 @@ public class PlayerSkillManager : MonoBehaviour {
         }
     }
     public void OnUltimate(InputAction.CallbackContext ctx) {
-        if (!_canUseSupreme || !_canUseAnySkill) return;
+        if (!_canUseSupreme || !_canUseAnySkill || CooldownManager.ReturnCooldown(SkillSlot.Ultimate) > 0) return;
 
         if (ultimate != null) {
             _currentSkill = ultimate;
@@ -82,43 +78,10 @@ public class PlayerSkillManager : MonoBehaviour {
 
     #region Skills
     void UseSkill(InputAction.CallbackContext ctx, SkillSO skill, SkillSlot slot) {
-        if (ctx.phase == InputActionPhase.Started) {
-            OnPreCastingSkill?.Invoke();
-            PreCastingSkill(skill, slot);
-        }
-        if (ctx.phase == InputActionPhase.Canceled) {
-            OnSkillRelease?.Invoke();
-            ReleaseSkill(skill);
-        }
-    }
-    void PreCastingSkill(SkillSO skill, SkillSlot slot) {
-        moveManager.BlockDash(skill.BlockDashWhilePreCasting);
-        moveManager.BlockWalk(skill.BlockWalkWhilePreCasting);
-        BlockSkillInputs(slot, true);
 
-        SetSkillRangeIndicator(skill);
-    }
-    void ReleaseSkill(SkillSO skill) {
-
-        ReleaseSkillRangeIndicator();
-
-         GameObject skillManager = SkillPoolingManager.Instance.ReturnObjectFromPool(skill.SkillManagerName, skill.SkillManagerObject.gameObject);
-        skillManager.GetComponent<SkillObjectManager>().OnStart(skill);
-    }
-
-    void SetSkillRangeIndicator(SkillSO skill) {
-        _currentSkillRange = SkillPoolingManager.Instance.ReturnObjectFromPool(skill.SkillObjectRangeName, skill.SkillObjectRangeObject);
-        _currentSkillRange.transform.SetParent(this.transform);
-        _currentSkillRange.transform.SetLocalPositionAndRotation(new Vector3(0, -0.5f, 0), Quaternion.identity);
-        _currentSkillRange.SetActive(true);
-    }
-
-    void ReleaseSkillRangeIndicator() {
-        if (_currentSkillRange == null) return;
-
-        _currentSkillRange.SetActive(false);
-        _currentSkillRange.transform.SetParent(null);
-        _currentSkillRange = null;
+        GameObject skillManager = SkillPoolingManager.Instance.ReturnManagerFromPool(skill.SkillManagerName, skill.SkillManagerObject.gameObject);
+        SkillObjectManager manager = skillManager.GetComponent<SkillObjectManager>();
+        manager.OnStart(skill, this.gameObject, slot, ctx);
 
     }
 
@@ -183,4 +146,5 @@ public class PlayerSkillManager : MonoBehaviour {
     #region Getters
     public SkillSO ReturnCurrentSkill() => _currentSkill;
     #endregion
+
 }
