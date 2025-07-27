@@ -20,7 +20,6 @@ public class PlayerSkillManager : MonoBehaviour {
     bool _canUseCommonSkillTwo = true;
     bool _canUseSupreme = true;
     bool _canUseAnySkill = true;
-    bool _preCasted;
 
     // Components
     [HideInInspector] public Animator anim;
@@ -33,7 +32,6 @@ public class PlayerSkillManager : MonoBehaviour {
     [SerializeField] SkillSO skillTwo;
     [SerializeField] SkillSO ultimate;
     SkillSO _currentSkill;
-    GameObject _currentSkillRange;
     List<float> _listOfCooldowns = new() { 0, 0, 0, 0};
 
     // Events
@@ -86,50 +84,10 @@ public class PlayerSkillManager : MonoBehaviour {
 
     #region Skills
     void UseSkill(InputAction.CallbackContext ctx, SkillSO skill, SkillSlot slot) {
-        Debug.Log("Input taken");
-        if (ctx.phase == InputActionPhase.Started) {
-            _preCasted = true;
-            OnPreCastingSkill?.Invoke();
-            PreCastingSkill(skill, slot);
-        }
-        if (ctx.phase == InputActionPhase.Canceled && _preCasted) {
-            _preCasted = false;
-            OnSkillRelease?.Invoke();
-            ReleaseSkill(skill, slot);
-        }
-    }
-    void PreCastingSkill(SkillSO skill, SkillSlot slot) {
-        Debug.Log("Pre Casting");
-        moveManager.BlockDash(skill.BlockDashWhilePreCasting);
-        moveManager.BlockWalk(skill.BlockWalkWhilePreCasting);
-        moveManager.ChangeRotationType(RotationType.MouseRotation);
-        BlockSkillInputs(slot, true);
-
-        SetSkillRangeIndicator(skill);
-    }
-    void ReleaseSkill(SkillSO skill, SkillSlot slot) {
-        Debug.Log("Release");
-        ReleaseSkillRangeIndicator();
-        moveManager.ChangeRotationType(RotationType.MoveRotation);
 
         GameObject skillManager = SkillPoolingManager.Instance.ReturnManagerFromPool(skill.SkillManagerName, skill.SkillManagerObject.gameObject);
         SkillObjectManager manager = skillManager.GetComponent<SkillObjectManager>();
-        manager.OnStart(skill, this, anim, slot);
-    }
-
-    void SetSkillRangeIndicator(SkillSO skill) {
-        _currentSkillRange = SkillPoolingManager.Instance.ReturnHitboxFromPool(skill.SkillObjectRangeName, skill.SkillObjectRangeObject);
-        _currentSkillRange.transform.SetParent(this.transform);
-        _currentSkillRange.transform.SetLocalPositionAndRotation(new Vector3(0, 0, 0), Quaternion.identity);
-        _currentSkillRange.SetActive(true);
-    }
-
-    void ReleaseSkillRangeIndicator() {
-        if (_currentSkillRange == null) return;
-
-        _currentSkillRange.SetActive(false);
-        _currentSkillRange.transform.SetParent(null);
-        _currentSkillRange = null;
+        manager.OnStart(skill, this.gameObject, slot, ctx);
 
     }
 
@@ -207,4 +165,5 @@ public class PlayerSkillManager : MonoBehaviour {
         }
         Debug.Log("Cooldown ended");
     }
+
 }

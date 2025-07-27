@@ -4,28 +4,27 @@ using UnityEngine;
 
 public class SpearAttackManager : SkillObjectManager {
     SpearSkillSO _info;
-    PlayerSkillManager _skillManager;
     Animator _anim;
     SkillSlot _slot;
-    Transform _parent;
-    public override void OnStart(SkillSO skill, PlayerSkillManager skillManager, Animator anim, SkillSlot slot) {
+
+    public override void UseSkill(SkillSO skill, SkillSlot slot)
+    {
         Debug.Log("Spear Test");
 
-        Initialize(skill, skillManager, anim, slot);
-        if (!gameObject.activeInHierarchy) {
+        Initialize(skill, slot);
+        if (!gameObject.activeInHierarchy)
+        {
             gameObject.SetActive(true);
             StartCoroutine(Attack());
         }
 
     }
 
-    void Initialize(SkillSO skill, PlayerSkillManager skillManager, Animator anim, SkillSlot slot) {
+    void Initialize(SkillSO skill, SkillSlot slot) {
         if (_info == null) {
             _info = skill as SpearSkillSO;
-            _skillManager = skillManager;
-            _anim = anim;
             _slot = slot;
-            _parent = _skillManager.transform;
+            _anim = _parent.GetComponentInChildren<Animator>();
         }
     }
 
@@ -52,7 +51,7 @@ public class SpearAttackManager : SkillObjectManager {
         }
 
         GameObject attackHitBox = SkillPoolingManager.Instance.ReturnHitboxFromPool(prefabInfo.hitboxName, prefabInfo.hitboxPrefab);
-        attackHitBox.transform.SetParent(_parent);
+        attackHitBox.transform.SetParent(_parent.transform);
         attackHitBox.transform.SetLocalPositionAndRotation(_info.HitBoxPosition, Quaternion.identity);
         attackHitBox.GetComponent<InstantDamageAttack>().Initialize(_info.Damage, _info.HitBoxDuration);
 

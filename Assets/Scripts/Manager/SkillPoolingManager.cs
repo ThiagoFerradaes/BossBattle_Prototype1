@@ -10,7 +10,7 @@ public class SkillPoolingManager : MonoBehaviour {
     Dictionary<string, GameObject> listOfManagers = new();
 
     // Transforms
-    [SerializeField] Transform hitboxContainer, managerContainer;
+    public Transform HitboxContainer, ManagerContainer;
 
     #endregion
 
@@ -32,7 +32,7 @@ public class SkillPoolingManager : MonoBehaviour {
             if (!list[i].activeInHierarchy) return list[i];
         }
 
-        GameObject newObject = Instantiate(prefab, hitboxContainer);
+        GameObject newObject = Instantiate(prefab, HitboxContainer);
         newObject.SetActive(false);
         list.Add(newObject);
         return newObject;
@@ -45,7 +45,7 @@ public class SkillPoolingManager : MonoBehaviour {
         }
 
         else {
-            GameObject newManager = Instantiate(prefab, managerContainer);
+            GameObject newManager = Instantiate(prefab, ManagerContainer);
             newManager.SetActive(false);
             listOfManagers[managerName] = newManager;
             return listOfManagers[managerName];

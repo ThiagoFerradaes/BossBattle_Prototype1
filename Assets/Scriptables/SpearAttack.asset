@@ -15,16 +15,17 @@ MonoBehaviour:
   SkillManagerObject: {fileID: 8727905917451407449, guid: 60f532cd97f7b204fa02ffa0434e1ac5, type: 3}
   SkillManagerName: Spear Attack Manager
   Prefabs:
-  - timeToSpawnHitBox: 0.5
+  - timeToSpawnHitBox: 0.45
     hitboxPrefab: {fileID: 2030686585895064686, guid: 0c886f26566d9994885dc1ea762b8edc, type: 3}
     hitboxName: SpearAttackHitBox
   SkillObjectRangeObject: {fileID: 7722846992070484997, guid: 4813218b9301f9f40b8323d5bccdb721, type: 3}
   SkillObjectRangeName: Spear Attack Range
   BlockWalkWhilePreCasting: 1
   BlockDashWhilePreCasting: 1
+  PreCastOn: 1
   SpearAttackTriggerName: SpearAttack
   SpearAttackCooldown: 2
   AnimationName: SpearAttack
   Damage: 1
-  HitBoxDuration: 1
-  HitBoxPosition: {x: 0, y: 0, z: 0}
+  HitBoxDuration: 0.1
+  HitBoxPosition: {x: 0, y: 1, z: 1.5}

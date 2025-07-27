@@ -15,7 +15,7 @@ public abstract class SkillSO : ScriptableObject
     public string SkillManagerName;
 
     [Header("Skill Prefabs")]
-    public List<SkillAnimationEvent> Prefabs; 
+    public List<SkillAnimationEvent> Prefabs;
 
     [Header("Skill Range Object")]
     public GameObject SkillObjectRangeObject;
@@ -24,5 +24,6 @@ public abstract class SkillSO : ScriptableObject
     [Header("Casting SKill options")]
     public bool BlockWalkWhilePreCasting;
     public bool BlockDashWhilePreCasting;
+    public bool PreCastOn = true; 
 
 }
