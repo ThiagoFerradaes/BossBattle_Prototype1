@@ -1,7 +1,3 @@
-using NUnit.Framework;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,7 +5,8 @@ public enum SkillSlot {
     BaseAttack = 0,
     SkillOne = 1,
     SkillTwo = 2,
-    Ultimate = 3
+    Ultimate = 3,
+    Dash = 4
 }
 public class PlayerSkillManager : MonoBehaviour {
     #region Parameters
@@ -22,8 +19,9 @@ public class PlayerSkillManager : MonoBehaviour {
     bool _canUseAnySkill = true;
 
     // Components
-    [HideInInspector] public Animator anim;
-    [HideInInspector] public PlayerMovementManager moveManager;
+    [HideInInspector] public Animator Anim;
+    [HideInInspector] public PlayerMovementManager MoveManager;
+    [HideInInspector] public PlayerSkillCooldownManager CooldownManager;
 
     // Skills
     [Header("Skills")]
@@ -32,24 +30,20 @@ public class PlayerSkillManager : MonoBehaviour {
     [SerializeField] SkillSO skillTwo;
     [SerializeField] SkillSO ultimate;
     SkillSO _currentSkill;
-    List<float> _listOfCooldowns = new() { 0, 0, 0, 0};
-
-    // Events
-    public event Action OnPreCastingSkill;
-    public event Action OnSkillRelease;
 
     #endregion
 
     #region Initialize
     private void Awake() {
-        anim = GetComponentInChildren<Animator>();
-        moveManager = GetComponent<PlayerMovementManager>();
+        Anim = GetComponentInChildren<Animator>();
+        MoveManager = GetComponent<PlayerMovementManager>();
+        CooldownManager = GetComponent<PlayerSkillCooldownManager>();
     }
     #endregion
 
     #region Inputs
     public void OnBasAttack(InputAction.CallbackContext ctx) {
-        if (!_canBaseAttack || !_canUseAnySkill || _listOfCooldowns[(int)SkillSlot.BaseAttack] > 0) return;
+        if (!_canBaseAttack || !_canUseAnySkill || CooldownManager.ReturnCooldown(SkillSlot.BaseAttack) > 0) return;
 
         if (baseAttackSkill != null) {
             _currentSkill = baseAttackSkill;
@@ -57,7 +51,7 @@ public class PlayerSkillManager : MonoBehaviour {
         }
     }
     public void OnSkillOne(InputAction.CallbackContext ctx) {
-        if (!_canUseCommonSkill || !_canUseAnySkill || !_canUseCommonSkillOne || _listOfCooldowns[(int)SkillSlot.SkillOne] > 0) return;
+        if (!_canUseCommonSkill || !_canUseAnySkill || !_canUseCommonSkillOne || CooldownManager.ReturnCooldown(SkillSlot.SkillOne) > 0) return;
 
         if (skillOne != null) {
             _currentSkill = skillOne;
@@ -65,7 +59,7 @@ public class PlayerSkillManager : MonoBehaviour {
         }
     }
     public void OnSkillTwo(InputAction.CallbackContext ctx) {
-        if (!_canUseCommonSkill || !_canUseAnySkill || !_canUseCommonSkillTwo || _listOfCooldowns[(int)SkillSlot.SkillTwo] > 0) return;
+        if (!_canUseCommonSkill || !_canUseAnySkill || !_canUseCommonSkillTwo || CooldownManager.ReturnCooldown(SkillSlot.SkillTwo) > 0) return;
 
         if (skillTwo != null) {
             _currentSkill = skillTwo;
@@ -73,7 +67,7 @@ public class PlayerSkillManager : MonoBehaviour {
         }
     }
     public void OnUltimate(InputAction.CallbackContext ctx) {
-        if (!_canUseSupreme || !_canUseAnySkill || _listOfCooldowns[(int)SkillSlot.Ultimate] > 0) return;
+        if (!_canUseSupreme || !_canUseAnySkill || CooldownManager.ReturnCooldown(SkillSlot.Ultimate) > 0) return;
 
         if (ultimate != null) {
             _currentSkill = ultimate;
@@ -152,18 +146,5 @@ public class PlayerSkillManager : MonoBehaviour {
     #region Getters
     public SkillSO ReturnCurrentSkill() => _currentSkill;
     #endregion
-
-    public void SetCooldown(SkillSlot slot, float cooldown) {
-        _listOfCooldowns[(int)slot] = cooldown;
-        StartCoroutine(DecreaseCooldown(slot));
-    }
-
-    IEnumerator DecreaseCooldown(SkillSlot slot) {
-        while (_listOfCooldowns[(int)slot] > 0) {
-            _listOfCooldowns[(int)slot] -= Time.deltaTime;
-            yield return null;
-        }
-        Debug.Log("Cooldown ended");
-    }
 
 }

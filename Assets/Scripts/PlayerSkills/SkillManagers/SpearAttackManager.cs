@@ -1,11 +1,11 @@
 using System.Collections;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class SpearAttackManager : SkillObjectManager {
     SpearSkillSO _info;
     Animator _anim;
     SkillSlot _slot;
+    PlayerSkillCooldownManager _cooldownManager;
 
     public override void UseSkill(SkillSO skill, SkillSlot slot)
     {
@@ -25,17 +25,18 @@ public class SpearAttackManager : SkillObjectManager {
             _info = skill as SpearSkillSO;
             _slot = slot;
             _anim = _parent.GetComponentInChildren<Animator>();
+            _cooldownManager = _skillManager.CooldownManager;
         }
     }
 
     void UnblockMove() {
-        _skillManager.moveManager.BlockDash(false);
-        _skillManager.moveManager.BlockWalk(false);
-        _skillManager.moveManager.ChangeRotationType(RotationType.MoveRotation);
+        _skillManager.MoveManager.BlockDash(false);
+        _skillManager.MoveManager.BlockWalk(false);
+        _skillManager.MoveManager.ChangeRotationType(RotationType.MoveRotation);
     }
 
     IEnumerator Attack() {
-        _skillManager.SetCooldown(_slot, _info.SpearAttackCooldown);
+        _cooldownManager.SetCooldown(_slot, _info.SpearAttackCooldown);
         _anim.SetTrigger(_info.SpearAttackTriggerName);
 
         AnimatorStateInfo stateInfo = _anim.GetCurrentAnimatorStateInfo(0);
