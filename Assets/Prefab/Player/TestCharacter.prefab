@@ -139,7 +139,19 @@ MonoBehaviour:
     m_ActionId: 988b3ab5-00d8-4310-9921-b9694cab3761
     m_ActionName: 'Player/SkillOne[/Mouse/rightButton]'
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5235028921305784554}
+        m_TargetAssemblyTypeName: PlayerSkillManager, Assembly-CSharp
+        m_MethodName: OnSkillTwo
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: d36bc7aa-a45c-4904-82b5-898629a4fd0a
     m_ActionName: 'Player/SkillTwo[/Keyboard/e]'
   - m_PersistentCalls:
@@ -258,7 +270,7 @@ MonoBehaviour:
   CooldownManager: {fileID: 0}
   baseAttackSkill: {fileID: 0}
   skillOne: {fileID: 11400000, guid: 2a2f0c440aad73745bb1212b46923cdd, type: 2}
-  skillTwo: {fileID: 0}
+  skillTwo: {fileID: 11400000, guid: c53fe8799b9c3b544852c4c42abbfffc, type: 2}
   ultimate: {fileID: 11400000, guid: f1689c668b1e822488bcbd497ced18e4, type: 2}
 --- !u!114 &3033580877996556034
 MonoBehaviour:

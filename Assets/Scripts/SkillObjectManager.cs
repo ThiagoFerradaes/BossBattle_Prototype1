@@ -1,10 +1,9 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public abstract class SkillObjectManager : MonoBehaviour
-{
+public abstract class SkillObjectManager : MonoBehaviour {
     #region Parameters
-    bool _preCasted;
+    protected bool _preCasted;
     bool _hasStarted;
 
     protected PlayerSkillManager skillManager;
@@ -18,40 +17,33 @@ public abstract class SkillObjectManager : MonoBehaviour
     #endregion
 
     #region Methods
-    public virtual void OnStart(SkillSO skill, GameObject parent, SkillSlot slot, InputAction.CallbackContext ctx)
-    {
-        if (!_hasStarted)
-        {
+    public virtual void OnStart(SkillSO skill, GameObject parent, SkillSlot slot, InputAction.CallbackContext ctx) {
+        if (!_hasStarted) {
             _hasStarted = true;
             skillManager = parent.GetComponent<PlayerSkillManager>();
             movementManager = parent.GetComponent<PlayerMovementManager>();
             this.parent = parent;
-            this.slot = slot;
             anim = parent.GetComponentInChildren<Animator>();
             cooldownManager = parent.GetComponent<PlayerSkillCooldownManager>();
         }
-        
-        HandleInput(skill, slot, ctx);
+        this.slot = slot;
+
+        HandleInput(skill, ctx);
     }
-    void HandleInput(SkillSO skill, SkillSlot slot, InputAction.CallbackContext ctx)
-    {
-        if (ctx.phase == InputActionPhase.Started)
-        {
+    public virtual void HandleInput(SkillSO skill, InputAction.CallbackContext ctx) {
+        if (ctx.phase == InputActionPhase.Started) {
             _preCasted = true;
             //OnPreCastingSkill?.Invoke();
-            OnPreCast(skill,slot);
+            OnPreCast(skill);
         }
-        if (ctx.phase == InputActionPhase.Canceled && _preCasted)
-        {
+        if (ctx.phase == InputActionPhase.Canceled && _preCasted) {
             _preCasted = false;
             //OnSkillRelease?.Invoke();
-            OnRelease(skill, slot);
+            OnRelease(skill);
         }
     }
-    public virtual void OnPreCast(SkillSO skill, SkillSlot slot)
-    {
-        if (skill.PreCastOn)
-        {
+    public virtual void OnPreCast(SkillSO skill) {
+        if (skill.PreCastOn) {
             Debug.Log("Pre Casting");
             movementManager.BlockDash(skill.BlockDashWhilePreCasting);
             movementManager.BlockWalk(skill.BlockWalkWhilePreCasting);
@@ -61,11 +53,10 @@ public abstract class SkillObjectManager : MonoBehaviour
             SetSkillRangeIndicator(skill);
         }
 
-        else OnRelease(skill, slot);
+        else OnRelease(skill);
     }
 
-    public virtual void OnRelease(SkillSO skill, SkillSlot slot)
-    {
+    public virtual void OnRelease(SkillSO skill) {
         Debug.Log("Release");
         ReleaseSkillRangeIndicator();
         movementManager.ChangeRotationType(RotationType.MoveRotation);
@@ -74,16 +65,14 @@ public abstract class SkillObjectManager : MonoBehaviour
         UseSkill(skill);
     }
 
-    public virtual void SetSkillRangeIndicator(SkillSO skill)
-    {
+    public virtual void SetSkillRangeIndicator(SkillSO skill) {
         currentSkillRange = SkillPoolingManager.Instance.ReturnHitboxFromPool(skill.SkillObjectRangeName, skill.SkillObjectRangeObject);
         currentSkillRange.transform.SetParent(parent.transform);
         currentSkillRange.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
         currentSkillRange.SetActive(true);
     }
 
-    void ReleaseSkillRangeIndicator()
-    {
+    void ReleaseSkillRangeIndicator() {
         if (currentSkillRange == null) return;
 
         currentSkillRange.SetActive(false);

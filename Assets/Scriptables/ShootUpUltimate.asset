@@ -15,7 +15,7 @@ MonoBehaviour:
   SkillManagerObject: {fileID: 614902175585998129, guid: 4655faff3e068074da75a6634805ba56, type: 3}
   SkillManagerName: ShootUp Ultimate
   Prefabs:
-  - timeToSpawnHitBox: 1
+  - timeToSpawnHitBox: 0.5
     hitboxPrefab: {fileID: 1324207944777058185, guid: 615c9bb71abd9b247896093c7c3af837, type: 3}
     hitboxName: ShootUp HitxBox
   SkillObjectRangeObject: {fileID: 2473945529430228706, guid: 315e344938d30e140a32109ebb24d44a, type: 3}
@@ -28,3 +28,6 @@ MonoBehaviour:
   DamageCooldown: 1
   Duration: 5
   EnemyTag: Enemy
+  AnimationParameterTrigger: ShootUp
+  AnimationName: ShootUp
+  AnimationTimeToSpawnHitBox: 0.5

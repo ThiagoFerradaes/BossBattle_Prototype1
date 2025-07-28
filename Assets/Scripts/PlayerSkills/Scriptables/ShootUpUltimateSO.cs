@@ -8,4 +8,8 @@ public class ShootUpUltimateSO : SkillSO
     public float DamageCooldown;
     public float Duration;
     public string EnemyTag;
+
+    [Header("Animation")]
+    public string AnimationParameterTrigger;
+    public string AnimationName;
 }

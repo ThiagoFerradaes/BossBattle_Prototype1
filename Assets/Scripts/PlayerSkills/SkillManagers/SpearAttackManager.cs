@@ -35,14 +35,19 @@ public class SpearAttackManager : SkillObjectManager {
         anim.SetTrigger(_info.SpearAttackTriggerName);
 
         AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
+
         while (!stateInfo.IsName(_info.AnimationName)) {
             yield return null;
             stateInfo = anim.GetCurrentAnimatorStateInfo(0);
         }
 
+        int attackStateHash = stateInfo.fullPathHash;
+
         SkillAnimationEvent prefabInfo = _info.Prefabs[0];
-        float targetNormalizedTime = prefabInfo.timeToSpawnHitBox; 
-        while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < targetNormalizedTime) {
+        float targetNormalizedTime = prefabInfo.timeToSpawnHitBox;
+
+        while (anim.GetCurrentAnimatorStateInfo(0).fullPathHash == attackStateHash &&
+                anim.GetCurrentAnimatorStateInfo(0).normalizedTime < targetNormalizedTime) {
             yield return null;
         }
 
@@ -51,7 +56,8 @@ public class SpearAttackManager : SkillObjectManager {
         attackHitBox.transform.SetLocalPositionAndRotation(_info.HitBoxPosition, Quaternion.identity);
         attackHitBox.GetComponent<InstantDamageHitBox>().Initialize(_info.Damage, _info.HitBoxDuration);
 
-        while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f) {
+        while (anim.GetCurrentAnimatorStateInfo(0).fullPathHash == attackStateHash &&
+               anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f) {
             yield return null;
         }
 

@@ -13,7 +13,7 @@ public class ShootUpUltimateManager : SkillObjectManager
         if (!gameObject.activeInHierarchy)
         {
             gameObject.SetActive(true);
-            TemporaryFunction();
+            StartCoroutine(Attack());
         }
 
     }
@@ -33,57 +33,44 @@ public class ShootUpUltimateManager : SkillObjectManager
         }
     }
 
-    void TemporaryFunction()
-    {
-        cooldownManager.SetCooldown(slot, _info.Cooldown);
-        UnblockMove();
-
-        SkillAnimationEvent prefabInfo = _info.Prefabs[0];
-        GameObject attackHitBox = SkillPoolingManager.Instance.ReturnHitboxFromPool(prefabInfo.hitboxName, prefabInfo.hitboxPrefab);
-        attackHitBox.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
-        attackHitBox.GetComponent<ContinuosDamageHitBox>().Initialize(_info.Damage, _info.Duration, _info.EnemyTag, _info.DamageCooldown);
-
-
-        gameObject.SetActive(false);
-    }
-
     void UnblockMove()
     {
+        Debug.Log("UnblockMove");
         skillManager.MoveManager.BlockDash(false);
         skillManager.MoveManager.BlockWalk(false);
         skillManager.MoveManager.ChangeRotationType(RotationType.MoveRotation);
     }
 
-    //IEnumerator Attack()
-    //{
-    //    cooldownManager.SetCooldown(slot, _info.SpearAttackCooldown);
-    //    anim.SetTrigger(_info.SpearAttackTriggerName);
+    IEnumerator Attack() {
+        cooldownManager.SetCooldown(slot, _info.Cooldown);
+        anim.SetTrigger(_info.AnimationParameterTrigger);
 
-    //    AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
-    //    while (!stateInfo.IsName(_info.AnimationName))
-    //    {
-    //        yield return null;
-    //        stateInfo = anim.GetCurrentAnimatorStateInfo(0);
-    //    }
+        AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
+        while (!stateInfo.IsName(_info.AnimationName)) {
+            yield return null;
+            stateInfo = anim.GetCurrentAnimatorStateInfo(0);
+        }
 
-    //    SkillAnimationEvent prefabInfo = _info.Prefabs[0];
-    //    float targetNormalizedTime = prefabInfo.timeToSpawnHitBox;
-    //    while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < targetNormalizedTime)
-    //    {
-    //        yield return null;
-    //    }
+        int attackStateHash = stateInfo.fullPathHash;
 
-    //    GameObject attackHitBox = SkillPoolingManager.Instance.ReturnHitboxFromPool(prefabInfo.hitboxName, prefabInfo.hitboxPrefab);
-    //    attackHitBox.transform.SetParent(parent.transform);
-    //    attackHitBox.transform.SetLocalPositionAndRotation(_info.HitBoxPosition, Quaternion.identity);
-    //    attackHitBox.GetComponent<InstantDamageHitBox>().Initialize(_info.Damage, _info.HitBoxDuration);
+        SkillAnimationEvent prefabInfo = _info.Prefabs[0];
+        float targetNormalizedTime = prefabInfo.timeToSpawnHitBox;
 
-    //    while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
-    //    {
-    //        yield return null;
-    //    }
+        while (anim.GetCurrentAnimatorStateInfo(0).fullPathHash == attackStateHash &&
+                anim.GetCurrentAnimatorStateInfo(0).normalizedTime < targetNormalizedTime) {
+            yield return null;
+        }
 
-    //    UnblockMove();
-    //    gameObject.SetActive(false);
-    //}
+        GameObject attackHitBox = SkillPoolingManager.Instance.ReturnHitboxFromPool(prefabInfo.hitboxName, prefabInfo.hitboxPrefab);
+        attackHitBox.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
+        attackHitBox.GetComponent<ContinuosDamageHitBox>().Initialize(_info.Damage, _info.Duration, _info.EnemyTag, _info.DamageCooldown);
+
+        while (anim.GetCurrentAnimatorStateInfo(0).fullPathHash == attackStateHash &&
+               anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f) {
+            yield return null;
+        }
+
+        UnblockMove();
+        gameObject.SetActive(false);
+    }
 }
