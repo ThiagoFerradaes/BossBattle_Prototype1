@@ -15,7 +15,7 @@ MonoBehaviour:
   SkillManagerObject: {fileID: 8217681042118647236, guid: e6293f237e32a1a40a1e3d233031b521, type: 3}
   SkillManagerName: AxeAttackManager
   Prefabs:
-  - timeToSpawnHitBox: 0.5
+  - timeToSpawnHitBox: 0.7
     hitboxPrefab: {fileID: 7295537954416935036, guid: 710e6b023eb2d4a4fb3bc8e7576e845a, type: 3}
     hitboxName: AxeAttackHitBox
   SkillObjectRangeObject: {fileID: 7295537954416935036, guid: 2cd15af29a69803439873d8a1751fec9, type: 3}
@@ -26,8 +26,9 @@ MonoBehaviour:
   FirstAnimationParameterName: AxeSkillOne
   SecondAnimationParameterName: AxeSkillTwo
   SecondAnimationName: AxeSkillTwo
+  Cooldown: 6
   MinimalChargeTime: 1
-  MaxChargeTime: 3
+  MaxChargeTime: 2.5
   BaseDamage: 1
   MaxDamage: 10
   HitBoxPosition: {x: 0, y: 0.5, z: 1.5}

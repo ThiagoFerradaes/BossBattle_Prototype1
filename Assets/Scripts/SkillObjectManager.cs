@@ -43,12 +43,15 @@ public abstract class SkillObjectManager : MonoBehaviour {
         }
     }
     public virtual void OnPreCast(SkillSO skill) {
+
+        movementManager.BlockDash(skill.BlockDashWhilePreCasting);
+        movementManager.BlockWalk(skill.BlockWalkWhilePreCasting);
+        skillManager.BlockSkillInputs(slot, true);
+
         if (skill.PreCastOn) {
             Debug.Log("Pre Casting");
-            movementManager.BlockDash(skill.BlockDashWhilePreCasting);
-            movementManager.BlockWalk(skill.BlockWalkWhilePreCasting);
+
             movementManager.ChangeRotationType(RotationType.MouseRotation);
-            skillManager.BlockSkillInputs(slot, true);
 
             SetSkillRangeIndicator(skill);
         }
