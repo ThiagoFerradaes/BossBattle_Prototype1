@@ -1,9 +1,13 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
 public class ShootUpUltimateManager : SkillObjectManager
 {
     ShootUpUltimateSO _info;
+
+    // Events
+    public static event Action OnWeaponChange;
 
     public override void UseSkill(SkillSO skill)
     {
@@ -64,6 +68,7 @@ public class ShootUpUltimateManager : SkillObjectManager
         }
 
         UnblockInputs();
+        OnWeaponChange?.Invoke();
         gameObject.SetActive(false);
     }
 }

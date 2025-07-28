@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -16,6 +17,9 @@ public class AxeAttackManager : SkillObjectManager {
     // Coroutine
     Coroutine _chargeTimeCoroutine;
     Coroutine _attackCoroutine;
+
+    // Events
+    public static event Action OnWeaponChange;
     public override void HandleInput(SkillSO skill, InputAction.CallbackContext ctx) {
 
         Initialize(skill);
@@ -120,6 +124,7 @@ public class AxeAttackManager : SkillObjectManager {
 
         UnblockInputs();
         _attackCoroutine = null;
+        OnWeaponChange?.Invoke();
         gameObject.SetActive(false);
     }
 

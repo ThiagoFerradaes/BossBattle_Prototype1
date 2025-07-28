@@ -25,11 +25,12 @@ public class PlayerSkillManager : MonoBehaviour {
 
     // Skills
     [Header("Skills")]
+    [SerializeField] PassiveSO passive;
+    [SerializeField] SkillSO dash;
     [SerializeField] SkillSO baseAttackSkill;
     [SerializeField] SkillSO skillOne;
     [SerializeField] SkillSO skillTwo;
     [SerializeField] SkillSO ultimate;
-    [SerializeField] SkillSO dash;
     SkillSO _currentSkill;
 
     #endregion
@@ -39,6 +40,12 @@ public class PlayerSkillManager : MonoBehaviour {
         Anim = GetComponentInChildren<Animator>();
         MoveManager = GetComponent<PlayerMovementManager>();
         CooldownManager = GetComponent<PlayerSkillCooldownManager>();
+    }
+
+    private void Start() {
+        GameObject passiveManager = SkillPoolingManager.Instance.ReturnManagerFromPool(passive.PassiveName, passive.PassiveManager.gameObject);
+        PassiveSkillManager manager = passiveManager.GetComponent<PassiveSkillManager>();
+        manager.OnStart(passive);
     }
     #endregion
 

@@ -1,9 +1,12 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
 public class SpearAttackManager : SkillObjectManager {
     SpearSkillSO _info;
 
+    // Event
+    public static event Action OnWeaponChange;
     public override void UseSkill(SkillSO skill)
     {
         Debug.Log("Spear Test");
@@ -56,6 +59,7 @@ public class SpearAttackManager : SkillObjectManager {
         }
 
         UnblockInputs();
+        OnWeaponChange?.Invoke();
         gameObject.SetActive(false);
     }
 }
