@@ -1,5 +1,4 @@
 using System.Collections;
-using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -21,17 +20,18 @@ public class AxeAttackManager : SkillObjectManager {
 
         Initialize(skill);
 
-        if (ctx.phase == InputActionPhase.Started) {
-            _preCasted = true;
-            _isHoldingInput = true;
-            //OnPreCastingSkill?.Invoke();
-            OnPreCast(skill);
-        }
-        if (ctx.phase == InputActionPhase.Canceled && _preCasted) {
-            _preCasted = false;
-            _isHoldingInput = false;
-            //OnSkillRelease?.Invoke();
-            OnRelease(skill);
+        switch (ctx.phase) {
+            case InputActionPhase.Started:
+                _preCasted = true;
+                _isHoldingInput = true;
+                OnPreCast(skill);
+                break;
+
+            case InputActionPhase.Canceled when _preCasted:
+                _preCasted = false;
+                _isHoldingInput = false;
+                OnRelease(skill);
+                break;
         }
     }
 
@@ -57,7 +57,7 @@ public class AxeAttackManager : SkillObjectManager {
             anim.SetTrigger(_info.FirstAnimationParameterName);
 
             // Começar o timer
-            _chargeTimeCoroutine = StartCoroutine(ChargeTImer());
+            _chargeTimeCoroutine = StartCoroutine(ChargeTimer());
 
             if (_info.PreCastOn) SetSkillRangeIndicator(skill);
     }
@@ -66,7 +66,7 @@ public class AxeAttackManager : SkillObjectManager {
         _attackCoroutine = StartCoroutine(Attack());
     }
 
-    IEnumerator ChargeTImer() {
+    IEnumerator ChargeTimer() {
 
         _chargeTimer = 0;
 
@@ -91,22 +91,22 @@ public class AxeAttackManager : SkillObjectManager {
 
         anim.SetTrigger(_info.SecondAnimationParameterName);
 
-        AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
+        AnimatorStateInfo stateInfo;
 
-        while (!stateInfo.IsName(_info.SecondAnimationName)) {
+        do {
             yield return null;
             stateInfo = anim.GetCurrentAnimatorStateInfo(0);
-        }
+        } while (!stateInfo.IsName(_info.SecondAnimationName));
 
         int attackStateHash = stateInfo.fullPathHash;
 
         SkillAnimationEvent prefabInfo = _info.Prefabs[0];
         float targetNormalizedTime = prefabInfo.timeToSpawnHitBox;
 
-        while (anim.GetCurrentAnimatorStateInfo(0).fullPathHash == attackStateHash &&
-                anim.GetCurrentAnimatorStateInfo(0).normalizedTime < targetNormalizedTime) {
+        do {
             yield return null;
-        }
+            stateInfo = anim.GetCurrentAnimatorStateInfo(0);
+        } while (stateInfo.fullPathHash == attackStateHash && stateInfo.normalizedTime < targetNormalizedTime);
 
         GameObject attackHitBox = SkillPoolingManager.Instance.ReturnHitboxFromPool(prefabInfo.hitboxName, prefabInfo.hitboxPrefab);
         attackHitBox.transform.SetParent(parent.transform);

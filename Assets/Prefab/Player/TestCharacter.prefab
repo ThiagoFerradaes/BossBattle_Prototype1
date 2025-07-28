@@ -79,7 +79,19 @@ MonoBehaviour:
     m_ActionId: 351f2ccd-1f9f-44bf-9bec-d62ac5c5f408
     m_ActionName: 'Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]'
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5235028921305784554}
+        m_TargetAssemblyTypeName: PlayerSkillManager, Assembly-CSharp
+        m_MethodName: OnBasAttack
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 6c2ab1b8-8984-453a-af3d-a3c78ae1679a
     m_ActionName: 'Player/Attack[/Mouse/leftButton,/Keyboard/enter]'
   - m_PersistentCalls:
@@ -268,7 +280,7 @@ MonoBehaviour:
   Anim: {fileID: 0}
   MoveManager: {fileID: 0}
   CooldownManager: {fileID: 0}
-  baseAttackSkill: {fileID: 0}
+  baseAttackSkill: {fileID: 11400000, guid: 05316486402cb51459d7a3e4d41776c7, type: 2}
   skillOne: {fileID: 11400000, guid: 2a2f0c440aad73745bb1212b46923cdd, type: 2}
   skillTwo: {fileID: 11400000, guid: c53fe8799b9c3b544852c4c42abbfffc, type: 2}
   ultimate: {fileID: 11400000, guid: f1689c668b1e822488bcbd497ced18e4, type: 2}
