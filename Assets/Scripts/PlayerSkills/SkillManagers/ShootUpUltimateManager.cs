@@ -33,13 +33,6 @@ public class ShootUpUltimateManager : SkillObjectManager
         }
     }
 
-    void UnblockMove()
-    {
-        Debug.Log("UnblockMove");
-        skillManager.MoveManager.BlockDash(false);
-        skillManager.MoveManager.BlockWalk(false);
-        skillManager.MoveManager.ChangeRotationType(RotationType.MoveRotation);
-    }
 
     IEnumerator Attack() {
         cooldownManager.SetCooldown(slot, _info.Cooldown);
@@ -70,7 +63,7 @@ public class ShootUpUltimateManager : SkillObjectManager
             yield return null;
         }
 
-        UnblockMove();
+        UnblockInputs();
         gameObject.SetActive(false);
     }
 }

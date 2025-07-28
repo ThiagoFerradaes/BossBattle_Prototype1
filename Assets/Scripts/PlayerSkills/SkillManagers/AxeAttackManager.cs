@@ -118,7 +118,7 @@ public class AxeAttackManager : SkillObjectManager {
             yield return null;
         }
 
-        UnblockMove();
+        UnblockInputs();
         _attackCoroutine = null;
         gameObject.SetActive(false);
     }
@@ -126,11 +126,5 @@ public class AxeAttackManager : SkillObjectManager {
     float ReturnDamage() {
         float damage = (_chargeTimer * _info.MaxDamage) / _info.MaxChargeTime;
         return Mathf.Clamp(damage, _info.BaseDamage, _info.MaxDamage);
-    }
-    void UnblockMove() {
-        Debug.Log("UnblockMove");
-        skillManager.MoveManager.BlockDash(false);
-        skillManager.MoveManager.BlockWalk(false);
-        skillManager.MoveManager.ChangeRotationType(RotationType.MoveRotation);
     }
 }

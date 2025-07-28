@@ -19,6 +19,7 @@ public class PlayerMovementManager : MonoBehaviour {
     bool _canWalk = true;
     bool _canRotate = true;
     bool _canDash = true;
+    bool _isDashing = false;
 
     // Animation
     [Header("Animation")]
@@ -59,10 +60,6 @@ public class PlayerMovementManager : MonoBehaviour {
         _mousePosition = ctx.ReadValue<Vector2>();
     }
 
-    public void OnDash(InputAction.CallbackContext ctx) {
-        if (ctx.performed) BlockMovement(!_canMove);
-    }
-
     #endregion
 
     #region Update
@@ -82,7 +79,7 @@ public class PlayerMovementManager : MonoBehaviour {
             _zInput = value.y;
         }
 
-        rb.linearVelocity = new Vector3(_xInput * speed, 0, _zInput * speed);
+        if(!_isDashing) rb.linearVelocity = new Vector3(_xInput * speed, 0, _zInput * speed);
 
         UpdateWalkingAnimation();
     }
@@ -121,6 +118,7 @@ public class PlayerMovementManager : MonoBehaviour {
     public void BlockRotation(bool block) => _canRotate = !block;
     public void BlockDash(bool block) => _canDash = !block;
     public void ChangeRotationType(RotationType type) => _rotationType = type;
+    public void ChangeIsDashing(bool isDashing) => _isDashing = isDashing;
 
     #endregion
 
@@ -130,5 +128,7 @@ public class PlayerMovementManager : MonoBehaviour {
         anim.SetBool(walkingAnimationParameter, isWalking);
     }
     #endregion
+
+    public bool ReturnCanDash() => _canDash;
 
 }

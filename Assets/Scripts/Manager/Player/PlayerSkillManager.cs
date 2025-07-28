@@ -29,6 +29,7 @@ public class PlayerSkillManager : MonoBehaviour {
     [SerializeField] SkillSO skillOne;
     [SerializeField] SkillSO skillTwo;
     [SerializeField] SkillSO ultimate;
+    [SerializeField] SkillSO dash;
     SkillSO _currentSkill;
 
     #endregion
@@ -74,6 +75,14 @@ public class PlayerSkillManager : MonoBehaviour {
             UseSkill(ctx, _currentSkill, SkillSlot.Ultimate);
         }
     }
+    public void OnDash(InputAction.CallbackContext ctx) {
+        if (!MoveManager.ReturnCanDash() || !_canUseAnySkill || CooldownManager.ReturnCooldown(SkillSlot.Dash) > 0) return;
+
+        if (dash != null) {
+            _currentSkill = dash;
+            UseSkill(ctx, _currentSkill, SkillSlot.Dash);
+        }
+    }
     #endregion
 
     #region Skills
@@ -90,20 +99,29 @@ public class PlayerSkillManager : MonoBehaviour {
             case SkillSlot.BaseAttack:
                 BlockCommonSkill(block);
                 BlockUltimate(block);
+                BlockDash(block);
                 break;
             case SkillSlot.SkillOne:
                 BlockBaseAttack(block);
                 BlockCommonSkillTwo(block);
                 BlockUltimate(block);
+                BlockDash(block);
                 break;
             case SkillSlot.SkillTwo:
                 BlockBaseAttack(block);
                 BlockCommonSkillOne(block);
                 BlockUltimate(block);
+                BlockDash(block);
                 break;
             case SkillSlot.Ultimate:
                 BlockBaseAttack(block);
                 BlockCommonSkill(block);
+                BlockDash(block);
+                break;
+            case SkillSlot.Dash:
+                BlockBaseAttack(block);
+                BlockCommonSkill(block);
+                BlockUltimate(block);
                 break;
         }
     }
@@ -141,10 +159,16 @@ public class PlayerSkillManager : MonoBehaviour {
     /// </summary>
     /// <param name="block"></param>
     public void BlockAnySkill(bool block) => _canUseAnySkill = !block;
+    /// <summary>
+    /// block true = cant attack, block false = can attack
+    /// </summary>
+    /// <param name="block"></param>
+    public void BlockDash(bool block) => MoveManager.BlockDash(block);
     #endregion
 
     #region Getters
     public SkillSO ReturnCurrentSkill() => _currentSkill;
+
     #endregion
 
 }

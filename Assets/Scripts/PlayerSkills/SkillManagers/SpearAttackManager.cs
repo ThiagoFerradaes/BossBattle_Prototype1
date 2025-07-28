@@ -24,12 +24,6 @@ public class SpearAttackManager : SkillObjectManager {
         }
     }
 
-    void UnblockMove() {
-        skillManager.MoveManager.BlockDash(false);
-        skillManager.MoveManager.BlockWalk(false);
-        skillManager.MoveManager.ChangeRotationType(RotationType.MoveRotation);
-    }
-
     IEnumerator Attack() {
         cooldownManager.SetCooldown(slot, _info.SpearAttackCooldown);
         anim.SetTrigger(_info.SpearAttackTriggerName);
@@ -61,7 +55,7 @@ public class SpearAttackManager : SkillObjectManager {
             yield return null;
         }
 
-        UnblockMove();
+        UnblockInputs();
         gameObject.SetActive(false);
     }
 }

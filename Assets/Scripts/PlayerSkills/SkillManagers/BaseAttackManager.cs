@@ -64,7 +64,7 @@ public class BaseAttackManager : SkillObjectManager {
 
         _attackIndex = _attackIndex == 1 ? _attackIndex = 2 : _attackIndex = 1;
 
-        UnblockMove();
+        UnblockInputs();
 
         _timerBetweenAttacksCoroutine = StartCoroutine(CooldownBetweenAttacks());
     }
@@ -82,10 +82,4 @@ public class BaseAttackManager : SkillObjectManager {
         gameObject.SetActive(false);
     }
 
-    void UnblockMove() {
-        Debug.Log("UnblockMove");
-        skillManager.MoveManager.BlockDash(false);
-        skillManager.MoveManager.BlockWalk(false);
-        skillManager.MoveManager.ChangeRotationType(RotationType.MoveRotation);
-    }
 }
