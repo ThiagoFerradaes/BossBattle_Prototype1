@@ -27,7 +27,6 @@ public abstract class SkillObjectManager : MonoBehaviour {
             cooldownManager = parent.GetComponent<PlayerSkillCooldownManager>();
         }
         this.slot = slot;
-
         HandleInput(skill, ctx);
     }
     public virtual void HandleInput(SkillSO skill, InputAction.CallbackContext ctx) {

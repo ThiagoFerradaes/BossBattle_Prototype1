@@ -4,6 +4,9 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class PlayerSkillUI : MonoBehaviour {
+
+    #region Parameters
+
     [Header("Skill Image")]
     [SerializeField] private Image dashSkillImage;
     [SerializeField] private Image skillOneImage;
@@ -19,6 +22,9 @@ public class PlayerSkillUI : MonoBehaviour {
     private Dictionary<SkillSlot, Coroutine> cooldownCoroutines;
     private Dictionary<SkillSlot, Image> cooldownImages;
 
+    #endregion
+
+    #region Methods
     private void Start() {
 
         StartDictionary();
@@ -74,5 +80,7 @@ public class PlayerSkillUI : MonoBehaviour {
             image.fillAmount = 0f;
         }
     }
+
+    #endregion
 }
 

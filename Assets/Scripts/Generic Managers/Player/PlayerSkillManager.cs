@@ -94,7 +94,6 @@ public class PlayerSkillManager : MonoBehaviour {
 
     #region Skills
     void UseSkill(InputAction.CallbackContext ctx, SkillSO skill, SkillSlot slot) {
-
         GameObject skillManager = SkillPoolingManager.Instance.ReturnManagerFromPool(skill.SkillManagerName, skill.SkillManagerObject.gameObject);
         SkillObjectManager manager = skillManager.GetComponent<SkillObjectManager>();
         manager.OnStart(skill, this.gameObject, slot, ctx);

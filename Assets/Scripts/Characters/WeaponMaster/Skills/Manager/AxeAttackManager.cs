@@ -29,18 +29,15 @@ public class AxeAttackManager : SkillObjectManager {
 
         Initialize(skill);
 
-        switch (ctx.phase) {
-            case InputActionPhase.Started:
-                _preCasted = true;
-                _isHoldingInput = true;
-                OnPreCast(skill);
-                break;
-
-            case InputActionPhase.Canceled when _preCasted:
-                _preCasted = false;
-                _isHoldingInput = false;
-                OnRelease(skill);
-                break;
+        if (ctx.phase == InputActionPhase.Started) {
+            _preCasted = true;
+            _isHoldingInput = true;
+            OnPreCast(skill);
+        }
+        if (ctx.phase == InputActionPhase.Canceled && _preCasted) {
+            _preCasted = false;
+            _isHoldingInput = false;
+            OnRelease(skill);
         }
     }
 
@@ -55,7 +52,6 @@ public class AxeAttackManager : SkillObjectManager {
     public override void OnPreCast(SkillSO skill) {
 
             // Bloqueando movimentação e outros inputs
-            movementManager.BlockDash(skill.BlockDashWhilePreCasting);
             movementManager.BlockWalk(skill.BlockWalkWhilePreCasting);
             movementManager.ChangeRotationType(RotationType.MouseRotation);
             skillManager.BlockSkillInputs(slot, true);
@@ -77,9 +73,9 @@ public class AxeAttackManager : SkillObjectManager {
 
         _chargeTimer = 0;
 
-        cooldownManager.SetCooldown(slot, _info.Cooldown);
 
         while (_isHoldingInput || _chargeTimer < _info.MinimalChargeTime) {
+            //Debug.Log("Charging axe attack " +  _chargeTimer + " " + _isHoldingInput);
             _chargeTimer += Time.deltaTime;
             if (_chargeTimer >= _info.MaxChargeTime) break;
             yield return null; ;
@@ -97,6 +93,8 @@ public class AxeAttackManager : SkillObjectManager {
         while (_chargeTimer < _info.MinimalChargeTime) yield return null;
 
         anim.SetTrigger(_info.SecondAnimationParameterName);
+
+        cooldownManager.SetCooldown(slot, _info.Cooldown);
 
         AnimatorStateInfo stateInfo;
 
