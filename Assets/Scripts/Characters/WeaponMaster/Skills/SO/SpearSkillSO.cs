@@ -8,7 +8,7 @@ public class SpearSkillSO : SkillSO
     public string AnimationName;
 
     [Header("Atributes")]
-    public float SpearAttackCooldown;
+    public float Cooldown;
     public float Damage;
     public float HitBoxDuration;
     public Vector3 HitBoxPosition;

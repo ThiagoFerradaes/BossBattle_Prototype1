@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class PassiveSkillManager : MonoBehaviour
 {
-    public virtual void OnStart(PassiveSO skill) {
-
+    protected GameObject parent;
+    public virtual void OnStart(PassiveSO skill, GameObject parent) {
+        this.parent = parent;
     }
 }

@@ -27,13 +27,13 @@ public class PlayerSkillCooldownManager : MonoBehaviour
 
     public void SetCooldown(SkillSlot slot, float cooldown)
     {
-        if (_runningCoroutines.TryGetValue(slot, out Coroutine running))
-        {
+        if (_runningCoroutines.TryGetValue(slot, out Coroutine running) && running != null) {
             StopCoroutine(running);
         }
 
         _cooldowns[slot] = cooldown;
         _runningCoroutines[slot] = StartCoroutine(CooldownCoroutine(slot));
+
         if (slot != SkillSlot.BaseAttack) OnCooldownSet?.Invoke(slot, cooldown);
     }
 
@@ -48,6 +48,17 @@ public class PlayerSkillCooldownManager : MonoBehaviour
         _cooldowns[slot] = 0f;
         _runningCoroutines.Remove(slot);
     }
+
+    public void ResetCooldown(SkillSlot slot) {
+        if (_runningCoroutines.TryGetValue(slot, out Coroutine running) && running != null) {
+            StopCoroutine(running);
+            _runningCoroutines.Remove(slot);
+        }
+
+        _cooldowns[slot] = 0f;
+        OnCooldownSet?.Invoke(slot, 0f);
+    }
+
 
     public float ReturnCooldown(SkillSlot slot) => _cooldowns[slot];
     #endregion

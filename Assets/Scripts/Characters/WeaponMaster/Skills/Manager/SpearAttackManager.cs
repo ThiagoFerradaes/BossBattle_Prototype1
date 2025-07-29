@@ -38,7 +38,7 @@ public class SpearAttackManager : SkillObjectManager {
     }
 
     IEnumerator Attack() {
-        cooldownManager.SetCooldown(slot, _info.SpearAttackCooldown);
+        cooldownManager.SetCooldown(slot, _info.Cooldown);
         anim.SetTrigger(_info.SpearAttackTriggerName);
 
         AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
@@ -62,6 +62,7 @@ public class SpearAttackManager : SkillObjectManager {
         attackHitBox.transform.SetParent(parent.transform);
         attackHitBox.transform.SetLocalPositionAndRotation(_info.HitBoxPosition, Quaternion.identity);
         attackHitBox.GetComponent<InstantDamageHitBox>().Initialize(_info.Damage, _info.HitBoxDuration);
+        OnWeaponChange?.Invoke();
 
         while (anim.GetCurrentAnimatorStateInfo(0).fullPathHash == attackStateHash &&
                anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f) {
@@ -69,7 +70,6 @@ public class SpearAttackManager : SkillObjectManager {
         }
 
         UnblockInputs();
-        OnWeaponChange?.Invoke();
         _attackCoroutine = null;
         gameObject.SetActive(false);
     }

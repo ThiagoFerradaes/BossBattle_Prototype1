@@ -45,7 +45,7 @@ public class PlayerSkillManager : MonoBehaviour {
     private void Start() {
         GameObject passiveManager = SkillPoolingManager.Instance.ReturnManagerFromPool(passive.PassiveName, passive.PassiveManager.gameObject);
         PassiveSkillManager manager = passiveManager.GetComponent<PassiveSkillManager>();
-        manager.OnStart(passive);
+        manager.OnStart(passive, this.gameObject);
     }
     #endregion
 

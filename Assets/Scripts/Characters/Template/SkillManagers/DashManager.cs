@@ -71,8 +71,8 @@ public class DashManager : SkillObjectManager {
         }
 
         _dashCoroutine = null;
-        UnblockInputs();
         gameObject.SetActive(false);
+        UnblockInputs();
     }
 
     #endregion
