@@ -7,6 +7,8 @@ public class SkillAnimationEvent {
     public GameObject hitboxPrefab;
     public string hitboxName;
 }
+
+public enum Tags { Enemy, Player }
 public abstract class SkillSO : ScriptableObject
 {
     [Header("Skill Manager")]

@@ -26,12 +26,12 @@ public class PlayerMovementManager : MonoBehaviour {
     [SerializeField] string walkingAnimationParameter;
 
     // Components
-    Animator anim;
-    Rigidbody rb;
+    Animator _anim;
+    Rigidbody _rb;
+    StatusManager _statusManager;
 
     // Atributes
     [Header("Atributes")]
-    [SerializeField] float speed;
     [SerializeField] float rotationSpeed;
 
     // LayerMask
@@ -47,8 +47,9 @@ public class PlayerMovementManager : MonoBehaviour {
     #region Initialize
 
     private void Awake() {
-        anim = GetComponentInChildren<Animator>();
-        rb = GetComponent<Rigidbody>();
+        _anim = GetComponentInChildren<Animator>();
+        _rb = GetComponent<Rigidbody>();
+        _statusManager = GetComponent<StatusManager>();
     }
 
     #endregion
@@ -79,7 +80,11 @@ public class PlayerMovementManager : MonoBehaviour {
             _zInput = value.y;
         }
 
-        if(!_isDashing) rb.linearVelocity = new Vector3(_xInput * speed, 0, _zInput * speed);
+        if (!_isDashing) {
+            float moveSpeed = _statusManager.ReturnStatusValue(StatusType.MoveSpeed);
+            Vector3 moveDirection = new Vector3(_xInput, 0, _zInput).normalized;
+            _rb.linearVelocity = moveDirection * moveSpeed;
+        }
 
         UpdateWalkingAnimation();
     }
@@ -125,7 +130,7 @@ public class PlayerMovementManager : MonoBehaviour {
     #region Animation
     public void UpdateWalkingAnimation() {
         bool isWalking = new Vector2(_xInput, _zInput).magnitude > 0.1f;
-        anim.SetBool(walkingAnimationParameter, isWalking);
+        _anim.SetBool(walkingAnimationParameter, isWalking);
     }
     #endregion
 

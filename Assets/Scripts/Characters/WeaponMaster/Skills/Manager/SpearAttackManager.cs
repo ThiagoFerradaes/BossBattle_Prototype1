@@ -61,7 +61,16 @@ public class SpearAttackManager : SkillObjectManager {
         GameObject attackHitBox = SkillPoolingManager.Instance.ReturnHitboxFromPool(prefabInfo.hitboxName, prefabInfo.hitboxPrefab);
         attackHitBox.transform.SetParent(parent.transform);
         attackHitBox.transform.SetLocalPositionAndRotation(_info.HitBoxPosition, Quaternion.identity);
-        attackHitBox.GetComponent<InstantDamageHitBox>().Initialize(_info.Damage, _info.HitBoxDuration);
+
+        InstantDamageContext newContext = new(
+            ReturnSkillDamage(_info.Damage),
+            _info.HitBoxDuration,
+            _info.IsTrueDamage,
+            _info.EnemyTag
+            );
+
+        attackHitBox.GetComponent<InstantDamageHitBox>().Initialize(newContext);
+
         OnWeaponChange?.Invoke();
 
         while (anim.GetCurrentAnimatorStateInfo(0).fullPathHash == attackStateHash &&
@@ -73,6 +82,7 @@ public class SpearAttackManager : SkillObjectManager {
         _attackCoroutine = null;
         gameObject.SetActive(false);
     }
+
 
     #endregion
 }

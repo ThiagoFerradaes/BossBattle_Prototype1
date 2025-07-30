@@ -3,14 +3,14 @@ using System.Collections;
 using UnityEngine;
 
 public class HealthManager : MonoBehaviour {
-    [Header("Health Atributes")]
-    [SerializeField] float maxHealth;
+    // floats
+    float maxHealth;
     private float _currentHealth;
-
-    [Header("Shield Atributes")]
-    [Tooltip("Percent of max health to define as the max amount of shield")]
-    [SerializeField][Range(0, 1)] float maxShield;
+    float maxShield;
     private float _currentShield;
+
+    // Components
+    StatusManager _statusManager;
 
     // Events
     public event Action<float, float> OnHealthChanged;
@@ -19,6 +19,9 @@ public class HealthManager : MonoBehaviour {
     #region Methods
 
     private void Awake() {
+        _statusManager = GetComponent<StatusManager>();
+        maxHealth = _statusManager.ReturnStatusValue(StatusType.MaxHealth);
+        maxShield = _statusManager.ReturnStatusValue(StatusType.MaxAmountOfShield);
         ChangeHealth(maxHealth);
         ChangeSheild(0);
     }

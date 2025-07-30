@@ -70,7 +70,16 @@ public class ShootUpUltimateManager : SkillObjectManager
 
         GameObject attackHitBox = SkillPoolingManager.Instance.ReturnHitboxFromPool(prefabInfo.hitboxName, prefabInfo.hitboxPrefab);
         attackHitBox.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
-        attackHitBox.GetComponent<ContinuosDamageHitBox>().Initialize(_info.Damage, _info.Duration, _info.EnemyTag, _info.DamageCooldown);
+
+        ContinuosDamageContext newContext = new(
+            ReturnSkillDamage(_info.Damage),
+            _info.Duration,
+            _info.DamageCooldown,
+            false,
+            _info.EnemyTag
+            );
+
+        attackHitBox.GetComponent<ContinuosDamageHitBox>().Initialize(newContext);
 
         while (anim.GetCurrentAnimatorStateInfo(0).fullPathHash == attackStateHash &&
                anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f) {

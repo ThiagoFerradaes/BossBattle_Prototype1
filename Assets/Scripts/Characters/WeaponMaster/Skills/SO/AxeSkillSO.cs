@@ -14,5 +14,7 @@ public class AxeSkillSO : SkillSO
     public float MaxChargeTime;
     public float MinDamage;
     public float MaxDamage;
+    public float HitBoxDuration;
+    public Tags EnemyTag;
     public Vector3 HitBoxPosition;
 }

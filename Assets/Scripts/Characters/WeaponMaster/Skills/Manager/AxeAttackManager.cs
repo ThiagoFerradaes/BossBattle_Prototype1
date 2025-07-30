@@ -116,7 +116,15 @@ public class AxeAttackManager : SkillObjectManager {
         GameObject attackHitBox = SkillPoolingManager.Instance.ReturnHitboxFromPool(prefabInfo.hitboxName, prefabInfo.hitboxPrefab);
         attackHitBox.transform.SetParent(parent.transform);
         attackHitBox.transform.SetLocalPositionAndRotation(_info.HitBoxPosition, Quaternion.identity);
-        attackHitBox.GetComponent<InstantDamageHitBox>().Initialize(ReturnDamage(), 0.1f);
+
+        InstantDamageContext newContext = new(
+            ReturnSkillDamage(ReturnDamage()),
+            _info.HitBoxDuration,
+            ReturnIsTrueDamage(),
+            _info.EnemyTag
+            );
+
+        attackHitBox.GetComponent<InstantDamageHitBox>().Initialize(newContext);
 
         while (anim.GetCurrentAnimatorStateInfo(0).fullPathHash == attackStateHash &&
                anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f) {
@@ -132,6 +140,11 @@ public class AxeAttackManager : SkillObjectManager {
     float ReturnDamage() {
         float damage = (_chargeTimer * _info.MaxDamage) / _info.MaxChargeTime;
         return Mathf.Clamp(damage, _info.MinDamage, _info.MaxDamage);
+    }
+
+    bool ReturnIsTrueDamage() {
+        if (_chargeTimer >= _info.MaxChargeTime) return true;
+        else return false;
     }
 
     #endregion

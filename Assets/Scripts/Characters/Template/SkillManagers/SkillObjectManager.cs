@@ -13,6 +13,7 @@ public abstract class SkillObjectManager : MonoBehaviour {
     protected SkillSlot slot;
     protected Animator anim;
     protected PlayerSkillCooldownManager cooldownManager;
+    protected StatusManager statusManager;
 
     #endregion
 
@@ -25,6 +26,7 @@ public abstract class SkillObjectManager : MonoBehaviour {
             this.parent = parent;
             anim = parent.GetComponentInChildren<Animator>();
             cooldownManager = parent.GetComponent<PlayerSkillCooldownManager>();
+            statusManager = parent.GetComponent<StatusManager>();
         }
         this.slot = slot;
         HandleInput(skill, ctx);
@@ -86,6 +88,16 @@ public abstract class SkillObjectManager : MonoBehaviour {
         skillManager.MoveManager.ChangeRotationType(RotationType.MoveRotation);
     }
     public virtual void UseSkill(SkillSO skill) { }
+
+    public virtual float ReturnSkillDamage(float skillDamage) {
+        float rng = Random.Range(0, 100);
+
+        if (rng > statusManager.ReturnStatusValue(StatusType.CritRate)) // Não critou
+            return statusManager.ReturnStatusValue(StatusType.Attack) * skillDamage;
+        else // Critou
+            return statusManager.ReturnStatusValue(StatusType.Attack) * skillDamage 
+                * statusManager.ReturnStatusValue(StatusType.CritDamage)/100;
+    }
 
     #endregion
 }

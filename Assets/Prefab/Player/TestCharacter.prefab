@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5235028921305784554}
   - component: {fileID: 3033580877996556034}
   - component: {fileID: 1889250769962527780}
+  - component: {fileID: 8286436313011281821}
   m_Layer: 0
   m_Name: TestCharacter
   m_TagString: Untagged
@@ -234,7 +235,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveActionReference: {fileID: -1680190386980627800, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   walkingAnimationParameter: Walking
-  speed: 2.7
   rotationSpeed: 20
   floorLayer:
     serializedVersion: 2
@@ -311,8 +311,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5629c282a0542824d8fbba0108720c52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
-  maxShield: 0.25
+--- !u!114 &8286436313011281821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8221154074876193513}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c54be79e511cab47bf55e344efa89fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseStatus: {fileID: 11400000, guid: 3a8eb2e2fa413964a81477c3b600abb4, type: 2}
 --- !u!1001 &8919010732312894223
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,12 +1,32 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
+public class InstantDamageContext {
+    public float Damage;
+    public float Duration;
+    public bool IsTrueDamage;
+    public Tags UnitToHitTag;
+    public List<Modifiers> ListOfModifiers;
+
+    public InstantDamageContext(float damage, float hitBoxDuration
+        , bool isTrueDamage, Tags tag,  List<Modifiers> listOfModifiers = null) {
+        this.Damage = damage;
+        this.Duration = hitBoxDuration;
+        this.IsTrueDamage = isTrueDamage;
+        this.UnitToHitTag = tag;
+        this.ListOfModifiers = listOfModifiers ?? new List<Modifiers>();
+    }
+}
 public class InstantDamageHitBox : MonoBehaviour
 {
     float _damage;
     float _duration;
-    public void Initialize(float damage, float duration) {
-        _damage = damage; _duration = duration;
+    string _tag;
+    bool _isTrueDamage;
+    public void Initialize(InstantDamageContext context) {
+        _damage = context.Damage; _duration = context.Duration; _isTrueDamage = context.IsTrueDamage;
+        _tag = context.UnitToHitTag.ToString();
         gameObject.SetActive(true);
         StartCoroutine(AttackDuration());
     }
@@ -21,8 +41,10 @@ public class InstantDamageHitBox : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider other) {
-        if (!other.CompareTag("Enemy")) return;
+        if (!other.CompareTag(_tag)) return;
 
+        if (!other.TryGetComponent<HealthManager>(out HealthManager health)) return;
 
+        health.TakeDamage(_damage, _isTrueDamage);
     }
 }

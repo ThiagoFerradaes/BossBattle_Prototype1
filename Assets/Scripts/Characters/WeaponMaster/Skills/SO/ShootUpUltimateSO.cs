@@ -12,5 +12,5 @@ public class ShootUpUltimateSO : SkillSO
     public float Damage;
     public float DamageCooldown;
     public float Duration;
-    public string EnemyTag;
+    public Tags EnemyTag;
 }

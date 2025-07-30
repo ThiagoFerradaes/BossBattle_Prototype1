@@ -64,7 +64,15 @@ public class WeaponMasterBaseAttack : SkillObjectManager {
         GameObject attackHitBox = SkillPoolingManager.Instance.ReturnHitboxFromPool(prefabInfo.hitboxName, prefabInfo.hitboxPrefab);
         attackHitBox.transform.SetParent(parent.transform);
         attackHitBox.transform.SetLocalPositionAndRotation(hitBoxPosition, Quaternion.identity);
-        attackHitBox.GetComponent<InstantDamageHitBox>().Initialize(attackDamage, 0.1f);
+
+        InstantDamageContext newContext = new(
+            ReturnSkillDamage(attackDamage),
+            0.1f,
+            _info.IsTrueDamage,
+            _info.EnemyTag
+            );
+
+        attackHitBox.GetComponent<InstantDamageHitBox>().Initialize(newContext);
 
         while (anim.GetCurrentAnimatorStateInfo(0).fullPathHash == attackStateHash &&
                anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f) {

@@ -11,5 +11,7 @@ public class SpearSkillSO : SkillSO
     public float Cooldown;
     public float Damage;
     public float HitBoxDuration;
+    public bool IsTrueDamage;
+    public Tags EnemyTag;
     public Vector3 HitBoxPosition;
 }
