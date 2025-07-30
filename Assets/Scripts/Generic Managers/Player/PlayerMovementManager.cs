@@ -51,10 +51,12 @@ public class PlayerMovementManager : MonoBehaviour {
     private void Awake() {
         _anim = GetComponentInChildren<Animator>();
         _rb = GetComponent<Rigidbody>();
-        _statusManager = GetComponent<StatusManager>();
-        _cameraCenter = PlayerSpawnManager.Instance.CameraCenter;
+        _statusManager = GetComponent<StatusManager>();    
     }
 
+    private void Start() {
+        _cameraCenter = PlayerSpawnManager.Instance.CameraCenter;
+    }
     #endregion
 
     #region Input Events
