@@ -36,8 +36,6 @@ public class WeaponMasterBaseAttack : SkillObjectManager {
     IEnumerator Attack() {
         float attackSpeedMultiplier = GetAttackSpeedMultiplier();
 
-        Debug.Log(attackSpeedMultiplier);
-
         float cooldown = _info.CooldownBetweenAttacks / attackSpeedMultiplier;
         cooldownManager.SetCooldown(slot, cooldown);
 
