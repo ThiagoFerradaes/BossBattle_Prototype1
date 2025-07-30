@@ -34,11 +34,18 @@ public class WeaponMasterBaseAttack : SkillObjectManager {
     }
 
     IEnumerator Attack() {
+        float attackSpeedMultiplier = GetAttackSpeedMultiplier();
 
-        cooldownManager.SetCooldown(slot, _info.CooldownBetweenAttacks);
+        Debug.Log(attackSpeedMultiplier);
+
+        float cooldown = _info.CooldownBetweenAttacks / attackSpeedMultiplier;
+        cooldownManager.SetCooldown(slot, cooldown);
 
         string animationParameter = _attackIndex == 1 ? _info.FirstBaseAttackParameter : _info.SecondBaseAttackParameter;
         string animationName = _attackIndex == 1 ? _info.FirstBaseAttackAnimationName : _info.SecondtBaseAttackAnimationName;
+
+        anim.speed = attackSpeedMultiplier;
+
         anim.SetTrigger(animationParameter);
 
         AnimatorStateInfo stateInfo;
@@ -79,6 +86,8 @@ public class WeaponMasterBaseAttack : SkillObjectManager {
             yield return null;
         }
 
+        anim.speed = 1f;
+
         _attackIndex = _attackIndex == 1 ? _attackIndex = 2 : _attackIndex = 1;
 
         UnblockInputs();
@@ -100,5 +109,9 @@ public class WeaponMasterBaseAttack : SkillObjectManager {
         gameObject.SetActive(false);
     }
 
+    float GetAttackSpeedMultiplier() {
+        float baseSpeed = statusManager.ReturnStatusValue(StatusType.AttackSpeed)/100;
+        return Mathf.Max(0.1f, baseSpeed);
+    }
     #endregion
 }
