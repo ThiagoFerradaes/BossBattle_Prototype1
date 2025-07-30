@@ -34,12 +34,10 @@ public abstract class SkillObjectManager : MonoBehaviour {
     public virtual void HandleInput(SkillSO skill, InputAction.CallbackContext ctx) {
         if (ctx.phase == InputActionPhase.Started) {
             _preCasted = true;
-            //OnPreCastingSkill?.Invoke();
             OnPreCast(skill);
         }
         if (ctx.phase == InputActionPhase.Canceled && _preCasted) {
             _preCasted = false;
-            //OnSkillRelease?.Invoke();
             OnRelease(skill);
         }
     }

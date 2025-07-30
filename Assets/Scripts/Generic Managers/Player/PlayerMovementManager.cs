@@ -1,6 +1,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Windows;
 
 public enum RotationType { MouseRotation, MoveRotation }
 public class PlayerMovementManager : MonoBehaviour {
@@ -29,6 +30,7 @@ public class PlayerMovementManager : MonoBehaviour {
     Animator _anim;
     Rigidbody _rb;
     StatusManager _statusManager;
+    Transform _cameraCenter;
 
     // Atributes
     [Header("Atributes")]
@@ -50,6 +52,7 @@ public class PlayerMovementManager : MonoBehaviour {
         _anim = GetComponentInChildren<Animator>();
         _rb = GetComponent<Rigidbody>();
         _statusManager = GetComponent<StatusManager>();
+        _cameraCenter = PlayerSpawnManager.Instance.CameraCenter;
     }
 
     #endregion
@@ -82,7 +85,8 @@ public class PlayerMovementManager : MonoBehaviour {
 
         if (!_isDashing) {
             float moveSpeed = _statusManager.ReturnStatusValue(StatusType.MoveSpeed);
-            Vector3 moveDirection = new Vector3(_xInput, 0, _zInput).normalized;
+            Vector3 movedir = new Vector3(_xInput, 0, _zInput).normalized;
+            Vector3 moveDirection = _cameraCenter.transform.TransformDirection(movedir);
             _rb.linearVelocity = moveDirection * moveSpeed;
         }
 
@@ -107,7 +111,8 @@ public class PlayerMovementManager : MonoBehaviour {
         }
 
         else {
-            Vector3 moveDirection = new(_xInput, 0f, _zInput);
+            Vector3 input = new(_xInput, 0f, _zInput);
+            Vector3 moveDirection = _cameraCenter.transform.TransformDirection(input);
 
             if (moveDirection.sqrMagnitude > 0.001f) {
                 Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
