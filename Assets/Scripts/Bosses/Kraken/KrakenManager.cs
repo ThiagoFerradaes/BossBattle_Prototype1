@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -65,16 +66,17 @@ public class KrakenManager : MonoBehaviour {
         ChooseAnAttack();
     }
     void ChooseAnAttack() {
-        int priority = -1;
-        EnemySkillSO currentSkill = null;
-        foreach (var skill in _listOfSkills) {
-            if (skill.Priority >= priority && !_enemyCooldownManager.SkillInCooldown(skill)) {
-                currentSkill = skill;
-                priority = skill.Priority;
+
+        var sortedSkills = _listOfSkills.OrderByDescending(skill => skill.Priority);
+
+        foreach (var skill in sortedSkills) {
+            if (!_enemyCooldownManager.SkillInCooldown(skill)) {
+                Attack(skill, _listOfSkills.IndexOf(skill));
+                _enemyCooldownManager.SetSkillCooldown(skill);
+                return;
             }
         }
 
-        if (currentSkill != null) Attack(_listOfSkills[3], _listOfSkills.IndexOf(currentSkill));
     }
 
     void Attack(EnemySkillSO skill, int skillIndex) {

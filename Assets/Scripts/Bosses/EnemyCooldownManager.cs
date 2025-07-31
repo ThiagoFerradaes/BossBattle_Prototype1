@@ -11,11 +11,6 @@ public class EnemyCooldownManager : MonoBehaviour {
         }
     }
 
-    // Update is called once per frame
-    void Update() {
-
-    }
-
     public bool SkillInCooldown(EnemySkillSO skill) {
         if (_listOfCooldowns.ContainsKey(skill)) {
             if (_listOfCooldowns[skill] > 0f) return true;
