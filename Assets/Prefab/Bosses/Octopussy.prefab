@@ -117,8 +117,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5287888502505986811}
+  - component: {fileID: 2287122686630386273}
+  - component: {fileID: 489130667244019452}
   m_Layer: 0
-  m_Name: Octoussy
+  m_Name: Octopussy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -148,6 +150,49 @@ Transform:
   - {fileID: 3530358688483245447}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2287122686630386273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8240045495780868108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8633bfff1f72e3049b9a141757b60475, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldownBetweenAttacks: 5
+  _listOfSkills:
+  - {fileID: 11400000, guid: 87569bee2a95e40468903ade014f7822, type: 2}
+  - {fileID: 11400000, guid: 690cfdd534ff0a6458a9590a312e6b47, type: 2}
+  - {fileID: 11400000, guid: 5a65bba03f435ee4e8f7232cd91eb427, type: 2}
+  _tentaclesList:
+  - {fileID: 8052594618226590201}
+  - {fileID: 396344146904719247}
+  - {fileID: 8602067163581851498}
+  - {fileID: 4566259660819333120}
+  - {fileID: 5833970689060633881}
+  - {fileID: 1533660516349604032}
+  - {fileID: 86746977388860052}
+  - {fileID: 974908796638852374}
+  AttackAnimationParameter: Attack
+  ReturnToIdleAnimationParameter: BackToIdle
+  AttackAnimationName: Preparing
+  AttackHitAnimationName: Hit
+  ReturnToIdleAnimationName: Back
+--- !u!114 &489130667244019452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8240045495780868108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b5b1adba46614449bb43b0735cab4af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &935474270634298267
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -198,7 +243,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3721631439074741147, guid: be04d6b32eb2d8a41ad9c7a9b22870cf, type: 3}
       propertyPath: m_Name
-      value: OctopussyTentacle (4)
+      value: OctopussyTentacle4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -208,6 +253,11 @@ PrefabInstance:
 --- !u!4 &155185142273083537 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1070780237928186634, guid: be04d6b32eb2d8a41ad9c7a9b22870cf, type: 3}
+  m_PrefabInstance: {fileID: 935474270634298267}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4566259660819333120 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3721631439074741147, guid: be04d6b32eb2d8a41ad9c7a9b22870cf, type: 3}
   m_PrefabInstance: {fileID: 935474270634298267}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2804981767242955611
@@ -260,13 +310,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3721631439074741147, guid: be04d6b32eb2d8a41ad9c7a9b22870cf, type: 3}
       propertyPath: m_Name
-      value: OctopussyTentacle (5)
+      value: OctopussyTentacle6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: be04d6b32eb2d8a41ad9c7a9b22870cf, type: 3}
+--- !u!1 &1533660516349604032 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3721631439074741147, guid: be04d6b32eb2d8a41ad9c7a9b22870cf, type: 3}
+  m_PrefabInstance: {fileID: 2804981767242955611}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2896202663572109393 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1070780237928186634, guid: be04d6b32eb2d8a41ad9c7a9b22870cf, type: 3}
@@ -322,13 +377,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3721631439074741147, guid: be04d6b32eb2d8a41ad9c7a9b22870cf, type: 3}
       propertyPath: m_Name
-      value: OctopussyTentacle (2)
+      value: OctopussyTentacle7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: be04d6b32eb2d8a41ad9c7a9b22870cf, type: 3}
+--- !u!1 &86746977388860052 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3721631439074741147, guid: be04d6b32eb2d8a41ad9c7a9b22870cf, type: 3}
+  m_PrefabInstance: {fileID: 3643917847893367055}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4345383262535031301 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1070780237928186634, guid: be04d6b32eb2d8a41ad9c7a9b22870cf, type: 3}
@@ -384,13 +444,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3721631439074741147, guid: be04d6b32eb2d8a41ad9c7a9b22870cf, type: 3}
       propertyPath: m_Name
-      value: OctopussyTentacle (7)
+      value: OctopussyTentacle2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: be04d6b32eb2d8a41ad9c7a9b22870cf, type: 3}
+--- !u!1 &396344146904719247 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3721631439074741147, guid: be04d6b32eb2d8a41ad9c7a9b22870cf, type: 3}
+  m_PrefabInstance: {fileID: 3901802784402854932}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4105541241020716830 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1070780237928186634, guid: be04d6b32eb2d8a41ad9c7a9b22870cf, type: 3}
@@ -446,13 +511,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3721631439074741147, guid: be04d6b32eb2d8a41ad9c7a9b22870cf, type: 3}
       propertyPath: m_Name
-      value: OctopussyTentacle (6)
+      value: OctopussyTentacle8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: be04d6b32eb2d8a41ad9c7a9b22870cf, type: 3}
+--- !u!1 &974908796638852374 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3721631439074741147, guid: be04d6b32eb2d8a41ad9c7a9b22870cf, type: 3}
+  m_PrefabInstance: {fileID: 4477271210601102989}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3530358688483245447 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1070780237928186634, guid: be04d6b32eb2d8a41ad9c7a9b22870cf, type: 3}
@@ -508,7 +578,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3721631439074741147, guid: be04d6b32eb2d8a41ad9c7a9b22870cf, type: 3}
       propertyPath: m_Name
-      value: OctopussyTentacle (3)
+      value: OctopussyTentacle3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -518,6 +588,11 @@ PrefabInstance:
 --- !u!4 &5339411417597947899 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1070780237928186634, guid: be04d6b32eb2d8a41ad9c7a9b22870cf, type: 3}
+  m_PrefabInstance: {fileID: 4955448951984680177}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8602067163581851498 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3721631439074741147, guid: be04d6b32eb2d8a41ad9c7a9b22870cf, type: 3}
   m_PrefabInstance: {fileID: 4955448951984680177}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6657855405544671842
@@ -570,7 +645,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3721631439074741147, guid: be04d6b32eb2d8a41ad9c7a9b22870cf, type: 3}
       propertyPath: m_Name
-      value: OctopussyTentacle (1)
+      value: OctopussyTentacle1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -580,6 +655,11 @@ PrefabInstance:
 --- !u!4 &5960893178210961768 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1070780237928186634, guid: be04d6b32eb2d8a41ad9c7a9b22870cf, type: 3}
+  m_PrefabInstance: {fileID: 6657855405544671842}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8052594618226590201 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3721631439074741147, guid: be04d6b32eb2d8a41ad9c7a9b22870cf, type: 3}
   m_PrefabInstance: {fileID: 6657855405544671842}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7157215406837872258
@@ -632,13 +712,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3721631439074741147, guid: be04d6b32eb2d8a41ad9c7a9b22870cf, type: 3}
       propertyPath: m_Name
-      value: OctopussyTentacle
+      value: OctopussyTentacle5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: be04d6b32eb2d8a41ad9c7a9b22870cf, type: 3}
+--- !u!1 &5833970689060633881 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3721631439074741147, guid: be04d6b32eb2d8a41ad9c7a9b22870cf, type: 3}
+  m_PrefabInstance: {fileID: 7157215406837872258}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7894710683721397640 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1070780237928186634, guid: be04d6b32eb2d8a41ad9c7a9b22870cf, type: 3}

@@ -1347,7 +1347,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 111.4, y: -100}
+  m_AnchoredPosition: {x: 111.3999, y: -100}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &805795984
@@ -2824,6 +2824,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 7111650151459491695}
   CameraCenter: {fileID: 424605417}
+  MainCamera: {fileID: 1275443068}
 --- !u!1 &1698185534
 GameObject:
   m_ObjectHideFlags: 0
@@ -3495,6 +3496,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TestCharacter
       objectReference: {fileID: 0}
+    - target: {fileID: 8221154074876193513, guid: a9cf0ee6ec5f8f044b494e7043e7aa10, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3513,6 +3518,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2287122686630386273, guid: d19cee84ec8846c4eadd998e63dc0e13, type: 3}
+      propertyPath: cooldownBetweenAttacks
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2287122686630386273, guid: d19cee84ec8846c4eadd998e63dc0e13, type: 3}
+      propertyPath: _listOfSkills.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2287122686630386273, guid: d19cee84ec8846c4eadd998e63dc0e13, type: 3}
+      propertyPath: '_listOfSkills.Array.data[3]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 350a5ee60a441b34185f636c8a86a7bd, type: 2}
     - target: {fileID: 5287888502505986811, guid: d19cee84ec8846c4eadd998e63dc0e13, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -3555,7 +3572,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8240045495780868108, guid: d19cee84ec8846c4eadd998e63dc0e13, type: 3}
       propertyPath: m_Name
-      value: Octoussy
+      value: Octopussy
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyCooldownManager : MonoBehaviour {
-    Dictionary<EnemySkillSO, float> _listOfCooldowns;
+    Dictionary<EnemySkillSO, float> _listOfCooldowns = new();
 
     public void Initiate(List<EnemySkillSO> list) {
         foreach (EnemySkillSO item in list) {
