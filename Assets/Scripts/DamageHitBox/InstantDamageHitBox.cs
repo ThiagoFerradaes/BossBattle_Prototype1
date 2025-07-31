@@ -20,10 +20,16 @@ public class InstantDamageContext {
 }
 public class InstantDamageHitBox : MonoBehaviour
 {
+    #region Parameters
+
     float _damage;
     float _duration;
     string _tag;
     bool _isTrueDamage;
+
+    #endregion
+
+    #region Methods
     public void Initialize(InstantDamageContext context) {
         _damage = context.Damage; _duration = context.Duration; _isTrueDamage = context.IsTrueDamage;
         _tag = context.UnitToHitTag.ToString();
@@ -47,4 +53,5 @@ public class InstantDamageHitBox : MonoBehaviour
 
         health.TakeDamage(_damage, _isTrueDamage);
     }
+    #endregion
 }
