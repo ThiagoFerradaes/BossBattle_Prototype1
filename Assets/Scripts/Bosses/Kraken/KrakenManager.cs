@@ -1,3 +1,4 @@
+using NaughtyAttributes;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -28,11 +29,11 @@ public class KrakenManager : MonoBehaviour {
     [SerializeField] List<GameObject> _tentaclesList = new();
     List<KrakenTentacle> _listOfTentacles = new();
 
-    [SerializeField] string AttackAnimationParameter;
-    [SerializeField] string ReturnToIdleAnimationParameter;
-    [SerializeField] string AttackAnimationName;
-    [SerializeField] string AttackHitAnimationName;
-    [SerializeField] string ReturnToIdleAnimationName;
+    [Foldout("Animation"), SerializeField] string AttackAnimationParameter;
+    [Foldout("Animation"), SerializeField] string ReturnToIdleAnimationParameter;
+    [Foldout("Animation"), SerializeField] string AttackAnimationName;
+    [Foldout("Animation"), SerializeField] string AttackHitAnimationName;
+    [Foldout("Animation"), SerializeField] string ReturnToIdleAnimationName;
 
     EnemyCooldownManager _enemyCooldownManager;
     Transform _player;
