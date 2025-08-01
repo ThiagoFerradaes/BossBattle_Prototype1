@@ -6,10 +6,11 @@ public class WeaponMasterPassive : PassiveSkillManager {
 
     #region Parameters
 
-    enum WeaponType { Sword, Axe, Spear, Gun }
+    public enum WeaponType { Sword, Axe, Spear, Gun }
     WeaponMasterPassiveSO _info;
     HealthManager _healthManager;
     PlayerSkillCooldownManager _playerSkillCooldownManager;
+    StatusManager _statusManager;
 
     #endregion
 
@@ -30,6 +31,7 @@ public class WeaponMasterPassive : PassiveSkillManager {
         _info = passive as WeaponMasterPassiveSO;
         _healthManager = parent.GetComponent<HealthManager>();
         _playerSkillCooldownManager = parent.GetComponent<PlayerSkillCooldownManager>();
+        _statusManager = parent.GetComponent<StatusManager>();  
     }
     void ChangePassive(WeaponType type) {
         switch (type) {
@@ -38,7 +40,7 @@ public class WeaponMasterPassive : PassiveSkillManager {
                 break;
             case WeaponType.Axe:
                 Debug.Log("Passive -> Axe");
-                _healthManager.RecieveShield(_info.amountOfFirstShieldRecieved, _info.shieldDuration);
+                _healthManager.RecieveShield(_info.AmountOfFirstShieldRecieved, _info.ShieldDuration);
                 break;
             case WeaponType.Spear:
                 Debug.Log("Passive -> Spear");
@@ -46,6 +48,7 @@ public class WeaponMasterPassive : PassiveSkillManager {
                 break;
             case WeaponType.Gun:
                 Debug.Log("Passive -> Gun");
+                _statusManager.ChangeStatus(StatusType.AttackSpeed, _info.AttackSpeedBuff, true, _info.AttackSpeedBuffDuration);
                 break;
         }
     }

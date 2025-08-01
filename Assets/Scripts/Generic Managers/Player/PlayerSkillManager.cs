@@ -51,7 +51,8 @@ public class PlayerSkillManager : MonoBehaviour {
 
     #region Inputs
     public void OnBasAttack(InputAction.CallbackContext ctx) {
-        if (!_canBaseAttack || !_canUseAnySkill || CooldownManager.ReturnCooldown(SkillSlot.BaseAttack) > 0) return;
+        if (!_canBaseAttack || !_canUseAnySkill
+            || CooldownManager.ReturnCooldown(SkillSlot.BaseAttack) > 0 || Time.timeScale == 0) return;
 
         if (baseAttackSkill != null) {
             _currentSkill = baseAttackSkill;
@@ -59,7 +60,8 @@ public class PlayerSkillManager : MonoBehaviour {
         }
     }
     public void OnSkillOne(InputAction.CallbackContext ctx) {
-        if (!_canUseCommonSkill || !_canUseAnySkill || !_canUseCommonSkillOne || CooldownManager.ReturnCooldown(SkillSlot.SkillOne) > 0) return;
+        if (!_canUseCommonSkill || !_canUseAnySkill || !_canUseCommonSkillOne ||
+            CooldownManager.ReturnCooldown(SkillSlot.SkillOne) > 0 || Time.timeScale == 0) return;
 
         if (skillOne != null) {
             _currentSkill = skillOne;
@@ -67,7 +69,8 @@ public class PlayerSkillManager : MonoBehaviour {
         }
     }
     public void OnSkillTwo(InputAction.CallbackContext ctx) {
-        if (!_canUseCommonSkill || !_canUseAnySkill || !_canUseCommonSkillTwo || CooldownManager.ReturnCooldown(SkillSlot.SkillTwo) > 0) return;
+        if (!_canUseCommonSkill || !_canUseAnySkill || !_canUseCommonSkillTwo 
+            || CooldownManager.ReturnCooldown(SkillSlot.SkillTwo) > 0 || Time.timeScale == 0) return;
 
         if (skillTwo != null) {
             _currentSkill = skillTwo;
@@ -75,7 +78,8 @@ public class PlayerSkillManager : MonoBehaviour {
         }
     }
     public void OnUltimate(InputAction.CallbackContext ctx) {
-        if (!_canUseSupreme || !_canUseAnySkill || CooldownManager.ReturnCooldown(SkillSlot.Ultimate) > 0) return;
+        if (!_canUseSupreme || !_canUseAnySkill 
+            || CooldownManager.ReturnCooldown(SkillSlot.Ultimate) > 0 || Time.timeScale == 0) return;
 
         if (ultimate != null) {
             _currentSkill = ultimate;
@@ -83,7 +87,8 @@ public class PlayerSkillManager : MonoBehaviour {
         }
     }
     public void OnDash(InputAction.CallbackContext ctx) {
-        if (!MoveManager.ReturnCanDash() || !_canUseAnySkill || CooldownManager.ReturnCooldown(SkillSlot.Dash) > 0) return;
+        if (!MoveManager.ReturnCanDash() || !_canUseAnySkill 
+            || CooldownManager.ReturnCooldown(SkillSlot.Dash) > 0 || Time.timeScale == 0) return;
 
         if (dash != null) {
             _currentSkill = dash;

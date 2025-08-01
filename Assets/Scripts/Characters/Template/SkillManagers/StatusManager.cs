@@ -31,6 +31,12 @@ public class StatusManager : MonoBehaviour {
     #endregion
 
     #region Change Status Value
+    /// <summary>
+    /// The percent value has to be between 0 and 1
+    /// </summary>
+    /// <param name="type"></param>
+    /// <param name="percent"></param>
+    /// <param name="increase"></param>
     public void ChangeStatus(StatusType type, float percent, bool increase) {
         if (!_listOfStatus.ContainsKey(type)) return;
 

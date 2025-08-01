@@ -24,9 +24,13 @@ public class KrakenTentacle {
     }
 }
 public class KrakenManager : MonoBehaviour {
-    [SerializeField] float cooldownBetweenAttacks;
-    [SerializeField] List<EnemySkillSO> _listOfSkills = new();
-    [SerializeField] List<GameObject> _tentaclesList = new();
+
+    #region Parameters
+
+    [Foldout("Generic Atributes"), SerializeField] float cooldownBetweenAttacks;
+
+    [Foldout("Lists"), SerializeField] List<EnemySkillSO> _listOfSkills = new();
+    [Foldout("Lists"), SerializeField] List<GameObject> _tentaclesList = new();
     List<KrakenTentacle> _listOfTentacles = new();
 
     [Foldout("Animation"), SerializeField] string AttackAnimationParameter;
@@ -38,6 +42,7 @@ public class KrakenManager : MonoBehaviour {
     EnemyCooldownManager _enemyCooldownManager;
     Transform _player;
 
+    #endregion
 
     #region Initialize
     private void Awake() {
@@ -116,9 +121,63 @@ public class KrakenManager : MonoBehaviour {
 
         return tentacleIndex;
     }
+
+    IEnumerator TentacleAttack(int tentacleIndex, EnemySkillSO skill) {
+
+        Animator anim = _listOfTentacles[tentacleIndex].Anim;
+        anim.SetTrigger(AttackAnimationParameter);
+
+        AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
+
+        do {
+            yield return null;
+            stateInfo = anim.GetCurrentAnimatorStateInfo(0);
+        } while (!stateInfo.IsName(AttackAnimationName));
+
+        int attackStateHash = stateInfo.fullPathHash;
+
+        while (anim.GetCurrentAnimatorStateInfo(0).fullPathHash == attackStateHash &&
+       anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f) {
+            yield return null;
+        }
+
+        do {
+            yield return null;
+            stateInfo = anim.GetCurrentAnimatorStateInfo(0);
+        } while (!stateInfo.IsName(AttackHitAnimationName));
+
+        attackStateHash = stateInfo.fullPathHash;
+        SkillAnimationEvent skillEvent = skill._listOfPrefabs[0];
+
+        do {
+            yield return null;
+            stateInfo = anim.GetCurrentAnimatorStateInfo(0);
+        } while (stateInfo.fullPathHash == attackStateHash && stateInfo.normalizedTime < skillEvent.timeToSpawnHitBox);
+
+        GameObject attackHitBox = SkillPoolingManager.Instance.ReturnHitboxFromPool(skillEvent.hitboxName, skillEvent.hitboxPrefab);
+        float yRotation = 180 + (tentacleIndex * 45);
+        attackHitBox.transform.SetPositionAndRotation(new Vector3(0, 3, 0), Quaternion.Euler(90, yRotation, 0));
+
+        InstantDamageContext newContext = new(
+            10,
+            0.1f,
+            false,
+            Tags.Player
+            );
+
+        attackHitBox.GetComponent<InstantDamageHitBox>().Initialize(newContext);
+
+        _listOfTentacles[tentacleIndex].HitBox.SetActive(true);
+
+        yield return new WaitForSeconds(3);
+
+        anim.SetTrigger(ReturnToIdleAnimationParameter);
+
+        _listOfTentacles[tentacleIndex].HitBox.SetActive(false);
+    }
     #endregion
 
-    #region
+    #region Specific Attacks
     void KrakenRandomAttack(int skillIndex) {
         KrakenRandomAttack info = _listOfSkills[skillIndex] as KrakenRandomAttack;
 
@@ -268,57 +327,5 @@ public class KrakenManager : MonoBehaviour {
         StartCoroutine(CooldownBetweenAttacks());
     }
     #endregion
-    IEnumerator TentacleAttack(int tentacleIndex, EnemySkillSO skill) {
 
-        Animator anim = _listOfTentacles[tentacleIndex].Anim;
-        anim.SetTrigger(AttackAnimationParameter);
-
-        AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
-
-        do {
-            yield return null;
-            stateInfo = anim.GetCurrentAnimatorStateInfo(0);
-        } while (!stateInfo.IsName(AttackAnimationName));
-
-        int attackStateHash = stateInfo.fullPathHash;
-
-        while (anim.GetCurrentAnimatorStateInfo(0).fullPathHash == attackStateHash &&
-       anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f) {
-            yield return null;
-        }
-
-        do {
-            yield return null;
-            stateInfo = anim.GetCurrentAnimatorStateInfo(0);
-        } while (!stateInfo.IsName(AttackHitAnimationName));
-
-        attackStateHash = stateInfo.fullPathHash;
-        SkillAnimationEvent skillEvent = skill._listOfPrefabs[0];
-
-        do {
-            yield return null;
-            stateInfo = anim.GetCurrentAnimatorStateInfo(0);
-        } while (stateInfo.fullPathHash == attackStateHash && stateInfo.normalizedTime < skillEvent.timeToSpawnHitBox);
-
-        GameObject attackHitBox = SkillPoolingManager.Instance.ReturnHitboxFromPool(skillEvent.hitboxName, skillEvent.hitboxPrefab);
-        float yRotation = 180 + (tentacleIndex * 45);
-        attackHitBox.transform.SetPositionAndRotation(new Vector3(0, 3, 0), Quaternion.Euler(90, yRotation, 0));
-
-        InstantDamageContext newContext = new(
-            10,
-            0.1f,
-            false,
-            Tags.Player
-            );
-
-        attackHitBox.GetComponent<InstantDamageHitBox>().Initialize(newContext);
-
-        _listOfTentacles[tentacleIndex].HitBox.SetActive(true);
-
-        yield return new WaitForSeconds(3);
-
-        anim.SetTrigger(ReturnToIdleAnimationParameter);
-
-        _listOfTentacles[tentacleIndex].HitBox.SetActive(false);
-    }
 }

@@ -21,6 +21,7 @@ public class PlayerMovementManager : MonoBehaviour {
     bool _canRotate = true;
     bool _canDash = true;
     bool _isDashing = false;
+    bool _isPaused = false;
 
     // Animation
     [Header("Animation")]
@@ -51,7 +52,7 @@ public class PlayerMovementManager : MonoBehaviour {
     private void Awake() {
         _anim = GetComponentInChildren<Animator>();
         _rb = GetComponent<Rigidbody>();
-        _statusManager = GetComponent<StatusManager>();    
+        _statusManager = GetComponent<StatusManager>();
     }
 
     private void Start() {
@@ -61,9 +62,22 @@ public class PlayerMovementManager : MonoBehaviour {
 
     #region Input Events
     public void OnRotate(InputAction.CallbackContext ctx) {
-        if (!_canRotate || !_canMove) return;
+        if (!_canRotate || !_canMove || Time.timeScale == 0) return;
 
         _mousePosition = ctx.ReadValue<Vector2>();
+    }
+
+    public void OnPause(InputAction.CallbackContext ctx) {
+        if (ctx.phase == InputActionPhase.Performed) {
+            if (!_isPaused) {
+                _isPaused = true;
+                ScreensInGameUI.Instance.TurnScreenOn(TypeOfScreen.Pause);
+            }
+            else {
+                _isPaused = false;
+                ScreensInGameUI.Instance.TurnScreenOff(TypeOfScreen.Pause);
+            }
+        }
     }
 
     #endregion
@@ -141,6 +155,8 @@ public class PlayerMovementManager : MonoBehaviour {
     }
     #endregion
 
+    #region Getters
     public bool ReturnCanDash() => _canDash;
 
+    #endregion
 }
