@@ -8,6 +8,7 @@ public class AxeAttackManager : SkillObjectManager {
     #region Parameter
     // Components
     AxeSkillSO _info;
+    WeaponManager _weaponManager;
 
     // Booleans
     bool _isHoldingInput;
@@ -46,6 +47,7 @@ public class AxeAttackManager : SkillObjectManager {
         if (!gameObject.activeInHierarchy) gameObject.SetActive(true);
 
         if (_info == null) _info = skill as AxeSkillSO;
+        if (_weaponManager == null) _weaponManager = parent.GetComponent<WeaponManager>();
 
     }
 
@@ -73,9 +75,9 @@ public class AxeAttackManager : SkillObjectManager {
 
         _chargeTimer = 0;
 
+        _weaponManager.OnEquipRightHand(_info.WeaponPrefab, _info.WeaponName, _info.WeaponPosition);
 
         while (_isHoldingInput || _chargeTimer < _info.MinimalChargeTime) {
-            //Debug.Log("Charging axe attack " +  _chargeTimer + " " + _isHoldingInput);
             _chargeTimer += Time.deltaTime;
             if (_chargeTimer >= _info.MaxChargeTime) break;
             yield return null; ;
@@ -125,6 +127,8 @@ public class AxeAttackManager : SkillObjectManager {
             );
 
         attackHitBox.GetComponent<InstantDamageHitBox>().Initialize(newContext);
+
+        _weaponManager.OnDesequipRightHand();
 
         while (anim.GetCurrentAnimatorStateInfo(0).fullPathHash == attackStateHash &&
                anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f) {

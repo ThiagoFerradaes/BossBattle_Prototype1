@@ -8,6 +8,7 @@ public class ShootUpUltimateManager : SkillObjectManager
 
     // Components
     ShootUpUltimateSO _info;
+    WeaponManager _weaponManager;
 
     // Coroutines
     Coroutine _attackCoroutine;
@@ -40,16 +41,18 @@ public class ShootUpUltimateManager : SkillObjectManager
 
     void Initialize(SkillSO skill)
     {
-        if (_info == null)
-        {
-            _info = skill as ShootUpUltimateSO;
-        }
+        if (_info == null) _info = skill as ShootUpUltimateSO;
+
+        if(_weaponManager == null) _weaponManager = parent.GetComponent<WeaponManager>();
     }
 
 
     IEnumerator Attack() {
         cooldownManager.SetCooldown(slot, _info.Cooldown);
         anim.SetTrigger(_info.AnimationParameterTrigger);
+
+        _weaponManager.OnEquipRightHand(_info.WeaponPrefab, _info.WeaponName, _info.WeaponPosition);
+        _weaponManager.OnEquipLeftHand(_info.WeaponPrefab, _info.WeaponName, _info.WeaponPosition);
 
         AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
 
@@ -81,10 +84,20 @@ public class ShootUpUltimateManager : SkillObjectManager
 
         attackHitBox.GetComponent<ContinuosDamageHitBox>().Initialize(newContext);
 
+        do {
+            yield return null;
+            stateInfo = anim.GetCurrentAnimatorStateInfo(0);
+        } while (!stateInfo.IsName(_info.LastAnimationName));
+
+        attackStateHash = stateInfo.fullPathHash;
+
         while (anim.GetCurrentAnimatorStateInfo(0).fullPathHash == attackStateHash &&
                anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f) {
             yield return null;
         }
+
+        _weaponManager.OnDesequipLeftHand();
+        _weaponManager.OnDesequipRightHand();
 
         UnblockInputs();
         _attackCoroutine = null;

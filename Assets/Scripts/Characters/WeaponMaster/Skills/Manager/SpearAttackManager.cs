@@ -8,6 +8,7 @@ public class SpearAttackManager : SkillObjectManager {
 
     // Components
     SpearSkillSO _info;
+    WeaponManager _weaponManager;
 
     // Coroutines
     Coroutine _attackCoroutine;
@@ -34,6 +35,7 @@ public class SpearAttackManager : SkillObjectManager {
         if (_info == null) {
             _info = skill as SpearSkillSO;
             cooldownManager = skillManager.CooldownManager;
+            _weaponManager = parent.GetComponent<WeaponManager>();
         }
     }
 
@@ -47,6 +49,8 @@ public class SpearAttackManager : SkillObjectManager {
             yield return null;
             stateInfo = anim.GetCurrentAnimatorStateInfo(0);
         } while (!stateInfo.IsName(_info.AnimationName));
+
+        _weaponManager.OnEquipRightHand(_info.SpearPrefab, _info.SpearName, _info.WeaponPosition);
 
         int attackStateHash = stateInfo.fullPathHash;
 
@@ -78,6 +82,7 @@ public class SpearAttackManager : SkillObjectManager {
             yield return null;
         }
 
+        _weaponManager.OnDesequipRightHand();
         UnblockInputs();
         _attackCoroutine = null;
         gameObject.SetActive(false);

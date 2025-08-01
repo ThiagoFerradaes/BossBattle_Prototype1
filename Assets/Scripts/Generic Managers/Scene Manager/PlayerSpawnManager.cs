@@ -13,12 +13,17 @@ public class PlayerSpawnManager : MonoBehaviour
     }
 
     private void Start() {
+        Player.GetComponent<HealthManager>().OnDeath -= Defeat;
         Player.GetComponent<HealthManager>().OnDeath += Defeat;
     }
 
-    private void OnDestroy() {
-        Player.GetComponent<HealthManager>().OnDeath -= Defeat;
+    private void OnDisable() {
+        if (Player != null) {
+            if (Player.TryGetComponent<HealthManager>(out var health))
+                health.OnDeath -= Defeat;
+        }
     }
+
     void Defeat() {
         ScreensInGameUI.Instance.TurnScreenOn(TypeOfScreen.Defeat);
     }

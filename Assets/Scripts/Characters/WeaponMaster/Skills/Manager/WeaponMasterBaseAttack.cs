@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class WeaponMasterBaseAttack : SkillObjectManager {
@@ -7,6 +8,7 @@ public class WeaponMasterBaseAttack : SkillObjectManager {
 
     // Components
     WeaponMasterBaseAttackSO _info;
+    WeaponManager _weaponManager;
 
     // Int
     int _attackIndex = 1;
@@ -19,7 +21,8 @@ public class WeaponMasterBaseAttack : SkillObjectManager {
 
     #region Methods
     public override void UseSkill(SkillSO skill) {
-        if (_info == null) _info = skill as WeaponMasterBaseAttackSO;
+        
+        Initialize(skill);
 
         if (!gameObject.activeInHierarchy) {
             gameObject.SetActive(true);
@@ -33,6 +36,13 @@ public class WeaponMasterBaseAttack : SkillObjectManager {
         _attackCoroutine ??= StartCoroutine(Attack());
     }
 
+    private void Initialize(SkillSO skill) {
+        if (_info == null) {
+            _info = skill as WeaponMasterBaseAttackSO;
+            _weaponManager = parent.GetComponent<WeaponManager>();
+        }
+
+    }
     IEnumerator Attack() {
         float attackSpeedMultiplier = GetAttackSpeedMultiplier();
 
@@ -52,6 +62,8 @@ public class WeaponMasterBaseAttack : SkillObjectManager {
             yield return null;
             stateInfo = anim.GetCurrentAnimatorStateInfo(0);
         } while (!stateInfo.IsName(animationName));
+
+        _weaponManager.OnEquipRightHand(_info.SwordPrefab, _info.SwordName, _info.WeaponPosition);
 
         int attackStateHash = stateInfo.fullPathHash;
 
@@ -87,6 +99,8 @@ public class WeaponMasterBaseAttack : SkillObjectManager {
         anim.speed = 1f;
 
         _attackIndex = _attackIndex == 1 ? _attackIndex = 2 : _attackIndex = 1;
+
+        _weaponManager.OnDesequipRightHand();
 
         UnblockInputs();
 

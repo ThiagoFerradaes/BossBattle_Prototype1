@@ -14,8 +14,11 @@ public class WeaponMasterBaseAttackSO : SkillSO {
     public float SecondAttackDamage;
     public float CooldownBetweenAttacks;
     public float MaxTimeBetweenAttacks;
+    public GameObject SwordPrefab;
+    public string SwordName;
     public bool IsTrueDamage;
     public Tags EnemyTag;
     public Vector3 FirstBaseAttackHitBoxPosition;
     public Vector3 SecondtBaseAttackHitBoxPosition;
+    public Vector3 WeaponPosition;
 }
