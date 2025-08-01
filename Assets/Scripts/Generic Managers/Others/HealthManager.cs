@@ -17,6 +17,7 @@ public class HealthManager : MonoBehaviour {
     // Events
     public event Action<float, float> OnHealthChanged;
     public event Action<float, float> OnShieldChanged;
+    public event Action OnDeath;
     #endregion
 
     #region Methods
@@ -35,6 +36,8 @@ public class HealthManager : MonoBehaviour {
     void ChangeHealth(float newHealth) {
         _currentHealth = Mathf.Clamp(newHealth, 0, maxHealth);
         OnHealthChanged?.Invoke(_currentHealth, maxHealth);
+
+        if (_currentHealth == 0) OnDeath?.Invoke();
     }
 
     public void TakeDamage(float damage, bool trueDamage) {

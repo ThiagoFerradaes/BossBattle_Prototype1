@@ -10,9 +10,11 @@ public class KrakenTentacle {
     public Animator Anim;
     public HealthManager Health;
     public GameObject HitBox;
+    public SkinnedMeshRenderer SkinnedMeshRenderer;
 
     public KrakenTentacle(GameObject tentacle) {
         Anim = tentacle.GetComponentInChildren<Animator>();
+        SkinnedMeshRenderer = tentacle.GetComponentInChildren<SkinnedMeshRenderer>();
 
         foreach (Transform child in tentacle.transform) {
             if (child.gameObject.CompareTag("Enemy")) {
@@ -28,10 +30,12 @@ public class KrakenManager : MonoBehaviour {
     #region Parameters
 
     [Foldout("Generic Atributes"), SerializeField] float cooldownBetweenAttacks;
+    [Foldout("Generic Atributes"), SerializeField] Material deadTentacleMaterial;
 
     [Foldout("Lists"), SerializeField] List<EnemySkillSO> _listOfSkills = new();
     [Foldout("Lists"), SerializeField] List<GameObject> _tentaclesList = new();
     List<KrakenTentacle> _listOfTentacles = new();
+    int tentaclesDead = 0;
 
     [Foldout("Animation"), SerializeField] string AttackAnimationParameter;
     [Foldout("Animation"), SerializeField] string ReturnToIdleAnimationParameter;
@@ -61,8 +65,19 @@ public class KrakenManager : MonoBehaviour {
         _player = PlayerSpawnManager.Instance.Player.transform;
 
         StartCoroutine(CooldownBetweenAttacks());
+
+        for (int i = 0; i < _listOfTentacles.Count; i++) {
+            int tentacleIndex = i;
+            _listOfTentacles[i].Health.OnDeath += () => CheckTentaclesHealth(tentacleIndex);
+        }
     }
 
+    private void OnDestroy() {
+        for (int i = 0; i < _listOfTentacles.Count; i++) {
+            int tentacleIndex = i;
+            _listOfTentacles[i].Health.OnDeath -= () => CheckTentaclesHealth(tentacleIndex);
+        }
+    }
     #endregion
 
     #region Generic Attacks
@@ -326,6 +341,15 @@ public class KrakenManager : MonoBehaviour {
 
         StartCoroutine(CooldownBetweenAttacks());
     }
+    #endregion
+
+    #region Others
+    void CheckTentaclesHealth(int tentacleId) {
+        tentaclesDead++;
+        _listOfTentacles[tentacleId].SkinnedMeshRenderer.material = deadTentacleMaterial;
+        if (tentaclesDead == _tentaclesList.Count) ScreensInGameUI.Instance.TurnScreenOn(TypeOfScreen.Victory);
+    }
+
     #endregion
 
 }
