@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f61ba6564f9e3f4fb44c79ef8da56e1, type: 3}
+  m_Name: SpearAttack
+  m_EditorClassIdentifier: 
+  SkillManagerObject: {fileID: 8727905917451407449, guid: 60f532cd97f7b204fa02ffa0434e1ac5, type: 3}
+  SkillManagerName: Spear Attack Manager
+  Prefabs:
+  - timeToSpawnHitBox: 0.45
+    hitboxPrefab: {fileID: 2030686585895064686, guid: 0c886f26566d9994885dc1ea762b8edc, type: 3}
+    hitboxName: SpearAttackHitBox
+  SkillObjectRangeObject: {fileID: 7722846992070484997, guid: 4813218b9301f9f40b8323d5bccdb721, type: 3}
+  SkillObjectRangeName: Spear Attack Range
+  BlockWalkWhilePreCasting: 1
+  BlockDashWhilePreCasting: 1
+  PreCastOn: 1
+  SpearAttackTriggerName: SpearAttack
+  AnimationName: SpearAttack
+  Cooldown: 2
+  Damage: 1
+  HitBoxDuration: 0.1
+  IsTrueDamage: 0
+  SpearPrefab: {fileID: 2847143835849212098, guid: e92e5ac7b41ec62409c76332d976c10a, type: 3}
+  SpearName: SpearWeapon
+  EnemyTag: 0
+  HitBoxPosition: {x: 0, y: 1, z: 1.5}
+  WeaponPosition: {x: 0, y: 0, z: 0}
