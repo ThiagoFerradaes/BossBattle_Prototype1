@@ -15,13 +15,14 @@ public class KrakenCamera : MonoBehaviour
         Vector3 playerDir = transform.position - _player.position;
         playerDir.y = 0;
 
-        if (playerDir.sqrMagnitude < 0.01f) return;
+        if (playerDir.sqrMagnitude < 0.001f) return;
 
         Quaternion targetRotation = Quaternion.LookRotation(playerDir);
         float angle = Quaternion.Angle(transform.rotation, targetRotation);
 
         if (angle > deadAngle) {
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+            transform.rotation  = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+            Debug.Log("angle" + targetRotation);
         }
     }
 }
