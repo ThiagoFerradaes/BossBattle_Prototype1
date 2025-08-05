@@ -1,0 +1,87 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-6084979665876377265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c02bb70996b49eba31d0c206e28da24, type: 3}
+  m_Name: BlackboardTest
+  m_EditorClassIdentifier: 
+  VersionTimestamp: 638900137407807033
+  AssetID:
+    m_Value0: 8367747155980338933
+    m_Value1: 14578236945813905947
+  m_Blackboard:
+    m_Variables:
+    - rid: 9205063101979296003
+    - rid: 9205063101979296004
+  m_SharedBlackboardVariableGuids: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 9205063101979296003
+      type: {class: 'BlackboardVariable`1[[UnityEngine.Transform, UnityEngine.CoreModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 13020028001751904020
+          m_Value1: 8644332496094099307
+        Name: 1
+        m_Value: {fileID: 0}
+    - rid: 9205063101979296004
+      type: {class: 'BlackboardVariable`1[[UnityEngine.Transform, UnityEngine.CoreModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 1310723341779123462
+          m_Value1: 6075987959166223793
+        Name: 2
+        m_Value: {fileID: 0}
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dd922ae02c94c87a66e46a10a7319b9, type: 3}
+  m_Name: BlackboardTest
+  m_EditorClassIdentifier: 
+  AssetID:
+    m_Value0: 8367747155980338933
+    m_Value1: 14578236945813905947
+  m_Variables:
+  - rid: 9205063101979296001
+  - rid: 9205063101979296002
+  m_VersionTimestamp: 638900137407807033
+  m_CommandBuffer:
+    m_Commands: []
+  m_RuntimeBlackboardAsset: {fileID: -6084979665876377265}
+  references:
+    version: 2
+    RefIds:
+    - rid: 9205063101979296001
+      type: {class: 'TypedVariableModel`1[[UnityEngine.Transform, UnityEngine.CoreModule]]', ns: Unity.Behavior.GraphFramework, asm: Unity.Behavior.GraphFramework}
+      data:
+        ID:
+          m_Value0: 13020028001751904020
+          m_Value1: 8644332496094099307
+        Name: 1
+        IsExposed: 1
+        m_IsShared: 0
+        m_Value: {fileID: 0}
+    - rid: 9205063101979296002
+      type: {class: 'TypedVariableModel`1[[UnityEngine.Transform, UnityEngine.CoreModule]]', ns: Unity.Behavior.GraphFramework, asm: Unity.Behavior.GraphFramework}
+      data:
+        ID:
+          m_Value0: 1310723341779123462
+          m_Value1: 6075987959166223793
+        Name: 2
+        IsExposed: 1
+        m_IsShared: 0
+        m_Value: {fileID: 0}

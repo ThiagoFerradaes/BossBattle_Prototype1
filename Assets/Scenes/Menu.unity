@@ -343,6 +343,8 @@ GameObject:
   - component: {fileID: 386798064}
   - component: {fileID: 386798065}
   - component: {fileID: 386798066}
+  - component: {fileID: 386798067}
+  - component: {fileID: 386798068}
   m_Layer: 0
   m_Name: SceneManager
   m_TagString: Untagged
@@ -400,6 +402,48 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startButton: {fileID: 1390159069}
   exitButton: {fileID: 1953839244}
+--- !u!114 &386798067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386798063}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0038c16c34866b4f9e25c9c0dc0f7e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Graph: {fileID: 3856948193831894265, guid: d6953723ad57ba24b9945a72c9605088, type: 2}
+  m_BlackboardVariableOverridesList:
+  - rid: 9205063098026427081
+  m_IsInitialised: 0
+  m_IsStarted: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 9205063098026427081
+      type: {class: 'BlackboardVariable`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 1
+          m_Value1: 0
+        Name: Self
+        m_Value: {fileID: 386798063}
+--- !u!114 &386798068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386798063}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b90bdd9440bf0e4888ab8ebd3282877, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agent: {fileID: 386798067}
+  dificulty: 2
 --- !u!1 &1173560454
 GameObject:
   m_ObjectHideFlags: 0
