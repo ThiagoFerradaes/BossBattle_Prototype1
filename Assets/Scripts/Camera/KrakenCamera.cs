@@ -22,7 +22,6 @@ public class KrakenCamera : MonoBehaviour
 
         if (angle > deadAngle) {
             transform.rotation  = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-            Debug.Log("angle" + targetRotation);
         }
     }
 }

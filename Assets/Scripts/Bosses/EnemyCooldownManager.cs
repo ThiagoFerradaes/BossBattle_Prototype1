@@ -3,8 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyCooldownManager : MonoBehaviour {
+    public static EnemyCooldownManager Instance;
     Dictionary<EnemySkillSO, float> _listOfCooldowns = new();
 
+    private void Awake() {
+        if (Instance == null) { Instance = this; }
+        else Destroy(this);
+    }
     public void Initiate(List<EnemySkillSO> list) {
         foreach (EnemySkillSO item in list) {
             _listOfCooldowns[item] = 0f;

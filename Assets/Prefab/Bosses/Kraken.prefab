@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 5287888502505986811}
   - component: {fileID: 2287122686630386273}
   - component: {fileID: 489130667244019452}
+  - component: {fileID: 779359840465410964}
+  - component: {fileID: 4263623760775319813}
   m_Layer: 0
   m_Name: Kraken
   m_TagString: Untagged
@@ -49,7 +51,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8240045495780868108}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8633bfff1f72e3049b9a141757b60475, type: 3}
   m_Name: 
@@ -75,6 +77,7 @@ MonoBehaviour:
   AttackAnimationName: Preparing
   AttackHitAnimationName: Hit
   ReturnToIdleAnimationName: Back
+  _eventChannel: {fileID: 0}
 --- !u!114 &489130667244019452
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -87,6 +90,64 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b5b1adba46614449bb43b0735cab4af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &779359840465410964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8240045495780868108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0038c16c34866b4f9e25c9c0dc0f7e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Graph: {fileID: -2152492453250403402, guid: 8332348a0a3da20418eb39143ce9134d, type: 2}
+  m_BlackboardVariableOverridesList:
+  - rid: 9205063118173503795
+  - rid: 9205063120704504586
+  m_IsInitialised: 0
+  m_IsStarted: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 9205063118173503795
+      type: {class: 'BlackboardVariable`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 1
+          m_Value1: 0
+        Name: Self
+        m_Value: {fileID: 8240045495780868108}
+    - rid: 9205063120704504586
+      type: {class: 'BlackboardVariable`1[[System.Collections.Generic.List`1[[UnityEngine.GameObject, UnityEngine.CoreModule]], mscorlib]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 3030630681737382376
+          m_Value1: 18090345544788054613
+        Name: ListOfTentacles
+        m_Value:
+        - {fileID: 1198977836367503594}
+        - {fileID: 8854946853852135068}
+        - {fileID: 577482590094034553}
+        - {fileID: 4629017820981305619}
+        - {fileID: 3428755232696425482}
+        - {fileID: 7650392854401995219}
+        - {fileID: 9103780578410640263}
+        - {fileID: 8278915445622428677}
+--- !u!114 &4263623760775319813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8240045495780868108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b90bdd9440bf0e4888ab8ebd3282877, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dificulty: 0
 --- !u!1001 &935474270634298267
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -152,6 +213,11 @@ Transform:
 --- !u!1 &4566259660819333120 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3721631439074741147, guid: be04d6b32eb2d8a41ad9c7a9b22870cf, type: 3}
+  m_PrefabInstance: {fileID: 935474270634298267}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4629017820981305619 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5532368445945408136, guid: be04d6b32eb2d8a41ad9c7a9b22870cf, type: 3}
   m_PrefabInstance: {fileID: 935474270634298267}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2804981767242955611
@@ -221,6 +287,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1070780237928186634, guid: be04d6b32eb2d8a41ad9c7a9b22870cf, type: 3}
   m_PrefabInstance: {fileID: 2804981767242955611}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7650392854401995219 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5532368445945408136, guid: be04d6b32eb2d8a41ad9c7a9b22870cf, type: 3}
+  m_PrefabInstance: {fileID: 2804981767242955611}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3643917847893367055
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -288,6 +359,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1070780237928186634, guid: be04d6b32eb2d8a41ad9c7a9b22870cf, type: 3}
   m_PrefabInstance: {fileID: 3643917847893367055}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &9103780578410640263 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5532368445945408136, guid: be04d6b32eb2d8a41ad9c7a9b22870cf, type: 3}
+  m_PrefabInstance: {fileID: 3643917847893367055}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3901802784402854932
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -336,6 +412,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2437458993957259180, guid: be04d6b32eb2d8a41ad9c7a9b22870cf, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: -876546973899608171, guid: 2463403e401c83743bab92756cc360d9, type: 3}
     - target: {fileID: 3721631439074741147, guid: be04d6b32eb2d8a41ad9c7a9b22870cf, type: 3}
       propertyPath: m_Name
       value: Tentacle2
@@ -353,6 +433,11 @@ GameObject:
 --- !u!4 &4105541241020716830 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1070780237928186634, guid: be04d6b32eb2d8a41ad9c7a9b22870cf, type: 3}
+  m_PrefabInstance: {fileID: 3901802784402854932}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8854946853852135068 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5532368445945408136, guid: be04d6b32eb2d8a41ad9c7a9b22870cf, type: 3}
   m_PrefabInstance: {fileID: 3901802784402854932}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4477271210601102989
@@ -422,6 +507,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1070780237928186634, guid: be04d6b32eb2d8a41ad9c7a9b22870cf, type: 3}
   m_PrefabInstance: {fileID: 4477271210601102989}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &8278915445622428677 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5532368445945408136, guid: be04d6b32eb2d8a41ad9c7a9b22870cf, type: 3}
+  m_PrefabInstance: {fileID: 4477271210601102989}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4955448951984680177
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -479,6 +569,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: be04d6b32eb2d8a41ad9c7a9b22870cf, type: 3}
+--- !u!1 &577482590094034553 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5532368445945408136, guid: be04d6b32eb2d8a41ad9c7a9b22870cf, type: 3}
+  m_PrefabInstance: {fileID: 4955448951984680177}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5339411417597947899 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1070780237928186634, guid: be04d6b32eb2d8a41ad9c7a9b22870cf, type: 3}
@@ -546,6 +641,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: be04d6b32eb2d8a41ad9c7a9b22870cf, type: 3}
+--- !u!1 &1198977836367503594 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5532368445945408136, guid: be04d6b32eb2d8a41ad9c7a9b22870cf, type: 3}
+  m_PrefabInstance: {fileID: 6657855405544671842}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5960893178210961768 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1070780237928186634, guid: be04d6b32eb2d8a41ad9c7a9b22870cf, type: 3}
@@ -613,6 +713,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: be04d6b32eb2d8a41ad9c7a9b22870cf, type: 3}
+--- !u!1 &3428755232696425482 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5532368445945408136, guid: be04d6b32eb2d8a41ad9c7a9b22870cf, type: 3}
+  m_PrefabInstance: {fileID: 7157215406837872258}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &5833970689060633881 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3721631439074741147, guid: be04d6b32eb2d8a41ad9c7a9b22870cf, type: 3}

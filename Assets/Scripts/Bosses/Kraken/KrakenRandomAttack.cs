@@ -1,7 +1,6 @@
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Kraken / RandomAttack")]
-public class KrakenRandomAttack : EnemySkillSO
-{
+public class KrakenRandomAttack : KrakenSkillSO {
     
 }

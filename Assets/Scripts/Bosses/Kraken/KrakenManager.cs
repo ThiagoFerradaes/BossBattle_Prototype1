@@ -2,9 +2,12 @@ using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Behavior;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
+[BlackboardEnum] public enum KrakenAttack { Random, Spinning, HalfArena, Cross, Tentacle, Rain}
+[BlackboardEnum] public enum TypeOfRotation { Clock, CounterClock}
 public class KrakenTentacle {
     public Animator Anim;
     public HealthManager Health;
@@ -42,6 +45,8 @@ public class KrakenManager : MonoBehaviour {
     [Foldout("Animation"), SerializeField] string AttackHitAnimationName;
     [Foldout("Animation"), SerializeField] string ReturnToIdleAnimationName;
 
+    [SerializeField] private EventChannel _eventChannel;
+
     EnemyCooldownManager _enemyCooldownManager;
     Transform _player;
 
@@ -63,7 +68,7 @@ public class KrakenManager : MonoBehaviour {
 
         _player = PlayerSpawnManager.Instance.Player.transform;
 
-        StartCoroutine(CooldownBetweenAttacks());
+        //StartCoroutine(CooldownBetweenAttacks());
 
         for (int i = 0; i < _listOfTentacles.Count; i++) {
             int tentacleIndex = i;
