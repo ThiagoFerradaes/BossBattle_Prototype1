@@ -6,27 +6,7 @@ using Unity.Behavior;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-[BlackboardEnum] public enum KrakenAttack { Random, Spinning, HalfArena, Cross, Tentacle, Rain}
-[BlackboardEnum] public enum TypeOfRotation { Clock, CounterClock}
-public class KrakenTentacle {
-    public Animator Anim;
-    public HealthManager Health;
-    public GameObject HitBox;
-    public SkinnedMeshRenderer SkinnedMeshRenderer;
 
-    public KrakenTentacle(GameObject tentacle) {
-        Anim = tentacle.GetComponentInChildren<Animator>();
-        SkinnedMeshRenderer = tentacle.GetComponentInChildren<SkinnedMeshRenderer>();
-
-        foreach (Transform child in tentacle.transform) {
-            if (child.gameObject.CompareTag("Enemy")) {
-                HitBox = child.gameObject;
-            }
-        }
-
-        Health = HitBox.GetComponent<HealthManager>();
-    }
-}
 public class KrakenManager : MonoBehaviour {
 
     #region Parameters
@@ -44,8 +24,6 @@ public class KrakenManager : MonoBehaviour {
     [Foldout("Animation"), SerializeField] string AttackAnimationName;
     [Foldout("Animation"), SerializeField] string AttackHitAnimationName;
     [Foldout("Animation"), SerializeField] string ReturnToIdleAnimationName;
-
-    [SerializeField] private EventChannel _eventChannel;
 
     EnemyCooldownManager _enemyCooldownManager;
     Transform _player;

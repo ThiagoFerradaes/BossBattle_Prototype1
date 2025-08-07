@@ -6,44 +6,18 @@ using Unity.Properties;
 using UnityEngine;
 using Action = Unity.Behavior.Action;
 
-[BlackboardEnum] public enum KrakenAttack { Random, Spinning, HalfArena, Cross, Tentacle, Rain }
-[BlackboardEnum] public enum TypeOfRotation { Clock, CounterClock }
-public class KrakenTentacle {
-    public Animator Anim;
-    public HealthManager Health;
-    public GameObject HitBox;
-    public SkinnedMeshRenderer SkinnedMeshRenderer;
-
-    public KrakenTentacle(GameObject tentacle) {
-        Anim = tentacle.GetComponentInChildren<Animator>();
-        SkinnedMeshRenderer = tentacle.GetComponentInChildren<SkinnedMeshRenderer>();
-
-        foreach (Transform child in tentacle.transform) {
-            if (child.gameObject.CompareTag("Enemy")) {
-                HitBox = child.gameObject;
-            }
-        }
-
-        Health = HitBox.GetComponent<HealthManager>();
-    }
-}
-
 [Serializable, GeneratePropertyBag]
-[NodeDescription(name: "TentacleAttack", 
-    story: "Perform an [Attack] from index: [Tentacle] " +
-    "from list: [ListOfTentacles] using [KrakenObject]", 
-    category: "Action/Kraken", 
-    id: "106c35dc0f73da6ae018dd478b4b37c9")]
-public partial class TentacleAttackAction : Action {
-    [SerializeReference] public BlackboardVariable<int> Tentacle;
+[NodeDescription(name: "Multi Tentacle Attack", story: "[TentacleList] [Attack] using [ListOfTentacles] and [Self]", category: "Action/Kraken", id: "68a06ec608eab0f964e15ff35d277275")]
+public partial class MultiTentacleAttackAction : Action {
+    [SerializeReference] public BlackboardVariable<List<int>> TentacleList;
     [SerializeReference] public BlackboardVariable<KrakenTentacleAttack> Attack;
-    [SerializeReference] public BlackboardVariable<GameObject> KrakenObject;
     [SerializeReference] public BlackboardVariable<List<GameObject>> ListOfTentacles;
+    [SerializeReference] public BlackboardVariable<GameObject> Self;
 
     List<KrakenTentacle> _listOfTentacles = new();
 
     protected override Status OnStart() {
-        var owner = KrakenObject.Value.GetComponent<BehaviorGraphAgent>();
+        var owner = Self.Value.GetComponent<BehaviorGraphAgent>();
 
         if (ListOfTentacles != null) {
             for (int i = 0; i < ListOfTentacles.Value.Count; i++) {
@@ -53,7 +27,9 @@ public partial class TentacleAttackAction : Action {
         }
 
         if (owner != null) {
-            owner.StartCoroutine(TentacleAttack());
+            foreach (var t in TentacleList.Value) {
+                owner.StartCoroutine(TentacleAttack(t));
+            }
             return Status.Success;
         }
         else {
@@ -63,10 +39,9 @@ public partial class TentacleAttackAction : Action {
         return Status.Failure;
     }
 
-    IEnumerator TentacleAttack() {
+    IEnumerator TentacleAttack(int tentacleIndex) {
 
-        int currentTentacleIndex = Tentacle.Value;
-        Animator anim = ListOfTentacles.Value[Tentacle.Value].GetComponentInChildren<Animator>();
+        Animator anim = ListOfTentacles.Value[tentacleIndex].GetComponentInChildren<Animator>();
         anim.SetTrigger(Attack.Value.AttackAnimationParameter);
 
         AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
@@ -97,7 +72,7 @@ public partial class TentacleAttackAction : Action {
         } while (stateInfo.fullPathHash == attackStateHash && stateInfo.normalizedTime < skillEvent.timeToSpawnHitBox);
 
         GameObject attackHitBox = SkillPoolingManager.Instance.ReturnHitboxFromPool(skillEvent.hitboxName, skillEvent.hitboxPrefab);
-        float yRotation = 180 + (currentTentacleIndex * 45);
+        float yRotation = 180 + (tentacleIndex * 45);
         attackHitBox.transform.SetPositionAndRotation(new Vector3(0, 3, 0), Quaternion.Euler(90, yRotation, 0));
 
         InstantDamageContext newContext = new(
@@ -109,13 +84,13 @@ public partial class TentacleAttackAction : Action {
 
         attackHitBox.GetComponent<InstantDamageHitBox>().Initialize(newContext);
 
-        _listOfTentacles[currentTentacleIndex].HitBox.SetActive(true);
+        _listOfTentacles[tentacleIndex].HitBox.SetActive(true);
 
         yield return new WaitForSeconds(3);
 
         anim.SetTrigger(Attack.Value.ReturnToIdleAnimationParameter);
 
-        _listOfTentacles[currentTentacleIndex].HitBox.SetActive(false);
+        _listOfTentacles[tentacleIndex].HitBox.SetActive(false);
     }
 }
 
