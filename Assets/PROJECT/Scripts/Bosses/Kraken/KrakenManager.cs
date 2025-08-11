@@ -2,11 +2,28 @@ using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.Behavior;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
+public class KrakenTentacle {
+    public Animator Anim;
+    public HealthManager Health;
+    public GameObject HitBox;
+    public SkinnedMeshRenderer SkinnedMeshRenderer;
 
+    public KrakenTentacle(GameObject tentacle) {
+        Anim = tentacle.GetComponentInChildren<Animator>();
+        SkinnedMeshRenderer = tentacle.GetComponentInChildren<SkinnedMeshRenderer>();
+
+        foreach (Transform child in tentacle.transform) {
+            if (child.gameObject.CompareTag("Enemy")) {
+                HitBox = child.gameObject;
+            }
+        }
+
+        Health = HitBox.GetComponent<HealthManager>();
+    }
+}
 public class KrakenManager : MonoBehaviour {
 
     #region Parameters

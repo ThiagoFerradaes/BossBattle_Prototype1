@@ -2,7 +2,6 @@ using AYellowpaper.SerializedCollections;
 using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Behavior;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -18,7 +17,6 @@ public class ScreensInGameUI : MonoBehaviour {
     [Foldout("Dictionary"), SerializedDictionary("Type of Screen", "GameObject"), SerializeField]
     SerializedDictionary<Button, TypeOfButton> dictionaryOfButtons = new();
 
-    [SerializeField] EventChannel OnBossDead;
     private void Awake() {
 
         if (Instance == null) Instance = this;
@@ -28,12 +26,8 @@ public class ScreensInGameUI : MonoBehaviour {
             SetButton(button.Value, button.Key);
         }
 
-        if (OnBossDead != null) OnBossDead.Event += () => TurnScreenOn(TypeOfScreen.Victory);
     }
 
-    private void OnDestroy() {
-        if (OnBossDead != null && this.gameObject.activeInHierarchy) OnBossDead.Event -= () => TurnScreenOn(TypeOfScreen.Victory);
-    }
     public void TurnScreenOn(TypeOfScreen type) {
         if (!dictionaryOfScreens.ContainsKey(type)) return;
 

@@ -48,7 +48,6 @@ public class WeaponMasterPassive : PassiveSkillManager {
         _healthManager = parent.GetComponent<HealthManager>();
         _playerSkillCooldownManager = parent.GetComponent<PlayerSkillCooldownManager>();
         _statusManager = parent.GetComponent<StatusManager>();
-        Debug.Log("Status" + _statusManager);
     }
     void ChangePassive(WeaponType type) {
         switch (type) {
