@@ -53,6 +53,7 @@ public class ScreensInGameUI : MonoBehaviour {
         switch (type) {
             case TypeOfButton.Menu:
                 button.onClick.AddListener(() => SceneManager.LoadScene(0));
+                Time.timeScale = 1;
                 break;
             case TypeOfButton.Continue:
                 button.onClick.AddListener(() => TurnScreenOff(TypeOfScreen.Pause));

@@ -151,5 +151,9 @@ public class AxeAttackManager : SkillObjectManager {
         else return false;
     }
 
+    private void OnDestroy() {
+        OnWeaponChange = null;
+    }
+
     #endregion
 }

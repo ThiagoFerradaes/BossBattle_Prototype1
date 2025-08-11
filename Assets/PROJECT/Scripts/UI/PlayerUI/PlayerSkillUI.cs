@@ -44,6 +44,7 @@ public class PlayerSkillUI : MonoBehaviour {
         };
     }
     private void SubscribeEvents() {
+        PlayerSkillCooldownManager.OnCooldownSet -= StartCooldownUI;
         PlayerSkillCooldownManager.OnCooldownSet += StartCooldownUI;
     }
 
@@ -79,6 +80,10 @@ public class PlayerSkillUI : MonoBehaviour {
         foreach (var image in cooldownImages.Values) {
             image.fillAmount = 0f;
         }
+    }
+
+    private void OnDisable() {
+        PlayerSkillCooldownManager.OnCooldownSet -= StartCooldownUI;
     }
 
     #endregion

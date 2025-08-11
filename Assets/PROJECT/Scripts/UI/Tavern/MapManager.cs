@@ -102,6 +102,15 @@ public class MapManager : MonoBehaviour {
         BossName.text = description.Name;
         BossDescription.text = description.Description;
         _nextSceneIndex = description.SceneIndex;
+
+
+        foreach (var character in DictionaryOfCharacterButtons.Keys) {
+            if (character.Character == PlayerWhiteBoard.Instance.ReturnSelectedCharacter()) {
+                SelectACharacter(character);
+            }
+        }
+        
+
     }
     void Sail() {
         SceneManager.LoadScene(_nextSceneIndex);

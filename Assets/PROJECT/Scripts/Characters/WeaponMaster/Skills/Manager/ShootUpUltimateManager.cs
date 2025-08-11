@@ -105,5 +105,8 @@ public class ShootUpUltimateManager : SkillObjectManager
         gameObject.SetActive(false);
     }
 
+    private void OnDestroy() {
+        OnWeaponChange = null;
+    }
     #endregion
 }

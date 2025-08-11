@@ -88,6 +88,8 @@ public class SpearAttackManager : SkillObjectManager {
         gameObject.SetActive(false);
     }
 
-
+    private void OnDestroy() {
+        OnWeaponChange = null;
+    }
     #endregion
 }

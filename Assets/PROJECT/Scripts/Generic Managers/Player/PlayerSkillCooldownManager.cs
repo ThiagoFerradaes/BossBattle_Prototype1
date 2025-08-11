@@ -3,8 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerSkillCooldownManager : MonoBehaviour
-{
+public class PlayerSkillCooldownManager : MonoBehaviour {
     #region Parameter
 
     // Dictionaries
@@ -17,16 +16,18 @@ public class PlayerSkillCooldownManager : MonoBehaviour
     #endregion
 
     #region Methods
-    private void Awake()
-    {
-        foreach (SkillSlot slot in System.Enum.GetValues(typeof(SkillSlot)))
-        {
+    private void Awake() {
+
+        foreach (SkillSlot slot in System.Enum.GetValues(typeof(SkillSlot))) {
             _cooldowns[slot] = 0f;
         }
     }
 
-    public void SetCooldown(SkillSlot slot, float cooldown)
-    {
+    private void OnDestroy() {
+        OnCooldownSet = null;
+    }
+
+    public void SetCooldown(SkillSlot slot, float cooldown) {
         if (_runningCoroutines.TryGetValue(slot, out Coroutine running) && running != null) {
             StopCoroutine(running);
         }
@@ -37,10 +38,8 @@ public class PlayerSkillCooldownManager : MonoBehaviour
         if (slot != SkillSlot.BaseAttack) OnCooldownSet?.Invoke(slot, cooldown);
     }
 
-    private IEnumerator CooldownCoroutine(SkillSlot slot)
-    {
-        while (_cooldowns[slot] > 0f)
-        {
+    private IEnumerator CooldownCoroutine(SkillSlot slot) {
+        while (_cooldowns[slot] > 0f) {
             _cooldowns[slot] -= Time.deltaTime;
             yield return null;
         }

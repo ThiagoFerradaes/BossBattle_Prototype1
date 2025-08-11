@@ -57,7 +57,6 @@ public class PlayerSkillManager : MonoBehaviour {
         _dash = whiteboard.ReturnDash(PlayerWhiteBoard.Instance.ReturnSelectedCharacter());
         _baseAttackSkill = whiteboard.ReturnBaseAttack(PlayerWhiteBoard.Instance.ReturnSelectedCharacter());
 
-        Debug.Log(_passive);
     }
     void StartPassive() {
         GameObject passiveManager = SkillPoolingManager.Instance.ReturnManagerFromPool(_passive.PassiveName, _passive.PassiveManager.gameObject);
