@@ -12,7 +12,7 @@ public class BackGroundManager : MonoBehaviour {
 
     private void Start() {
         StartCoroutine(ChangeImages());
-        Debug.Log("Time: " + Time.timeScale);
+        Time.timeScale = 1;
     }
 
     IEnumerator ChangeImages() {
