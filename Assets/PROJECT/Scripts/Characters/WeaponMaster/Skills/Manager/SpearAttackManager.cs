@@ -67,10 +67,13 @@ public class SpearAttackManager : SkillObjectManager {
         attackHitBox.transform.SetLocalPositionAndRotation(_info.HitBoxPosition, Quaternion.identity);
 
         InstantDamageContext newContext = new(
-            ReturnSkillDamage(_info.Damage),
+            _info.Damage,
             _info.HitBoxDuration,
-            _info.IsTrueDamage,
-            _info.EnemyTag
+            _info.Penetration,
+            _info.HitShield,
+            _info.DamageType,
+            _info.EnemyTag,
+            parent.GetComponent<StatusManager>()
             );
 
         attackHitBox.GetComponent<InstantDamageHitBox>().Initialize(newContext);

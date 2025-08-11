@@ -3,11 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyCooldownManager : MonoBehaviour {
+
+    #region Parameters
+
     public static EnemyCooldownManager Instance;
     Dictionary<EnemySkillSO, float> _listOfCooldowns = new();
 
+    #endregion
+
+    #region Methods
+
+    #region Initialize
     private void Awake() {
-        if (Instance == null) { Instance = this; }
+        if (Instance == null) { // Singleton
+            Instance = this;
+        }
         else Destroy(this);
     }
     public void Initiate(List<EnemySkillSO> list) {
@@ -15,7 +25,14 @@ public class EnemyCooldownManager : MonoBehaviour {
             _listOfCooldowns[item] = 0f;
         }
     }
+    #endregion
 
+    #region Cooldown
+    /// <summary>
+    /// Return the status of a skill cooldown
+    /// </summary>
+    /// <param name="skill"></param>
+    /// <returns></returns>
     public bool SkillInCooldown(EnemySkillSO skill) {
         if (_listOfCooldowns.ContainsKey(skill)) {
             if (_listOfCooldowns[skill] > 0f) return true;
@@ -24,6 +41,10 @@ public class EnemyCooldownManager : MonoBehaviour {
         else return true;
     }
 
+    /// <summary>
+    /// Set the cooldown of a skill
+    /// </summary>
+    /// <param name="skill"></param>
     public void SetSkillCooldown(EnemySkillSO skill) {
         if (!_listOfCooldowns.ContainsKey(skill)) return;
 
@@ -40,4 +61,7 @@ public class EnemyCooldownManager : MonoBehaviour {
 
         _listOfCooldowns[skill] = 0f;
     }
+    #endregion
+
+    #endregion
 }

@@ -13,8 +13,11 @@ public class ShootUpUltimateSO : SkillSO
     public float Damage;
     public float DamageCooldown;
     public float Duration;
-    public GameObject WeaponPrefab;
+    public float Penetration;
+    public bool HitShield;
     public string WeaponName;
     public Tags EnemyTag;
+    public DamageType DamageType;
+    public GameObject WeaponPrefab;
     public Vector3 WeaponPosition;
 }

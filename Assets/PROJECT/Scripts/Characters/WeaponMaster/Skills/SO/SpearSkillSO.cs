@@ -11,10 +11,12 @@ public class SpearSkillSO : SkillSO
     public float Cooldown;
     public float Damage;
     public float HitBoxDuration;
-    public bool IsTrueDamage;
-    public GameObject SpearPrefab;
+    public float Penetration;
+    public bool HitShield;
     public string SpearName;
     public Tags EnemyTag;
+    public DamageType DamageType;
+    public GameObject SpearPrefab;
     public Vector3 HitBoxPosition;
     public Vector3 WeaponPosition;
 }

@@ -87,15 +87,5 @@ public abstract class SkillObjectManager : MonoBehaviour {
     }
     public virtual void UseSkill(SkillSO skill) { }
 
-    public virtual float ReturnSkillDamage(float skillDamage) {
-        float rng = Random.Range(0, 100);
-
-        if (rng > statusManager.ReturnStatusValue(StatusType.CritRate)) // Não critou
-            return statusManager.ReturnStatusValue(StatusType.Attack) * skillDamage;
-        else // Critou
-            return statusManager.ReturnStatusValue(StatusType.Attack) * skillDamage 
-                * statusManager.ReturnStatusValue(StatusType.CritDamage)/100;
-    }
-
     #endregion
 }

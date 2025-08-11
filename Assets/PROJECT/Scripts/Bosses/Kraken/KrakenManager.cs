@@ -175,8 +175,11 @@ public class KrakenManager : MonoBehaviour {
         InstantDamageContext newContext = new(
             10,
             0.1f,
+            0,
             false,
-            Tags.Player
+            DamageType.Physical,
+            Tags.Player,
+            gameObject.GetComponent<StatusManager>()
             );
 
         attackHitBox.GetComponent<InstantDamageHitBox>().Initialize(newContext);
@@ -253,7 +256,7 @@ public class KrakenManager : MonoBehaviour {
         StartCoroutine(TentacleAttack(tentacleToHit, info));
         StartCoroutine(TentacleAttack(secondTentacleIndex, info));
 
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(info.CooldownBetweenAttacks);
 
         if (isRight) {
             tentacleToHit = (tentacleToHit - 1 + _tentaclesList.Count) % _tentaclesList.Count;

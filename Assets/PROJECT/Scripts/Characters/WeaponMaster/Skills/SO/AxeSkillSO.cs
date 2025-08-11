@@ -15,9 +15,11 @@ public class AxeSkillSO : SkillSO
     public float MinDamage;
     public float MaxDamage;
     public float HitBoxDuration;
+    public float Penetration;
     public string WeaponName;
     public GameObject WeaponPrefab;
     public Tags EnemyTag;
+    public DamageType DamageType;
     public Vector3 WeaponPosition;
     public Vector3 HitBoxPosition;
 }

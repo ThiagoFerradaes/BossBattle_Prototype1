@@ -6,13 +6,16 @@ public class HealthManager : MonoBehaviour {
 
     #region Paramethers
     // floats
-    float maxHealth;
-    public float _currentHealth;
-    float maxShield;
-    private float _currentShield;
+    float _maxHealth;
+    float _currentHealth;
+    float _maxShield;
+    float _currentShield;
 
     // Components
     StatusManager _statusManager;
+
+    // Bools 
+    bool _isDead;
 
     // Events
     public event Action<float, float> OnHealthChanged;
@@ -28,22 +31,29 @@ public class HealthManager : MonoBehaviour {
     }
 
     private void Start() {
-        maxHealth = _statusManager.ReturnStatusValue(StatusType.MaxHealth);
-        maxShield = _statusManager.ReturnStatusValue(StatusType.MaxAmountOfShield);
-        ChangeHealth(maxHealth);
+        _maxHealth = _statusManager.ReturnStatusValue(StatusType.MaxHealth);
+        _maxShield = _statusManager.ReturnStatusValue(StatusType.MaxAmountOfShield);
+        ChangeHealth(_maxHealth);
         ChangeShield(0);
     }
     #endregion
 
     #region Health
     void ChangeHealth(float newHealth) {
-        _currentHealth = Mathf.Clamp(newHealth, 0, maxHealth);
-        OnHealthChanged?.Invoke(_currentHealth, maxHealth);
+        _currentHealth = Mathf.Clamp(newHealth, 0, _maxHealth);
+        OnHealthChanged?.Invoke(_currentHealth, _maxHealth);
 
-        if (_currentHealth == 0) OnDeath?.Invoke();
+        if (_currentHealth <= 0) {
+            _isDead = true;
+            OnDeath?.Invoke();
+        }
+        else {
+            _isDead = false;
+        }
     }
 
     public void TakeDamage(float damage, bool trueDamage) {
+        if (_isDead) return;
         if (trueDamage) ChangeHealth(_currentHealth - damage);
         else {
             bool isShielded = _currentShield > 0;
@@ -63,8 +73,8 @@ public class HealthManager : MonoBehaviour {
 
     #region Shield
     void ChangeShield(float newShield) {
-        _currentShield = Mathf.Clamp(newShield, 0, maxHealth * maxShield);
-        OnShieldChanged?.Invoke(_currentShield, maxHealth * maxShield);
+        _currentShield = Mathf.Clamp(newShield, 0, _maxHealth * _maxShield);
+        OnShieldChanged?.Invoke(_currentShield, _maxHealth * _maxShield);
     }
     public void RecieveShield(float shieldAmount, float shieldDuration) {
         StartCoroutine(ShieldDuration(shieldAmount, shieldDuration));

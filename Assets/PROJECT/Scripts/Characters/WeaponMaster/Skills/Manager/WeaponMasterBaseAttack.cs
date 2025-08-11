@@ -77,16 +77,21 @@ public class WeaponMasterBaseAttack : SkillObjectManager {
 
         Vector3 hitBoxPosition = _attackIndex == 1 ? _info.FirstBaseAttackHitBoxPosition : _info.SecondtBaseAttackHitBoxPosition;
         float attackDamage = _attackIndex == 1 ? _info.FirstAttackDamage : _info.SecondAttackDamage;
+        float penetration = _attackIndex == 1? _info.PenetrationFirstAttack : _info.PenetrationSecondAttack;
+        float hitBoxDuration = _attackIndex == 1 ? _info.FirstAttackHitBoxDuration : _info.SecondAttackHitBoxDuration;
 
         GameObject attackHitBox = SkillPoolingManager.Instance.ReturnHitboxFromPool(prefabInfo.hitboxName, prefabInfo.hitboxPrefab);
         attackHitBox.transform.SetParent(parent.transform);
         attackHitBox.transform.SetLocalPositionAndRotation(hitBoxPosition, Quaternion.identity);
 
         InstantDamageContext newContext = new(
-            ReturnSkillDamage(attackDamage),
-            0.1f,
-            _info.IsTrueDamage,
-            _info.EnemyTag
+            attackDamage,
+            hitBoxDuration,
+            penetration,
+            _info.HitShield,
+            _info.DamageType,
+            _info.EnemyTag,
+            parent.GetComponent<StatusManager>()
             );
 
         attackHitBox.GetComponent<InstantDamageHitBox>().Initialize(newContext);

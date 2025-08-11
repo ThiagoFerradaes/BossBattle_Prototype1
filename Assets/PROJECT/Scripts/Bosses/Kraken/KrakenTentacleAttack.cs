@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Kraken / TentacleAttack")]
-public class KrakenTentacleAttack : KrakenSkillSO
+public class KrakenTentacleAttack : EnemySkillSO
 {
     public string AttackAnimationParameter;
     public string ReturnToIdleAnimationParameter;

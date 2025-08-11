@@ -120,10 +120,13 @@ public class AxeAttackManager : SkillObjectManager {
         attackHitBox.transform.SetLocalPositionAndRotation(_info.HitBoxPosition, Quaternion.identity);
 
         InstantDamageContext newContext = new(
-            ReturnSkillDamage(ReturnDamage()),
+            ReturnDamage(),
             _info.HitBoxDuration,
-            ReturnIsTrueDamage(),
-            _info.EnemyTag
+            _info.Penetration,
+            ReturnHitShield(),
+            _info.DamageType,
+            _info.EnemyTag,
+            parent.GetComponent<StatusManager>()
             );
 
         attackHitBox.GetComponent<InstantDamageHitBox>().Initialize(newContext);
@@ -146,7 +149,7 @@ public class AxeAttackManager : SkillObjectManager {
         return Mathf.Clamp(damage, _info.MinDamage, _info.MaxDamage);
     }
 
-    bool ReturnIsTrueDamage() {
+    bool ReturnHitShield() {
         if (_chargeTimer >= _info.MaxChargeTime) return true;
         else return false;
     }

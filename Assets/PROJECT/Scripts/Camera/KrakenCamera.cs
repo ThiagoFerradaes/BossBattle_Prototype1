@@ -1,10 +1,18 @@
 using UnityEngine;
 
-public class KrakenCamera : MonoBehaviour
-{
-    Transform _player;
+public class KrakenCamera : MonoBehaviour {
+    #region Parameters
+
+    [Header("Atributes")]
     [SerializeField] float rotationSpeed = 2f;
     [SerializeField] float deadAngle = 3f;
+
+    // Components
+    Transform _player;
+
+    #endregion
+
+    #region Methods
 
     private void Start() {
         _player = PlayerManager.Instance.Player.transform;
@@ -21,7 +29,9 @@ public class KrakenCamera : MonoBehaviour
         float angle = Quaternion.Angle(transform.rotation, targetRotation);
 
         if (angle > deadAngle) {
-            transform.rotation  = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         }
     }
+
+    #endregion
 }

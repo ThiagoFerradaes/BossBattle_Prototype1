@@ -26,18 +26,24 @@ MonoBehaviour:
   BlockWalkWhilePreCasting: 1
   BlockDashWhilePreCasting: 1
   PreCastOn: 1
+  SkillCharacter: 0
   FirstBaseAttackParameter: BaseAttackOne
   FirstBaseAttackAnimationName: BaseAttackOne
   SecondBaseAttackParameter: BaseAttackTwo
   SecondtBaseAttackAnimationName: BaseAttackTwo
   FirstAttackDamage: 1
   SecondAttackDamage: 2
+  FirstAttackHitBoxDuration: 0.1
+  SecondAttackHitBoxDuration: 0.1
   CooldownBetweenAttacks: 1
   MaxTimeBetweenAttacks: 2
-  SwordPrefab: {fileID: 2980958354712852747, guid: 6793abb85d087f94b8f42eb79ca00943, type: 3}
+  PenetrationFirstAttack: 0
+  PenetrationSecondAttack: 0
   SwordName: SwordWeapon
-  IsTrueDamage: 0
+  HitShield: 1
   EnemyTag: 0
+  DamageType: 0
+  SwordPrefab: {fileID: 2980958354712852747, guid: 6793abb85d087f94b8f42eb79ca00943, type: 3}
   FirstBaseAttackHitBoxPosition: {x: 0, y: 0, z: 1.5}
   SecondtBaseAttackHitBoxPosition: {x: 0, y: 0, z: 1.5}
   WeaponPosition: {x: 0, y: 0, z: 0}

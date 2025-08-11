@@ -1,6 +1,6 @@
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Kraken / SpinningAttack")]
-public class KrakenSpinningAttack : KrakenSkillSO {
+public class KrakenSpinningAttack : EnemySkillSO {
     public float CooldownBetweenEachTentacle;
 }

@@ -5,18 +5,24 @@ using UnityEngine;
 public class ContinuosDamageContext {
     public float Damage;
     public float Duration;
+    public float Penetration;
     public float DamageCooldown;
-    public bool IsTrueDamage;
-    public Tags UnitToDamageTag;
+    public bool HitShield;
+    public DamageType TypeOfDamage;
+    public Tags UnitToHitTag;
+    public StatusManager StatusManager;
     public List<Modifiers> ListOfModifiers;
 
-    public ContinuosDamageContext(float damage, float hitBoxDuration, float damageCooldown
-        , bool isTrueDamage, Tags tag, List<Modifiers> listOfModifiers = null) {
+    public ContinuosDamageContext(float damage, float hitBoxDuration, float penetration, float damageCooldown
+        , bool hitShield, Tags tag, DamageType type, StatusManager status, List<Modifiers> listOfModifiers = null) {
         this.Damage = damage;
         this.Duration = hitBoxDuration;
         this.DamageCooldown = damageCooldown;
-        this.IsTrueDamage = isTrueDamage;
-        this.UnitToDamageTag = tag;
+        this.Penetration = penetration;
+        this.HitShield = hitShield;
+        this.TypeOfDamage = type;
+        this.UnitToHitTag = tag;
+        this.StatusManager = status;
         this.ListOfModifiers = listOfModifiers ?? new List<Modifiers>();
     }
 }
@@ -26,14 +32,23 @@ public class ContinuosDamageHitBox : MonoBehaviour
     float _damagePerTick;
     float _damageCooldown;
     float _duration;
+    float _penetrarion;
+    DamageType _type;
     string _typeOfUnit;
-    bool _isTrueDamage;
+    bool _hitShield;
+    StatusManager _dealerStatus;
 
     HashSet<GameObject> _listOfHealths = new();
     public void Initialize(ContinuosDamageContext context)
     {
-        _damagePerTick = context.Damage; _duration = context.Duration;
-        _damageCooldown = context.DamageCooldown; _typeOfUnit = context.UnitToDamageTag.ToString();
+        _damagePerTick = context.Damage;
+        _duration = context.Duration;
+        _damageCooldown = context.DamageCooldown;
+        _penetrarion = context.Penetration;
+        _type = context.TypeOfDamage;
+        _dealerStatus = context.StatusManager;
+        _hitShield = context.HitShield;
+        _typeOfUnit = context.UnitToHitTag.ToString();
 
         gameObject.SetActive(true);
         StartCoroutine(AttackDuration());
@@ -57,8 +72,19 @@ public class ContinuosDamageHitBox : MonoBehaviour
         while (true)
         {
             foreach (GameObject unit in _listOfHealths) {
-                if (unit.TryGetComponent<HealthManager>(out HealthManager health)) {
-                    health.TakeDamage(_damagePerTick, _isTrueDamage);
+                if (unit.TryGetComponent<HealthManager>(out HealthManager health) && 
+                    unit.TryGetComponent<StatusManager>(out StatusManager recieverManager)) {
+
+                    float damage = DamageCalculator.CalculateDamage(
+                        _type,
+                        _damagePerTick,
+                        _penetrarion,
+                        _dealerStatus,
+                        recieverManager
+                        );
+
+
+                    health.TakeDamage(damage, _hitShield);
                 }
             }
             yield return new WaitForSeconds (_damageCooldown);

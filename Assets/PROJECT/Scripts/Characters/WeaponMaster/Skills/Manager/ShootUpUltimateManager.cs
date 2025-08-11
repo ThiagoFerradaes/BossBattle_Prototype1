@@ -75,11 +75,14 @@ public class ShootUpUltimateManager : SkillObjectManager
         attackHitBox.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
 
         ContinuosDamageContext newContext = new(
-            ReturnSkillDamage(_info.Damage),
+            _info.Damage,
             _info.Duration,
+            _info.Penetration,
             _info.DamageCooldown,
-            false,
-            _info.EnemyTag
+            _info.HitShield,
+            _info.EnemyTag,
+            _info.DamageType,
+            parent.GetComponent<StatusManager>()
             );
 
         attackHitBox.GetComponent<ContinuosDamageHitBox>().Initialize(newContext);

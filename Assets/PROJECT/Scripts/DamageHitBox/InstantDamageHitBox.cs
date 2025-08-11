@@ -5,16 +5,22 @@ using UnityEngine;
 public class InstantDamageContext {
     public float Damage;
     public float Duration;
-    public bool IsTrueDamage;
+    public float Penetration;
+    public bool HitShield;
+    public DamageType TypeOfDamage;
     public Tags UnitToHitTag;
+    public StatusManager StatusManager;
     public List<Modifiers> ListOfModifiers;
 
-    public InstantDamageContext(float damage, float hitBoxDuration
-        , bool isTrueDamage, Tags tag,  List<Modifiers> listOfModifiers = null) {
+    public InstantDamageContext(float damage, float hitBoxDuration, float penetration
+        , bool hitShield, DamageType type, Tags tag, StatusManager status,  List<Modifiers> listOfModifiers = null) {
         this.Damage = damage;
         this.Duration = hitBoxDuration;
-        this.IsTrueDamage = isTrueDamage;
+        this.Penetration = penetration;
+        this.HitShield = hitShield;
         this.UnitToHitTag = tag;
+        this.TypeOfDamage = type;
+        this.StatusManager = status;
         this.ListOfModifiers = listOfModifiers ?? new List<Modifiers>();
     }
 }
@@ -24,15 +30,23 @@ public class InstantDamageHitBox : MonoBehaviour
 
     float _damage;
     float _duration;
+    float _penetration;
+    bool _hitShield;
     string _tag;
-    bool _isTrueDamage;
+    StatusManager _statusManager;
+    DamageType _damageType;
 
     #endregion
 
     #region Methods
     public void Initialize(InstantDamageContext context) {
-        _damage = context.Damage; _duration = context.Duration; _isTrueDamage = context.IsTrueDamage;
+        _damage = context.Damage; 
+        _duration = context.Duration; 
+        _penetration = context.Penetration;
+        _hitShield = context.HitShield;
         _tag = context.UnitToHitTag.ToString();
+        _statusManager = context.StatusManager;
+        _damageType = context.TypeOfDamage;
         gameObject.SetActive(true);
         StartCoroutine(AttackDuration());
     }
@@ -49,9 +63,18 @@ public class InstantDamageHitBox : MonoBehaviour
     private void OnTriggerEnter(Collider other) {
         if (!other.CompareTag(_tag)) return;
 
-        if (!other.TryGetComponent<HealthManager>(out HealthManager health)) return;
+        if (!other.TryGetComponent<HealthManager>(out HealthManager health) ||
+            !other.TryGetComponent<StatusManager>(out StatusManager recieverStatus)) return;
 
-        health.TakeDamage(_damage, _isTrueDamage);
+        float damage = DamageCalculator.CalculateDamage(
+            _damageType,
+            _damage,
+            _penetration,
+            _statusManager,
+            recieverStatus
+            );
+
+        health.TakeDamage(damage, _hitShield);
     }
     #endregion
 }
