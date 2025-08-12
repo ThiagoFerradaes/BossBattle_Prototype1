@@ -18,8 +18,8 @@ public static class DamageCalculator
             _ => skillBaseDamage
         };
 
-        bool isCrit = UnityEngine.Random.value <= statusDealer.ReturnStatusValue(StatusType.CritRate);
-        if (isCrit) rawDamage *= statusDealer.ReturnStatusValue(StatusType.CritDamage);
+        bool isCrit = UnityEngine.Random.value <= statusDealer.ReturnStatusValue(StatusType.CritRate)/100;
+        if (isCrit) rawDamage *= statusDealer.ReturnStatusValue(StatusType.CritDamage)/100;
 
         float targetDefense = skillType switch {
             DamageType.Physical => statusReciever.ReturnStatusValue(StatusType.Defense),
