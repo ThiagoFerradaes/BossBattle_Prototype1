@@ -32,6 +32,7 @@ public class KrakenManager : MonoBehaviour {
 
     [Foldout("Generic Atributes"), SerializeField] float cooldownBetweenAttacks;
     [Foldout("Generic Atributes"), SerializeField] Material deadTentacleMaterial;
+    [Foldout("Generic Atributes"), SerializeField] EnemySkillSO tentacleAttackSO;
 
     [Foldout("Lists"), SerializeField] List<EnemySkillSO> _listOfSkills = new();
     [Foldout("Lists"), SerializeField] List<GameObject> _tentaclesList = new();
@@ -112,7 +113,7 @@ public class KrakenManager : MonoBehaviour {
             StartCoroutine(KrakenHalfAttackCoroutine(skillIndex));
         }
         else if (skill is KrakenSpinningAttack) {
-            StartCoroutine(KrakenSpinningAttackCoroutine(skillIndex)); 
+            StartCoroutine(KrakenSpinningAttackCoroutine(skillIndex));
         }
         else if (skill is KrakenCrossAttack) {
             StartCoroutine(KrakenCrossAttackCoroutine(skillIndex));
@@ -145,7 +146,7 @@ public class KrakenManager : MonoBehaviour {
 
         AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
 
-        do {
+        do { // Esperando a primeira animação
             yield return null;
             stateInfo = anim.GetCurrentAnimatorStateInfo(0);
         } while (!stateInfo.IsName(AttackAnimationName));
@@ -157,34 +158,43 @@ public class KrakenManager : MonoBehaviour {
             yield return null;
         }
 
-        do {
+        do { // Esperando a segunda animação
             yield return null;
             stateInfo = anim.GetCurrentAnimatorStateInfo(0);
         } while (!stateInfo.IsName(AttackHitAnimationName));
 
         attackStateHash = stateInfo.fullPathHash;
-        SkillAnimationEvent skillEvent = skill._listOfPrefabs[0];
+        tentacleAttackSO.Prefabs.Sort((a, b) => a.TimeToSpawnPreFab.CompareTo(b.TimeToSpawnPreFab));
 
-        do {
-            yield return null;
-            stateInfo = anim.GetCurrentAnimatorStateInfo(0);
-        } while (stateInfo.fullPathHash == attackStateHash && stateInfo.normalizedTime < skillEvent.timeToSpawnPreFab);
+        for (int i = 0; i < tentacleAttackSO.Prefabs.Count; i++) {
+            SkillAnimationEvent prefabInfo = tentacleAttackSO.Prefabs[i];
+            float targetNormalizedTime = prefabInfo.TimeToSpawnPreFab;
 
-        GameObject attackHitBox = SkillPoolingManager.Instance.ReturnHitboxFromPool(skillEvent.preFabName, skillEvent.preFab);
-        float yRotation = 180 + (tentacleIndex * 45);
-        attackHitBox.transform.SetPositionAndRotation(new Vector3(0, 3, 0), Quaternion.Euler(90, yRotation, 0));
+            do { // Esperando o tempo para instanciar hit box
+                yield return null;
+                stateInfo = anim.GetCurrentAnimatorStateInfo(0);
+            } while (stateInfo.fullPathHash == attackStateHash && stateInfo.normalizedTime < targetNormalizedTime);
 
-        InstantDamageContext newContext = new(
-            10,
-            0.1f,
-            0,
-            false,
-            DamageType.Physical,
-            Tags.Player,
-            _listOfTentacles[tentacleIndex].Status
-            );
+            GameObject attackHitBox = SkillPoolingManager.Instance.ReturnHitboxFromPool(prefabInfo.PreFabName, prefabInfo.PreFab);
+            float yRotation = 180 + (tentacleIndex * 45);
+            attackHitBox.transform.SetPositionAndRotation(new Vector3(0, 3, 0), Quaternion.Euler(90, yRotation, 0));
 
-        attackHitBox.GetComponent<InstantDamageHitBox>().Initialize(newContext);
+            if (prefabInfo.PrefabType == TypeOfSkillAnimationPrefab.Hitbox) {
+
+                InstantDamageContext newContext = new(
+                10,
+                0.1f,
+                0,
+                false,
+                DamageType.Physical,
+                Tags.Player,
+                _listOfTentacles[tentacleIndex].Status
+                );
+
+                attackHitBox.GetComponent<InstantDamageHitBox>().Initialize(newContext);
+
+            }
+        }
 
         _listOfTentacles[tentacleIndex].HitBox.SetActive(true);
 
@@ -303,7 +313,7 @@ public class KrakenManager : MonoBehaviour {
         }
         else {
             for (int i = 0; i < _listOfTentacles.Count - 1; i++) {
-                if (tentacleToHit == 0) tentacleToHit = _listOfTentacles.Count - 1; 
+                if (tentacleToHit == 0) tentacleToHit = _listOfTentacles.Count - 1;
                 tentacleToHit--;
                 StartCoroutine(TentacleAttack(tentacleToHit, info));
                 yield return new WaitForSeconds(info.CooldownBetweenEachTentacle);
@@ -321,7 +331,7 @@ public class KrakenManager : MonoBehaviour {
 
         if (isPair) {
             for (int i = 1; i < _listOfTentacles.Count + 1; i++) {
-                if (i % 2 != 0) StartCoroutine(TentacleAttack(i - 1, info)); 
+                if (i % 2 != 0) StartCoroutine(TentacleAttack(i - 1, info));
             }
         }
         else {

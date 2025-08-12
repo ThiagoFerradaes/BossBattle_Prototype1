@@ -6,11 +6,11 @@ using UnityEngine;
 public enum TypeOfSkillAnimationPrefab { Hitbox, VFX}
 [System.Serializable]
 public class SkillAnimationEvent {
-    public float timeToSpawnPreFab;
-    public string preFabName;
-    public TypeOfSkillAnimationPrefab prefabType;
-    public GameObject preFab;
-    public Vector3 preFabPosition;
+    public float TimeToSpawnPreFab;
+    public string PreFabName;
+    public TypeOfSkillAnimationPrefab PrefabType;
+    public GameObject PreFab;
+    public Vector3 PreFabPosition;
 }
 
 public enum Tags { Enemy, Player }

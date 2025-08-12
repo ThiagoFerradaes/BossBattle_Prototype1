@@ -64,22 +64,22 @@ public class ShootUpUltimateManager : SkillObjectManager
         int attackStateHash = stateInfo.fullPathHash;
 
         // Ordenando a lista de prefabs pelo tempo que eles precisam aparecer
-        _info.Prefabs[0].Sort((a, b) => a.timeToSpawnPreFab.CompareTo(b.timeToSpawnPreFab));
+        _info.Prefabs[0].Sort((a, b) => a.TimeToSpawnPreFab.CompareTo(b.TimeToSpawnPreFab));
 
         for (int i = 0; i < _info.Prefabs.Count; i++) {
             SkillAnimationEvent prefabInfo = _info.Prefabs[0][i];
-            float targetNormalizedTime = prefabInfo.timeToSpawnPreFab;
+            float targetNormalizedTime = prefabInfo.TimeToSpawnPreFab;
 
             do { // Esperando o tempo para instanciar hit box
                 yield return null;
                 stateInfo = anim.GetCurrentAnimatorStateInfo(0);
             } while (stateInfo.fullPathHash == attackStateHash && stateInfo.normalizedTime < targetNormalizedTime);
 
-            GameObject preFab = SkillPoolingManager.Instance.ReturnHitboxFromPool(prefabInfo.preFabName, prefabInfo.preFab);
+            GameObject preFab = SkillPoolingManager.Instance.ReturnHitboxFromPool(prefabInfo.PreFabName, prefabInfo.PreFab);
             preFab.transform.SetParent(parent.transform);
-            preFab.transform.SetLocalPositionAndRotation(prefabInfo.preFabPosition, Quaternion.identity);
+            preFab.transform.SetLocalPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.identity);
 
-            if (prefabInfo.prefabType == TypeOfSkillAnimationPrefab.Hitbox) {
+            if (prefabInfo.PrefabType == TypeOfSkillAnimationPrefab.Hitbox) {
 
                 ContinuosDamageContext newContext = new(
                     _info.Damage,
