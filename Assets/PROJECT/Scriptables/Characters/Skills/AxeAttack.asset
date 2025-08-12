@@ -15,14 +15,20 @@ MonoBehaviour:
   SkillManagerObject: {fileID: 8217681042118647236, guid: e6293f237e32a1a40a1e3d233031b521, type: 3}
   SkillManagerName: AxeAttackManager
   Prefabs:
-  - timeToSpawnHitBox: 0.7
-    hitboxPrefab: {fileID: 7295537954416935036, guid: 710e6b023eb2d4a4fb3bc8e7576e845a, type: 3}
-    hitboxName: AxeAttackHitBox
+    _serializedList:
+    - Key: 0
+      Value:
+      - timeToSpawnPreFab: 0.5
+        preFabName: AxeAttackHitBox
+        prefabType: 0
+        preFab: {fileID: 7295537954416935036, guid: 710e6b023eb2d4a4fb3bc8e7576e845a, type: 3}
+        preFabPosition: {x: 0, y: 0, z: 0}
   SkillObjectRangeObject: {fileID: 7295537954416935036, guid: 2cd15af29a69803439873d8a1751fec9, type: 3}
   SkillObjectRangeName: AxeAttackRangeIndicator
   BlockWalkWhilePreCasting: 1
   BlockDashWhilePreCasting: 1
   PreCastOn: 1
+  SkillCharacter: 0
   FirstAnimationParameterName: AxeSkillOne
   SecondAnimationParameterName: AxeSkillTwo
   SecondAnimationName: AxeSkillTwo
@@ -32,8 +38,9 @@ MonoBehaviour:
   MinDamage: 1
   MaxDamage: 10
   HitBoxDuration: 0.1
+  Penetration: 0
   WeaponName: Axe
-  WeaponPrefab: {fileID: 2959415985370578672, guid: 2714152a00b35324f8b6fef038dba403, type: 3}
   EnemyTag: 0
+  DamageType: 0
+  WeaponPrefab: {fileID: 2959415985370578672, guid: 2714152a00b35324f8b6fef038dba403, type: 3}
   WeaponPosition: {x: 0.3, y: 0, z: 0}
-  HitBoxPosition: {x: 0, y: 0.5, z: 1.5}

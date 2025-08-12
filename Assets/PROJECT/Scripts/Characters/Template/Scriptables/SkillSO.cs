@@ -1,33 +1,39 @@
+using AYellowpaper.SerializedCollections;
+using NaughtyAttributes;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum TypeOfSkillAnimationPrefab { Hitbox, VFX}
 [System.Serializable]
 public class SkillAnimationEvent {
-    public float timeToSpawnHitBox;
-    public GameObject hitboxPrefab;
-    public string hitboxName;
+    public float timeToSpawnPreFab;
+    public string preFabName;
+    public TypeOfSkillAnimationPrefab prefabType;
+    public GameObject preFab;
+    public Vector3 preFabPosition;
 }
 
 public enum Tags { Enemy, Player }
 public abstract class SkillSO : ScriptableObject
 {
     [Header("Skill Manager")]
-    public SkillObjectManager SkillManagerObject;
-    public string SkillManagerName;
+    [Foldout("Generic")]public SkillObjectManager SkillManagerObject;
+    [Foldout("Generic")] public string SkillManagerName;
 
     [Header("Skill Prefabs")]
-    public List<SkillAnimationEvent> Prefabs;
+    [Foldout("Generic"), SerializedDictionary("Combo", "Event")]
+    public SerializedDictionary<int, List<SkillAnimationEvent>> Prefabs;
 
     [Header("Skill Range Object")]
-    public GameObject SkillObjectRangeObject;
-    public string SkillObjectRangeName;
+    [Foldout("Generic")] public GameObject SkillObjectRangeObject;
+    [Foldout("Generic")] public string SkillObjectRangeName;
 
     [Header("Casting SKill options")]
-    public bool BlockWalkWhilePreCasting;
-    public bool BlockDashWhilePreCasting;
-    public bool PreCastOn = true;
+    [Foldout("Generic")] public bool BlockWalkWhilePreCasting;
+    [Foldout("Generic")] public bool BlockDashWhilePreCasting;
+    [Foldout("Generic")] public bool PreCastOn = true;
 
     [Header("Skill Parameters")]
-    public Character SkillCharacter;
+    [Foldout("Generic")] public Character SkillCharacter;
 
 }

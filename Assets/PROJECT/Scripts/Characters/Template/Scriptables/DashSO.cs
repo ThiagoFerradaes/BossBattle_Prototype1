@@ -1,15 +1,16 @@
+using NaughtyAttributes;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Skills / Dash")]
 public class DashSO : SkillSO
 {
     [Header("Animation")]
-    public string AnimationParameter;
-    public string AnimationName;
+    [Foldout("Specific")] public string AnimationParameter;
+    [Foldout("Specific")] public string AnimationName;
 
     [Header("Atributes")]
-    public float DashDuration;
-    public float DashForce;
-    public float Cooldown;
-    public float TimeToStartDash;
+    [Foldout("Specific")] public float DashDuration;
+    [Foldout("Specific")] public float DashForce;
+    [Foldout("Specific")] public float Cooldown;
+    [Foldout("Specific")] public float TimeToStartDash;
 }

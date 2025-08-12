@@ -63,29 +63,40 @@ public class ShootUpUltimateManager : SkillObjectManager
 
         int attackStateHash = stateInfo.fullPathHash;
 
-        SkillAnimationEvent prefabInfo = _info.Prefabs[0];
-        float targetNormalizedTime = prefabInfo.timeToSpawnHitBox;
+        // Ordenando a lista de prefabs pelo tempo que eles precisam aparecer
+        _info.Prefabs[0].Sort((a, b) => a.timeToSpawnPreFab.CompareTo(b.timeToSpawnPreFab));
 
-        do {
-            yield return null;
-            stateInfo = anim.GetCurrentAnimatorStateInfo(0);
-        } while (stateInfo.fullPathHash == attackStateHash && stateInfo.normalizedTime < targetNormalizedTime);
+        for (int i = 0; i < _info.Prefabs.Count; i++) {
+            SkillAnimationEvent prefabInfo = _info.Prefabs[0][i];
+            float targetNormalizedTime = prefabInfo.timeToSpawnPreFab;
 
-        GameObject attackHitBox = SkillPoolingManager.Instance.ReturnHitboxFromPool(prefabInfo.hitboxName, prefabInfo.hitboxPrefab);
-        attackHitBox.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
+            do { // Esperando o tempo para instanciar hit box
+                yield return null;
+                stateInfo = anim.GetCurrentAnimatorStateInfo(0);
+            } while (stateInfo.fullPathHash == attackStateHash && stateInfo.normalizedTime < targetNormalizedTime);
 
-        ContinuosDamageContext newContext = new(
-            _info.Damage,
-            _info.Duration,
-            _info.Penetration,
-            _info.DamageCooldown,
-            _info.HitShield,
-            _info.EnemyTag,
-            _info.DamageType,
-            parent.GetComponent<StatusManager>()
-            );
+            GameObject preFab = SkillPoolingManager.Instance.ReturnHitboxFromPool(prefabInfo.preFabName, prefabInfo.preFab);
+            preFab.transform.SetParent(parent.transform);
+            preFab.transform.SetLocalPositionAndRotation(prefabInfo.preFabPosition, Quaternion.identity);
 
-        attackHitBox.GetComponent<ContinuosDamageHitBox>().Initialize(newContext);
+            if (prefabInfo.prefabType == TypeOfSkillAnimationPrefab.Hitbox) {
+
+                ContinuosDamageContext newContext = new(
+                    _info.Damage,
+                    _info.Duration,
+                    _info.Penetration,
+                    _info.DamageCooldown,
+                    _info.HitShield,
+                    _info.EnemyTag,
+                    _info.DamageType,
+                    parent.GetComponent<StatusManager>()
+                    );
+
+                preFab.GetComponent<ContinuosDamageHitBox>().Initialize(newContext);
+
+                OnWeaponChange?.Invoke();
+            }
+        }
 
         do {
             yield return null;

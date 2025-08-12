@@ -15,9 +15,14 @@ MonoBehaviour:
   SkillManagerObject: {fileID: 614902175585998129, guid: 4655faff3e068074da75a6634805ba56, type: 3}
   SkillManagerName: ShootUp Ultimate
   Prefabs:
-  - timeToSpawnHitBox: 0.5
-    hitboxPrefab: {fileID: 1324207944777058185, guid: 615c9bb71abd9b247896093c7c3af837, type: 3}
-    hitboxName: ShootUp HitxBox
+    _serializedList:
+    - Key: 0
+      Value:
+      - timeToSpawnPreFab: 0.5
+        preFabName: ShootUpUltimateHitBox
+        prefabType: 0
+        preFab: {fileID: 1324207944777058185, guid: 615c9bb71abd9b247896093c7c3af837, type: 3}
+        preFabPosition: {x: 0, y: 0, z: 0}
   SkillObjectRangeObject: {fileID: 2473945529430228706, guid: 315e344938d30e140a32109ebb24d44a, type: 3}
   SkillObjectRangeName: ShootUp Ultimate Range
   BlockWalkWhilePreCasting: 1

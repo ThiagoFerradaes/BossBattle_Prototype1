@@ -67,8 +67,23 @@ public abstract class SkillObjectManager : MonoBehaviour {
     public virtual void SetSkillRangeIndicator(SkillSO skill) {
         currentSkillRange = SkillPoolingManager.Instance.ReturnHitboxFromPool(skill.SkillObjectRangeName, skill.SkillObjectRangeObject);
         currentSkillRange.transform.SetParent(parent.transform);
-        currentSkillRange.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+
+        float groundY = FindGroundHeight(parent.transform.position);
+        Vector3 groundPos = new Vector3(0, groundY - parent.transform.position.y, 0);
+
+        currentSkillRange.transform.SetLocalPositionAndRotation(groundPos, Quaternion.identity);
+
         currentSkillRange.SetActive(true);
+    }
+
+    float FindGroundHeight(Vector3 originalPos) {
+        Vector3 startPos = originalPos + Vector3.up * 0.5f;
+
+        if (Physics.Raycast(startPos, Vector3.down, out RaycastHit hit, Mathf.Infinity, LayerMask.GetMask("Floor"))){
+            return hit.point.y + 0.5f;
+        }
+
+        return 0f;
     }
 
     void ReleaseSkillRangeIndicator() {

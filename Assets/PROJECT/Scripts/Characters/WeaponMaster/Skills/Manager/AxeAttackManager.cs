@@ -53,18 +53,18 @@ public class AxeAttackManager : SkillObjectManager {
 
     public override void OnPreCast(SkillSO skill) {
 
-            // Bloqueando movimentação e outros inputs
-            movementManager.BlockWalk(skill.BlockWalkWhilePreCasting);
-            movementManager.ChangeRotationType(RotationType.MouseRotation);
-            skillManager.BlockSkillInputs(slot, true);
+        // Bloqueando movimentação e outros inputs
+        movementManager.BlockWalk(skill.BlockWalkWhilePreCasting);
+        movementManager.ChangeRotationType(RotationType.MouseRotation);
+        skillManager.BlockSkillInputs(slot, true);
 
-            // Ligar animação
-            anim.SetTrigger(_info.FirstAnimationParameterName);
+        // Ligar animação
+        anim.SetTrigger(_info.FirstAnimationParameterName);
 
-            // Começar o timer
-            _chargeTimeCoroutine ??= StartCoroutine(ChargeTimer());
+        // Começar o timer
+        _chargeTimeCoroutine ??= StartCoroutine(ChargeTimer());
 
-            if (_info.PreCastOn) SetSkillRangeIndicator(skill);
+        if (_info.PreCastOn) SetSkillRangeIndicator(skill);
     }
 
     public override void UseSkill(SkillSO skill) {
@@ -100,44 +100,54 @@ public class AxeAttackManager : SkillObjectManager {
 
         AnimatorStateInfo stateInfo;
 
-        do {
+        do { // Esperando entrar na animação correta
             yield return null;
             stateInfo = anim.GetCurrentAnimatorStateInfo(0);
         } while (!stateInfo.IsName(_info.SecondAnimationName));
 
         int attackStateHash = stateInfo.fullPathHash;
 
-        SkillAnimationEvent prefabInfo = _info.Prefabs[0];
-        float targetNormalizedTime = prefabInfo.timeToSpawnHitBox;
+        // Ordenando a lista de prefabs pelo tempo que eles precisam aparecer
+        _info.Prefabs[0].Sort((a, b) => a.timeToSpawnPreFab.CompareTo(b.timeToSpawnPreFab));
 
-        do {
-            yield return null;
-            stateInfo = anim.GetCurrentAnimatorStateInfo(0);
-        } while (stateInfo.fullPathHash == attackStateHash && stateInfo.normalizedTime < targetNormalizedTime);
+        for (int i = 0; i < _info.Prefabs.Count; i++) {
+            SkillAnimationEvent prefabInfo = _info.Prefabs[0][i];
+            float targetNormalizedTime = prefabInfo.timeToSpawnPreFab;
 
-        GameObject attackHitBox = SkillPoolingManager.Instance.ReturnHitboxFromPool(prefabInfo.hitboxName, prefabInfo.hitboxPrefab);
-        attackHitBox.transform.SetParent(parent.transform);
-        attackHitBox.transform.SetLocalPositionAndRotation(_info.HitBoxPosition, Quaternion.identity);
+            do { // Esperando o tempo para instanciar hit box
+                yield return null;
+                stateInfo = anim.GetCurrentAnimatorStateInfo(0);
+            } while (stateInfo.fullPathHash == attackStateHash && stateInfo.normalizedTime < targetNormalizedTime);
 
-        InstantDamageContext newContext = new(
-            ReturnDamage(),
-            _info.HitBoxDuration,
-            _info.Penetration,
-            ReturnHitShield(),
-            _info.DamageType,
-            _info.EnemyTag,
-            parent.GetComponent<StatusManager>()
-            );
+            GameObject preFab = SkillPoolingManager.Instance.ReturnHitboxFromPool(prefabInfo.preFabName, prefabInfo.preFab);
+            preFab.transform.SetParent(parent.transform);
+            preFab.transform.SetLocalPositionAndRotation(prefabInfo.preFabPosition, Quaternion.identity);
 
-        attackHitBox.GetComponent<InstantDamageHitBox>().Initialize(newContext);
+            if (prefabInfo.prefabType == TypeOfSkillAnimationPrefab.Hitbox) {
 
-        _weaponManager.OnDesequipRightHand();
+                InstantDamageContext newContext = new(
+                    ReturnDamage(),
+                    _info.HitBoxDuration,
+                    _info.Penetration,
+                    ReturnHitShield(),
+                    _info.DamageType,
+                    _info.EnemyTag,
+                    parent.GetComponent<StatusManager>()
+                    );
+
+                preFab.GetComponent<InstantDamageHitBox>().Initialize(newContext);
+
+                OnWeaponChange?.Invoke();
+            }
+        }
+
 
         while (anim.GetCurrentAnimatorStateInfo(0).fullPathHash == attackStateHash &&
                anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f) {
             yield return null;
         }
 
+        _weaponManager.OnDesequipRightHand();
         UnblockInputs();
         _attackCoroutine = null;
         OnWeaponChange?.Invoke();

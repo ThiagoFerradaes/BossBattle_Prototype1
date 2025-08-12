@@ -1,22 +1,31 @@
+using NaughtyAttributes;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Skills / SpearAttack")]
 public class SpearSkillSO : SkillSO
 {
     [Header("Animation")]
-    public string SpearAttackTriggerName;
-    public string AnimationName;
+    [Foldout("Specific")] public string SpearAttackTriggerName;
+    [Foldout("Specific")] public string AnimationName;
 
     [Header("Atributes")]
-    public float Cooldown;
-    public float Damage;
-    public float HitBoxDuration;
-    public float Penetration;
-    public bool HitShield;
-    public string SpearName;
-    public Tags EnemyTag;
-    public DamageType DamageType;
-    public GameObject SpearPrefab;
-    public Vector3 HitBoxPosition;
-    public Vector3 WeaponPosition;
+    [Header("Floats")]
+    [Foldout("Specific")] public float Cooldown;
+    [Foldout("Specific")] public float Damage;
+    [Foldout("Specific")] public float HitBoxDuration;
+    [Foldout("Specific")] public float Penetration;
+
+    [Header("Booleans")]
+    [Foldout("Specific")] public bool HitShield;
+
+    [Header("Strings")]
+    [Foldout("Specific")] public string SpearName;
+
+    [Header("Enums")]
+    [Foldout("Specific")] public Tags EnemyTag;
+    [Foldout("Specific")] public DamageType DamageType;
+
+    [Header("Weapon")]
+    [Foldout("Specific")] public GameObject SpearPrefab;
+    [Foldout("Specific")] public Vector3 WeaponPosition;
 }

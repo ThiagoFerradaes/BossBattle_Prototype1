@@ -1,25 +1,32 @@
+using NaughtyAttributes;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Skills / AxeSkill")]
 public class AxeSkillSO : SkillSO
 {
     [Header("Animation")]
-    public string FirstAnimationParameterName;
-    public string SecondAnimationParameterName;
-    public string SecondAnimationName;
+    [Foldout("Specific")] public string FirstAnimationParameterName;
+    [Foldout("Specific")] public string SecondAnimationParameterName;
+    [Foldout("Specific")] public string SecondAnimationName;
 
     [Header("Atributes")]
-    public float Cooldown;
-    public float MinimalChargeTime;
-    public float MaxChargeTime;
-    public float MinDamage;
-    public float MaxDamage;
-    public float HitBoxDuration;
-    public float Penetration;
-    public string WeaponName;
-    public GameObject WeaponPrefab;
-    public Tags EnemyTag;
-    public DamageType DamageType;
-    public Vector3 WeaponPosition;
-    public Vector3 HitBoxPosition;
+    [Header("Floats")]
+    [Foldout("Specific")] public float Cooldown;
+    [Foldout("Specific")] public float MinimalChargeTime;
+    [Foldout("Specific")] public float MaxChargeTime;
+    [Foldout("Specific")] public float MinDamage;
+    [Foldout("Specific")] public float MaxDamage;
+    [Foldout("Specific")] public float HitBoxDuration;
+    [Foldout("Specific")] public float Penetration;
+
+    [Header("Strings")]
+    [Foldout("Specific")] public string WeaponName;
+
+    [Header("Enums")]
+    [Foldout("Specific")] public Tags EnemyTag;
+    [Foldout("Specific")] public DamageType DamageType;
+
+    [Header("Weapon")]
+    [Foldout("Specific")] public GameObject WeaponPrefab;
+    [Foldout("Specific")] public Vector3 WeaponPosition;
 }

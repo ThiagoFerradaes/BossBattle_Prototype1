@@ -49,8 +49,13 @@ public class WeaponMasterBaseAttack : SkillObjectManager {
         float cooldown = _info.CooldownBetweenAttacks / attackSpeedMultiplier;
         cooldownManager.SetCooldown(slot, cooldown);
 
+        // Especifico de cada ataque do combo
         string animationParameter = _attackIndex == 1 ? _info.FirstBaseAttackParameter : _info.SecondBaseAttackParameter;
         string animationName = _attackIndex == 1 ? _info.FirstBaseAttackAnimationName : _info.SecondtBaseAttackAnimationName;
+        float attackDamage = _attackIndex == 1 ? _info.FirstAttackDamage : _info.SecondAttackDamage;
+        float penetration = _attackIndex == 1 ? _info.PenetrationFirstAttack : _info.PenetrationSecondAttack;
+        float hitBoxDuration = _attackIndex == 1 ? _info.FirstAttackHitBoxDuration : _info.SecondAttackHitBoxDuration;
+        Vector3 hitBoxPosition = _attackIndex == 1 ? _info.FirstBaseAttackHitBoxPosition : _info.SecondtBaseAttackHitBoxPosition;
 
         anim.speed = attackSpeedMultiplier;
 
@@ -67,34 +72,38 @@ public class WeaponMasterBaseAttack : SkillObjectManager {
 
         int attackStateHash = stateInfo.fullPathHash;
 
-        SkillAnimationEvent prefabInfo = _attackIndex == 1 ? _info.Prefabs[0] : _info.Prefabs[1];
-        float targetNormalizedTime = prefabInfo.timeToSpawnHitBox;
+        // Ordenando a lista de prefabs pelo tempo que eles precisam aparecer
+        var prefabList = _info.Prefabs[_attackIndex];
+        prefabList.Sort((a, b) => a.timeToSpawnPreFab.CompareTo(b.timeToSpawnPreFab));
 
-        do {
-            yield return null;
-            stateInfo = anim.GetCurrentAnimatorStateInfo(0);
-        } while (stateInfo.fullPathHash == attackStateHash && stateInfo.normalizedTime < targetNormalizedTime);
+        for (int i = 0; i < prefabList.Count; i++) {
+            SkillAnimationEvent prefabInfo = prefabList[i];
+            float targetNormalizedTime = prefabInfo.timeToSpawnPreFab;
 
-        Vector3 hitBoxPosition = _attackIndex == 1 ? _info.FirstBaseAttackHitBoxPosition : _info.SecondtBaseAttackHitBoxPosition;
-        float attackDamage = _attackIndex == 1 ? _info.FirstAttackDamage : _info.SecondAttackDamage;
-        float penetration = _attackIndex == 1? _info.PenetrationFirstAttack : _info.PenetrationSecondAttack;
-        float hitBoxDuration = _attackIndex == 1 ? _info.FirstAttackHitBoxDuration : _info.SecondAttackHitBoxDuration;
+            do { // Esperando o tempo para instanciar hit box
+                yield return null;
+                stateInfo = anim.GetCurrentAnimatorStateInfo(0);
+            } while (stateInfo.fullPathHash == attackStateHash && stateInfo.normalizedTime < targetNormalizedTime);
 
-        GameObject attackHitBox = SkillPoolingManager.Instance.ReturnHitboxFromPool(prefabInfo.hitboxName, prefabInfo.hitboxPrefab);
-        attackHitBox.transform.SetParent(parent.transform);
-        attackHitBox.transform.SetLocalPositionAndRotation(hitBoxPosition, Quaternion.identity);
+            GameObject preFab = SkillPoolingManager.Instance.ReturnHitboxFromPool(prefabInfo.preFabName, prefabInfo.preFab);
+            preFab.transform.SetParent(parent.transform);
+            preFab.transform.SetLocalPositionAndRotation(prefabInfo.preFabPosition, Quaternion.identity);
 
-        InstantDamageContext newContext = new(
-            attackDamage,
-            hitBoxDuration,
-            penetration,
-            _info.HitShield,
-            _info.DamageType,
-            _info.EnemyTag,
-            parent.GetComponent<StatusManager>()
-            );
+            if (prefabInfo.prefabType == TypeOfSkillAnimationPrefab.Hitbox) {
 
-        attackHitBox.GetComponent<InstantDamageHitBox>().Initialize(newContext);
+                InstantDamageContext newContext = new(
+                    attackDamage,
+                    hitBoxDuration,
+                    penetration,
+                    _info.HitShield,
+                    _info.DamageType,
+                    _info.EnemyTag,
+                    parent.GetComponent<StatusManager>()
+                    );
+
+                preFab.GetComponent<InstantDamageHitBox>().Initialize(newContext);
+            }
+        }
 
         while (anim.GetCurrentAnimatorStateInfo(0).fullPathHash == attackStateHash &&
                anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f) {

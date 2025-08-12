@@ -15,12 +15,21 @@ MonoBehaviour:
   SkillManagerObject: {fileID: 915159781484785722, guid: de3c47dc503a52546be7e01c6b93c28b, type: 3}
   SkillManagerName: WeaponMasterBaseAttackManager
   Prefabs:
-  - timeToSpawnHitBox: 0.5
-    hitboxPrefab: {fileID: 6515590897142706737, guid: b8062dac27f9b494b8b991dc5e006d17, type: 3}
-    hitboxName: WeaponMasterBaseAttackHitBox
-  - timeToSpawnHitBox: 0.7
-    hitboxPrefab: {fileID: 6515590897142706737, guid: b8062dac27f9b494b8b991dc5e006d17, type: 3}
-    hitboxName: WeaponMasterBaseAttackHitBox
+    _serializedList:
+    - Key: 1
+      Value:
+      - timeToSpawnPreFab: 0.5
+        preFabName: WeaponMasterAttackHitBox
+        prefabType: 0
+        preFab: {fileID: 6515590897142706737, guid: b8062dac27f9b494b8b991dc5e006d17, type: 3}
+        preFabPosition: {x: 0, y: 0, z: 0}
+    - Key: 2
+      Value:
+      - timeToSpawnPreFab: 0.5
+        preFabName: WeaponMasterAttackHitBox
+        prefabType: 0
+        preFab: {fileID: 6515590897142706737, guid: b8062dac27f9b494b8b991dc5e006d17, type: 3}
+        preFabPosition: {x: 0, y: 0, z: 0}
   SkillObjectRangeObject: {fileID: 261372437491194248, guid: c83d144d01a675b458028fc94a087be4, type: 3}
   SkillObjectRangeName: WeaponMasterBaseAttackRangeIndicator
   BlockWalkWhilePreCasting: 1

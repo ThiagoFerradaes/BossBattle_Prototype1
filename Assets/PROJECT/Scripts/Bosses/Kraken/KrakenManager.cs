@@ -168,9 +168,9 @@ public class KrakenManager : MonoBehaviour {
         do {
             yield return null;
             stateInfo = anim.GetCurrentAnimatorStateInfo(0);
-        } while (stateInfo.fullPathHash == attackStateHash && stateInfo.normalizedTime < skillEvent.timeToSpawnHitBox);
+        } while (stateInfo.fullPathHash == attackStateHash && stateInfo.normalizedTime < skillEvent.timeToSpawnPreFab);
 
-        GameObject attackHitBox = SkillPoolingManager.Instance.ReturnHitboxFromPool(skillEvent.hitboxName, skillEvent.hitboxPrefab);
+        GameObject attackHitBox = SkillPoolingManager.Instance.ReturnHitboxFromPool(skillEvent.preFabName, skillEvent.preFab);
         float yRotation = 180 + (tentacleIndex * 45);
         attackHitBox.transform.SetPositionAndRotation(new Vector3(0, 3, 0), Quaternion.Euler(90, yRotation, 0));
 
