@@ -12,11 +12,14 @@ public class WeaponMasterBaseAttackSO : SkillSO {
 
     [Header("Atributes")]
     [Header("Floats")]
-    [Foldout("Specific")]public float FirstAttackDamage;
-    [Foldout("Specific")] public float SecondAttackDamage;
+    [Foldout("Specific")]public float FirstAttackMaxDamage;
+    [Foldout("Specific")]public float FirstAttackMinDamage;
+    [Foldout("Specific")] public float SecondAttackMaxDamage;
+    [Foldout("Specific")] public float SecondAttackMinDamage;
     [Foldout("Specific")] public float FirstAttackHitBoxDuration;
     [Foldout("Specific")] public float SecondAttackHitBoxDuration;
     [Foldout("Specific")] public float CooldownBetweenAttacks;
+    [Foldout("Specific")] public float Cooldown;
     [Foldout("Specific")] public float MaxTimeBetweenAttacks;
     [Foldout("Specific")] public float PenetrationFirstAttack;
     [Foldout("Specific")] public float PenetrationSecondAttack;

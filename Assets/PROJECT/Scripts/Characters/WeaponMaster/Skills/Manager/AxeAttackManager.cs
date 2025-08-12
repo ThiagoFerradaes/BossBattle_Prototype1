@@ -64,6 +64,9 @@ public class AxeAttackManager : SkillObjectManager {
         // Começar o timer
         _chargeTimeCoroutine ??= StartCoroutine(ChargeTimer());
 
+        // Começar o cooldown
+        cooldownManager.SetCooldown(slot, _info.Cooldown);
+
         if (_info.PreCastOn) SetSkillRangeIndicator(skill);
     }
 
@@ -95,8 +98,6 @@ public class AxeAttackManager : SkillObjectManager {
         while (_chargeTimer < _info.MinimalChargeTime) yield return null;
 
         anim.SetTrigger(_info.SecondAnimationParameterName);
-
-        cooldownManager.SetCooldown(slot, _info.Cooldown);
 
         AnimatorStateInfo stateInfo;
 

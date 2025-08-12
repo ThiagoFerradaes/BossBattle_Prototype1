@@ -32,7 +32,7 @@ public class KrakenManager : MonoBehaviour {
 
     [Foldout("Generic Atributes"), SerializeField] float cooldownBetweenAttacks;
     [Foldout("Generic Atributes"), SerializeField] Material deadTentacleMaterial;
-    [Foldout("Generic Atributes"), SerializeField] EnemySkillSO tentacleAttackSO;
+    [Foldout("Generic Atributes"), SerializeField] KrakenTentacleAttack tentacleAttackSO;
 
     [Foldout("Lists"), SerializeField] List<EnemySkillSO> _listOfSkills = new();
     [Foldout("Lists"), SerializeField] List<GameObject> _tentaclesList = new();
@@ -182,7 +182,7 @@ public class KrakenManager : MonoBehaviour {
             if (prefabInfo.PrefabType == TypeOfSkillAnimationPrefab.Hitbox) {
 
                 InstantDamageContext newContext = new(
-                10,
+                tentacleAttackSO.TentacleDamage,
                 0.1f,
                 0,
                 false,

@@ -12,8 +12,8 @@ public static class DamageCalculator
         ) {
 
         float rawDamage = skillType switch {
-            DamageType.Physical => skillBaseDamage * statusDealer.ReturnStatusValue(StatusType.BaseAttack),
-            DamageType.Magic => skillBaseDamage * statusDealer.ReturnStatusValue(StatusType.SkillAttack),
+            DamageType.Physical => skillBaseDamage/100 * statusDealer.ReturnStatusValue(StatusType.BaseAttack),
+            DamageType.Magic => skillBaseDamage/100 * statusDealer.ReturnStatusValue(StatusType.SkillAttack),
             DamageType.True => skillBaseDamage,
             _ => skillBaseDamage
         };
@@ -28,9 +28,9 @@ public static class DamageCalculator
             _ => 0
         };
 
-        penetration = Mathf.Min(0.75f, penetration);
+        penetration = Mathf.Min(75f, penetration);
 
-        targetDefense *= (1 - penetration);
+        targetDefense *= (1 - (penetration/100));
 
         float finalDamage = rawDamage * (100/ (100 + targetDefense));
 

@@ -11,7 +11,8 @@ public class SpearSkillSO : SkillSO
     [Header("Atributes")]
     [Header("Floats")]
     [Foldout("Specific")] public float Cooldown;
-    [Foldout("Specific")] public float Damage;
+    [Foldout("Specific")] public float MinDamage;
+    [Foldout("Specific")] public float MaxDamage;
     [Foldout("Specific")] public float HitBoxDuration;
     [Foldout("Specific")] public float Penetration;
 

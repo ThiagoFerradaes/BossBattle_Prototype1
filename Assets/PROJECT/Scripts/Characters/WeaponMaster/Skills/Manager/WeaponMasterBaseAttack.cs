@@ -46,13 +46,16 @@ public class WeaponMasterBaseAttack : SkillObjectManager {
     IEnumerator Attack() {
         float attackSpeedMultiplier = GetAttackSpeedMultiplier();
 
-        float cooldown = _info.CooldownBetweenAttacks / attackSpeedMultiplier;
-        cooldownManager.SetCooldown(slot, cooldown);
+        float cooldown = _attackIndex == 1 ? _info.CooldownBetweenAttacks : _info.Cooldown;
+        float realCooldown = cooldown / attackSpeedMultiplier;
+
+        cooldownManager.SetCooldown(slot, realCooldown);
 
         // Especifico de cada ataque do combo
         string animationParameter = _attackIndex == 1 ? _info.FirstBaseAttackParameter : _info.SecondBaseAttackParameter;
         string animationName = _attackIndex == 1 ? _info.FirstBaseAttackAnimationName : _info.SecondtBaseAttackAnimationName;
-        float attackDamage = _attackIndex == 1 ? _info.FirstAttackDamage : _info.SecondAttackDamage;
+        float attackDamage = _attackIndex == 1 ? (Random.Range(_info.FirstAttackMinDamage, _info.FirstAttackMaxDamage))
+            : (Random.Range(_info.SecondAttackMinDamage, _info.SecondAttackMaxDamage));
         float penetration = _attackIndex == 1 ? _info.PenetrationFirstAttack : _info.PenetrationSecondAttack;
         float hitBoxDuration = _attackIndex == 1 ? _info.FirstAttackHitBoxDuration : _info.SecondAttackHitBoxDuration;
         Vector3 hitBoxPosition = _attackIndex == 1 ? _info.FirstBaseAttackHitBoxPosition : _info.SecondtBaseAttackHitBoxPosition;

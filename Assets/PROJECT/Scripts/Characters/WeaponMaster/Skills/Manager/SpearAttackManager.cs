@@ -1,7 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class SpearAttackManager : SkillObjectManager {
@@ -75,8 +73,10 @@ public class SpearAttackManager : SkillObjectManager {
 
             if (prefabInfo.PrefabType == TypeOfSkillAnimationPrefab.Hitbox) {
 
+                float damage = UnityEngine.Random.Range(_info.MinDamage, _info.MaxDamage);
+
                 InstantDamageContext newContext = new(
-                    _info.Damage,
+                    damage,
                     _info.HitBoxDuration,
                     _info.Penetration,
                     _info.HitShield,

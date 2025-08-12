@@ -77,12 +77,14 @@ public class ShootUpUltimateManager : SkillObjectManager
 
             GameObject preFab = SkillPoolingManager.Instance.ReturnHitboxFromPool(prefabInfo.PreFabName, prefabInfo.PreFab);
             preFab.transform.SetParent(parent.transform);
-            preFab.transform.SetLocalPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.identity);
+            preFab.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
 
             if (prefabInfo.PrefabType == TypeOfSkillAnimationPrefab.Hitbox) {
 
+                float damage = UnityEngine.Random.Range(_info.MinDamage, _info.MaxDamage);
+
                 ContinuosDamageContext newContext = new(
-                    _info.Damage,
+                    _info.MaxDamage,
                     _info.Duration,
                     _info.Penetration,
                     _info.DamageCooldown,
