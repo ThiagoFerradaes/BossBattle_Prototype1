@@ -67,6 +67,11 @@ public class PlayerSkillManager : MonoBehaviour {
 
     #region Inputs
     public void OnBasAttack(InputAction.CallbackContext ctx) {
+        if (ctx.phase == InputActionPhase.Canceled && _baseAttackSkill != null && _baseAttackSkill.Cancelable) {
+            _currentSkill = _baseAttackSkill;
+            UseSkill(ctx, _currentSkill, SkillSlot.BaseAttack);
+        }
+
         if (!_canBaseAttack || !_canUseAnySkill
             || CooldownManager.ReturnCooldown(SkillSlot.BaseAttack) > 0 || Time.timeScale == 0) return;
 
@@ -76,6 +81,11 @@ public class PlayerSkillManager : MonoBehaviour {
         }
     }
     public void OnSkillOne(InputAction.CallbackContext ctx) {
+        if (ctx.phase == InputActionPhase.Canceled && _skillOne != null && _skillOne.Cancelable) {
+            _currentSkill = _skillOne;
+            UseSkill(ctx, _currentSkill, SkillSlot.SkillOne);
+        }
+
         if (!_canUseCommonSkill || !_canUseAnySkill || !_canUseCommonSkillOne ||
             CooldownManager.ReturnCooldown(SkillSlot.SkillOne) > 0 || Time.timeScale == 0) return;
 
@@ -85,6 +95,11 @@ public class PlayerSkillManager : MonoBehaviour {
         }
     }
     public void OnSkillTwo(InputAction.CallbackContext ctx) {
+        if (ctx.phase == InputActionPhase.Canceled && _skillTwo != null && _skillTwo.Cancelable) {
+            _currentSkill = _skillTwo;
+            UseSkill(ctx, _currentSkill, SkillSlot.SkillTwo);
+        }
+
         if (!_canUseCommonSkill || !_canUseAnySkill || !_canUseCommonSkillTwo 
             || CooldownManager.ReturnCooldown(SkillSlot.SkillTwo) > 0 || Time.timeScale == 0) return;
 
@@ -94,6 +109,11 @@ public class PlayerSkillManager : MonoBehaviour {
         }
     }
     public void OnUltimate(InputAction.CallbackContext ctx) {
+        if (ctx.phase == InputActionPhase.Canceled && _ultimate != null && _ultimate.Cancelable) {
+            _currentSkill = _ultimate;
+            UseSkill(ctx, _currentSkill, SkillSlot.Ultimate);
+        }
+
         if (!_canUseSupreme || !_canUseAnySkill 
             || CooldownManager.ReturnCooldown(SkillSlot.Ultimate) > 0 || Time.timeScale == 0) return;
 
@@ -121,7 +141,12 @@ public class PlayerSkillManager : MonoBehaviour {
 
     }
 
-    public void BlockSkillInputs(SkillSlot slot, bool block) {
+    /// <summary>
+    /// Block or unblock all skills except the slot passed
+    /// </summary>
+    /// <param name="slot"></param>
+    /// <param name="block"></param>
+    public void BlockSomeSkillInputs(SkillSlot slot, bool block) {
         switch (slot) {
             case SkillSlot.BaseAttack:
                 BlockCommonSkill(block);

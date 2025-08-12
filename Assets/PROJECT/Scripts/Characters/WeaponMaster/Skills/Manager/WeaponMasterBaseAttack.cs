@@ -46,11 +46,6 @@ public class WeaponMasterBaseAttack : SkillObjectManager {
     IEnumerator Attack() {
         float attackSpeedMultiplier = GetAttackSpeedMultiplier();
 
-        float cooldown = _attackIndex == 1 ? _info.CooldownBetweenAttacks : _info.Cooldown;
-        float realCooldown = cooldown / attackSpeedMultiplier;
-
-        cooldownManager.SetCooldown(slot, realCooldown);
-
         // Especifico de cada ataque do combo
         string animationParameter = _attackIndex == 1 ? _info.FirstBaseAttackParameter : _info.SecondBaseAttackParameter;
         string animationName = _attackIndex == 1 ? _info.FirstBaseAttackAnimationName : _info.SecondtBaseAttackAnimationName;
@@ -113,6 +108,11 @@ public class WeaponMasterBaseAttack : SkillObjectManager {
             yield return null;
         }
 
+        float cooldown = _attackIndex == 1 ? _info.CooldownBetweenAttacks : _info.Cooldown;
+        float realCooldown = cooldown / attackSpeedMultiplier;
+
+        cooldownManager.SetCooldown(slot, realCooldown);
+
         anim.speed = 1f;
 
         _attackIndex = _attackIndex == 1 ? _attackIndex = 2 : _attackIndex = 1;
@@ -122,6 +122,7 @@ public class WeaponMasterBaseAttack : SkillObjectManager {
         UnblockInputs();
 
         _attackCoroutine = null;
+
         _timerBetweenAttacksCoroutine ??= StartCoroutine(CooldownBetweenAttacks());
     }
 

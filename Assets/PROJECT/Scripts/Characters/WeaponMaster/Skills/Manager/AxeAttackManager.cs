@@ -56,7 +56,7 @@ public class AxeAttackManager : SkillObjectManager {
         // Bloqueando movimentação e outros inputs
         movementManager.BlockWalk(skill.BlockWalkWhilePreCasting);
         movementManager.ChangeRotationType(RotationType.MouseRotation);
-        skillManager.BlockSkillInputs(slot, true);
+        skillManager.BlockAnySkill(true);
 
         // Ligar animação
         anim.SetTrigger(_info.FirstAnimationParameterName);
@@ -149,9 +149,13 @@ public class AxeAttackManager : SkillObjectManager {
         }
 
         _weaponManager.OnDesequipRightHand();
+
         UnblockInputs();
+
         _attackCoroutine = null;
+
         OnWeaponChange?.Invoke();
+
         gameObject.SetActive(false);
     }
 

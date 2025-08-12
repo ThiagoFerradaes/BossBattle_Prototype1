@@ -28,12 +28,13 @@ public abstract class SkillSO : ScriptableObject
     [Foldout("Generic")] public GameObject SkillObjectRangeObject;
     [Foldout("Generic")] public string SkillObjectRangeName;
 
-    [Header("Casting SKill options")]
+    [Header("Casting Skill options")]
     [Foldout("Generic")] public bool BlockWalkWhilePreCasting;
     [Foldout("Generic")] public bool BlockDashWhilePreCasting;
     [Foldout("Generic")] public bool PreCastOn = true;
 
     [Header("Skill Parameters")]
     [Foldout("Generic")] public Character SkillCharacter;
+    [Foldout("Generic")] public bool Cancelable;
 
 }

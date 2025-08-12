@@ -44,7 +44,7 @@ public abstract class SkillObjectManager : MonoBehaviour {
     public virtual void OnPreCast(SkillSO skill) {
 
         movementManager.BlockWalk(skill.BlockWalkWhilePreCasting);
-        skillManager.BlockSkillInputs(slot, true);
+        skillManager.BlockSomeSkillInputs(slot, true);
 
         if (skill.PreCastOn) {
 
@@ -59,6 +59,7 @@ public abstract class SkillObjectManager : MonoBehaviour {
     public virtual void OnRelease(SkillSO skill) {
 
         ReleaseSkillRangeIndicator();
+        skillManager.BlockAnySkill(true);
         movementManager.ChangeRotationType(RotationType.MoveRotation);
 
         UseSkill(skill);
@@ -69,7 +70,7 @@ public abstract class SkillObjectManager : MonoBehaviour {
         currentSkillRange.transform.SetParent(parent.transform);
 
         float groundY = FindGroundHeight(parent.transform.position);
-        Vector3 groundPos = new Vector3(0, groundY - parent.transform.position.y, 0);
+        Vector3 groundPos = new (0, groundY - parent.transform.position.y, 0);
 
         currentSkillRange.transform.SetLocalPositionAndRotation(groundPos, Quaternion.identity);
 
@@ -97,7 +98,8 @@ public abstract class SkillObjectManager : MonoBehaviour {
     public virtual void UnblockInputs() {
 
         skillManager.MoveManager.BlockWalk(false);
-        skillManager.BlockSkillInputs(slot, false);
+        skillManager.BlockSomeSkillInputs(slot, false);
+        skillManager.BlockAnySkill(false);
         skillManager.MoveManager.ChangeRotationType(RotationType.MoveRotation);
     }
     public virtual void UseSkill(SkillSO skill) { }
