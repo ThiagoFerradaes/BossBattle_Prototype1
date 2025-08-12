@@ -10,6 +10,7 @@ public class KrakenTentacle {
     public HealthManager Health;
     public GameObject HitBox;
     public SkinnedMeshRenderer SkinnedMeshRenderer;
+    public StatusManager Status;
 
     public KrakenTentacle(GameObject tentacle) {
         Anim = tentacle.GetComponentInChildren<Animator>();
@@ -22,6 +23,7 @@ public class KrakenTentacle {
         }
 
         Health = HitBox.GetComponent<HealthManager>();
+        Status = HitBox.GetComponent<StatusManager>();
     }
 }
 public class KrakenManager : MonoBehaviour {
@@ -179,7 +181,7 @@ public class KrakenManager : MonoBehaviour {
             false,
             DamageType.Physical,
             Tags.Player,
-            gameObject.GetComponent<StatusManager>()
+            _listOfTentacles[tentacleIndex].Status
             );
 
         attackHitBox.GetComponent<InstantDamageHitBox>().Initialize(newContext);

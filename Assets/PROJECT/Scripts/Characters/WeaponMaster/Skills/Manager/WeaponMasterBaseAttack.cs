@@ -127,7 +127,7 @@ public class WeaponMasterBaseAttack : SkillObjectManager {
     }
 
     float GetAttackSpeedMultiplier() {
-        float baseSpeed = statusManager.ReturnStatusValue(StatusType.AttackSpeed)/100;
+        float baseSpeed = statusManager.ReturnStatusValue(StatusType.AttackSpeed);
         return Mathf.Max(0.1f, baseSpeed);
     }
     #endregion

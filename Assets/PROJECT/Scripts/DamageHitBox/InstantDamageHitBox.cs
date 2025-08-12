@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InstantDamageContext {
+public class InstantDamageContext
+{
     public float Damage;
     public float Duration;
     public float Penetration;
@@ -13,7 +14,8 @@ public class InstantDamageContext {
     public List<Modifiers> ListOfModifiers;
 
     public InstantDamageContext(float damage, float hitBoxDuration, float penetration
-        , bool hitShield, DamageType type, Tags tag, StatusManager status,  List<Modifiers> listOfModifiers = null) {
+        , bool hitShield, DamageType type, Tags tag, StatusManager status, List<Modifiers> listOfModifiers = null)
+    {
         this.Damage = damage;
         this.Duration = hitBoxDuration;
         this.Penetration = penetration;
@@ -39,9 +41,10 @@ public class InstantDamageHitBox : MonoBehaviour
     #endregion
 
     #region Methods
-    public void Initialize(InstantDamageContext context) {
-        _damage = context.Damage; 
-        _duration = context.Duration; 
+    public void Initialize(InstantDamageContext context)
+    {
+        _damage = context.Damage;
+        _duration = context.Duration;
         _penetration = context.Penetration;
         _hitShield = context.HitShield;
         _tag = context.UnitToHitTag.ToString();
@@ -51,20 +54,23 @@ public class InstantDamageHitBox : MonoBehaviour
         StartCoroutine(AttackDuration());
     }
 
-    IEnumerator AttackDuration() {
+    IEnumerator AttackDuration()
+    {
         float timer = 0;
-        while (timer < _duration) {
+        while (timer < _duration)
+        {
             timer += Time.deltaTime;
             yield return null;
         }
         gameObject.SetActive(false);
     }
 
-    private void OnTriggerEnter(Collider other) {
+    private void OnTriggerEnter(Collider other)
+    {
         if (!other.CompareTag(_tag)) return;
 
-        if (!other.TryGetComponent<HealthManager>(out HealthManager health) ||
-            !other.TryGetComponent<StatusManager>(out StatusManager recieverStatus)) return;
+        if (!other.TryGetComponent<HealthManager>(out HealthManager health)) return;
+        if (!other.TryGetComponent<StatusManager>(out StatusManager recieverStatus)) return;
 
         float damage = DamageCalculator.CalculateDamage(
             _damageType,
