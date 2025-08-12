@@ -28,6 +28,8 @@ public static class DamageCalculator
             _ => 0
         };
 
+        penetration = Mathf.Min(0.75f, penetration);
+
         targetDefense *= (1 - penetration);
 
         float finalDamage = rawDamage * (100/ (100 + targetDefense));
