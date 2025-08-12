@@ -1,0 +1,39 @@
+using NaughtyAttributes;
+using UnityEngine;
+
+[CreateAssetMenu(menuName = "Skills / BaseAttack")]
+public class WeaponMasterBaseAttackSO : SkillSO {
+
+    [Header("Animation")]
+    [Foldout("Specific")] public string FirstBaseAttackParameter;
+    [Foldout("Specific")] public string FirstBaseAttackAnimationName;
+    [Foldout("Specific")] public string SecondBaseAttackParameter;
+    [Foldout("Specific")] public string SecondtBaseAttackAnimationName;
+
+    [Header("Atributes")]
+    [Header("Floats")]
+    [Foldout("Specific")]public float FirstAttackDamage;
+    [Foldout("Specific")] public float SecondAttackDamage;
+    [Foldout("Specific")] public float FirstAttackHitBoxDuration;
+    [Foldout("Specific")] public float SecondAttackHitBoxDuration;
+    [Foldout("Specific")] public float CooldownBetweenAttacks;
+    [Foldout("Specific")] public float MaxTimeBetweenAttacks;
+    [Foldout("Specific")] public float PenetrationFirstAttack;
+    [Foldout("Specific")] public float PenetrationSecondAttack;
+
+    [Header("Strings")]
+    [Foldout("Specific")] public string SwordName;
+
+    [Header("Booleans")]
+    [Foldout("Specific")] public bool HitShield;
+
+    [Header("Enums")]
+    [Foldout("Specific")] public Tags EnemyTag;
+    [Foldout("Specific")] public DamageType DamageType;
+
+    [Header("Weapon")]
+    [Foldout("Specific")] public GameObject SwordPrefab;
+    [Foldout("Specific")] public Vector3 FirstBaseAttackHitBoxPosition;
+    [Foldout("Specific")] public Vector3 SecondtBaseAttackHitBoxPosition;
+    [Foldout("Specific")] public Vector3 WeaponPosition;
+}
