@@ -29,7 +29,7 @@ public class PlayerSkillManager : MonoBehaviour {
     SkillSO _ultimate;
     SkillSO _currentSkill;
 
-    [SerializedDictionary("Slot", "Permition"), SerializeField] SerializedDictionary<SkillSlot, bool> _skillAvailable = new();
+    Dictionary<SkillSlot, bool> _skillAvailable = new();
     #endregion
 
     #region Initialize
@@ -68,7 +68,6 @@ public class PlayerSkillManager : MonoBehaviour {
 
     #region Inputs
     public void OnBaseAttack(InputAction.CallbackContext ctx) {
-        Debug.Log("Oi");
         HandleSkillInput(ctx, _baseAttackSkill, SkillSlot.BaseAttack, () => IsSkillAvailable(SkillSlot.BaseAttack));
     }
 
