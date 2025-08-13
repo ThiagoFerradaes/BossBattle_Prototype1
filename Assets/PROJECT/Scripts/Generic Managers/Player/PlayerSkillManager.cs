@@ -66,6 +66,7 @@ public class PlayerSkillManager : MonoBehaviour {
     #endregion
 
     #region Inputs
+
     public void OnBasAttack(InputAction.CallbackContext ctx) {
         if (ctx.phase == InputActionPhase.Canceled && _baseAttackSkill != null && _baseAttackSkill.Cancelable) {
             _currentSkill = _baseAttackSkill;
