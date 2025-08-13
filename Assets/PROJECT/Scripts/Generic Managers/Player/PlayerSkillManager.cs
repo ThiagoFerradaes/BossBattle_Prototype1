@@ -1,3 +1,7 @@
+using AYellowpaper.SerializedCollections;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,13 +14,6 @@ public enum SkillSlot {
 }
 public class PlayerSkillManager : MonoBehaviour {
     #region Parameters
-    // Booleans
-    bool _canBaseAttack = true;
-    bool _canUseCommonSkill = true;
-    bool _canUseCommonSkillOne = true;
-    bool _canUseCommonSkillTwo = true;
-    bool _canUseSupreme = true;
-    bool _canUseAnySkill = true;
 
     // Components
     [HideInInspector] public Animator Anim;
@@ -24,7 +21,6 @@ public class PlayerSkillManager : MonoBehaviour {
     [HideInInspector] public PlayerSkillCooldownManager CooldownManager;
 
     // Skills
-    [Header("Skills")]
     PassiveSO _passive;
     SkillSO _dash;
     SkillSO _baseAttackSkill;
@@ -33,6 +29,7 @@ public class PlayerSkillManager : MonoBehaviour {
     SkillSO _ultimate;
     SkillSO _currentSkill;
 
+    [SerializedDictionary("Slot", "Permition"), SerializeField] SerializedDictionary<SkillSlot, bool> _skillAvailable = new();
     #endregion
 
     #region Initialize
@@ -40,6 +37,10 @@ public class PlayerSkillManager : MonoBehaviour {
         Anim = GetComponentInChildren<Animator>();
         MoveManager = GetComponent<PlayerMovementManager>();
         CooldownManager = GetComponent<PlayerSkillCooldownManager>();
+
+        foreach (SkillSlot slot in Enum.GetValues(typeof(SkillSlot))) {
+            _skillAvailable[slot] = true; // Todas as skills podem ser usadas
+        }
     }
 
     private void Start() {
@@ -66,65 +67,25 @@ public class PlayerSkillManager : MonoBehaviour {
     #endregion
 
     #region Inputs
-
-    public void OnBasAttack(InputAction.CallbackContext ctx) {
-        if (ctx.phase == InputActionPhase.Canceled && _baseAttackSkill != null && _baseAttackSkill.Cancelable) {
-            _currentSkill = _baseAttackSkill;
-            UseSkill(ctx, _currentSkill, SkillSlot.BaseAttack);
-        }
-
-        if (!_canBaseAttack || !_canUseAnySkill
-            || CooldownManager.ReturnCooldown(SkillSlot.BaseAttack) > 0 || Time.timeScale == 0) return;
-
-        if (_baseAttackSkill != null) {
-            _currentSkill = _baseAttackSkill;
-            UseSkill(ctx, _currentSkill, SkillSlot.BaseAttack);
-        }
+    public void OnBaseAttack(InputAction.CallbackContext ctx) {
+        Debug.Log("Oi");
+        HandleSkillInput(ctx, _baseAttackSkill, SkillSlot.BaseAttack, () => IsSkillAvailable(SkillSlot.BaseAttack));
     }
+
     public void OnSkillOne(InputAction.CallbackContext ctx) {
-        if (ctx.phase == InputActionPhase.Canceled && _skillOne != null && _skillOne.Cancelable) {
-            _currentSkill = _skillOne;
-            UseSkill(ctx, _currentSkill, SkillSlot.SkillOne);
-        }
-
-        if (!_canUseCommonSkill || !_canUseAnySkill || !_canUseCommonSkillOne ||
-            CooldownManager.ReturnCooldown(SkillSlot.SkillOne) > 0 || Time.timeScale == 0) return;
-
-        if (_skillOne != null) {
-            _currentSkill = _skillOne;
-            UseSkill(ctx, _currentSkill, SkillSlot.SkillOne);
-        }
+        HandleSkillInput(ctx, _skillOne, SkillSlot.SkillOne, () => IsSkillAvailable(SkillSlot.SkillOne));
     }
+
     public void OnSkillTwo(InputAction.CallbackContext ctx) {
-        if (ctx.phase == InputActionPhase.Canceled && _skillTwo != null && _skillTwo.Cancelable) {
-            _currentSkill = _skillTwo;
-            UseSkill(ctx, _currentSkill, SkillSlot.SkillTwo);
-        }
-
-        if (!_canUseCommonSkill || !_canUseAnySkill || !_canUseCommonSkillTwo 
-            || CooldownManager.ReturnCooldown(SkillSlot.SkillTwo) > 0 || Time.timeScale == 0) return;
-
-        if (_skillTwo != null) {
-            _currentSkill = _skillTwo;
-            UseSkill(ctx, _currentSkill, SkillSlot.SkillTwo);
-        }
+        HandleSkillInput(ctx, _skillTwo, SkillSlot.SkillTwo, () => IsSkillAvailable(SkillSlot.SkillTwo));
     }
+
     public void OnUltimate(InputAction.CallbackContext ctx) {
-        if (ctx.phase == InputActionPhase.Canceled && _ultimate != null && _ultimate.Cancelable) {
-            _currentSkill = _ultimate;
-            UseSkill(ctx, _currentSkill, SkillSlot.Ultimate);
-        }
-
-        if (!_canUseSupreme || !_canUseAnySkill 
-            || CooldownManager.ReturnCooldown(SkillSlot.Ultimate) > 0 || Time.timeScale == 0) return;
-
-        if (_ultimate != null) {
-            _currentSkill = _ultimate;
-            UseSkill(ctx, _currentSkill, SkillSlot.Ultimate);
-        }
+        HandleSkillInput(ctx, _ultimate, SkillSlot.Ultimate, () => IsSkillAvailable(SkillSlot.Ultimate));
     }
+
     public void OnDash(InputAction.CallbackContext ctx) {
-        if (!MoveManager.ReturnCanDash() || !_canUseAnySkill 
+        if (!MoveManager.ReturnCanDash()
             || CooldownManager.ReturnCooldown(SkillSlot.Dash) > 0 || Time.timeScale == 0) return;
 
         if (_dash != null) {
@@ -135,6 +96,21 @@ public class PlayerSkillManager : MonoBehaviour {
     #endregion
 
     #region Skills
+    private void HandleSkillInput(InputAction.CallbackContext ctx, SkillSO skill, SkillSlot slot, Func<bool> canUseCondition) {
+        if (ctx.phase == InputActionPhase.Canceled && skill != null && skill.Cancelable) {
+            _currentSkill = skill;
+            UseSkill(ctx, _currentSkill, slot);
+            return;
+        }
+
+        if (!canUseCondition() || !IsSkillReady(slot) || Time.timeScale == 0)
+            return;
+
+        if (skill != null) {
+            _currentSkill = skill;
+            UseSkill(ctx, _currentSkill, slot);
+        }
+    }
     void UseSkill(InputAction.CallbackContext ctx, SkillSO skill, SkillSlot slot) {
         GameObject skillManager = SkillPoolingManager.Instance.ReturnManagerFromPool(skill.SkillManagerName, skill.SkillManagerObject.gameObject);
         SkillObjectManager manager = skillManager.GetComponent<SkillObjectManager>();
@@ -142,85 +118,50 @@ public class PlayerSkillManager : MonoBehaviour {
 
     }
 
-    /// <summary>
-    /// Block or unblock all skills except the slot passed
-    /// </summary>
-    /// <param name="slot"></param>
-    /// <param name="block"></param>
-    public void BlockSomeSkillInputs(SkillSlot slot, bool block) {
-        switch (slot) {
-            case SkillSlot.BaseAttack:
-                BlockCommonSkill(block);
-                BlockUltimate(block);
-                BlockDash(block);
-                break;
-            case SkillSlot.SkillOne:
-                BlockBaseAttack(block);
-                BlockCommonSkillTwo(block);
-                BlockUltimate(block);
-                BlockDash(block);
-                break;
-            case SkillSlot.SkillTwo:
-                BlockBaseAttack(block);
-                BlockCommonSkillOne(block);
-                BlockUltimate(block);
-                BlockDash(block);
-                break;
-            case SkillSlot.Ultimate:
-                BlockBaseAttack(block);
-                BlockCommonSkill(block);
-                BlockDash(block);
-                break;
-            case SkillSlot.Dash:
-                BlockBaseAttack(block);
-                BlockCommonSkill(block);
-                BlockUltimate(block);
-                break;
-        }
+    public bool IsSkillAvailable(SkillSlot slot) {
+        return _skillAvailable.TryGetValue(slot, out bool available) && available;
+    }
+
+    private bool IsSkillReady(SkillSlot slot) {
+        return CooldownManager.ReturnCooldown(slot) <= 0;
     }
     #endregion
 
     #region Setters
 
     /// <summary>
-    /// block true = cant attack, block false = can attack
+    /// Blocks or Unblock the input of a specific skill
     /// </summary>
+    /// <param name="slot"></param>
     /// <param name="block"></param>
-    public void BlockBaseAttack(bool block) => _canBaseAttack = !block;
-    /// <summary>
-    /// block true = cant attack, block false = can attack
-    /// </summary>
-    /// <param name="block"></param>
-    public void BlockCommonSkill(bool block) => _canUseCommonSkill = !block;
-    /// <summary>
-    /// block true = cant attack, block false = can attack
-    /// </summary>
-    /// <param name="block"></param>
-    public void BlockCommonSkillOne(bool block) => _canUseCommonSkillOne = !block;
-    /// <summary>
-    /// block true = cant attack, block false = can attack
-    /// </summary>
-    /// <param name="block"></param>
-    public void BlockCommonSkillTwo(bool block) => _canUseCommonSkillTwo = !block;
-    /// <summary>
-    /// block true = cant attack, block false = can attack
-    /// </summary>
-    /// <param name="block"></param>
-    public void BlockUltimate(bool block) => _canUseSupreme = !block;
-    /// <summary>
-    /// block true = cant attack, block false = can attack
-    /// </summary>
-    /// <param name="block"></param>
-    public void BlockAnySkill(bool block) => _canUseAnySkill = !block;
-    /// <summary>
-    /// block true = cant attack, block false = can attack
-    /// </summary>
-    /// <param name="block"></param>
-    public void BlockDash(bool block) => MoveManager.BlockDash(block);
-    #endregion
+    public void BlockSpecificSkill(SkillSlot slot, bool block) {
+        if (!_skillAvailable.ContainsKey(slot)) return;
 
-    #region Getters
-    public SkillSO ReturnCurrentSkill() => _currentSkill;
+        _skillAvailable[slot] = !block;
+    }
+
+    /// <summary>
+    /// Block or unblock the input of all skills
+    /// </summary>
+    /// <param name="block"></param>
+    public void BlockAllSkills(bool block) {
+        var keysList = new List<SkillSlot>(_skillAvailable.Keys);
+        foreach (var key in keysList) {
+            _skillAvailable[key] = !block;
+        }
+    }
+
+    /// <summary>
+    /// Block or unblock all skills but one
+    /// </summary>
+    /// <param name="slot"></param>
+    /// <param name="block"></param>
+    public void BlockAllButOneSkill(SkillSlot slot, bool block) {
+        var keysList = new List<SkillSlot>(_skillAvailable.Keys);
+        foreach (var key in keysList) {
+            if (key != slot) _skillAvailable[key] = !block;
+        }
+    }
 
     #endregion
 

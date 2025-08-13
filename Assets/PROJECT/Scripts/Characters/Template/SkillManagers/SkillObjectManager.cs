@@ -44,7 +44,7 @@ public abstract class SkillObjectManager : MonoBehaviour {
     public virtual void OnPreCast(SkillSO skill) {
 
         movementManager.BlockWalk(skill.BlockWalkWhilePreCasting);
-        skillManager.BlockSomeSkillInputs(slot, true);
+        skillManager.BlockAllButOneSkill(slot, true);
 
         if (skill.PreCastOn) {
 
@@ -59,7 +59,7 @@ public abstract class SkillObjectManager : MonoBehaviour {
     public virtual void OnRelease(SkillSO skill) {
 
         ReleaseSkillRangeIndicator();
-        skillManager.BlockAnySkill(true);
+        skillManager.BlockAllSkills(true);
         movementManager.ChangeRotationType(RotationType.MoveRotation);
 
         UseSkill(skill);
@@ -98,8 +98,8 @@ public abstract class SkillObjectManager : MonoBehaviour {
     public virtual void UnblockInputs() {
 
         skillManager.MoveManager.BlockWalk(false);
-        skillManager.BlockSomeSkillInputs(slot, false);
-        skillManager.BlockAnySkill(false);
+        skillManager.BlockAllButOneSkill(slot, false);
+        skillManager.BlockAllSkills(false);
         skillManager.MoveManager.ChangeRotationType(RotationType.MoveRotation);
     }
     public virtual void UseSkill(SkillSO skill) { }

@@ -129,26 +129,14 @@ MonoBehaviour:
       m_Calls: []
   m_ActionEvents:
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1713622384440033257}
-        m_TargetAssemblyTypeName: PlayerMovementManager, Assembly-CSharp
-        m_MethodName: OnMove
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_ActionId: 351f2ccd-1f9f-44bf-9bec-d62ac5c5f408
     m_ActionName: 'Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]'
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5235028921305784554}
         m_TargetAssemblyTypeName: PlayerSkillManager, Assembly-CSharp
-        m_MethodName: OnBasAttack
+        m_MethodName: OnBaseAttack
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -334,6 +322,8 @@ MonoBehaviour:
   Anim: {fileID: 0}
   MoveManager: {fileID: 0}
   CooldownManager: {fileID: 0}
+  _skillAvailable:
+    _serializedList: []
 --- !u!114 &1889250769962527780
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -346,7 +336,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5629c282a0542824d8fbba0108720c52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentHealth: 0
 --- !u!114 &8286436313011281821
 MonoBehaviour:
   m_ObjectHideFlags: 0

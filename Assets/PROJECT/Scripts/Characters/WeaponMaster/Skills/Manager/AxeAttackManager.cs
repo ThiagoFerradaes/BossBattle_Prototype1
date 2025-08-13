@@ -56,7 +56,7 @@ public class AxeAttackManager : SkillObjectManager {
         // Bloqueando movimentação e outros inputs
         movementManager.BlockWalk(skill.BlockWalkWhilePreCasting);
         movementManager.ChangeRotationType(RotationType.MouseRotation);
-        skillManager.BlockAnySkill(true);
+        skillManager.BlockAllSkills(true);
 
         // Ligar animação
         anim.SetTrigger(_info.FirstAnimationParameterName);
