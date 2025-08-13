@@ -6,11 +6,11 @@ using UnityEngine;
 public enum TypeOfSkillAnimationPrefab { Hitbox, VFX}
 [System.Serializable]
 public class SkillAnimationEvent {
-    public float timeToSpawnPreFab;
-    public string preFabName;
-    public TypeOfSkillAnimationPrefab prefabType;
-    public GameObject preFab;
-    public Vector3 preFabPosition;
+    public float TimeToSpawnPreFab;
+    public string PreFabName;
+    public TypeOfSkillAnimationPrefab PrefabType;
+    public GameObject PreFab;
+    public Vector3 PreFabPosition;
 }
 
 public enum Tags { Enemy, Player }
@@ -28,12 +28,13 @@ public abstract class SkillSO : ScriptableObject
     [Foldout("Generic")] public GameObject SkillObjectRangeObject;
     [Foldout("Generic")] public string SkillObjectRangeName;
 
-    [Header("Casting SKill options")]
+    [Header("Casting Skill options")]
     [Foldout("Generic")] public bool BlockWalkWhilePreCasting;
     [Foldout("Generic")] public bool BlockDashWhilePreCasting;
     [Foldout("Generic")] public bool PreCastOn = true;
 
     [Header("Skill Parameters")]
     [Foldout("Generic")] public Character SkillCharacter;
+    [Foldout("Generic")] public bool Cancelable;
 
 }

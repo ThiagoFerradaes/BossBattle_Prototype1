@@ -18,11 +18,11 @@ MonoBehaviour:
     _serializedList:
     - Key: 0
       Value:
-      - timeToSpawnPreFab: 0.5
-        preFabName: ShootUpUltimateHitBox
-        prefabType: 0
-        preFab: {fileID: 1324207944777058185, guid: 615c9bb71abd9b247896093c7c3af837, type: 3}
-        preFabPosition: {x: 0, y: 0, z: 0}
+      - TimeToSpawnPreFab: 0.5
+        PreFabName: ShootUpHitBox
+        PrefabType: 0
+        PreFab: {fileID: 1324207944777058185, guid: 615c9bb71abd9b247896093c7c3af837, type: 3}
+        PreFabPosition: {x: 0, y: 0, z: 0}
   SkillObjectRangeObject: {fileID: 2473945529430228706, guid: 315e344938d30e140a32109ebb24d44a, type: 3}
   SkillObjectRangeName: ShootUp Ultimate Range
   BlockWalkWhilePreCasting: 1
@@ -33,8 +33,9 @@ MonoBehaviour:
   AnimationName: ShootUp
   LastAnimationName: Guarda
   Cooldown: 6
-  Damage: 1
-  DamageCooldown: 1
+  MinDamage: 4
+  MaxDamage: 6
+  DamageCooldown: 0.1
   Duration: 5
   Penetration: 0
   HitShield: 1

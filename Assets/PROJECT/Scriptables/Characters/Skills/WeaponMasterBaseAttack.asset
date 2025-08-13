@@ -18,36 +18,40 @@ MonoBehaviour:
     _serializedList:
     - Key: 1
       Value:
-      - timeToSpawnPreFab: 0.5
-        preFabName: WeaponMasterAttackHitBox
-        prefabType: 0
-        preFab: {fileID: 6515590897142706737, guid: b8062dac27f9b494b8b991dc5e006d17, type: 3}
-        preFabPosition: {x: 0, y: 0, z: 0}
+      - TimeToSpawnPreFab: 0.5
+        PreFabName: WeaponMasterBaseAttackHitBox
+        PrefabType: 0
+        PreFab: {fileID: 6515590897142706737, guid: b8062dac27f9b494b8b991dc5e006d17, type: 3}
+        PreFabPosition: {x: 0, y: 0, z: 1}
     - Key: 2
       Value:
-      - timeToSpawnPreFab: 0.5
-        preFabName: WeaponMasterAttackHitBox
-        prefabType: 0
-        preFab: {fileID: 6515590897142706737, guid: b8062dac27f9b494b8b991dc5e006d17, type: 3}
-        preFabPosition: {x: 0, y: 0, z: 0}
+      - TimeToSpawnPreFab: 0.5
+        PreFabName: WeaponMasterBaseAttackHitBox
+        PrefabType: 0
+        PreFab: {fileID: 6515590897142706737, guid: b8062dac27f9b494b8b991dc5e006d17, type: 3}
+        PreFabPosition: {x: 0, y: 0, z: 1}
   SkillObjectRangeObject: {fileID: 261372437491194248, guid: c83d144d01a675b458028fc94a087be4, type: 3}
   SkillObjectRangeName: WeaponMasterBaseAttackRangeIndicator
   BlockWalkWhilePreCasting: 1
   BlockDashWhilePreCasting: 1
   PreCastOn: 1
   SkillCharacter: 0
+  Cancelable: 0
   FirstBaseAttackParameter: BaseAttackOne
   FirstBaseAttackAnimationName: BaseAttackOne
   SecondBaseAttackParameter: BaseAttackTwo
   SecondtBaseAttackAnimationName: BaseAttackTwo
-  FirstAttackDamage: 1
-  SecondAttackDamage: 2
+  FirstAttackMaxDamage: 45
+  FirstAttackMinDamage: 55
+  SecondAttackMaxDamage: 50
+  SecondAttackMinDamage: 60
   FirstAttackHitBoxDuration: 0.1
   SecondAttackHitBoxDuration: 0.1
-  CooldownBetweenAttacks: 1
-  MaxTimeBetweenAttacks: 2
+  CooldownBetweenAttacks: 0.1
+  Cooldown: 0.8
+  MaxTimeBetweenAttacks: 1.8
   PenetrationFirstAttack: 0
-  PenetrationSecondAttack: 0
+  PenetrationSecondAttack: 10
   SwordName: SwordWeapon
   HitShield: 1
   EnemyTag: 0

@@ -46,13 +46,11 @@ public class WeaponMasterBaseAttack : SkillObjectManager {
     IEnumerator Attack() {
         float attackSpeedMultiplier = GetAttackSpeedMultiplier();
 
-        float cooldown = _info.CooldownBetweenAttacks / attackSpeedMultiplier;
-        cooldownManager.SetCooldown(slot, cooldown);
-
         // Especifico de cada ataque do combo
         string animationParameter = _attackIndex == 1 ? _info.FirstBaseAttackParameter : _info.SecondBaseAttackParameter;
         string animationName = _attackIndex == 1 ? _info.FirstBaseAttackAnimationName : _info.SecondtBaseAttackAnimationName;
-        float attackDamage = _attackIndex == 1 ? _info.FirstAttackDamage : _info.SecondAttackDamage;
+        float attackDamage = _attackIndex == 1 ? (Random.Range(_info.FirstAttackMinDamage, _info.FirstAttackMaxDamage))
+            : (Random.Range(_info.SecondAttackMinDamage, _info.SecondAttackMaxDamage));
         float penetration = _attackIndex == 1 ? _info.PenetrationFirstAttack : _info.PenetrationSecondAttack;
         float hitBoxDuration = _attackIndex == 1 ? _info.FirstAttackHitBoxDuration : _info.SecondAttackHitBoxDuration;
         Vector3 hitBoxPosition = _attackIndex == 1 ? _info.FirstBaseAttackHitBoxPosition : _info.SecondtBaseAttackHitBoxPosition;
@@ -74,22 +72,22 @@ public class WeaponMasterBaseAttack : SkillObjectManager {
 
         // Ordenando a lista de prefabs pelo tempo que eles precisam aparecer
         var prefabList = _info.Prefabs[_attackIndex];
-        prefabList.Sort((a, b) => a.timeToSpawnPreFab.CompareTo(b.timeToSpawnPreFab));
+        prefabList.Sort((a, b) => a.TimeToSpawnPreFab.CompareTo(b.TimeToSpawnPreFab));
 
         for (int i = 0; i < prefabList.Count; i++) {
             SkillAnimationEvent prefabInfo = prefabList[i];
-            float targetNormalizedTime = prefabInfo.timeToSpawnPreFab;
+            float targetNormalizedTime = prefabInfo.TimeToSpawnPreFab;
 
             do { // Esperando o tempo para instanciar hit box
                 yield return null;
                 stateInfo = anim.GetCurrentAnimatorStateInfo(0);
             } while (stateInfo.fullPathHash == attackStateHash && stateInfo.normalizedTime < targetNormalizedTime);
 
-            GameObject preFab = SkillPoolingManager.Instance.ReturnHitboxFromPool(prefabInfo.preFabName, prefabInfo.preFab);
+            GameObject preFab = SkillPoolingManager.Instance.ReturnHitboxFromPool(prefabInfo.PreFabName, prefabInfo.PreFab);
             preFab.transform.SetParent(parent.transform);
-            preFab.transform.SetLocalPositionAndRotation(prefabInfo.preFabPosition, Quaternion.identity);
+            preFab.transform.SetLocalPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.identity);
 
-            if (prefabInfo.prefabType == TypeOfSkillAnimationPrefab.Hitbox) {
+            if (prefabInfo.PrefabType == TypeOfSkillAnimationPrefab.Hitbox) {
 
                 InstantDamageContext newContext = new(
                     attackDamage,
@@ -110,6 +108,11 @@ public class WeaponMasterBaseAttack : SkillObjectManager {
             yield return null;
         }
 
+        float cooldown = _attackIndex == 1 ? _info.CooldownBetweenAttacks : _info.Cooldown;
+        float realCooldown = cooldown / attackSpeedMultiplier;
+
+        cooldownManager.SetCooldown(slot, realCooldown);
+
         anim.speed = 1f;
 
         _attackIndex = _attackIndex == 1 ? _attackIndex = 2 : _attackIndex = 1;
@@ -119,6 +122,7 @@ public class WeaponMasterBaseAttack : SkillObjectManager {
         UnblockInputs();
 
         _attackCoroutine = null;
+
         _timerBetweenAttacksCoroutine ??= StartCoroutine(CooldownBetweenAttacks());
     }
 

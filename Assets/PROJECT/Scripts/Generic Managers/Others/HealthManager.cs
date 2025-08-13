@@ -32,7 +32,7 @@ public class HealthManager : MonoBehaviour {
 
     private void Start() {
         _maxHealth = _statusManager.ReturnStatusValue(StatusType.MaxHealth);
-        _maxShield = _statusManager.ReturnStatusValue(StatusType.MaxAmountOfShield);
+        _maxShield = _statusManager.ReturnStatusValue(StatusType.MaxAmountOfShield)/100;
         ChangeHealth(_maxHealth);
         ChangeShield(0);
     }

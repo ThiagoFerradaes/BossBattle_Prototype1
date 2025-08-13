@@ -12,14 +12,14 @@ public static class DamageCalculator
         ) {
 
         float rawDamage = skillType switch {
-            DamageType.Physical => skillBaseDamage * statusDealer.ReturnStatusValue(StatusType.BaseAttack),
-            DamageType.Magic => skillBaseDamage * statusDealer.ReturnStatusValue(StatusType.SkillAttack),
+            DamageType.Physical => skillBaseDamage/100 * statusDealer.ReturnStatusValue(StatusType.BaseAttack),
+            DamageType.Magic => skillBaseDamage/100 * statusDealer.ReturnStatusValue(StatusType.SkillAttack),
             DamageType.True => skillBaseDamage,
             _ => skillBaseDamage
         };
 
-        bool isCrit = UnityEngine.Random.value <= statusDealer.ReturnStatusValue(StatusType.CritRate);
-        if (isCrit) rawDamage *= statusDealer.ReturnStatusValue(StatusType.CritDamage);
+        bool isCrit = UnityEngine.Random.value <= statusDealer.ReturnStatusValue(StatusType.CritRate)/100;
+        if (isCrit) rawDamage *= statusDealer.ReturnStatusValue(StatusType.CritDamage)/100;
 
         float targetDefense = skillType switch {
             DamageType.Physical => statusReciever.ReturnStatusValue(StatusType.Defense),
@@ -28,9 +28,9 @@ public static class DamageCalculator
             _ => 0
         };
 
-        penetration = Mathf.Min(0.75f, penetration);
+        penetration = Mathf.Min(75f, penetration);
 
-        targetDefense *= (1 - penetration);
+        targetDefense *= (1 - (penetration/100));
 
         float finalDamage = rawDamage * (100/ (100 + targetDefense));
 

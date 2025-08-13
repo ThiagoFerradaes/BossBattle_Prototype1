@@ -12,7 +12,8 @@ public class ShootUpUltimateSO : SkillSO
     [Header("Atributes")]
     [Header("Floats")]
     [Foldout("Specific")] public float Cooldown;
-    [Foldout("Specific")] public float Damage;
+    [Foldout("Specific")] public float MinDamage;
+    [Foldout("Specific")] public float MaxDamage;
     [Foldout("Specific")] public float DamageCooldown;
     [Foldout("Specific")] public float Duration;
     [Foldout("Specific")] public float Penetration;

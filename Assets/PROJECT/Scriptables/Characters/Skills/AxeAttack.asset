@@ -18,25 +18,26 @@ MonoBehaviour:
     _serializedList:
     - Key: 0
       Value:
-      - timeToSpawnPreFab: 0.5
-        preFabName: AxeAttackHitBox
-        prefabType: 0
-        preFab: {fileID: 7295537954416935036, guid: 710e6b023eb2d4a4fb3bc8e7576e845a, type: 3}
-        preFabPosition: {x: 0, y: 0, z: 0}
+      - TimeToSpawnPreFab: 0.5
+        PreFabName: AxeAttackHitBox
+        PrefabType: 0
+        PreFab: {fileID: 7295537954416935036, guid: 710e6b023eb2d4a4fb3bc8e7576e845a, type: 3}
+        PreFabPosition: {x: 0, y: 0.5, z: 1.5}
   SkillObjectRangeObject: {fileID: 7295537954416935036, guid: 2cd15af29a69803439873d8a1751fec9, type: 3}
   SkillObjectRangeName: AxeAttackRangeIndicator
   BlockWalkWhilePreCasting: 1
   BlockDashWhilePreCasting: 1
   PreCastOn: 1
   SkillCharacter: 0
+  Cancelable: 1
   FirstAnimationParameterName: AxeSkillOne
   SecondAnimationParameterName: AxeSkillTwo
   SecondAnimationName: AxeSkillTwo
   Cooldown: 6
-  MinimalChargeTime: 1
-  MaxChargeTime: 2.5
-  MinDamage: 1
-  MaxDamage: 10
+  MinimalChargeTime: 0.8
+  MaxChargeTime: 2
+  MinDamage: 40
+  MaxDamage: 200
   HitBoxDuration: 0.1
   Penetration: 0
   WeaponName: Axe
