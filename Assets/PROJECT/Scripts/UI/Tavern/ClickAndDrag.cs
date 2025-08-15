@@ -6,7 +6,7 @@ public class ClickAndDrag : MonoBehaviour
     private Vector2 _lastMousePosition;
     private bool _isDragging;
 
-    [SerializeField] private float dragSpeed = 0.1f;
+    [SerializeField] private float dragSpeed = 0.01f;
 
     public void OnDrag(InputAction.CallbackContext ctx) {
         if (ctx.started) {
