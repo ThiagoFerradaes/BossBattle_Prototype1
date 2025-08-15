@@ -47,7 +47,7 @@ public class ScreensInGameUI : MonoBehaviour {
     void SetButton(TypeOfButton type, Button button) {
         switch (type) {
             case TypeOfButton.Menu:
-                button.onClick.AddListener(() => StartCoroutine(ReturnToMenu()));
+                button.onClick.AddListener(() => LoadingScreenManager.Instance.ReturnToMenu());
                 Time.timeScale = 1;
                 break;
             case TypeOfButton.Continue:
@@ -56,20 +56,6 @@ public class ScreensInGameUI : MonoBehaviour {
             case TypeOfButton.Exit:
                 button.onClick.AddListener(() => Application.Quit());
                 break;
-        }
-    }
-
-    // Talvez não seja necessário mas quando eu for lidar com loadscreen eu vejo isso
-    IEnumerator ReturnToMenu() {
-        AsyncOperation op = SceneManager.LoadSceneAsync(0);
-        op.allowSceneActivation = false;
-
-        while (!op.isDone) {
-            if (op.progress >= 0.9f) {
-                Time.timeScale = 1; 
-                op.allowSceneActivation = true;
-            }
-            yield return null;
         }
     }
 }
