@@ -15,7 +15,6 @@ public class ShootUpUltimateSO : SkillSO
     [Foldout("Specific")] public float MinDamage;
     [Foldout("Specific")] public float MaxDamage;
     [Foldout("Specific")] public float DamageCooldown;
-    [Foldout("Specific")] public float Duration;
     [Foldout("Specific")] public float Penetration;
 
     [Header("Booleans")]
@@ -31,4 +30,7 @@ public class ShootUpUltimateSO : SkillSO
     [Header("Weapon")]
     [Foldout("Specific")] public GameObject WeaponPrefab;
     [Foldout("Specific")] public Vector3 WeaponPosition;
+    [Foldout("Specific")] public Vector3 WeaponTwoPosition;
+    [Foldout("Specific")] public Vector3 WeaponOneRotation;
+    [Foldout("Specific")] public Vector3 WeaponTwoRotation;
 }

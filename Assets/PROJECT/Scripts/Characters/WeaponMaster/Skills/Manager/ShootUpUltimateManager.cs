@@ -1,9 +1,9 @@
 using System;
 using System.Collections;
+using UnityEditor.Rendering.LookDev;
 using UnityEngine;
 
-public class ShootUpUltimateManager : SkillObjectManager
-{
+public class ShootUpUltimateManager : SkillObjectManager {
     #region Parameter
 
     // Components
@@ -20,30 +20,26 @@ public class ShootUpUltimateManager : SkillObjectManager
 
     #region Methods
 
-    public override void UseSkill(SkillSO skill)
-    {
+    public override void UseSkill(SkillSO skill) {
 
         Initialize(skill);
-        if (!gameObject.activeInHierarchy)
-        {
+        if (!gameObject.activeInHierarchy) {
             gameObject.SetActive(true);
             _attackCoroutine ??= StartCoroutine(Attack());
         }
 
     }
 
-    public override void SetSkillRangeIndicator(SkillSO skill)
-    {
+    public override void SetSkillRangeIndicator(SkillSO skill) {
         currentSkillRange = SkillPoolingManager.Instance.ReturnHitboxFromPool(skill.SkillObjectRangeName, skill.SkillObjectRangeObject);
         currentSkillRange.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
         currentSkillRange.SetActive(true);
     }
 
-    void Initialize(SkillSO skill)
-    {
+    void Initialize(SkillSO skill) {
         if (_info == null) _info = skill as ShootUpUltimateSO;
 
-        if(_weaponManager == null) _weaponManager = parent.GetComponent<WeaponManager>();
+        if (_weaponManager == null) _weaponManager = parent.GetComponent<WeaponManager>();
     }
 
 
@@ -51,8 +47,8 @@ public class ShootUpUltimateManager : SkillObjectManager
         cooldownManager.SetCooldown(slot, _info.Cooldown);
         anim.SetTrigger(_info.AnimationParameterTrigger);
 
-        _weaponManager.OnEquipRightHand(_info.WeaponPrefab, _info.WeaponName, _info.WeaponPosition);
-        _weaponManager.OnEquipLeftHand(_info.WeaponPrefab, _info.WeaponName, _info.WeaponPosition);
+        _weaponManager.OnEquipRightHand(_info.WeaponPrefab, _info.WeaponName, _info.WeaponPosition, _info.WeaponOneRotation);
+        _weaponManager.OnEquipLeftHand(_info.WeaponPrefab, _info.WeaponName, _info.WeaponTwoPosition, _info.WeaponTwoRotation);
 
         AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
 
@@ -66,7 +62,7 @@ public class ShootUpUltimateManager : SkillObjectManager
         // Ordenando a lista de prefabs pelo tempo que eles precisam aparecer
         _info.Prefabs[0].Sort((a, b) => a.TimeToSpawnPreFab.CompareTo(b.TimeToSpawnPreFab));
 
-        for (int i = 0; i < _info.Prefabs.Count; i++) {
+        for (int i = 0; i < _info.Prefabs[0].Count; i++) {
             SkillAnimationEvent prefabInfo = _info.Prefabs[0][i];
             float targetNormalizedTime = prefabInfo.TimeToSpawnPreFab;
 
@@ -76,8 +72,7 @@ public class ShootUpUltimateManager : SkillObjectManager
             } while (stateInfo.fullPathHash == attackStateHash && stateInfo.normalizedTime < targetNormalizedTime);
 
             GameObject preFab = SkillPoolingManager.Instance.ReturnHitboxFromPool(prefabInfo.PreFabName, prefabInfo.PreFab);
-            preFab.transform.SetParent(parent.transform);
-            preFab.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+            preFab.transform.SetPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.identity);
 
             if (prefabInfo.PrefabType == TypeOfSkillAnimationPrefab.Hitbox) {
 
@@ -85,7 +80,7 @@ public class ShootUpUltimateManager : SkillObjectManager
 
                 ContinuosDamageContext newContext = new(
                     _info.MaxDamage,
-                    _info.Duration,
+                    prefabInfo.PrefabDuration,
                     _info.Penetration,
                     _info.DamageCooldown,
                     _info.HitShield,
@@ -97,6 +92,10 @@ public class ShootUpUltimateManager : SkillObjectManager
                 preFab.GetComponent<ContinuosDamageHitBox>().Initialize(newContext);
 
                 OnWeaponChange?.Invoke();
+            }
+
+            else {
+                preFab.GetComponent<VFXPreFab>().Initialize(prefabInfo.PrefabDuration);
             }
         }
 

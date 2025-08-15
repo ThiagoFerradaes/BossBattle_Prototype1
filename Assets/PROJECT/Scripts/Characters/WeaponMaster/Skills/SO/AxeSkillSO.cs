@@ -16,7 +16,6 @@ public class AxeSkillSO : SkillSO
     [Foldout("Specific")] public float MaxChargeTime;
     [Foldout("Specific")] public float MinDamage;
     [Foldout("Specific")] public float MaxDamage;
-    [Foldout("Specific")] public float HitBoxDuration;
     [Foldout("Specific")] public float Penetration;
 
     [Header("Strings")]
@@ -29,4 +28,5 @@ public class AxeSkillSO : SkillSO
     [Header("Weapon")]
     [Foldout("Specific")] public GameObject WeaponPrefab;
     [Foldout("Specific")] public Vector3 WeaponPosition;
+    [Foldout("Specific")] public Vector3 WeaponRotation;
 }

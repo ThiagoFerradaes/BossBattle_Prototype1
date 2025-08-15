@@ -1,0 +1,13 @@
+using UnityEngine;
+
+public class VFXPreFab : MonoBehaviour
+{
+    public void Initialize(float preFabDuration) {
+        gameObject.SetActive(true);
+        Invoke(nameof(TurnOff), preFabDuration);
+    }
+
+    public void TurnOff() {
+        gameObject.SetActive(false);
+    }
+}

@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using UnityEditor.Rendering.LookDev;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -78,7 +79,7 @@ public class AxeAttackManager : SkillObjectManager {
 
         _chargeTimer = 0;
 
-        _weaponManager.OnEquipRightHand(_info.WeaponPrefab, _info.WeaponName, _info.WeaponPosition);
+        _weaponManager.OnEquipRightHand(_info.WeaponPrefab, _info.WeaponName, _info.WeaponPosition, _info.WeaponRotation);
 
         while (_isHoldingInput || _chargeTimer < _info.MinimalChargeTime) {
             _chargeTimer += Time.deltaTime;
@@ -111,7 +112,7 @@ public class AxeAttackManager : SkillObjectManager {
         // Ordenando a lista de prefabs pelo tempo que eles precisam aparecer
         _info.Prefabs[0].Sort((a, b) => a.TimeToSpawnPreFab.CompareTo(b.TimeToSpawnPreFab));
 
-        for (int i = 0; i < _info.Prefabs.Count; i++) {
+        for (int i = 0; i < _info.Prefabs[0].Count; i++) {
             SkillAnimationEvent prefabInfo = _info.Prefabs[0][i];
             float targetNormalizedTime = prefabInfo.TimeToSpawnPreFab;
 
@@ -121,14 +122,14 @@ public class AxeAttackManager : SkillObjectManager {
             } while (stateInfo.fullPathHash == attackStateHash && stateInfo.normalizedTime < targetNormalizedTime);
 
             GameObject preFab = SkillPoolingManager.Instance.ReturnHitboxFromPool(prefabInfo.PreFabName, prefabInfo.PreFab);
-            preFab.transform.SetParent(parent.transform);
-            preFab.transform.SetLocalPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.identity);
+            preFab.transform.SetParent(parent.transform, false);
+            preFab.transform.localPosition = (prefabInfo.PreFabPosition);
 
             if (prefabInfo.PrefabType == TypeOfSkillAnimationPrefab.Hitbox) {
 
                 InstantDamageContext newContext = new(
                     ReturnDamage(),
-                    _info.HitBoxDuration,
+                    prefabInfo.PrefabDuration,
                     _info.Penetration,
                     ReturnHitShield(),
                     _info.DamageType,
@@ -139,6 +140,9 @@ public class AxeAttackManager : SkillObjectManager {
                 preFab.GetComponent<InstantDamageHitBox>().Initialize(newContext);
 
                 OnWeaponChange?.Invoke();
+            }
+            else {
+                preFab.GetComponent<VFXPreFab>().Initialize(prefabInfo.PrefabDuration);
             }
         }
 

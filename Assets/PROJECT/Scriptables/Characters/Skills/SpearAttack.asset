@@ -18,7 +18,14 @@ MonoBehaviour:
     _serializedList:
     - Key: 0
       Value:
+      - TimeToSpawnPreFab: 0.4
+        PrefabDuration: 2
+        PreFabName: SpearAttackVFX
+        PrefabType: 1
+        PreFab: {fileID: 5506473260308187096, guid: dd09b869056ae834f9ea207979b51e68, type: 3}
+        PreFabPosition: {x: 0, y: 0, z: 0}
       - TimeToSpawnPreFab: 0.5
+        PrefabDuration: 0.1
         PreFabName: SpearAttackHitBox
         PrefabType: 0
         PreFab: {fileID: 2030686585895064686, guid: 0c886f26566d9994885dc1ea762b8edc, type: 3}
@@ -29,6 +36,7 @@ MonoBehaviour:
   BlockDashWhilePreCasting: 1
   PreCastOn: 1
   SkillCharacter: 0
+  Cancelable: 0
   SpearAttackTriggerName: SpearAttack
   AnimationName: SpearAttack
   Cooldown: 2
@@ -41,4 +49,5 @@ MonoBehaviour:
   EnemyTag: 0
   DamageType: 0
   SpearPrefab: {fileID: 2847143835849212098, guid: e92e5ac7b41ec62409c76332d976c10a, type: 3}
-  WeaponPosition: {x: 0, y: 0, z: 0}
+  WeaponPosition: {x: 0, y: 0.7, z: 0}
+  WeaponRotation: {x: 0, y: 0, z: 0}

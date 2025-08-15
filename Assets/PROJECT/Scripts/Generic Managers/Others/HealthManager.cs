@@ -16,6 +16,7 @@ public class HealthManager : MonoBehaviour {
 
     // Bools 
     bool _isDead;
+    bool _canTakeDamage = true;
 
     // Events
     public event Action<float, float> OnHealthChanged;
@@ -53,7 +54,7 @@ public class HealthManager : MonoBehaviour {
     }
 
     public void TakeDamage(float damage, bool trueDamage) {
-        if (_isDead) return;
+        if (_isDead || !_canTakeDamage) return;
         if (trueDamage) ChangeHealth(_currentHealth - damage);
         else {
             bool isShielded = _currentShield > 0;
@@ -63,12 +64,15 @@ public class HealthManager : MonoBehaviour {
                 else {
                     float realDamage = -(_currentShield - damage);
                     ChangeShield(0);
-                    ChangeHealth(realDamage);
+                    ChangeHealth(_currentHealth - realDamage);
                 }
             }
             else ChangeHealth(_currentHealth - damage);
         }
     }
+
+    public void CantTakeDamage() => _canTakeDamage = false;
+    public void CanTakeDamage() => _canTakeDamage = true;
     #endregion
 
     #region Shield
