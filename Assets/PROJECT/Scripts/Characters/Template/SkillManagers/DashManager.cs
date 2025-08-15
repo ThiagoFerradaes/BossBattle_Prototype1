@@ -7,6 +7,7 @@ public class DashManager : SkillObjectManager {
     // Components
     DashSO _info;
     Rigidbody rb;
+    HealthManager _healthManager;
 
     // Coroutine
     Coroutine _dashCoroutine;
@@ -28,6 +29,8 @@ public class DashManager : SkillObjectManager {
         _info = skill as DashSO;
 
         rb = parent.GetComponent<Rigidbody>();
+
+        _healthManager = parent.GetComponent<HealthManager>();
     }
 
     IEnumerator DashRoutine() {
@@ -49,6 +52,8 @@ public class DashManager : SkillObjectManager {
 
         movementManager.ChangeIsDashing(true);
 
+        _healthManager.CantTakeDamage();
+
         do {
             yield return null;
             stateInfo = anim.GetCurrentAnimatorStateInfo(0);
@@ -64,6 +69,7 @@ public class DashManager : SkillObjectManager {
         } while (stateInfo.fullPathHash == attackStateHash && stateInfo.normalizedTime < _info.DashDuration);
 
         movementManager.ChangeIsDashing(false);
+        _healthManager.CanTakeDamage();
 
         while (anim.GetCurrentAnimatorStateInfo(0).fullPathHash == attackStateHash &&
        anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f) {
