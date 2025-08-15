@@ -63,7 +63,7 @@ public class HealthManager : MonoBehaviour {
                 else {
                     float realDamage = -(_currentShield - damage);
                     ChangeShield(0);
-                    ChangeHealth(realDamage);
+                    ChangeHealth(_currentHealth - realDamage);
                 }
             }
             else ChangeHealth(_currentHealth - damage);

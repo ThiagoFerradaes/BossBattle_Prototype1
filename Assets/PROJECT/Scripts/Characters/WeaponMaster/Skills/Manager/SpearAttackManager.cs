@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using UnityEditor.Rendering.LookDev;
 using UnityEngine;
 
 public class SpearAttackManager : SkillObjectManager {
@@ -58,7 +59,7 @@ public class SpearAttackManager : SkillObjectManager {
         // Ordenando a lista de prefabs pelo tempo que eles precisam aparecer
         _info.Prefabs[0].Sort((a, b) => a.TimeToSpawnPreFab.CompareTo(b.TimeToSpawnPreFab));
 
-        for (int i = 0; i <  _info.Prefabs.Count; i++) {
+        for (int i = 0; i < _info.Prefabs[0].Count; i++) {
             SkillAnimationEvent prefabInfo = _info.Prefabs[0][i];
             float targetNormalizedTime = prefabInfo.TimeToSpawnPreFab;
 
@@ -68,8 +69,8 @@ public class SpearAttackManager : SkillObjectManager {
             } while (stateInfo.fullPathHash == attackStateHash && stateInfo.normalizedTime < targetNormalizedTime);
 
             GameObject preFab = SkillPoolingManager.Instance.ReturnHitboxFromPool(prefabInfo.PreFabName, prefabInfo.PreFab);
-            preFab.transform.SetParent(parent.transform);
-            preFab.transform.SetLocalPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.identity);
+            preFab.transform.SetParent(parent.transform, false);
+            preFab.transform.localPosition = (prefabInfo.PreFabPosition);
 
             if (prefabInfo.PrefabType == TypeOfSkillAnimationPrefab.Hitbox) {
 
@@ -77,7 +78,7 @@ public class SpearAttackManager : SkillObjectManager {
 
                 InstantDamageContext newContext = new(
                     damage,
-                    _info.HitBoxDuration,
+                    prefabInfo.PrefabDuration,
                     _info.Penetration,
                     _info.HitShield,
                     _info.DamageType,
@@ -89,6 +90,11 @@ public class SpearAttackManager : SkillObjectManager {
 
                 OnWeaponChange?.Invoke();
             }
+            else {
+                preFab.GetComponent<VFXPreFab>().Initialize(prefabInfo.PrefabDuration);
+                preFab.transform.SetParent(null);
+            }
+
         }
 
         while (anim.GetCurrentAnimatorStateInfo(0).fullPathHash == attackStateHash &&

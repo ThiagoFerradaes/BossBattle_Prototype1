@@ -18,7 +18,14 @@ MonoBehaviour:
     _serializedList:
     - Key: 0
       Value:
+      - TimeToSpawnPreFab: 0.4
+        PrefabDuration: 5
+        PreFabName: ShootUpVFX
+        PrefabType: 1
+        PreFab: {fileID: 6187286194130647229, guid: b0f219deb510d94479cab39913bdf185, type: 3}
+        PreFabPosition: {x: 0, y: 10, z: 0}
       - TimeToSpawnPreFab: 0.5
+        PrefabDuration: 5
         PreFabName: ShootUpHitBox
         PrefabType: 0
         PreFab: {fileID: 1324207944777058185, guid: 615c9bb71abd9b247896093c7c3af837, type: 3}
@@ -29,6 +36,7 @@ MonoBehaviour:
   BlockDashWhilePreCasting: 1
   PreCastOn: 1
   SkillCharacter: 0
+  Cancelable: 0
   AnimationParameterTrigger: ShootUp
   AnimationName: ShootUp
   LastAnimationName: Guarda
@@ -36,7 +44,6 @@ MonoBehaviour:
   MinDamage: 4
   MaxDamage: 6
   DamageCooldown: 0.1
-  Duration: 5
   Penetration: 0
   HitShield: 1
   WeaponName: GunWeapon

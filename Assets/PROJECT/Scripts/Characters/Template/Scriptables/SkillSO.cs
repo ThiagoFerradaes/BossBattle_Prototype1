@@ -7,6 +7,7 @@ public enum TypeOfSkillAnimationPrefab { Hitbox, VFX}
 [System.Serializable]
 public class SkillAnimationEvent {
     public float TimeToSpawnPreFab;
+    public float PrefabDuration;
     public string PreFabName;
     public TypeOfSkillAnimationPrefab PrefabType;
     public GameObject PreFab;

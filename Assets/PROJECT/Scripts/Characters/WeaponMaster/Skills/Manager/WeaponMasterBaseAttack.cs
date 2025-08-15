@@ -52,7 +52,6 @@ public class WeaponMasterBaseAttack : SkillObjectManager {
         float attackDamage = _attackIndex == 1 ? (Random.Range(_info.FirstAttackMinDamage, _info.FirstAttackMaxDamage))
             : (Random.Range(_info.SecondAttackMinDamage, _info.SecondAttackMaxDamage));
         float penetration = _attackIndex == 1 ? _info.PenetrationFirstAttack : _info.PenetrationSecondAttack;
-        float hitBoxDuration = _attackIndex == 1 ? _info.FirstAttackHitBoxDuration : _info.SecondAttackHitBoxDuration;
         Vector3 hitBoxPosition = _attackIndex == 1 ? _info.FirstBaseAttackHitBoxPosition : _info.SecondtBaseAttackHitBoxPosition;
 
         anim.speed = attackSpeedMultiplier;
@@ -72,6 +71,7 @@ public class WeaponMasterBaseAttack : SkillObjectManager {
 
         // Ordenando a lista de prefabs pelo tempo que eles precisam aparecer
         var prefabList = _info.Prefabs[_attackIndex];
+
         prefabList.Sort((a, b) => a.TimeToSpawnPreFab.CompareTo(b.TimeToSpawnPreFab));
 
         for (int i = 0; i < prefabList.Count; i++) {
@@ -84,14 +84,14 @@ public class WeaponMasterBaseAttack : SkillObjectManager {
             } while (stateInfo.fullPathHash == attackStateHash && stateInfo.normalizedTime < targetNormalizedTime);
 
             GameObject preFab = SkillPoolingManager.Instance.ReturnHitboxFromPool(prefabInfo.PreFabName, prefabInfo.PreFab);
-            preFab.transform.SetParent(parent.transform);
-            preFab.transform.SetLocalPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.identity);
+            preFab.transform.SetParent(parent.transform, false);
+            preFab.transform.localPosition = (prefabInfo.PreFabPosition);
 
             if (prefabInfo.PrefabType == TypeOfSkillAnimationPrefab.Hitbox) {
 
                 InstantDamageContext newContext = new(
                     attackDamage,
-                    hitBoxDuration,
+                    prefabInfo.PrefabDuration,
                     penetration,
                     _info.HitShield,
                     _info.DamageType,
@@ -100,6 +100,9 @@ public class WeaponMasterBaseAttack : SkillObjectManager {
                     );
 
                 preFab.GetComponent<InstantDamageHitBox>().Initialize(newContext);
+            }
+            else {
+                preFab.GetComponent<VFXPreFab>().Initialize(prefabInfo.PrefabDuration);
             }
         }
 
