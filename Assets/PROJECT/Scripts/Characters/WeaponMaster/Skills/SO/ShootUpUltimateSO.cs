@@ -30,4 +30,7 @@ public class ShootUpUltimateSO : SkillSO
     [Header("Weapon")]
     [Foldout("Specific")] public GameObject WeaponPrefab;
     [Foldout("Specific")] public Vector3 WeaponPosition;
+    [Foldout("Specific")] public Vector3 WeaponTwoPosition;
+    [Foldout("Specific")] public Vector3 WeaponOneRotation;
+    [Foldout("Specific")] public Vector3 WeaponTwoRotation;
 }

@@ -29,4 +29,5 @@ public class SpearSkillSO : SkillSO
     [Header("Weapon")]
     [Foldout("Specific")] public GameObject SpearPrefab;
     [Foldout("Specific")] public Vector3 WeaponPosition;
+    [Foldout("Specific")] public Vector3 WeaponRotation;
 }

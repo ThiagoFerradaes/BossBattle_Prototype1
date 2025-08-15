@@ -28,4 +28,5 @@ public class AxeSkillSO : SkillSO
     [Header("Weapon")]
     [Foldout("Specific")] public GameObject WeaponPrefab;
     [Foldout("Specific")] public Vector3 WeaponPosition;
+    [Foldout("Specific")] public Vector3 WeaponRotation;
 }

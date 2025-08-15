@@ -39,4 +39,5 @@ public class WeaponMasterBaseAttackSO : SkillSO {
     [Foldout("Specific")] public Vector3 FirstBaseAttackHitBoxPosition;
     [Foldout("Specific")] public Vector3 SecondtBaseAttackHitBoxPosition;
     [Foldout("Specific")] public Vector3 WeaponPosition;
+    [Foldout("Specific")] public Vector3 WeaponRotation;
 }

@@ -65,7 +65,7 @@ public class WeaponMasterBaseAttack : SkillObjectManager {
             stateInfo = anim.GetCurrentAnimatorStateInfo(0);
         } while (!stateInfo.IsName(animationName));
 
-        _weaponManager.OnEquipRightHand(_info.SwordPrefab, _info.SwordName, _info.WeaponPosition);
+        _weaponManager.OnEquipRightHand(_info.SwordPrefab, _info.SwordName, _info.WeaponPosition, _info.WeaponRotation);
 
         int attackStateHash = stateInfo.fullPathHash;
 

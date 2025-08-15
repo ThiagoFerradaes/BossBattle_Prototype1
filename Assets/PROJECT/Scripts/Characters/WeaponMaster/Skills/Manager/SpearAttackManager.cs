@@ -52,7 +52,7 @@ public class SpearAttackManager : SkillObjectManager {
         } while (!stateInfo.IsName(_info.AnimationName));
 
         // Ligando a arma
-        _weaponManager.OnEquipRightHand(_info.SpearPrefab, _info.SpearName, _info.WeaponPosition);
+        _weaponManager.OnEquipRightHand(_info.SpearPrefab, _info.SpearName, _info.WeaponPosition, _info.WeaponRotation);
 
         int attackStateHash = stateInfo.fullPathHash;
 
