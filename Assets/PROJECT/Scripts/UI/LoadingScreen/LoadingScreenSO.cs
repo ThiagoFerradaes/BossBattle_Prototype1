@@ -12,5 +12,6 @@ public class Tip {
 public class LoadingScreenSO : ScriptableObject
 {
     public List<Sprite> Sprites;
+    public Sprite SavingIcon;
     public List<Tip> TipList;
 }

@@ -155,6 +155,8 @@ public class LoadingScreenManager : MonoBehaviour {
         Sprite newSprite = list[rng];
 
         backGroundImage.sprite = newSprite;
+
+        bossSavingIcon.sprite = loadingScriptable.SavingIcon;
     }
 
 }
