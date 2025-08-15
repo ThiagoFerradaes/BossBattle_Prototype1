@@ -80,7 +80,6 @@ public class MapManager : MonoBehaviour {
 
         CloseMapButton.onClick.AddListener(() => gameObject.SetActive(false));
         CloseSecondMapButton.onClick.AddListener(() => SecondMap.SetActive(false));
-        SailButton.onClick.AddListener(Sail);
     }
 
     void SelectACharacter(CharacterSO character) {
@@ -103,6 +102,8 @@ public class MapManager : MonoBehaviour {
         BossDescription.text = description.Description;
         _nextSceneIndex = description.SceneIndex;
 
+        SailButton.onClick.RemoveAllListeners();
+        SailButton.onClick.AddListener(() => Sail(description));
 
         foreach (var character in DictionaryOfCharacterButtons.Keys) {
             if (character.Character == PlayerWhiteBoard.Instance.ReturnSelectedCharacter()) {
@@ -112,7 +113,7 @@ public class MapManager : MonoBehaviour {
         
 
     }
-    void Sail() {
-        SceneManager.LoadScene(_nextSceneIndex);
+    void Sail(BossDescription description) {
+        LoadingScreenManager.Instance.LoadFightScene(description.LoadingScreen, _nextSceneIndex);
     }
 }

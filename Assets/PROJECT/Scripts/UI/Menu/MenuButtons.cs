@@ -12,11 +12,12 @@ public class MenuButtons : MonoBehaviour
     [SerializeField] GameObject Map;
 
     private void Start() {
-        startButton.onClick.AddListener(ChangeScene);
+        //startButton.onClick.AddListener(() => LoadingScreenManager.Instance.ReturnToTavern());
+        startButton.onClick.AddListener(OpenMap);
         exitButton.onClick.AddListener(ExitGame);
     }
 
-    void ChangeScene() {
+    void OpenMap() {
         Map.SetActive(true);
     }
 
