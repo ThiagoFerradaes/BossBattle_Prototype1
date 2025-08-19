@@ -118,7 +118,7 @@ public class KrakenManager : MonoBehaviour {
         else if (skill is KrakenCrossAttack) {
             StartCoroutine(KrakenCrossAttackCoroutine(skillIndex));
         }
-        else if (skill is KrakenRainAttack) {
+        else if (skill is KrakenStalactiteAttack) {
 
         }
     }
@@ -207,6 +207,55 @@ public class KrakenManager : MonoBehaviour {
     #endregion
 
     #region Specific Attacks
+
+    IEnumerator StalactiteAttack(EnemySkillSO skill) {
+        float timer = 0f;
+
+        KrakenStalactiteAttack info = skill as KrakenStalactiteAttack;
+
+        Queue<Vector3> lastPositions = new Queue<Vector3>();
+
+        while (timer < info.AttackDuration) {
+            timer += Time.deltaTime;
+
+            if (timer % info.CooldownBetweenEachStalactite < Time.deltaTime) {
+                SpawnObject(lastPositions, info);
+            }
+
+            yield return null;
+        }
+    }
+
+    void SpawnObject(Queue<Vector3> lastPositions, KrakenStalactiteAttack info) {
+        Vector3 spawnPos;
+        int tries = 0;
+        do {
+            Vector2 randomPos2D = Random.insideUnitCircle * info.StalactiteRange;
+            spawnPos = new Vector3(randomPos2D.x, info.StalactiteHeight, randomPos2D.y);
+
+            tries++;
+            if (tries > 20) 
+                break;
+
+        } while (IsTooCloseToLast(spawnPos, lastPositions, info));
+
+        lastPositions.Enqueue(spawnPos);
+        if (lastPositions.Count > 5)
+            lastPositions.Dequeue();
+
+        GameObject prefab = SkillPoolingManager.Instance.ReturnHitboxFromPool(info.Prefabs[0].PreFabName, info.Prefabs[0].PreFab);
+        //StartCoroutine(StalactiteFalling(prefab, spawnPos));
+    }
+
+    bool IsTooCloseToLast(Vector3 pos, Queue<Vector3> lastPositions, KrakenStalactiteAttack info) {
+        foreach (var last in lastPositions) {
+            if (Vector3.Distance(pos, last) < info.StalactiteDistanceFromEachOther) return true;
+        }
+        return false;
+    }
+    //IEnumerator StalactiteFalling(GameObject stalactite, Vector3 pos) {
+
+    //}
     void KrakenRandomAttack(int skillIndex) {
         KrakenRandomAttack info = _listOfSkills[skillIndex] as KrakenRandomAttack;
 
