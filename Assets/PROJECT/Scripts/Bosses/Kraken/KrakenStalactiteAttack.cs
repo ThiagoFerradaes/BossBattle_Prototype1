@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Kraken / RainAttack")]
-public class KrakenStalactiteAttack : EnemySkillSO {
+public class KrakenStalactiteAttack : EnemyBehaviourSO {
     public float AttackDuration;
     public float CooldownBetweenEachStalactite;
     public float StalactiteFallSpeed;

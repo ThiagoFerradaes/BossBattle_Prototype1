@@ -7,7 +7,7 @@ public class EnemyCooldownManager : MonoBehaviour {
     #region Parameters
 
     public static EnemyCooldownManager Instance;
-    Dictionary<EnemySkillSO, float> _listOfCooldowns = new();
+    Dictionary<EnemyBehaviourSO, float> _listOfCooldowns = new();
 
     #endregion
 
@@ -20,8 +20,8 @@ public class EnemyCooldownManager : MonoBehaviour {
         }
         else Destroy(this);
     }
-    public void Initiate(List<EnemySkillSO> list) {
-        foreach (EnemySkillSO item in list) {
+    public void Initiate(List<EnemyBehaviourSO> list) {
+        foreach (EnemyBehaviourSO item in list) {
             _listOfCooldowns[item] = 0f;
         }
     }
@@ -33,7 +33,7 @@ public class EnemyCooldownManager : MonoBehaviour {
     /// </summary>
     /// <param name="skill"></param>
     /// <returns></returns>
-    public bool SkillInCooldown(EnemySkillSO skill) {
+    public bool SkillInCooldown(EnemyBehaviourSO skill) {
         if (_listOfCooldowns.ContainsKey(skill)) {
             if (_listOfCooldowns[skill] > 0f) return true;
             else return false;
@@ -45,14 +45,14 @@ public class EnemyCooldownManager : MonoBehaviour {
     /// Set the cooldown of a skill
     /// </summary>
     /// <param name="skill"></param>
-    public void SetSkillCooldown(EnemySkillSO skill) {
+    public void SetSkillCooldown(EnemyBehaviourSO skill) {
         if (!_listOfCooldowns.ContainsKey(skill)) return;
 
         _listOfCooldowns[skill] = skill.Cooldown;
         StartCoroutine(SkillCooldown(skill));
     }
 
-    IEnumerator SkillCooldown(EnemySkillSO skill) {
+    IEnumerator SkillCooldown(EnemyBehaviourSO skill) {
 
         while (_listOfCooldowns[skill] > 0) {
             _listOfCooldowns[skill] -= Time.deltaTime;

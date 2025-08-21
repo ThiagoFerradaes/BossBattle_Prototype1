@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5287888502505986811}
   - component: {fileID: 2287122686630386273}
-  - component: {fileID: 489130667244019452}
   - component: {fileID: 4263623760775319813}
   m_Layer: 0
   m_Name: Kraken
@@ -50,19 +49,23 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8240045495780868108}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8633bfff1f72e3049b9a141757b60475, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  initialState: {fileID: 11400000, guid: cffca25e99b7e7243b614704d6fb1afa, type: 2}
+  listOfBehaviour: {fileID: 11400000, guid: 4c0ffe2564c2c6140a391d43579744ee, type: 2}
+  CooldownManager: {fileID: 0}
   cooldownBetweenAttacks: 6
   deadTentacleMaterial: {fileID: 2100000, guid: 1b805f00929fc8942a2442867c3c6c78, type: 2}
+  tentacleAttackSO: {fileID: 11400000, guid: 50459a5694b539d4f9293beb93bcd30a, type: 2}
   _listOfSkills:
   - {fileID: 11400000, guid: 87569bee2a95e40468903ade014f7822, type: 2}
   - {fileID: 11400000, guid: 690cfdd534ff0a6458a9590a312e6b47, type: 2}
   - {fileID: 11400000, guid: 5a65bba03f435ee4e8f7232cd91eb427, type: 2}
   - {fileID: 11400000, guid: 350a5ee60a441b34185f636c8a86a7bd, type: 2}
-  _tentaclesList:
+  TentaclesListGO:
   - {fileID: 8052594618226590201}
   - {fileID: 396344146904719247}
   - {fileID: 8602067163581851498}
@@ -71,23 +74,8 @@ MonoBehaviour:
   - {fileID: 1533660516349604032}
   - {fileID: 86746977388860052}
   - {fileID: 974908796638852374}
-  AttackAnimationParameter: Attack
-  ReturnToIdleAnimationParameter: BackToIdle
-  AttackAnimationName: Preparing
-  AttackHitAnimationName: Hit
-  ReturnToIdleAnimationName: Back
---- !u!114 &489130667244019452
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8240045495780868108}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b5b1adba46614449bb43b0735cab4af, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  tentacleAttack: {fileID: 11400000, guid: 50459a5694b539d4f9293beb93bcd30a, type: 2}
+  Player: {fileID: 0}
 --- !u!114 &4263623760775319813
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -95,12 +83,11 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8240045495780868108}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3b90bdd9440bf0e4888ab8ebd3282877, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dificulty: 0
 --- !u!1001 &935474270634298267
 PrefabInstance:
   m_ObjectHideFlags: 0
