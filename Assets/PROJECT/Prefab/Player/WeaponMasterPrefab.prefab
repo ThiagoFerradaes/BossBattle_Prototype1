@@ -284,6 +284,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 65d707b0-eb9c-4b28-a760-e3209c9ae63d
     m_ActionName: 'Player/Pause[/Keyboard/escape]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0003cf65-0225-4aaa-a88d-8caa51ea290c
+    m_ActionName: 'Tavern/Drag[/Mouse/rightButton]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -322,8 +326,6 @@ MonoBehaviour:
   Anim: {fileID: 0}
   MoveManager: {fileID: 0}
   CooldownManager: {fileID: 0}
-  _skillAvailable:
-    _serializedList: []
 --- !u!114 &1889250769962527780
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -473,10 +475,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7813590141776298306, guid: c80ef45100dcc32489aabc17e0f6dfd1, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -7813590141776298306, guid: c80ef45100dcc32489aabc17e0f6dfd1, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 7a888dc21f6542d4a85234c4a53767b3, type: 2}
     - target: {fileID: 919132149155446097, guid: c80ef45100dcc32489aabc17e0f6dfd1, type: 3}
       propertyPath: m_Name
       value: Y Bot
       objectReference: {fileID: 0}
+    - target: {fileID: 5822821947120931875, guid: c80ef45100dcc32489aabc17e0f6dfd1, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5822821947120931875, guid: c80ef45100dcc32489aabc17e0f6dfd1, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 7a888dc21f6542d4a85234c4a53767b3, type: 2}
     - target: {fileID: 5866666021909216657, guid: c80ef45100dcc32489aabc17e0f6dfd1, type: 3}
       propertyPath: m_Controller
       value: 
