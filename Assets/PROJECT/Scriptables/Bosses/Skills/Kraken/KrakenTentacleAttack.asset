@@ -15,8 +15,14 @@ MonoBehaviour:
   Priority: 0
   Cooldown: 0
   Prefabs:
+  - TimeToSpawnPreFab: 0.01
+    PrefabDuration: 1.7
+    PreFabName: TentacleHitPrefabVFX
+    PrefabType: 1
+    PreFab: {fileID: 818511502771708411, guid: 2c2e12b1d138d3a42a7badf831c4f0f5, type: 3}
+    PreFabPosition: {x: 0, y: 0, z: 0}
   - TimeToSpawnPreFab: 0.5
-    PrefabDuration: 0
+    PrefabDuration: 0.1
     PreFabName: TentacleHitPrefab
     PrefabType: 0
     PreFab: {fileID: 8778551947811663126, guid: ec0e2113e657cd041aa14a3c82a33f2a, type: 3}
@@ -28,6 +34,5 @@ MonoBehaviour:
   ReturnToIdleAnimationName: Back
   PreparingAttackSpeed: PreparingSpeed
   HitAttackSpeed: HitSpeed
-  DownTime: 3
   TentacleDamage: 25
   DeadTentacleDamage: 12.5

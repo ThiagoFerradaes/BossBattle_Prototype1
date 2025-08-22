@@ -2,6 +2,7 @@ using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.Rendering.LookDev;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -37,7 +38,7 @@ public class KrakenManager : EnemyBehaviourManager {
     Dictionary<int, Coroutine> _listOfTentaclesInAnimation = new();
     Dictionary<int, bool> _listOfTentaclesDead = new();
 
-    [HideInInspector]public List<KrakenTentacle> ListOfTentacles = new();
+    [HideInInspector] public List<KrakenTentacle> ListOfTentacles = new();
     [HideInInspector] public Transform Player;
 
     #endregion
@@ -105,26 +106,44 @@ public class KrakenManager : EnemyBehaviourManager {
     }
     public IEnumerator TentacleAttack(int tentacleIndex, float preparingSpeed, float hitSpeed, float downTime) {
 
-        
+
         Animator anim = ListOfTentacles[tentacleIndex].Anim;
         anim.SetFloat(tentacleAttack.PreparingAttackSpeed, preparingSpeed);
         anim.SetTrigger(tentacleAttack.AttackAnimationParameter);
 
         AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
 
-        do { // Esperando a primeira animação
+        do { // PREPARING ANIMATION
             yield return null;
             stateInfo = anim.GetCurrentAnimatorStateInfo(0);
         } while (!stateInfo.IsName(tentacleAttack.AttackAnimationName));
 
         int attackStateHash = stateInfo.fullPathHash;
 
+        for (int i = 0; i < tentacleAttack.PrefabsPreparingAnimation.Count; i++) {
+            SkillAnimationEvent prefabInfo = tentacleAttack.PrefabsPreparingAnimation[i];
+            float targetNormalizedTime = prefabInfo.TimeToSpawnPreFab;
+
+            do { // Esperando o tempo para instanciar VFX
+                yield return null;
+                stateInfo = anim.GetCurrentAnimatorStateInfo(0);
+            } while (stateInfo.fullPathHash == attackStateHash && stateInfo.normalizedTime < targetNormalizedTime);
+
+            if (prefabInfo.PrefabType == TypeOfSkillAnimationPrefab.VFX) {
+                GameObject attackHitBox = SkillPoolingManager.Instance.ReturnHitboxFromPool(prefabInfo.PreFabName, prefabInfo.PreFab);
+                float yRotation = 180 + (tentacleIndex * 45);
+                attackHitBox.transform.SetPositionAndRotation(new Vector3(0, 1, 0), Quaternion.Euler(0, yRotation, 0));
+                attackHitBox.GetComponent<VFXPreFab>().Initialize(prefabInfo.PrefabDuration);
+            }
+
+        }
+
         while (anim.GetCurrentAnimatorStateInfo(0).fullPathHash == attackStateHash &&
        anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f) {
             yield return null;
         }
 
-        do { // Esperando a segunda animação
+        do { // HIT ANIMATION
             yield return null;
             stateInfo = anim.GetCurrentAnimatorStateInfo(0);
         } while (!stateInfo.IsName(tentacleAttack.AttackHitAnimationName));
@@ -132,12 +151,12 @@ public class KrakenManager : EnemyBehaviourManager {
         anim.SetFloat(tentacleAttack.HitAttackSpeed, hitSpeed);
 
         attackStateHash = stateInfo.fullPathHash;
-        tentacleAttack.Prefabs.Sort((a, b) => a.TimeToSpawnPreFab.CompareTo(b.TimeToSpawnPreFab));
+        tentacleAttack.PrefabsHitAnimation.Sort((a, b) => a.TimeToSpawnPreFab.CompareTo(b.TimeToSpawnPreFab));
 
 
-        // Instanciando todas as hitboxes e vfx
-        for (int i = 0; i < tentacleAttack.Prefabs.Count; i++) {
-            SkillAnimationEvent prefabInfo = tentacleAttack.Prefabs[i];
+        // Instanciando todas as hitboxes
+        for (int i = 0; i < tentacleAttack.PrefabsHitAnimation.Count; i++) {
+            SkillAnimationEvent prefabInfo = tentacleAttack.PrefabsHitAnimation[i];
             float targetNormalizedTime = prefabInfo.TimeToSpawnPreFab;
 
             do { // Esperando o tempo para instanciar hit box
@@ -147,12 +166,12 @@ public class KrakenManager : EnemyBehaviourManager {
 
             GameObject attackHitBox = SkillPoolingManager.Instance.ReturnHitboxFromPool(prefabInfo.PreFabName, prefabInfo.PreFab);
             float yRotation = 180 + (tentacleIndex * 45);
-            attackHitBox.transform.SetPositionAndRotation(new Vector3(0, 3, 0), Quaternion.Euler(90, yRotation, 0));
-
-            float damage = _listOfTentaclesDead[tentacleIndex]? tentacleAttack.DeadTentacleDamage : tentacleAttack.TentacleDamage;
 
             if (prefabInfo.PrefabType == TypeOfSkillAnimationPrefab.Hitbox) {
 
+                float damage = _listOfTentaclesDead[tentacleIndex] ? tentacleAttack.DeadTentacleDamage : tentacleAttack.TentacleDamage;
+
+                attackHitBox.transform.SetPositionAndRotation(new Vector3(0, 3, 0), Quaternion.Euler(90, yRotation, 0));
                 InstantDamageContext newContext = new(
                 damage,
                 0.1f,
@@ -164,8 +183,12 @@ public class KrakenManager : EnemyBehaviourManager {
                 );
 
                 attackHitBox.GetComponent<InstantDamageHitBox>().Initialize(newContext);
-
             }
+            else {
+                attackHitBox.transform.SetPositionAndRotation(new Vector3(0, 1, 0), Quaternion.Euler(0, yRotation, 0));
+                attackHitBox.GetComponent<VFXPreFab>().Initialize(prefabInfo.PrefabDuration);
+            }
+
         }
 
         ListOfTentacles[tentacleIndex].HitBox.SetActive(true);

@@ -7,7 +7,6 @@ public class EnemyBehaviourSO : ScriptableObject
     public int Priority;
     public float Cooldown;
     protected EnemyBehaviourManager enemyBehaviourManager;
-    public List<SkillAnimationEvent> Prefabs;
 
     public virtual void StartState(EnemyBehaviourManager parent) { 
         enemyBehaviourManager = parent; 

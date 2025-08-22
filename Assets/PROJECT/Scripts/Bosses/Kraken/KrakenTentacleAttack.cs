@@ -1,9 +1,12 @@
 using NaughtyAttributes;
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Kraken / TentacleAttack")]
 public class KrakenTentacleAttack : EnemyBehaviourSO
 {
+    [Foldout("Prefabs")] public List<SkillAnimationEvent> PrefabsPreparingAnimation;
+    [Foldout("Prefabs")] public List<SkillAnimationEvent> PrefabsHitAnimation;
 
     [Foldout("Animations")] public string AttackAnimationParameter;
     [Foldout("Animations")] public string ReturnToIdleAnimationParameter;
