@@ -133,6 +133,9 @@ public class KrakenManager : EnemyBehaviourManager {
                 GameObject attackHitBox = SkillPoolingManager.Instance.ReturnHitboxFromPool(prefabInfo.PreFabName, prefabInfo.PreFab);
                 float yRotation = 180 + (tentacleIndex * 45);
                 attackHitBox.transform.SetPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.Euler(0, yRotation + 22.5f, 0));
+                ParticleSystem ps = attackHitBox.GetComponent<ParticleSystem>();
+                var main = ps.main;
+                main.simulationSpeed = preparingSpeed;
                 attackHitBox.GetComponent<VFXPreFab>().Initialize(prefabInfo.PrefabDuration);
             }
 
@@ -186,6 +189,9 @@ public class KrakenManager : EnemyBehaviourManager {
             }
             else {
                 attackHitBox.transform.SetPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.Euler(-90, yRotation + 202.5f, 0));
+                ParticleSystem ps = attackHitBox.GetComponent<ParticleSystem>();
+                var main = ps.main;
+                main.simulationSpeed = preparingSpeed;
                 attackHitBox.GetComponent<VFXPreFab>().Initialize(prefabInfo.PrefabDuration);
             }
 
