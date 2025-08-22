@@ -14,19 +14,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Priority: 0
   Cooldown: 0
-  Prefabs:
-  - TimeToSpawnPreFab: 0.01
-    PrefabDuration: 1.7
-    PreFabName: TentacleHitPrefabVFX
+  PrefabsPreparingAnimation:
+  - TimeToSpawnPreFab: 0.3
+    PrefabDuration: 1
+    PreFabName: TentaclePreparingVFX
     PrefabType: 1
     PreFab: {fileID: 818511502771708411, guid: 2c2e12b1d138d3a42a7badf831c4f0f5, type: 3}
+    PreFabPosition: {x: 0, y: 1, z: 0}
+  PrefabsHitAnimation:
+  - TimeToSpawnPreFab: 0.3
+    PrefabDuration: 1.5
+    PreFabName: TentacleHitVFX
+    PrefabType: 1
+    PreFab: {fileID: 7576390327370907376, guid: 2246f39ab3c0f3e48bef02c89084344d, type: 3}
     PreFabPosition: {x: 0, y: 0, z: 0}
   - TimeToSpawnPreFab: 0.5
     PrefabDuration: 0.1
-    PreFabName: TentacleHitPrefab
+    PreFabName: TentacleHitBox
     PrefabType: 0
     PreFab: {fileID: 8778551947811663126, guid: ec0e2113e657cd041aa14a3c82a33f2a, type: 3}
-    PreFabPosition: {x: 0, y: 0, z: 0}
+    PreFabPosition: {x: 0, y: 3, z: 0}
   AttackAnimationParameter: Attack
   ReturnToIdleAnimationParameter: BackToIdle
   AttackAnimationName: Preparing

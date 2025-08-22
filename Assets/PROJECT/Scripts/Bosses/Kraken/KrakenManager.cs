@@ -132,7 +132,7 @@ public class KrakenManager : EnemyBehaviourManager {
             if (prefabInfo.PrefabType == TypeOfSkillAnimationPrefab.VFX) {
                 GameObject attackHitBox = SkillPoolingManager.Instance.ReturnHitboxFromPool(prefabInfo.PreFabName, prefabInfo.PreFab);
                 float yRotation = 180 + (tentacleIndex * 45);
-                attackHitBox.transform.SetPositionAndRotation(new Vector3(0, 1, 0), Quaternion.Euler(0, yRotation, 0));
+                attackHitBox.transform.SetPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.Euler(0, yRotation, 0));
                 attackHitBox.GetComponent<VFXPreFab>().Initialize(prefabInfo.PrefabDuration);
             }
 
@@ -171,7 +171,7 @@ public class KrakenManager : EnemyBehaviourManager {
 
                 float damage = _listOfTentaclesDead[tentacleIndex] ? tentacleAttack.DeadTentacleDamage : tentacleAttack.TentacleDamage;
 
-                attackHitBox.transform.SetPositionAndRotation(new Vector3(0, 3, 0), Quaternion.Euler(90, yRotation, 0));
+                attackHitBox.transform.SetPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.Euler(90, yRotation, 0));
                 InstantDamageContext newContext = new(
                 damage,
                 0.1f,
@@ -185,7 +185,7 @@ public class KrakenManager : EnemyBehaviourManager {
                 attackHitBox.GetComponent<InstantDamageHitBox>().Initialize(newContext);
             }
             else {
-                attackHitBox.transform.SetPositionAndRotation(new Vector3(0, 1, 0), Quaternion.Euler(0, yRotation, 0));
+                attackHitBox.transform.SetPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.Euler(-90, yRotation + 180, 0));
                 attackHitBox.GetComponent<VFXPreFab>().Initialize(prefabInfo.PrefabDuration);
             }
 
