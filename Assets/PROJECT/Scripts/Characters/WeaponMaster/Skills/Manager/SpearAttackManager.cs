@@ -92,7 +92,7 @@ public class SpearAttackManager : SkillObjectManager {
             }
             else {
                 preFab.GetComponent<VFXPreFab>().Initialize(prefabInfo.PrefabDuration);
-                preFab.transform.SetParent(null);
+                //preFab.transform.SetParent(null);
             }
 
         }
