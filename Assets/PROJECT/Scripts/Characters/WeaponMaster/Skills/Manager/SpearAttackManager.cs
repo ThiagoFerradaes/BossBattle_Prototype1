@@ -68,7 +68,7 @@ public class SpearAttackManager : SkillObjectManager {
                 stateInfo = anim.GetCurrentAnimatorStateInfo(0);
             } while (stateInfo.fullPathHash == attackStateHash && stateInfo.normalizedTime < targetNormalizedTime);
 
-            GameObject preFab = SkillPoolingManager.Instance.ReturnHitboxFromPool(prefabInfo.PreFabName, prefabInfo.PreFab);
+            GameObject preFab = PoolingManager.Instance.ReturnHitboxFromPool(prefabInfo.PreFabName, prefabInfo.PreFab);
             preFab.transform.SetParent(parent.transform, false);
             preFab.transform.localPosition = (prefabInfo.PreFabPosition);
 

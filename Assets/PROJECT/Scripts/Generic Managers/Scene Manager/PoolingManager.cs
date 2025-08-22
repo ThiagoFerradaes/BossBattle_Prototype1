@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SkillPoolingManager : MonoBehaviour {
+public class PoolingManager : MonoBehaviour {
     #region Parameters
-    public static SkillPoolingManager Instance;
+    public static PoolingManager Instance;
 
     // Dicionários
     Dictionary<string, List<GameObject>> listOfHitboxes = new();

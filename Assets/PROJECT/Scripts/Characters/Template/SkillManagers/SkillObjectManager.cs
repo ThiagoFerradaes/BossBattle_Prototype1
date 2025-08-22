@@ -66,7 +66,7 @@ public abstract class SkillObjectManager : MonoBehaviour {
     }
 
     public virtual void SetSkillRangeIndicator(SkillSO skill) {
-        currentSkillRange = SkillPoolingManager.Instance.ReturnHitboxFromPool(skill.SkillObjectRangeName, skill.SkillObjectRangeObject);
+        currentSkillRange = PoolingManager.Instance.ReturnHitboxFromPool(skill.SkillObjectRangeName, skill.SkillObjectRangeObject);
         currentSkillRange.transform.SetParent(parent.transform);
 
         float groundY = FindGroundHeight(parent.transform.position);
@@ -91,7 +91,7 @@ public abstract class SkillObjectManager : MonoBehaviour {
         if (currentSkillRange == null) return;
 
         currentSkillRange.SetActive(false);
-        currentSkillRange.transform.SetParent(SkillPoolingManager.Instance.HitboxContainer);
+        currentSkillRange.transform.SetParent(PoolingManager.Instance.HitboxContainer);
         currentSkillRange = null;
 
     }
