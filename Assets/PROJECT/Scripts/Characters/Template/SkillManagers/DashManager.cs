@@ -52,7 +52,7 @@ public class DashManager : SkillObjectManager {
 
         movementManager.ChangeIsDashing(true);
 
-        _healthManager.CantTakeDamage();
+        _healthManager.SetCantTakeDamage();
 
         do {
             yield return null;
@@ -69,7 +69,7 @@ public class DashManager : SkillObjectManager {
         } while (stateInfo.fullPathHash == attackStateHash && stateInfo.normalizedTime < _info.DashDuration);
 
         movementManager.ChangeIsDashing(false);
-        _healthManager.CanTakeDamage();
+        _healthManager.SetCanTakeDamage();
 
         while (anim.GetCurrentAnimatorStateInfo(0).fullPathHash == attackStateHash &&
        anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f) {

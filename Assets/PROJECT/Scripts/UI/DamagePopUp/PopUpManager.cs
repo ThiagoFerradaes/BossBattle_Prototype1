@@ -33,10 +33,10 @@ public class PopUpManager : MonoBehaviour {
     }
 
     private void SpawnDamagePopup(int damage, Vector3 position, bool direction, bool isCrit) {
-
         for (int i = 0; i < _damagePopUpList.Count; i++) {
             if (!_damagePopUpList[i].gameObject.activeInHierarchy) {
                 _damagePopUpList[i].Display(damage, position, direction, isCrit);
+                return;
             }
         }
 

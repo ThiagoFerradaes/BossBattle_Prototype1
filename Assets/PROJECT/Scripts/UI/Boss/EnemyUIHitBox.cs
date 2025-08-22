@@ -20,5 +20,10 @@ public class EnemyUIHitBox : MonoBehaviour
 
     void UpdateHealthBar(float currentHealth, float maxHealth) {
         healthBar.fillAmount = currentHealth / maxHealth;
+        if (currentHealth == 0) gameObject.SetActive(false);
+    }
+
+    private void OnDestroy() {
+        healthManager.OnHealthChanged -= UpdateHealthBar;
     }
 }

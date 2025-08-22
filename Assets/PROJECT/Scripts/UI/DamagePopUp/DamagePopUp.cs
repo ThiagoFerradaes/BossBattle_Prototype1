@@ -143,7 +143,6 @@ public class DamagePopUp : MonoBehaviour {
             }
 
             transform.position = CalculateBezierPoint(easedTime, start, highPoint, dropPoint);
-            Debug.Log(transform.position);
             yield return null;
         }
     }
