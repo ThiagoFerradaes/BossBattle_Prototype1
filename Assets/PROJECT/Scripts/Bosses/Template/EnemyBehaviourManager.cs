@@ -29,10 +29,9 @@ public class EnemyBehaviourManager : MonoBehaviour {
         catch { Debug.LogWarning("No CooldownManager"); }
 
 
-            _currentBehaviour = Instantiate(initialState);
-            _currentBehaviour.StartState(this);
-        
-        //catch (System.Exception e) { Debug.LogWarning($"Erro ao iniciar initialState: {e.Message}\n{e.StackTrace}"); }
+        _currentBehaviour = Instantiate(initialState);
+        _currentBehaviour.StartState(this);
+
     }
 
     void Update() {

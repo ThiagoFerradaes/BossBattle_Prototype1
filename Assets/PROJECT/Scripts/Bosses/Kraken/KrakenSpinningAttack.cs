@@ -5,6 +5,9 @@ using UnityEngine;
 public class KrakenSpinningAttack : EnemyBehaviourSO {
     [SerializeField] float cooldownBetweenEachTentacle;
     [SerializeField] float cooldownBetweenAttacks;
+    [SerializeField] float hitSpeed;
+    [SerializeField] float preparingSpeed;
+    [SerializeField] float downTime;
 
     KrakenManager _krakenManager;
 
@@ -21,6 +24,11 @@ public class KrakenSpinningAttack : EnemyBehaviourSO {
     IEnumerator SpinningAttack() {
         int tentacleToHit = _krakenManager.FindClosestTentacleToPlayer();
 
+        if (_krakenManager.IsTentacleInAnimation(tentacleToHit)) { // Verificando se o tentaculo esta animando
+            yield return _krakenManager.ReturnTentacleCoroutine(tentacleToHit);
+        }
+
+        #region Calculo de direção
         Vector3 tentaclePos = _krakenManager.TentaclesListGO[tentacleToHit].transform.position;
         Vector3 playerPos = _krakenManager.Player.position;
         Vector3 centerPos = Vector3.zero;
@@ -31,29 +39,48 @@ public class KrakenSpinningAttack : EnemyBehaviourSO {
         Vector3 cross = Vector3.Cross(tentacleDir, playerDir);
 
         bool isRight = cross.y < 0;
+        #endregion
 
-        _krakenManager.StartCoroutine(_krakenManager.TentacleAttack(tentacleToHit));
+        // Começo do ataque
+        _krakenManager.StartTentacleAttack(tentacleToHit, preparingSpeed, hitSpeed, downTime);
         yield return new WaitForSeconds(cooldownBetweenEachTentacle);
 
         if (!isRight) {
             for (int i = 0; i < _krakenManager.ListOfTentacles.Count - 1; i++) {
                 if (tentacleToHit == _krakenManager.ListOfTentacles.Count - 1) tentacleToHit = -1;
                 tentacleToHit++;
-                _krakenManager.StartCoroutine(_krakenManager.TentacleAttack(tentacleToHit));
-                yield return new WaitForSeconds(cooldownBetweenEachTentacle);
+
+                if (_krakenManager.IsTentacleInAnimation(tentacleToHit)) {
+                    yield return _krakenManager.ReturnTentacleCoroutine(tentacleToHit);
+                }
+
+                _krakenManager.StartTentacleAttack(tentacleToHit, preparingSpeed, hitSpeed, downTime);
+
+                if (i < _krakenManager.ListOfTentacles.Count - 1)
+                    yield return new WaitForSeconds(cooldownBetweenEachTentacle);
+                else yield return _krakenManager.ReturnTentacleCoroutine(tentacleToHit);
             }
         }
         else {
             for (int i = 0; i < _krakenManager.ListOfTentacles.Count - 1; i++) {
-                if (tentacleToHit == 0) tentacleToHit = _krakenManager.ListOfTentacles.Count - 1;
+                if (tentacleToHit == 0) tentacleToHit = _krakenManager.ListOfTentacles.Count;
                 tentacleToHit--;
-                _krakenManager.StartCoroutine(_krakenManager.TentacleAttack(tentacleToHit));
-                yield return new WaitForSeconds(cooldownBetweenEachTentacle);
+
+                if (_krakenManager.IsTentacleInAnimation(tentacleToHit)) {
+                    yield return _krakenManager.ReturnTentacleCoroutine(tentacleToHit);
+                }
+
+                _krakenManager.StartTentacleAttack(tentacleToHit, preparingSpeed, hitSpeed, downTime);
+
+                if (i < _krakenManager.ListOfTentacles.Count - 1)
+                    yield return new WaitForSeconds(cooldownBetweenEachTentacle);
+                else yield return _krakenManager.ReturnTentacleCoroutine(tentacleToHit);
             }
         }
 
         _krakenManager.StartCoroutine(CooldownBetweenAttacks());
     }
+
     IEnumerator CooldownBetweenAttacks() {
         yield return new WaitForSeconds(cooldownBetweenAttacks);
         _krakenManager.ChangeBehaviourAtRandom();
