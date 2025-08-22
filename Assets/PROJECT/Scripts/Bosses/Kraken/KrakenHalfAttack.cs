@@ -5,6 +5,9 @@ using UnityEngine;
 public class KrakenHalfAttack : EnemyBehaviourSO {
     [SerializeField] float cooldownBetweenHealfAttacks;
     [SerializeField] float cooldownBetweenAttacks;
+    [SerializeField] float preparingSpeed;
+    [SerializeField] float hitSpeed;
+    [SerializeField] float tentacleDownTime;
 
     KrakenManager _krakenManager;
 
@@ -21,6 +24,10 @@ public class KrakenHalfAttack : EnemyBehaviourSO {
     IEnumerator HalfAttack() {
         int tentacleToHit = _krakenManager.FindClosestTentacleToPlayer();
 
+        if (_krakenManager.IsTentacleInAnimation(tentacleToHit)) {
+            yield return _krakenManager.ReturnTentacleCoroutine(tentacleToHit);
+        }
+
         Vector3 tentaclePos = _krakenManager.TentaclesListGO[tentacleToHit].transform.position;
         Vector3 playerPos = _krakenManager.Player.position;
         Vector3 centerPos = Vector3.zero;
@@ -31,23 +38,20 @@ public class KrakenHalfAttack : EnemyBehaviourSO {
         Vector3 cross = Vector3.Cross(tentacleDir, playerDir);
 
         int secondTentacleIndex;
-        bool isRight = false;
 
         if (cross.y < 0) {
             secondTentacleIndex = (tentacleToHit - 1 + _krakenManager.TentaclesListGO.Count) % _krakenManager.TentaclesListGO.Count;
-            isRight = false;
         }
         else {
             secondTentacleIndex = (tentacleToHit + 1) % _krakenManager.TentaclesListGO.Count;
-            isRight = true;
         }
 
-        _krakenManager.StartCoroutine(_krakenManager.TentacleAttack(tentacleToHit));
-        _krakenManager.StartCoroutine(_krakenManager.TentacleAttack(secondTentacleIndex));
+        _krakenManager.StartTentacleAttack(tentacleToHit, preparingSpeed, hitSpeed, tentacleDownTime);
+        _krakenManager.StartTentacleAttack(secondTentacleIndex, preparingSpeed, hitSpeed, tentacleDownTime);
 
         yield return new WaitForSeconds(cooldownBetweenHealfAttacks);
 
-        if (isRight) {
+        if (cross.y >= 0) {
             tentacleToHit = (tentacleToHit - 1 + _krakenManager.TentaclesListGO.Count) % _krakenManager.TentaclesListGO.Count;
             secondTentacleIndex = (secondTentacleIndex + 1) % _krakenManager.TentaclesListGO.Count;
         }
@@ -56,8 +60,9 @@ public class KrakenHalfAttack : EnemyBehaviourSO {
             secondTentacleIndex = (secondTentacleIndex - 1 + _krakenManager.TentaclesListGO.Count) % _krakenManager.TentaclesListGO.Count;
         }
 
-        _krakenManager.StartCoroutine(_krakenManager.TentacleAttack(tentacleToHit));
-        yield return _krakenManager.StartCoroutine(_krakenManager.TentacleAttack(secondTentacleIndex));
+        _krakenManager.StartTentacleAttack(tentacleToHit, preparingSpeed, hitSpeed, tentacleDownTime);
+        _krakenManager.StartTentacleAttack(secondTentacleIndex, preparingSpeed, hitSpeed, tentacleDownTime);
+        yield return _krakenManager.ReturnTentacleCoroutine(secondTentacleIndex);
 
         _krakenManager.StartCoroutine(CooldownBetweenAttacks());
     }

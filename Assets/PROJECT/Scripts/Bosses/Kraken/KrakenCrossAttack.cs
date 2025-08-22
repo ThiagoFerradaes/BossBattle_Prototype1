@@ -5,6 +5,9 @@ using UnityEngine;
 public class KrakenCrossAttack : EnemyBehaviourSO {
     [SerializeField] float cooldownBetweenAttacks;
     [SerializeField] float cooldownBetweenCrossAttacks;
+    [SerializeField] float preparingSpeed;
+    [SerializeField] float hitSpeed;
+    [SerializeField] float tentacleDownTime;
 
     KrakenManager _krakenManager;
     public override void StartState(EnemyBehaviourManager parent) {
@@ -17,7 +20,7 @@ public class KrakenCrossAttack : EnemyBehaviourSO {
         Debug.Log("Cross Attack");
     }
 
-    IEnumerator CrossAttack() {
+    IEnumerator CrossAttack() {        
 
         int tentacleToHit = _krakenManager.FindClosestTentacleToPlayer();
 
@@ -25,12 +28,12 @@ public class KrakenCrossAttack : EnemyBehaviourSO {
 
         if (isPair) {
             for (int i = 1; i < _krakenManager.ListOfTentacles.Count + 1; i++) {
-                if (i % 2 != 0) _krakenManager.StartCoroutine(_krakenManager.TentacleAttack(i - 1));
+                if (i % 2 != 0) _krakenManager.StartTentacleAttack((i - 1), preparingSpeed, hitSpeed, tentacleDownTime);
             }
         }
         else {
             for (int i = 1; i < _krakenManager.ListOfTentacles.Count + 1; i++) {
-                if (i % 2 == 0) _krakenManager.StartCoroutine(_krakenManager.TentacleAttack(i - 1));
+                if (i % 2 == 0) _krakenManager.StartTentacleAttack((i - 1), preparingSpeed, hitSpeed, tentacleDownTime);
             }
         }
 
@@ -38,13 +41,17 @@ public class KrakenCrossAttack : EnemyBehaviourSO {
 
         if (!isPair) {
             for (int i = 1; i < _krakenManager.ListOfTentacles.Count + 1; i++) {
-                if (i % 2 != 0) _krakenManager.StartCoroutine(_krakenManager.TentacleAttack(i - 1));
+                if (i % 2 != 0) _krakenManager.StartTentacleAttack((i - 1), preparingSpeed, hitSpeed, tentacleDownTime);
             }
+
+            yield return _krakenManager.ReturnTentacleCoroutine(1);
         }
         else {
             for (int i = 1; i < _krakenManager.ListOfTentacles.Count + 1; i++) {
-                if (i % 2 == 0) _krakenManager.StartCoroutine(_krakenManager.TentacleAttack(i - 1));
+                if (i % 2 == 0) _krakenManager.StartTentacleAttack((i - 1), preparingSpeed, hitSpeed, tentacleDownTime);
             }
+
+            yield return _krakenManager.ReturnTentacleCoroutine(0);
         }
 
         _krakenManager.StartCoroutine(CooldownBetweenAttacks());

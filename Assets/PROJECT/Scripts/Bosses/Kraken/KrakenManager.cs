@@ -30,16 +30,14 @@ public class KrakenManager : EnemyBehaviourManager {
 
     #region Parameters
 
-    [Foldout("Generic Atributes"), SerializeField] float cooldownBetweenAttacks;
-    [Foldout("Generic Atributes"), SerializeField] Material deadTentacleMaterial;
-
-    [Foldout("Lists"), SerializeField] List<EnemyBehaviourSO> _listOfSkills = new();
-    [Foldout("Lists")] public List<GameObject> TentaclesListGO = new();
-    public List<KrakenTentacle> ListOfTentacles = new();
-    int tentaclesDead = 0;
-
+    [SerializeField] Material deadTentacleMaterial;
     [SerializeField] KrakenTentacleAttack tentacleAttack;
+    public List<GameObject> TentaclesListGO = new();
 
+    Dictionary<int, Coroutine> _listOfTentaclesInAnimation = new();
+    Dictionary<int, bool> _listOfTentaclesDead = new();
+
+    [HideInInspector]public List<KrakenTentacle> ListOfTentacles = new();
     [HideInInspector] public Transform Player;
 
     #endregion
@@ -50,6 +48,9 @@ public class KrakenManager : EnemyBehaviourManager {
         for (int i = 0; i < TentaclesListGO.Count; i++) {
             KrakenTentacle newTentacle = new(TentaclesListGO[i]);
             ListOfTentacles.Add(newTentacle);
+
+            _listOfTentaclesInAnimation[i] = null;
+            _listOfTentaclesDead[i] = false;
         }
 
     }
@@ -93,9 +94,20 @@ public class KrakenManager : EnemyBehaviourManager {
         return tentacleIndex;
     }
 
-    public IEnumerator TentacleAttack(int tentacleIndex) {
+    public bool IsTentacleInAnimation(int tentacleIndex) {
+        if (_listOfTentaclesInAnimation[tentacleIndex] == null) return false;
+        else return true;
+    }
 
+    public Coroutine ReturnTentacleCoroutine(int tentacleIndex) => _listOfTentaclesInAnimation[tentacleIndex];
+    public void StartTentacleAttack(int tentacleIndex, float preparingSpeed, float hitSpeed, float downTime) {
+        _listOfTentaclesInAnimation[tentacleIndex] = StartCoroutine(TentacleAttack(tentacleIndex, preparingSpeed, hitSpeed, downTime));
+    }
+    public IEnumerator TentacleAttack(int tentacleIndex, float preparingSpeed, float hitSpeed, float downTime) {
+
+        
         Animator anim = ListOfTentacles[tentacleIndex].Anim;
+        anim.SetFloat(tentacleAttack.PreparingAttackSpeed, preparingSpeed);
         anim.SetTrigger(tentacleAttack.AttackAnimationParameter);
 
         AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
@@ -117,9 +129,13 @@ public class KrakenManager : EnemyBehaviourManager {
             stateInfo = anim.GetCurrentAnimatorStateInfo(0);
         } while (!stateInfo.IsName(tentacleAttack.AttackHitAnimationName));
 
+        anim.SetFloat(tentacleAttack.HitAttackSpeed, hitSpeed);
+
         attackStateHash = stateInfo.fullPathHash;
         tentacleAttack.Prefabs.Sort((a, b) => a.TimeToSpawnPreFab.CompareTo(b.TimeToSpawnPreFab));
 
+
+        // Instanciando todas as hitboxes e vfx
         for (int i = 0; i < tentacleAttack.Prefabs.Count; i++) {
             SkillAnimationEvent prefabInfo = tentacleAttack.Prefabs[i];
             float targetNormalizedTime = prefabInfo.TimeToSpawnPreFab;
@@ -133,10 +149,12 @@ public class KrakenManager : EnemyBehaviourManager {
             float yRotation = 180 + (tentacleIndex * 45);
             attackHitBox.transform.SetPositionAndRotation(new Vector3(0, 3, 0), Quaternion.Euler(90, yRotation, 0));
 
+            float damage = _listOfTentaclesDead[tentacleIndex]? tentacleAttack.DeadTentacleDamage : tentacleAttack.TentacleDamage;
+
             if (prefabInfo.PrefabType == TypeOfSkillAnimationPrefab.Hitbox) {
 
                 InstantDamageContext newContext = new(
-                tentacleAttack.TentacleDamage,
+                damage,
                 0.1f,
                 0,
                 false,
@@ -152,72 +170,33 @@ public class KrakenManager : EnemyBehaviourManager {
 
         ListOfTentacles[tentacleIndex].HitBox.SetActive(true);
 
-        yield return new WaitForSeconds(3);
 
+        // Tempo vulnerável
+        yield return new WaitForSeconds(downTime);
+
+        // Voltando pro Idle
         anim.SetTrigger(tentacleAttack.ReturnToIdleAnimationParameter);
+        anim.SetFloat(tentacleAttack.PreparingAttackSpeed, 1);
+        anim.SetFloat(tentacleAttack.HitAttackSpeed, 1);
 
         ListOfTentacles[tentacleIndex].HitBox.SetActive(false);
     }
     #endregion
 
-    #region Specific Attacks
-
-    IEnumerator StalactiteAttack(EnemyBehaviourSO skill) {
-        float timer = 0f;
-
-        KrakenStalactiteAttack info = skill as KrakenStalactiteAttack;
-
-        Queue<Vector3> lastPositions = new Queue<Vector3>();
-
-        while (timer < info.AttackDuration) {
-            timer += Time.deltaTime;
-
-            if (timer % info.CooldownBetweenEachStalactite < Time.deltaTime) {
-                SpawnObject(lastPositions, info);
-            }
-
-            yield return null;
-        }
-    }
-
-    void SpawnObject(Queue<Vector3> lastPositions, KrakenStalactiteAttack info) {
-        Vector3 spawnPos;
-        int tries = 0;
-        do {
-            Vector2 randomPos2D = Random.insideUnitCircle * info.StalactiteRange;
-            spawnPos = new Vector3(randomPos2D.x, info.StalactiteHeight, randomPos2D.y);
-
-            tries++;
-            if (tries > 20) 
-                break;
-
-        } while (IsTooCloseToLast(spawnPos, lastPositions, info));
-
-        lastPositions.Enqueue(spawnPos);
-        if (lastPositions.Count > 5)
-            lastPositions.Dequeue();
-
-        GameObject prefab = SkillPoolingManager.Instance.ReturnHitboxFromPool(info.Prefabs[0].PreFabName, info.Prefabs[0].PreFab);
-        //StartCoroutine(StalactiteFalling(prefab, spawnPos));
-    }
-
-    bool IsTooCloseToLast(Vector3 pos, Queue<Vector3> lastPositions, KrakenStalactiteAttack info) {
-        foreach (var last in lastPositions) {
-            if (Vector3.Distance(pos, last) < info.StalactiteDistanceFromEachOther) return true;
-        }
-        return false;
-    }
-    //IEnumerator StalactiteFalling(GameObject stalactite, Vector3 pos) {
-
-    //}
-
-    #endregion
-
     #region Others
     void CheckTentaclesHealth(int tentacleId) {
-        tentaclesDead++;
+        _listOfTentaclesDead[tentacleId] = true;
         ListOfTentacles[tentacleId].SkinnedMeshRenderer.material = deadTentacleMaterial;
-        if (tentaclesDead == TentaclesListGO.Count) ScreensInGameUI.Instance.TurnScreenOn(TypeOfScreen.Victory);
+
+        bool allTentaclesDead = true;
+        foreach (var tentacle in _listOfTentaclesDead) {
+            bool dead = tentacle.Value;
+            if (!dead) {
+                allTentaclesDead = false;
+            }
+        }
+
+        if (allTentaclesDead) ScreensInGameUI.Instance.TurnScreenOn(TypeOfScreen.Victory);
     }
 
     #endregion

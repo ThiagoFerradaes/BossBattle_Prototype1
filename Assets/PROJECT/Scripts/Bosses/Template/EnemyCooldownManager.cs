@@ -1,3 +1,4 @@
+using AYellowpaper.SerializedCollections;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +8,7 @@ public class EnemyCooldownManager : MonoBehaviour {
     #region Parameters
 
     public static EnemyCooldownManager Instance;
-    Dictionary<EnemyBehaviourSO, float> _listOfCooldowns = new();
+    [SerializedDictionary("Skill", "Cooldown"), SerializeField] SerializedDictionary<EnemyBehaviourSO, float> _listOfCooldowns = new();
 
     #endregion
 
