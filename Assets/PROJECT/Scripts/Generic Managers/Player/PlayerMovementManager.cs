@@ -19,7 +19,6 @@ public class PlayerMovementManager : MonoBehaviour {
     bool _canMove = true;
     bool _canWalk = true;
     bool _canRotate = true;
-    bool _canDash = true;
     bool _isDashing = false;
     bool _isPaused = false;
 
@@ -142,7 +141,6 @@ public class PlayerMovementManager : MonoBehaviour {
     public void BlockMovement(bool block) => _canMove = !block;
     public void BlockWalk(bool block) => _canWalk = !block;
     public void BlockRotation(bool block) => _canRotate = !block;
-    public void BlockDash(bool block) => _canDash = !block;
     public void ChangeRotationType(RotationType type) => _rotationType = type;
     public void ChangeIsDashing(bool isDashing) => _isDashing = isDashing;
 
@@ -155,8 +153,4 @@ public class PlayerMovementManager : MonoBehaviour {
     }
     #endregion
 
-    #region Getters
-    public bool ReturnCanDash() => _canDash;
-
-    #endregion
 }

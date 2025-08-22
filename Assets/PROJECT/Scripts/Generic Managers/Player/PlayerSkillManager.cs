@@ -84,13 +84,7 @@ public class PlayerSkillManager : MonoBehaviour {
     }
 
     public void OnDash(InputAction.CallbackContext ctx) {
-        if (!MoveManager.ReturnCanDash()
-            || CooldownManager.ReturnCooldown(SkillSlot.Dash) > 0 || Time.timeScale == 0) return;
-
-        if (_dash != null) {
-            _currentSkill = _dash;
-            UseSkill(ctx, _currentSkill, SkillSlot.Dash);
-        }
+        HandleSkillInput(ctx, _dash, SkillSlot.Dash, () => IsSkillAvailable(SkillSlot.Dash));
     }
     #endregion
 
