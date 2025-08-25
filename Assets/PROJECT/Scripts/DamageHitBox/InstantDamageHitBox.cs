@@ -80,7 +80,7 @@ public class InstantDamageHitBox : MonoBehaviour
             recieverStatus
             );
 
-        if(_tag == Tags.Enemy.ToString())PopUpManager.Instance.DamageDone((int)damage.Item1, other.transform.position, damage.Item2);
+        if(_tag != Tags.Player.ToString())PopUpManager.Instance.DamageDone((int)damage.Item1, other.transform.position, damage.Item2);
         health.TakeDamage(damage.Item1, _hitShield);
     }
     #endregion

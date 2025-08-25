@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ContinuosDamageContext {
-    public float Damage;
+    public float MinDamage;
+    public float MaxDamage;
     public float Duration;
     public float Penetration;
     public float DamageCooldown;
@@ -12,9 +13,10 @@ public class ContinuosDamageContext {
     public Tags UnitToHitTag;
     public StatusManager StatusManager;
 
-    public ContinuosDamageContext(float damage, float hitBoxDuration, float penetration, float damageCooldown
+    public ContinuosDamageContext(float minDamage, float maxDamage, float hitBoxDuration, float penetration, float damageCooldown
         , bool hitShield, Tags tag, DamageType type, StatusManager status) {
-        this.Damage = damage;
+        this.MinDamage = minDamage;
+        this.MaxDamage = maxDamage;
         this.Duration = hitBoxDuration;
         this.DamageCooldown = damageCooldown;
         this.Penetration = penetration;
@@ -27,7 +29,8 @@ public class ContinuosDamageContext {
 
 public class ContinuosDamageHitBox : MonoBehaviour
 {
-    float _damagePerTick;
+    float _minDamagePerTick;
+    float _maxDamagePerTick;
     float _damageCooldown;
     float _duration;
     float _penetrarion;
@@ -39,7 +42,8 @@ public class ContinuosDamageHitBox : MonoBehaviour
     HashSet<GameObject> _listOfHealths = new();
     public void Initialize(ContinuosDamageContext context)
     {
-        _damagePerTick = context.Damage;
+        _minDamagePerTick = context.MinDamage;
+        _maxDamagePerTick = context.MaxDamage;
         _duration = context.Duration;
         _damageCooldown = context.DamageCooldown;
         _penetrarion = context.Penetration;
@@ -69,22 +73,40 @@ public class ContinuosDamageHitBox : MonoBehaviour
     {
         while (true)
         {
+            List<GameObject> desactiveUnits = new();
+
             foreach (GameObject unit in _listOfHealths) {
+
+                if (!unit.activeInHierarchy) {
+                    desactiveUnits.Add(unit);
+                    continue;
+                }
+
                 if (unit.TryGetComponent<HealthManager>(out HealthManager health) && 
                     unit.TryGetComponent<StatusManager>(out StatusManager recieverManager)) {
 
-                    (float, bool) damage = DamageCalculator.CalculateDamage(
+                    if (!health.ReturnIfCanTakeDamage()) continue;
+
+                    float damage = UnityEngine.Random.Range(_minDamagePerTick, _maxDamagePerTick);
+
+                    (float, bool) newDamage = DamageCalculator.CalculateDamage(
                         _type,
-                        _damagePerTick,
+                        damage,
                         _penetrarion,
                         _dealerStatus,
                         recieverManager
                         );
 
-
-                    health.TakeDamage(damage.Item1, _hitShield);
+                    if (_typeOfUnit != Tags.Player.ToString()) PopUpManager.Instance.DamageDone(
+                        (int)newDamage.Item1, health.transform.position, newDamage.Item2);
+                    health.TakeDamage(newDamage.Item1, _hitShield);
                 }
             }
+
+            foreach(var enemy in desactiveUnits) {
+                _listOfHealths.Remove(enemy);
+            }
+
             yield return new WaitForSeconds (_damageCooldown);
         }
     }
@@ -101,5 +123,9 @@ public class ContinuosDamageHitBox : MonoBehaviour
         if (!other.CompareTag(_typeOfUnit)) return;
 
         _listOfHealths.Remove(other.gameObject);
+    }
+
+    private void OnDisable() {
+        _listOfHealths.Clear();
     }
 }

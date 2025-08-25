@@ -76,9 +76,8 @@ public class ShootUpUltimateManager : SkillObjectManager {
 
             if (prefabInfo.PrefabType == TypeOfSkillAnimationPrefab.Hitbox) {
 
-                float damage = UnityEngine.Random.Range(_info.MinDamage, _info.MaxDamage);
-
                 ContinuosDamageContext newContext = new(
+                    _info.MinDamage,
                     _info.MaxDamage,
                     prefabInfo.PrefabDuration,
                     _info.Penetration,
