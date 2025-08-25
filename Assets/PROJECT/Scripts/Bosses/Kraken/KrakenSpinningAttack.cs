@@ -18,7 +18,6 @@ public class KrakenSpinningAttack : EnemyBehaviourSO {
 
         _krakenManager.StartCoroutine(SpinningAttack());
 
-        Debug.Log("Spinning Attack");
     }
 
     IEnumerator SpinningAttack() {

@@ -71,8 +71,18 @@ public class HealthManager : MonoBehaviour {
         }
     }
 
-    public void CantTakeDamage() => _canTakeDamage = false;
-    public void CanTakeDamage() => _canTakeDamage = true;
+    /// <summary>
+    /// The character will no longer take damage
+    /// </summary>
+    public void SetCantTakeDamage() => _canTakeDamage = false;
+    /// <summary>
+    /// The character will be able to take damage
+    /// </summary>
+    public void SetCanTakeDamage() => _canTakeDamage = true;
+
+    public bool ReturnIfCanTakeDamage() {
+        return _canTakeDamage && !_isDead;
+    }
     #endregion
 
     #region Shield

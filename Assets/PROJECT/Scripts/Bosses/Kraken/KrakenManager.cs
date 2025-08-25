@@ -130,7 +130,7 @@ public class KrakenManager : EnemyBehaviourManager {
             } while (stateInfo.fullPathHash == attackStateHash && stateInfo.normalizedTime < targetNormalizedTime);
 
             if (prefabInfo.PrefabType == TypeOfSkillAnimationPrefab.VFX) {
-                GameObject attackHitBox = SkillPoolingManager.Instance.ReturnHitboxFromPool(prefabInfo.PreFabName, prefabInfo.PreFab);
+                GameObject attackHitBox = PoolingManager.Instance.ReturnHitboxFromPool(prefabInfo.PreFabName, prefabInfo.PreFab);
                 float yRotation = 180 + (tentacleIndex * 45);
                 attackHitBox.transform.SetPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.Euler(0, yRotation + 22.5f, 0));
                 ParticleSystem ps = attackHitBox.GetComponent<ParticleSystem>();
@@ -167,7 +167,7 @@ public class KrakenManager : EnemyBehaviourManager {
                 stateInfo = anim.GetCurrentAnimatorStateInfo(0);
             } while (stateInfo.fullPathHash == attackStateHash && stateInfo.normalizedTime < targetNormalizedTime);
 
-            GameObject attackHitBox = SkillPoolingManager.Instance.ReturnHitboxFromPool(prefabInfo.PreFabName, prefabInfo.PreFab);
+            GameObject attackHitBox = PoolingManager.Instance.ReturnHitboxFromPool(prefabInfo.PreFabName, prefabInfo.PreFab);
             float yRotation = 180 + (tentacleIndex * 45);
 
             if (prefabInfo.PrefabType == TypeOfSkillAnimationPrefab.Hitbox) {

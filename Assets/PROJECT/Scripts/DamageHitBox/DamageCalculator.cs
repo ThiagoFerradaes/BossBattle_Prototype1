@@ -3,7 +3,7 @@ using UnityEngine;
 public enum DamageType { Physical, Magic, True}
 public static class DamageCalculator
 {
-    public static float CalculateDamage( // Considerando o crítico do personagem
+    public static (float,bool) CalculateDamage( // Considerando o crítico do personagem
         DamageType skillType, 
         float skillBaseDamage, 
         float penetration,
@@ -34,10 +34,10 @@ public static class DamageCalculator
 
         float finalDamage = rawDamage * (100/ (100 + targetDefense));
 
-        return Mathf.Max(1, finalDamage);
+        return (Mathf.Max(1, finalDamage), isCrit);
     }
 
-    public static float CalculateDamage( // Considerando um crítico a parte
+    public static (float, bool) CalculateDamage( // Considerando um crítico a parte
     DamageType skillType,
     float skillBaseDamage,
     float penetration,
@@ -70,6 +70,6 @@ public static class DamageCalculator
 
         float finalDamage = rawDamage * (100 / (100 + targetDefense));
 
-        return Mathf.Max(1, finalDamage);
+        return (Mathf.Max(1, finalDamage), isCrit);
     }
 }

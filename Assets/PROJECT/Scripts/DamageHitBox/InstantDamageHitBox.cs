@@ -72,7 +72,9 @@ public class InstantDamageHitBox : MonoBehaviour
         if (!other.TryGetComponent<HealthManager>(out HealthManager health)) return;
         if (!other.TryGetComponent<StatusManager>(out StatusManager recieverStatus)) return;
 
-        float damage = DamageCalculator.CalculateDamage(
+        if (!health.ReturnIfCanTakeDamage()) return;
+
+        (float, bool) damage = DamageCalculator.CalculateDamage(
             _damageType,
             _damage,
             _penetration,
@@ -80,7 +82,8 @@ public class InstantDamageHitBox : MonoBehaviour
             recieverStatus
             );
 
-        health.TakeDamage(damage, _hitShield);
+        if(_tag == Tags.Enemy.ToString())PopUpManager.Instance.DamageDone((int)damage.Item1, other.transform.position, damage.Item2);
+        health.TakeDamage(damage.Item1, _hitShield);
     }
     #endregion
 }

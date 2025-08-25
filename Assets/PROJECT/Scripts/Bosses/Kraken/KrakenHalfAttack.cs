@@ -17,8 +17,6 @@ public class KrakenHalfAttack : EnemyBehaviourSO {
         _krakenManager = parent as KrakenManager;
 
         _krakenManager.StartCoroutine(HalfAttack());
-
-        Debug.Log("Half Attack");
     }
 
     IEnumerator HalfAttack() {

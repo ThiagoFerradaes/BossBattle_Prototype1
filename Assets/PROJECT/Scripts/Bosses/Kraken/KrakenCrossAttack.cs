@@ -17,7 +17,6 @@ public class KrakenCrossAttack : EnemyBehaviourSO {
 
         _krakenManager.StartCoroutine(CrossAttack());
 
-        Debug.Log("Cross Attack");
     }
 
     IEnumerator CrossAttack() {        

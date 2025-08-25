@@ -75,7 +75,7 @@ public class ContinuosDamageHitBox : MonoBehaviour
                 if (unit.TryGetComponent<HealthManager>(out HealthManager health) && 
                     unit.TryGetComponent<StatusManager>(out StatusManager recieverManager)) {
 
-                    float damage = DamageCalculator.CalculateDamage(
+                    (float, bool) damage = DamageCalculator.CalculateDamage(
                         _type,
                         _damagePerTick,
                         _penetrarion,
@@ -84,7 +84,7 @@ public class ContinuosDamageHitBox : MonoBehaviour
                         );
 
 
-                    health.TakeDamage(damage, _hitShield);
+                    health.TakeDamage(damage.Item1, _hitShield);
                 }
             }
             yield return new WaitForSeconds (_damageCooldown);
