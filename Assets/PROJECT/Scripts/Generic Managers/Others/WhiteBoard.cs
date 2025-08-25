@@ -7,7 +7,7 @@ public enum Phases {
     ThirdOne, ThirdTwo, ThirdThree, ThirdFour, ThirdFive,
     FourthOne, FourthTwo, FourthThree, FourthFour, FourthFive,
     FifthOne, FifthTwo, FifthThree, FifthFour, FifthFive,
-    FinalBossOne, FinalBossTwo
+    FinalBossOne, FinalBossTwo, Null
 }
 public class WhiteBoard : MonoBehaviour
 {
@@ -15,6 +15,8 @@ public class WhiteBoard : MonoBehaviour
 
     List<Character> _listOfUnlockedCharacter = new();
     List<Phases> _listOfUnlockedPhases = new();
+
+    Dictionary<BossRewardItem, int> _bossItensInventory = new();
 
 
     private void Awake() {
@@ -55,6 +57,19 @@ public class WhiteBoard : MonoBehaviour
     public void UnlockPhase(Phases phase) {
         if (!_listOfUnlockedPhases.Contains(phase)) {
             _listOfUnlockedPhases.Add(phase);
+        }
+    }
+    /// <summary>
+    /// Add the amount of the item to the inventory
+    /// </summary>
+    /// <param name="item"></param>
+    /// <param name="amount"></param>
+    public void RecieveBossItem(BossRewardItem item, int amount) {
+        if (_bossItensInventory.ContainsKey(item)) {
+            _bossItensInventory[item] += amount;
+        }
+        else {
+            _bossItensInventory[item] = amount; 
         }
     }
 
