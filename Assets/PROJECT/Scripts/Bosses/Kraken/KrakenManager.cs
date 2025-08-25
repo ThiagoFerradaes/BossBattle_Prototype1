@@ -33,6 +33,7 @@ public class KrakenManager : EnemyBehaviourManager {
 
     [SerializeField] Material deadTentacleMaterial;
     [SerializeField] KrakenTentacleAttack tentacleAttack;
+    [SerializeField] BossRewardSO bossReward;
     public List<GameObject> TentaclesListGO = new();
 
     Dictionary<int, Coroutine> _listOfTentaclesInAnimation = new();
@@ -225,7 +226,10 @@ public class KrakenManager : EnemyBehaviourManager {
             }
         }
 
-        if (allTentaclesDead) ScreensInGameUI.Instance.TurnScreenOn(TypeOfScreen.Victory);
+        if (allTentaclesDead) {
+            if(bossReward != null) bossReward.WinRewards();
+            ScreensInGameUI.Instance.TurnScreenOn(TypeOfScreen.Victory);
+        }
     }
 
     #endregion
