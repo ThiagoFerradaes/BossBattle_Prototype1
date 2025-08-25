@@ -11,10 +11,9 @@ public class ContinuosDamageContext {
     public DamageType TypeOfDamage;
     public Tags UnitToHitTag;
     public StatusManager StatusManager;
-    public List<Modifiers> ListOfModifiers;
 
     public ContinuosDamageContext(float damage, float hitBoxDuration, float penetration, float damageCooldown
-        , bool hitShield, Tags tag, DamageType type, StatusManager status, List<Modifiers> listOfModifiers = null) {
+        , bool hitShield, Tags tag, DamageType type, StatusManager status) {
         this.Damage = damage;
         this.Duration = hitBoxDuration;
         this.DamageCooldown = damageCooldown;
@@ -23,7 +22,6 @@ public class ContinuosDamageContext {
         this.TypeOfDamage = type;
         this.UnitToHitTag = tag;
         this.StatusManager = status;
-        this.ListOfModifiers = listOfModifiers ?? new List<Modifiers>();
     }
 }
 

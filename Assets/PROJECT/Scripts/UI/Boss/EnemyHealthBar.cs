@@ -2,7 +2,7 @@ using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EnemyUIHitBox : MonoBehaviour
+public class EnemyHealthBar : MonoBehaviour
 {
     [SerializeField] HealthManager healthManager;
     [SerializeField] Image healthBar;

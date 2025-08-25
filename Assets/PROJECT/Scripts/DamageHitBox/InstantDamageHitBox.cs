@@ -11,10 +11,9 @@ public class InstantDamageContext
     public DamageType TypeOfDamage;
     public Tags UnitToHitTag;
     public StatusManager StatusManager;
-    public List<Modifiers> ListOfModifiers;
 
     public InstantDamageContext(float damage, float hitBoxDuration, float penetration
-        , bool hitShield, DamageType type, Tags tag, StatusManager status, List<Modifiers> listOfModifiers = null)
+        , bool hitShield, DamageType type, Tags tag, StatusManager status)
     {
         this.Damage = damage;
         this.Duration = hitBoxDuration;
@@ -23,7 +22,6 @@ public class InstantDamageContext
         this.UnitToHitTag = tag;
         this.TypeOfDamage = type;
         this.StatusManager = status;
-        this.ListOfModifiers = listOfModifiers ?? new List<Modifiers>();
     }
 }
 public class InstantDamageHitBox : MonoBehaviour
