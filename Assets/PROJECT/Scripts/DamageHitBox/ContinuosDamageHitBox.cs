@@ -66,7 +66,7 @@ public class ContinuosDamageHitBox : MonoBehaviour
             yield return null;
         }
         _listOfHealths.Clear();
-        gameObject.SetActive(false);
+        PoolingManager.Instance.ReturnObjectToPool(this.gameObject, TypeOfSkillPrefab.Hitbox);
     }
 
     IEnumerator AttackCooldown()
@@ -125,7 +125,4 @@ public class ContinuosDamageHitBox : MonoBehaviour
         _listOfHealths.Remove(other.gameObject);
     }
 
-    private void OnDisable() {
-        _listOfHealths.Clear();
-    }
 }

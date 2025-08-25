@@ -121,14 +121,18 @@ public class AxeAttackManager : SkillObjectManager {
                 stateInfo = anim.GetCurrentAnimatorStateInfo(0);
             } while (stateInfo.fullPathHash == attackStateHash && stateInfo.normalizedTime < targetNormalizedTime);
 
-            GameObject preFab = PoolingManager.Instance.ReturnHitboxFromPool(prefabInfo.PreFabName, prefabInfo.PreFab);
-            preFab.transform.SetParent(parent.transform, false);
-            preFab.transform.localPosition = (prefabInfo.PreFabPosition);
 
-            if (prefabInfo.PrefabType == TypeOfSkillAnimationPrefab.Hitbox) {
+            if (prefabInfo.PrefabType == TypeOfSkillPrefab.Hitbox) {
 
+                GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFabName,
+                    prefabInfo.PreFab, TypeOfSkillPrefab.Hitbox);
+                preFab.transform.SetParent(parent.transform, false);
+                preFab.transform.localPosition = (prefabInfo.PreFabPosition);
+
+                float damage = ReturnDamage();
                 InstantDamageContext newContext = new(
-                    ReturnDamage(),
+                    damage,
+                    damage,
                     prefabInfo.PrefabDuration,
                     _info.Penetration,
                     ReturnHitShield(),
@@ -142,6 +146,10 @@ public class AxeAttackManager : SkillObjectManager {
                 OnWeaponChange?.Invoke();
             }
             else {
+                GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFabName,
+                    prefabInfo.PreFab, TypeOfSkillPrefab.VFX);
+                preFab.transform.SetParent(parent.transform, false);
+                preFab.transform.localPosition = (prefabInfo.PreFabPosition);
                 preFab.GetComponent<VFXPreFab>().Initialize(prefabInfo.PrefabDuration);
             }
         }

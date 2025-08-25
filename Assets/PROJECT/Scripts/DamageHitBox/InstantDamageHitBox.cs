@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class InstantDamageContext
 {
-    public float Damage;
+    public float MinDamage;
+    public float MaxDamage;
     public float Duration;
     public float Penetration;
     public bool HitShield;
@@ -12,10 +13,11 @@ public class InstantDamageContext
     public Tags UnitToHitTag;
     public StatusManager StatusManager;
 
-    public InstantDamageContext(float damage, float hitBoxDuration, float penetration
+    public InstantDamageContext(float minDamage, float maxDamage, float hitBoxDuration, float penetration
         , bool hitShield, DamageType type, Tags tag, StatusManager status)
     {
-        this.Damage = damage;
+        this.MinDamage = minDamage;
+        this.MaxDamage = maxDamage;
         this.Duration = hitBoxDuration;
         this.Penetration = penetration;
         this.HitShield = hitShield;
@@ -28,7 +30,8 @@ public class InstantDamageHitBox : MonoBehaviour
 {
     #region Parameters
 
-    float _damage;
+    float _minDamage;
+    float _maxDamage;
     float _duration;
     float _penetration;
     bool _hitShield;
@@ -41,7 +44,8 @@ public class InstantDamageHitBox : MonoBehaviour
     #region Methods
     public void Initialize(InstantDamageContext context)
     {
-        _damage = context.Damage;
+        _minDamage = context.MinDamage;
+        _maxDamage = context.MaxDamage;
         _duration = context.Duration;
         _penetration = context.Penetration;
         _hitShield = context.HitShield;
@@ -60,7 +64,7 @@ public class InstantDamageHitBox : MonoBehaviour
             timer += Time.deltaTime;
             yield return null;
         }
-        gameObject.SetActive(false);
+        PoolingManager.Instance.ReturnObjectToPool(this.gameObject, TypeOfSkillPrefab.Hitbox);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -72,16 +76,18 @@ public class InstantDamageHitBox : MonoBehaviour
 
         if (!health.ReturnIfCanTakeDamage()) return;
 
-        (float, bool) damage = DamageCalculator.CalculateDamage(
+        float damage = Random.Range(_minDamage, _maxDamage);
+
+        (float, bool) newDamage = DamageCalculator.CalculateDamage(
             _damageType,
-            _damage,
+            damage,
             _penetration,
             _statusManager,
             recieverStatus
             );
 
-        if(_tag != Tags.Player.ToString())PopUpManager.Instance.DamageDone((int)damage.Item1, other.transform.position, damage.Item2);
-        health.TakeDamage(damage.Item1, _hitShield);
+        if(_tag != Tags.Player.ToString())PopUpManager.Instance.DamageDone((int)newDamage.Item1, other.transform.position, newDamage.Item2);
+        health.TakeDamage(newDamage.Item1, _hitShield);
     }
     #endregion
 }
