@@ -98,7 +98,7 @@ public class ContinuosDamageHitBox : MonoBehaviour
                         );
 
                     if (_typeOfUnit != Tags.Player.ToString()) PopUpManager.Instance.DamageDone(
-                        (int)newDamage.Item1, health.transform.position, newDamage.Item2);
+                        (int)newDamage.Item1, health.transform.position, newDamage.Item2, _type);
                     health.TakeDamage(newDamage.Item1, _hitShield);
                 }
             }

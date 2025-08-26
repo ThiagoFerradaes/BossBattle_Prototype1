@@ -182,7 +182,7 @@ public class KrakenManager : EnemyBehaviourManager {
                 0.1f,
                 0,
                 false,
-                DamageType.Physical,
+                DamageType.Abyssal,
                 Tags.Player,
                 ListOfTentacles[tentacleIndex].Status
                 );

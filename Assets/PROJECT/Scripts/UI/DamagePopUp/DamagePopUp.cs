@@ -7,7 +7,9 @@ public class DamagePopUp : MonoBehaviour {
     [SerializeField] private TMP_Text damageText;
     [SerializeField] private float normalFontSize = 42;
     [SerializeField] private float critFontSize = 52;
-    [SerializeField] private Color normalFontColor = Color.white;
+    [SerializeField] private Color pureDamageColor = Color.white;
+    [SerializeField] private Color abyssalDamageColor = Color.white;
+    [SerializeField] private Color ancestralDamageColor = Color.white;
 
     [SerializeField] private float startColorFadeAtPercent = 0.8f;
 
@@ -95,14 +97,21 @@ public class DamagePopUp : MonoBehaviour {
         OrientCurveBasedOnDirection();
     }
 
-    public void Display(int damage, Vector3 objPosition, bool direction, bool isCrit) {
+    public void Display(int damage, Vector3 objPosition, bool direction, bool isCrit, DamageType damageType) {
         transform.position = objPosition;
         _startingPositionForVisualization = objPosition;
         _direction = direction;
 
         damageText.SetText(damage.ToString());
 
-        damageText.color = normalFontColor;
+        Color damageColor = damageType switch {
+            DamageType.Abyssal => ancestralDamageColor,
+            DamageType.Ancestral => abyssalDamageColor,
+            DamageType.Pure => pureDamageColor,
+            _ => pureDamageColor
+        };
+
+        damageText.color = damageColor;
         damageText.enableVertexGradient = isCrit;
         damageText.fontSize = isCrit ? critFontSize : normalFontSize;
 
