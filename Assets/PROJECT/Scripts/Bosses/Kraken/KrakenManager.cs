@@ -1,10 +1,6 @@
-using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using UnityEditor.Rendering.LookDev;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class KrakenTentacle {
     public Animator Anim;
@@ -211,6 +207,19 @@ public class KrakenManager : EnemyBehaviourManager {
         anim.SetTrigger(tentacleAttack.ReturnToIdleAnimationParameter);
         anim.SetFloat(tentacleAttack.PreparingAttackSpeed, 1);
         anim.SetFloat(tentacleAttack.HitAttackSpeed, 1);
+
+        do { // Return to idle ANIMATION
+            yield return null;
+            stateInfo = anim.GetCurrentAnimatorStateInfo(0);
+        } while (!stateInfo.IsName(tentacleAttack.ReturnToIdleAnimationName));
+
+        attackStateHash = stateInfo.fullPathHash;
+
+        do { // Esperando o tempo para desligar a hitbox
+            yield return null;
+            stateInfo = anim.GetCurrentAnimatorStateInfo(0);
+        } while (stateInfo.fullPathHash == attackStateHash && 
+        stateInfo.normalizedTime < tentacleAttack.TimeInReturnToIdleToTurnOffHitBox);
 
         ListOfTentacles[tentacleIndex].HitBox.SetActive(false);
     }
