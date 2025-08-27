@@ -52,14 +52,12 @@ public class KrakenManager : EnemyBehaviourManager {
 
             _listOfTentaclesInAnimation[i] = null;
             _listOfTentaclesDead[i] = false;
-
-            _maxHealth += ListOfTentacles[i].Health.ReturnMaxHealth();
         }
-
-        _currentHealth = _maxHealth;
     }
 
-    public override void Start() {
+    public override IEnumerator Start() {
+
+        yield return new WaitForEndOfFrame();
 
         Player = PlayerManager.Instance.Player.transform;
 
@@ -67,9 +65,13 @@ public class KrakenManager : EnemyBehaviourManager {
             int tentacleIndex = i;
             ListOfTentacles[i].Health.OnDeath += () => CheckTentaclesHealth(tentacleIndex);
             ListOfTentacles[i].Health.OnDamageTaken += HandleChangeInHealth;
+
+            _maxHealth += ListOfTentacles[i].Health.ReturnMaxHealth();
         }
 
-        base.Start();
+        _currentHealth = _maxHealth;
+        
+        StartCoroutine(base.Start());
     }
 
     private void OnDestroy() {

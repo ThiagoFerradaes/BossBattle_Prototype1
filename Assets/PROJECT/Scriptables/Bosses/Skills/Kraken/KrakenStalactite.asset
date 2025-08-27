@@ -14,23 +14,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::KrakenStalactiteAttack
   Priority: 4
   Cooldown: 80
-  AttackDuration: 20
-  CooldownBetweenEachStalactite: 0.3
-  StalactiteFallSpeed: 20
-  StalactiteFallDuration: 1
-  StalactiteDistanceFromEachOther: 1
-  StalactiteMinDamage: 1
-  StalactiteMaxDamage: 2
-  StalactiteMinRange: 11
-  StalactiteMaxRange: 13
-  StalactiteHeight: 10
-  SmallCooldown: 10
-  HealthLimit: 0
-  StalactitePrefabName: KrakenStalactite
-  StalactitePrefab: {fileID: 4550290939490962478, guid: d93e102fb57409c4c905947756dc899f, type: 3}
-  WarningPrefabName: KrakenStalactiteWarning
-  StalactiteWarning: {fileID: 8409977521112933794, guid: eb663fb711d560647b93d32f5a4a6cea, type: 3}
-  WarningDuration: 0.6
-  WarningHeight: 0
-  DamageType: 0
-  Tags: 1
+  attackDuration: 20
+  cooldownBetweenEachStalactite: 0.3
+  stalactiteFallSpeed: 20
+  stalactiteFallDuration: 1.5
+  stalactiteMinDamage: 20
+  stalactiteMaxDamage: 25
+  stalactiteMinRange: 11
+  stalactiteMaxRange: 13
+  stalactiteHeight: 10
+  damageType: 0
+  tags: 1
+  smallCooldown: 10
+  cooldownBetweenStalactiteAndNextAttack: 1
+  healthLimit: 50
+  stalactitePrefabName: KrakenStalactite
+  stalactitePrefab: {fileID: 4550290939490962478, guid: d93e102fb57409c4c905947756dc899f, type: 3}
+  warningPrefabName: KrakenStalactiteWarning
+  warningDuration: 0.6
+  warningHeight: 0
+  stalactiteWarning: {fileID: 8409977521112933794, guid: eb663fb711d560647b93d32f5a4a6cea, type: 3}
+  stalactiteParameterName: Stalactite
+  stalactiteAnimDuration: 1.5

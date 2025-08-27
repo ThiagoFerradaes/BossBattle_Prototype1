@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -11,7 +12,9 @@ public class EnemyBehaviourManager : MonoBehaviour {
     List<EnemyBehaviourSO> _actualListOfBehaviours = new();
     [HideInInspector] public EnemyCooldownManager CooldownManager;
 
-    public virtual void Start() {
+    bool _hasStarted;
+
+    public virtual IEnumerator Start() {
         try {
 
             foreach (var behaviour in listOfBehaviour.ListOfEnemyBehaviours) {
@@ -32,9 +35,14 @@ public class EnemyBehaviourManager : MonoBehaviour {
         _currentBehaviour = Instantiate(initialState);
         _currentBehaviour.StartState(this);
 
+        yield return null;
+
+        _hasStarted = true;
     }
 
     void Update() {
+        if (!_hasStarted) return;
+
         try {
             _currentBehaviour.UpdateState();
         }

@@ -1,31 +1,36 @@
+using NaughtyAttributes;
 using System.Collections;
-using System.Threading;
-using Unity.VisualScripting;
-using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Kraken / Stalactite")]
 public class KrakenStalactiteAttack : EnemyBehaviourSO {
-    public float AttackDuration;
-    public float CooldownBetweenEachStalactite;
-    public float StalactiteFallSpeed;
-    public float StalactiteFallDuration;
-    public float StalactiteDistanceFromEachOther;
-    public float StalactiteMinDamage;
-    public float StalactiteMaxDamage;
-    public float StalactiteMinRange;
-    public float StalactiteMaxRange;
-    public float StalactiteHeight;
-    public float SmallCooldown;
-    [Range(0, 100)] public float HealthLimit;
-    public string StalactitePrefabName;
-    public GameObject StalactitePrefab;
-    public string WarningPrefabName;
-    public GameObject StalactiteWarning;
-    public float WarningDuration;
-    public float WarningHeight;
-    public DamageType DamageType;
-    public Tags Tags;
+    [Foldout("Attack Atributes"), SerializeField] float attackDuration;
+    [Foldout("Attack Atributes"), SerializeField] float cooldownBetweenEachStalactite;
+    [Foldout("Attack Atributes"), SerializeField] float stalactiteFallSpeed;
+    [Foldout("Attack Atributes"), SerializeField] float stalactiteFallDuration;
+    [Foldout("Attack Atributes"), SerializeField] float stalactiteMinDamage;
+    [Foldout("Attack Atributes"), SerializeField] float stalactiteMaxDamage;
+    [Foldout("Attack Atributes"), SerializeField] float stalactiteMinRange;
+    [Foldout("Attack Atributes"), SerializeField] float stalactiteMaxRange;
+    [Foldout("Attack Atributes"), SerializeField] float stalactiteHeight;
+    [Foldout("Attack Atributes"), SerializeField] DamageType damageType;
+    [Foldout("Attack Atributes"), SerializeField] Tags tags;
+
+    [Foldout("Cooldown"), SerializeField] float smallCooldown;
+    [Foldout("Cooldown"), SerializeField] float cooldownBetweenStalactiteAndNextAttack;
+
+    [Foldout("Condition"), Range(0, 100)][SerializeField] float healthLimit;
+
+    [Foldout("HitBox"), SerializeField] string stalactitePrefabName;
+    [Foldout("HitBox"), SerializeField] GameObject stalactitePrefab;
+
+    [Foldout("Warning"), SerializeField] string warningPrefabName;
+    [Foldout("Warning"), SerializeField] float warningDuration;
+    [Foldout("Warning"), SerializeField] float warningHeight;
+    [Foldout("Warning"), SerializeField] GameObject stalactiteWarning;
+
+    [Foldout("Animation"), SerializeField] string stalactiteParameterName;
+    [Foldout("Animation"), SerializeField] float stalactiteAnimDuration;
 
     KrakenManager _krakenManager;
     bool _canAttack;
@@ -33,8 +38,8 @@ public class KrakenStalactiteAttack : EnemyBehaviourSO {
 
         _krakenManager = parent as KrakenManager;
 
-        if (_krakenManager.ReturnCurrentHealth() > _krakenManager.ReturnCurrentHealth() * (HealthLimit / 100)) {
-            _krakenManager.CooldownManager.SetSkillCooldown(this, SmallCooldown);
+        if (_krakenManager.ReturnCurrentHealth() > _krakenManager.ReturnMaxHealth() * (healthLimit / 100)) {
+            _krakenManager.CooldownManager.SetSkillCooldown(this, smallCooldown);
             _krakenManager.ChangeBehaviourAtRandom();
         }
         else {       
@@ -45,14 +50,24 @@ public class KrakenStalactiteAttack : EnemyBehaviourSO {
     }
 
     IEnumerator StalactiteAnimation() {
-        // Faz a animação
-        yield return null;
+        
+        foreach(var tentacle in _krakenManager.ListOfTentacles) {
+            tentacle.Anim.SetBool(stalactiteParameterName, true);
+        }
+
+        yield return new WaitForSeconds(stalactiteAnimDuration);
+
+        foreach (var tentacle in _krakenManager.ListOfTentacles) {
+            tentacle.Anim.SetBool(stalactiteParameterName, false);
+        }
 
         _krakenManager.CooldownManager.SetSkillCooldown(this);
         _canAttack = true;
 
-
         _krakenManager.StartCoroutine(StalactiteAttack());
+
+        yield return new WaitForSeconds(cooldownBetweenStalactiteAndNextAttack);
+
         _krakenManager.ChangeBehaviourAtRandom();
     }
     IEnumerator StalactiteAttack() {
@@ -61,23 +76,23 @@ public class KrakenStalactiteAttack : EnemyBehaviourSO {
 
         while (_canAttack) {
             Vector2 pos = ReturnAPosition();
-            Vector3 stalactitePosition = new(pos.x, StalactiteHeight, pos.y);
+            Vector3 stalactitePosition = new(pos.x, stalactiteHeight, pos.y);
 
-            GameObject stalactite = PoolingManager.Instance.ReturnPrefabFromPool(StalactitePrefabName,
-                StalactitePrefab, TypeOfSkillPrefab.Hitbox);
+            GameObject stalactite = PoolingManager.Instance.ReturnPrefabFromPool(stalactitePrefabName,
+                stalactitePrefab, TypeOfSkillPrefab.Hitbox);
             stalactite.transform.position = stalactitePosition;
 
-            GameObject warningVFX = PoolingManager.Instance.ReturnPrefabFromPool(WarningPrefabName,
-               StalactiteWarning, TypeOfSkillPrefab.VFX);
+            GameObject warningVFX = PoolingManager.Instance.ReturnPrefabFromPool(warningPrefabName,
+               stalactiteWarning, TypeOfSkillPrefab.VFX);
 
             float floorHeight = FindGroundHeight(stalactitePosition);
-            Vector3 warningPos = new(pos.x, floorHeight + WarningHeight, pos.y);
+            Vector3 warningPos = new(pos.x, floorHeight + warningHeight, pos.y);
 
             warningVFX.transform.position = warningPos;
-            warningVFX.GetComponent<VFXPreFab>().Initialize(WarningDuration);
+            warningVFX.GetComponent<VFXPreFab>().Initialize(warningDuration);
             _krakenManager.StartCoroutine(StalactiteFall(stalactite));
 
-            yield return new WaitForSeconds(CooldownBetweenEachStalactite);
+            yield return new WaitForSeconds(cooldownBetweenEachStalactite);
         }
     }
 
@@ -91,7 +106,7 @@ public class KrakenStalactiteAttack : EnemyBehaviourSO {
         return 0f;
     }
     IEnumerator Duration() {
-        yield return new WaitForSeconds(AttackDuration);
+        yield return new WaitForSeconds(attackDuration);
         _canAttack = false;
     }
 
@@ -99,13 +114,13 @@ public class KrakenStalactiteAttack : EnemyBehaviourSO {
         stalactite.SetActive(true);
 
         InstantDamageContext context = new(
-            StalactiteMinDamage,
-            StalactiteMaxDamage,
-            StalactiteFallDuration,
+            stalactiteMinDamage,
+            stalactiteMaxDamage,
+            stalactiteFallDuration,
             0,
             true,
-            DamageType,
-            Tags,
+            damageType,
+            tags,
             _krakenManager.KrakenStatus
         );
 
@@ -113,9 +128,9 @@ public class KrakenStalactiteAttack : EnemyBehaviourSO {
 
         float timer = 0f;
 
-        while (timer < StalactiteFallDuration) {
+        while (timer < stalactiteFallDuration) {
             timer += Time.deltaTime;
-            stalactite.transform.position += StalactiteFallSpeed * Time.deltaTime * Vector3.down;
+            stalactite.transform.position += stalactiteFallSpeed * Time.deltaTime * Vector3.down;
             yield return null;
         }
 
@@ -125,8 +140,8 @@ public class KrakenStalactiteAttack : EnemyBehaviourSO {
     Vector2 ReturnAPosition() {
         Vector2 direction = Random.insideUnitCircle.normalized;
 
-        float distance = Mathf.Sqrt(Random.Range(StalactiteMinRange * StalactiteMinRange,
-                                             StalactiteMaxRange * StalactiteMaxRange));
+        float distance = Mathf.Sqrt(Random.Range(stalactiteMinRange * stalactiteMinRange,
+                                             stalactiteMaxRange * stalactiteMaxRange));
 
         return direction * distance;
     }

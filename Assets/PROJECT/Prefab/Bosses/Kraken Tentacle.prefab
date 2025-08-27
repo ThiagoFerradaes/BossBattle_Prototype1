@@ -121,13 +121,14 @@ GameObject:
   - component: {fileID: 4104500274814268897}
   - component: {fileID: 6326043759646265833}
   - component: {fileID: 67805634253555891}
+  - component: {fileID: 7944553959338768305}
   m_Layer: 0
   m_Name: HitBox
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2926481238423872228
 Transform:
   m_ObjectHideFlags: 0
@@ -218,6 +219,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5629c282a0542824d8fbba0108720c52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7944553959338768305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5532368445945408136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 933b851fe01dddb409d20afb76c4cbed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  timer: 0.01
 --- !u!1 &6854020517786528050
 GameObject:
   m_ObjectHideFlags: 0
