@@ -1,5 +1,6 @@
 using NaughtyAttributes;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Kraken / Stalactite")]
@@ -14,7 +15,7 @@ public class KrakenStalactiteAttack : EnemyBehaviourSO {
     [Foldout("Attack Atributes"), SerializeField] float stalactiteMaxRange;
     [Foldout("Attack Atributes"), SerializeField] float stalactiteHeight;
     [Foldout("Attack Atributes"), SerializeField] DamageType damageType;
-    [Foldout("Attack Atributes"), SerializeField] Tags tags;
+    [Foldout("Attack Atributes"), SerializeField] List<Tags> tags;
 
     [Foldout("Cooldown"), SerializeField] float smallCooldown;
     [Foldout("Cooldown"), SerializeField] float cooldownBetweenStalactiteAndNextAttack;

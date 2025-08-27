@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ContinuosDamageContext {
@@ -10,11 +11,11 @@ public class ContinuosDamageContext {
     public float DamageCooldown;
     public bool HitShield;
     public DamageType TypeOfDamage;
-    public Tags UnitToHitTag;
+    public List<Tags> UnitToHitTag;
     public StatusManager StatusManager;
 
     public ContinuosDamageContext(float minDamage, float maxDamage, float hitBoxDuration, float penetration, float damageCooldown
-        , bool hitShield, Tags tag, DamageType type, StatusManager status) {
+        , bool hitShield, List<Tags> tag, DamageType type, StatusManager status) {
         this.MinDamage = minDamage;
         this.MaxDamage = maxDamage;
         this.Duration = hitBoxDuration;
@@ -35,7 +36,7 @@ public class ContinuosDamageHitBox : MonoBehaviour
     float _duration;
     float _penetrarion;
     DamageType _type;
-    string _typeOfUnit;
+    List<Tags> _typeOfUnit = new();
     bool _hitShield;
     StatusManager _dealerStatus;
 
@@ -50,7 +51,7 @@ public class ContinuosDamageHitBox : MonoBehaviour
         _type = context.TypeOfDamage;
         _dealerStatus = context.StatusManager;
         _hitShield = context.HitShield;
-        _typeOfUnit = context.UnitToHitTag.ToString();
+        _typeOfUnit = new(context.UnitToHitTag);
 
         gameObject.SetActive(true);
         StartCoroutine(AttackDuration());
@@ -97,7 +98,7 @@ public class ContinuosDamageHitBox : MonoBehaviour
                         recieverManager
                         );
 
-                    if (_typeOfUnit != Tags.Player.ToString()) PopUpManager.Instance.DamageDone(
+                    if (unit.CompareTag(Tags.Enemy.ToString())) PopUpManager.Instance.DamageDone(
                         (int)newDamage.Item1, health.transform.position, newDamage.Item2, _type);
                     health.TakeDamage(newDamage.Item1, _hitShield);
                 }
@@ -113,14 +114,14 @@ public class ContinuosDamageHitBox : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.CompareTag(_typeOfUnit)) return;
+        if (!_typeOfUnit.Any(tag => other.CompareTag(tag.ToString()))) return;
 
         _listOfHealths.Add(other.gameObject);
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (!other.CompareTag(_typeOfUnit)) return;
+        if (!_typeOfUnit.Any(tag => other.CompareTag(tag.ToString()))) return;
 
         _listOfHealths.Remove(other.gameObject);
     }

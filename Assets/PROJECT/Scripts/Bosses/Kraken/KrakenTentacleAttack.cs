@@ -19,5 +19,6 @@ public class KrakenTentacleAttack : EnemyBehaviourSO
 
     [Foldout("Variables")] public float TentacleDamage;
     [Foldout("Variables")] public float DeadTentacleDamage;
+    [Foldout("Variables")] public List<Tags> Tags;
 
 }
