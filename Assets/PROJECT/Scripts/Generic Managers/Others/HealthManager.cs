@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class HealthManager : MonoBehaviour {
 
@@ -19,8 +20,12 @@ public class HealthManager : MonoBehaviour {
     bool _canTakeDamage = true;
 
     // Events
+    /// <summary>
+    /// current health / max health
+    /// </summary>
     public event Action<float, float> OnHealthChanged;
     public event Action<float, float> OnShieldChanged;
+    public event Action<float> OnDamageTaken;
     public event Action OnDeath;
     #endregion
 
@@ -55,7 +60,10 @@ public class HealthManager : MonoBehaviour {
 
     public void TakeDamage(float damage, bool trueDamage) {
         if (_isDead || !_canTakeDamage) return;
-        if (trueDamage) ChangeHealth(_currentHealth - damage);
+        if (trueDamage) {
+            ChangeHealth(_currentHealth - damage);
+            OnDamageTaken?.Invoke(damage);
+        }
         else {
             bool isShielded = _currentShield > 0;
 
@@ -65,9 +73,13 @@ public class HealthManager : MonoBehaviour {
                     float realDamage = -(_currentShield - damage);
                     ChangeShield(0);
                     ChangeHealth(_currentHealth - realDamage);
+                    OnDamageTaken?.Invoke(realDamage);
                 }
             }
-            else ChangeHealth(_currentHealth - damage);
+            else {
+                ChangeHealth(_currentHealth - damage);
+                OnDamageTaken?.Invoke(damage);
+            }
         }
     }
 
@@ -100,6 +112,13 @@ public class HealthManager : MonoBehaviour {
         ChangeShield(_currentShield - shieldAmount);
     }
 
+    #endregion
+
+    #region Getters
+
+    public float ReturnMaxHealth() => _maxHealth;
+
+    public float ReturnCurrentHealth() => _currentHealth;
     #endregion
 
     #endregion

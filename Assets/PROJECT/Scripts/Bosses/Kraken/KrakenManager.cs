@@ -37,6 +37,9 @@ public class KrakenManager : EnemyBehaviourManager {
 
     [HideInInspector] public List<KrakenTentacle> ListOfTentacles = new();
     [HideInInspector] public Transform Player;
+    public StatusManager KrakenStatus;
+
+    float _maxHealth, _currentHealth;
 
     #endregion
 
@@ -49,8 +52,11 @@ public class KrakenManager : EnemyBehaviourManager {
 
             _listOfTentaclesInAnimation[i] = null;
             _listOfTentaclesDead[i] = false;
+
+            _maxHealth += ListOfTentacles[i].Health.ReturnMaxHealth();
         }
 
+        _currentHealth = _maxHealth;
     }
 
     public override void Start() {
@@ -60,6 +66,7 @@ public class KrakenManager : EnemyBehaviourManager {
         for (int i = 0; i < ListOfTentacles.Count; i++) {
             int tentacleIndex = i;
             ListOfTentacles[i].Health.OnDeath += () => CheckTentaclesHealth(tentacleIndex);
+            ListOfTentacles[i].Health.OnDamageTaken += HandleChangeInHealth;
         }
 
         base.Start();
@@ -243,6 +250,17 @@ public class KrakenManager : EnemyBehaviourManager {
             ScreensInGameUI.Instance.TurnScreenOn(TypeOfScreen.Victory);
         }
     }
+
+    private void HandleChangeInHealth(float damage) {
+        _currentHealth -= damage;
+    }
+
+    #endregion
+
+    #region Getters
+
+    public float ReturnCurrentHealth() => _currentHealth;
+    public float ReturnMaxHealth() => _maxHealth;
 
     #endregion
 
