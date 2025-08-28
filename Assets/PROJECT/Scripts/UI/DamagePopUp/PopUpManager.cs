@@ -24,18 +24,18 @@ public class PopUpManager : MonoBehaviour {
 
     }
 
-    public void DamageDone(int damage, Vector3 position, bool isCrit) {
+    public void DamageDone(int damage, Vector3 position, bool isCrit, DamageType type) {
         Vector3 screenPosition = _mainCamera.WorldToScreenPoint(position);
         screenPosition.z = 0;
         bool direction = screenPosition.x < Screen.width * 0.5f;
 
-        SpawnDamagePopup(damage, screenPosition, direction, isCrit);
+        SpawnDamagePopup(damage, screenPosition, direction, isCrit, type);
     }
 
-    private void SpawnDamagePopup(int damage, Vector3 position, bool direction, bool isCrit) {
+    private void SpawnDamagePopup(int damage, Vector3 position, bool direction, bool isCrit, DamageType type) {
         for (int i = 0; i < _damagePopUpList.Count; i++) {
             if (!_damagePopUpList[i].gameObject.activeInHierarchy) {
-                _damagePopUpList[i].Display(damage, position, direction, isCrit);
+                _damagePopUpList[i].Display(damage, position, direction, isCrit, type);
                 return;
             }
         }
@@ -45,6 +45,6 @@ public class PopUpManager : MonoBehaviour {
         damageLabel.gameObject.SetActive(false);
         damageLabel.transform.SetParent(this.transform);
         _damagePopUpList.Add(damageLabel);   
-        damageLabel.Display(damage, position, direction, isCrit);
+        damageLabel.Display(damage, position, direction, isCrit, type);
     }
 }

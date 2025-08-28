@@ -3,13 +3,13 @@ using NaughtyAttributes;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum TypeOfSkillAnimationPrefab { Hitbox, VFX}
+public enum TypeOfSkillPrefab { Hitbox, VFX, PreCastRange}
 [System.Serializable]
 public class SkillAnimationEvent {
     public float TimeToSpawnPreFab;
     public float PrefabDuration;
     public string PreFabName;
-    public TypeOfSkillAnimationPrefab PrefabType;
+    public TypeOfSkillPrefab PrefabType;
     public GameObject PreFab;
     public Vector3 PreFabPosition;
 }

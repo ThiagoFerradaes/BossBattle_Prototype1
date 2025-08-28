@@ -14,7 +14,7 @@ public class WeaponManager : MonoBehaviour
             _currentRightHandWeapon = null;
         }
 
-        GameObject weapon = PoolingManager.Instance.ReturnHitboxFromPool(prefabName, prefab);
+        GameObject weapon = PoolingManager.Instance.ReturnPrefabFromPool(prefabName, prefab, TypeOfSkillPrefab.VFX);
         weapon.transform.SetParent(rightWeaponPosition);
         weapon.transform.SetLocalPositionAndRotation(weaponPosition, Quaternion.Euler(weaponRotation));
         weapon.SetActive(true);
@@ -28,7 +28,7 @@ public class WeaponManager : MonoBehaviour
             _currentLeftHandWeapon = null;
         }
 
-        GameObject weapon = PoolingManager.Instance.ReturnHitboxFromPool(prefabName, prefab);
+        GameObject weapon = PoolingManager.Instance.ReturnPrefabFromPool(prefabName, prefab, TypeOfSkillPrefab.VFX);
         weapon.transform.SetParent(leftWeaponPosition);
         weapon.transform.SetLocalPositionAndRotation(weaponPosition, Quaternion.Euler(weaponRotation));
         weapon.SetActive(true);
@@ -39,7 +39,7 @@ public class WeaponManager : MonoBehaviour
     public void OnDesequipRightHand() {
         if (!_rightHandOccupied) return;
 
-        _currentRightHandWeapon.SetActive(false);
+        PoolingManager.Instance.ReturnObjectToPool(_currentRightHandWeapon.gameObject, TypeOfSkillPrefab.VFX);
         _currentRightHandWeapon = null;
         _rightHandOccupied = false;
     }
@@ -47,7 +47,7 @@ public class WeaponManager : MonoBehaviour
     public void OnDesequipLeftHand() {
         if (!_leftHandOccupied) return;
 
-        _currentLeftHandWeapon.SetActive(false);
+        PoolingManager.Instance.ReturnObjectToPool(_currentLeftHandWeapon.gameObject, TypeOfSkillPrefab.VFX);
         _currentLeftHandWeapon = null;
         _leftHandOccupied = false;
     }

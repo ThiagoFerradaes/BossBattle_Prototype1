@@ -66,7 +66,9 @@ public abstract class SkillObjectManager : MonoBehaviour {
     }
 
     public virtual void SetSkillRangeIndicator(SkillSO skill) {
-        currentSkillRange = PoolingManager.Instance.ReturnHitboxFromPool(skill.SkillObjectRangeName, skill.SkillObjectRangeObject);
+        currentSkillRange = PoolingManager.Instance.ReturnPrefabFromPool(skill.SkillObjectRangeName,
+            skill.SkillObjectRangeObject, TypeOfSkillPrefab.PreCastRange);
+
         currentSkillRange.transform.SetParent(parent.transform);
 
         float groundY = FindGroundHeight(parent.transform.position);
@@ -90,8 +92,7 @@ public abstract class SkillObjectManager : MonoBehaviour {
     void ReleaseSkillRangeIndicator() {
         if (currentSkillRange == null) return;
 
-        currentSkillRange.SetActive(false);
-        currentSkillRange.transform.SetParent(PoolingManager.Instance.HitboxContainer);
+        PoolingManager.Instance.ReturnObjectToPool(currentSkillRange, TypeOfSkillPrefab.PreCastRange);
         currentSkillRange = null;
 
     }

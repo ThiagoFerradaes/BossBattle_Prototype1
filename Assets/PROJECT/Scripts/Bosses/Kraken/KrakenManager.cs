@@ -1,10 +1,6 @@
-using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using UnityEditor.Rendering.LookDev;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class KrakenTentacle {
     public Animator Anim;
@@ -33,6 +29,7 @@ public class KrakenManager : EnemyBehaviourManager {
 
     [SerializeField] Material deadTentacleMaterial;
     [SerializeField] KrakenTentacleAttack tentacleAttack;
+    [SerializeField] BossRewardSO bossReward;
     public List<GameObject> TentaclesListGO = new();
 
     Dictionary<int, Coroutine> _listOfTentaclesInAnimation = new();
@@ -40,6 +37,9 @@ public class KrakenManager : EnemyBehaviourManager {
 
     [HideInInspector] public List<KrakenTentacle> ListOfTentacles = new();
     [HideInInspector] public Transform Player;
+    public StatusManager KrakenStatus;
+
+    float _maxHealth, _currentHealth;
 
     #endregion
 
@@ -53,19 +53,25 @@ public class KrakenManager : EnemyBehaviourManager {
             _listOfTentaclesInAnimation[i] = null;
             _listOfTentaclesDead[i] = false;
         }
-
     }
 
-    public override void Start() {
+    public override IEnumerator Start() {
+
+        yield return new WaitForEndOfFrame();
 
         Player = PlayerManager.Instance.Player.transform;
 
         for (int i = 0; i < ListOfTentacles.Count; i++) {
             int tentacleIndex = i;
             ListOfTentacles[i].Health.OnDeath += () => CheckTentaclesHealth(tentacleIndex);
+            ListOfTentacles[i].Health.OnDamageTaken += HandleChangeInHealth;
+
+            _maxHealth += ListOfTentacles[i].Health.ReturnMaxHealth();
         }
 
-        base.Start();
+        _currentHealth = _maxHealth;
+        
+        StartCoroutine(base.Start());
     }
 
     private void OnDestroy() {
@@ -129,8 +135,9 @@ public class KrakenManager : EnemyBehaviourManager {
                 stateInfo = anim.GetCurrentAnimatorStateInfo(0);
             } while (stateInfo.fullPathHash == attackStateHash && stateInfo.normalizedTime < targetNormalizedTime);
 
-            if (prefabInfo.PrefabType == TypeOfSkillAnimationPrefab.VFX) {
-                GameObject attackHitBox = PoolingManager.Instance.ReturnHitboxFromPool(prefabInfo.PreFabName, prefabInfo.PreFab);
+            if (prefabInfo.PrefabType == TypeOfSkillPrefab.VFX) {
+                GameObject attackHitBox = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFabName,
+                    prefabInfo.PreFab, TypeOfSkillPrefab.VFX);
                 float yRotation = 180 + (tentacleIndex * 45);
                 attackHitBox.transform.SetPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.Euler(0, yRotation + 22.5f, 0));
                 ParticleSystem ps = attackHitBox.GetComponent<ParticleSystem>();
@@ -167,27 +174,29 @@ public class KrakenManager : EnemyBehaviourManager {
                 stateInfo = anim.GetCurrentAnimatorStateInfo(0);
             } while (stateInfo.fullPathHash == attackStateHash && stateInfo.normalizedTime < targetNormalizedTime);
 
-            GameObject attackHitBox = PoolingManager.Instance.ReturnHitboxFromPool(prefabInfo.PreFabName, prefabInfo.PreFab);
             float yRotation = 180 + (tentacleIndex * 45);
 
-            if (prefabInfo.PrefabType == TypeOfSkillAnimationPrefab.Hitbox) {
-
-                float damage = _listOfTentaclesDead[tentacleIndex] ? tentacleAttack.DeadTentacleDamage : tentacleAttack.TentacleDamage;
+            if (prefabInfo.PrefabType == TypeOfSkillPrefab.Hitbox) {
+                GameObject attackHitBox = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFabName,
+                    prefabInfo.PreFab, TypeOfSkillPrefab.Hitbox);
 
                 attackHitBox.transform.SetPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.Euler(90, yRotation, 0));
                 InstantDamageContext newContext = new(
-                damage,
+                tentacleAttack.DeadTentacleDamage,
+                tentacleAttack.DeadTentacleDamage,
                 0.1f,
                 0,
                 false,
-                DamageType.Physical,
-                Tags.Player,
+                DamageType.Abyssal,
+                tentacleAttack.Tags,
                 ListOfTentacles[tentacleIndex].Status
                 );
 
                 attackHitBox.GetComponent<InstantDamageHitBox>().Initialize(newContext);
             }
             else {
+                GameObject attackHitBox = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFabName,
+                    prefabInfo.PreFab, TypeOfSkillPrefab.VFX);
                 attackHitBox.transform.SetPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.Euler(-90, yRotation + 202.5f, 0));
                 ParticleSystem ps = attackHitBox.GetComponent<ParticleSystem>();
                 var main = ps.main;
@@ -208,6 +217,19 @@ public class KrakenManager : EnemyBehaviourManager {
         anim.SetFloat(tentacleAttack.PreparingAttackSpeed, 1);
         anim.SetFloat(tentacleAttack.HitAttackSpeed, 1);
 
+        do { // Return to idle ANIMATION
+            yield return null;
+            stateInfo = anim.GetCurrentAnimatorStateInfo(0);
+        } while (!stateInfo.IsName(tentacleAttack.ReturnToIdleAnimationName));
+
+        attackStateHash = stateInfo.fullPathHash;
+
+        do { // Esperando o tempo para desligar a hitbox
+            yield return null;
+            stateInfo = anim.GetCurrentAnimatorStateInfo(0);
+        } while (stateInfo.fullPathHash == attackStateHash && 
+        stateInfo.normalizedTime < tentacleAttack.TimeInReturnToIdleToTurnOffHitBox);
+
         ListOfTentacles[tentacleIndex].HitBox.SetActive(false);
     }
     #endregion
@@ -225,8 +247,22 @@ public class KrakenManager : EnemyBehaviourManager {
             }
         }
 
-        if (allTentaclesDead) ScreensInGameUI.Instance.TurnScreenOn(TypeOfScreen.Victory);
+        if (allTentaclesDead) {
+            if(bossReward != null) bossReward.WinRewards();
+            ScreensInGameUI.Instance.TurnScreenOn(TypeOfScreen.Victory);
+        }
     }
+
+    private void HandleChangeInHealth(float damage) {
+        _currentHealth -= damage;
+    }
+
+    #endregion
+
+    #region Getters
+
+    public float ReturnCurrentHealth() => _currentHealth;
+    public float ReturnMaxHealth() => _maxHealth;
 
     #endregion
 

@@ -1,4 +1,5 @@
 using NaughtyAttributes;
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Skills / SpearAttack")]
@@ -23,7 +24,7 @@ public class SpearSkillSO : SkillSO
     [Foldout("Specific")] public string SpearName;
 
     [Header("Enums")]
-    [Foldout("Specific")] public Tags EnemyTag;
+    [Foldout("Specific")] public List<Tags> EnemyTag;
     [Foldout("Specific")] public DamageType DamageType;
 
     [Header("Weapon")]

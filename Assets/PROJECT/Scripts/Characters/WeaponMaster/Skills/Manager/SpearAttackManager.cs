@@ -68,16 +68,18 @@ public class SpearAttackManager : SkillObjectManager {
                 stateInfo = anim.GetCurrentAnimatorStateInfo(0);
             } while (stateInfo.fullPathHash == attackStateHash && stateInfo.normalizedTime < targetNormalizedTime);
 
-            GameObject preFab = PoolingManager.Instance.ReturnHitboxFromPool(prefabInfo.PreFabName, prefabInfo.PreFab);
-            preFab.transform.SetParent(parent.transform, false);
-            preFab.transform.localPosition = (prefabInfo.PreFabPosition);
 
-            if (prefabInfo.PrefabType == TypeOfSkillAnimationPrefab.Hitbox) {
+            if (prefabInfo.PrefabType == TypeOfSkillPrefab.Hitbox) {
+                GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFabName, 
+                    prefabInfo.PreFab, TypeOfSkillPrefab.Hitbox);
 
-                float damage = UnityEngine.Random.Range(_info.MinDamage, _info.MaxDamage);
+                preFab.transform.SetParent(parent.transform, false);
+                preFab.transform.localPosition = (prefabInfo.PreFabPosition);
+
 
                 InstantDamageContext newContext = new(
-                    damage,
+                    _info.MinDamage,
+                    _info.MaxDamage,
                     prefabInfo.PrefabDuration,
                     _info.Penetration,
                     _info.HitShield,
@@ -91,8 +93,12 @@ public class SpearAttackManager : SkillObjectManager {
                 OnWeaponChange?.Invoke();
             }
             else {
+                GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFabName,
+                    prefabInfo.PreFab, TypeOfSkillPrefab.VFX);
+
+                preFab.transform.SetParent(parent.transform, false);
+                preFab.transform.localPosition = (prefabInfo.PreFabPosition);
                 preFab.GetComponent<VFXPreFab>().Initialize(prefabInfo.PrefabDuration);
-                //preFab.transform.SetParent(null);
             }
 
         }

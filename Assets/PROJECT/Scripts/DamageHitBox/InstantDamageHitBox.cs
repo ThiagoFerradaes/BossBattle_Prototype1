@@ -1,40 +1,42 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class InstantDamageContext
 {
-    public float Damage;
+    public float MinDamage;
+    public float MaxDamage;
     public float Duration;
     public float Penetration;
     public bool HitShield;
     public DamageType TypeOfDamage;
-    public Tags UnitToHitTag;
+    public List<Tags> UnitsToHitTag;
     public StatusManager StatusManager;
-    public List<Modifiers> ListOfModifiers;
 
-    public InstantDamageContext(float damage, float hitBoxDuration, float penetration
-        , bool hitShield, DamageType type, Tags tag, StatusManager status, List<Modifiers> listOfModifiers = null)
+    public InstantDamageContext(float minDamage, float maxDamage, float hitBoxDuration, float penetration
+        , bool hitShield, DamageType type, List<Tags> tags, StatusManager status)
     {
-        this.Damage = damage;
+        this.MinDamage = minDamage;
+        this.MaxDamage = maxDamage;
         this.Duration = hitBoxDuration;
         this.Penetration = penetration;
         this.HitShield = hitShield;
-        this.UnitToHitTag = tag;
+        this.UnitsToHitTag = tags;
         this.TypeOfDamage = type;
         this.StatusManager = status;
-        this.ListOfModifiers = listOfModifiers ?? new List<Modifiers>();
     }
 }
 public class InstantDamageHitBox : MonoBehaviour
 {
     #region Parameters
 
-    float _damage;
+    float _minDamage;
+    float _maxDamage;
     float _duration;
     float _penetration;
     bool _hitShield;
-    string _tag;
+    List<Tags> _tag = new();
     StatusManager _statusManager;
     DamageType _damageType;
 
@@ -43,14 +45,16 @@ public class InstantDamageHitBox : MonoBehaviour
     #region Methods
     public void Initialize(InstantDamageContext context)
     {
-        _damage = context.Damage;
+        _minDamage = context.MinDamage;
+        _maxDamage = context.MaxDamage;
         _duration = context.Duration;
         _penetration = context.Penetration;
         _hitShield = context.HitShield;
-        _tag = context.UnitToHitTag.ToString();
         _statusManager = context.StatusManager;
         _damageType = context.TypeOfDamage;
         gameObject.SetActive(true);
+        _tag = new(context.UnitsToHitTag);
+
         StartCoroutine(AttackDuration());
     }
 
@@ -62,28 +66,32 @@ public class InstantDamageHitBox : MonoBehaviour
             timer += Time.deltaTime;
             yield return null;
         }
-        gameObject.SetActive(false);
+        PoolingManager.Instance.ReturnObjectToPool(this.gameObject, TypeOfSkillPrefab.Hitbox);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.CompareTag(_tag)) return;
+        if (!_tag.Any(tag => other.CompareTag(tag.ToString()))) return;
+
 
         if (!other.TryGetComponent<HealthManager>(out HealthManager health)) return;
         if (!other.TryGetComponent<StatusManager>(out StatusManager recieverStatus)) return;
 
         if (!health.ReturnIfCanTakeDamage()) return;
 
-        (float, bool) damage = DamageCalculator.CalculateDamage(
+        float damage = Random.Range(_minDamage, _maxDamage);
+
+        (float, bool) newDamage = DamageCalculator.CalculateDamage(
             _damageType,
-            _damage,
+            damage,
             _penetration,
             _statusManager,
             recieverStatus
             );
 
-        if(_tag == Tags.Enemy.ToString())PopUpManager.Instance.DamageDone((int)damage.Item1, other.transform.position, damage.Item2);
-        health.TakeDamage(damage.Item1, _hitShield);
+        if(!other.CompareTag(Tags.Player.ToString()))PopUpManager.Instance.
+                DamageDone((int)newDamage.Item1, other.transform.position, newDamage.Item2, _damageType);
+        health.TakeDamage(newDamage.Item1, _hitShield);
     }
     #endregion
 }

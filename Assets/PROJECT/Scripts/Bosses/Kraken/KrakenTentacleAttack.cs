@@ -15,8 +15,10 @@ public class KrakenTentacleAttack : EnemyBehaviourSO
     [Foldout("Animations")] public string ReturnToIdleAnimationName;
     [Foldout("Animations")] public string PreparingAttackSpeed;
     [Foldout("Animations")] public string HitAttackSpeed;
+    [Foldout("Animations")] public float TimeInReturnToIdleToTurnOffHitBox;
 
     [Foldout("Variables")] public float TentacleDamage;
     [Foldout("Variables")] public float DeadTentacleDamage;
+    [Foldout("Variables")] public List<Tags> Tags;
 
 }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public enum DamageType { Physical, Magic, True}
+public enum DamageType { Abyssal, Ancestral, Pure}
 public static class DamageCalculator
 {
     public static (float,bool) CalculateDamage( // Considerando o crítico do personagem
@@ -12,9 +12,9 @@ public static class DamageCalculator
         ) {
 
         float rawDamage = skillType switch {
-            DamageType.Physical => skillBaseDamage/100 * statusDealer.ReturnStatusValue(StatusType.BaseAttack),
-            DamageType.Magic => skillBaseDamage/100 * statusDealer.ReturnStatusValue(StatusType.SkillAttack),
-            DamageType.True => skillBaseDamage,
+            DamageType.Abyssal => skillBaseDamage/100 * statusDealer.ReturnStatusValue(StatusType.BaseAttack),
+            DamageType.Ancestral => skillBaseDamage/100 * statusDealer.ReturnStatusValue(StatusType.SkillAttack),
+            DamageType.Pure => skillBaseDamage,
             _ => skillBaseDamage
         };
 
@@ -22,9 +22,9 @@ public static class DamageCalculator
         if (isCrit) rawDamage *= statusDealer.ReturnStatusValue(StatusType.CritDamage)/100;
 
         float targetDefense = skillType switch {
-            DamageType.Physical => statusReciever.ReturnStatusValue(StatusType.Defense),
-            DamageType.Magic => statusReciever.ReturnStatusValue(StatusType.SkillDefense),
-            DamageType.True => 0,
+            DamageType.Abyssal => statusReciever.ReturnStatusValue(StatusType.Defense),
+            DamageType.Ancestral => statusReciever.ReturnStatusValue(StatusType.SkillDefense),
+            DamageType.Pure => 0,
             _ => 0
         };
 
@@ -48,9 +48,9 @@ public static class DamageCalculator
     ) {
 
         float rawDamage = skillType switch {
-            DamageType.Physical => skillBaseDamage / 100 * statusDealer.ReturnStatusValue(StatusType.BaseAttack),
-            DamageType.Magic => skillBaseDamage / 100 * statusDealer.ReturnStatusValue(StatusType.SkillAttack),
-            DamageType.True => skillBaseDamage,
+            DamageType.Abyssal => skillBaseDamage / 100 * statusDealer.ReturnStatusValue(StatusType.BaseAttack),
+            DamageType.Ancestral => skillBaseDamage / 100 * statusDealer.ReturnStatusValue(StatusType.SkillAttack),
+            DamageType.Pure => skillBaseDamage,
             _ => skillBaseDamage
         };
 
@@ -58,9 +58,9 @@ public static class DamageCalculator
         if (isCrit) rawDamage *= critDamage / 100;
 
         float targetDefense = skillType switch {
-            DamageType.Physical => statusReciever.ReturnStatusValue(StatusType.Defense),
-            DamageType.Magic => statusReciever.ReturnStatusValue(StatusType.SkillDefense),
-            DamageType.True => 0,
+            DamageType.Abyssal => statusReciever.ReturnStatusValue(StatusType.Defense),
+            DamageType.Ancestral => statusReciever.ReturnStatusValue(StatusType.SkillDefense),
+            DamageType.Pure => 0,
             _ => 0
         };
 

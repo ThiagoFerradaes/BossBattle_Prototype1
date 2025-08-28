@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Xml.Linq;
 using UnityEngine;
 
 public class PoolingManager : MonoBehaviour {
@@ -7,10 +8,12 @@ public class PoolingManager : MonoBehaviour {
 
     // Dicionários
     Dictionary<string, List<GameObject>> listOfHitboxes = new();
+    Dictionary<string, List<GameObject>> listOfPreCastingRange = new();
+    Dictionary<string, List<GameObject>> listOfVFX = new();
     Dictionary<string, GameObject> listOfManagers = new();
 
     // Transforms
-    public Transform HitboxContainer, ManagerContainer;
+    public Transform HitboxContainer, ManagerContainer, VFXContainer, PreCastingContainer;
 
     #endregion
 
@@ -20,9 +23,15 @@ public class PoolingManager : MonoBehaviour {
         else Destroy(this);
     }
 
-    public GameObject ReturnHitboxFromPool(string objectName, GameObject prefab) {
+    public GameObject ReturnPrefabFromPool(string objectName, GameObject prefab, TypeOfSkillPrefab type) {
 
-        if (!listOfHitboxes.ContainsKey(objectName)) {
+        Dictionary<string, List<GameObject>> pool = type switch {
+            TypeOfSkillPrefab.Hitbox => listOfHitboxes,
+            TypeOfSkillPrefab.VFX => listOfVFX,
+            _ => listOfPreCastingRange
+        };
+
+        if (!pool.ContainsKey(objectName)) {
             listOfHitboxes[objectName] = new List<GameObject>();
         }
 
@@ -32,11 +41,18 @@ public class PoolingManager : MonoBehaviour {
             if (!list[i].activeInHierarchy) return list[i];
         }
 
-        GameObject newObject = Instantiate(prefab, HitboxContainer);
+        Transform container = type switch {
+            TypeOfSkillPrefab.Hitbox => HitboxContainer,
+            TypeOfSkillPrefab.VFX => VFXContainer,
+            _ => PreCastingContainer
+        };
+
+        GameObject newObject = Instantiate(prefab, container);
         newObject.SetActive(false);
         list.Add(newObject);
         return newObject;
     }
+
 
     public GameObject ReturnManagerFromPool(string managerName, GameObject prefab) {
 
@@ -51,6 +67,18 @@ public class PoolingManager : MonoBehaviour {
             listOfManagers[managerName] = newManager;
             return listOfManagers[managerName];
         }
+    }
+
+    public void ReturnObjectToPool(GameObject prefab, TypeOfSkillPrefab type) {
+        prefab.SetActive(false);
+
+        Transform container = type switch {
+            TypeOfSkillPrefab.Hitbox => HitboxContainer,
+            TypeOfSkillPrefab.VFX => VFXContainer,
+            _ => PreCastingContainer
+        };
+
+        prefab.transform.SetParent(container);
     }
 
     #endregion

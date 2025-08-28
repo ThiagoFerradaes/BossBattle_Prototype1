@@ -1,4 +1,5 @@
 using NaughtyAttributes;
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu( menuName = "Skills / ShootUpUltimate")]
@@ -24,7 +25,7 @@ public class ShootUpUltimateSO : SkillSO
     [Foldout("Specific")] public string WeaponName;
 
     [Header("Enums")]
-    [Foldout("Specific")] public Tags EnemyTag;
+    [Foldout("Specific")] public List<Tags> EnemyTag;
     [Foldout("Specific")] public DamageType DamageType;
 
     [Header("Weapon")]

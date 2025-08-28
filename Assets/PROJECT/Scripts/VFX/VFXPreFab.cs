@@ -8,6 +8,6 @@ public class VFXPreFab : MonoBehaviour
     }
 
     public void TurnOff() {
-        gameObject.SetActive(false);
+        PoolingManager.Instance.ReturnObjectToPool(this.gameObject, TypeOfSkillPrefab.VFX);
     }
 }

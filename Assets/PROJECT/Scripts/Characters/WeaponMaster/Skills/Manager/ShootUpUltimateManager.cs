@@ -31,7 +31,9 @@ public class ShootUpUltimateManager : SkillObjectManager {
     }
 
     public override void SetSkillRangeIndicator(SkillSO skill) {
-        currentSkillRange = PoolingManager.Instance.ReturnHitboxFromPool(skill.SkillObjectRangeName, skill.SkillObjectRangeObject);
+        currentSkillRange = PoolingManager.Instance.ReturnPrefabFromPool(skill.SkillObjectRangeName,
+            skill.SkillObjectRangeObject, TypeOfSkillPrefab.PreCastRange);
+
         currentSkillRange.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
         currentSkillRange.SetActive(true);
     }
@@ -71,14 +73,15 @@ public class ShootUpUltimateManager : SkillObjectManager {
                 stateInfo = anim.GetCurrentAnimatorStateInfo(0);
             } while (stateInfo.fullPathHash == attackStateHash && stateInfo.normalizedTime < targetNormalizedTime);
 
-            GameObject preFab = PoolingManager.Instance.ReturnHitboxFromPool(prefabInfo.PreFabName, prefabInfo.PreFab);
-            preFab.transform.SetPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.identity);
 
-            if (prefabInfo.PrefabType == TypeOfSkillAnimationPrefab.Hitbox) {
+            if (prefabInfo.PrefabType == TypeOfSkillPrefab.Hitbox) {
 
-                float damage = UnityEngine.Random.Range(_info.MinDamage, _info.MaxDamage);
+                GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFabName,
+                    prefabInfo.PreFab, TypeOfSkillPrefab.Hitbox);
+                preFab.transform.SetPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.identity);
 
                 ContinuosDamageContext newContext = new(
+                    _info.MinDamage,
                     _info.MaxDamage,
                     prefabInfo.PrefabDuration,
                     _info.Penetration,
@@ -95,6 +98,10 @@ public class ShootUpUltimateManager : SkillObjectManager {
             }
 
             else {
+                GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFabName,
+                    prefabInfo.PreFab, TypeOfSkillPrefab.VFX);
+                preFab.transform.SetPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.identity);
+
                 preFab.GetComponent<VFXPreFab>().Initialize(prefabInfo.PrefabDuration);
             }
         }

@@ -1,4 +1,5 @@
 using NaughtyAttributes;
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Skills / AxeSkill")]
@@ -22,7 +23,7 @@ public class AxeSkillSO : SkillSO
     [Foldout("Specific")] public string WeaponName;
 
     [Header("Enums")]
-    [Foldout("Specific")] public Tags EnemyTag;
+    [Foldout("Specific")] public List<Tags> EnemyTag;
     [Foldout("Specific")] public DamageType DamageType;
 
     [Header("Weapon")]

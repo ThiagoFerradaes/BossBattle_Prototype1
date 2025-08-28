@@ -52,6 +52,12 @@ public class EnemyCooldownManager : MonoBehaviour {
         _listOfCooldowns[skill] = skill.Cooldown;
         StartCoroutine(SkillCooldown(skill));
     }
+    public void SetSkillCooldown(EnemyBehaviourSO skill, float cooldown) {
+        if (!_listOfCooldowns.ContainsKey(skill)) return;
+
+        _listOfCooldowns[skill] = cooldown;
+        StartCoroutine(SkillCooldown(skill));
+    }
 
     IEnumerator SkillCooldown(EnemyBehaviourSO skill) {
 
