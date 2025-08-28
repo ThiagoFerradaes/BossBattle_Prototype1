@@ -20,6 +20,7 @@ public class MapManager : MonoBehaviour {
 
     [Foldout("Second Map"), SerializeField] GameObject SecondMap;
     [Foldout("Second Map"), SerializeField] Image BossImage;
+    [Foldout("Second Map"), SerializeField] Image DifficultyIcon;
     [Foldout("Second Map"), SerializeField] TextMeshProUGUI BossName;
     [Foldout("Second Map"), SerializeField] TextMeshProUGUI BossDescription;
     [Foldout("Second Map"), SerializeField] Button CloseSecondMapButton;
@@ -100,6 +101,7 @@ public class MapManager : MonoBehaviour {
         BossImage.sprite = description.BossSprite;
         BossName.text = description.Name;
         BossDescription.text = description.Description;
+        DifficultyIcon.sprite = description.DifficultyIcon;
         _nextSceneIndex = description.SceneIndex;
 
         SailButton.onClick.RemoveAllListeners();

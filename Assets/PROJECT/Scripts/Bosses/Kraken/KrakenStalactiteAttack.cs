@@ -39,7 +39,7 @@ public class KrakenStalactiteAttack : EnemyBehaviourSO {
 
         _krakenManager = parent as KrakenManager;
 
-        if (_krakenManager.ReturnCurrentHealth() > _krakenManager.ReturnMaxHealth() * (healthLimit / 100)) {
+        if (ReturnIfHealthIsUpToTheCondition()) {
             _krakenManager.CooldownManager.SetSkillCooldown(this, smallCooldown);
             _krakenManager.ChangeBehaviourAtRandom();
         }
@@ -48,6 +48,10 @@ public class KrakenStalactiteAttack : EnemyBehaviourSO {
             _krakenManager.StartCoroutine(StalactiteAnimation());
         }
 
+    }
+
+    bool ReturnIfHealthIsUpToTheCondition() {
+        return _krakenManager.ReturnCurrentHealth() > _krakenManager.ReturnMaxHealth() * (healthLimit / 100);
     }
 
     IEnumerator StalactiteAnimation() {

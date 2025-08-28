@@ -32,10 +32,10 @@ public class PoolingManager : MonoBehaviour {
         };
 
         if (!pool.ContainsKey(objectName)) {
-            listOfHitboxes[objectName] = new List<GameObject>();
+            pool[objectName] = new List<GameObject>();
         }
 
-        var list = listOfHitboxes[objectName];
+        var list = pool[objectName];
 
         for (int i = 0; i < list.Count; i++) {
             if (!list[i].activeInHierarchy) return list[i];
@@ -70,6 +70,11 @@ public class PoolingManager : MonoBehaviour {
     }
 
     public void ReturnObjectToPool(GameObject prefab, TypeOfSkillPrefab type) {
+
+        if(prefab.TryGetComponent<ParticleSystem>(out ParticleSystem ps)) {
+            ps.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+        }
+
         prefab.SetActive(false);
 
         Transform container = type switch {
