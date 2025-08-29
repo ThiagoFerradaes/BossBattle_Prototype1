@@ -46,7 +46,7 @@ public abstract class SkillObjectManager : MonoBehaviour {
         movementManager.BlockWalk(skill.BlockWalkWhilePreCasting);
         skillManager.BlockAllButOneSkill(slot, true);
 
-        if (skill.PreCastOn) {
+        if (skill.PreCastOn && ConfigurationWhiteBoard.Instance.PreCastOn) {
 
             movementManager.ChangeRotationType(RotationType.MouseRotation);
 

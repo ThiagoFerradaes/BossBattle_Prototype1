@@ -10,6 +10,7 @@ public class WeaponMasterBaseAttackSO : SkillSO {
     [Foldout("Specific")] public string FirstBaseAttackAnimationName;
     [Foldout("Specific")] public string SecondBaseAttackParameter;
     [Foldout("Specific")] public string SecondtBaseAttackAnimationName;
+    [Foldout("Specific")] public string AttackSpeedAnimationParameter;
 
     [Header("Atributes")]
     [Header("Floats")]

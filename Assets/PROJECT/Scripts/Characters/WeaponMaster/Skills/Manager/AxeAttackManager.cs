@@ -68,7 +68,7 @@ public class AxeAttackManager : SkillObjectManager {
         // Começar o cooldown
         cooldownManager.SetCooldown(slot, _info.Cooldown);
 
-        if (_info.PreCastOn) SetSkillRangeIndicator(skill);
+        if (_info.PreCastOn && ConfigurationWhiteBoard.Instance.PreCastOn) SetSkillRangeIndicator(skill);
     }
 
     public override void UseSkill(SkillSO skill) {
