@@ -105,8 +105,8 @@ public class DamagePopUp : MonoBehaviour {
         damageText.SetText(damage.ToString());
 
         Color damageColor = damageType switch {
-            DamageType.Abyssal => ancestralDamageColor,
-            DamageType.Ancestral => abyssalDamageColor,
+            DamageType.Abyssal => abyssalDamageColor,
+            DamageType.Ancestral => ancestralDamageColor,
             DamageType.Pure => pureDamageColor,
             _ => pureDamageColor
         };

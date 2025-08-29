@@ -36,6 +36,7 @@ public class InstantDamageHitBox : MonoBehaviour
     float _duration;
     float _penetration;
     bool _hitShield;
+    bool _breakShield;
     List<Tags> _tag = new();
     StatusManager _statusManager;
     DamageType _damageType;
@@ -58,6 +59,20 @@ public class InstantDamageHitBox : MonoBehaviour
         StartCoroutine(AttackDuration());
     }
 
+    public void Initialize(InstantDamageContext context, bool breakShield) {
+        _minDamage = context.MinDamage;
+        _maxDamage = context.MaxDamage;
+        _duration = context.Duration;
+        _penetration = context.Penetration;
+        _hitShield = context.HitShield;
+        _statusManager = context.StatusManager;
+        _damageType = context.TypeOfDamage;
+        gameObject.SetActive(true);
+        _tag = new(context.UnitsToHitTag);
+        _breakShield = breakShield;
+
+        StartCoroutine(AttackDuration());
+    }
     IEnumerator AttackDuration()
     {
         float timer = 0;
@@ -66,6 +81,7 @@ public class InstantDamageHitBox : MonoBehaviour
             timer += Time.deltaTime;
             yield return null;
         }
+        _breakShield = false;
         PoolingManager.Instance.ReturnObjectToPool(this.gameObject, TypeOfSkillPrefab.Hitbox);
     }
 
@@ -91,6 +107,9 @@ public class InstantDamageHitBox : MonoBehaviour
 
         if(!other.CompareTag(Tags.Player.ToString()))PopUpManager.Instance.
                 DamageDone((int)newDamage.Item1, other.transform.position, newDamage.Item2, _damageType);
+
+        if (_breakShield) health.BreakShield();
+
         health.TakeDamage(newDamage.Item1, _hitShield);
     }
     #endregion

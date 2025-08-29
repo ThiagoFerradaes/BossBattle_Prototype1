@@ -135,13 +135,13 @@ public class AxeAttackManager : SkillObjectManager {
                     damage,
                     prefabInfo.PrefabDuration,
                     _info.Penetration,
-                    ReturnHitShield(),
+                    true,
                     _info.DamageType,
                     _info.EnemyTag,
                     parent.GetComponent<StatusManager>()
                     );
 
-                preFab.GetComponent<InstantDamageHitBox>().Initialize(newContext);
+                preFab.GetComponent<InstantDamageHitBox>().Initialize(newContext, ReturnBreakShield());
 
                 OnWeaponChange?.Invoke();
             }
@@ -176,10 +176,11 @@ public class AxeAttackManager : SkillObjectManager {
         return Mathf.Clamp(damage, _info.MinDamage, _info.MaxDamage);
     }
 
-    bool ReturnHitShield() {
+    bool ReturnBreakShield() {
         if (_chargeTimer >= _info.MaxChargeTime) return true;
         else return false;
     }
+
 
     private void OnDestroy() {
         OnWeaponChange = null;
