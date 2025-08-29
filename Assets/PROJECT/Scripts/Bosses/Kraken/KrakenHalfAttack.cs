@@ -3,7 +3,7 @@ using UnityEngine;
 
 [CreateAssetMenu(menuName = "Kraken / HalfAttack")]
 public class KrakenHalfAttack : EnemyBehaviourSO {
-    [SerializeField] float cooldownBetweenHealfAttacks;
+    [SerializeField] float cooldownBetweenHalfAttacks;
     [SerializeField] float cooldownBetweenAttacks;
     [SerializeField] float preparingSpeed;
     [SerializeField] float hitSpeed;
@@ -47,7 +47,7 @@ public class KrakenHalfAttack : EnemyBehaviourSO {
         _krakenManager.StartTentacleAttack(tentacleToHit, preparingSpeed, hitSpeed, tentacleDownTime);
         _krakenManager.StartTentacleAttack(secondTentacleIndex, preparingSpeed, hitSpeed, tentacleDownTime);
 
-        yield return new WaitForSeconds(cooldownBetweenHealfAttacks);
+        yield return new WaitForSeconds(cooldownBetweenHalfAttacks);
 
         if (cross.y >= 0) {
             tentacleToHit = (tentacleToHit - 1 + _krakenManager.TentaclesListGO.Count) % _krakenManager.TentaclesListGO.Count;
