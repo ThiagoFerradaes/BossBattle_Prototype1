@@ -87,7 +87,7 @@ public class WeaponMasterBaseAttack : SkillObjectManager {
                 GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFabName,
                     prefabInfo.PreFab, TypeOfSkillPrefab.Hitbox);
                 preFab.transform.SetParent(parent.transform, false);
-                preFab.transform.localPosition = (prefabInfo.PreFabPosition);
+                preFab.transform.SetLocalPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.identity);
 
                 float attackDamageOne = _attackIndex == 1 ? _info.FirstAttackMinDamage: _info.SecondAttackMinDamage;
                 float attackDamageTwo = _attackIndex == 1 ? _info.FirstAttackMaxDamage : _info.SecondAttackMaxDamage;
@@ -109,7 +109,7 @@ public class WeaponMasterBaseAttack : SkillObjectManager {
                 GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFabName,
                     prefabInfo.PreFab, TypeOfSkillPrefab.VFX);
                 preFab.transform.SetParent(parent.transform, false);
-                preFab.transform.localPosition = (prefabInfo.PreFabPosition);
+                preFab.transform.SetLocalPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.identity);
 
                 preFab.GetComponent<VFXPreFab>().Initialize(prefabInfo.PrefabDuration);
             }

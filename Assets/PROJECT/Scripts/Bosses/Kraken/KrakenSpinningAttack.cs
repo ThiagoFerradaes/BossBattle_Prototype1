@@ -44,36 +44,24 @@ public class KrakenSpinningAttack : EnemyBehaviourSO {
         _krakenManager.StartTentacleAttack(tentacleToHit, preparingSpeed, hitSpeed, downTime);
         yield return new WaitForSeconds(cooldownBetweenEachTentacle);
 
-        if (!isRight) {
-            for (int i = 0; i < _krakenManager.ListOfTentacles.Count - 1; i++) {
+        for (int i = 0; i < _krakenManager.ListOfTentacles.Count - 1; i++) {
+            if (!isRight) {
                 if (tentacleToHit == _krakenManager.ListOfTentacles.Count - 1) tentacleToHit = -1;
                 tentacleToHit++;
-
-                if (_krakenManager.IsTentacleInAnimation(tentacleToHit)) {
-                    yield return _krakenManager.ReturnTentacleCoroutine(tentacleToHit);
-                }
-
-                _krakenManager.StartTentacleAttack(tentacleToHit, preparingSpeed, hitSpeed, downTime);
-
-                if (i < _krakenManager.ListOfTentacles.Count - 1)
-                    yield return new WaitForSeconds(cooldownBetweenEachTentacle);
-                else yield return _krakenManager.ReturnTentacleCoroutine(tentacleToHit);
             }
-        }
-        else {
-            for (int i = 0; i < _krakenManager.ListOfTentacles.Count - 1; i++) {
+            else {
                 if (tentacleToHit == 0) tentacleToHit = _krakenManager.ListOfTentacles.Count;
                 tentacleToHit--;
+            }
 
-                if (_krakenManager.IsTentacleInAnimation(tentacleToHit)) {
-                    yield return _krakenManager.ReturnTentacleCoroutine(tentacleToHit);
-                }
+            _krakenManager.StartTentacleAttack(tentacleToHit, preparingSpeed, hitSpeed, downTime);
 
-                _krakenManager.StartTentacleAttack(tentacleToHit, preparingSpeed, hitSpeed, downTime);
+            if (i < _krakenManager.ListOfTentacles.Count - 2) {
+                yield return new WaitForSeconds(cooldownBetweenEachTentacle);
+            }
 
-                if (i < _krakenManager.ListOfTentacles.Count - 1)
-                    yield return new WaitForSeconds(cooldownBetweenEachTentacle);
-                else yield return _krakenManager.ReturnTentacleCoroutine(tentacleToHit);
+            else {
+                yield return _krakenManager.ReturnTentacleCoroutine(tentacleToHit);
             }
         }
 

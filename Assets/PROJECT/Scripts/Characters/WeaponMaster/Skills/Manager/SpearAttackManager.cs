@@ -20,12 +20,10 @@ public class SpearAttackManager : SkillObjectManager {
     #endregion
 
     #region Methods
-    public override void UseSkill(SkillSO skill)
-    {
+    public override void UseSkill(SkillSO skill) {
 
         Initialize(skill);
-        if (!gameObject.activeInHierarchy)
-        {
+        if (!gameObject.activeInHierarchy) {
             gameObject.SetActive(true);
             _attackCoroutine ??= StartCoroutine(Attack());
         }
@@ -70,11 +68,11 @@ public class SpearAttackManager : SkillObjectManager {
 
 
             if (prefabInfo.PrefabType == TypeOfSkillPrefab.Hitbox) {
-                GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFabName, 
+                GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFabName,
                     prefabInfo.PreFab, TypeOfSkillPrefab.Hitbox);
 
                 preFab.transform.SetParent(parent.transform, false);
-                preFab.transform.localPosition = (prefabInfo.PreFabPosition);
+                preFab.transform.SetLocalPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.identity);
 
 
                 InstantDamageContext newContext = new(
@@ -97,7 +95,7 @@ public class SpearAttackManager : SkillObjectManager {
                     prefabInfo.PreFab, TypeOfSkillPrefab.VFX);
 
                 preFab.transform.SetParent(parent.transform, false);
-                preFab.transform.localPosition = (prefabInfo.PreFabPosition);
+                preFab.transform.SetLocalPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.identity);
                 preFab.GetComponent<VFXPreFab>().Initialize(prefabInfo.PrefabDuration);
             }
 

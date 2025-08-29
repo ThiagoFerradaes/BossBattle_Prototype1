@@ -70,7 +70,7 @@ public class KrakenManager : EnemyBehaviourManager {
         }
 
         _currentHealth = _maxHealth;
-        
+
         StartCoroutine(base.Start());
     }
 
@@ -138,11 +138,14 @@ public class KrakenManager : EnemyBehaviourManager {
             if (prefabInfo.PrefabType == TypeOfSkillPrefab.VFX) {
                 GameObject attackHitBox = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFabName,
                     prefabInfo.PreFab, TypeOfSkillPrefab.VFX);
+
                 float yRotation = 180 + (tentacleIndex * 45);
                 attackHitBox.transform.SetPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.Euler(0, yRotation + 22.5f, 0));
+
                 ParticleSystem ps = attackHitBox.GetComponent<ParticleSystem>();
                 var main = ps.main;
                 main.simulationSpeed = preparingSpeed;
+
                 attackHitBox.GetComponent<VFXPreFab>().Initialize(prefabInfo.PrefabDuration);
             }
 
@@ -181,13 +184,17 @@ public class KrakenManager : EnemyBehaviourManager {
                     prefabInfo.PreFab, TypeOfSkillPrefab.Hitbox);
 
                 attackHitBox.transform.SetPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.Euler(90, yRotation, 0));
+
+                float damage = ListOfTentacles[tentacleIndex].Health.ReturnIfIsDead() ?
+                    tentacleAttack.DeadTentacleDamage : tentacleAttack.TentacleDamage;
+
                 InstantDamageContext newContext = new(
-                tentacleAttack.DeadTentacleDamage,
-                tentacleAttack.DeadTentacleDamage,
-                0.1f,
-                0,
-                false,
-                DamageType.Abyssal,
+                damage,
+                damage,
+                prefabInfo.PrefabDuration,
+                tentacleAttack.Penetration,
+                tentacleAttack.HitShield,
+                tentacleAttack.DamageType,
                 tentacleAttack.Tags,
                 ListOfTentacles[tentacleIndex].Status
                 );
@@ -227,10 +234,15 @@ public class KrakenManager : EnemyBehaviourManager {
         do { // Esperando o tempo para desligar a hitbox
             yield return null;
             stateInfo = anim.GetCurrentAnimatorStateInfo(0);
-        } while (stateInfo.fullPathHash == attackStateHash && 
+        } while (stateInfo.fullPathHash == attackStateHash &&
         stateInfo.normalizedTime < tentacleAttack.TimeInReturnToIdleToTurnOffHitBox);
 
         ListOfTentacles[tentacleIndex].HitBox.SetActive(false);
+
+        do { // Esperando o tempo de retorno para idle
+            yield return null;
+            stateInfo = anim.GetCurrentAnimatorStateInfo(0);
+        } while (stateInfo.fullPathHash == attackStateHash && stateInfo.normalizedTime < 1);
     }
     #endregion
 
@@ -248,7 +260,7 @@ public class KrakenManager : EnemyBehaviourManager {
         }
 
         if (allTentaclesDead) {
-            if(bossReward != null) bossReward.WinRewards();
+            if (bossReward != null) bossReward.WinRewards();
             ScreensInGameUI.Instance.TurnScreenOn(TypeOfScreen.Victory);
         }
     }

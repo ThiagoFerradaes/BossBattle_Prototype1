@@ -127,7 +127,7 @@ public class AxeAttackManager : SkillObjectManager {
                 GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFabName,
                     prefabInfo.PreFab, TypeOfSkillPrefab.Hitbox);
                 preFab.transform.SetParent(parent.transform, false);
-                preFab.transform.localPosition = (prefabInfo.PreFabPosition);
+                preFab.transform.SetLocalPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.identity);
 
                 float damage = ReturnDamage();
                 InstantDamageContext newContext = new(
@@ -149,7 +149,7 @@ public class AxeAttackManager : SkillObjectManager {
                 GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFabName,
                     prefabInfo.PreFab, TypeOfSkillPrefab.VFX);
                 preFab.transform.SetParent(parent.transform, false);
-                preFab.transform.localPosition = (prefabInfo.PreFabPosition);
+                preFab.transform.SetLocalPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.identity);
                 preFab.GetComponent<VFXPreFab>().Initialize(prefabInfo.PrefabDuration);
             }
         }
