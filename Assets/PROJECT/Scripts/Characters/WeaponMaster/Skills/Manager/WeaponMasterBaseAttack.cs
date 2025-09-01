@@ -52,7 +52,7 @@ public class WeaponMasterBaseAttack : SkillObjectManager {
         float penetration = _attackIndex == 1 ? _info.PenetrationFirstAttack : _info.PenetrationSecondAttack;
         Vector3 hitBoxPosition = _attackIndex == 1 ? _info.FirstBaseAttackHitBoxPosition : _info.SecondtBaseAttackHitBoxPosition;
 
-        anim.speed = attackSpeedMultiplier;
+        anim.SetFloat(_info.AttackSpeedAnimationParameter, attackSpeedMultiplier);
 
         anim.SetTrigger(animationParameter);
 
@@ -125,7 +125,7 @@ public class WeaponMasterBaseAttack : SkillObjectManager {
 
         cooldownManager.SetCooldown(slot, realCooldown);
 
-        anim.speed = 1f;
+        anim.SetFloat(_info.AttackSpeedAnimationParameter, 1);
 
         _attackIndex = _attackIndex == 1 ? _attackIndex = 2 : _attackIndex = 1;
 

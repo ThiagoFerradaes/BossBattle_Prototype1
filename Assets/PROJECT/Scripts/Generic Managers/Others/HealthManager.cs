@@ -58,9 +58,9 @@ public class HealthManager : MonoBehaviour {
         }
     }
 
-    public void TakeDamage(float damage, bool trueDamage) {
+    public void TakeDamage(float damage, bool hitShield) {
         if (_isDead || !_canTakeDamage) return;
-        if (trueDamage) {
+        if (!hitShield) {
             ChangeHealth(_currentHealth - damage);
             OnDamageTaken?.Invoke(damage);
         }
@@ -110,6 +110,10 @@ public class HealthManager : MonoBehaviour {
         ChangeShield(shieldAmount);
         yield return new WaitForSeconds(shieldDuration);
         ChangeShield(_currentShield - shieldAmount);
+    }
+
+    public void BreakShield() {
+        ChangeShield(0);
     }
 
     #endregion
