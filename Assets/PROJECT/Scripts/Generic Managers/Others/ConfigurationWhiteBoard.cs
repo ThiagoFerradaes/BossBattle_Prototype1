@@ -4,7 +4,7 @@ public class ConfigurationWhiteBoard : MonoBehaviour
 {
     public static ConfigurationWhiteBoard Instance;
 
-    public bool PreCastOn = true;
+    public bool PreCastOn = false;
 
     private void Awake() {
         if (Instance == null) {

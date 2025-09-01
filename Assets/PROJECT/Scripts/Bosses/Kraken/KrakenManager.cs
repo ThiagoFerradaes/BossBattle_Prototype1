@@ -217,7 +217,10 @@ public class KrakenManager : EnemyBehaviourManager {
 
 
         // Tempo vulnerável
-        yield return new WaitForSeconds(downTime);
+        if (!ListOfTentacles[tentacleIndex].Health.ReturnIfIsDead())
+            yield return new WaitForSeconds(downTime);
+
+        else yield return new WaitForSeconds(0.2f);
 
         // Voltando pro Idle
         anim.SetTrigger(tentacleAttack.ReturnToIdleAnimationParameter);
