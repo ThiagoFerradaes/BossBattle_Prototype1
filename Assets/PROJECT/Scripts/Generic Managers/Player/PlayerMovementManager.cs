@@ -112,17 +112,7 @@ public class PlayerMovementManager : MonoBehaviour {
         if (!_canRotate) return;
 
         if (_rotationType == RotationType.MouseRotation) {
-            Ray ray = Camera.main.ScreenPointToRay(_mousePosition);
-
-            if (Physics.Raycast(ray, out RaycastHit hit, 100f, floorLayer)) {
-                Vector3 direction = hit.point - transform.position;
-                direction.y = 0;
-
-                if (direction.sqrMagnitude > 0.001f) {
-                    Quaternion targetRotation = Quaternion.LookRotation(direction);
-                    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
-                }
-            }
+            RotateMouse(true);
         }
 
         else {
@@ -132,6 +122,23 @@ public class PlayerMovementManager : MonoBehaviour {
             if (moveDirection.sqrMagnitude > 0.001f) {
                 Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
+            }
+        }
+    }
+
+    public void RotateMouse(bool lerp) {
+        Ray ray = Camera.main.ScreenPointToRay(_mousePosition);
+
+        if (Physics.Raycast(ray, out RaycastHit hit, 100f, floorLayer)) {
+            Vector3 direction = hit.point - transform.position;
+            direction.y = 0;
+
+            if (direction.sqrMagnitude > 0.001f) {
+                Quaternion targetRotation = Quaternion.LookRotation(direction);
+                if (lerp)
+                    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
+                else
+                    transform.rotation = targetRotation;
             }
         }
     }

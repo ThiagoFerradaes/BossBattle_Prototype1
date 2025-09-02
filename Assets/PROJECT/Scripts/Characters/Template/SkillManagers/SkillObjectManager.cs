@@ -37,7 +37,6 @@ public abstract class SkillObjectManager : MonoBehaviour {
             OnPreCast(skill);
         }
         if (ctx.phase == InputActionPhase.Canceled && _preCasted) {
-            _preCasted = false;
             OnRelease(skill);
         }
     }
@@ -53,11 +52,17 @@ public abstract class SkillObjectManager : MonoBehaviour {
             SetSkillRangeIndicator(skill);
         }
 
-        else OnRelease(skill);
+        else {
+
+            movementManager.RotateMouse(false);
+
+            OnRelease(skill);
+        }
     }
 
     public virtual void OnRelease(SkillSO skill) {
 
+        _preCasted = false;
         ReleaseSkillRangeIndicator();
         skillManager.BlockAllSkills(true);
         movementManager.ChangeRotationType(RotationType.MoveRotation);
@@ -72,7 +77,7 @@ public abstract class SkillObjectManager : MonoBehaviour {
         currentSkillRange.transform.SetParent(parent.transform);
 
         float groundY = FindGroundHeight(parent.transform.position);
-        Vector3 groundPos = new (0, groundY - parent.transform.position.y, 0);
+        Vector3 groundPos = new(0, groundY - parent.transform.position.y, 0);
 
         currentSkillRange.transform.SetLocalPositionAndRotation(groundPos, Quaternion.identity);
 
@@ -82,7 +87,7 @@ public abstract class SkillObjectManager : MonoBehaviour {
     float FindGroundHeight(Vector3 originalPos) {
         Vector3 startPos = originalPos + Vector3.up * 0.5f;
 
-        if (Physics.Raycast(startPos, Vector3.down, out RaycastHit hit, Mathf.Infinity, LayerMask.GetMask("Floor"))){
+        if (Physics.Raycast(startPos, Vector3.down, out RaycastHit hit, Mathf.Infinity, LayerMask.GetMask("Floor"))) {
             return hit.point.y + 0.5f;
         }
 
