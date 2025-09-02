@@ -108,8 +108,16 @@ public class HealthManager : MonoBehaviour {
 
     IEnumerator ShieldDuration(float shieldAmount, float shieldDuration) {
         ChangeShield(shieldAmount);
-        yield return new WaitForSeconds(shieldDuration);
-        ChangeShield(_currentShield - shieldAmount);
+        float timer = 0f;
+        float shiledLostPerSecond = shieldAmount / shieldDuration;
+
+        while (timer < shieldDuration && _currentShield > 0) {
+            timer += Time.deltaTime;
+            float newShield = _currentShield - (shiledLostPerSecond * Time.deltaTime);
+            ChangeShield(newShield);
+            yield return null;
+        }
+        BreakShield();
     }
 
     public void BreakShield() {

@@ -141,9 +141,11 @@ public class AxeAttackManager : SkillObjectManager {
                     parent.GetComponent<StatusManager>()
                     );
 
-                preFab.GetComponent<InstantDamageHitBox>().Initialize(newContext, ReturnBreakShield());
+                InstantDamageHitBox hitbox = preFab.GetComponent<InstantDamageHitBox>();
+                hitbox.Initialize(newContext, ReturnBreakShield());
 
-                OnWeaponChange?.Invoke();
+                hitbox.OnHit += () => OnWeaponChange?.Invoke();
+                
             }
             else {
                 GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFabName,
@@ -165,8 +167,6 @@ public class AxeAttackManager : SkillObjectManager {
         UnblockInputs();
 
         _attackCoroutine = null;
-
-        OnWeaponChange?.Invoke();
 
         gameObject.SetActive(false);
     }

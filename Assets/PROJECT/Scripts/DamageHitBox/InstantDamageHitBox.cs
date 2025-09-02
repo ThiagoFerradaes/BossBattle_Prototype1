@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class InstantDamageContext
 {
@@ -40,6 +42,8 @@ public class InstantDamageHitBox : MonoBehaviour
     List<Tags> _tag = new();
     StatusManager _statusManager;
     DamageType _damageType;
+
+    public event Action OnHit;
 
     #endregion
 
@@ -81,8 +85,8 @@ public class InstantDamageHitBox : MonoBehaviour
             timer += Time.deltaTime;
             yield return null;
         }
-        _breakShield = false;
-        PoolingManager.Instance.ReturnObjectToPool(this.gameObject, TypeOfSkillPrefab.Hitbox);
+
+        End();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -111,6 +115,14 @@ public class InstantDamageHitBox : MonoBehaviour
         if (_breakShield) health.BreakShield();
 
         health.TakeDamage(newDamage.Item1, _hitShield);
+
+        OnHit?.Invoke();
+    }
+
+    void End() {
+        _breakShield = false;
+        OnHit = null;
+        PoolingManager.Instance.ReturnObjectToPool(this.gameObject, TypeOfSkillPrefab.Hitbox);
     }
     #endregion
 }
