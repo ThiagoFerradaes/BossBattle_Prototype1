@@ -6,6 +6,7 @@ public class ConfigurationManager : MonoBehaviour
     [SerializeField] Toggle preCastOnToggle;
 
     private void Start() {
+        preCastOnToggle.isOn = ConfigurationWhiteBoard.Instance.PreCastOn;
         preCastOnToggle.onValueChanged.AddListener(PreCastToggle);
     }
 
