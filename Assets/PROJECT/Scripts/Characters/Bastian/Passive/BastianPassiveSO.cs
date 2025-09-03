@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "BastianPassiveSO", menuName = "Scriptable Objects/BastianPassiveSO")]
+[CreateAssetMenu(menuName = "Passives/BastianPassiveSO")]
 public class BastianPassiveSO : PassiveSO
 {
     public float MaxHeat;
@@ -13,4 +13,8 @@ public class BastianPassiveSO : PassiveSO
 
     public float HeatLostPerTime;
     public float TimeToLooseHeat;
+
+    public GameObject HeatCanvas;
+
+    public Color CoolColor, HeatColor, SuperHeatColor, OverHeatColor, LastOverHeatColor;
 }

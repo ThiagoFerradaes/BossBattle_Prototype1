@@ -17,7 +17,7 @@ public class BastianPassiveManager : PassiveSkillManager {
 
     HeatArea _heatArea = HeatArea.CoolArea;
 
-    public static event Action<float, float> OnHeatGain;
+    public event Action<float, float> OnHeatGain;
 
     private void Awake() {
         if (Instance == null) {
@@ -40,6 +40,8 @@ public class BastianPassiveManager : PassiveSkillManager {
             StopCoroutine(_heatLostCoroutine);
             _heatLostCoroutine = StartCoroutine(HeatLostPerTime());
         }
+
+        Instantiate(_info.HeatCanvas);
     }
 
     public void GainHeat(float amountOfHeat) {
