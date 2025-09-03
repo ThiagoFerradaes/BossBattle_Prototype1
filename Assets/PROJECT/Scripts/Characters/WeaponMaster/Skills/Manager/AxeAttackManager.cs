@@ -144,7 +144,10 @@ public class AxeAttackManager : SkillObjectManager {
                 InstantDamageHitBox hitbox = preFab.GetComponent<InstantDamageHitBox>();
                 hitbox.Initialize(newContext, ReturnBreakShield());
 
-                hitbox.OnHit += () => OnWeaponChange?.Invoke();
+                hitbox.OnHit += () => {
+                    OnWeaponChange?.Invoke();
+                    energyManager.GainEnergy(_info.FlatEnergyGainPerHit);
+                };
                 
             }
             else {

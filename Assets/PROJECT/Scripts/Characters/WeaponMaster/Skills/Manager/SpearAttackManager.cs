@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEditor.Rendering.LookDev;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 public class SpearAttackManager : SkillObjectManager {
 
@@ -86,9 +87,13 @@ public class SpearAttackManager : SkillObjectManager {
                     parent.GetComponent<StatusManager>()
                     );
 
-                preFab.GetComponent<InstantDamageHitBox>().Initialize(newContext);
+                InstantDamageHitBox hitbox = preFab.GetComponent<InstantDamageHitBox>();
+                hitbox.Initialize(newContext);
 
-                OnWeaponChange?.Invoke();
+                hitbox.OnHit += () => {
+                    OnWeaponChange?.Invoke();
+                    energyManager.GainEnergy(_info.FlatEnergyGainPerHit);
+                };
             }
             else {
                 GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFabName,

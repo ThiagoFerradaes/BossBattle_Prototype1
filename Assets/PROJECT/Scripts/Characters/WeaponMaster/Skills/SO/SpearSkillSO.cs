@@ -11,7 +11,6 @@ public class SpearSkillSO : CommonSkillSO
 
     [Header("Atributes")]
     [Header("Floats")]
-    [Foldout("Specific")] public float Cooldown;
     [Foldout("Specific")] public float MinDamage;
     [Foldout("Specific")] public float MaxDamage;
     [Foldout("Specific")] public float HitBoxDuration;

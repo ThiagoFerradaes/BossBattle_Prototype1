@@ -103,7 +103,12 @@ public class WeaponMasterBaseAttack : SkillObjectManager {
                     parent.GetComponent<StatusManager>()
                     );
 
-                preFab.GetComponent<InstantDamageHitBox>().Initialize(newContext);
+                InstantDamageHitBox hitbox = preFab.GetComponent<InstantDamageHitBox>();
+                hitbox.Initialize(newContext);
+
+                hitbox.OnHit += () => {
+                    energyManager.GainEnergy(_info.FlatEnergyGainPerHit);
+                };
             }
             else {
                 GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFabName,
