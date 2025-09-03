@@ -15,7 +15,7 @@ public class HeatUIManager : MonoBehaviour
 
     private void Start() {
 
-        _updateHeatBarAction = (currentHeat, maxHeat) => UpdateHeatBar(currentHeat, maxHeat);
+        _updateHeatBarAction = UpdateHeatBar;
 
         BastianPassiveManager.Instance.OnHeatGain -= _updateHeatBarAction;
         BastianPassiveManager.Instance.OnHeatGain += _updateHeatBarAction;
