@@ -19,6 +19,8 @@ public class HeatUIManager : MonoBehaviour
 
         BastianPassiveManager.Instance.OnHeatGain -= _updateHeatBarAction;
         BastianPassiveManager.Instance.OnHeatGain += _updateHeatBarAction;
+
+        ChangeColors(0);
     }
 
     private void OnDestroy() {

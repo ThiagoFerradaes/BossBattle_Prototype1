@@ -56,18 +56,32 @@ public class PlayerSkillManager : MonoBehaviour {
 
     void SetSkills() {
         PlayerWhiteBoard whiteboard = PlayerWhiteBoard.Instance;
+        Character selectedCharacter = whiteboard.ReturnSelectedCharacter();
 
-        _skillOne = whiteboard.ReturnSkillOne(PlayerWhiteBoard.Instance.ReturnSelectedCharacter());
-        _skillTwo = whiteboard.ReturnSkillTwo(PlayerWhiteBoard.Instance.ReturnSelectedCharacter());
-        _ultimate = whiteboard.ReturnUltimate(PlayerWhiteBoard.Instance.ReturnSelectedCharacter());
-        _passive = whiteboard.ReturnPassive(PlayerWhiteBoard.Instance.ReturnSelectedCharacter());
-        _dash = whiteboard.ReturnDash(PlayerWhiteBoard.Instance.ReturnSelectedCharacter());
-        _baseAttackSkill = whiteboard.ReturnBaseAttack(PlayerWhiteBoard.Instance.ReturnSelectedCharacter());
+        _skillOne = SafeGetSkill(() => whiteboard.ReturnSkillOne(selectedCharacter), "SkillOne");
+        _skillTwo = SafeGetSkill(() => whiteboard.ReturnSkillTwo(selectedCharacter), "SkillTwo");
+        _ultimate = SafeGetSkill(() => whiteboard.ReturnUltimate(selectedCharacter), "Ultimate");
+        _passive = SafeGetSkill(() => whiteboard.ReturnPassive(selectedCharacter), "Passive");
+        _dash = SafeGetSkill(() => whiteboard.ReturnDash(selectedCharacter), "Dash");
+        _baseAttackSkill = SafeGetSkill(() => whiteboard.ReturnBaseAttack(selectedCharacter), "BaseAttack");
 
         OnSkillsSet?.Invoke();
 
     }
+
+    T SafeGetSkill<T> (Func<T> getSkillFunc, string skillName) where T: class {
+        try {
+            T skill = getSkillFunc();
+            if (skill == null) Debug.LogWarning($"{skillName} retornou null.");
+            return skill;
+        }
+        catch (Exception e) {
+            Debug.LogWarning($"Erro ao setar {skillName}: {e.Message}");
+            return null;
+        }
+    }
     void StartPassive() {
+        Debug.Log("Start Passive");
         GameObject passiveManager = PoolingManager.Instance.ReturnManagerFromPool(_passive.PassiveName, _passive.PassiveManager.gameObject);
         PassiveSkillManager manager = passiveManager.GetComponent<PassiveSkillManager>();
         manager.OnStart(_passive, this.gameObject);

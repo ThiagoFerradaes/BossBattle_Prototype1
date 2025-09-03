@@ -33,6 +33,8 @@ public class BastianPassiveManager : PassiveSkillManager {
 
         _info = skill as BastianPassiveSO;
 
+        gameObject.SetActive(true);
+
         if (_heatLostCoroutine == null) {
             _heatLostCoroutine = StartCoroutine(HeatLostPerTime());
         }

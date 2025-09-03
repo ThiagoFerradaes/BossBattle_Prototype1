@@ -36,6 +36,7 @@ public class EnergyManager : MonoBehaviour
     }
 
     void SetMaxEnergy() {
+        if (_skillManager.ReturnUltimate() == null) return;
 
         _maxEnergy = _skillManager.ReturnUltimate().EnergyCost;
 
