@@ -2,7 +2,7 @@ using NaughtyAttributes;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Skills / Dash")]
-public class DashSO : SkillSO
+public class DashSO : CommonSkillSO
 {
     [Header("Animation")]
     [Foldout("Specific")] public string AnimationParameter;

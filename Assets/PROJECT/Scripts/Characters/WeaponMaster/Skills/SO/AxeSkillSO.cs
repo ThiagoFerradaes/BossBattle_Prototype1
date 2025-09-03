@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Skills / AxeSkill")]
-public class AxeSkillSO : SkillSO
+public class AxeSkillSO : CommonSkillSO
 {
     [Header("Animation")]
     [Foldout("Specific")] public string FirstAnimationParameterName;

@@ -2,23 +2,10 @@ using AYellowpaper.SerializedCollections;
 using NaughtyAttributes;
 using System.Collections.Generic;
 using UnityEngine;
-
-public enum TypeOfSkillPrefab { Hitbox, VFX, PreCastRange}
-[System.Serializable]
-public class SkillAnimationEvent {
-    public float TimeToSpawnPreFab;
-    public float PrefabDuration;
-    public string PreFabName;
-    public TypeOfSkillPrefab PrefabType;
-    public GameObject PreFab;
-    public Vector3 PreFabPosition;
-}
-
-public enum Tags { Enemy, Player }
-public abstract class SkillSO : ScriptableObject
+public class SkillSO : ScriptableObject
 {
     [Header("Skill Manager")]
-    [Foldout("Generic")]public SkillObjectManager SkillManagerObject;
+    [Foldout("Generic")] public SkillObjectManager SkillManagerObject;
     [Foldout("Generic")] public string SkillManagerName;
 
     [Header("Skill Prefabs")]
@@ -37,5 +24,4 @@ public abstract class SkillSO : ScriptableObject
     [Header("Skill Parameters")]
     [Foldout("Generic")] public Character SkillCharacter;
     [Foldout("Generic")] public bool Cancelable;
-
 }

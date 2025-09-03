@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Skills / SpearAttack")]
-public class SpearSkillSO : SkillSO
+public class SpearSkillSO : CommonSkillSO
 {
     [Header("Animation")]
     [Foldout("Specific")] public string SpearAttackTriggerName;

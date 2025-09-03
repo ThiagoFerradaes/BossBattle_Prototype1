@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Skills / BaseAttack")]
-public class WeaponMasterBaseAttackSO : SkillSO {
+public class WeaponMasterBaseAttackSO : CommonSkillSO {
 
     [Header("Animation")]
     [Foldout("Specific")] public string FirstBaseAttackParameter;

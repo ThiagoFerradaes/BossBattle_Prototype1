@@ -19,17 +19,22 @@ public class PlayerSkillManager : MonoBehaviour {
     [HideInInspector] public Animator Anim;
     [HideInInspector] public PlayerMovementManager MoveManager;
     [HideInInspector] public PlayerSkillCooldownManager CooldownManager;
+    [HideInInspector] public EnergyManager EnergyManager;
 
     // Skills
     PassiveSO _passive;
-    SkillSO _dash;
-    SkillSO _baseAttackSkill;
-    SkillSO _skillOne;
-    SkillSO _skillTwo;
-    SkillSO _ultimate;
+    CommonSkillSO _dash;
+    CommonSkillSO _baseAttackSkill;
+    CommonSkillSO _skillOne;
+    CommonSkillSO _skillTwo;
+    UltimateSkillSO _ultimate;
     SkillSO _currentSkill;
 
+    // Dictionarys
     Dictionary<SkillSlot, bool> _skillAvailable = new();
+
+    // Events
+    public event Action OnSkillsSet;
     #endregion
 
     #region Initialize
@@ -37,6 +42,7 @@ public class PlayerSkillManager : MonoBehaviour {
         Anim = GetComponentInChildren<Animator>();
         MoveManager = GetComponent<PlayerMovementManager>();
         CooldownManager = GetComponent<PlayerSkillCooldownManager>();
+        EnergyManager = GetComponent<EnergyManager>();
 
         foreach (SkillSlot slot in Enum.GetValues(typeof(SkillSlot))) {
             _skillAvailable[slot] = true; // Todas as skills podem ser usadas
@@ -57,6 +63,8 @@ public class PlayerSkillManager : MonoBehaviour {
         _passive = whiteboard.ReturnPassive(PlayerWhiteBoard.Instance.ReturnSelectedCharacter());
         _dash = whiteboard.ReturnDash(PlayerWhiteBoard.Instance.ReturnSelectedCharacter());
         _baseAttackSkill = whiteboard.ReturnBaseAttack(PlayerWhiteBoard.Instance.ReturnSelectedCharacter());
+
+        OnSkillsSet?.Invoke();
 
     }
     void StartPassive() {
@@ -89,7 +97,7 @@ public class PlayerSkillManager : MonoBehaviour {
     #endregion
 
     #region Skills
-    private void HandleSkillInput(InputAction.CallbackContext ctx, SkillSO skill, SkillSlot slot, Func<bool> canUseCondition) {
+    private void HandleSkillInput(InputAction.CallbackContext ctx, CommonSkillSO skill, SkillSlot slot, Func<bool> canUseCondition) {
         if (ctx.phase == InputActionPhase.Canceled && skill != null && skill.Cancelable) {
             _currentSkill = skill;
             UseSkill(ctx, _currentSkill, slot);
@@ -97,6 +105,21 @@ public class PlayerSkillManager : MonoBehaviour {
         }
 
         if (!canUseCondition() || !IsSkillReady(slot) || Time.timeScale == 0)
+            return;
+
+        if (skill != null) {
+            _currentSkill = skill;
+            UseSkill(ctx, _currentSkill, slot);
+        }
+    }
+    private void HandleSkillInput(InputAction.CallbackContext ctx, UltimateSkillSO skill, SkillSlot slot, Func<bool> canUseCondition) {
+        if (ctx.phase == InputActionPhase.Canceled && skill != null && skill.Cancelable) {
+            _currentSkill = skill;
+            UseSkill(ctx, _currentSkill, slot);
+            return;
+        }
+
+        if (!canUseCondition() || !HaveEnergy() || Time.timeScale == 0)
             return;
 
         if (skill != null) {
@@ -118,6 +141,16 @@ public class PlayerSkillManager : MonoBehaviour {
     private bool IsSkillReady(SkillSlot slot) {
         return CooldownManager.ReturnCooldown(slot) <= 0;
     }
+
+    private bool HaveEnergy() {
+        return EnergyManager.HasFullEnergy();
+    }
+    #endregion
+
+    #region Getter
+
+    public UltimateSkillSO ReturnUltimate() => _ultimate;
+
     #endregion
 
     #region Setters
