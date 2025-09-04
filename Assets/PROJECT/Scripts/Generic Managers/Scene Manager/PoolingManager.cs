@@ -70,7 +70,6 @@ public class PoolingManager : MonoBehaviour {
     }
 
     public void ReturnObjectToPool(GameObject prefab, TypeOfSkillPrefab type) {
-
         if(prefab.TryGetComponent<ParticleSystem>(out ParticleSystem ps)) {
             ps.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
         }

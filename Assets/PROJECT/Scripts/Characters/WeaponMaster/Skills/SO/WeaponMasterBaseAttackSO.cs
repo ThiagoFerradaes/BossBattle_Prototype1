@@ -31,10 +31,6 @@ public class WeaponMasterBaseAttackSO : CommonSkillSO {
     [Header("Booleans")]
     [Foldout("Specific")] public bool HitShield;
 
-    [Header("Enums")]
-    [Foldout("Specific")] public List<Tags> EnemyTag;
-    [Foldout("Specific")] public DamageType DamageType;
-
     [Header("Weapon")]
     [Foldout("Specific")] public GameObject SwordPrefab;
     [Foldout("Specific")] public Vector3 FirstBaseAttackHitBoxPosition;

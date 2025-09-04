@@ -21,10 +21,6 @@ public class AxeSkillSO : CommonSkillSO
     [Header("Strings")]
     [Foldout("Specific")] public string WeaponName;
 
-    [Header("Enums")]
-    [Foldout("Specific")] public List<Tags> EnemyTag;
-    [Foldout("Specific")] public DamageType DamageType;
-
     [Header("Weapon")]
     [Foldout("Specific")] public GameObject WeaponPrefab;
     [Foldout("Specific")] public Vector3 WeaponPosition;

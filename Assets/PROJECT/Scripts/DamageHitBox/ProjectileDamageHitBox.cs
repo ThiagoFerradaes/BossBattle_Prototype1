@@ -58,11 +58,10 @@ public class ProjectileDamageHitBox : MonoBehaviour {
         float timer = 0;
 
         while (timer < duration) {
-            transform.position += _speed * Time.deltaTime * Vector3.forward;
+            transform.position += _speed * Time.deltaTime * transform.forward;
+            timer += Time.deltaTime;
             yield return null;
         }
-
-        _moveRoutine = null;
 
         End();
     }
@@ -101,6 +100,8 @@ public class ProjectileDamageHitBox : MonoBehaviour {
     void End() {
 
         StopCoroutine(_moveRoutine);
+
+        _moveRoutine = null;
 
         PoolingManager.Instance.ReturnObjectToPool(this.gameObject, TypeOfSkillPrefab.Hitbox);
     }

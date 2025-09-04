@@ -31,7 +31,8 @@ public class BastianPassiveManager : PassiveSkillManager {
     public override void OnStart(PassiveSO skill, GameObject parent) {
         base.OnStart(skill, parent);
 
-        _info = skill as BastianPassiveSO;
+        if(_info == null) _info = skill as BastianPassiveSO;
+        if (_statusManager == null) _statusManager = parent.GetComponent<StatusManager>();
 
         gameObject.SetActive(true);
 

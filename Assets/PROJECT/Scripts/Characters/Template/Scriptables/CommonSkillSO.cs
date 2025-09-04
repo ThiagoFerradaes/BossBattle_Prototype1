@@ -8,4 +8,7 @@ public abstract class CommonSkillSO : SkillSO
 {
     public float FlatEnergyGainPerHit;
     public float Cooldown;
+
+    public List<Tags> EnemyTag;
+    public DamageType DamageType;
 }

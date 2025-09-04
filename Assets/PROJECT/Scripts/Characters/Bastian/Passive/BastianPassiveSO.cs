@@ -9,7 +9,7 @@ public class BastianPassiveSO : PassiveSO
     public float HeatToHitOverHeatArea;
     public float HeatToHitLastOverHeatArea;
 
-    public float AmountOfAttackSpeedGain;
+    [Range(0,1)]public float AmountOfAttackSpeedGain;
 
     public float HeatLostPerTime;
     public float TimeToLooseHeat;
