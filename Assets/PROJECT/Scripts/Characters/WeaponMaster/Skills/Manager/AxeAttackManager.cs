@@ -130,19 +130,21 @@ public class AxeAttackManager : SkillObjectManager {
                 preFab.transform.SetLocalPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.identity);
 
                 float damage = ReturnDamage();
-                InstantDamageContext newContext = new(
+                DamageContext newContext = new(
                     damage,
                     damage,
                     prefabInfo.PrefabDuration,
-                    _info.Penetration,
                     true,
                     _info.DamageType,
                     _info.EnemyTag,
-                    parent.GetComponent<StatusManager>()
+                    parent.GetComponent<StatusManager>(),
+                    new() {
+                        {ExtraDamageContextAtributes.BreakShield, (bool)ReturnBreakShield() }
+                    }
                     );
 
                 InstantDamageHitBox hitbox = preFab.GetComponent<InstantDamageHitBox>();
-                hitbox.Initialize(newContext, ReturnBreakShield());
+                hitbox.Initialize(newContext);
 
                 hitbox.OnHit += () => {
                     OnWeaponChange?.Invoke();

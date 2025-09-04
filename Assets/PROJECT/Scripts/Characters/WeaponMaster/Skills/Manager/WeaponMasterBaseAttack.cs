@@ -92,15 +92,17 @@ public class WeaponMasterBaseAttack : SkillObjectManager {
                 float attackDamageOne = _attackIndex == 1 ? _info.FirstAttackMinDamage: _info.SecondAttackMinDamage;
                 float attackDamageTwo = _attackIndex == 1 ? _info.FirstAttackMaxDamage : _info.SecondAttackMaxDamage;
 
-                InstantDamageContext newContext = new(
+                DamageContext newContext = new(
                     attackDamageOne,
                     attackDamageTwo,
                     prefabInfo.PrefabDuration,
-                    penetration,
                     _info.HitShield,
                     _info.DamageType,
                     _info.EnemyTag,
-                    parent.GetComponent<StatusManager>()
+                    parent.GetComponent<StatusManager>(),
+                    new() {
+                        {ExtraDamageContextAtributes.Penetration, penetration }
+                    }
                     );
 
                 InstantDamageHitBox hitbox = preFab.GetComponent<InstantDamageHitBox>();

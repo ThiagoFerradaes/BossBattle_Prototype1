@@ -5,50 +5,12 @@ using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public enum ExtraDamageContextAtributes {
-    Penetration,
-    BreakShield,
-
-    // Projectile
-    Distance,
-    Speed,
-
-    // Dps
-    DamageCooldown,
-
-}
-public class DamageContext
-{
-    public float MinDamage;
-    public float MaxDamage;
-    public float Duration;
-    public bool HitShield;
-    public DamageType TypeOfDamage;
-    public List<Tags> UnitsToHitTag;
-    public StatusManager StatusManager;
-
-    public Dictionary<ExtraDamageContextAtributes, object> DictionaryOfExtraAtributes;
-
-    public DamageContext(float minDamage, float maxDamage, float hitBoxDuration, bool hitShield,
-        DamageType type, List<Tags> tags, StatusManager status, Dictionary<ExtraDamageContextAtributes, object> extraAtributes = null)
-    {
-        this.MinDamage = minDamage;
-        this.MaxDamage = maxDamage;
-        this.Duration = hitBoxDuration;
-        this.HitShield = hitShield;
-        this.UnitsToHitTag = tags;
-        this.TypeOfDamage = type;
-        this.StatusManager = status;
-        this.DictionaryOfExtraAtributes = extraAtributes ?? new();
-    }
-}
-public class InstantDamageHitBox : MonoBehaviour
-{
-    #region Parameters
+public class ProjectileDamageHitBox : MonoBehaviour {
 
     float _minDamage;
     float _maxDamage;
-    float _duration;
+    float _distance;
+    float _speed;
     float _penetration;
     bool _hitShield;
     bool _breakShield;
@@ -57,45 +19,55 @@ public class InstantDamageHitBox : MonoBehaviour
     DamageType _damageType;
     Dictionary<ExtraDamageContextAtributes, object> _extra = new();
 
+    Coroutine _moveRoutine;
+
     public event Action OnHit;
 
-    #endregion
-
-    #region Methods
     public void Initialize(DamageContext context) {
         _minDamage = context.MinDamage;
         _maxDamage = context.MaxDamage;
-        _duration = context.Duration;
         _hitShield = context.HitShield;
         _statusManager = context.StatusManager;
         _damageType = context.TypeOfDamage;
         _tag = new(context.UnitsToHitTag);
-
         _extra = context.DictionaryOfExtraAtributes ?? new();
 
-        if (_extra.TryGetValue(ExtraDamageContextAtributes.Penetration, out var pen))
+        if (_extra.TryGetValue(ExtraDamageContextAtributes.Penetration, out var pen)) {
             _penetration = (float)pen;
+        }
 
-        if (_extra.TryGetValue(ExtraDamageContextAtributes.BreakShield, out var breakS))
+        if (_extra.TryGetValue(ExtraDamageContextAtributes.Speed, out var speed)) {
+            _speed = (float)speed;
+        }
+
+        if (_extra.TryGetValue(ExtraDamageContextAtributes.Distance, out var distance)) {
+            _distance = (float)distance;
+        }
+
+        if (_extra.TryGetValue(ExtraDamageContextAtributes.BreakShield, out var breakS)){
             _breakShield = (bool)breakS;
+        }
 
         gameObject.SetActive(true);
-        StartCoroutine(AttackDuration());
+
+        _moveRoutine ??= StartCoroutine(ProjectileMoveRoutine());
     }
-    IEnumerator AttackDuration()
-    {
+
+    IEnumerator ProjectileMoveRoutine() {
+        float duration = _distance/_speed;
         float timer = 0;
-        while (timer < _duration)
-        {
-            timer += Time.deltaTime;
+
+        while (timer < duration) {
+            transform.position += _speed * Time.deltaTime * Vector3.forward;
             yield return null;
         }
+
+        _moveRoutine = null;
 
         End();
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
+    private void OnTriggerEnter(Collider other) {
         if (!_tag.Any(tag => other.CompareTag(tag.ToString()))) return;
 
 
@@ -114,7 +86,7 @@ public class InstantDamageHitBox : MonoBehaviour
             recieverStatus
             );
 
-        if(!other.CompareTag(Tags.Player.ToString()))PopUpManager.Instance.
+        if (!other.CompareTag(Tags.Player.ToString())) PopUpManager.Instance.
                 DamageDone((int)newDamage.Item1, other.transform.position, newDamage.Item2, _damageType);
 
         if (_breakShield) health.BreakShield();
@@ -122,12 +94,15 @@ public class InstantDamageHitBox : MonoBehaviour
         health.TakeDamage(newDamage.Item1, _hitShield);
 
         OnHit?.Invoke();
+
+        End();
     }
 
     void End() {
-        _breakShield = false;
-        OnHit = null;
+
+        StopCoroutine(_moveRoutine);
+
         PoolingManager.Instance.ReturnObjectToPool(this.gameObject, TypeOfSkillPrefab.Hitbox);
     }
-    #endregion
+
 }

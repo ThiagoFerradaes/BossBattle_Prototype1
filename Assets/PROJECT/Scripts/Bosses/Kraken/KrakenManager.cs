@@ -188,11 +188,10 @@ public class KrakenManager : EnemyBehaviourManager {
                 float damage = ListOfTentacles[tentacleIndex].Health.ReturnIfIsDead() ?
                     tentacleAttack.DeadTentacleDamage : tentacleAttack.TentacleDamage;
 
-                InstantDamageContext newContext = new(
+                DamageContext newContext = new(
                 damage,
                 damage,
                 prefabInfo.PrefabDuration,
-                tentacleAttack.Penetration,
                 tentacleAttack.HitShield,
                 tentacleAttack.DamageType,
                 tentacleAttack.Tags,
