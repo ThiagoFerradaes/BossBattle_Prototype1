@@ -82,10 +82,9 @@ public class BastianPassiveManager : PassiveSkillManager {
         OnHeatGain?.Invoke(_currentHeat, _info.MaxHeat);
     }
 
-    public void LooseHealth() {
+    void LooseHealth() {
         float healthToLoose = _healthManager.ReturnCurrentHealth() * _info.PercentOfCurrentHealthLostPerShootInSuperHeatArea / 100;
         _healthManager.TakeDamage(healthToLoose, false);
-        Debug.Log("Loose Health" + _healthManager.ReturnCurrentHealth());
     }
 
     #region CheckHeat
