@@ -14,11 +14,13 @@ public class BastianPassiveManager : PassiveSkillManager {
 
     BastianPassiveSO _info;
 
-    Coroutine _heatLostCoroutine, _looseAllHeatCoroutine;
+    Coroutine _heatLostCoroutine, _looseAllHeatCoroutine, _looseHealthCoroutine;
 
     HeatArea _heatArea = HeatArea.CoolArea;
 
     public event Action<float, float> OnHeatGain;
+
+    HealthManager _healthManager;
 
     bool _looseAllHeat;
     [HideInInspector] public bool CanShoot = true;
@@ -37,6 +39,7 @@ public class BastianPassiveManager : PassiveSkillManager {
 
         if (_info == null) _info = skill as BastianPassiveSO;
         if (_statusManager == null) _statusManager = parent.GetComponent<StatusManager>();
+        if (_healthManager == null) _healthManager = parent.GetComponent<HealthManager>();
 
         gameObject.SetActive(true);
 
@@ -77,6 +80,12 @@ public class BastianPassiveManager : PassiveSkillManager {
         CheckHeat();
 
         OnHeatGain?.Invoke(_currentHeat, _info.MaxHeat);
+    }
+
+    public void LooseHealth() {
+        float healthToLoose = _healthManager.ReturnCurrentHealth() * _info.PercentOfCurrentHealthLostPerShootInSuperHeatArea / 100;
+        _healthManager.TakeDamage(healthToLoose, false);
+        Debug.Log("Loose Health" + _healthManager.ReturnCurrentHealth());
     }
 
     #region CheckHeat
@@ -134,8 +143,10 @@ public class BastianPassiveManager : PassiveSkillManager {
             _statusManager.ChangeStatus(StatusType.AttackSpeed, _info.AmountOfAttackSpeedGainHeat, false);
             _statusManager.ChangeStatus(StatusType.AttackSpeed, _info.AmountOfAttackSpeedGainSuperHeat, true);
         }
+        Debug.Log("EnterSuperHeatArea");
 
         _heatArea = HeatArea.SuperHeatArea;
+        _looseHealthCoroutine ??= StartCoroutine(LooseHealthOverTime());
     }
 
     void EnterOverHeatArea() {
@@ -175,7 +186,17 @@ public class BastianPassiveManager : PassiveSkillManager {
         CanShoot = true;
     }
 
+    IEnumerator LooseHealthOverTime() {
+        while (_heatArea == _info.AreaToLooseHealth) {
+            LooseHealth();
+            yield return new WaitForSeconds(_info.TimeToLooseHealth);
+        }
+
+        _looseHealthCoroutine = null;
+    }
+
     public bool ReturnMinHeat(HeatArea minHeatArea) {
         return _heatArea >= minHeatArea;
     }
+
 }

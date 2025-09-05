@@ -20,4 +20,7 @@ public class BastianPassiveSO : PassiveSO
     public Color CoolColor, HeatColor, SuperHeatColor, OverHeatColor, LastOverHeatColor;
 
     public float TimeToLooseAllHeatAfterLastHit;
+    public float PercentOfCurrentHealthLostPerShootInSuperHeatArea;
+    public float TimeToLooseHealth;
+    public HeatArea AreaToLooseHealth;
 }
