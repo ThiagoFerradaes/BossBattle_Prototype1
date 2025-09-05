@@ -176,8 +176,10 @@ public class BastianBaseAttackManager : SkillObjectManager {
         // Resetando a velocidade da animação
         anim.SetFloat(_info.AttackSpeedAnimationParameter, 1);
 
+        // Resetando Index
         _attackIndex = _attackIndex < 3 ? _attackIndex + 1 : 1;
 
+        // Corrotina
         _attackCoroutine = null;
 
         _timerBetweenAttacksCoroutine ??= StartCoroutine(CooldownBetweenAttacks());

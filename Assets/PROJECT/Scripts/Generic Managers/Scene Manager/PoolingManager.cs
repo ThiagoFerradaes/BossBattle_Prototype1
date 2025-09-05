@@ -79,6 +79,7 @@ public class PoolingManager : MonoBehaviour {
         Transform container = type switch {
             TypeOfSkillPrefab.Hitbox => HitboxContainer,
             TypeOfSkillPrefab.VFX => VFXContainer,
+            TypeOfSkillPrefab.Manager => ManagerContainer,
             _ => PreCastingContainer
         };
 

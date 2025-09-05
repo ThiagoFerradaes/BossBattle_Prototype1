@@ -3,7 +3,7 @@ using NaughtyAttributes;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum TypeOfSkillPrefab { Hitbox, VFX, PreCastRange }
+public enum TypeOfSkillPrefab { Hitbox, VFX, PreCastRange, Manager }
 [System.Serializable]
 public class SkillAnimationEvent {
     public float TimeToSpawnPreFab;
