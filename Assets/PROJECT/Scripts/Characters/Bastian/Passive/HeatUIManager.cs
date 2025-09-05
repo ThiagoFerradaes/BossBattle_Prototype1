@@ -35,22 +35,27 @@ public class HeatUIManager : MonoBehaviour
     void ChangeColors(float currentHeat) {
         if (currentHeat >= info.HeatToHitLastOverHeatArea) {
             heatBar.color = info.LastOverHeatColor;
+            heatText.text = info.LastOverHeatText;
             heatText.color = info.LastOverHeatColor;
         }
         else if (currentHeat >= info.HeatToHitOverHeatArea) {
             heatBar.color = info.OverHeatColor;
+            heatText.text = info.OverHeatText;
             heatText.color = info.OverHeatColor;
         }
         else if (currentHeat >= info.HeatToHitSuperHeatArea) {
             heatBar.color = info.SuperHeatColor;
+            heatText.text = info.SuperHeatText;
             heatText.color = info.SuperHeatColor;
         }
         else if (currentHeat >= info.HeatToHitHeatArea) {
             heatBar.color = info.HeatColor;
+            heatText.text = info.HeatText;
             heatText.color = info.HeatColor;
         }
         else {
             heatBar.color = info.CoolColor;
+            heatText.text = info.CoolText;
             heatText.color = info.CoolColor;
         }
     }

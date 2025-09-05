@@ -83,8 +83,8 @@ public class BastianPassiveManager : PassiveSkillManager {
     }
 
     void LooseHealth() {
-        float healthToLoose = _healthManager.ReturnCurrentHealth() * _info.PercentOfCurrentHealthLostPerShootInSuperHeatArea / 100;
-        _healthManager.TakeDamage(healthToLoose, false);
+        float healthToLoose = _healthManager.ReturnCurrentHealth() * _info.PercentOfCurrentHealthLostPerTime / 100;
+        if(_healthManager.ReturnCurrentHealth() > 1)_healthManager.TakeDamage(healthToLoose, false);
     }
 
     #region CheckHeat
@@ -142,10 +142,9 @@ public class BastianPassiveManager : PassiveSkillManager {
             _statusManager.ChangeStatus(StatusType.AttackSpeed, _info.AmountOfAttackSpeedGainHeat, false);
             _statusManager.ChangeStatus(StatusType.AttackSpeed, _info.AmountOfAttackSpeedGainSuperHeat, true);
         }
-        Debug.Log("EnterSuperHeatArea");
 
         _heatArea = HeatArea.SuperHeatArea;
-        _looseHealthCoroutine ??= StartCoroutine(LooseHealthOverTime());
+        if(!_looseAllHeat) _looseHealthCoroutine ??= StartCoroutine(LooseHealthOverTime());
     }
 
     void EnterOverHeatArea() {

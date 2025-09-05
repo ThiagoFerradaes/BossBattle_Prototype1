@@ -3,24 +3,29 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Passives/BastianPassiveSO")]
 public class BastianPassiveSO : PassiveSO
 {
+    [Header("Heat Areas")]
     public float MaxHeat;
     public float HeatToHitHeatArea;
     public float HeatToHitSuperHeatArea;
     public float HeatToHitOverHeatArea;
     public float HeatToHitLastOverHeatArea;
+    public Color CoolColor, HeatColor, SuperHeatColor, OverHeatColor, LastOverHeatColor;
+    public string CoolText, HeatText, SuperHeatText, OverHeatText, LastOverHeatText;
 
+    [Header("Attack Speed Gain")]
     [Range(0,1)]public float AmountOfAttackSpeedGainHeat;
     [Range(0,1)]public float AmountOfAttackSpeedGainSuperHeat;
 
+    [Header("Loose Heat")]
     public float HeatLostPerTime;
     public float TimeToLooseHeat;
+    public float TimeToLooseAllHeatAfterLastHit;
 
+    [Header("Canvas")]
     public GameObject HeatCanvas;
 
-    public Color CoolColor, HeatColor, SuperHeatColor, OverHeatColor, LastOverHeatColor;
-
-    public float TimeToLooseAllHeatAfterLastHit;
-    public float PercentOfCurrentHealthLostPerShootInSuperHeatArea;
+    [Header("Loose Health")]
+    public float PercentOfCurrentHealthLostPerTime;
     public float TimeToLooseHealth;
     public HeatArea AreaToLooseHealth;
 }
