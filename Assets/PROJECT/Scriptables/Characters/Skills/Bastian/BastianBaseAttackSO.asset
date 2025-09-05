@@ -24,15 +24,31 @@ MonoBehaviour:
         PrefabType: 0
         PreFab: {fileID: 5556882484380889040, guid: 3a0c353cfe6bb294097868dfad5cf4ab, type: 3}
         PreFabPosition: {x: 0, y: 0, z: 0}
+    - Key: 2
+      Value:
+      - TimeToSpawnPreFab: 0.7
+        PrefabDuration: 1
+        PreFabName: BastianBaseAttackHitBox
+        PrefabType: 0
+        PreFab: {fileID: 5556882484380889040, guid: 3a0c353cfe6bb294097868dfad5cf4ab, type: 3}
+        PreFabPosition: {x: 0, y: 0, z: 0}
+    - Key: 3
+      Value:
+      - TimeToSpawnPreFab: 0.7
+        PrefabDuration: 1
+        PreFabName: BastianBaseAttackHitBox
+        PrefabType: 0
+        PreFab: {fileID: 5556882484380889040, guid: 3a0c353cfe6bb294097868dfad5cf4ab, type: 3}
+        PreFabPosition: {x: 0, y: 0, z: 0}
   SkillObjectRangeObject: {fileID: 5203434260948203345, guid: ade6d2bcd504d27418184cc1070b8f59, type: 3}
   SkillObjectRangeName: BastianRangeBaseAttack
-  BlockWalkWhilePreCasting: 0
+  BlockWalkWhilePreCasting: 1
   BlockDashWhilePreCasting: 1
   PreCastOn: 1
   SkillCharacter: 1
   Cancelable: 0
   FlatEnergyGainPerHit: 1
-  Cooldown: 0.8
+  Cooldown: 0.6
   EnemyTag: 00000000
   DamageType: 0
   AnimationOneParameter: BaseAttack
@@ -42,15 +58,18 @@ MonoBehaviour:
   AnimationTwoName: Shoot
   AnimationThreeName: Shoot
   AttackSpeedAnimationParameter: AttackSpeed
-  FirstAttackMinDamage: 10
-  FirstAttackMaxDamage: 12
-  SecondAttackMinDamage: 11
-  SecondAttackMaxDamage: 12
-  ThirdAttackMinDamage: 12
-  ThirdAttackMaxDamage: 13
+  FirstAttackMinDamage: 12
+  FirstAttackMaxDamage: 14
+  SecondAttackMinDamage: 13
+  SecondAttackMaxDamage: 15
+  ThirdAttackMinDamage: 14
+  ThirdAttackMaxDamage: 16
   AttackDistance: 7
-  AttackSpeed: 25
+  ProjectileSpeed: 25
   HitShield: 1
   CooldownBetweenAttacks: 0
-  MaxTimeBetweenAttacks: 3
+  MaxTimeBetweenAttacks: 1.5
   HeatGain: 4
+  PenetrationOnSuperHeat: 50
+  CritChanceOverHeat: 100
+  LastOverHeatCritDamage: 700

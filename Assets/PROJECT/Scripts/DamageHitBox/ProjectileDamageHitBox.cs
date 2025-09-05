@@ -12,6 +12,8 @@ public class ProjectileDamageHitBox : MonoBehaviour {
     float _distance;
     float _speed;
     float _penetration;
+    float _critChance;
+    float _critDamage;
     bool _hitShield;
     bool _breakShield;
     List<Tags> _tag = new();
@@ -32,6 +34,8 @@ public class ProjectileDamageHitBox : MonoBehaviour {
         _tag = new(context.UnitsToHitTag);
         _extra = context.DictionaryOfExtraAtributes ?? new();
 
+        ResetVariables();
+
         if (_extra.TryGetValue(ExtraDamageContextAtributes.Penetration, out var pen)) {
             _penetration = (float)pen;
         }
@@ -48,9 +52,26 @@ public class ProjectileDamageHitBox : MonoBehaviour {
             _breakShield = (bool)breakS;
         }
 
+        if (_extra.TryGetValue(ExtraDamageContextAtributes.CritChance, out var critChance)) {
+            _critChance = (float)critChance;
+        }
+
+        if (_extra.TryGetValue(ExtraDamageContextAtributes.CritDamage, out var critDamage)) {
+            _critDamage = (float)critDamage;
+        }
+
         gameObject.SetActive(true);
 
         _moveRoutine ??= StartCoroutine(ProjectileMoveRoutine());
+    }
+
+    void ResetVariables() {
+        _penetration = 0;
+        _speed = 0;
+        _distance = 0;
+        _breakShield = false;
+        _critDamage = 0;
+        _critChance = 0;
     }
 
     IEnumerator ProjectileMoveRoutine() {
@@ -81,6 +102,8 @@ public class ProjectileDamageHitBox : MonoBehaviour {
             _damageType,
             damage,
             _penetration,
+            _critChance,
+            _critDamage,
             _statusManager,
             recieverStatus
             );

@@ -16,6 +16,10 @@ public enum ExtraDamageContextAtributes {
     // Dps
     DamageCooldown,
 
+    // Crit
+    CritChance,
+    CritDamage
+
 }
 public class DamageContext
 {

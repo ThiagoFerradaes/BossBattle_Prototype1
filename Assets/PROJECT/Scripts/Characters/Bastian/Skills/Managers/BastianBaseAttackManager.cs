@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class BastianBaseAttackManager : SkillObjectManager {
     BastianBaseAttackSO _info;
@@ -9,8 +10,21 @@ public class BastianBaseAttackManager : SkillObjectManager {
     // Coroutine
     Coroutine _timerBetweenAttacksCoroutine;
     Coroutine _attackCoroutine;
+    public override void HandleInput(SkillSO skill, InputAction.CallbackContext ctx) {
+        if (!BastianPassiveManager.Instance.CanShoot) {
+            return;
+        }
 
+        if (ctx.phase == InputActionPhase.Started) {
+            _preCasted = true;
+            OnPreCast(skill);
+        }
+        if (ctx.phase == InputActionPhase.Canceled && _preCasted) {
+            OnRelease(skill);
+        }
+    }
     public override void UseSkill(SkillSO skill) {
+
 
         if (_info == null) _info = skill as BastianBaseAttackSO;
 
@@ -82,13 +96,13 @@ public class BastianBaseAttackManager : SkillObjectManager {
             stateInfo = anim.GetCurrentAnimatorStateInfo(layer);
         } while (!stateInfo.IsName(animationName));
 
-
         int attackStateHash = stateInfo.fullPathHash;
 
         // Pegando a lista de prefabs e ordenando pelo tempo de spawn delas
         var prefabList = _info.Prefabs[_attackIndex];
         prefabList.Sort((a, b) => a.TimeToSpawnPreFab.CompareTo(b.TimeToSpawnPreFab));
 
+        // Instanciando prefabs
         for (int i = 0; i < prefabList.Count; i++) {
             SkillAnimationEvent prefabInfo = prefabList[i];
             float targetNormalizedTime = prefabInfo.TimeToSpawnPreFab;
@@ -103,9 +117,13 @@ public class BastianBaseAttackManager : SkillObjectManager {
 
                 GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFabName,
                     prefabInfo.PreFab, TypeOfSkillPrefab.Hitbox);
-                //preFab.transform.SetParent(parent.transform, false);
+
                 preFab.transform.SetPositionAndRotation(parent.transform.position + prefabInfo.PreFabPosition, parent.transform.rotation);
-                //preFab.transform.SetParent(null);
+
+                float pen = BastianPassiveManager.Instance.ReturnMinHeat(HeatArea.SuperHeatArea) ? _info.PenetrationOnSuperHeat : 0;
+                float critChance = BastianPassiveManager.Instance.ReturnMinHeat(HeatArea.OverHeatArea) ? _info.CritChanceOverHeat : 0;
+                float additionalCriDmg = BastianPassiveManager.Instance.ReturnMinHeat(HeatArea.LastOverHeatArea) ?  _info.LastOverHeatCritDamage : 0;
+                float critDamage = statusManager.ReturnStatusValue(StatusType.CritDamage) + additionalCriDmg;
 
                 DamageContext newContext = new(
                     minDamage,
@@ -116,8 +134,11 @@ public class BastianBaseAttackManager : SkillObjectManager {
                     _info.EnemyTag,
                     parent.GetComponent<StatusManager>(),
                     new() {
-                        {ExtraDamageContextAtributes.Speed, _info.AttackSpeed },
-                        {ExtraDamageContextAtributes.Distance, _info.AttackDistance }
+                        {ExtraDamageContextAtributes.Speed, _info.ProjectileSpeed },
+                        {ExtraDamageContextAtributes.Distance, _info.AttackDistance },
+                        {ExtraDamageContextAtributes.Penetration, pen},
+                        {ExtraDamageContextAtributes.CritChance, critChance},
+                        {ExtraDamageContextAtributes.CritDamage, critDamage}
                     }
                     );
 
@@ -141,25 +162,28 @@ public class BastianBaseAttackManager : SkillObjectManager {
         }
 
         // Esperando a animação terminar
-        while (anim.GetCurrentAnimatorStateInfo(layer).fullPathHash == attackStateHash &&
-       anim.GetCurrentAnimatorStateInfo(layer).normalizedTime < 1f) {
+        while (anim.GetCurrentAnimatorStateInfo(layer).fullPathHash == attackStateHash) {
             yield return null;
         }
 
         // Definindo Cooldown
-        float cooldown = _attackIndex == 1 ? _info.CooldownBetweenAttacks : _info.Cooldown;
+        float cooldown = _attackIndex < 3 ? _info.CooldownBetweenAttacks : _info.Cooldown;
+
+        float realCooldown = cooldown / attackSpeedMultiplier;
+
+        cooldownManager.SetCooldown(slot, realCooldown);
 
         // Resetando a velocidade da animação
         anim.SetFloat(_info.AttackSpeedAnimationParameter, 1);
 
-        _attackIndex = _attackIndex < 4 ? _attackIndex++ : 1;
-
-        // Desbloqueando inputs
-        UnblockInputs();
+        _attackIndex = _attackIndex < 3 ? _attackIndex + 1 : 1;
 
         _attackCoroutine = null;
 
         _timerBetweenAttacksCoroutine ??= StartCoroutine(CooldownBetweenAttacks());
+
+        // Desbloqueando inputs
+        UnblockInputs();
     }
 
     IEnumerator CooldownBetweenAttacks() {
@@ -169,14 +193,17 @@ public class BastianBaseAttackManager : SkillObjectManager {
             timer += Time.deltaTime;
             yield return null;
         }
-
-        _attackIndex = 1;
-        _timerBetweenAttacksCoroutine = null;
-        gameObject.SetActive(false);
+        End();
     }
 
     float GetAttackSpeedMultiplier() {
         float baseSpeed = statusManager.ReturnStatusValue(StatusType.AttackSpeed);
         return Mathf.Max(0.1f, baseSpeed);
+    }
+
+    void End() {
+        _attackIndex = 1;
+        _timerBetweenAttacksCoroutine = null;
+        gameObject.SetActive(false);
     }
 }

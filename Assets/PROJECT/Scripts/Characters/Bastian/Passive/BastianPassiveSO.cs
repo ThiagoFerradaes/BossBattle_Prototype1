@@ -9,7 +9,8 @@ public class BastianPassiveSO : PassiveSO
     public float HeatToHitOverHeatArea;
     public float HeatToHitLastOverHeatArea;
 
-    [Range(0,1)]public float AmountOfAttackSpeedGain;
+    [Range(0,1)]public float AmountOfAttackSpeedGainHeat;
+    [Range(0,1)]public float AmountOfAttackSpeedGainSuperHeat;
 
     public float HeatLostPerTime;
     public float TimeToLooseHeat;
@@ -17,4 +18,6 @@ public class BastianPassiveSO : PassiveSO
     public GameObject HeatCanvas;
 
     public Color CoolColor, HeatColor, SuperHeatColor, OverHeatColor, LastOverHeatColor;
+
+    public float TimeToLooseAllHeatAfterLastHit;
 }
