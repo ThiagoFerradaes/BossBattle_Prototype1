@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -10,6 +11,8 @@ public class BastianBaseAttackManager : SkillObjectManager {
     // Coroutine
     Coroutine _timerBetweenAttacksCoroutine;
     Coroutine _attackCoroutine;
+
+    public static event Action<int> OnShoot;
     public override void HandleInput(SkillSO skill, InputAction.CallbackContext ctx) {
         if (!BastianPassiveManager.Instance.CanShoot) {
             return;
@@ -150,6 +153,8 @@ public class BastianBaseAttackManager : SkillObjectManager {
                 };
 
                 BastianPassiveManager.Instance.GainHeat(_info.HeatGain);
+
+                OnShoot?.Invoke(_attackIndex);
             }
             else {
                 GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFabName,
