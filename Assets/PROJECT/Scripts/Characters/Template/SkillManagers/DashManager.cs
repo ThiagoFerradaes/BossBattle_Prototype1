@@ -35,7 +35,7 @@ public class DashManager : SkillObjectManager {
 
     IEnumerator DashRoutine() {
 
-        cooldownManager.SetCooldown(slot, _info.Cooldown);
+        cooldownManager.SetCooldownWithCharges(slot, _info);
 
         anim.SetTrigger(_info.AnimationParameter);
 

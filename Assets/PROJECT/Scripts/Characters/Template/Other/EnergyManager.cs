@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EnergyManager : MonoBehaviour
@@ -7,9 +8,8 @@ public class EnergyManager : MonoBehaviour
     public float _currentEnergy;
     public float _maxEnergy;
     private StatusManager _statusManager;
-    private PlayerSkillManager _skillManager;
     private Coroutine _energyOverTimeCoroutine;
-    private Action _setMaxEnergy;
+    private Action<Dictionary<SkillSlot, SkillSO>> _setMaxEnergy;
 
     [SerializeField] float timeToGainEnergy;
     [SerializeField] float percentOfMaxEnergyToGainOverTime;
@@ -18,11 +18,10 @@ public class EnergyManager : MonoBehaviour
 
     private void Awake() {
         _statusManager = GetComponent<StatusManager>();
-        _skillManager = GetComponent<PlayerSkillManager>();
 
-        _setMaxEnergy = () => SetMaxEnergy();
+        _setMaxEnergy = (Dictionary<SkillSlot, SkillSO> skills) => SetMaxEnergy(skills);
 
-        _skillManager.OnSkillsSet += _setMaxEnergy;
+        PlayerSkillManager.OnSkillsSet += _setMaxEnergy;
     }
 
     private void Start() {
@@ -35,12 +34,13 @@ public class EnergyManager : MonoBehaviour
         }
     }
 
-    void SetMaxEnergy() {
-        if (_skillManager.ReturnUltimate() == null) return;
+    void SetMaxEnergy(Dictionary<SkillSlot, SkillSO> skills) {
+        if (!skills.ContainsKey(SkillSlot.Ultimate)) return;
 
-        _maxEnergy = _skillManager.ReturnUltimate().EnergyCost;
+        UltimateSkillSO ultimate = skills[SkillSlot.Ultimate] as UltimateSkillSO;
+        _maxEnergy = ultimate.EnergyCost;
 
-        _skillManager.OnSkillsSet -= _setMaxEnergy;
+        PlayerSkillManager.OnSkillsSet -= _setMaxEnergy;
     }
 
     public void GainEnergy(float energyAmount) {

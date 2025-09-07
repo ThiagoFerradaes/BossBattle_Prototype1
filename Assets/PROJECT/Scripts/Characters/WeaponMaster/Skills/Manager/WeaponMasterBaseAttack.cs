@@ -130,7 +130,7 @@ public class WeaponMasterBaseAttack : SkillObjectManager {
         float cooldown = _attackIndex == 1 ? _info.CooldownBetweenAttacks : _info.Cooldown;
         float realCooldown = cooldown / attackSpeedMultiplier;
 
-        cooldownManager.SetCooldown(slot, realCooldown);
+        cooldownManager.SetCooldownSingleCharge(slot, realCooldown);
 
         anim.SetFloat(_info.AttackSpeedAnimationParameter, 1);
 

@@ -66,7 +66,7 @@ public class AxeAttackManager : SkillObjectManager {
         _chargeTimeCoroutine ??= StartCoroutine(ChargeTimer());
 
         // Começar o cooldown
-        cooldownManager.SetCooldown(slot, _info.Cooldown);
+        cooldownManager.SetCooldownWithCharges(slot, _info);
 
         if (_info.PreCastOn && ConfigurationWhiteBoard.Instance.PreCastOn) SetSkillRangeIndicator(skill);
     }

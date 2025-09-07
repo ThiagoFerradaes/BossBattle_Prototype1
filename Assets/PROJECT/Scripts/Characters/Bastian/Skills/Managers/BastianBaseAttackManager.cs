@@ -176,7 +176,7 @@ public class BastianBaseAttackManager : SkillObjectManager {
 
         float realCooldown = cooldown / attackSpeedMultiplier;
 
-        cooldownManager.SetCooldown(slot, realCooldown);
+        cooldownManager.SetCooldownSingleCharge(slot, realCooldown);
 
         // Resetando a velocidade da animação
         anim.SetFloat(_info.AttackSpeedAnimationParameter, 1);

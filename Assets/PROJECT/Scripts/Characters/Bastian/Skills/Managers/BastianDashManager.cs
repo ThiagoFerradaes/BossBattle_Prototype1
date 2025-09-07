@@ -35,7 +35,7 @@ public class BastianDashManager : SkillObjectManager {
 
     IEnumerator DashRoutine() {
 
-        cooldownManager.SetCooldown(slot, _info.Cooldown);
+        cooldownManager.SetCooldownWithCharges(slot, _info);
 
         BastianPassiveManager.Instance.LooseHeat(_info.AmountOfHeatLost);
 

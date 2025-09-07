@@ -74,7 +74,7 @@ public class BastianReleaseManager : SkillObjectManager
         }
 
         // Definindo Cooldown
-        cooldownManager.SetCooldown(slot, _info.Cooldown);
+        cooldownManager.SetCooldownWithCharges(slot, _info);
 
         // Corrotina
         _attackCoroutine = null;

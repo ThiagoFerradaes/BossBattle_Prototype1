@@ -41,7 +41,7 @@ public class SpearAttackManager : SkillObjectManager {
     }
 
     IEnumerator Attack() {
-        cooldownManager.SetCooldown(slot, _info.Cooldown);
+        cooldownManager.SetCooldownWithCharges(slot, _info);
         anim.SetTrigger(_info.SpearAttackTriggerName);
 
         AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
