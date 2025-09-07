@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
@@ -60,17 +61,16 @@ public class PlayerSkillCooldownManager : MonoBehaviour
     #region CooldownLogic
     public void SetCooldownWithCharges(SkillSlot slot, CommonSkillSO skill)
     {
+        if (_chargesDictionary[slot] == skill.Charges) _cooldowns[slot] = skill.Cooldown;
 
-        _chargesDictionary[slot]--;
+        _chargesDictionary[slot] = Mathf.Max(0, _chargesDictionary[slot] - 1);
         OnChargesChange?.Invoke(slot, _chargesDictionary[slot]);
 
         _cooldownChargeDictionary[slot] = true;
         StartCoroutine(CooldownBetweenChargesRoutine(slot, skill.ChargeCooldown));
 
-        _cooldowns[slot] = skill.Cooldown;
         _runningCoroutines[slot] ??= StartCoroutine(CooldownCoroutine(slot, skill.Charges));
 
-        if (slot != SkillSlot.BaseAttack) OnCooldownSet?.Invoke(slot, skill.Cooldown);
     }
 
     IEnumerator CooldownBetweenChargesRoutine(SkillSlot slot, float cooldown)
@@ -88,11 +88,13 @@ public class PlayerSkillCooldownManager : MonoBehaviour
         _cooldowns[slot] = cooldown;
         _runningCoroutines[slot] ??= StartCoroutine(CooldownCoroutine(slot, 1));
 
-        if (slot != SkillSlot.BaseAttack) OnCooldownSet?.Invoke(slot, cooldown);
     }
 
     private IEnumerator CooldownCoroutine(SkillSlot slot, int maxCharges)
     {
+        float maxCooldown = _cooldowns[slot];
+        if (slot != SkillSlot.BaseAttack) OnCooldownSet?.Invoke(slot, maxCooldown);
+
         while (_cooldowns[slot] > 0f)
         {
             _cooldowns[slot] -= Time.deltaTime;
@@ -103,6 +105,12 @@ public class PlayerSkillCooldownManager : MonoBehaviour
         _chargesDictionary[slot] = Mathf.Min(_chargesDictionary[slot] + 1, maxCharges);
         OnChargesChange?.Invoke(slot, _chargesDictionary[slot]);
         _runningCoroutines[slot] = null;
+
+        if (_chargesDictionary[slot] < maxCharges)
+        {
+            _cooldowns[slot] = maxCooldown;
+            _runningCoroutines[slot] = StartCoroutine(CooldownCoroutine(slot, maxCharges));
+        }
     }
 
     public void ResetCooldown(SkillSlot slot)
