@@ -30,7 +30,7 @@ public class BastianBaseAttackSO : CommonSkillSO {
     [Foldout("Specific")] public bool HitShield;
 
     [Header("Cooldown")]
-    public float CooldownBetweenAttacks;
+    [Foldout("Specific")] public float CooldownBetweenAttacks;
     [Foldout("Specific")] public float MaxTimeBetweenAttacks;
 
     [Header("Passive")]

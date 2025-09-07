@@ -12,6 +12,7 @@ public enum ExtraDamageContextAtributes {
     // Projectile
     Distance,
     Speed,
+    CrossEnemy,
 
     // Dps
     DamageCooldown,

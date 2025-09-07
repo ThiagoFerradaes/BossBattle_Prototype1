@@ -196,5 +196,9 @@ public class BastianPassiveManager : PassiveSkillManager {
     public bool ReturnMinHeat(HeatArea minHeatArea) {
         return _heatArea >= minHeatArea;
     }
+    public bool ReturnMaxHeat(HeatArea minHeatArea)
+    {
+        return _heatArea <= minHeatArea;
+    }
 
 }

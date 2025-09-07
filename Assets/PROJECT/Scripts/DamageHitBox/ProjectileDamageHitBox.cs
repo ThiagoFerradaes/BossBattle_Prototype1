@@ -5,7 +5,8 @@ using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class ProjectileDamageHitBox : MonoBehaviour {
+public class ProjectileDamageHitBox : MonoBehaviour
+{
 
     float _minDamage;
     float _maxDamage;
@@ -16,6 +17,7 @@ public class ProjectileDamageHitBox : MonoBehaviour {
     float _critDamage;
     bool _hitShield;
     bool _breakShield;
+    bool _crossEnemy;
     List<Tags> _tag = new();
     StatusManager _statusManager;
     DamageType _damageType;
@@ -25,7 +27,8 @@ public class ProjectileDamageHitBox : MonoBehaviour {
 
     public event Action OnHit;
 
-    public void Initialize(DamageContext context) {
+    public void Initialize(DamageContext context)
+    {
         _minDamage = context.MinDamage;
         _maxDamage = context.MaxDamage;
         _hitShield = context.HitShield;
@@ -36,28 +39,39 @@ public class ProjectileDamageHitBox : MonoBehaviour {
 
         ResetVariables();
 
-        if (_extra.TryGetValue(ExtraDamageContextAtributes.Penetration, out var pen)) {
+        if (_extra.TryGetValue(ExtraDamageContextAtributes.Penetration, out var pen))
+        {
             _penetration = (float)pen;
         }
 
-        if (_extra.TryGetValue(ExtraDamageContextAtributes.Speed, out var speed)) {
+        if (_extra.TryGetValue(ExtraDamageContextAtributes.Speed, out var speed))
+        {
             _speed = (float)speed;
         }
 
-        if (_extra.TryGetValue(ExtraDamageContextAtributes.Distance, out var distance)) {
+        if (_extra.TryGetValue(ExtraDamageContextAtributes.Distance, out var distance))
+        {
             _distance = (float)distance;
         }
 
-        if (_extra.TryGetValue(ExtraDamageContextAtributes.BreakShield, out var breakS)){
+        if (_extra.TryGetValue(ExtraDamageContextAtributes.BreakShield, out var breakS))
+        {
             _breakShield = (bool)breakS;
         }
 
-        if (_extra.TryGetValue(ExtraDamageContextAtributes.CritChance, out var critChance)) {
+        if (_extra.TryGetValue(ExtraDamageContextAtributes.CritChance, out var critChance))
+        {
             _critChance = (float)critChance;
         }
 
-        if (_extra.TryGetValue(ExtraDamageContextAtributes.CritDamage, out var critDamage)) {
+        if (_extra.TryGetValue(ExtraDamageContextAtributes.CritDamage, out var critDamage))
+        {
             _critDamage = (float)critDamage;
+        }
+
+        if (_extra.TryGetValue(ExtraDamageContextAtributes.CrossEnemy, out var crossEnemy))
+        {
+            _crossEnemy = (bool)crossEnemy;
         }
 
         gameObject.SetActive(true);
@@ -65,20 +79,24 @@ public class ProjectileDamageHitBox : MonoBehaviour {
         _moveRoutine ??= StartCoroutine(ProjectileMoveRoutine());
     }
 
-    void ResetVariables() {
+    void ResetVariables()
+    {
         _penetration = 0;
         _speed = 0;
         _distance = 0;
-        _breakShield = false;
         _critDamage = 0;
         _critChance = 0;
+        _breakShield = false;
+        _crossEnemy = false;
     }
 
-    IEnumerator ProjectileMoveRoutine() {
-        float duration = _distance/_speed;
+    IEnumerator ProjectileMoveRoutine()
+    {
+        float duration = _distance / _speed;
         float timer = 0;
 
-        while (timer < duration) {
+        while (timer < duration)
+        {
             transform.position += _speed * Time.deltaTime * transform.forward;
             timer += Time.deltaTime;
             yield return null;
@@ -87,7 +105,8 @@ public class ProjectileDamageHitBox : MonoBehaviour {
         End();
     }
 
-    private void OnTriggerEnter(Collider other) {
+    private void OnTriggerEnter(Collider other)
+    {
         if (!_tag.Any(tag => other.CompareTag(tag.ToString()))) return;
 
 
@@ -117,10 +136,11 @@ public class ProjectileDamageHitBox : MonoBehaviour {
 
         OnHit?.Invoke();
 
-        End();
+        if (!_crossEnemy) End();
     }
 
-    void End() {
+    void End()
+    {
 
         StopCoroutine(_moveRoutine);
 
