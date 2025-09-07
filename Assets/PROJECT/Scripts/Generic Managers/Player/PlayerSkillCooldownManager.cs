@@ -16,6 +16,8 @@ public class PlayerSkillCooldownManager : MonoBehaviour
 
     // Events
     public static event Action<SkillSlot, float> OnCooldownSet;
+    public static event Action<SkillSlot, int> OnChargesSet;
+    public static event Action<SkillSlot, int> OnChargesChange;
 
     // Actions 
     Action<Dictionary<SkillSlot, SkillSO>> _setCharges;
@@ -49,6 +51,8 @@ public class PlayerSkillCooldownManager : MonoBehaviour
                 _cooldownChargeDictionary[skill.Key] = false;
                 _cooldowns[skill.Key] = 0f;
                 _runningCoroutines[skill.Key] = null;
+
+                OnChargesSet?.Invoke(skill.Key, commonSkill.Charges);
             }
         }
     }
@@ -58,6 +62,8 @@ public class PlayerSkillCooldownManager : MonoBehaviour
     {
 
         _chargesDictionary[slot]--;
+        OnChargesChange?.Invoke(slot, _chargesDictionary[slot]);
+
         _cooldownChargeDictionary[slot] = true;
         StartCoroutine(CooldownBetweenChargesRoutine(slot, skill.ChargeCooldown));
 
@@ -77,6 +83,7 @@ public class PlayerSkillCooldownManager : MonoBehaviour
     {
 
         _chargesDictionary[slot] = Mathf.Max(0, _chargesDictionary[slot] - 1);
+        OnChargesChange?.Invoke(slot, _chargesDictionary[slot]);
 
         _cooldowns[slot] = cooldown;
         _runningCoroutines[slot] ??= StartCoroutine(CooldownCoroutine(slot, 1));
@@ -94,6 +101,7 @@ public class PlayerSkillCooldownManager : MonoBehaviour
 
         _cooldowns[slot] = 0f;
         _chargesDictionary[slot] = Mathf.Min(_chargesDictionary[slot] + 1, maxCharges);
+        OnChargesChange?.Invoke(slot, _chargesDictionary[slot]);
         _runningCoroutines[slot] = null;
     }
 
@@ -107,6 +115,7 @@ public class PlayerSkillCooldownManager : MonoBehaviour
 
         _cooldowns[slot] = 0f;
         _chargesDictionary[slot] = 1;
+        OnChargesChange?.Invoke(slot, _chargesDictionary[slot]);
         OnCooldownSet?.Invoke(slot, 0f);
     }
 
