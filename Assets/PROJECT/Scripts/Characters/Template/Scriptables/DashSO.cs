@@ -11,6 +11,5 @@ public class DashSO : CommonSkillSO
     [Header("Atributes")]
     [Foldout("Specific")] public float DashDuration;
     [Foldout("Specific")] public float DashForce;
-    [Foldout("Specific")] public float Cooldown;
     [Foldout("Specific")] public float TimeToStartDash;
 }

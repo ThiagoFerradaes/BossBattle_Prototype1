@@ -12,7 +12,6 @@ public class AxeSkillSO : CommonSkillSO
 
     [Header("Atributes")]
     [Header("Floats")]
-    [Foldout("Specific")] public float Cooldown;
     [Foldout("Specific")] public float MinimalChargeTime;
     [Foldout("Specific")] public float MaxChargeTime;
     [Foldout("Specific")] public float MinDamage;
@@ -21,10 +20,6 @@ public class AxeSkillSO : CommonSkillSO
 
     [Header("Strings")]
     [Foldout("Specific")] public string WeaponName;
-
-    [Header("Enums")]
-    [Foldout("Specific")] public List<Tags> EnemyTag;
-    [Foldout("Specific")] public DamageType DamageType;
 
     [Header("Weapon")]
     [Foldout("Specific")] public GameObject WeaponPrefab;

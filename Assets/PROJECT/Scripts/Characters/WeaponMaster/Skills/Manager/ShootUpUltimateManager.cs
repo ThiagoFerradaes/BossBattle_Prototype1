@@ -82,18 +82,18 @@ public class ShootUpUltimateManager : SkillObjectManager {
                     prefabInfo.PreFab, TypeOfSkillPrefab.Hitbox);
                 preFab.transform.SetPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.identity);
 
-                ContinuosDamageContext newContext = new(
+                DamageContext newContext = new(
                     _info.MinDamage,
                     _info.MaxDamage,
                     prefabInfo.PrefabDuration,
-                    _info.Penetration,
-                    _info.DamageCooldown,
                     _info.HitShield,
-                    _info.EnemyTag,
                     _info.DamageType,
-                    parent.GetComponent<StatusManager>()
+                    _info.EnemyTag,
+                    parent.GetComponent<StatusManager>(),
+                    new() {
+                        {ExtraDamageContextAtributes.DamageCooldown, _info.DamageCooldown }
+                    }
                     );
-
                 preFab.GetComponent<ContinuosDamageHitBox>().Initialize(newContext);
 
                 OnWeaponChange?.Invoke();

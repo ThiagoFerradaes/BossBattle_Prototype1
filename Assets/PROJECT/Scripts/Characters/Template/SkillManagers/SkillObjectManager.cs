@@ -14,6 +14,7 @@ public abstract class SkillObjectManager : MonoBehaviour {
     protected Animator anim;
     protected PlayerSkillCooldownManager cooldownManager;
     protected StatusManager statusManager;
+    protected EnergyManager energyManager;
 
     #endregion
 
@@ -27,6 +28,7 @@ public abstract class SkillObjectManager : MonoBehaviour {
             anim = parent.GetComponentInChildren<Animator>();
             cooldownManager = parent.GetComponent<PlayerSkillCooldownManager>();
             statusManager = parent.GetComponent<StatusManager>();
+            energyManager = parent.GetComponent<EnergyManager>();
         }
         this.slot = slot;
         HandleInput(skill, ctx);

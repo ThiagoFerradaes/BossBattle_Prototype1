@@ -118,11 +118,10 @@ public class KrakenStalactiteAttack : EnemyBehaviourSO {
     IEnumerator StalactiteFall(GameObject stalactite) {
         stalactite.SetActive(true);
 
-        InstantDamageContext context = new(
+        DamageContext context = new(
             stalactiteMinDamage,
             stalactiteMaxDamage,
             stalactiteFallDuration,
-            0,
             true,
             damageType,
             tags,

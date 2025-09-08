@@ -5,28 +5,45 @@ using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class InstantDamageContext
+public enum ExtraDamageContextAtributes {
+    Penetration,
+    BreakShield,
+
+    // Projectile
+    Distance,
+    Speed,
+
+    // Dps
+    DamageCooldown,
+
+    // Crit
+    CritChance,
+    CritDamage
+
+}
+public class DamageContext
 {
     public float MinDamage;
     public float MaxDamage;
     public float Duration;
-    public float Penetration;
     public bool HitShield;
     public DamageType TypeOfDamage;
     public List<Tags> UnitsToHitTag;
     public StatusManager StatusManager;
 
-    public InstantDamageContext(float minDamage, float maxDamage, float hitBoxDuration, float penetration
-        , bool hitShield, DamageType type, List<Tags> tags, StatusManager status)
+    public Dictionary<ExtraDamageContextAtributes, object> DictionaryOfExtraAtributes;
+
+    public DamageContext(float minDamage, float maxDamage, float hitBoxDuration, bool hitShield,
+        DamageType type, List<Tags> tags, StatusManager status, Dictionary<ExtraDamageContextAtributes, object> extraAtributes = null)
     {
         this.MinDamage = minDamage;
         this.MaxDamage = maxDamage;
         this.Duration = hitBoxDuration;
-        this.Penetration = penetration;
         this.HitShield = hitShield;
         this.UnitsToHitTag = tags;
         this.TypeOfDamage = type;
         this.StatusManager = status;
+        this.DictionaryOfExtraAtributes = extraAtributes ?? new();
     }
 }
 public class InstantDamageHitBox : MonoBehaviour
@@ -42,39 +59,31 @@ public class InstantDamageHitBox : MonoBehaviour
     List<Tags> _tag = new();
     StatusManager _statusManager;
     DamageType _damageType;
+    Dictionary<ExtraDamageContextAtributes, object> _extra = new();
 
     public event Action OnHit;
 
     #endregion
 
     #region Methods
-    public void Initialize(InstantDamageContext context)
-    {
+    public void Initialize(DamageContext context) {
         _minDamage = context.MinDamage;
         _maxDamage = context.MaxDamage;
         _duration = context.Duration;
-        _penetration = context.Penetration;
         _hitShield = context.HitShield;
         _statusManager = context.StatusManager;
         _damageType = context.TypeOfDamage;
-        gameObject.SetActive(true);
         _tag = new(context.UnitsToHitTag);
 
-        StartCoroutine(AttackDuration());
-    }
+        _extra = context.DictionaryOfExtraAtributes ?? new();
 
-    public void Initialize(InstantDamageContext context, bool breakShield) {
-        _minDamage = context.MinDamage;
-        _maxDamage = context.MaxDamage;
-        _duration = context.Duration;
-        _penetration = context.Penetration;
-        _hitShield = context.HitShield;
-        _statusManager = context.StatusManager;
-        _damageType = context.TypeOfDamage;
+        if (_extra.TryGetValue(ExtraDamageContextAtributes.Penetration, out var pen))
+            _penetration = (float)pen;
+
+        if (_extra.TryGetValue(ExtraDamageContextAtributes.BreakShield, out var breakS))
+            _breakShield = (bool)breakS;
+
         gameObject.SetActive(true);
-        _tag = new(context.UnitsToHitTag);
-        _breakShield = breakShield;
-
         StartCoroutine(AttackDuration());
     }
     IEnumerator AttackDuration()

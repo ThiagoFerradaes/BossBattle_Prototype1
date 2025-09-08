@@ -2,31 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Rendering;
 
-public class ContinuosDamageContext {
-    public float MinDamage;
-    public float MaxDamage;
-    public float Duration;
-    public float Penetration;
-    public float DamageCooldown;
-    public bool HitShield;
-    public DamageType TypeOfDamage;
-    public List<Tags> UnitToHitTag;
-    public StatusManager StatusManager;
-
-    public ContinuosDamageContext(float minDamage, float maxDamage, float hitBoxDuration, float penetration, float damageCooldown
-        , bool hitShield, List<Tags> tag, DamageType type, StatusManager status) {
-        this.MinDamage = minDamage;
-        this.MaxDamage = maxDamage;
-        this.Duration = hitBoxDuration;
-        this.DamageCooldown = damageCooldown;
-        this.Penetration = penetration;
-        this.HitShield = hitShield;
-        this.TypeOfDamage = type;
-        this.UnitToHitTag = tag;
-        this.StatusManager = status;
-    }
-}
 
 public class ContinuosDamageHitBox : MonoBehaviour
 {
@@ -40,18 +17,27 @@ public class ContinuosDamageHitBox : MonoBehaviour
     bool _hitShield;
     StatusManager _dealerStatus;
 
+    Dictionary<ExtraDamageContextAtributes, object> _extra = new();
+
     HashSet<GameObject> _listOfHealths = new();
-    public void Initialize(ContinuosDamageContext context)
+    public void Initialize(DamageContext context)
     {
         _minDamagePerTick = context.MinDamage;
         _maxDamagePerTick = context.MaxDamage;
         _duration = context.Duration;
-        _damageCooldown = context.DamageCooldown;
-        _penetrarion = context.Penetration;
         _type = context.TypeOfDamage;
         _dealerStatus = context.StatusManager;
         _hitShield = context.HitShield;
-        _typeOfUnit = new(context.UnitToHitTag);
+        _typeOfUnit = new(context.UnitsToHitTag);
+        _extra = context.DictionaryOfExtraAtributes ?? new();
+
+        if (_extra.TryGetValue(ExtraDamageContextAtributes.Penetration, out var pen)) {
+            _penetrarion = (float)pen;
+        }
+
+        if (_extra.TryGetValue(ExtraDamageContextAtributes.DamageCooldown, out var damageCooldown)) {
+            _damageCooldown = (float)damageCooldown;
+        }
 
         gameObject.SetActive(true);
         StartCoroutine(AttackDuration());

@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEditor.Rendering.LookDev;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 public class SpearAttackManager : SkillObjectManager {
 
@@ -75,20 +77,26 @@ public class SpearAttackManager : SkillObjectManager {
                 preFab.transform.SetLocalPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.identity);
 
 
-                InstantDamageContext newContext = new(
+                DamageContext newContext = new(
                     _info.MinDamage,
                     _info.MaxDamage,
                     prefabInfo.PrefabDuration,
-                    _info.Penetration,
                     _info.HitShield,
                     _info.DamageType,
                     _info.EnemyTag,
-                    parent.GetComponent<StatusManager>()
+                    parent.GetComponent<StatusManager>(),
+                    new() {
+                        { ExtraDamageContextAtributes.Penetration, (float) _info.Penetration }
+                    }
                     );
 
-                preFab.GetComponent<InstantDamageHitBox>().Initialize(newContext);
+                InstantDamageHitBox hitbox = preFab.GetComponent<InstantDamageHitBox>();
+                hitbox.Initialize(newContext);
 
-                OnWeaponChange?.Invoke();
+                hitbox.OnHit += () => {
+                    OnWeaponChange?.Invoke();
+                    energyManager.GainEnergy(_info.FlatEnergyGainPerHit);
+                };
             }
             else {
                 GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFabName,
