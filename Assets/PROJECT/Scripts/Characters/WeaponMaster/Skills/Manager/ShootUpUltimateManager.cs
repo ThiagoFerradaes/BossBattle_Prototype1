@@ -9,6 +9,7 @@ public class ShootUpUltimateManager : SkillObjectManager {
     // Components
     ShootUpUltimateSO _info;
     WeaponManager _weaponManager;
+    EnergyManager _energyManager;
 
     // Coroutines
     Coroutine _attackCoroutine;
@@ -41,12 +42,13 @@ public class ShootUpUltimateManager : SkillObjectManager {
     void Initialize(SkillSO skill) {
         if (_info == null) _info = skill as ShootUpUltimateSO;
 
-        if (_weaponManager == null) _weaponManager = parent.GetComponent<WeaponManager>();
+        if (_weaponManager == null) _weaponManager = parent.GetComponent<WeaponManager>(); 
+        if (_energyManager == null) _energyManager = parent.GetComponent<EnergyManager>();
     }
 
 
     IEnumerator Attack() {
-        cooldownManager.SetCooldown(slot, _info.Cooldown);
+        _energyManager.LooseAllEnergy();
         anim.SetTrigger(_info.AnimationParameterTrigger);
 
         _weaponManager.OnEquipRightHand(_info.WeaponPrefab, _info.WeaponName, _info.WeaponPosition, _info.WeaponOneRotation);
@@ -80,18 +82,18 @@ public class ShootUpUltimateManager : SkillObjectManager {
                     prefabInfo.PreFab, TypeOfSkillPrefab.Hitbox);
                 preFab.transform.SetPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.identity);
 
-                ContinuosDamageContext newContext = new(
+                DamageContext newContext = new(
                     _info.MinDamage,
                     _info.MaxDamage,
                     prefabInfo.PrefabDuration,
-                    _info.Penetration,
-                    _info.DamageCooldown,
                     _info.HitShield,
-                    _info.EnemyTag,
                     _info.DamageType,
-                    parent.GetComponent<StatusManager>()
+                    _info.EnemyTag,
+                    parent.GetComponent<StatusManager>(),
+                    new() {
+                        {ExtraDamageContextAtributes.DamageCooldown, _info.DamageCooldown }
+                    }
                     );
-
                 preFab.GetComponent<ContinuosDamageHitBox>().Initialize(newContext);
 
                 OnWeaponChange?.Invoke();

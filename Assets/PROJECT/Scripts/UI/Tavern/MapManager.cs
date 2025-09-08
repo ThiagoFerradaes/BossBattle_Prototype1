@@ -17,6 +17,8 @@ public class MapManager : MonoBehaviour {
     SerializedDictionary<CharacterSO, GameObject> DictionaryOfCharacterButtons = new();
 
     [Foldout("First Map"), SerializeField] Button CloseMapButton;
+    [Foldout("First Map"), SerializeField] Button TestIslandButton;
+    [Foldout("First Map"), SerializeField] BossDescription TestIslandDescription;
 
     [Foldout("Second Map"), SerializeField] GameObject SecondMap;
     [Foldout("Second Map"), SerializeField] Image BossImage;
@@ -81,6 +83,8 @@ public class MapManager : MonoBehaviour {
 
         CloseMapButton.onClick.AddListener(() => gameObject.SetActive(false));
         CloseSecondMapButton.onClick.AddListener(() => SecondMap.SetActive(false));
+
+        TestIslandButton.onClick.AddListener(() => TurnScreenOn(TestIslandDescription));
     }
 
     void SelectACharacter(CharacterSO character) {

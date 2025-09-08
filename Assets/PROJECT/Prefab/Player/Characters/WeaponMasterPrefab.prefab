@@ -80,6 +80,7 @@ GameObject:
   - component: {fileID: 3160985740282346584}
   - component: {fileID: 7288651015015623778}
   - component: {fileID: 5183692506811018931}
+  - component: {fileID: 3156235811804963752}
   m_Layer: 0
   m_Name: WeaponMasterPrefab
   m_TagString: Player
@@ -326,6 +327,7 @@ MonoBehaviour:
   Anim: {fileID: 0}
   MoveManager: {fileID: 0}
   CooldownManager: {fileID: 0}
+  EnergyManager: {fileID: 0}
 --- !u!114 &1889250769962527780
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -427,6 +429,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3de261b92f5e880479863be3f766787d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3156235811804963752
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8221154074876193513}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 691cde66c81319a429cb1a231e2aa28a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnergyManager
+  _currentEnergy: 0
+  _maxEnergy: 0
+  timeToGainEnergy: 1
+  percentOfMaxEnergyToGainOverTime: 0
 --- !u!1001 &8919010732312894223
 PrefabInstance:
   m_ObjectHideFlags: 0

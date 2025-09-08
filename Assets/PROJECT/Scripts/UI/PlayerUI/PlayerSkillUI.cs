@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 public class PlayerSkillUI : MonoBehaviour {
 
@@ -17,7 +18,9 @@ public class PlayerSkillUI : MonoBehaviour {
     [SerializeField] private Image dashCooldown;
     [SerializeField] private Image skillOneCooldown;
     [SerializeField] private Image skillTwoCooldown;
-    [SerializeField] private Image ultimateCooldown;
+    [SerializeField] private Image ultimateEnergy;
+
+    Action<float, float> _energyGainAction;
 
     private Dictionary<SkillSlot, Coroutine> cooldownCoroutines;
     private Dictionary<SkillSlot, Image> cooldownImages;
@@ -40,12 +43,17 @@ public class PlayerSkillUI : MonoBehaviour {
             { SkillSlot.Dash, dashCooldown },
             { SkillSlot.SkillOne, skillOneCooldown },
             { SkillSlot.SkillTwo, skillTwoCooldown },
-            { SkillSlot.Ultimate, ultimateCooldown }
+            { SkillSlot.Ultimate, ultimateEnergy }
         };
     }
     private void SubscribeEvents() {
         PlayerSkillCooldownManager.OnCooldownSet -= StartCooldownUI;
         PlayerSkillCooldownManager.OnCooldownSet += StartCooldownUI;
+
+        _energyGainAction = (currentEnergy, maxEnergy) => UpdateUltimateEnergyCost(currentEnergy, maxEnergy);
+
+        EnergyManager.OnEnergyValueChanged -= _energyGainAction;
+        EnergyManager.OnEnergyValueChanged += _energyGainAction;
     }
 
     private void StartCooldownUI(SkillSlot slot, float cooldown) {
@@ -55,6 +63,10 @@ public class PlayerSkillUI : MonoBehaviour {
 
         Coroutine newRoutine = StartCoroutine(CooldownRoutine(slot, cooldown));
         cooldownCoroutines[slot] = newRoutine;
+    }
+
+    void UpdateUltimateEnergyCost(float currentEnergy, float maxEnergy) {
+        cooldownImages[SkillSlot.Ultimate].fillAmount = 1 - (currentEnergy / maxEnergy);
     }
 
     private IEnumerator CooldownRoutine(SkillSlot slot, float cooldown) {
@@ -80,10 +92,13 @@ public class PlayerSkillUI : MonoBehaviour {
         foreach (var image in cooldownImages.Values) {
             image.fillAmount = 0f;
         }
+
+        cooldownImages[SkillSlot.Ultimate].fillAmount = 1;
     }
 
     private void OnDisable() {
         PlayerSkillCooldownManager.OnCooldownSet -= StartCooldownUI;
+        EnergyManager.OnEnergyValueChanged -= _energyGainAction;
     }
 
     #endregion

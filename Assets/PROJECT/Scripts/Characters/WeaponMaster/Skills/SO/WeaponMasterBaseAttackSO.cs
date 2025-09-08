@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Skills / BaseAttack")]
-public class WeaponMasterBaseAttackSO : SkillSO {
+public class WeaponMasterBaseAttackSO : CommonSkillSO {
 
     [Header("Animation")]
     [Foldout("Specific")] public string FirstBaseAttackParameter;
@@ -21,7 +21,6 @@ public class WeaponMasterBaseAttackSO : SkillSO {
     [Foldout("Specific")] public float FirstAttackHitBoxDuration;
     [Foldout("Specific")] public float SecondAttackHitBoxDuration;
     [Foldout("Specific")] public float CooldownBetweenAttacks;
-    [Foldout("Specific")] public float Cooldown;
     [Foldout("Specific")] public float MaxTimeBetweenAttacks;
     [Foldout("Specific")] public float PenetrationFirstAttack;
     [Foldout("Specific")] public float PenetrationSecondAttack;
@@ -31,10 +30,6 @@ public class WeaponMasterBaseAttackSO : SkillSO {
 
     [Header("Booleans")]
     [Foldout("Specific")] public bool HitShield;
-
-    [Header("Enums")]
-    [Foldout("Specific")] public List<Tags> EnemyTag;
-    [Foldout("Specific")] public DamageType DamageType;
 
     [Header("Weapon")]
     [Foldout("Specific")] public GameObject SwordPrefab;

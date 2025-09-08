@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu( menuName = "Skills / ShootUpUltimate")]
-public class ShootUpUltimateSO : SkillSO
+public class ShootUpUltimateSO : UltimateSkillSO
 {
     [Header("Animation")]
     [Foldout("Specific")] public string AnimationParameterTrigger;

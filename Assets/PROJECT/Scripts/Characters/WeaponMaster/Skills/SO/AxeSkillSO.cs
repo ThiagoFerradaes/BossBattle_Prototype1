@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Skills / AxeSkill")]
-public class AxeSkillSO : SkillSO
+public class AxeSkillSO : CommonSkillSO
 {
     [Header("Animation")]
     [Foldout("Specific")] public string FirstAnimationParameterName;
@@ -12,7 +12,6 @@ public class AxeSkillSO : SkillSO
 
     [Header("Atributes")]
     [Header("Floats")]
-    [Foldout("Specific")] public float Cooldown;
     [Foldout("Specific")] public float MinimalChargeTime;
     [Foldout("Specific")] public float MaxChargeTime;
     [Foldout("Specific")] public float MinDamage;
@@ -21,10 +20,6 @@ public class AxeSkillSO : SkillSO
 
     [Header("Strings")]
     [Foldout("Specific")] public string WeaponName;
-
-    [Header("Enums")]
-    [Foldout("Specific")] public List<Tags> EnemyTag;
-    [Foldout("Specific")] public DamageType DamageType;
 
     [Header("Weapon")]
     [Foldout("Specific")] public GameObject WeaponPrefab;

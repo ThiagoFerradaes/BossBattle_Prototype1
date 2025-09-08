@@ -9,7 +9,8 @@ public enum TypeOfExpression { Happy, Sad, Surprised, Horny, Radiant}
 
 [Serializable]
 public class CharacterKit {
-    public SkillSO BaseAttack, SkillOne, SkillTwo, Ultimate, Dash;
+    public CommonSkillSO BaseAttack, SkillOne, SkillTwo, Dash;
+    public UltimateSkillSO Ultimate;
     public PassiveSO Passive;
 }
 

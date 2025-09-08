@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Skills / SpearAttack")]
-public class SpearSkillSO : SkillSO
+public class SpearSkillSO : CommonSkillSO
 {
     [Header("Animation")]
     [Foldout("Specific")] public string SpearAttackTriggerName;
@@ -11,7 +11,6 @@ public class SpearSkillSO : SkillSO
 
     [Header("Atributes")]
     [Header("Floats")]
-    [Foldout("Specific")] public float Cooldown;
     [Foldout("Specific")] public float MinDamage;
     [Foldout("Specific")] public float MaxDamage;
     [Foldout("Specific")] public float HitBoxDuration;
@@ -22,10 +21,6 @@ public class SpearSkillSO : SkillSO
 
     [Header("Strings")]
     [Foldout("Specific")] public string SpearName;
-
-    [Header("Enums")]
-    [Foldout("Specific")] public List<Tags> EnemyTag;
-    [Foldout("Specific")] public DamageType DamageType;
 
     [Header("Weapon")]
     [Foldout("Specific")] public GameObject SpearPrefab;
