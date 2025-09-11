@@ -78,7 +78,6 @@ public class PlayerSkillManager : MonoBehaviour {
         }
     }
     void StartPassive() {
-        Debug.Log("Start Passive");
         GameObject passiveManager = PoolingManager.Instance.ReturnManagerFromPool(_passive.PassiveName, _passive.PassiveManager.gameObject);
         PassiveSkillManager manager = passiveManager.GetComponent<PassiveSkillManager>();
         manager.OnStart(_passive, this.gameObject);
