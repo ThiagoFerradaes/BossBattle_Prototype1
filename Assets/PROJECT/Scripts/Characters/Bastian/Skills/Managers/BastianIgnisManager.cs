@@ -6,7 +6,6 @@ public class BastianIgnisManager : SkillObjectManager
 {
     BastianIgnisSO _info;
 
-    Coroutine _attackCoroutine;
     public override void HandleInput(SkillSO skill, InputAction.CallbackContext ctx)
     {
         if (!BastianPassiveManager.Instance.CanShoot)
@@ -36,13 +35,18 @@ public class BastianIgnisManager : SkillObjectManager
             gameObject.SetActive(true);
         }
 
-        _attackCoroutine ??= StartCoroutine(Attack());
+        animationCoroutine ??= StartCoroutine(Attack());
     }
 
     IEnumerator Attack()
     {
+        // Definindo Cooldown
+
+        cooldownManager.SetCooldownWithCharges(slot, _info);
+
         float attackSpeedMultiplier = GetAttackSpeedMultiplier();
 
+        skillManager.SkillIsInAnimation(true);
 
         // Animation
         anim.SetFloat(_info.AttackSpeedAnimationParameter, attackSpeedMultiplier);
@@ -149,30 +153,21 @@ public class BastianIgnisManager : SkillObjectManager
             yield return null;
         }
 
-        // Definindo Cooldown
-
-        cooldownManager.SetCooldownWithCharges(slot, _info);
 
         // Resetando a velocidade da animação
         anim.SetFloat(_info.AttackSpeedAnimationParameter, 1);
 
         // Corrotina
-        _attackCoroutine = null;
+        animationCoroutine = null;
 
-        // Desbloqueando inputs
-        UnblockInputs();
+        skillManager.SkillIsInAnimation(false);
 
         End();
     }
-
     float GetAttackSpeedMultiplier()
     {
         float baseSpeed = statusManager.ReturnStatusValue(StatusType.AttackSpeed);
         return Mathf.Max(0.1f, baseSpeed);
     }
 
-    void End()
-    {
-        gameObject.SetActive(false);
-    }
 }

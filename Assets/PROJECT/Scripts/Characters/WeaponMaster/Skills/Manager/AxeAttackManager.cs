@@ -19,7 +19,6 @@ public class AxeAttackManager : SkillObjectManager {
 
     // Coroutine
     Coroutine _chargeTimeCoroutine;
-    Coroutine _attackCoroutine;
 
     // Events
     public static event Action OnWeaponChange;
@@ -72,7 +71,7 @@ public class AxeAttackManager : SkillObjectManager {
     }
 
     public override void UseSkill(SkillSO skill) {
-        _attackCoroutine ??= StartCoroutine(Attack());
+        animationCoroutine ??= StartCoroutine(Attack());
     }
 
     IEnumerator ChargeTimer() {
@@ -150,7 +149,7 @@ public class AxeAttackManager : SkillObjectManager {
                     OnWeaponChange?.Invoke();
                     energyManager.GainEnergy(_info.FlatEnergyGainPerHit);
                 };
-                
+
             }
             else {
                 GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFabName,
@@ -169,11 +168,9 @@ public class AxeAttackManager : SkillObjectManager {
 
         _weaponManager.OnDesequipRightHand();
 
-        UnblockInputs();
+        animationCoroutine = null;
 
-        _attackCoroutine = null;
-
-        gameObject.SetActive(false);
+        End();
     }
 
     float ReturnDamage() {
@@ -186,7 +183,21 @@ public class AxeAttackManager : SkillObjectManager {
         else return false;
     }
 
+    public override void CancelSkill() {
+        // parar corrotinas
+        if (_chargeTimeCoroutine != null) {
+            StopCoroutine(_chargeTimeCoroutine);
+            _chargeTimeCoroutine = null;
+        }
 
+        _preCasted = false;
+        _isHoldingInput = false;
+
+        // tirar arma
+        _weaponManager?.OnDesequipRightHand();
+
+        End();
+    }
     private void OnDestroy() {
         OnWeaponChange = null;
     }

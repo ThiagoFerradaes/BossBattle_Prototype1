@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -15,6 +16,9 @@ public abstract class SkillObjectManager : MonoBehaviour {
     protected PlayerSkillCooldownManager cooldownManager;
     protected StatusManager statusManager;
     protected EnergyManager energyManager;
+    protected Coroutine animationCoroutine;
+
+    Action _stopSkill;
 
     #endregion
 
@@ -32,6 +36,10 @@ public abstract class SkillObjectManager : MonoBehaviour {
         }
         this.slot = slot;
         HandleInput(skill, ctx);
+
+        _stopSkill = () => CancelSkill();
+
+        skillManager.OnStopSkills += _stopSkill;
     }
     public virtual void HandleInput(SkillSO skill, InputAction.CallbackContext ctx) {
         if (ctx.phase == InputActionPhase.Started) {
@@ -111,6 +119,26 @@ public abstract class SkillObjectManager : MonoBehaviour {
         skillManager.MoveManager.ChangeRotationType(RotationType.MoveRotation);
     }
     public virtual void UseSkill(SkillSO skill) { }
+
+    public virtual void End() {
+        if(!skillManager.ReturnIfIsSkillAnimation()) UnblockInputs();
+
+        PoolingManager.Instance.ReturnObjectToPool(this.gameObject, TypeOfSkillPrefab.Manager);
+
+        skillManager.OnStopSkills -= _stopSkill;
+    }
+
+    public virtual void CancelSkill() {
+        StopAllCoroutines();
+        ReleaseSkillRangeIndicator();
+
+        _preCasted = false;
+        skillManager.SkillIsInAnimation(false);
+
+        animationCoroutine = null;
+
+        End();
+    }
 
     #endregion
 }

@@ -1,7 +1,5 @@
-using AYellowpaper.SerializedCollections;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -20,6 +18,7 @@ public class PlayerSkillManager : MonoBehaviour {
     [HideInInspector] public PlayerMovementManager MoveManager;
     [HideInInspector] public PlayerSkillCooldownManager CooldownManager;
     [HideInInspector] public EnergyManager EnergyManager;
+    [HideInInspector] public StunManager StunManager;
 
     // Skills
     PassiveSO _passive;
@@ -31,6 +30,13 @@ public class PlayerSkillManager : MonoBehaviour {
 
     // Events
     public static event Action<Dictionary<SkillSlot, SkillSO>> OnSkillsSet;
+    public event Action OnStopSkills;
+
+    // Actions
+    Action<bool> _onStun;
+
+    // Booleans
+    public bool _isInSkillAnimation;
     #endregion
 
     #region Initialize
@@ -39,17 +45,30 @@ public class PlayerSkillManager : MonoBehaviour {
         MoveManager = GetComponent<PlayerMovementManager>();
         CooldownManager = GetComponent<PlayerSkillCooldownManager>();
         EnergyManager = GetComponent<EnergyManager>();
+        StunManager = GetComponent<StunManager>();
 
         foreach (SkillSlot slot in Enum.GetValues(typeof(SkillSlot))) {
             _skillAvailable[slot] = true; // Todas as skills podem ser usadas
         }
+
+        _onStun = (bool isStunned) => {
+            _isInSkillAnimation = false; 
+            if(isStunned) OnStopSkills?.Invoke(); 
+            BlockAllSkills(isStunned); 
+        };
+
     }
 
     private void Start() {
         SetSkills();
         StartPassive();
+
+        StunManager.OnStun += _onStun;
     }
 
+    private void OnDestroy() {
+        StunManager.OnStun -= _onStun;
+    }
     void SetSkills() {
         PlayerWhiteBoard whiteboard = PlayerWhiteBoard.Instance;
         Character selectedCharacter = whiteboard.ReturnSelectedCharacter();
@@ -66,7 +85,7 @@ public class PlayerSkillManager : MonoBehaviour {
     }
 
 
-    T SafeGetSkill<T> (Func<T> getSkillFunc, string skillName) where T: class {
+    T SafeGetSkill<T>(Func<T> getSkillFunc, string skillName) where T : class {
         try {
             T skill = getSkillFunc();
             if (skill == null) Debug.LogWarning($"{skillName} retornou null.");
@@ -198,6 +217,10 @@ public class PlayerSkillManager : MonoBehaviour {
             if (key != slot) _skillAvailable[key] = !block;
         }
     }
+
+    public void SkillIsInAnimation(bool skillIsInAnimation) => _isInSkillAnimation = skillIsInAnimation;
+
+    public bool ReturnIfIsSkillAnimation() => _isInSkillAnimation;
 
     #endregion
 

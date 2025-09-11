@@ -9,8 +9,6 @@ public class BastianFlameEchoManager : SkillObjectManager
     EnergyManager _energyManager;
     StatusManager _statusManager;
 
-    Coroutine _attackCoroutine;
-
     Action<int> _onShootAction;
     public override void UseSkill(SkillSO skill)
     {
@@ -22,13 +20,15 @@ public class BastianFlameEchoManager : SkillObjectManager
 
         gameObject.SetActive(true);
 
-        _attackCoroutine ??= StartCoroutine(Attack());
+        animationCoroutine ??= StartCoroutine(Attack());
 
         _onShootAction = (int attackIdex) => StartCoroutine(SecondaryShoot(attackIdex));
     }
 
     IEnumerator Attack()
     {
+        skillManager.SkillIsInAnimation(true);
+
         // Animation
         anim.SetTrigger(_info.AnimationParameter);
         AnimatorStateInfo stateInfo;
@@ -93,7 +93,10 @@ public class BastianFlameEchoManager : SkillObjectManager
         }
 
         // Corrotina
-        _attackCoroutine = null;
+        animationCoroutine = null;
+
+        // Avisando que não ta mais em animação
+        skillManager.SkillIsInAnimation(false);
 
         // Desbloqueando inputs
         UnblockInputs();
@@ -178,10 +181,10 @@ public class BastianFlameEchoManager : SkillObjectManager
         }
     }
 
-    void End()
+    public override void End()
     {
         BastianBaseAttackManager.OnShoot -= _onShootAction;
 
-        PoolingManager.Instance.ReturnObjectToPool(this.gameObject, TypeOfSkillPrefab.Manager);
+        base.End();
     }
 }

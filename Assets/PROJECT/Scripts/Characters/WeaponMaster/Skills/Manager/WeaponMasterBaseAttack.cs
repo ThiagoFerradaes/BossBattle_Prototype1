@@ -15,7 +15,6 @@ public class WeaponMasterBaseAttack : SkillObjectManager {
 
     // Coroutine
     Coroutine _timerBetweenAttacksCoroutine;
-    Coroutine _attackCoroutine;
 
     #endregion
 
@@ -33,7 +32,7 @@ public class WeaponMasterBaseAttack : SkillObjectManager {
             _timerBetweenAttacksCoroutine = null;
         }
 
-        _attackCoroutine ??= StartCoroutine(Attack());
+        animationCoroutine ??= StartCoroutine(Attack());
     }
 
     private void Initialize(SkillSO skill) {
@@ -45,6 +44,8 @@ public class WeaponMasterBaseAttack : SkillObjectManager {
     }
     IEnumerator Attack() {
         float attackSpeedMultiplier = GetAttackSpeedMultiplier();
+
+        skillManager.SkillIsInAnimation(true);
 
         // Especifico de cada ataque do combo
         string animationParameter = _attackIndex == 1 ? _info.FirstBaseAttackParameter : _info.SecondBaseAttackParameter;
@@ -140,9 +141,11 @@ public class WeaponMasterBaseAttack : SkillObjectManager {
 
         UnblockInputs();
 
-        _attackCoroutine = null;
+        animationCoroutine = null;
 
         _timerBetweenAttacksCoroutine ??= StartCoroutine(CooldownBetweenAttacks());
+
+        skillManager.SkillIsInAnimation(false);
     }
 
     IEnumerator CooldownBetweenAttacks() {
@@ -155,7 +158,14 @@ public class WeaponMasterBaseAttack : SkillObjectManager {
 
         _attackIndex = 1;
         _timerBetweenAttacksCoroutine = null;
-        gameObject.SetActive(false);
+        End();
+    }
+
+    public override void CancelSkill() {
+        _attackIndex = 1;
+        _timerBetweenAttacksCoroutine = null;
+
+        base.CancelSkill();
     }
 
     float GetAttackSpeedMultiplier() {

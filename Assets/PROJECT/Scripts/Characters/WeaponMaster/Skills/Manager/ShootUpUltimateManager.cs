@@ -11,9 +11,6 @@ public class ShootUpUltimateManager : SkillObjectManager {
     WeaponManager _weaponManager;
     EnergyManager _energyManager;
 
-    // Coroutines
-    Coroutine _attackCoroutine;
-
     // Events
     public static event Action OnWeaponChange;
 
@@ -26,7 +23,7 @@ public class ShootUpUltimateManager : SkillObjectManager {
         Initialize(skill);
         if (!gameObject.activeInHierarchy) {
             gameObject.SetActive(true);
-            _attackCoroutine ??= StartCoroutine(Attack());
+            animationCoroutine ??= StartCoroutine(Attack());
         }
 
     }
@@ -50,6 +47,8 @@ public class ShootUpUltimateManager : SkillObjectManager {
     IEnumerator Attack() {
         _energyManager.LooseAllEnergy();
         anim.SetTrigger(_info.AnimationParameterTrigger);
+
+        skillManager.SkillIsInAnimation(true);
 
         _weaponManager.OnEquipRightHand(_info.WeaponPrefab, _info.WeaponName, _info.WeaponPosition, _info.WeaponOneRotation);
         _weaponManager.OnEquipLeftHand(_info.WeaponPrefab, _info.WeaponName, _info.WeaponTwoPosition, _info.WeaponTwoRotation);
@@ -123,10 +122,11 @@ public class ShootUpUltimateManager : SkillObjectManager {
         _weaponManager.OnDesequipLeftHand();
         _weaponManager.OnDesequipRightHand();
 
-        UnblockInputs();
-        _attackCoroutine = null;
+        skillManager.SkillIsInAnimation(false);
+
+        animationCoroutine = null;
         OnWeaponChange?.Invoke();
-        gameObject.SetActive(false);
+        End();
     }
 
     private void OnDestroy() {

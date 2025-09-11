@@ -5,7 +5,6 @@ public class BastianReleaseManager : SkillObjectManager
 {
     BastianReleaseSO _info;
 
-    Coroutine _attackCoroutine;
     public override void UseSkill(SkillSO skill) {
         base.UseSkill(skill);
 
@@ -13,10 +12,15 @@ public class BastianReleaseManager : SkillObjectManager
 
         gameObject.SetActive(true);
 
-        _attackCoroutine ??= StartCoroutine(Attack());
+        animationCoroutine ??= StartCoroutine(Attack());
     }
 
     IEnumerator Attack() {
+        // Definindo Cooldown
+        cooldownManager.SetCooldownWithCharges(slot, _info);
+
+        skillManager.SkillIsInAnimation(true);
+
         // Animation
         anim.SetTrigger(_info.AnimationParameter);
         AnimatorStateInfo stateInfo;
@@ -73,20 +77,14 @@ public class BastianReleaseManager : SkillObjectManager
             yield return null;
         }
 
-        // Definindo Cooldown
-        cooldownManager.SetCooldownWithCharges(slot, _info);
 
         // Corrotina
-        _attackCoroutine = null;
+        animationCoroutine = null;
 
-        // Desbloqueando inputs
-        UnblockInputs();
+        skillManager.SkillIsInAnimation(false);
 
         End();
     }
 
-    void End() {
-        PoolingManager.Instance.ReturnObjectToPool(this.gameObject, TypeOfSkillPrefab.Manager);
-    }
 
 }

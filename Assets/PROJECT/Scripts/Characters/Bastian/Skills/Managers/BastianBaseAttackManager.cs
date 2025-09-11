@@ -10,7 +10,6 @@ public class BastianBaseAttackManager : SkillObjectManager {
 
     // Coroutine
     Coroutine _timerBetweenAttacksCoroutine;
-    Coroutine _attackCoroutine;
 
     public static event Action<int> OnShoot;
     public override void HandleInput(SkillSO skill, InputAction.CallbackContext ctx) {
@@ -40,10 +39,13 @@ public class BastianBaseAttackManager : SkillObjectManager {
             _timerBetweenAttacksCoroutine = null;
         }
 
-        _attackCoroutine ??= StartCoroutine(Attack());
+        animationCoroutine ??= StartCoroutine(Attack());
     }
 
     IEnumerator Attack() {
+
+        skillManager.SkillIsInAnimation(true);
+
         float attackSpeedMultiplier = GetAttackSpeedMultiplier();
 
         // Decidingo dano e animação baseado no attack index;
@@ -185,12 +187,15 @@ public class BastianBaseAttackManager : SkillObjectManager {
         _attackIndex = _attackIndex < 3 ? _attackIndex + 1 : 1;
 
         // Corrotina
-        _attackCoroutine = null;
+        animationCoroutine = null;
 
         _timerBetweenAttacksCoroutine ??= StartCoroutine(CooldownBetweenAttacks());
 
         // Desbloqueando inputs
         UnblockInputs();
+
+        // Avisando que não está mais em animação
+        skillManager.SkillIsInAnimation(false);
     }
 
     IEnumerator CooldownBetweenAttacks() {
@@ -207,10 +212,19 @@ public class BastianBaseAttackManager : SkillObjectManager {
         float baseSpeed = statusManager.ReturnStatusValue(StatusType.AttackSpeed);
         return Mathf.Max(0.1f, baseSpeed);
     }
+    public override void CancelSkill() {
 
-    void End() {
+        if (_timerBetweenAttacksCoroutine != null) {
+            StopCoroutine(_timerBetweenAttacksCoroutine);
+            _timerBetweenAttacksCoroutine = null;
+        }
+
+        _attackIndex = 1;
+        base.CancelSkill();
+    }
+    public override void End() {
         _attackIndex = 1;
         _timerBetweenAttacksCoroutine = null;
-        gameObject.SetActive(false);
+        base.End();
     }
 }

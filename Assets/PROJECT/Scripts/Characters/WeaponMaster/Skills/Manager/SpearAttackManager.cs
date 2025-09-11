@@ -1,9 +1,6 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Rendering.LookDev;
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI;
 
 public class SpearAttackManager : SkillObjectManager {
 
@@ -12,9 +9,6 @@ public class SpearAttackManager : SkillObjectManager {
     // Components
     SpearSkillSO _info;
     WeaponManager _weaponManager;
-
-    // Coroutines
-    Coroutine _attackCoroutine;
 
     // Event
     public static event Action OnWeaponChange;
@@ -27,7 +21,7 @@ public class SpearAttackManager : SkillObjectManager {
         Initialize(skill);
         if (!gameObject.activeInHierarchy) {
             gameObject.SetActive(true);
-            _attackCoroutine ??= StartCoroutine(Attack());
+            animationCoroutine ??= StartCoroutine(Attack());
         }
 
     }
@@ -43,6 +37,8 @@ public class SpearAttackManager : SkillObjectManager {
     IEnumerator Attack() {
         cooldownManager.SetCooldownWithCharges(slot, _info);
         anim.SetTrigger(_info.SpearAttackTriggerName);
+
+        skillManager.SkillIsInAnimation(true);
 
         AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
 
@@ -114,10 +110,10 @@ public class SpearAttackManager : SkillObjectManager {
             yield return null;
         }
 
+        skillManager.SkillIsInAnimation(false);
         _weaponManager.OnDesequipRightHand();
-        UnblockInputs();
-        _attackCoroutine = null;
-        gameObject.SetActive(false);
+        animationCoroutine = null;
+        End();
     }
 
     private void OnDestroy() {
