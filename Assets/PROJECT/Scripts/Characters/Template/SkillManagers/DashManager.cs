@@ -9,16 +9,13 @@ public class DashManager : SkillObjectManager {
     Rigidbody rb;
     HealthManager _healthManager;
 
-    // Coroutine
-    Coroutine _dashCoroutine;
-
     #endregion
 
     #region Methods
     public override void UseSkill(SkillSO skill) {
         Initialize(skill);
 
-        _dashCoroutine ??= StartCoroutine(DashRoutine());
+        animationCoroutine ??= StartCoroutine(DashRoutine());
     }
 
     private void Initialize(SkillSO skill) {
@@ -76,10 +73,15 @@ public class DashManager : SkillObjectManager {
             yield return null;
         }
 
-        _dashCoroutine = null;
-        gameObject.SetActive(false);
-        UnblockInputs();
+        animationCoroutine = null;
+        End();
     }
 
+    public override void CancelSkill() {
+        movementManager.ChangeIsDashing(false);
+        _healthManager.SetCanTakeDamage();
+
+        base.CancelSkill();
+    }
     #endregion
 }

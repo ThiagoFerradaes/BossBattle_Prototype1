@@ -84,5 +84,12 @@ public class BastianDashManager : SkillObjectManager {
         End();
     }
 
+    public override void CancelSkill() {
+        movementManager.ChangeIsDashing(false);
+        _healthManager.SetCanTakeDamage();
+
+        base.CancelSkill();
+    }
+
     #endregion
 }
