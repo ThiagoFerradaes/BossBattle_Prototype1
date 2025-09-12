@@ -11,8 +11,6 @@ public class KrakenStalactiteAttack : EnemyBehaviourSO {
     [Foldout("Attack Atributes"), SerializeField] float stalactiteFallDuration;
     [Foldout("Attack Atributes"), SerializeField] float stalactiteMinDamage;
     [Foldout("Attack Atributes"), SerializeField] float stalactiteMaxDamage;
-    [Foldout("Attack Atributes"), SerializeField] float stalactiteMinRange;
-    [Foldout("Attack Atributes"), SerializeField] float stalactiteMaxRange;
     [Foldout("Attack Atributes"), SerializeField] float stalactiteHeight;
     [Foldout("Attack Atributes"), SerializeField] DamageType damageType;
     [Foldout("Attack Atributes"), SerializeField] List<Tags> tags;
@@ -80,8 +78,8 @@ public class KrakenStalactiteAttack : EnemyBehaviourSO {
         _krakenManager.StartCoroutine(Duration());
 
         while (_canAttack) {
-            Vector2 pos = ReturnAPosition();
-            Vector3 stalactitePosition = new(pos.x, stalactiteHeight, pos.y);
+            Vector3 pos = ArenaManager.Instance.GetRandomPosition(1);
+            Vector3 stalactitePosition = new(pos.x, stalactiteHeight, pos.z);
 
             GameObject stalactite = PoolingManager.Instance.ReturnPrefabFromPool(stalactitePrefabName,
                 stalactitePrefab, TypeOfSkillPrefab.Hitbox);
@@ -91,7 +89,7 @@ public class KrakenStalactiteAttack : EnemyBehaviourSO {
                stalactiteWarning, TypeOfSkillPrefab.VFX);
 
             float floorHeight = FindGroundHeight(stalactitePosition);
-            Vector3 warningPos = new(pos.x, floorHeight + warningHeight, pos.y);
+            Vector3 warningPos = new(pos.x, floorHeight + warningHeight, pos.z);
 
             warningVFX.transform.position = warningPos;
             warningVFX.GetComponent<VFXPreFab>().Initialize(warningDuration);
@@ -139,15 +137,6 @@ public class KrakenStalactiteAttack : EnemyBehaviourSO {
         }
 
         PoolingManager.Instance.ReturnObjectToPool(stalactite, TypeOfSkillPrefab.Hitbox);
-    }
-
-    Vector2 ReturnAPosition() {
-        Vector2 direction = Random.insideUnitCircle.normalized;
-
-        float distance = Mathf.Sqrt(Random.Range(stalactiteMinRange * stalactiteMinRange,
-                                             stalactiteMaxRange * stalactiteMaxRange));
-
-        return direction * distance;
     }
 
 }
