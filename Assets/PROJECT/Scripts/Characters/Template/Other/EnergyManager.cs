@@ -37,6 +37,8 @@ public class EnergyManager : MonoBehaviour
     void SetMaxEnergy(Dictionary<SkillSlot, SkillSO> skills) {
         if (!skills.ContainsKey(SkillSlot.Ultimate)) return;
 
+        if (skills[SkillSlot.Ultimate] == null) return;
+
         UltimateSkillSO ultimate = skills[SkillSlot.Ultimate] as UltimateSkillSO;
         _maxEnergy = ultimate.EnergyCost;
 

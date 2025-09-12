@@ -24,6 +24,7 @@ public class WhiteBoard : MonoBehaviour
             Instance = this;
             UnlockCharacter(Character.WeaponMaster);
             UnlockCharacter(Character.Bastian);
+            UnlockCharacter(Character.Lilian);
             UnlockPhase(Phases.KrakenOne);
             DontDestroyOnLoad(this);
         }

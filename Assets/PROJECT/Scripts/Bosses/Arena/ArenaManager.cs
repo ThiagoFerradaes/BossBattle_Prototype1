@@ -53,16 +53,27 @@ public class ArenaManager : MonoBehaviour
     }
 
     private Vector3 GetRandomRingPosition(float objectRadius) {
-        Vector2 dir = Random.insideUnitCircle.normalized;
+        float outerRadius = arenaSize.x;                // usando arenaSize.x como raio externo
+        float ringWidth = outerRadius - ringInnerRadius;
 
-        // garante que o objeto inteiro caiba dentro do anel
+        // Se o objeto não cabe em nenhuma posição do anel, colocamos no "meio da parede"
+        if (objectRadius * 2f > ringWidth) {
+            Vector2 dir = Random.insideUnitCircle.normalized;
+            float mid = (ringInnerRadius + outerRadius) / 2f;
+
+            Vector2 pos = dir * mid;
+            return centerOfArena + new Vector3(pos.x, 0, pos.y);
+        }
+
+        // Caso normal sorteia dentro do anel
+        Vector2 dirNormal = Random.insideUnitCircle.normalized;
         float min = ringInnerRadius + objectRadius;
-        float max = arenaSize.x - objectRadius;
+        float max = outerRadius - objectRadius;
 
         float dist = Mathf.Sqrt(Random.Range(min * min, max * max));
-        Vector2 pos = dir * dist;
+        Vector2 posNormal = dirNormal * dist;
 
-        return centerOfArena + new Vector3(pos.x, 0, pos.y);
+        return centerOfArena + new Vector3(posNormal.x, 0, posNormal.y);
     }
 
     public bool IsPointInsideArena(Vector3 point, float objectRadius = 0f) {
@@ -78,6 +89,16 @@ public class ArenaManager : MonoBehaviour
             default:
                 return false;
         }
+    }
+
+    public float FindGroundHeight(Vector3 originalPosition) {
+        Vector3 startPos = originalPosition + Vector3.up * 0.5f;
+
+        if (Physics.Raycast(startPos, Vector3.down, out RaycastHit hit, 100, LayerMask.GetMask("Floor"))){
+            return hit.point.y; 
+        }
+
+        return 0;
     }
     #endregion
 }

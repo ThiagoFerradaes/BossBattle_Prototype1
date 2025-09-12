@@ -3,7 +3,7 @@ using NaughtyAttributes;
 using Unity.Cinemachine;
 using UnityEngine;
 
-public enum Character { WeaponMaster, Bastian, Summoner, Shapeshifter, SamuraiFrog, Sequencer, Null}
+public enum Character { WeaponMaster, Bastian, Lilian, Shapeshifter, SamuraiFrog, Sequencer, Null}
 public class PlayerManager : MonoBehaviour
 {
     // Singleton
