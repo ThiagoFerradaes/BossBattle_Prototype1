@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Passives/LilianPassive")]
@@ -14,6 +15,7 @@ public class LilianPassiveSO : PassiveSO {
     public float BlessingSize;
     public string BlessingObjectName;
     public GameObject BlessingObject;
+    public List<Tags> ListOfTags;
 
     public float WrathStunDuration;
     public float WrathDamage;

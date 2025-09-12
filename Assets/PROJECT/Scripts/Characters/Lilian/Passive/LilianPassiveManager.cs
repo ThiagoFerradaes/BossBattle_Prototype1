@@ -97,6 +97,10 @@ public class LilianPassiveManager : PassiveSkillManager {
         blessingArea.transform.position = pos;
         blessingArea.SetActive(true);
 
+        if (blessingArea.TryGetComponent<HealingAreaHitBox>(out HealingAreaHitBox healingArea)) {
+            healingArea.Initialize(_info.BlessingHealing, _info.BlessingDuration, _info.BlessingHealingCooldown, _info.ListOfTags);
+        }
+
         yield return new WaitForSeconds(_info.BlessingDuration);
 
         _blessingCoroutine = null;
