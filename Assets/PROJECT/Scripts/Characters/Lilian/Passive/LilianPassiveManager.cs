@@ -26,6 +26,7 @@ public class LilianPassiveManager : PassiveSkillManager {
     public event Action<float, float> OnJudgmentTimer;
     public event Action<float> OnCorruptionChange;
     public event Action<float> OnTributesChange;
+    public event Action<bool> OnJudgmentDay;
 
 
     #region Initialize
@@ -42,6 +43,8 @@ public class LilianPassiveManager : PassiveSkillManager {
 
         gameObject.SetActive(true);
 
+        AditionalUIManager.Instance.InstantiateUI(_info.LilianUI);
+
         _judgmentTimerCoroutine ??= StartCoroutine(JugmentTimerRoutine());
     }
 
@@ -50,7 +53,7 @@ public class LilianPassiveManager : PassiveSkillManager {
     #region Judgment
     IEnumerator JugmentTimerRoutine() {
         float timer = 0f;
-
+        OnJudgmentDay?.Invoke(false);
         while (timer < _info.TimeToJudgment) {
             timer += Time.deltaTime * _judgmentTimerMultiplier;
             OnJudgmentTimer?.Invoke(timer, _info.TimeToJudgment);
@@ -62,6 +65,8 @@ public class LilianPassiveManager : PassiveSkillManager {
     }
 
     IEnumerator Judgment() {
+        OnJudgmentDay?.Invoke(true);
+
         if (_currentAmountOfTributes >= _info.BlessingCost * _judgmentCostMultiplier) {
             _blessingCoroutine ??= StartCoroutine(Blessing());
             yield return _blessingCoroutine;

@@ -20,4 +20,6 @@ public class LilianPassiveSO : PassiveSO {
     public float WrathStunDuration;
     public float WrathDamage;
     public float MaxAmountOfCorruption;
+
+    public GameObject LilianUI;
 }
