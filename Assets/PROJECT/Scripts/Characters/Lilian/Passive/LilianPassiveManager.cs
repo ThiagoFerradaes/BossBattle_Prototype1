@@ -82,6 +82,8 @@ public class LilianPassiveManager : PassiveSkillManager {
     }
 
     IEnumerator Judgment(bool blessing) {
+        OnJudgmentDay?.Invoke(true);
+
         if (blessing) {
             _blessingCoroutine ??= StartCoroutine(Blessing());
             yield return _blessingCoroutine;
@@ -129,6 +131,8 @@ public class LilianPassiveManager : PassiveSkillManager {
 
         StopCoroutine(_judgmentTimerCoroutine);
         _judgmentTimerCoroutine = null;
+
+        OnJudgmentTimer?.Invoke(1, 1);
 
         _judgmentCoroutine ??= StartCoroutine(Judgment(isBlessing));
 
