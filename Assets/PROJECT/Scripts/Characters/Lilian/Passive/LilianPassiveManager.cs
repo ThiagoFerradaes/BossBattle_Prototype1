@@ -68,6 +68,7 @@ public class LilianPassiveManager : PassiveSkillManager {
         OnJudgmentDay?.Invoke(true);
 
         if (_currentAmountOfTributes >= _info.BlessingCost * _judgmentCostMultiplier) {
+            ChangeTributeAmount(-_info.BlessingCost);
             _blessingCoroutine ??= StartCoroutine(Blessing());
             yield return _blessingCoroutine;
         }

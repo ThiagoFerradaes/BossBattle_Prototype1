@@ -58,10 +58,10 @@ public class LilianUiManager : MonoBehaviour
         }
     }
     void UpdateCorruptionText(float amount) {
-        corruptionText.text = amount.ToString();
+        corruptionText.text = amount.ToString("F0");
     }
 
     void UpdateTributeText(float amount) {
-        tributesText.text = amount.ToString();
+        tributesText.text = amount.ToString("F0");
     }
 }

@@ -17,6 +17,7 @@ public abstract class SkillObjectManager : MonoBehaviour {
     protected StatusManager statusManager;
     protected EnergyManager energyManager;
     protected Coroutine animationCoroutine;
+    protected HealthManager healthManager;
 
     Action _stopSkill;
 
@@ -33,6 +34,7 @@ public abstract class SkillObjectManager : MonoBehaviour {
             cooldownManager = parent.GetComponent<PlayerSkillCooldownManager>();
             statusManager = parent.GetComponent<StatusManager>();
             energyManager = parent.GetComponent<EnergyManager>();
+            healthManager = parent.GetComponent<HealthManager>();
         }
         this.slot = slot;
         HandleInput(skill, ctx);
