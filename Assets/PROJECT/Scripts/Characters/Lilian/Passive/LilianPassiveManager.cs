@@ -174,5 +174,7 @@ public class LilianPassiveManager : PassiveSkillManager {
 
     #endregion
 
-    
+    public float ReturnAmountOfTributes() => _currentAmountOfTributes;
+
+    public float ReturnAmountOfCorruption() => _currentCorruption;
 }

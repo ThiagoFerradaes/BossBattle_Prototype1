@@ -16,9 +16,6 @@ public class SpearSkillSO : CommonSkillSO
     [Foldout("Specific")] public float HitBoxDuration;
     [Foldout("Specific")] public float Penetration;
 
-    [Header("Booleans")]
-    [Foldout("Specific")] public bool HitShield;
-
     [Header("Strings")]
     [Foldout("Specific")] public string SpearName;
 

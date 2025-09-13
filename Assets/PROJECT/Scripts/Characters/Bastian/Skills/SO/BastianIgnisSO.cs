@@ -14,7 +14,6 @@ public class BastianIgnisSO : CommonSkillSO
     [Foldout("Specific")] public float AttackMaxDamage;
     [Foldout("Specific")] public float AttackDistance;
     [Foldout("Specific")] public float ProjectileSpeed;
-    [Foldout("Specific")] public bool HitShield;
     [Foldout("Specific")] public bool CrossTarget;
 
     [Header("Passive")]

@@ -11,6 +11,7 @@ public abstract class CommonSkillSO : SkillSO
 
     public List<Tags> EnemyTag;
     public DamageType DamageType;
+    public bool HitShield;
 
     public int Charges = 1;
     public float ChargeCooldown;
