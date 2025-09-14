@@ -6,6 +6,7 @@ public class LilianWingsOfHorrorManager : SkillObjectManager
     LilianWingsOfHorrorSO _info;
     Animator _wingsOfHorrorAnim;
     GameObject _wingsOfHorror;
+    bool _lilianIsInAnimation;
 
     Coroutine _wingsOfHorrorCoroutine, _wingsOfHorrorCooldownCoroutine;
 
@@ -35,6 +36,7 @@ public class LilianWingsOfHorrorManager : SkillObjectManager
         cooldownManager.SetCooldownWithCharges(slot, _info);
 
         skillManager.SkillIsInAnimation(true);
+        _lilianIsInAnimation = true;
 
         // Animation
         anim.SetTrigger(_info.AnimationParameter);
@@ -102,6 +104,7 @@ public class LilianWingsOfHorrorManager : SkillObjectManager
         animationCoroutine = null;
 
         skillManager.SkillIsInAnimation(false);
+        _lilianIsInAnimation = false;
 
         UnblockInputs();
     }
@@ -237,6 +240,14 @@ public class LilianWingsOfHorrorManager : SkillObjectManager
 
     public override void End()
     {
+        if (_lilianIsInAnimation)
+        {
+            animationCoroutine = null;
+            _lilianIsInAnimation = false;
+            skillManager.SkillIsInAnimation(false);
+            UnblockInputs();
+        }
+
         cooldownManager.SetCooldownWithCharges(slot, _info);
         _wingsOfHorror.SetActive(false);
 
