@@ -14,7 +14,7 @@ public class LilianPassiveManager : PassiveSkillManager {
     float _judgmentTimerMultiplier = 1f;
     float _judgmentCostMultiplier = 1f;
     float _currentAmountOfTributes = 0f;
-    float _currentCorruption = 0f;
+    int _currentCorruption = 0;
 
     // Coroutines
     Coroutine _judgmentTimerCoroutine;
@@ -176,5 +176,5 @@ public class LilianPassiveManager : PassiveSkillManager {
 
     public float ReturnAmountOfTributes() => _currentAmountOfTributes;
 
-    public float ReturnAmountOfCorruption() => _currentCorruption;
+    public int ReturnAmountOfCorruption() => _currentCorruption;
 }
