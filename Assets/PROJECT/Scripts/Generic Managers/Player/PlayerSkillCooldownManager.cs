@@ -93,7 +93,7 @@ public class PlayerSkillCooldownManager : MonoBehaviour
     private IEnumerator CooldownCoroutine(SkillSlot slot, int maxCharges)
     {
         float maxCooldown = _cooldowns[slot];
-        if (slot != SkillSlot.BaseAttack) OnCooldownSet?.Invoke(slot, maxCooldown);
+        OnCooldownSet?.Invoke(slot, maxCooldown);
 
         while (_cooldowns[slot] > 0f)
         {
