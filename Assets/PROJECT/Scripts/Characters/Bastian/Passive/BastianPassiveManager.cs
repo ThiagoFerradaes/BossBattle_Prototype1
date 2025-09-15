@@ -6,24 +6,25 @@ using UnityEngine;
 public enum HeatArea { CoolArea = 0, HeatArea = 1, SuperHeatArea = 2, OverHeatArea = 3, LastOverHeatArea = 4 }
 public class BastianPassiveManager : PassiveSkillManager {
 
-
+    // Singleton
     public static BastianPassiveManager Instance;
 
+    // Atributes
     float _currentHeat;
-    StatusManager _statusManager;
-
-    BastianPassiveSO _info;
-
-    Coroutine _heatLostCoroutine, _looseAllHeatCoroutine, _looseHealthCoroutine;
-
+    bool _looseAllHeat;
     HeatArea _heatArea = HeatArea.CoolArea;
+    [HideInInspector] public bool CanShoot = true;
 
-    public event Action<float, float> OnHeatGain;
-
+    // Components
+    StatusManager _statusManager;
+    BastianPassiveSO _info;
     HealthManager _healthManager;
 
-    bool _looseAllHeat;
-    [HideInInspector] public bool CanShoot = true;
+    // Corrotines
+    Coroutine _heatLostCoroutine, _looseAllHeatCoroutine, _looseHealthCoroutine;
+
+    // Actions
+    public event Action<float, float> OnHeatGain;
 
     private void Awake() {
         if (Instance == null) {
@@ -83,7 +84,7 @@ public class BastianPassiveManager : PassiveSkillManager {
     }
 
     void LooseHealth() {
-        float healthToLoose = _healthManager.ReturnCurrentHealth() * _info.PercentOfCurrentHealthLostPerTime / 100;
+        float healthToLoose = _healthManager.ReturnMaxHealth() * _info.PercentOfMaxHealthLostPerTime / 100;
         if(_healthManager.ReturnCurrentHealth() > 1)_healthManager.TakeDamage(healthToLoose, false);
     }
 

@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class LilianJudgmentDayManager : SkillObjectManager
 {
+    // Components
     LilianJudgmentDaySO _info;
     public override void UseSkill(SkillSO skill) {
         base.UseSkill(skill);

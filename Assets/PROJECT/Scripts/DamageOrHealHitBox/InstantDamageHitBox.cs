@@ -22,8 +22,7 @@ public enum ExtraDamageContextAtributes {
     CritDamage
 
 }
-public class DamageContext
-{
+public class DamageContext {
     public float MinDamage;
     public float MaxDamage;
     public float Duration;
@@ -35,8 +34,7 @@ public class DamageContext
     public Dictionary<ExtraDamageContextAtributes, object> DictionaryOfExtraAtributes;
 
     public DamageContext(float minDamage, float maxDamage, float hitBoxDuration, bool hitShield,
-        DamageType type, List<Tags> tags, StatusManager status, Dictionary<ExtraDamageContextAtributes, object> extraAtributes = null)
-    {
+        DamageType type, List<Tags> tags, StatusManager status, Dictionary<ExtraDamageContextAtributes, object> extraAtributes = null) {
         this.MinDamage = minDamage;
         this.MaxDamage = maxDamage;
         this.Duration = hitBoxDuration;
@@ -47,8 +45,7 @@ public class DamageContext
         this.DictionaryOfExtraAtributes = extraAtributes ?? new();
     }
 }
-public class InstantDamageHitBox : MonoBehaviour
-{
+public class InstantDamageHitBox : MonoBehaviour {
     #region Parameters
 
     float _minDamage;
@@ -63,6 +60,7 @@ public class InstantDamageHitBox : MonoBehaviour
     Dictionary<ExtraDamageContextAtributes, object> _extra = new();
 
     public event Action OnHit;
+    bool _hasHitted;
 
     #endregion
 
@@ -87,11 +85,9 @@ public class InstantDamageHitBox : MonoBehaviour
         gameObject.SetActive(true);
         StartCoroutine(AttackDuration());
     }
-    IEnumerator AttackDuration()
-    {
+    IEnumerator AttackDuration() {
         float timer = 0;
-        while (timer < _duration)
-        {
+        while (timer < _duration) {
             timer += Time.deltaTime;
             yield return null;
         }
@@ -99,8 +95,7 @@ public class InstantDamageHitBox : MonoBehaviour
         End();
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
+    private void OnTriggerEnter(Collider other) {
         if (!_tag.Any(tag => other.CompareTag(tag.ToString()))) return;
 
 
@@ -119,17 +114,21 @@ public class InstantDamageHitBox : MonoBehaviour
             recieverStatus
             );
 
-        if(!other.CompareTag(Tags.Player.ToString()))PopUpManager.Instance.
+        if (!other.CompareTag(Tags.Player.ToString())) PopUpManager.Instance.
                 DamageDone((int)newDamage.Item1, other.transform.position, newDamage.Item2, _damageType);
 
         if (_breakShield) health.BreakShield();
 
         health.TakeDamage(newDamage.Item1, _hitShield);
 
-        OnHit?.Invoke();
+        if (!_hasHitted) { 
+            _hasHitted = true;
+            OnHit?.Invoke(); 
+        }
     }
 
     void End() {
+        _hasHitted = false;
         _breakShield = false;
         OnHit = null;
         PoolingManager.Instance.ReturnObjectToPool(this.gameObject, TypeOfSkillPrefab.Hitbox);

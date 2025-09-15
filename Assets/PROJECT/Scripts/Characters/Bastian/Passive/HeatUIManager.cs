@@ -5,13 +5,13 @@ using UnityEngine.UI;
 
 public class HeatUIManager : MonoBehaviour
 {
+    // Components
     [SerializeField] Image heatBar;
     [SerializeField] TextMeshProUGUI heatText;
-
     [SerializeField] BastianPassiveSO info;
 
+    // Actions
     Action<float, float> _updateHeatBarAction;
-
 
     private void Start() {
 

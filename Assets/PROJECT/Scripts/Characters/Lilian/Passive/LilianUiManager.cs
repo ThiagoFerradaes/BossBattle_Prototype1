@@ -5,13 +5,14 @@ using UnityEngine.UI;
 
 public class LilianUiManager : MonoBehaviour
 {
-
+    // Components
     [SerializeField] Image judgmentTimerBar;
     [SerializeField] TextMeshProUGUI judgmentTimerText;
     [SerializeField] TextMeshProUGUI corruptionText;
     [SerializeField] TextMeshProUGUI tributesText;
-
     LilianPassiveManager passive;
+
+    // Actions
     Action<float, float> _onJudgmentTimer;
     Action<float> _onCorruptionUpdate, _onTributeUpdte;
     Action<bool> _onJudgmentDay;

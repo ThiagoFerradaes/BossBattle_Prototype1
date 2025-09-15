@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 
 public class BastianIgnisManager : SkillObjectManager
 {
+    // Components
     BastianIgnisSO _info;
 
     public override void HandleInput(SkillSO skill, InputAction.CallbackContext ctx)

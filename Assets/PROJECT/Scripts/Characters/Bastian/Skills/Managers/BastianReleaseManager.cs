@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class BastianReleaseManager : SkillObjectManager
 {
+    // Components
     BastianReleaseSO _info;
 
     public override void UseSkill(SkillSO skill) {

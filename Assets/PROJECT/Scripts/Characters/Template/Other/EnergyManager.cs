@@ -51,7 +51,7 @@ public class EnergyManager : MonoBehaviour
 
         _currentEnergy += energyGain;
         _currentEnergy = Mathf.Min(_currentEnergy, _maxEnergy);
-
+        Debug.Log(_currentEnergy + " / " + _maxEnergy);
         OnEnergyValueChanged?.Invoke(_currentEnergy, _maxEnergy);
     }
 

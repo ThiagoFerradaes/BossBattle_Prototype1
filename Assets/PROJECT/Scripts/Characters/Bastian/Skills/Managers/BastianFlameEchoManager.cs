@@ -5,10 +5,12 @@ using UnityEngine;
 
 public class BastianFlameEchoManager : SkillObjectManager
 {
+    // Components
     BastianFlameEchoSO _info;
     EnergyManager _energyManager;
     StatusManager _statusManager;
 
+    // Actions
     Action<int> _onShootAction;
     public override void UseSkill(SkillSO skill)
     {
