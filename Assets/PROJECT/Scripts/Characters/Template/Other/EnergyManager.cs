@@ -5,17 +5,22 @@ using UnityEngine;
 
 public class EnergyManager : MonoBehaviour
 {
-    public float _currentEnergy;
-    public float _maxEnergy;
-    private StatusManager _statusManager;
-    //private Coroutine _energyOverTimeCoroutine;
-    private Action<Dictionary<SkillSlot, SkillSO>> _setMaxEnergy;
-
+    // Atributes
     [SerializeField] float timeToGainEnergy;
     [SerializeField] float percentOfMaxEnergyToGainOverTime;
+    float _currentEnergy;
+    float _maxEnergy;
+    bool _canGainEnergy = true;
+    private StatusManager _statusManager;
+    //private Coroutine _energyOverTimeCoroutine;
 
+    // Lists
+    private Action<Dictionary<SkillSlot, SkillSO>> _setMaxEnergy;
+
+    // Actions
     public static event Action<float, float> OnEnergyValueChanged;
 
+    #region Initialize
     private void Awake() {
         _statusManager = GetComponent<StatusManager>();
 
@@ -34,6 +39,9 @@ public class EnergyManager : MonoBehaviour
     //    }
     //}
 
+    #endregion
+
+    #region Energy
     void SetMaxEnergy(Dictionary<SkillSlot, SkillSO> skills) {
         if (!skills.ContainsKey(SkillSlot.Ultimate)) return;
 
@@ -46,6 +54,8 @@ public class EnergyManager : MonoBehaviour
     }
 
     public void GainEnergy(float energyAmount) {
+        if (!_canGainEnergy) return;
+
         float energyRecharge = _statusManager.ReturnStatusValue(StatusType.EnergyRecharge)/100;
         float energyGain = energyAmount * energyRecharge;
 
@@ -92,5 +102,11 @@ public class EnergyManager : MonoBehaviour
     //        GainEnergy(flatEnergyToGain);
     //    }
     //}
+    #endregion
 
+    #region Setter
+
+    public void SetCanGainEnergy(bool canGainEnergy) => _canGainEnergy = canGainEnergy;
+
+    #endregion
 }

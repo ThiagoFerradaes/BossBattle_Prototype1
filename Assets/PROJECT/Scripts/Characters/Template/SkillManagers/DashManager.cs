@@ -12,6 +12,25 @@ public class DashManager : SkillObjectManager {
     #endregion
 
     #region Methods
+    public override void OnPreCast(SkillSO skill) {
+
+        movementManager.BlockWalk(skill.BlockWalkWhilePreCasting);
+        skillManager.BlockAllButOneSkill(slot, true);
+
+        if (skill.PreCastOn && ConfigurationWhiteBoard.Instance.PreCastOn) {
+
+            movementManager.ChangeRotationType(RotationType.MouseRotation);
+
+            SetSkillRangeIndicator(skill);
+        }
+
+        else {
+
+            if (ConfigurationWhiteBoard.Instance.DashToMouse) movementManager.RotateMouse(false);
+
+            OnRelease(skill);
+        }
+    }
     public override void UseSkill(SkillSO skill) {
         Initialize(skill);
 
