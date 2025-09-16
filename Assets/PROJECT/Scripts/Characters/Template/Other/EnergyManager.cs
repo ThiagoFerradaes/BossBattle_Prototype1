@@ -8,7 +8,7 @@ public class EnergyManager : MonoBehaviour
     public float _currentEnergy;
     public float _maxEnergy;
     private StatusManager _statusManager;
-    private Coroutine _energyOverTimeCoroutine;
+    //private Coroutine _energyOverTimeCoroutine;
     private Action<Dictionary<SkillSlot, SkillSO>> _setMaxEnergy;
 
     [SerializeField] float timeToGainEnergy;
@@ -24,15 +24,15 @@ public class EnergyManager : MonoBehaviour
         PlayerSkillManager.OnSkillsSet += _setMaxEnergy;
     }
 
-    private void Start() {
-        if (_energyOverTimeCoroutine == null) {
-            _energyOverTimeCoroutine = StartCoroutine(EnergyGainPerTime());
-        }
-        else {
-            StopCoroutine(_energyOverTimeCoroutine);
-            _energyOverTimeCoroutine = StartCoroutine(EnergyGainPerTime());
-        }
-    }
+    //private void Start() {
+    //    if (_energyOverTimeCoroutine == null) {
+    //        _energyOverTimeCoroutine = StartCoroutine(EnergyGainPerTime());
+    //    }
+    //    else {
+    //        StopCoroutine(_energyOverTimeCoroutine);
+    //        _energyOverTimeCoroutine = StartCoroutine(EnergyGainPerTime());
+    //    }
+    //}
 
     void SetMaxEnergy(Dictionary<SkillSlot, SkillSO> skills) {
         if (!skills.ContainsKey(SkillSlot.Ultimate)) return;
@@ -51,7 +51,6 @@ public class EnergyManager : MonoBehaviour
 
         _currentEnergy += energyGain;
         _currentEnergy = Mathf.Min(_currentEnergy, _maxEnergy);
-        Debug.Log(_currentEnergy + " / " + _maxEnergy);
         OnEnergyValueChanged?.Invoke(_currentEnergy, _maxEnergy);
     }
 
@@ -83,15 +82,15 @@ public class EnergyManager : MonoBehaviour
         return _currentEnergy >= _maxEnergy;
     }
 
-    IEnumerator EnergyGainPerTime() {
-        float flatEnergyToGain = _maxEnergy * (percentOfMaxEnergyToGainOverTime / 100);
-        while (true) {
-            yield return new WaitForSeconds(timeToGainEnergy);
-            float energyRecharge = _statusManager.ReturnStatusValue(StatusType.EnergyRecharge)/100;
-            flatEnergyToGain *= energyRecharge;
+    //IEnumerator EnergyGainPerTime() {
+    //    float flatEnergyToGain = _maxEnergy * (percentOfMaxEnergyToGainOverTime / 100);
+    //    while (true) {
+    //        yield return new WaitForSeconds(timeToGainEnergy);
+    //        float energyRecharge = _statusManager.ReturnStatusValue(StatusType.EnergyRecharge)/100;
+    //        flatEnergyToGain *= energyRecharge;
 
-            GainEnergy(flatEnergyToGain);
-        }
-    }
+    //        GainEnergy(flatEnergyToGain);
+    //    }
+    //}
 
 }

@@ -84,8 +84,12 @@ public class BastianPassiveManager : PassiveSkillManager {
     }
 
     void LooseHealth() {
-        float healthToLoose = _healthManager.ReturnMaxHealth() * _info.PercentOfMaxHealthLostPerTime / 100;
-        if(_healthManager.ReturnCurrentHealth() > 1)_healthManager.TakeDamage(healthToLoose, false);
+        float currentHealth = _healthManager.ReturnCurrentHealth();
+        float maxHealth = _healthManager.ReturnMaxHealth();
+        float healthToLoose = maxHealth * _info.PercentOfMaxHealthLostPerTime / 100;
+
+        float damage = Mathf.Min(healthToLoose, Mathf.Max(0, currentHealth - 1));
+        if (damage > 0) _healthManager.TakeDamage(damage, false);
     }
 
     #region CheckHeat
@@ -186,7 +190,7 @@ public class BastianPassiveManager : PassiveSkillManager {
     }
 
     IEnumerator LooseHealthOverTime() {
-        while (_heatArea == _info.AreaToLooseHealth) {
+        while (_heatArea >= _info.AreaToLooseHealth) {
             LooseHealth();
             yield return new WaitForSeconds(_info.TimeToLooseHealth);
         }

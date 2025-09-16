@@ -141,6 +141,7 @@ public class ProjectileDamageHitBox : MonoBehaviour
 
     void End()
     {
+        OnHit = null;
 
         StopCoroutine(_moveRoutine);
 
