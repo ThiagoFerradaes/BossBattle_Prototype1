@@ -2,8 +2,8 @@ using NaughtyAttributes;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu( menuName = "Skills / ShootUpUltimate")]
-public class ShootUpUltimateSO : UltimateSkillSO
+[CreateAssetMenu( menuName = "Skills/Cyrus/ShootUpUltimate")]
+public class CyrusShootUpSO : UltimateSkillSO
 {
     [Header("Animation")]
     [Foldout("Specific")] public string AnimationParameterTrigger;

@@ -2,12 +2,12 @@ using System.Collections;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
-public class WeaponMasterBaseAttack : SkillObjectManager {
+public class CyrusBaseAttackManager : SkillObjectManager {
 
     #region Parameters
 
     // Components
-    WeaponMasterBaseAttackSO _info;
+    CyrusBaseAttackSO _info;
     WeaponManager _weaponManager;
 
     // Int
@@ -37,7 +37,7 @@ public class WeaponMasterBaseAttack : SkillObjectManager {
 
     private void Initialize(SkillSO skill) {
         if (_info == null) {
-            _info = skill as WeaponMasterBaseAttackSO;
+            _info = skill as CyrusBaseAttackSO;
             _weaponManager = parent.GetComponent<WeaponManager>();
         }
 

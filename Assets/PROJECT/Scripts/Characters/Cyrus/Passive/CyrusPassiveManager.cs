@@ -3,12 +3,12 @@ using System.Collections;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
-public class WeaponMasterPassive : PassiveSkillManager {
+public class CyrusPassiveManager : PassiveSkillManager {
 
     #region Parameters
 
     public enum WeaponType { Sword, Axe, Spear, Gun }
-    WeaponMasterPassiveSO _info;
+    CyrusPassiveSO _info;
     HealthManager _healthManager;
     PlayerSkillCooldownManager _playerSkillCooldownManager;
     StatusManager _statusManager;
@@ -44,7 +44,7 @@ public class WeaponMasterPassive : PassiveSkillManager {
         ShootUpUltimateManager.OnWeaponChange -= _onGunChange;
     }
     void Initialize(PassiveSO passive, GameObject parent) {
-        _info = passive as WeaponMasterPassiveSO;
+        _info = passive as CyrusPassiveSO;
         _healthManager = parent.GetComponent<HealthManager>();
         _playerSkillCooldownManager = parent.GetComponent<PlayerSkillCooldownManager>();
         _statusManager = parent.GetComponent<StatusManager>();

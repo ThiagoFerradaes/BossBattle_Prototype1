@@ -29,7 +29,7 @@ public class WhiteBoard : MonoBehaviour
             DontDestroyOnLoad(this);
         }
         else {
-            Destroy(Instance);
+            Destroy(this);
         }
     }
 

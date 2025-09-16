@@ -1,21 +1,23 @@
 using System;
 using System.Collections;
+using UnityEditor.Rendering.LookDev;
 using UnityEngine;
 
-public class SpearAttackManager : SkillObjectManager {
-
-    #region Parameters
+public class ShootUpUltimateManager : SkillObjectManager {
+    #region Parameter
 
     // Components
-    SpearSkillSO _info;
+    CyrusShootUpSO _info;
     WeaponManager _weaponManager;
+    EnergyManager _energyManager;
 
-    // Event
+    // Events
     public static event Action OnWeaponChange;
 
     #endregion
 
     #region Methods
+
     public override void UseSkill(SkillSO skill) {
 
         Initialize(skill);
@@ -26,29 +28,37 @@ public class SpearAttackManager : SkillObjectManager {
 
     }
 
-    void Initialize(SkillSO skill) {
-        if (_info == null) {
-            _info = skill as SpearSkillSO;
-            cooldownManager = skillManager.CooldownManager;
-            _weaponManager = parent.GetComponent<WeaponManager>();
-        }
+    public override void SetSkillRangeIndicator(SkillSO skill) {
+        currentSkillRange = PoolingManager.Instance.ReturnPrefabFromPool(skill.SkillObjectRangeName,
+            skill.SkillObjectRangeObject, TypeOfSkillPrefab.PreCastRange);
+
+        currentSkillRange.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
+        currentSkillRange.SetActive(true);
     }
 
+    void Initialize(SkillSO skill) {
+        if (_info == null) _info = skill as CyrusShootUpSO;
+
+        if (_weaponManager == null) _weaponManager = parent.GetComponent<WeaponManager>(); 
+        if (_energyManager == null) _energyManager = parent.GetComponent<EnergyManager>();
+    }
+
+
     IEnumerator Attack() {
-        cooldownManager.SetCooldownWithCharges(slot, _info);
-        anim.SetTrigger(_info.SpearAttackTriggerName);
+        _energyManager.LooseAllEnergy();
+        anim.SetTrigger(_info.AnimationParameterTrigger);
 
         skillManager.SkillIsInAnimation(true);
 
+        _weaponManager.OnEquipRightHand(_info.WeaponPrefab, _info.WeaponName, _info.WeaponPosition, _info.WeaponOneRotation);
+        _weaponManager.OnEquipLeftHand(_info.WeaponPrefab, _info.WeaponName, _info.WeaponTwoPosition, _info.WeaponTwoRotation);
+
         AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
 
-        do { // Esperando entrar na animação correta
+        do {
             yield return null;
             stateInfo = anim.GetCurrentAnimatorStateInfo(0);
         } while (!stateInfo.IsName(_info.AnimationName));
-
-        // Ligando a arma
-        _weaponManager.OnEquipRightHand(_info.SpearPrefab, _info.SpearName, _info.WeaponPosition, _info.WeaponRotation);
 
         int attackStateHash = stateInfo.fullPathHash;
 
@@ -66,12 +76,10 @@ public class SpearAttackManager : SkillObjectManager {
 
 
             if (prefabInfo.PrefabType == TypeOfSkillPrefab.Hitbox) {
+
                 GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFabName,
                     prefabInfo.PreFab, TypeOfSkillPrefab.Hitbox);
-
-                preFab.transform.SetParent(parent.transform, false);
-                preFab.transform.SetLocalPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.identity);
-
+                preFab.transform.SetPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.identity);
 
                 DamageContext newContext = new(
                     _info.MinDamage,
@@ -82,37 +90,42 @@ public class SpearAttackManager : SkillObjectManager {
                     _info.EnemyTag,
                     parent.GetComponent<StatusManager>(),
                     new() {
-                        { ExtraDamageContextAtributes.Penetration, (float) _info.Penetration }
+                        {ExtraDamageContextAtributes.DamageCooldown, _info.DamageCooldown }
                     }
                     );
+                preFab.GetComponent<ContinuosDamageHitBox>().Initialize(newContext);
 
-                InstantDamageHitBox hitbox = preFab.GetComponent<InstantDamageHitBox>();
-                hitbox.Initialize(newContext);
-
-                hitbox.OnHit += () => {
-                    OnWeaponChange?.Invoke();
-                    energyManager.GainEnergy(_info.FlatEnergyGainPerHit);
-                };
+                OnWeaponChange?.Invoke();
             }
+
             else {
                 GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFabName,
                     prefabInfo.PreFab, TypeOfSkillPrefab.VFX);
+                preFab.transform.SetPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.identity);
 
-                preFab.transform.SetParent(parent.transform, false);
-                preFab.transform.SetLocalPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.identity);
                 preFab.GetComponent<VFXPreFab>().Initialize(prefabInfo.PrefabDuration);
             }
-
         }
+
+        do {
+            yield return null;
+            stateInfo = anim.GetCurrentAnimatorStateInfo(0);
+        } while (!stateInfo.IsName(_info.LastAnimationName));
+
+        attackStateHash = stateInfo.fullPathHash;
 
         while (anim.GetCurrentAnimatorStateInfo(0).fullPathHash == attackStateHash &&
                anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f) {
             yield return null;
         }
 
-        skillManager.SkillIsInAnimation(false);
+        _weaponManager.OnDesequipLeftHand();
         _weaponManager.OnDesequipRightHand();
+
+        skillManager.SkillIsInAnimation(false);
+
         animationCoroutine = null;
+        OnWeaponChange?.Invoke();
         End();
     }
 

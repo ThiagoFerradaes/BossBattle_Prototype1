@@ -2,8 +2,8 @@ using NaughtyAttributes;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Skills / SpearAttack")]
-public class SpearSkillSO : CommonSkillSO
+[CreateAssetMenu(menuName = "Skills/Cyrus/SpearAttack")]
+public class CyrusSpearSkillSO : CommonSkillSO
 {
     [Header("Animation")]
     [Foldout("Specific")] public string SpearAttackTriggerName;

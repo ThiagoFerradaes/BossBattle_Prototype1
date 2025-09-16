@@ -8,7 +8,7 @@ public class AxeAttackManager : SkillObjectManager {
 
     #region Parameter
     // Components
-    AxeSkillSO _info;
+    CyrusAxeSkillSO _info;
     WeaponManager _weaponManager;
 
     // Booleans
@@ -46,7 +46,7 @@ public class AxeAttackManager : SkillObjectManager {
 
         if (!gameObject.activeInHierarchy) gameObject.SetActive(true);
 
-        if (_info == null) _info = skill as AxeSkillSO;
+        if (_info == null) _info = skill as CyrusAxeSkillSO;
         if (_weaponManager == null) _weaponManager = parent.GetComponent<WeaponManager>();
 
     }

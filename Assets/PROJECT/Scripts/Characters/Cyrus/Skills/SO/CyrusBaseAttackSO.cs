@@ -2,8 +2,8 @@ using NaughtyAttributes;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Skills / BaseAttack")]
-public class WeaponMasterBaseAttackSO : CommonSkillSO {
+[CreateAssetMenu(menuName = "Skills/Cyrus/BaseAttack")]
+public class CyrusBaseAttackSO : CommonSkillSO {
 
     [Header("Animation")]
     [Foldout("Specific")] public string FirstBaseAttackParameter;
@@ -14,8 +14,8 @@ public class WeaponMasterBaseAttackSO : CommonSkillSO {
 
     [Header("Atributes")]
     [Header("Floats")]
-    [Foldout("Specific")]public float FirstAttackMinDamage;
-    [Foldout("Specific")]public float FirstAttackMaxDamage;
+    [Foldout("Specific")] public float FirstAttackMinDamage;
+    [Foldout("Specific")] public float FirstAttackMaxDamage;
     [Foldout("Specific")] public float SecondAttackMinDamage;
     [Foldout("Specific")] public float SecondAttackMaxDamage;
     [Foldout("Specific")] public float FirstAttackHitBoxDuration;

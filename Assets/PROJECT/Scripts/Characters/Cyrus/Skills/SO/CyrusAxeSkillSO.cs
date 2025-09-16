@@ -2,8 +2,8 @@ using NaughtyAttributes;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Skills / AxeSkill")]
-public class AxeSkillSO : CommonSkillSO
+[CreateAssetMenu(menuName = "Skills/Cyrus/AxeSkill")]
+public class CyrusAxeSkillSO : CommonSkillSO
 {
     [Header("Animation")]
     [Foldout("Specific")] public string FirstAnimationParameterName;

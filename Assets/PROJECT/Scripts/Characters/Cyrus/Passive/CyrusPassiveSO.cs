@@ -2,7 +2,7 @@ using NaughtyAttributes;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Passives /WaponMasterPassive")]
-public class WeaponMasterPassiveSO : PassiveSO {
+public class CyrusPassiveSO : PassiveSO {
 
     [Foldout("Axe State")] public float AmountOfFirstShieldRecieved;
     [Foldout("Axe State")] public float ShieldDuration;
