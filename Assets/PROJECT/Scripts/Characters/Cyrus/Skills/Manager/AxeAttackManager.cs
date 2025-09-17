@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using UnityEditor.Rendering.LookDev;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,17 +10,12 @@ public class AxeAttackManager : SkillObjectManager {
     CyrusAxeSkillSO _info;
     WeaponManager _weaponManager;
 
-    // Booleans
+    // Atributes
     bool _isHoldingInput;
-
-    // Floats
     float _chargeTimer;
 
     // Coroutine
     Coroutine _chargeTimeCoroutine;
-
-    // Events
-    public static event Action OnWeaponChange;
 
     #endregion
 
@@ -67,7 +61,11 @@ public class AxeAttackManager : SkillObjectManager {
         // Começar o cooldown
         cooldownManager.SetCooldownWithCharges(slot, _info);
 
+        // Ligando o Range do prefab
         if (_info.PreCastOn && ConfigurationWhiteBoard.Instance.PreCastOn) SetSkillRangeIndicator(skill);
+
+        // Checando nível
+        if (CyrusPassiveManager.Instance.ReturnSkillLeve(slot) >= 1) healthManager.RecieveShield(_info.AmountOfShield, _info.ShieldDuration);
     }
 
     public override void UseSkill(SkillSO skill) {
@@ -78,6 +76,8 @@ public class AxeAttackManager : SkillObjectManager {
 
         _chargeTimer = 0;
 
+        float maxChargeTime = CyrusPassiveManager.Instance.ReturnSkillLeve(slot) >= 2 ? _info.MaxChargeTime : _info.NewMaxChargeTime;
+
         _weaponManager.OnEquipRightHand(_info.WeaponPrefab, _info.WeaponName, _info.WeaponPosition, _info.WeaponRotation);
 
         while (_isHoldingInput || _chargeTimer < _info.MinimalChargeTime) {
@@ -86,7 +86,7 @@ public class AxeAttackManager : SkillObjectManager {
             yield return null; ;
         }
 
-        if (_chargeTimer >= _info.MaxChargeTime) {
+        if (_chargeTimer >= maxChargeTime) {
             _preCasted = false;
             OnRelease(_info);
         }
@@ -146,8 +146,9 @@ public class AxeAttackManager : SkillObjectManager {
                 hitbox.Initialize(newContext);
 
                 hitbox.OnHit += () => {
-                    OnWeaponChange?.Invoke();
                     energyManager.GainEnergy(_info.FlatEnergyGainPerHit);
+                    CyrusPassiveManager.Instance.GainExp(_info.AmountOfExpGain);
+                    if (CyrusPassiveManager.Instance.ReturnSkillLeve(slot) == 3) InstantiateBrokenRocks();
                 };
 
             }
@@ -198,8 +199,29 @@ public class AxeAttackManager : SkillObjectManager {
 
         End();
     }
-    private void OnDestroy() {
-        OnWeaponChange = null;
+
+
+    void InstantiateBrokenRocks() {
+        GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(_info.BrokenRocksName,
+                    _info.BrokenRocksPrefab, TypeOfSkillPrefab.Hitbox);
+        preFab.transform.SetParent(parent.transform, false);
+        preFab.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+
+        DamageContext newContext = new(
+            _info.BrokenRockMinDamage,
+            _info.BrokenRockMaxDamage,
+            _info.BrokenRockDuration,
+            true,
+            _info.BrokenRockDamageType,
+            _info.EnemyTag,
+            parent.GetComponent<StatusManager>(),
+            new() {
+             {ExtraDamageContextAtributes.DamageCooldown, _info.BrokenRockDamageCooldown }
+            }
+            );
+
+        ContinuosDamageHitBox hitbox = preFab.GetComponent<ContinuosDamageHitBox>();
+        hitbox.Initialize(newContext);
     }
 
     #endregion

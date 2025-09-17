@@ -31,7 +31,6 @@ public class EnemyBehaviourManager : MonoBehaviour {
         }
         catch { Debug.LogWarning("No CooldownManager"); }
 
-
         _currentBehaviour = Instantiate(initialState);
         _currentBehaviour.StartState(this);
 
@@ -40,7 +39,7 @@ public class EnemyBehaviourManager : MonoBehaviour {
         _hasStarted = true;
     }
 
-    void Update() {
+    public virtual void Update() {
         if (!_hasStarted) return;
 
         try {
