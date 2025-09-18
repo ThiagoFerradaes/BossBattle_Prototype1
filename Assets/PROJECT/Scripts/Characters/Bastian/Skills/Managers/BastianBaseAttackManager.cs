@@ -141,7 +141,7 @@ public class BastianBaseAttackManager : SkillObjectManager {
                         {ExtraDamageContextAtributes.Speed, _info.ProjectileSpeed },
                         {ExtraDamageContextAtributes.Distance, _info.AttackDistance },
                         {ExtraDamageContextAtributes.Penetration, pen},
-                        {ExtraDamageContextAtributes.CritChance, critChance},
+                        {ExtraDamageContextAtributes.CritRate, critChance},
                         {ExtraDamageContextAtributes.CritDamage, critDamage}
                     }
                     );

@@ -25,10 +25,10 @@ MonoBehaviour:
         PreFab: {fileID: 6187286194130647229, guid: b0f219deb510d94479cab39913bdf185, type: 3}
         PreFabPosition: {x: 0, y: 10, z: 0}
       - TimeToSpawnPreFab: 0.5
-        PrefabDuration: 5
+        PrefabDuration: 0.1
         PreFabName: ShootUpHitBox
         PrefabType: 0
-        PreFab: {fileID: 1324207944777058185, guid: 615c9bb71abd9b247896093c7c3af837, type: 3}
+        PreFab: {fileID: 8998219623033830514, guid: 690c34d54c88e12448b7561adfe65ab9, type: 3}
         PreFabPosition: {x: 0, y: 0, z: 0}
   SkillObjectRangeObject: {fileID: 2473945529430228706, guid: 315e344938d30e140a32109ebb24d44a, type: 3}
   SkillObjectRangeName: ShootUp Ultimate Range
@@ -37,17 +37,23 @@ MonoBehaviour:
   PreCastOn: 1
   SkillCharacter: 0
   Cancelable: 0
-  EnergyCost: 60
+  EnergyCost: 2
   AnimationParameterTrigger: ShootUp
   AnimationName: ShootUp
   LastAnimationName: Guarda
-  Cooldown: 45
   MinDamage: 5
   MaxDamage: 7
-  DamageCooldown: 0.2
-  Penetration: 0
+  Duration: 5
+  DamageCooldown: 0.3
+  Size: 100
   HitShield: 1
   WeaponName: GunWeapon
+  Level1Duration: 7
+  AditionalCritRate: 45
+  AditionalCritDamagePerHit: 5
+  Level3DamageCooldown: 0.2
+  PercentOfSlow: 50
+  SlowDuration: 5
   EnemyTag: 00000000
   DamageType: 1
   WeaponPrefab: {fileID: 693180943480246370, guid: 017297137351d024aafcba3c332e78a1, type: 3}
