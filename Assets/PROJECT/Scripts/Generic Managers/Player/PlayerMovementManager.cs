@@ -1,7 +1,6 @@
-using Unity.VisualScripting;
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Windows;
 
 public enum RotationType { MouseRotation, MoveRotation }
 public class PlayerMovementManager : MonoBehaviour {
@@ -31,6 +30,7 @@ public class PlayerMovementManager : MonoBehaviour {
     Rigidbody _rb;
     StatusManager _statusManager;
     Transform _cameraCenter;
+    StunManager _stunManager;
 
     // Atributes
     [Header("Atributes")]
@@ -44,6 +44,9 @@ public class PlayerMovementManager : MonoBehaviour {
     Vector2 _mousePosition;
     RotationType _rotationType = RotationType.MoveRotation;
 
+    // Actions
+    Action<bool> _onStun;
+
     #endregion
 
     #region Initialize
@@ -52,10 +55,21 @@ public class PlayerMovementManager : MonoBehaviour {
         _anim = GetComponentInChildren<Animator>();
         _rb = GetComponent<Rigidbody>();
         _statusManager = GetComponent<StatusManager>();
+        _stunManager = GetComponent<StunManager>();
+
+        _onStun = (bool isStunned) => {
+            BlockMovement(isStunned);
+        };
     }
 
     private void Start() {
         _cameraCenter = PlayerManager.Instance.CameraCenter;
+
+        _stunManager.OnStun += _onStun;
+    }
+
+    private void OnDestroy() {
+        _stunManager.OnStun -= _onStun;
     }
     #endregion
 
@@ -109,7 +123,7 @@ public class PlayerMovementManager : MonoBehaviour {
     }
 
     void Rotate() {
-        if (!_canRotate) return;
+        if (!_canRotate || !_canMove || Time.timeScale == 0) return;
 
         if (_rotationType == RotationType.MouseRotation) {
             RotateMouse(true);
@@ -127,6 +141,8 @@ public class PlayerMovementManager : MonoBehaviour {
     }
 
     public void RotateMouse(bool lerp) {
+        if (!_canRotate || !_canMove || Time.timeScale == 0) return;
+
         Ray ray = Camera.main.ScreenPointToRay(_mousePosition);
 
         if (Physics.Raycast(ray, out RaycastHit hit, 100f, floorLayer)) {

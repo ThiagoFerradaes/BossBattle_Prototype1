@@ -9,16 +9,32 @@ public class BastianDashManager : SkillObjectManager {
     Rigidbody rb;
     HealthManager _healthManager;
 
-    // Coroutine
-    Coroutine _dashCoroutine;
-
     #endregion
 
     #region Methods
+    public override void OnPreCast(SkillSO skill) {
+
+        movementManager.BlockWalk(skill.BlockWalkWhilePreCasting);
+        skillManager.BlockAllButOneSkill(slot, true);
+
+        if (skill.PreCastOn && ConfigurationWhiteBoard.Instance.PreCastOn) {
+
+            movementManager.ChangeRotationType(RotationType.MouseRotation);
+
+            SetSkillRangeIndicator(skill);
+        }
+
+        else {
+
+            if (ConfigurationWhiteBoard.Instance.DashToMouse) movementManager.RotateMouse(false);
+
+            OnRelease(skill);
+        }
+    }
     public override void UseSkill(SkillSO skill) {
         Initialize(skill);
 
-        _dashCoroutine ??= StartCoroutine(DashRoutine());
+        animationCoroutine ??= StartCoroutine(DashRoutine());
     }
 
     private void Initialize(SkillSO skill) {
@@ -35,7 +51,9 @@ public class BastianDashManager : SkillObjectManager {
 
     IEnumerator DashRoutine() {
 
-        cooldownManager.SetCooldown(slot, _info.Cooldown);
+        skillManager.SkillIsInAnimation(true);
+
+        cooldownManager.SetCooldownWithCharges(slot, _info);
 
         BastianPassiveManager.Instance.LooseHeat(_info.AmountOfHeatLost);
 
@@ -78,9 +96,18 @@ public class BastianDashManager : SkillObjectManager {
             yield return null;
         }
 
-        _dashCoroutine = null;
-        gameObject.SetActive(false);
-        UnblockInputs();
+        animationCoroutine = null;
+
+        skillManager.SkillIsInAnimation(false);
+
+        End();
+    }
+
+    public override void CancelSkill() {
+        movementManager.ChangeIsDashing(false);
+        _healthManager.SetCanTakeDamage();
+
+        base.CancelSkill();
     }
 
     #endregion

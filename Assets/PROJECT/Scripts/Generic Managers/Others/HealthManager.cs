@@ -98,6 +98,10 @@ public class HealthManager : MonoBehaviour {
     public bool ReturnIfCanTakeDamage() {
         return _canTakeDamage && !_isDead;
     }
+
+    public void Heal(float amount) {
+        ChangeHealth(_currentHealth + amount);
+    }
     #endregion
 
     #region Shield

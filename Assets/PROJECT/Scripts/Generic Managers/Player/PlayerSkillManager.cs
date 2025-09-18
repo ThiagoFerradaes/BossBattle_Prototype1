@@ -1,7 +1,5 @@
-using AYellowpaper.SerializedCollections;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -20,21 +18,25 @@ public class PlayerSkillManager : MonoBehaviour {
     [HideInInspector] public PlayerMovementManager MoveManager;
     [HideInInspector] public PlayerSkillCooldownManager CooldownManager;
     [HideInInspector] public EnergyManager EnergyManager;
+    [HideInInspector] public StunManager StunManager;
 
     // Skills
     PassiveSO _passive;
-    CommonSkillSO _dash;
-    CommonSkillSO _baseAttackSkill;
-    CommonSkillSO _skillOne;
-    CommonSkillSO _skillTwo;
-    UltimateSkillSO _ultimate;
     SkillSO _currentSkill;
 
     // Dictionarys
     Dictionary<SkillSlot, bool> _skillAvailable = new();
+    Dictionary<SkillSlot, SkillSO> _skills = new();
 
     // Events
-    public event Action OnSkillsSet;
+    public static event Action<Dictionary<SkillSlot, SkillSO>> OnSkillsSet;
+    public event Action OnStopSkills;
+
+    // Actions
+    Action<bool> _onStun;
+
+    // Booleans
+    public bool _isInSkillAnimation;
     #endregion
 
     #region Initialize
@@ -43,33 +45,47 @@ public class PlayerSkillManager : MonoBehaviour {
         MoveManager = GetComponent<PlayerMovementManager>();
         CooldownManager = GetComponent<PlayerSkillCooldownManager>();
         EnergyManager = GetComponent<EnergyManager>();
+        StunManager = GetComponent<StunManager>();
 
         foreach (SkillSlot slot in Enum.GetValues(typeof(SkillSlot))) {
             _skillAvailable[slot] = true; // Todas as skills podem ser usadas
         }
+
+        _onStun = (bool isStunned) => {
+            _isInSkillAnimation = false; 
+            if(isStunned) OnStopSkills?.Invoke(); 
+            BlockAllSkills(isStunned); 
+        };
+
     }
 
     private void Start() {
         SetSkills();
         StartPassive();
+
+        StunManager.OnStun += _onStun;
     }
 
+    private void OnDestroy() {
+        StunManager.OnStun -= _onStun;
+    }
     void SetSkills() {
         PlayerWhiteBoard whiteboard = PlayerWhiteBoard.Instance;
         Character selectedCharacter = whiteboard.ReturnSelectedCharacter();
 
-        _skillOne = SafeGetSkill(() => whiteboard.ReturnSkillOne(selectedCharacter), "SkillOne");
-        _skillTwo = SafeGetSkill(() => whiteboard.ReturnSkillTwo(selectedCharacter), "SkillTwo");
-        _ultimate = SafeGetSkill(() => whiteboard.ReturnUltimate(selectedCharacter), "Ultimate");
+        _skills[SkillSlot.SkillOne] = SafeGetSkill(() => whiteboard.ReturnSkillOne(selectedCharacter), "SkillOne");
+        _skills[SkillSlot.SkillTwo] = SafeGetSkill(() => whiteboard.ReturnSkillTwo(selectedCharacter), "SkillTwo");
+        _skills[SkillSlot.Dash] = SafeGetSkill(() => whiteboard.ReturnDash(selectedCharacter), "Dash");
+        _skills[SkillSlot.BaseAttack] = SafeGetSkill(() => whiteboard.ReturnBaseAttack(selectedCharacter), "BaseAttack");
+        _skills[SkillSlot.Ultimate] = SafeGetSkill(() => whiteboard.ReturnUltimate(selectedCharacter), "Ultimate");
         _passive = SafeGetSkill(() => whiteboard.ReturnPassive(selectedCharacter), "Passive");
-        _dash = SafeGetSkill(() => whiteboard.ReturnDash(selectedCharacter), "Dash");
-        _baseAttackSkill = SafeGetSkill(() => whiteboard.ReturnBaseAttack(selectedCharacter), "BaseAttack");
 
-        OnSkillsSet?.Invoke();
+        OnSkillsSet?.Invoke(_skills);
 
     }
 
-    T SafeGetSkill<T> (Func<T> getSkillFunc, string skillName) where T: class {
+
+    T SafeGetSkill<T>(Func<T> getSkillFunc, string skillName) where T : class {
         try {
             T skill = getSkillFunc();
             if (skill == null) Debug.LogWarning($"{skillName} retornou null.");
@@ -81,7 +97,6 @@ public class PlayerSkillManager : MonoBehaviour {
         }
     }
     void StartPassive() {
-        Debug.Log("Start Passive");
         GameObject passiveManager = PoolingManager.Instance.ReturnManagerFromPool(_passive.PassiveName, _passive.PassiveManager.gameObject);
         PassiveSkillManager manager = passiveManager.GetComponent<PassiveSkillManager>();
         manager.OnStart(_passive, this.gameObject);
@@ -90,23 +105,23 @@ public class PlayerSkillManager : MonoBehaviour {
 
     #region Inputs
     public void OnBaseAttack(InputAction.CallbackContext ctx) {
-        HandleSkillInput(ctx, _baseAttackSkill, SkillSlot.BaseAttack, () => IsSkillAvailable(SkillSlot.BaseAttack));
+        HandleSkillInput(ctx, (CommonSkillSO)_skills[SkillSlot.BaseAttack], SkillSlot.BaseAttack, () => IsSkillAvailable(SkillSlot.BaseAttack));
     }
 
     public void OnSkillOne(InputAction.CallbackContext ctx) {
-        HandleSkillInput(ctx, _skillOne, SkillSlot.SkillOne, () => IsSkillAvailable(SkillSlot.SkillOne));
+        HandleSkillInput(ctx, (CommonSkillSO)_skills[SkillSlot.SkillOne], SkillSlot.SkillOne, () => IsSkillAvailable(SkillSlot.SkillOne));
     }
 
     public void OnSkillTwo(InputAction.CallbackContext ctx) {
-        HandleSkillInput(ctx, _skillTwo, SkillSlot.SkillTwo, () => IsSkillAvailable(SkillSlot.SkillTwo));
+        HandleSkillInput(ctx, (CommonSkillSO)_skills[SkillSlot.SkillTwo], SkillSlot.SkillTwo, () => IsSkillAvailable(SkillSlot.SkillTwo));
     }
 
     public void OnUltimate(InputAction.CallbackContext ctx) {
-        HandleSkillInput(ctx, _ultimate, SkillSlot.Ultimate, () => IsSkillAvailable(SkillSlot.Ultimate));
+        HandleSkillInput(ctx, (UltimateSkillSO)_skills[SkillSlot.Ultimate], SkillSlot.Ultimate, () => IsSkillAvailable(SkillSlot.Ultimate));
     }
 
     public void OnDash(InputAction.CallbackContext ctx) {
-        HandleSkillInput(ctx, _dash, SkillSlot.Dash, () => IsSkillAvailable(SkillSlot.Dash));
+        HandleSkillInput(ctx, (CommonSkillSO)_skills[SkillSlot.Dash], SkillSlot.Dash, () => IsSkillAvailable(SkillSlot.Dash));
     }
     #endregion
 
@@ -153,7 +168,7 @@ public class PlayerSkillManager : MonoBehaviour {
     }
 
     private bool IsSkillReady(SkillSlot slot) {
-        return CooldownManager.ReturnCooldown(slot) <= 0;
+        return CooldownManager.ReturnIfCanUseSkill(slot);
     }
 
     private bool HaveEnergy() {
@@ -163,7 +178,7 @@ public class PlayerSkillManager : MonoBehaviour {
 
     #region Getter
 
-    public UltimateSkillSO ReturnUltimate() => _ultimate;
+    public UltimateSkillSO ReturnUltimate() => (UltimateSkillSO)_skills[SkillSlot.Ultimate];
 
     #endregion
 
@@ -202,6 +217,10 @@ public class PlayerSkillManager : MonoBehaviour {
             if (key != slot) _skillAvailable[key] = !block;
         }
     }
+
+    public void SkillIsInAnimation(bool skillIsInAnimation) => _isInSkillAnimation = skillIsInAnimation;
+
+    public bool ReturnIfIsSkillAnimation() => _isInSkillAnimation;
 
     #endregion
 

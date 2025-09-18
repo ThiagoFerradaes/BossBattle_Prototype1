@@ -1,8 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class KrakenTentacle {
+
+    // Components
     public Animator Anim;
     public HealthManager Health;
     public GameObject HitBox;
@@ -27,18 +31,22 @@ public class KrakenManager : EnemyBehaviourManager {
 
     #region Parameters
 
+    [Header("Components")]
     [SerializeField] Material deadTentacleMaterial;
     [SerializeField] KrakenTentacleAttack tentacleAttack;
     [SerializeField] BossRewardSO bossReward;
-    public List<GameObject> TentaclesListGO = new();
-
-    Dictionary<int, Coroutine> _listOfTentaclesInAnimation = new();
-    Dictionary<int, bool> _listOfTentaclesDead = new();
-
     [HideInInspector] public List<KrakenTentacle> ListOfTentacles = new();
     [HideInInspector] public Transform Player;
     public StatusManager KrakenStatus;
 
+    [Header("Lists")]
+    public List<GameObject> TentaclesListGO = new();
+
+    // Lists
+    Dictionary<int, Coroutine> _listOfTentaclesInAnimation = new();
+    Dictionary<int, bool> _listOfTentaclesDead = new();
+
+    // Atributes
     float _maxHealth, _currentHealth;
 
     #endregion
@@ -280,4 +288,11 @@ public class KrakenManager : EnemyBehaviourManager {
 
     #endregion
 
+    private void Update() {
+        if (Keyboard.current.hKey.wasPressedThisFrame) {
+            foreach(var tentacle in ListOfTentacles) {
+                tentacle.Health.TakeDamage(10000, false);
+            }
+        }
+    }
 }

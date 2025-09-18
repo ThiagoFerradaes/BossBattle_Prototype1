@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Passives/BastianPassiveSO")]
+[CreateAssetMenu(menuName = "Passives/BastianPassive")]
 public class BastianPassiveSO : PassiveSO
 {
     [Header("Heat Areas")]
@@ -25,7 +25,7 @@ public class BastianPassiveSO : PassiveSO
     public GameObject HeatCanvas;
 
     [Header("Loose Health")]
-    public float PercentOfCurrentHealthLostPerTime;
+    public float PercentOfMaxHealthLostPerTime;
     public float TimeToLooseHealth;
     public HeatArea AreaToLooseHealth;
 }
