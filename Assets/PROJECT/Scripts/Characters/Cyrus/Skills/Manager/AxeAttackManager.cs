@@ -65,7 +65,7 @@ public class AxeAttackManager : SkillObjectManager {
         if (_info.PreCastOn && ConfigurationWhiteBoard.Instance.PreCastOn) SetSkillRangeIndicator(skill);
 
         // Checando nível
-        if (CyrusPassiveManager.Instance.ReturnSkillLeve(slot) >= 1) healthManager.RecieveShield(_info.AmountOfShield, _info.ShieldDuration);
+        if (CyrusPassiveManager.Instance.ReturnSkillLevel(slot) >= 1) healthManager.RecieveShield(_info.AmountOfShield, _info.ShieldDuration);
     }
 
     public override void UseSkill(SkillSO skill) {
@@ -76,7 +76,7 @@ public class AxeAttackManager : SkillObjectManager {
 
         _chargeTimer = 0;
 
-        float maxChargeTime = CyrusPassiveManager.Instance.ReturnSkillLeve(slot) >= 2 ? _info.MaxChargeTime : _info.NewMaxChargeTime;
+        float maxChargeTime = CyrusPassiveManager.Instance.ReturnSkillLevel(slot) >= 2 ? _info.MaxChargeTime : _info.NewMaxChargeTime;
 
         _weaponManager.OnEquipRightHand(_info.WeaponPrefab, _info.WeaponName, _info.WeaponPosition, _info.WeaponRotation);
 
@@ -148,7 +148,7 @@ public class AxeAttackManager : SkillObjectManager {
                 hitbox.OnHit += () => {
                     energyManager.GainEnergy(_info.FlatEnergyGainPerHit);
                     CyrusPassiveManager.Instance.GainExp(_info.AmountOfExpGain);
-                    if (CyrusPassiveManager.Instance.ReturnSkillLeve(slot) == 3) InstantiateBrokenRocks();
+                    if (CyrusPassiveManager.Instance.ReturnSkillLevel(slot) == 3) InstantiateBrokenRocks();
                 };
 
             }

@@ -15,9 +15,11 @@ public class CyrusPassiveSO : PassiveSO {
 
     [Header("Dictionarys")]
     [SerializedDictionary("Classification", "AmountOfExp")]
-    public SerializedDictionary<CyrusClassification, float> AmountOfExpPerClassification;
+    public SerializedDictionary<CyrusRank, float> AmountOfExpPerClassification;
     [SerializedDictionary("Classification", "Sprite")]
-    public SerializedDictionary<CyrusClassification, Sprite> SpritePerClassification;
+    public SerializedDictionary<CyrusRank, Sprite> SpritePerClassification;
 
     public InputAction UpgradeSkillOne, UpgradeSkillTwo, UpgradeUltimate;
+
+    public GameObject CyrusUI;
 }

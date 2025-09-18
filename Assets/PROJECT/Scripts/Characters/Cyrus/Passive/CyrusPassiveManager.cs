@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum CyrusClassification { E, D, C, B, A, S, SS }
+public enum CyrusRank { E, D, C, B, A, S, SS }
 public class CyrusPassiveManager : PassiveSkillManager {
 
     #region Parameters
@@ -23,17 +23,18 @@ public class CyrusPassiveManager : PassiveSkillManager {
         { SkillSlot.SkillTwo, 0 },
         { SkillSlot.Ultimate, 0 },
     };
-    CyrusClassification _currentRank = CyrusClassification.E;
+    CyrusRank _currentRank = CyrusRank.E;
     float _currentAmountOfExp;
     float _expMultiplier = 1f;
     bool _rankUP;
 
-    public event Action OnRankLevelUp;
+    public event Action OnRankLevelUp, OnSkillLevelUp;
 
     #endregion
 
     #region Methods
 
+    #region Initialize
     private void Awake() {
         if (Instance == null) Instance = this;
         else Destroy(this);
@@ -57,6 +58,8 @@ public class CyrusPassiveManager : PassiveSkillManager {
         gameObject.SetActive(true);
 
         UpgradeSkill();
+
+        AditionalUIManager.Instance.InstantiateUI(_info.CyrusUI);
     }
     private void OnDestroy() {
 
@@ -69,6 +72,8 @@ public class CyrusPassiveManager : PassiveSkillManager {
         _playerSkillCooldownManager = parent.GetComponent<PlayerSkillCooldownManager>();
         _statusManager = parent.GetComponent<StatusManager>();
     }
+
+    #endregion
     void ChangePassive(WeaponType type) {
         switch (type) {
             case WeaponType.Sword:
@@ -99,11 +104,12 @@ public class CyrusPassiveManager : PassiveSkillManager {
 
         float nextRankExp = _info.AmountOfExpPerClassification[_currentRank + 1];
 
-        CyrusClassification newRank = _currentAmountOfExp >= nextRankExp ? _currentRank + 1 : _currentRank;
+        CyrusRank newRank = _currentAmountOfExp >= nextRankExp ? _currentRank + 1 : _currentRank;
 
         if (newRank != _currentRank) {
             _currentRank = newRank;
             _rankUP = true;
+            OnRankLevelUp?.Invoke();
         }
     }
 
@@ -126,25 +132,28 @@ public class CyrusPassiveManager : PassiveSkillManager {
             if (_rankUP && _skillLevel[SkillSlot.SkillOne] < 3) {
                 _rankUP = false;
                 _skillLevel[SkillSlot.SkillOne]++;
+                OnSkillLevelUp?.Invoke();
             }
         };
         _info.UpgradeSkillTwo.performed += ctx => {
             if (_rankUP && _skillLevel[SkillSlot.SkillTwo] < 3) {
                 _rankUP = false;
                 _skillLevel[SkillSlot.SkillTwo]++;
+                OnSkillLevelUp?.Invoke();
             }
         };
         _info.UpgradeUltimate.performed += ctx => {
             if (_rankUP && _skillLevel[SkillSlot.Ultimate] < 3) {
                 _rankUP = false;
                 _skillLevel[SkillSlot.Ultimate]++;
+                OnSkillLevelUp?.Invoke();
             }
         };
     }
 
-    public int ReturnSkillLeve(SkillSlot slot) {
-        return _skillLevel[slot];
-    }
+    public int ReturnSkillLevel(SkillSlot slot) => _skillLevel[slot];
+
+    public CyrusRank ReturnCyrusRank() => _currentRank;
     #endregion
 
 }
