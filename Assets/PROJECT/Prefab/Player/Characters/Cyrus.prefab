@@ -81,9 +81,9 @@ GameObject:
   - component: {fileID: 7288651015015623778}
   - component: {fileID: 5183692506811018931}
   - component: {fileID: 3156235811804963752}
-  - component: {fileID: -535537592251739130}
+  - component: {fileID: 4861411087896609535}
   m_Layer: 8
-  m_Name: CyrusPrefab
+  m_Name: Cyrus
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -103,7 +103,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8956543091659341028}
-  - {fileID: 1742749596024219284}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &167430962816229459
@@ -447,71 +446,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnergyManager
   timeToGainEnergy: 1
   percentOfMaxEnergyToGainOverTime: 0
-<<<<<<< HEAD:Assets/PROJECT/Prefab/Player/Characters/WeaponMasterPrefab.prefab
---- !u!1001 &2280445370088014207
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 4314299922176041729}
-    m_Modifications:
-    - target: {fileID: -8679921383154817045, guid: 5aed8a4b0099a0a42bc9ef8c11256029, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.11859141
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 5aed8a4b0099a0a42bc9ef8c11256029, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.79518974
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 5aed8a4b0099a0a42bc9ef8c11256029, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.39740327
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 5aed8a4b0099a0a42bc9ef8c11256029, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 5aed8a4b0099a0a42bc9ef8c11256029, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 5aed8a4b0099a0a42bc9ef8c11256029, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 5aed8a4b0099a0a42bc9ef8c11256029, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 5aed8a4b0099a0a42bc9ef8c11256029, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 5aed8a4b0099a0a42bc9ef8c11256029, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 5aed8a4b0099a0a42bc9ef8c11256029, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 5aed8a4b0099a0a42bc9ef8c11256029, type: 3}
-      propertyPath: m_Name
-      value: Axe
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 5aed8a4b0099a0a42bc9ef8c11256029, type: 3}
---- !u!4 &1742749596024219284 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5aed8a4b0099a0a42bc9ef8c11256029, type: 3}
-  m_PrefabInstance: {fileID: 2280445370088014207}
-  m_PrefabAsset: {fileID: 0}
-=======
---- !u!114 &-535537592251739130
+--- !u!114 &4861411087896609535
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -524,7 +459,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StunManager
   stunParamenter: Stun
->>>>>>> Main:Assets/PROJECT/Prefab/Player/Characters/CyrusPrefab.prefab
 --- !u!1001 &8919010732312894223
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -575,7 +509,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -7813590141776298306, guid: c80ef45100dcc32489aabc17e0f6dfd1, type: 3}
       propertyPath: m_Materials.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -7813590141776298306, guid: c80ef45100dcc32489aabc17e0f6dfd1, type: 3}
       propertyPath: 'm_Materials.Array.data[1]'
@@ -587,7 +521,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5822821947120931875, guid: c80ef45100dcc32489aabc17e0f6dfd1, type: 3}
       propertyPath: m_Materials.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5822821947120931875, guid: c80ef45100dcc32489aabc17e0f6dfd1, type: 3}
       propertyPath: 'm_Materials.Array.data[1]'
