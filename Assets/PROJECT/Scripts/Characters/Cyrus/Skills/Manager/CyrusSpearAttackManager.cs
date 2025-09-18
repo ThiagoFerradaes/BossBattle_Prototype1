@@ -1,8 +1,9 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-public class SpearAttackManager : SkillObjectManager {
+public class CyrusSpearAttackManager : SkillObjectManager {
 
     #region Parameters
 
@@ -10,14 +11,20 @@ public class SpearAttackManager : SkillObjectManager {
     CyrusSpearSkillSO _info;
     WeaponManager _weaponManager;
 
-    // Event
-    public static event Action OnWeaponChange;
+    // Atributes
+    int _skillLevel = 0;
 
     #endregion
 
-    #region Methods
-    public override void UseSkill(SkillSO skill) {
+    #region Methodss
 
+    public override void HandleInput(SkillSO skill, InputAction.CallbackContext ctx) {
+
+        if (CyrusPassiveManager.Instance.ReturnIfIsRankingUp()) return;
+
+        base.HandleInput(skill, ctx);
+    }
+    public override void UseSkill(SkillSO skill) {
         Initialize(skill);
         if (!gameObject.activeInHierarchy) {
             gameObject.SetActive(true);
@@ -32,10 +39,13 @@ public class SpearAttackManager : SkillObjectManager {
             cooldownManager = skillManager.CooldownManager;
             _weaponManager = parent.GetComponent<WeaponManager>();
         }
+
+        _skillLevel = CyrusPassiveManager.Instance.ReturnSkillLevel(slot);
     }
 
     IEnumerator Attack() {
-        cooldownManager.SetCooldownWithCharges(slot, _info);
+        float cooldown = _skillLevel >= 3? _info.Level3Cooldown : _info.Cooldown;
+        cooldownManager.SetCooldownSingleCharge(slot, cooldown);
         anim.SetTrigger(_info.SpearAttackTriggerName);
 
         skillManager.SkillIsInAnimation(true);
@@ -66,33 +76,7 @@ public class SpearAttackManager : SkillObjectManager {
 
 
             if (prefabInfo.PrefabType == TypeOfSkillPrefab.Hitbox) {
-                GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFabName,
-                    prefabInfo.PreFab, TypeOfSkillPrefab.Hitbox);
-
-                preFab.transform.SetParent(parent.transform, false);
-                preFab.transform.SetLocalPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.identity);
-
-
-                DamageContext newContext = new(
-                    _info.MinDamage,
-                    _info.MaxDamage,
-                    prefabInfo.PrefabDuration,
-                    _info.HitShield,
-                    _info.DamageType,
-                    _info.EnemyTag,
-                    parent.GetComponent<StatusManager>(),
-                    new() {
-                        { ExtraDamageContextAtributes.Penetration, (float) _info.Penetration }
-                    }
-                    );
-
-                InstantDamageHitBox hitbox = preFab.GetComponent<InstantDamageHitBox>();
-                hitbox.Initialize(newContext);
-
-                hitbox.OnHit += () => {
-                    OnWeaponChange?.Invoke();
-                    energyManager.GainEnergy(_info.FlatEnergyGainPerHit);
-                };
+                InstantiateHitBox(prefabInfo);
             }
             else {
                 GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFabName,
@@ -116,8 +100,42 @@ public class SpearAttackManager : SkillObjectManager {
         End();
     }
 
-    private void OnDestroy() {
-        OnWeaponChange = null;
+    void InstantiateHitBox(SkillAnimationEvent prefabInfo) {
+        GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFabName,
+                    prefabInfo.PreFab, TypeOfSkillPrefab.Hitbox);
+
+        float zSize = _skillLevel == 3 ? _info.Level3Range : _info.Size.z;
+        preFab.transform.localScale = new(_info.Size.x, _info.Size.y, zSize);
+
+        preFab.transform.SetParent(parent.transform, false);
+
+        Vector3 pos = new(prefabInfo.PreFabPosition.x, prefabInfo.PreFabPosition.y, zSize/2);
+
+        preFab.transform.SetLocalPositionAndRotation(pos, Quaternion.identity);
+
+        float penetration = _skillLevel > 0 ? _info.Penetration : 0;
+
+        DamageContext newContext = new(
+            _info.MinDamage,
+            _info.MaxDamage,
+            prefabInfo.PrefabDuration,
+            _info.HitShield,
+            _info.DamageType,
+            _info.EnemyTag,
+            parent.GetComponent<StatusManager>(),
+            new() {
+               { ExtraDamageContextAtributes.Penetration, penetration }
+            }
+            );
+
+        InstantDamageHitBox hitbox = preFab.GetComponent<InstantDamageHitBox>();
+        hitbox.Initialize(newContext);
+
+        hitbox.OnHit += () => {
+            energyManager.GainEnergy(_info.FlatEnergyGainPerHit);
+            CyrusPassiveManager.Instance.GainExp(_info.ExpGain);
+            if (_skillLevel > 1) cooldownManager.ResetCooldown(SkillSlot.Dash);
+        };
     }
     #endregion
 }

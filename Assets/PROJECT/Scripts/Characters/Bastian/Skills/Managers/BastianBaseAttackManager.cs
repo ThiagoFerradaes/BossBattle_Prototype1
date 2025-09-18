@@ -22,13 +22,7 @@ public class BastianBaseAttackManager : SkillObjectManager {
             return;
         }
 
-        if (ctx.phase == InputActionPhase.Started) {
-            _preCasted = true;
-            OnPreCast(skill);
-        }
-        if (ctx.phase == InputActionPhase.Canceled && _preCasted) {
-            OnRelease(skill);
-        }
+        base.HandleInput(skill, ctx);
     }
     public override void UseSkill(SkillSO skill) {
 

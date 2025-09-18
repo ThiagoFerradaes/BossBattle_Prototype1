@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class AxeAttackManager : SkillObjectManager {
+public class CyrusAxeAttackManager : SkillObjectManager {
 
     #region Parameter
     // Components
@@ -24,6 +24,8 @@ public class AxeAttackManager : SkillObjectManager {
 
     #region Override & Initialize
     public override void HandleInput(SkillSO skill, InputAction.CallbackContext ctx) {
+
+        if (CyrusPassiveManager.Instance.ReturnIfIsRankingUp()) return;
 
         Initialize(skill);
 

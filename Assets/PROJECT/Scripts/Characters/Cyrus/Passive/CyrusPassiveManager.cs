@@ -127,6 +127,8 @@ public class CyrusPassiveManager : PassiveSkillManager {
     public int ReturnSkillLevel(SkillSlot slot) => _skillLevel[slot];
 
     public CyrusRank ReturnCyrusRank() => _currentRank;
+
+    public bool ReturnIfIsRankingUp() => _rankUP;
     #endregion
 
 }
