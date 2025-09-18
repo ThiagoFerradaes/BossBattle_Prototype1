@@ -288,9 +288,12 @@ public class KrakenManager : EnemyBehaviourManager {
 
     #endregion
 
-    private void Update() {
-        if (Keyboard.current.hKey.wasPressedThisFrame) {
-            foreach(var tentacle in ListOfTentacles) {
+    private void Update()
+    {
+        if (Keyboard.current.hKey.wasPressedThisFrame)
+        {
+            foreach (var tentacle in ListOfTentacles)
+            {
                 tentacle.Health.TakeDamage(10000, false);
             }
         }
