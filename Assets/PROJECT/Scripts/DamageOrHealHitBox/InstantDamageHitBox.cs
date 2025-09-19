@@ -125,7 +125,6 @@ public class InstantDamageHitBox : MonoBehaviour {
                 );
         }
         else {
-            Debug.Log("Function with crit");
             newDamage = DamageCalculator.CalculateDamage(
                 _damageType,
                 damage,
