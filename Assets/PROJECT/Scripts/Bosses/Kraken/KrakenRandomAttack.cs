@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 [CreateAssetMenu(menuName = "Kraken / RandomAttack")]
 public class KrakenRandomAttack : EnemyBehaviourSO {
