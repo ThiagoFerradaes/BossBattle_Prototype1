@@ -13,8 +13,14 @@ public class CyrusSpearSkillSO : CommonSkillSO
     [Header("Floats")]
     [Foldout("Specific")] public float MinDamage;
     [Foldout("Specific")] public float MaxDamage;
-    [Foldout("Specific")] public float HitBoxDuration;
+    [Foldout("Specific")] public float ExpGain;
+    [Foldout("Specific")] public Vector3 Size;
+
+    [Header("Level Up Buffs")]
     [Foldout("Specific")] public float Penetration;
+    [Foldout("Specific")] public float Level3Range;
+    [Foldout("Specific")] public float Level3Cooldown;
+
 
     [Header("Strings")]
     [Foldout("Specific")] public string SpearName;

@@ -1,0 +1,77 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aebd344eefd21004c880e3e7a9bbbd06, type: 3}
+  m_Name: BastianBaseAttackSO
+  m_EditorClassIdentifier: Assembly-CSharp::BastianBaseAttackSO
+  SkillManagerObject: {fileID: 7423082187053757486, guid: 847e527322c9b4a4685bbcceebc6b21c, type: 3}
+  SkillManagerName: BastianBaseAttackManager
+  Prefabs:
+    _serializedList:
+    - Key: 1
+      Value:
+      - TimeToSpawnPreFab: 0.7
+        PrefabDuration: 1
+        PreFabName: BastianBaseAttackHitBox
+        PrefabType: 0
+        PreFab: {fileID: 5556882484380889040, guid: 3a0c353cfe6bb294097868dfad5cf4ab, type: 3}
+        PreFabPosition: {x: 0, y: 0, z: 0}
+    - Key: 2
+      Value:
+      - TimeToSpawnPreFab: 0.7
+        PrefabDuration: 1
+        PreFabName: BastianBaseAttackHitBox
+        PrefabType: 0
+        PreFab: {fileID: 5556882484380889040, guid: 3a0c353cfe6bb294097868dfad5cf4ab, type: 3}
+        PreFabPosition: {x: 0, y: 0, z: 0}
+    - Key: 3
+      Value:
+      - TimeToSpawnPreFab: 0.7
+        PrefabDuration: 1
+        PreFabName: BastianLastBaseAttackHitBox
+        PrefabType: 0
+        PreFab: {fileID: 5556882484380889040, guid: 5124a06f2b6fabe4885ff3ff7920b78e, type: 3}
+        PreFabPosition: {x: 0, y: 0, z: 0}
+  SkillObjectRangeObject: {fileID: 5203434260948203345, guid: ade6d2bcd504d27418184cc1070b8f59, type: 3}
+  SkillObjectRangeName: BastianRangeBaseAttack
+  BlockWalkWhilePreCasting: 1
+  BlockDashWhilePreCasting: 1
+  PreCastOn: 1
+  SkillCharacter: 1
+  Cancelable: 0
+  FlatEnergyGainPerHit: 1
+  Cooldown: 0.6
+  EnemyTag: 00000000
+  DamageType: 0
+  HitShield: 1
+  Charges: 1
+  ChargeCooldown: 0
+  AnimationOneParameter: BaseAttack
+  AnimationTwoParameter: BaseAttack
+  AnimationThreeParameter: LastShoot
+  AnimationOneName: Shoot
+  AnimationTwoName: Shoot
+  AnimationThreeName: LastShoot
+  AttackSpeedAnimationParameter: AttackSpeed
+  FirstAttackMinDamage: 12
+  FirstAttackMaxDamage: 14
+  SecondAttackMinDamage: 13
+  SecondAttackMaxDamage: 15
+  ThirdAttackMinDamage: 22
+  ThirdAttackMaxDamage: 24
+  AttackDistance: 7
+  ProjectileSpeed: 25
+  CooldownBetweenAttacks: 0
+  MaxTimeBetweenAttacks: 1.5
+  HeatGain: 5
+  PenetrationOnSuperHeat: 50
+  CritChanceOverHeat: 100
+  LastOverHeatCritDamage: 700

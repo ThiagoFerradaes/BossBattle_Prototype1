@@ -18,7 +18,7 @@ public enum ExtraDamageContextAtributes {
     DamageCooldown,
 
     // Crit
-    CritChance,
+    CritRate,
     CritDamage
 
 }
@@ -52,6 +52,8 @@ public class InstantDamageHitBox : MonoBehaviour {
     float _maxDamage;
     float _duration;
     float _penetration;
+    float _critRate;
+    float _critDamage;
     bool _hitShield;
     bool _breakShield;
     List<Tags> _tag = new();
@@ -82,6 +84,12 @@ public class InstantDamageHitBox : MonoBehaviour {
         if (_extra.TryGetValue(ExtraDamageContextAtributes.BreakShield, out var breakS))
             _breakShield = (bool)breakS;
 
+        if (_extra.TryGetValue(ExtraDamageContextAtributes.CritRate, out var critRate))
+            _critRate = (float)critRate;
+
+        if (_extra.TryGetValue(ExtraDamageContextAtributes.CritDamage, out var critDamage))
+            _critDamage = (float)critDamage;
+
         gameObject.SetActive(true);
         StartCoroutine(AttackDuration());
     }
@@ -106,14 +114,27 @@ public class InstantDamageHitBox : MonoBehaviour {
 
         float damage = Random.Range(_minDamage, _maxDamage);
 
-        (float, bool) newDamage = DamageCalculator.CalculateDamage(
-            _damageType,
-            damage,
-            _penetration,
-            _statusManager,
-            recieverStatus
-            );
-
+        (float, bool) newDamage;
+        if (_critRate == 0 && _critDamage == 0) {
+            newDamage = DamageCalculator.CalculateDamage(
+                _damageType,
+                damage,
+                _penetration,
+                _statusManager,
+                recieverStatus
+                );
+        }
+        else {
+            newDamage = DamageCalculator.CalculateDamage(
+                _damageType,
+                damage,
+                _penetration,
+                _critRate,
+                _critDamage,
+                _statusManager,
+                recieverStatus
+                );
+        }
         if (!other.CompareTag(Tags.Player.ToString())) PopUpManager.Instance.
                 DamageDone((int)newDamage.Item1, other.transform.position, newDamage.Item2, _damageType);
 
@@ -130,6 +151,8 @@ public class InstantDamageHitBox : MonoBehaviour {
     void End() {
         _hasHitted = false;
         _breakShield = false;
+        _critDamage = 0;
+        _critRate = 0;
         OnHit = null;
         PoolingManager.Instance.ReturnObjectToPool(this.gameObject, TypeOfSkillPrefab.Hitbox);
     }

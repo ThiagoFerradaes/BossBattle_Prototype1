@@ -1,69 +1,172 @@
 using System;
 using System.Collections;
-using UnityEditor.Experimental.GraphView;
+using System.Collections.Generic;
 using UnityEngine;
 
+public enum CyrusRank { E, D, C, B, A, S, SS }
 public class CyrusPassiveManager : PassiveSkillManager {
 
     #region Parameters
 
-    public enum WeaponType { Sword, Axe, Spear, Gun }
-    CyrusPassiveSO _info;
-    HealthManager _healthManager;
-    PlayerSkillCooldownManager _playerSkillCooldownManager;
-    StatusManager _statusManager;
+    public static CyrusPassiveManager Instance;
 
-    Action _onAxeChange;
-    Action _onSpearChange;
-    Action _onGunChange;
+    // Components
+    CyrusPassiveSO _info;
+
+    // Atributes
+    float _currentAmountOfExp;
+    float _expMultiplier = 1f;
+    bool _rankUP;
+    CyrusRank _currentRank = CyrusRank.E;
+    Dictionary<SkillSlot, int> _skillLevel = new() {
+        { SkillSlot.SkillOne, 0 },
+        { SkillSlot.SkillTwo, 0 },
+        { SkillSlot.Ultimate, 0 },
+    };
+
+    // Actions
+    public event Action OnRankLevelUp, OnSkillLevelUp;
+    public event Action<float, float> OnExpGain;
+
+    // Coroutines
+    Coroutine _expGainOverTimeCorouinte;
+
     #endregion
 
     #region Methods
 
+    #region Initialize
+    private void Awake() {
+        if (Instance == null) Instance = this;
+        else Destroy(this);
+
+    }
     public override void OnStart(PassiveSO passive, GameObject parent) {
 
         Initialize(passive, parent);
 
-        _onAxeChange = () => ChangePassive(WeaponType.Axe);
-        _onSpearChange = () => ChangePassive(WeaponType.Spear);
-        _onGunChange = () => ChangePassive(WeaponType.Gun);
+        gameObject.SetActive(true);
 
-        AxeAttackManager.OnWeaponChange -= _onAxeChange;
-        SpearAttackManager.OnWeaponChange -= _onSpearChange;
-        ShootUpUltimateManager.OnWeaponChange -= _onGunChange;
+        UpgradeSkill();
 
-        AxeAttackManager.OnWeaponChange += _onAxeChange;
-        SpearAttackManager.OnWeaponChange += _onSpearChange;
-        ShootUpUltimateManager.OnWeaponChange += _onGunChange;
+        AditionalUIManager.Instance.InstantiateUI(_info.CyrusUI);
 
-        ChangePassive(WeaponType.Sword);
+        _expGainOverTimeCorouinte ??= StartCoroutine(GainExpOverTime());
     }
-    private void OnDestroy() {
-        AxeAttackManager.OnWeaponChange -= _onAxeChange;
-        SpearAttackManager.OnWeaponChange -= _onSpearChange;
-        ShootUpUltimateManager.OnWeaponChange -= _onGunChange;
-    }
+
     void Initialize(PassiveSO passive, GameObject parent) {
         _info = passive as CyrusPassiveSO;
-        _healthManager = parent.GetComponent<HealthManager>();
-        _playerSkillCooldownManager = parent.GetComponent<PlayerSkillCooldownManager>();
-        _statusManager = parent.GetComponent<StatusManager>();
     }
-    void ChangePassive(WeaponType type) {
-        switch (type) {
-            case WeaponType.Sword:
-                break;
-            case WeaponType.Axe:
-                _healthManager.RecieveShield(_info.AmountOfFirstShieldRecieved, _info.ShieldDuration);
-                break;
-            case WeaponType.Spear:
-                _playerSkillCooldownManager.ResetCooldown(SkillSlot.Dash);
-                break;
-            case WeaponType.Gun:
-                _statusManager.ChangeStatus(StatusType.AttackSpeed, _info.AttackSpeedBuff, true, _info.AttackSpeedBuffDuration);
-                break;
+
+    #endregion
+
+    #region ExpGain
+    public void GainExp(float amountOfExp) {
+        if (_rankUP || HasReachedMaxRank) return;
+
+        _currentAmountOfExp += amountOfExp * _expMultiplier;
+
+        CheckRankLevelUp();
+
+        UpdateExpProgress();
+    }
+
+    void UpdateExpProgress() {
+        if (HasReachedMaxRank) return;
+
+        float currentRankExp = _info.AmountOfExpPerClassification[_currentRank];
+        float nextRankEXp = _info.AmountOfExpPerClassification[_currentRank + 1];
+
+        float newMinExp = _currentAmountOfExp - currentRankExp;
+        float newMaxExp = nextRankEXp - currentRankExp;
+
+        OnExpGain?.Invoke(newMinExp, newMaxExp);
+    }
+
+    private bool HasReachedMaxRank => _currentRank >= CyrusRank.SS;
+
+    void CheckRankLevelUp() {
+
+        float nextRankExp = _info.AmountOfExpPerClassification[_currentRank + 1];
+
+        CyrusRank newRank = _currentAmountOfExp >= nextRankExp ? _currentRank + 1 : _currentRank;
+
+        bool isNewRank = newRank != _currentRank;
+
+        if (isNewRank) {
+            _currentRank = newRank;
+            _rankUP = true;
+            OnRankLevelUp?.Invoke();
         }
+
+        if (_currentRank == CyrusRank.SS) OnExpGain?.Invoke(0, 1);
     }
+
+    /// <summary>
+    /// The exp multiplier = expMultiplier * or / (1 + amountToMultiply/100) 
+    /// </summary>
+    /// <param name="amountToMultiply"></param>
+    /// <param name="increase"></param>
+    public void ChangeExpMultiplier(float amountToMultiply, bool increase, float duration) {
+        float realMultiplier = 1 + amountToMultiply / 100;
+        _expMultiplier = increase ? _expMultiplier * realMultiplier : _expMultiplier / realMultiplier;
+
+        StartCoroutine(ExpMultiplierTimer(amountToMultiply, !increase, duration));
+    }
+
+    IEnumerator ExpMultiplierTimer(float amountToMultiply, bool increase, float duration) {
+        yield return new WaitForSeconds(duration);
+
+        float realMultiplier = 1 + amountToMultiply / 100;
+        _expMultiplier = increase ? _expMultiplier * realMultiplier : _expMultiplier / realMultiplier;
+    }
+
+    IEnumerator GainExpOverTime() {
+
+        while (true) {
+            yield return new WaitForSeconds(_info.ExpGainCooldown);
+            GainExp(_info.ExpGain);
+        }
+
+    }
+    void UpgradeSkill() {
+        _info.UpgradeSkillOne.Enable();
+        _info.UpgradeSkillTwo.Enable();
+        _info.UpgradeUltimate.Enable();
+
+        _info.UpgradeSkillOne.performed += ctx => {
+            if (_rankUP && _skillLevel[SkillSlot.SkillOne] < 3) {
+                _rankUP = false;
+                _skillLevel[SkillSlot.SkillOne]++;
+                OnSkillLevelUp?.Invoke();
+            }
+        };
+        _info.UpgradeSkillTwo.performed += ctx => {
+            if (_rankUP && _skillLevel[SkillSlot.SkillTwo] < 3) {
+                _rankUP = false;
+                _skillLevel[SkillSlot.SkillTwo]++;
+                OnSkillLevelUp?.Invoke();
+            }
+        };
+        _info.UpgradeUltimate.performed += ctx => {
+            if (_rankUP && _skillLevel[SkillSlot.Ultimate] < 3) {
+                _rankUP = false;
+                _skillLevel[SkillSlot.Ultimate]++;
+                OnSkillLevelUp?.Invoke();
+            }
+        };
+    }
+
+    #region Getters
+    public int ReturnSkillLevel(SkillSlot slot) => _skillLevel[slot];
+
+    public CyrusRank ReturnCyrusRank() => _currentRank;
+
+    public bool ReturnIfIsRankingUp() => _rankUP;
+
+    #endregion
+
+    #endregion
 
     #endregion
 }

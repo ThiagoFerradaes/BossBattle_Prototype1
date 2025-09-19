@@ -17,11 +17,30 @@ public class CyrusAxeSkillSO : CommonSkillSO
     [Foldout("Specific")] public float MinDamage;
     [Foldout("Specific")] public float MaxDamage;
     [Foldout("Specific")] public float Penetration;
+    [Foldout("Specific")] public float AmountOfExpGain;
 
-    [Header("Strings")]
-    [Foldout("Specific")] public string WeaponName;
+    [Header("Level 1 & 2 Buffs")]
+    [Foldout("Specific")] public float AmountOfShield;
+    [Foldout("Specific")] public float ShieldDuration;
+    [Foldout("Specific")] public float NewMaxChargeTime;
+
+    [Header("Level 3 Buff")]
+    [Foldout("Specific")] public float BrokenRockMinDamage;
+    [Foldout("Specific")] public float BrokenRockMaxDamage;
+    [Foldout("Specific")] public float BrokenRockDamageCooldown;
+    [Foldout("Specific")] public float BrokenRockDuration;
+    [Foldout("Specific")] public float BrokenRockSize;
+    [Foldout("Specific")] public string BrokenRocksName;
+    [Foldout("Specific")] public GameObject BrokenRocksPrefab;
+    [Foldout("Specific")] public DamageType BrokenRockDamageType;
+
+    [Header("Cost")]
+    [Foldout("Specific"), Range(1,100)] public float ExpModifier;
+    [Foldout("Specific")] public float expModifierDuration;
+    [Foldout("Specific")] public float aditionalExpModifierDurationPerLevel;
 
     [Header("Weapon")]
+    [Foldout("Specific")] public string WeaponName;
     [Foldout("Specific")] public GameObject WeaponPrefab;
     [Foldout("Specific")] public Vector3 WeaponPosition;
     [Foldout("Specific")] public Vector3 WeaponRotation;

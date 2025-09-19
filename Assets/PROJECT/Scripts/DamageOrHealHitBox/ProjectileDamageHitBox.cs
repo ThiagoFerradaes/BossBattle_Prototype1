@@ -59,7 +59,7 @@ public class ProjectileDamageHitBox : MonoBehaviour
             _breakShield = (bool)breakS;
         }
 
-        if (_extra.TryGetValue(ExtraDamageContextAtributes.CritChance, out var critChance))
+        if (_extra.TryGetValue(ExtraDamageContextAtributes.CritRate, out var critChance))
         {
             _critChance = (float)critChance;
         }

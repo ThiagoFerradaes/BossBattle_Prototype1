@@ -1,6 +1,6 @@
-using UnityEngine;
+using NaughtyAttributes;
 
 public class UltimateSkillSO : SkillSO {
 
-    public float EnergyCost;
+    [Foldout("Ultimate SKill")] public float EnergyCost;
 }

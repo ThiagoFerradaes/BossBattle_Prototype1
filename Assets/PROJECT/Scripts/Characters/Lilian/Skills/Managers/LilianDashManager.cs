@@ -121,7 +121,6 @@ public class LilianDashManager : SkillObjectManager
 
             // Checa continuamente se a posição final está dentro de um inimigo
             Collider[] hits = Physics.OverlapSphere(finalPos, 0.2f, 1 << _enemyLayer);
-            Debug.Log(hits.Length);
             if (hits.Length > 0 && !collisionForcedOn) {
                
                 // Liga colisão de volta para parar no inimigo

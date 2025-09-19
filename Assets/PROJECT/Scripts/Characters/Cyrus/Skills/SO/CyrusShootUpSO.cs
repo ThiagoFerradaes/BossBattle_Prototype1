@@ -12,17 +12,27 @@ public class CyrusShootUpSO : UltimateSkillSO
 
     [Header("Atributes")]
     [Header("Floats")]
-    [Foldout("Specific")] public float Cooldown;
     [Foldout("Specific")] public float MinDamage;
     [Foldout("Specific")] public float MaxDamage;
+    [Foldout("Specific")] public float Duration;
     [Foldout("Specific")] public float DamageCooldown;
-    [Foldout("Specific")] public float Penetration;
+    [Foldout("Specific")] public float Size;
 
     [Header("Booleans")]
     [Foldout("Specific")] public bool HitShield;
 
     [Header("Strings")]
     [Foldout("Specific")] public string WeaponName;
+
+    [Header("Level Up bufs")]
+    [Foldout("Specific")] public float Level1Duration;
+    [Foldout("Specific")] public float AditionalCritRate;
+    [Foldout("Specific")] public float AditionalCritDamagePerHit;
+    [Foldout("Specific")] public float Level3DamageCooldown;
+
+    [Header("Cost")]
+    [Foldout("Specific"), Range(1,100)] public float PercentOfSlow;
+    [Foldout("Specific")] public float SlowDuration;
 
     [Header("Enums")]
     [Foldout("Specific")] public List<Tags> EnemyTag;

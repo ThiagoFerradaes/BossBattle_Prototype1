@@ -6,13 +6,13 @@ using UnityEngine;
 
 public abstract class CommonSkillSO : SkillSO
 {
-    public float FlatEnergyGainPerHit;
-    public float Cooldown;
+    [Foldout("Common SKill")]public float FlatEnergyGainPerHit;
+    [Foldout("Common SKill")] public float Cooldown;
 
-    public List<Tags> EnemyTag;
-    public DamageType DamageType;
-    public bool HitShield;
+    [Foldout("Common SKill")] public List<Tags> EnemyTag;
+    [Foldout("Common SKill")] public DamageType DamageType;
+    [Foldout("Common SKill")] public bool HitShield;
 
-    public int Charges = 1;
-    public float ChargeCooldown;
+    [Foldout("Common SKill")] public int Charges = 1;
+    [Foldout("Common SKill")] public float ChargeCooldown;
 }
