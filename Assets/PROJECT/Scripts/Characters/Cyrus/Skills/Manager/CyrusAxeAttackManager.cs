@@ -147,7 +147,7 @@ public class CyrusAxeAttackManager : SkillObjectManager {
 
         animationCoroutine = null;
 
-        End();
+        EndWithUnblockSkills();
     }
 
     #endregion
@@ -178,7 +178,7 @@ public class CyrusAxeAttackManager : SkillObjectManager {
         // tirar arma
         _weaponManager?.OnDesequipRightHand();
 
-        End();
+        EndWithUnblockSkills();
     }
 
     #endregion

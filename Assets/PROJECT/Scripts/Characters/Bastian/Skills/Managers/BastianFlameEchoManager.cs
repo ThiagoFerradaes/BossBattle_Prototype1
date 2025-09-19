@@ -113,7 +113,7 @@ public class BastianFlameEchoManager : SkillObjectManager
         _energyManager.SetCanGainEnergy(false);
         yield return new WaitForSeconds(_info.UltimateDuration);
 
-        End();
+        EndWithUnblockSkills();
     }
 
     IEnumerator SecondaryShoot(int attackIndex)
@@ -184,12 +184,12 @@ public class BastianFlameEchoManager : SkillObjectManager
         }
     }
 
-    public override void End()
+    public override void EndWithUnblockSkills()
     {
         BastianBaseAttackManager.OnShoot -= _onShootAction;
 
         _energyManager.SetCanGainEnergy(true);
 
-        base.End();
+        base.EndWithUnblockSkills();
     }
 }

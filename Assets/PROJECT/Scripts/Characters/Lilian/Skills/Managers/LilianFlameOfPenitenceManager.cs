@@ -96,7 +96,7 @@ public class LilianFlameOfPenitenceManager : SkillObjectManager
 
         skillManager.SkillIsInAnimation(false);
 
-        End();
+        EndWithUnblockSkills();
     }
 
     void HandleCandle()

@@ -128,7 +128,7 @@ public class CyrusShootUpUltimateManager : SkillObjectManager {
         float duration = _skillLevel > 0 ? _info.Level1Duration : _info.Duration;
         yield return new WaitForSeconds(duration);
 
-        End();
+        EndWithUnblockSkills();
     }
     IEnumerator Damage(SkillAnimationEvent prefabInfo) {
         float damageCooldown = _skillLevel == 3 ? _info.Level3DamageCooldown : _info.DamageCooldown;
@@ -193,7 +193,7 @@ public class CyrusShootUpUltimateManager : SkillObjectManager {
     #endregion
 
     #region End
-    public override void End() {
+    public override void EndWithUnblockSkills() {
 
         _durationCoroutine = null;
         StopCoroutine(_damageCoroutine);

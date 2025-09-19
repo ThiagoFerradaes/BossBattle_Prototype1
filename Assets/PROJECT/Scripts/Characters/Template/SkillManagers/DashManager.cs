@@ -93,7 +93,7 @@ public class DashManager : SkillObjectManager {
         }
 
         animationCoroutine = null;
-        End();
+        EndWithUnblockSkills();
     }
 
     public override void CancelSkill() {

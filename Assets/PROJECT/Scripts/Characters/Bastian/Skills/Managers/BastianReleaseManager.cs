@@ -84,7 +84,7 @@ public class BastianReleaseManager : SkillObjectManager
 
         skillManager.SkillIsInAnimation(false);
 
-        End();
+        EndWithUnblockSkills();
     }
 
 

@@ -30,7 +30,7 @@ public class LilianWingsOfHorrorManager : SkillObjectManager
         }
         else
         {
-            End();
+            EndWithUnblockSkills();
         }
     }
 
@@ -234,7 +234,7 @@ public class LilianWingsOfHorrorManager : SkillObjectManager
 
     void CheckTributes()
     {
-        if (LilianPassiveManager.Instance.ReturnAmountOfTributes() < _info.TributeCost) End();
+        if (LilianPassiveManager.Instance.ReturnAmountOfTributes() < _info.TributeCost) EndWithUnblockSkills();
         else
         {
             LilianPassiveManager.Instance.ChangeTributeAmount(-_info.TributeCost);
@@ -242,7 +242,7 @@ public class LilianWingsOfHorrorManager : SkillObjectManager
         }
     }
 
-    public override void End()
+    public override void EndWithUnblockSkills()
     {
         if (_lilianIsInAnimation)
         {
@@ -258,6 +258,6 @@ public class LilianWingsOfHorrorManager : SkillObjectManager
         _wingsOfHorrorCoroutine = null;
         _wingsOfHorrorCooldownCoroutine = null;
 
-        base.End();
+        base.EndWithUnblockSkills();
     }
 }

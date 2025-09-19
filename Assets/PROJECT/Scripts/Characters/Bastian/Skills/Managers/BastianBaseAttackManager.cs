@@ -204,7 +204,7 @@ public class BastianBaseAttackManager : SkillObjectManager {
             timer += Time.deltaTime;
             yield return null;
         }
-        End();
+        EndWithUnblockSkills();
     }
 
     float GetAttackSpeedMultiplier() {
@@ -221,9 +221,9 @@ public class BastianBaseAttackManager : SkillObjectManager {
         _attackIndex = 1;
         base.CancelSkill();
     }
-    public override void End() {
+    public override void EndWithUnblockSkills() {
         _attackIndex = 1;
         _timerBetweenAttacksCoroutine = null;
-        base.End();
+        base.EndWithUnblockSkills();
     }
 }

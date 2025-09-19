@@ -164,7 +164,7 @@ public class BastianIgnisManager : SkillObjectManager
 
         skillManager.SkillIsInAnimation(false);
 
-        End();
+        EndWithUnblockSkills();
     }
     float GetAttackSpeedMultiplier()
     {
