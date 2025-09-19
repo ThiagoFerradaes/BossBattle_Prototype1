@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2320c717811ee67458e2ef3df8f57595, type: 3}
+  m_Name: LilianWingsOfHorror
+  m_EditorClassIdentifier: Assembly-CSharp::LilianWingsOfHorrorSO
+  SkillManagerObject: {fileID: -2912945388451382330, guid: 63dd808355eee4541ac3314272e3eca8, type: 3}
+  SkillManagerName: LilianWingsOfHorrorManager
+  Prefabs:
+    _serializedList:
+    - Key: 0
+      Value: []
+    - Key: 1
+      Value:
+      - TimeToSpawnPreFab: 0.5
+        PrefabDuration: 0.1
+        PreFabName: LilianWingsOfHorrorHitBox
+        PrefabType: 0
+        PreFab: {fileID: 8998219623033830514, guid: 690c34d54c88e12448b7561adfe65ab9, type: 3}
+        PreFabPosition: {x: 0, y: 0, z: 0}
+  SkillObjectRangeObject: {fileID: 1479167575052944571, guid: c7a5ab9fc1363e7449ec66128e7e8586, type: 3}
+  SkillObjectRangeName: LilianWingsOfHorrorRange
+  BlockWalkWhilePreCasting: 1
+  BlockDashWhilePreCasting: 1
+  PreCastOn: 1
+  SkillCharacter: 2
+  Cancelable: 0
+  FlatEnergyGainPerHit: 10
+  Cooldown: 1
+  EnemyTag: 00000000
+  DamageType: 1
+  HitShield: 1
+  Charges: 1
+  ChargeCooldown: 0
+  AnimationParameter: SkullSummon
+  AnimationName: Lilian_Skill_Summon
+  WingsOfHorrorAnimationParameter: Attack
+  WingsOfHorrorAnimationName: attack
+  TributeCost: 10
+  MinDamage: 80
+  MaxDamage: 82
+  WingsOfHorrorCooldown: 4
+  WingsOfHorrorDistance: 1.5
+  WingsOfHorrorHeight: 2
+  WingsOfHorrorDamageSize: 14
