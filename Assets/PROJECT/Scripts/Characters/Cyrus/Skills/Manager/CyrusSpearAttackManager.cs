@@ -97,7 +97,7 @@ public class CyrusSpearAttackManager : SkillObjectManager {
         skillManager.SkillIsInAnimation(false);
         _weaponManager.OnDesequipRightHand();
         animationCoroutine = null;
-        End();
+        EndWithUnblockSkills();
     }
 
     void InstantiateHitBox(SkillAnimationEvent prefabInfo) {

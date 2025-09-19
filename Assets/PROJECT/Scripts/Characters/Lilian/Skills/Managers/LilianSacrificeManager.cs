@@ -81,7 +81,7 @@ public class LilianSacrificeManager : SkillObjectManager
 
         skillManager.SkillIsInAnimation(false);
 
-        End();
+        EndWithUnblockSkills();
     }
 
     void GainTributesAndLooseHealth() {

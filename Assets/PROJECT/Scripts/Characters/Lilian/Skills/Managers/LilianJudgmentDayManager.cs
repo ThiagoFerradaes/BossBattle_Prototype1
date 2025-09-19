@@ -79,7 +79,7 @@ public class LilianJudgmentDayManager : SkillObjectManager
 
         skillManager.SkillIsInAnimation(false);
 
-        End();
+        EndWithUnblockSkills();
     }
 
     void DecidePassive() {

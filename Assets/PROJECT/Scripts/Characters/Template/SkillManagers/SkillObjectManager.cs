@@ -122,9 +122,15 @@ public abstract class SkillObjectManager : MonoBehaviour {
     }
     public virtual void UseSkill(SkillSO skill) { }
 
-    public virtual void End() {
+    public virtual void EndWithUnblockSkills() {
         if(!skillManager.ReturnIfIsSkillAnimation()) UnblockInputs();
 
+        PoolingManager.Instance.ReturnObjectToPool(this.gameObject, TypeOfSkillPrefab.Manager);
+
+        skillManager.OnStopSkills -= _stopSkill;
+    }
+
+    public virtual void End() {
         PoolingManager.Instance.ReturnObjectToPool(this.gameObject, TypeOfSkillPrefab.Manager);
 
         skillManager.OnStopSkills -= _stopSkill;
@@ -139,7 +145,7 @@ public abstract class SkillObjectManager : MonoBehaviour {
 
         animationCoroutine = null;
 
-        End();
+        EndWithUnblockSkills();
     }
 
     #endregion

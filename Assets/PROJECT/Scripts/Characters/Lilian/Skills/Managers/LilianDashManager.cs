@@ -96,7 +96,7 @@ public class LilianDashManager : SkillObjectManager
         }
 
         animationCoroutine = null;
-        End();
+        EndWithUnblockSkills();
     }
 
     IEnumerator InDashRoutine(int dashStateHash) {

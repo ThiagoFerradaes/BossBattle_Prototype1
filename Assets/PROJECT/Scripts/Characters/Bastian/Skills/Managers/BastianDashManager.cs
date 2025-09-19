@@ -100,7 +100,7 @@ public class BastianDashManager : SkillObjectManager {
 
         skillManager.SkillIsInAnimation(false);
 
-        End();
+        EndWithUnblockSkills();
     }
 
     public override void CancelSkill() {
