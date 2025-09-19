@@ -1,25 +1,29 @@
+using NaughtyAttributes;
 using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Passives/LilianPassive")]
 public class LilianPassiveSO : PassiveSO {
 
-    public float TimeToJudgment;
+    [Header("Atributes")]
+    [Foldout("Specific")]public float TimeToJudgment;
+    [Foldout("Specific")] public float MaxAmountOfTributes;
 
-    public float MaxAmountOfTributes;
+    [Header("Blessing")]
+    [Foldout("Specific")] public float BlessingCost;
+    [Foldout("Specific")] public float BlessingDuration;
+    [Foldout("Specific")] public float BlessingHealing;
+    [Foldout("Specific")] public float BlessingHealingCooldown;
+    [Foldout("Specific")] public float BlessingSize;
+    [Foldout("Specific")] public string BlessingObjectName;
+    [Foldout("Specific")] public GameObject BlessingObject;
+    [Foldout("Specific")] public List<Tags> ListOfTags;
 
-    public float BlessingCost;
-    public float BlessingDuration;
-    public float BlessingHealing;
-    public float BlessingHealingCooldown;
-    public float BlessingSize;
-    public string BlessingObjectName;
-    public GameObject BlessingObject;
-    public List<Tags> ListOfTags;
+    [Header("Wrath")]
+    [Foldout("Specific")] public float WrathStunDuration;
+    [Foldout("Specific")] public float WrathDamage;
+    [Foldout("Specific")] public int MaxAmountOfCorruption;
 
-    public float WrathStunDuration;
-    public float WrathDamage;
-    public int MaxAmountOfCorruption;
-
-    public GameObject LilianUI;
+    [Header("UI")]
+    [Foldout("Specific")] public GameObject LilianUI;
 }

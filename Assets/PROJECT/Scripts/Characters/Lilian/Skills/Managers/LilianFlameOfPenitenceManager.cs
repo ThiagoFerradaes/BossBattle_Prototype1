@@ -5,7 +5,10 @@ using UnityEngine;
 
 public class LilianFlameOfPenitenceManager : SkillObjectManager
 {
+    // Components
     LilianFlameOfPenitenceSO _info;
+
+    // Lists
     List<LilianCandle> _candles = new();
     
     public override void UseSkill(SkillSO skill)

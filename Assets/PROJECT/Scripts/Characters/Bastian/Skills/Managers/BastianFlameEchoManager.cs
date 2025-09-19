@@ -5,10 +5,12 @@ using UnityEngine;
 
 public class BastianFlameEchoManager : SkillObjectManager
 {
+    // Components
     BastianFlameEchoSO _info;
     EnergyManager _energyManager;
     StatusManager _statusManager;
 
+    // Actions
     Action<int> _onShootAction;
     public override void UseSkill(SkillSO skill)
     {
@@ -108,6 +110,7 @@ public class BastianFlameEchoManager : SkillObjectManager
 
     IEnumerator Duration()
     {
+        _energyManager.SetCanGainEnergy(false);
         yield return new WaitForSeconds(_info.UltimateDuration);
 
         End();
@@ -184,6 +187,8 @@ public class BastianFlameEchoManager : SkillObjectManager
     public override void End()
     {
         BastianBaseAttackManager.OnShoot -= _onShootAction;
+
+        _energyManager.SetCanGainEnergy(true);
 
         base.End();
     }

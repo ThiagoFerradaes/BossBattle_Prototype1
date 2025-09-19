@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class LilianSacrificeManager : SkillObjectManager
 {
+    // Components
     LilianSacrificeSO _info;
     public override void UseSkill(SkillSO skill) {
         base.UseSkill(skill);

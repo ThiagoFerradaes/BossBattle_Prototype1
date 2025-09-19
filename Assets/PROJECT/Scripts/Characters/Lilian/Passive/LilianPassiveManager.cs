@@ -28,7 +28,6 @@ public class LilianPassiveManager : PassiveSkillManager {
     public event Action<float> OnTributesChange;
     public event Action<bool> OnJudgmentDay;
 
-
     #region Initialize
     private void Awake() {
         if (Instance == null) Instance = this;
@@ -46,6 +45,8 @@ public class LilianPassiveManager : PassiveSkillManager {
         AditionalUIManager.Instance.InstantiateUI(_info.LilianUI);
 
         _judgmentTimerCoroutine ??= StartCoroutine(JugmentTimerRoutine());
+
+        PlayerSkillUI.Instance.TurnBaseAttackImageOn();
     }
 
     #endregion

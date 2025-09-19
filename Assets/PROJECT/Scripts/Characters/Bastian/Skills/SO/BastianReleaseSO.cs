@@ -1,12 +1,15 @@
+using NaughtyAttributes;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Skills/Bastian/Release")]
-public class BastianReleaseSO : CommonSkillSO
-{
-    public float HeatLost;
-    [Range(0,1)]public float AttackSpeedGain;
-    public float AttackSpeedDuration;
+public class BastianReleaseSO : CommonSkillSO {
 
-    public string AnimationParameter;
-    public string AnimationName;
+    [Header("Atributes")]
+    [Foldout("Specific")] public float HeatLost;
+    [Foldout("Specific"), Range(0, 1)] public float AttackSpeedGain;
+    [Foldout("Specific")] public float AttackSpeedDuration;
+
+    [Header("Animation")]
+    [Foldout("Specific")] public string AnimationParameter;
+    [Foldout("Specific")] public string AnimationName;
 }

@@ -4,14 +4,19 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class BastianBaseAttackManager : SkillObjectManager {
+
+    // Components
     BastianBaseAttackSO _info;
 
+    // Atributes
     int _attackIndex = 1;
 
     // Coroutine
     Coroutine _timerBetweenAttacksCoroutine;
 
+    // Actions
     public static event Action<int> OnShoot;
+
     public override void HandleInput(SkillSO skill, InputAction.CallbackContext ctx) {
         if (!BastianPassiveManager.Instance.CanShoot) {
             return;

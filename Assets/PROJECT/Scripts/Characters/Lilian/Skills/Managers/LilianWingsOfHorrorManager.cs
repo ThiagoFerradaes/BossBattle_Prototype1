@@ -3,11 +3,15 @@ using UnityEngine;
 
 public class LilianWingsOfHorrorManager : SkillObjectManager
 {
+    // Components
     LilianWingsOfHorrorSO _info;
     Animator _wingsOfHorrorAnim;
     GameObject _wingsOfHorror;
+
+    // Atributes
     bool _lilianIsInAnimation;
 
+    // Corroutines
     Coroutine _wingsOfHorrorCoroutine, _wingsOfHorrorCooldownCoroutine;
 
     public override void UseSkill(SkillSO skill)

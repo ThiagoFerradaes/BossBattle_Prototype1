@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 
 public class BastianIgnisManager : SkillObjectManager
 {
+    // Components
     BastianIgnisSO _info;
 
     public override void HandleInput(SkillSO skill, InputAction.CallbackContext ctx)
@@ -132,8 +133,9 @@ public class BastianIgnisManager : SkillObjectManager
                     energyManager.GainEnergy(_info.FlatEnergyGainPerHit);
                 };
 
-                if(BastianPassiveManager.Instance.ReturnMaxHeat(HeatArea.SuperHeatArea))
+                if (BastianPassiveManager.Instance.ReturnMaxHeat(HeatArea.SuperHeatArea))
                     BastianPassiveManager.Instance.GainHeat(_info.HeatGain);
+                else BastianPassiveManager.Instance.GainHeat(1);
 
             }
             else
