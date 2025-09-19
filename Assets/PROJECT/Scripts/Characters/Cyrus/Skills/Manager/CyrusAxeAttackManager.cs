@@ -25,7 +25,7 @@ public class CyrusAxeAttackManager : SkillObjectManager {
     #region Override & Initialize
     public override void HandleInput(SkillSO skill, InputAction.CallbackContext ctx) {
 
-        if (CyrusPassiveManager.Instance.ReturnIfIsRankingUp()) return;
+        if (Keyboard.current.ctrlKey.isPressed) return;
 
         Initialize(skill);
 

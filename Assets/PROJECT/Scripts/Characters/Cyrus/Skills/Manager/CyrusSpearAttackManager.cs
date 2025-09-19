@@ -20,7 +20,7 @@ public class CyrusSpearAttackManager : SkillObjectManager {
 
     public override void HandleInput(SkillSO skill, InputAction.CallbackContext ctx) {
 
-        if (CyrusPassiveManager.Instance.ReturnIfIsRankingUp()) return;
+        if (Keyboard.current.ctrlKey.isPressed) return;
 
         base.HandleInput(skill, ctx);
     }
