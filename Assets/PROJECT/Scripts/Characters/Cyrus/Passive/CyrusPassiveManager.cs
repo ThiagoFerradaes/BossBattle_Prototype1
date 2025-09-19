@@ -26,6 +26,7 @@ public class CyrusPassiveManager : PassiveSkillManager {
 
     // Actions
     public event Action OnRankLevelUp, OnSkillLevelUp;
+    public event Action<float, float> OnExpGain;
 
     // Coroutines
     Coroutine _expGainOverTimeCorouinte;
@@ -61,11 +62,28 @@ public class CyrusPassiveManager : PassiveSkillManager {
 
     #region ExpGain
     public void GainExp(float amountOfExp) {
-        if (_rankUP) return;
+        if (_rankUP || HasReachedMaxRank) return;
 
         _currentAmountOfExp += amountOfExp * _expMultiplier;
+
         CheckRankLevelUp();
+
+        UpdateExpProgress();
     }
+
+    void UpdateExpProgress() {
+        if (HasReachedMaxRank) return;
+
+        float currentRankExp = _info.AmountOfExpPerClassification[_currentRank];
+        float nextRankEXp = _info.AmountOfExpPerClassification[_currentRank + 1];
+
+        float newMinExp = _currentAmountOfExp - currentRankExp;
+        float newMaxExp = nextRankEXp - currentRankExp;
+
+        OnExpGain?.Invoke(newMinExp, newMaxExp);
+    }
+
+    private bool HasReachedMaxRank => _currentRank >= CyrusRank.SS;
 
     void CheckRankLevelUp() {
 
@@ -73,11 +91,15 @@ public class CyrusPassiveManager : PassiveSkillManager {
 
         CyrusRank newRank = _currentAmountOfExp >= nextRankExp ? _currentRank + 1 : _currentRank;
 
-        if (newRank != _currentRank) {
+        bool isNewRank = newRank != _currentRank;
+
+        if (isNewRank) {
             _currentRank = newRank;
             _rankUP = true;
             OnRankLevelUp?.Invoke();
         }
+
+        if (_currentRank == CyrusRank.SS) OnExpGain?.Invoke(0, 1);
     }
 
     /// <summary>

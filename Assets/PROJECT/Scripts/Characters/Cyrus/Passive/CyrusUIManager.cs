@@ -8,6 +8,7 @@ public class CyrusUIManager : MonoBehaviour {
     // Components
     [Header("Rank")]
     [SerializeField] Image RankIconImage;
+    [SerializeField] Image ExpProgressImage;
     [SerializedDictionary("CyrusRank", "Sprite"), SerializeField]
     SerializedDictionary<CyrusRank, Sprite> dictionaryOfRankSprites;
 
@@ -17,16 +18,19 @@ public class CyrusUIManager : MonoBehaviour {
 
     // Actions
     Action _onRankUP, _onTurnLevelUpSkillOff;
+    Action<float,float> _onUpdateExpProgress;
 
     #region Initialize
     private void Awake() {
         _onRankUP = RankUp;
         _onTurnLevelUpSkillOff = TurnLevelUpSkillOff;
+        _onUpdateExpProgress = UpdateExpProgress;
     }
 
     private void Start() {
         CyrusPassiveManager.Instance.OnRankLevelUp += _onRankUP;
         CyrusPassiveManager.Instance.OnSkillLevelUp  += _onTurnLevelUpSkillOff;
+        CyrusPassiveManager.Instance.OnExpGain  += _onUpdateExpProgress;
 
         TurnLevelUpSkillOff();
     }
@@ -34,6 +38,7 @@ public class CyrusUIManager : MonoBehaviour {
     private void OnDestroy() {
         CyrusPassiveManager.Instance.OnRankLevelUp -= _onRankUP;
         CyrusPassiveManager.Instance.OnSkillLevelUp -= _onTurnLevelUpSkillOff;
+        CyrusPassiveManager.Instance.OnExpGain -= _onUpdateExpProgress;
     }
 
     #endregion
@@ -64,5 +69,8 @@ public class CyrusUIManager : MonoBehaviour {
         }
     }
 
+    void UpdateExpProgress(float current, float max) {
+        ExpProgressImage.fillAmount = current / max;
+    }
     #endregion
 }
