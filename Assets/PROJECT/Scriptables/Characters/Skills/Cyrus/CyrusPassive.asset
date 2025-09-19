@@ -15,10 +15,6 @@ MonoBehaviour:
   PassiveManager: {fileID: 845164626259810451, guid: d940ab5c30bad0a498af36290d1ec3e7, type: 3}
   PassiveName: WeaponMasterPassive
   PassiveCharacter: 0
-  AmountOfFirstShieldRecieved: 25
-  ShieldDuration: 10
-  AttackSpeedBuff: 0.25
-  AttackSpeedBuffDuration: 10
   AmountOfExpPerClassification:
     _serializedList:
     - Key: 0
@@ -26,15 +22,15 @@ MonoBehaviour:
     - Key: 1
       Value: 10
     - Key: 2
-      Value: 20
-    - Key: 3
       Value: 30
-    - Key: 4
-      Value: 40
-    - Key: 5
-      Value: 50
-    - Key: 6
+    - Key: 3
       Value: 60
+    - Key: 4
+      Value: 100
+    - Key: 5
+      Value: 150
+    - Key: 6
+      Value: 220
   SpritePerClassification:
     _serializedList: []
   UpgradeSkillOne:
@@ -137,3 +133,5 @@ MonoBehaviour:
       m_Flags: 8
     m_Flags: 0
   CyrusUI: {fileID: 6736270834710436962, guid: f27b04e3e6823654481bdafb4a551fc6, type: 3}
+  ExpGain: 1
+  ExpGainCooldown: 0.5

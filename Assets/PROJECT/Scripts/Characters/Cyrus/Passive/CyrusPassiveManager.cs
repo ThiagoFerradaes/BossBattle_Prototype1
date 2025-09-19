@@ -27,6 +27,9 @@ public class CyrusPassiveManager : PassiveSkillManager {
     // Actions
     public event Action OnRankLevelUp, OnSkillLevelUp;
 
+    // Coroutines
+    Coroutine _expGainOverTimeCorouinte;
+
     #endregion
 
     #region Methods
@@ -46,13 +49,13 @@ public class CyrusPassiveManager : PassiveSkillManager {
         UpgradeSkill();
 
         AditionalUIManager.Instance.InstantiateUI(_info.CyrusUI);
+
+        _expGainOverTimeCorouinte ??= StartCoroutine(GainExpOverTime());
     }
 
     void Initialize(PassiveSO passive, GameObject parent) {
         _info = passive as CyrusPassiveSO;
     }
-
-    #endregion
 
     #endregion
 
@@ -96,6 +99,14 @@ public class CyrusPassiveManager : PassiveSkillManager {
         _expMultiplier = increase ? _expMultiplier * realMultiplier : _expMultiplier / realMultiplier;
     }
 
+    IEnumerator GainExpOverTime() {
+
+        while (true) {
+            yield return new WaitForSeconds(_info.ExpGainCooldown);
+            GainExp(_info.ExpGain);
+        }
+
+    }
     void UpgradeSkill() {
         _info.UpgradeSkillOne.Enable();
         _info.UpgradeSkillTwo.Enable();
@@ -124,11 +135,16 @@ public class CyrusPassiveManager : PassiveSkillManager {
         };
     }
 
+    #region Getters
     public int ReturnSkillLevel(SkillSlot slot) => _skillLevel[slot];
 
     public CyrusRank ReturnCyrusRank() => _currentRank;
 
     public bool ReturnIfIsRankingUp() => _rankUP;
+
     #endregion
 
+    #endregion
+
+    #endregion
 }
