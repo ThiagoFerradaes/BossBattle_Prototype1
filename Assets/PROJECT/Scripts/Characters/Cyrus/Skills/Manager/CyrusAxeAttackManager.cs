@@ -91,7 +91,7 @@ public class CyrusAxeAttackManager : SkillObjectManager {
 
         while (_isHoldingInput || _chargeTimer < _info.MinimalChargeTime) {
             _chargeTimer += Time.deltaTime;
-            if (_chargeTimer >= _info.MaxChargeTime) break;
+            if (_chargeTimer >= maxChargeTime) break;
             yield return null; ;
         }
 
@@ -154,12 +154,18 @@ public class CyrusAxeAttackManager : SkillObjectManager {
 
     #region Calculations
     float ReturnDamage() {
-        float damage = (_chargeTimer * _info.MaxDamage) / _info.MaxChargeTime;
+
+        float maxChargeTime = _skillLevel >= 2 ? _info.MaxChargeTime : _info.NewMaxChargeTime;
+
+        float damage = (_chargeTimer * _info.MaxDamage) / maxChargeTime;
         return Mathf.Clamp(damage, _info.MinDamage, _info.MaxDamage);
     }
 
     bool ReturnBreakShield() {
-        if (_chargeTimer >= _info.MaxChargeTime) return true;
+
+        float maxChargeTime = _skillLevel >= 2 ? _info.MaxChargeTime : _info.NewMaxChargeTime;
+
+        if (_chargeTimer >= maxChargeTime) return true;
         else return false;
     }
     #endregion
@@ -223,7 +229,8 @@ public class CyrusAxeAttackManager : SkillObjectManager {
         GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFabName,
                     prefabInfo.PreFab, TypeOfSkillPrefab.VFX);
         preFab.transform.SetParent(parent.transform, false);
-        preFab.transform.SetLocalPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.identity);
+        Vector3 rotation = new Vector3(-90, -180, 90);
+        preFab.transform.SetLocalPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.Euler(rotation));
         preFab.GetComponent<VFXPreFab>().Initialize(prefabInfo.PrefabDuration);
     }
     void InstantiateBrokenRocks() {
