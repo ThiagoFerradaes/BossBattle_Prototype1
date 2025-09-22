@@ -23,10 +23,6 @@ public class KrakenSpinningAttack : EnemyBehaviourSO {
     IEnumerator SpinningAttack() {
         int tentacleToHit = _krakenManager.FindClosestTentacleToPlayer();
 
-        if (_krakenManager.IsTentacleInAnimation(tentacleToHit)) { // Verificando se o tentaculo esta animando
-            yield return _krakenManager.ReturnTentacleCoroutine(tentacleToHit);
-        }
-
         #region Calculo de direção
         Vector3 tentaclePos = _krakenManager.TentaclesListGO[tentacleToHit].transform.position;
         Vector3 playerPos = _krakenManager.Player.position;
@@ -41,6 +37,10 @@ public class KrakenSpinningAttack : EnemyBehaviourSO {
         #endregion
 
         // Começo do ataque
+        if (_krakenManager.IsTentacleInAnimation(tentacleToHit)) { // Verificando se o tentaculo esta animando
+            yield return _krakenManager.ReturnTentacleCoroutine(tentacleToHit);
+        }
+
         _krakenManager.StartTentacleAttack(tentacleToHit, preparingSpeed, hitSpeed, downTime);
         yield return new WaitForSeconds(cooldownBetweenEachTentacle);
 
@@ -52,6 +52,10 @@ public class KrakenSpinningAttack : EnemyBehaviourSO {
             else {
                 if (tentacleToHit == 0) tentacleToHit = _krakenManager.ListOfTentacles.Count;
                 tentacleToHit--;
+            }
+
+            if (_krakenManager.IsTentacleInAnimation(tentacleToHit)) { // Verificando se o tentaculo esta animando
+                yield return _krakenManager.ReturnTentacleCoroutine(tentacleToHit);
             }
 
             _krakenManager.StartTentacleAttack(tentacleToHit, preparingSpeed, hitSpeed, downTime);

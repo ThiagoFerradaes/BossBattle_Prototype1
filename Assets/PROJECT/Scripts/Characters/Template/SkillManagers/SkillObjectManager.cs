@@ -88,22 +88,12 @@ public abstract class SkillObjectManager : MonoBehaviour {
 
         currentSkillRange.transform.SetParent(parent.transform);
 
-        float groundY = FindGroundHeight(parent.transform.position);
+        float groundY = ArenaManager.Instance.FindGroundHeight(parent.transform.position); 
         Vector3 groundPos = new(0, groundY - parent.transform.position.y, 0);
 
         currentSkillRange.transform.SetLocalPositionAndRotation(groundPos, Quaternion.identity);
 
         currentSkillRange.SetActive(true);
-    }
-
-    float FindGroundHeight(Vector3 originalPos) {
-        Vector3 startPos = originalPos + Vector3.up * 0.5f;
-
-        if (Physics.Raycast(startPos, Vector3.down, out RaycastHit hit, Mathf.Infinity, LayerMask.GetMask("Floor"))) {
-            return hit.point.y + 0.5f;
-        }
-
-        return 0f;
     }
 
     void ReleaseSkillRangeIndicator() {
