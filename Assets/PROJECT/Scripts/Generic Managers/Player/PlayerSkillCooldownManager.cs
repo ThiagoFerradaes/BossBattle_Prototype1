@@ -27,7 +27,6 @@ public class PlayerSkillCooldownManager : MonoBehaviour
     #region Initialize
     private void Awake()
     {
-
         _setCharges = SetCharges;
         PlayerSkillManager.OnSkillsSet += _setCharges;
     }
