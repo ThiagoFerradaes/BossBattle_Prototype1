@@ -12,7 +12,8 @@ public class PostProcessingManager : MonoBehaviour
     [Header("Taking Damage Effect")]
     [SerializeField] float minAlpha;
     [SerializeField] float maxAlpha;
-    [SerializeField] float timeToHitMaxOrMin;
+    [SerializeField] float timeToHitMax;
+    [SerializeField] float timeToHitMin;
     [SerializeField] int amountOfFlashes;
     [SerializeField] Image TakingDamageImage;
 
@@ -44,9 +45,9 @@ public class PostProcessingManager : MonoBehaviour
     IEnumerator TakeDamageCoroutine() {
 
         for (int i = 0; i < amountOfFlashes; i++) {
-            yield return TakingDamageImage.DOFade(maxAlpha, timeToHitMaxOrMin).WaitForCompletion();
+            yield return TakingDamageImage.DOFade(maxAlpha, timeToHitMax).WaitForCompletion();
             
-            yield return TakingDamageImage.DOFade(minAlpha, timeToHitMaxOrMin).WaitForCompletion();
+            yield return TakingDamageImage.DOFade(minAlpha, timeToHitMin).WaitForCompletion();
 
         }
 
