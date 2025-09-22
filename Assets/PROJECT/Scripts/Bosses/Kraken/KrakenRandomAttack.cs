@@ -11,7 +11,7 @@ public class KrakenRandomAttack : EnemyBehaviourSO {
     public override void StartState(EnemyBehaviourManager parent) {
         base.StartState(parent);
 
-        _krakenManager = parent as KrakenManager;
+        if(_krakenManager == null) _krakenManager = parent as KrakenManager;
 
         _krakenManager.StartCoroutine(RandomAttack());
     }

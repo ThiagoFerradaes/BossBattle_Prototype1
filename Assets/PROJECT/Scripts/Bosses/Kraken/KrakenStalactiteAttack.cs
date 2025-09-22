@@ -88,7 +88,7 @@ public class KrakenStalactiteAttack : EnemyBehaviourSO {
             GameObject warningVFX = PoolingManager.Instance.ReturnPrefabFromPool(warningPrefabName,
                stalactiteWarning, TypeOfSkillPrefab.VFX);
 
-            float floorHeight = FindGroundHeight(stalactitePosition);
+            float floorHeight = ArenaManager.Instance.FindGroundHeight(stalactitePosition); 
             Vector3 warningPos = new(pos.x, floorHeight + warningHeight, pos.z);
 
             warningVFX.transform.position = warningPos;
@@ -99,15 +99,6 @@ public class KrakenStalactiteAttack : EnemyBehaviourSO {
         }
     }
 
-    float FindGroundHeight(Vector3 originalPos) {
-        Vector3 startPos = originalPos + Vector3.up * 0.5f;
-
-        if (Physics.Raycast(startPos, Vector3.down, out RaycastHit hit, 100, LayerMask.GetMask("Floor"))) {
-            return hit.point.y + 0.5f;
-        }
-
-        return 0f;
-    }
     IEnumerator Duration() {
         yield return new WaitForSeconds(attackDuration);
         _canAttack = false;
