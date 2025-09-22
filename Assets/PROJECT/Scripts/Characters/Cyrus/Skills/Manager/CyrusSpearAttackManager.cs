@@ -62,11 +62,14 @@ public class CyrusSpearAttackManager : SkillObjectManager {
 
         int attackStateHash = stateInfo.fullPathHash;
 
-        // Ordenando a lista de prefabs pelo tempo que eles precisam aparecer
-        _info.Prefabs[0].Sort((a, b) => a.TimeToSpawnPreFab.CompareTo(b.TimeToSpawnPreFab));
+        int combo = _skillLevel >= 3 ? 1 : 0;
+        Debug.Log(combo);
 
-        for (int i = 0; i < _info.Prefabs[0].Count; i++) {
-            SkillAnimationEvent prefabInfo = _info.Prefabs[0][i];
+        // Ordenando a lista de prefabs pelo tempo que eles precisam aparecer
+        _info.Prefabs[combo].Sort((a, b) => a.TimeToSpawnPreFab.CompareTo(b.TimeToSpawnPreFab));
+
+        for (int i = 0; i < _info.Prefabs[combo].Count; i++) {
+            SkillAnimationEvent prefabInfo = _info.Prefabs[combo][i];
             float targetNormalizedTime = prefabInfo.TimeToSpawnPreFab;
 
             do { // Esperando o tempo para instanciar hit box
