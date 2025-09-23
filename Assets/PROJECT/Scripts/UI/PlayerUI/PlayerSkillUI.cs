@@ -56,13 +56,14 @@ public class PlayerSkillUI : MonoBehaviour {
         _changeChargeNumber = (SkillSlot slot, int currentCharge) => ChangeCharge(slot, currentCharge);
         _energyGainAction = (currentEnergy, maxEnergy) => UpdateUltimateEnergyCost(currentEnergy, maxEnergy);
 
+        SubscribeEvents();
     }
     private void Start() {
 
         StartDictionary();
         SetSkillsImage();
         SetCooldownImagesOff();
-        SubscribeEvents();
+        
     }
 
     void StartDictionary() {

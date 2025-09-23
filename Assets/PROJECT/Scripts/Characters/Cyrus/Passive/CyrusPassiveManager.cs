@@ -61,31 +61,23 @@ public class CyrusPassiveManager : PassiveSkillManager {
     #endregion
 
     #region ExpGain
+    private bool HasReachedMaxRank => _currentRank >= CyrusRank.SS;
     public void GainExp(float amountOfExp) {
         if (_rankUP || HasReachedMaxRank) return;
 
-        _currentAmountOfExp += amountOfExp * _expMultiplier;
+        if ((_currentAmountOfExp + amountOfExp * _expMultiplier) > _info.AmountOfExpPerClassification[_currentRank + 1]) {
+            _currentAmountOfExp = _info.AmountOfExpPerClassification[_currentRank + 1];
+        }
+        else
+            _currentAmountOfExp += amountOfExp * _expMultiplier;
 
         CheckRankLevelUp();
 
         UpdateExpProgress();
     }
-
-    void UpdateExpProgress() {
-        if (HasReachedMaxRank) return;
-
-        float currentRankExp = _info.AmountOfExpPerClassification[_currentRank];
-        float nextRankEXp = _info.AmountOfExpPerClassification[_currentRank + 1];
-
-        float newMinExp = _currentAmountOfExp - currentRankExp;
-        float newMaxExp = nextRankEXp - currentRankExp;
-
-        OnExpGain?.Invoke(newMinExp, newMaxExp);
-    }
-
-    private bool HasReachedMaxRank => _currentRank >= CyrusRank.SS;
-
     void CheckRankLevelUp() {
+
+        if (HasReachedMaxRank) return;
 
         float nextRankExp = _info.AmountOfExpPerClassification[_currentRank + 1];
 
@@ -101,6 +93,20 @@ public class CyrusPassiveManager : PassiveSkillManager {
 
         if (_currentRank == CyrusRank.SS) OnExpGain?.Invoke(0, 1);
     }
+
+    void UpdateExpProgress() {
+        if (HasReachedMaxRank) return;
+
+        float currentRankExp = _info.AmountOfExpPerClassification[_currentRank];
+        float nextRankEXp = _info.AmountOfExpPerClassification[_currentRank + 1];
+
+        float newMinExp = _currentAmountOfExp - currentRankExp;
+        float newMaxExp = nextRankEXp - currentRankExp;
+
+        OnExpGain?.Invoke(newMinExp, newMaxExp);
+    }
+
+
 
     /// <summary>
     /// The exp multiplier = expMultiplier * or / (1 + amountToMultiply/100) 
