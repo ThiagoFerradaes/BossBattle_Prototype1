@@ -131,6 +131,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2546657528979632362, guid: 84ab810e30c024647b2e1693cd9807c6, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2546657528979632362, guid: 84ab810e30c024647b2e1693cd9807c6, type: 3}
+      propertyPath: typeOfArena
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3516437136118550321, guid: 84ab810e30c024647b2e1693cd9807c6, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.35363
@@ -171,9 +179,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3857135363829887842, guid: 84ab810e30c024647b2e1693cd9807c6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5080279187293182404, guid: 84ab810e30c024647b2e1693cd9807c6, type: 3}
       propertyPath: m_Name
       value: KrakenScenePackage
+      objectReference: {fileID: 0}
+    - target: {fileID: 6896747900452761984, guid: 84ab810e30c024647b2e1693cd9807c6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -438,7 +454,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &415012644
 Transform:
   m_ObjectHideFlags: 0
@@ -455,7 +471,7 @@ Transform:
   - {fileID: 1296624127}
   - {fileID: 1409850217}
   - {fileID: 1345591506}
-  - {fileID: 1203886893}
+  - {fileID: 890694871}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &462267763
@@ -519,7 +535,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 24
+  field of view: 20
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -545,7 +561,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 462267763}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.44619775, y: 0, z: 0, w: 0.8949344}
+  m_LocalRotation: {x: 0.46174863, y: 0, z: 0, w: 0.8870109}
   m_LocalPosition: {x: 0, y: 87, z: -63.999996}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -808,11 +824,11 @@ Transform:
   m_GameObject: {fileID: 498273004}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.19262, y: 3.8200002, z: -6.32635}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 100, y: 1, z: 100}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1649936256}
+  m_Father: {fileID: 1203886893}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &790307019
 GameObject:
@@ -925,6 +941,54 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1203886893}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &890694870
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 890694871}
+  - component: {fileID: 890694872}
+  m_Layer: 0
+  m_Name: PlataformManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &890694871
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 890694870}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1203886893}
+  m_Father: {fileID: 415012644}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &890694872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 890694870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69f9128564727e948978ddddf795cb12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  arenaInfo: {fileID: 11400000, guid: 87d6a85c38c206c43b3dc0d512f5078f, type: 2}
+  platformObject: {fileID: 1203886892}
+  palayer: {fileID: 1345591502}
 --- !u!1 &930158690
 GameObject:
   m_ObjectHideFlags: 0
@@ -1289,12 +1353,13 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 498273008}
   - {fileID: 76059103}
   - {fileID: 1596198857}
   - {fileID: 283385208}
   - {fileID: 1633437176}
   - {fileID: 790307023}
-  m_Father: {fileID: 415012644}
+  m_Father: {fileID: 890694871}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1205703374
 GameObject:
@@ -1641,6 +1706,7 @@ GameObject:
   - component: {fileID: 1345591505}
   - component: {fileID: 1345591504}
   - component: {fileID: 1345591503}
+  - component: {fileID: 1345591507}
   m_Layer: 0
   m_Name: Palayer
   m_TagString: Untagged
@@ -1742,6 +1808,33 @@ Transform:
   m_Children: []
   m_Father: {fileID: 415012644}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &1345591507
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1345591502}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
 --- !u!1 &1409850213
 GameObject:
   m_ObjectHideFlags: 0
@@ -1760,7 +1853,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &1409850214
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2312,7 +2405,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1649936256
 Transform:
   m_ObjectHideFlags: 0
@@ -2327,7 +2420,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 476013819}
-  - {fileID: 498273008}
   - {fileID: 956866640}
   - {fileID: 1205703375}
   - {fileID: 1985898005}

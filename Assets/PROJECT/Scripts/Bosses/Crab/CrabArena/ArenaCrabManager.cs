@@ -4,8 +4,14 @@ using UnityEngine;
 
 public class ArenaCrabManager : MonoBehaviour
 {
+    #region Parameters
+
+    public static ArenaCrabManager Instance;
+
+    [Header("Components")]
     [SerializeField] ArenaCrabSO arenaInfo;
 
+    // Atributes
     CrabArenaState _currentTide;
 
     // Event
@@ -14,12 +20,29 @@ public class ArenaCrabManager : MonoBehaviour
     // Coroutines
     Coroutine _tideTimerCoroutine;
 
+    #endregion
+
+    #region Initialize
+    private void Awake() {
+        if (Instance == null) Instance = this;
+        else Destroy(this);
+    }
     private void Start() {
         _currentTide = arenaInfo.InitialState;
 
         _tideTimerCoroutine ??= StartCoroutine(TideTimerCoroutine());
     }
+    private void OnDestroy() {
 
+        // Limpando os eventos
+        OnChangeToLowTide = null;
+        OnChangeToIncomingTide = null;
+        OnChangeToHighTide = null;
+        OnChangeToOutgoingTide = null;
+    }
+    #endregion
+
+    #region Tides
     IEnumerator TideTimerCoroutine() {
         float duration = _currentTide switch {
             CrabArenaState.LowTide => arenaInfo.DurationOfLowTide,
@@ -67,4 +90,12 @@ public class ArenaCrabManager : MonoBehaviour
         OnChangeToOutgoingTide?.Invoke();
         _tideTimerCoroutine ??= StartCoroutine(TideTimerCoroutine());
     }
+
+    #endregion
+
+    #region Getters
+
+    public CrabArenaState ReturnCurrentTide() => _currentTide;
+
+    #endregion
 }
