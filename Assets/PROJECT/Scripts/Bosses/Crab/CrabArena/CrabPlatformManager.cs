@@ -9,13 +9,11 @@ public class CrabPlatformManager : MonoBehaviour
 
     [SerializeField] ArenaCrabSO arenaInfo;
     [SerializeField] GameObject platformObject;
-    [SerializeField] GameObject palayer;
+
 
     // Actions
     Action _onHandleHighTide, _onHandleLowTidde;
 
-    // Coroutines
-    Coroutine _onMovePlatformCoroutine;
     #endregion
 
     #region Initialize
@@ -47,9 +45,9 @@ public class CrabPlatformManager : MonoBehaviour
         float deltaDistance = arenaInfo.PlatformHighTideHeight - arenaInfo.PlatformLowTideHeight;
         float duration = deltaDistance / arenaInfo.PlatformUpSpeed;
 
-        palayer.transform.SetParent(platformObject.transform);
-        platformObject.transform.DOMoveY(arenaInfo.PlatformHighTideHeight, duration).OnComplete(() => {
-            palayer.transform.SetParent(null);
+        //palayer.transform.SetParent(platformObject.transform);
+        platformObject.transform.DOLocalMoveY(arenaInfo.PlatformHighTideHeight, duration).OnComplete(() => {
+            //palayer.transform.SetParent(null);
         });
 
     }
@@ -58,9 +56,9 @@ public class CrabPlatformManager : MonoBehaviour
         float deltaDistance = arenaInfo.PlatformHighTideHeight - arenaInfo.PlatformLowTideHeight;
         float duration = deltaDistance / arenaInfo.PlatformDownSpeed;
 
-        palayer.transform.SetParent(platformObject.transform);
-        platformObject.transform.DOMoveY(arenaInfo.PlatformLowTideHeight, duration).OnComplete(() => {
-            palayer.transform.SetParent(null);
+        //palayer.transform.SetParent(platformObject.transform);
+        platformObject.transform.DOLocalMoveY(arenaInfo.PlatformLowTideHeight, duration).OnComplete(() => {
+            //palayer.transform.SetParent(null);
         });
     }
 

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class ArenaCrabManager : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class ArenaCrabManager : MonoBehaviour
 
     [Header("Components")]
     [SerializeField] ArenaCrabSO arenaInfo;
+    [SerializeField] Transform platformSpawnPosition;
 
     // Atributes
     CrabArenaState _currentTide;
@@ -26,6 +28,12 @@ public class ArenaCrabManager : MonoBehaviour
     private void Awake() {
         if (Instance == null) Instance = this;
         else Destroy(this);
+
+        int amountOfPlatforms = arenaInfo.ListOfPlatforms.Count;
+        int randomPlatformIndex = Random.Range(0, amountOfPlatforms);
+        GameObject platform = arenaInfo.ListOfPlatforms[randomPlatformIndex];
+
+        Instantiate(platform, platformSpawnPosition.position, Quaternion.identity );
     }
     private void Start() {
         _currentTide = arenaInfo.InitialState;

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public enum CrabArenaState { LowTide, IncomingTide,  HighTide, OutgoingTide }
@@ -5,7 +6,9 @@ public enum CrabArenaState { LowTide, IncomingTide,  HighTide, OutgoingTide }
 [CreateAssetMenu(menuName = "Crab/ Arena")]
 public class ArenaCrabSO : ScriptableObject
 {
+    [Header("Arena Atributes")]
     public CrabArenaState InitialState = CrabArenaState.LowTide;
+    public List<GameObject> ListOfPlatforms = new();
 
     [Header("Low Tide Atributes")]
     public float DurationOfLowTide = 15;
