@@ -1,14 +1,19 @@
 using DG.Tweening;
 using System;
-using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
+public class PathWay {
+    public Vector3[] pathPoint;
+}
 public class CrabPlatformManager : MonoBehaviour
 {
     #region Parameters
 
     [SerializeField] ArenaCrabSO arenaInfo;
     [SerializeField] GameObject platformObject;
+    [SerializeField] List<PathWay> paths = new();
 
 
     // Actions
@@ -22,12 +27,13 @@ public class CrabPlatformManager : MonoBehaviour
 
         _onHandleHighTide = HandleHighTide;
         _onHandleLowTidde = HandleLowTide;
-
     }
 
     private void Start() {
         ArenaCrabManager.Instance.OnChangeToHighTide += _onHandleHighTide;
         ArenaCrabManager.Instance.OnChangeToLowTide += _onHandleLowTidde;
+
+        ArenaManager.Instance.SetPathPoints(paths);
     }
 
     private void OnDestroy() {
@@ -45,6 +51,8 @@ public class CrabPlatformManager : MonoBehaviour
         float deltaDistance = arenaInfo.PlatformHighTideHeight - arenaInfo.PlatformLowTideHeight;
         float duration = deltaDistance / arenaInfo.PlatformUpSpeed;
 
+        ArenaManager.Instance.SetTypeOfArena(TypeOfArena.Paths);
+
         //palayer.transform.SetParent(platformObject.transform);
         platformObject.transform.DOLocalMoveY(arenaInfo.PlatformHighTideHeight, duration).OnComplete(() => {
             //palayer.transform.SetParent(null);
@@ -59,6 +67,7 @@ public class CrabPlatformManager : MonoBehaviour
         //palayer.transform.SetParent(platformObject.transform);
         platformObject.transform.DOLocalMoveY(arenaInfo.PlatformLowTideHeight, duration).OnComplete(() => {
             //palayer.transform.SetParent(null);
+            ArenaManager.Instance.SetTypeOfArena(TypeOfArena.Square);
         });
     }
 
