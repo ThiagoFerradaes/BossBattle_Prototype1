@@ -3,7 +3,7 @@ using UnityEngine;
 
 public enum Phases { 
     KrakenOne, KrakenTwo, KrakenThree, KrakenFour, KrakenFive, 
-    SecondOne, SecondTwo, SecondThree, SecondFour, SecondFive,
+    CrabOne, CrabTwo, CrabThree, CrabFour, CrabFive,
     ThirdOne, ThirdTwo, ThirdThree, ThirdFour, ThirdFive,
     FourthOne, FourthTwo, FourthThree, FourthFour, FourthFive,
     FifthOne, FifthTwo, FifthThree, FifthFour, FifthFive,
@@ -12,6 +12,9 @@ public enum Phases {
 public class WhiteBoard : MonoBehaviour
 {
     public static WhiteBoard Instance;
+
+    [SerializeField] List<Character> listOfInitialCharactersUnlocked = new();
+    [SerializeField] List<Phases> listOfInitialPhasesUnlocked = new();
 
     List<Character> _listOfUnlockedCharacter = new();
     List<Phases> _listOfUnlockedPhases = new();
@@ -22,10 +25,14 @@ public class WhiteBoard : MonoBehaviour
     private void Awake() {
         if (Instance == null) {
             Instance = this;
-            UnlockCharacter(Character.WeaponMaster);
-            UnlockCharacter(Character.Bastian);
-            UnlockCharacter(Character.Lilian);
-            UnlockPhase(Phases.KrakenOne);
+
+            foreach (var character in listOfInitialCharactersUnlocked) {
+                UnlockCharacter(character);
+            }
+            foreach (var phase in listOfInitialPhasesUnlocked) {
+                UnlockPhase(phase);
+            }
+
             DontDestroyOnLoad(this);
         }
         else {

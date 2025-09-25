@@ -54,7 +54,7 @@ public class ArenaCrabManager : MonoBehaviour
     IEnumerator TideTimerCoroutine() {
         float duration = _currentTide switch {
             CrabArenaState.LowTide => arenaInfo.DurationOfLowTide,
-            CrabArenaState.IncomingTide => arenaInfo.DurationOfIncomingTide,
+            CrabArenaState.IncomingTide => arenaInfo.IncomingTideDuration,
             CrabArenaState.HighTide => arenaInfo.DurationOfHeightTide,
             CrabArenaState.OutgoingTide => arenaInfo.DurationOfOutgoingTide,
             _ => arenaInfo.DurationOfLowTide
@@ -84,12 +84,10 @@ public class ArenaCrabManager : MonoBehaviour
         OnChangeToLowTide?.Invoke();
         _tideTimerCoroutine ??= StartCoroutine(TideTimerCoroutine());
     }
-
     void ChangeToIncomingTide() {
         OnChangeToIncomingTide?.Invoke();
         _tideTimerCoroutine ??= StartCoroutine(TideTimerCoroutine());
     }
-
     void ChangeToHeightTide() {
         OnChangeToHighTide?.Invoke();
         _tideTimerCoroutine ??= StartCoroutine(TideTimerCoroutine());
@@ -99,6 +97,25 @@ public class ArenaCrabManager : MonoBehaviour
         _tideTimerCoroutine ??= StartCoroutine(TideTimerCoroutine());
     }
 
+    public void ForceCurrentTideToEnd() {
+        if (_tideTimerCoroutine != null) StopCoroutine(_tideTimerCoroutine);
+
+        Array values = Enum.GetValues(typeof(CrabArenaState));
+
+        _currentTide = (CrabArenaState)values.GetValue(((int)_currentTide + 1) % values.Length);
+
+        Debug.Log($"Force Tide to end. The new tide is: {_currentTide}");
+
+        _tideTimerCoroutine = null;
+
+        switch (_currentTide) {
+            case CrabArenaState.LowTide: ChangeToLowTide(); break;
+            case CrabArenaState.IncomingTide: ChangeToIncomingTide(); break;
+            case CrabArenaState.HighTide: ChangeToHeightTide(); break;
+            case CrabArenaState.OutgoingTide: ChangeToOutgoingTide(); break;
+        }
+
+    }
     #endregion
 
     #region Getters

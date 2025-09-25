@@ -9,6 +9,7 @@ public class ArenaCrabSO : ScriptableObject
     [Header("Arena Atributes")]
     public CrabArenaState InitialState = CrabArenaState.LowTide;
     public List<GameObject> ListOfPlatforms = new();
+    Status arenaStatus;
 
     [Header("Low Tide Atributes")]
     public float DurationOfLowTide = 15;
@@ -16,7 +17,12 @@ public class ArenaCrabSO : ScriptableObject
     public float PlatformLowTideHeight = 0.5f;
 
     [Header("Incoming Tide Atributes")]
-    public float DurationOfIncomingTide = 5;
+    public float IncomingTideDuration = 5;
+    public float IncomingTideAttackDamage;
+    public float IncomingTideAttackDamageCooldown;
+    public float IncomingTideAttackDamagSize;
+    public string IncomingTideAttackHitBoxName;
+    public GameObject IncomingTideAttackHitBox;
 
     [Header("High Tide Atributes")]
     public float DurationOfHeightTide = 15;

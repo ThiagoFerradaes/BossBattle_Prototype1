@@ -11,6 +11,10 @@ public class Test : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("oi");
+       
+    }
+
+    private void OnTriggerEnter(Collider other) {
+        if (other.CompareTag("Player")) Debug.Log("Colidiu");
     }
 }
