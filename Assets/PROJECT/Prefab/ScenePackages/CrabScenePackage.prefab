@@ -4105,8 +4105,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8254741108879606975}
   - component: {fileID: 2505969184061590754}
-  - component: {fileID: 2108397376049481621}
   - component: {fileID: 3909315794774605366}
+  - component: {fileID: 5757420689790950925}
   m_Layer: 0
   m_Name: ArenaManager
   m_TagString: Untagged
@@ -4145,20 +4145,6 @@ MonoBehaviour:
   ringInnerRadius: 9
   centerOfArena: {x: 0, y: 0, z: 0}
   arenaSize: {x: 14, y: 14}
---- !u!114 &2108397376049481621
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5381653904012057218}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a49a86688b46a4a499fb26b673eb09f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ArenaCrabManager
-  arenaInfo: {fileID: 11400000, guid: 87d6a85c38c206c43b3dc0d512f5078f, type: 2}
-  platformSpawnPosition: {fileID: 3096605538968573059}
 --- !u!114 &3909315794774605366
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4172,6 +4158,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StatusManager
   baseStatus: {fileID: 11400000, guid: 9f7d14c96dd3d1642bece3888f4f3277, type: 2}
+--- !u!114 &5757420689790950925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5381653904012057218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd25667b856784d4e98e35ea67397702, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CrabArenaManager
+  arenaInfo: {fileID: 11400000, guid: 87d6a85c38c206c43b3dc0d512f5078f, type: 2}
+  platformSpawnPosition: {fileID: 3096605538968573059}
 --- !u!1 &5385227981282927718
 GameObject:
   m_ObjectHideFlags: 0

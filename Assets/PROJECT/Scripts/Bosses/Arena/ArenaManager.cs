@@ -78,7 +78,7 @@ public class ArenaManager : MonoBehaviour
         return centerOfArena + new Vector3(posNormal.x, 0, posNormal.y);
     }
 
-    public Vector3 GetRandomPointInPath() {
+    private Vector3 GetRandomPointInPath() {
 
         // Escolhendo um ponto aleatório do caminho
         int randomPath = Random.Range(0, paths.Count);

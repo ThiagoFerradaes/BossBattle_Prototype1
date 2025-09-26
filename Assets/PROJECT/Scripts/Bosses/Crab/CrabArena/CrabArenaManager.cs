@@ -3,14 +3,14 @@ using System.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class ArenaCrabManager : MonoBehaviour
+public class CrabArenaManager : MonoBehaviour
 {
     #region Parameters
 
-    public static ArenaCrabManager Instance;
+    public static CrabArenaManager Instance;
 
     [Header("Components")]
-    [SerializeField] ArenaCrabSO arenaInfo;
+    [SerializeField] CrabArenaSO arenaInfo;
     [SerializeField] Transform platformSpawnPosition;
 
     // Atributes
@@ -60,14 +60,11 @@ public class ArenaCrabManager : MonoBehaviour
             _ => arenaInfo.DurationOfLowTide
         };
 
-        Debug.Log($"The current tide is: {_currentTide}, it will last: {duration}");
         yield return new WaitForSeconds(duration);
 
         Array values = Enum.GetValues(typeof(CrabArenaState));
 
         _currentTide = (CrabArenaState)values.GetValue(((int)_currentTide + 1) % values.Length);
-
-        Debug.Log($"The new tide is: {_currentTide}");
 
         _tideTimerCoroutine = null;
 

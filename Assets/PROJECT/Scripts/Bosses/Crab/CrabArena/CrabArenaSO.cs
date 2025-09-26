@@ -1,15 +1,15 @@
+using AYellowpaper.SerializedCollections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public enum CrabArenaState { LowTide, IncomingTide,  HighTide, OutgoingTide }
 
 [CreateAssetMenu(menuName = "Crab/ Arena")]
-public class ArenaCrabSO : ScriptableObject
+public class CrabArenaSO : ScriptableObject
 {
     [Header("Arena Atributes")]
     public CrabArenaState InitialState = CrabArenaState.LowTide;
     public List<GameObject> ListOfPlatforms = new();
-    Status arenaStatus;
 
     [Header("Low Tide Atributes")]
     public float DurationOfLowTide = 15;
@@ -30,6 +30,9 @@ public class ArenaCrabSO : ScriptableObject
     public float PlatformHighTideHeight = 4;
 
     [Header("Outgoing Tide Atributes")]
-    public float DurationOfOutgoingTide = 0;
+    public float DurationOfOutgoingTide = 2;
+    public float AnimalDistance = 5;
+    public int AmountOfAnimals = 3;
+    [SerializedDictionary("Name", "Prefab")]public SerializedDictionary<string, GameObject> ListOfAnimals = new();
 
 }

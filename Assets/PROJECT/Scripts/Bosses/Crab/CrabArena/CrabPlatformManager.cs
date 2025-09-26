@@ -1,7 +1,10 @@
 using DG.Tweening;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 [Serializable]
 public class PathWay {
@@ -11,18 +14,23 @@ public class CrabPlatformManager : MonoBehaviour {
     #region Parameters
 
     [Header("Atributes")]
-    [SerializeField] ArenaCrabSO arenaInfo;
+    [SerializeField] CrabArenaSO arenaInfo;
     [SerializeField] GameObject platformObject;
     [SerializeField] List<PathWay> paths = new();
     [SerializeField] GameObject walls;
+    [SerializeField] LayerMask platformOrAnimalLayer;
     bool _playerInPlatform;
+
 
     // Components
     ContinuosDamageHitBox _incomingTideAttack;
     GameObject _player;
 
     // Actions
-    Action _onHandleHighTide, _onHandleLowTidde, _onHandleIncomingTide;
+    Action _onHandleHighTide, _onHandleLowTidde, _onHandleIncomingTide, _onHandleOutgoingTide;
+
+    // Coroutine
+    Coroutine _instantiateAnimalCoroutine;
 
     #endregion
 
@@ -33,12 +41,14 @@ public class CrabPlatformManager : MonoBehaviour {
         _onHandleHighTide = HandleHighTide;
         _onHandleLowTidde = HandleLowTide;
         _onHandleIncomingTide = HandleIncomingTide;
+        _onHandleOutgoingTide = HandleOutgoingTide;
     }
 
     private void Start() {
-        ArenaCrabManager.Instance.OnChangeToHighTide += _onHandleHighTide;
-        ArenaCrabManager.Instance.OnChangeToLowTide += _onHandleLowTidde;
-        ArenaCrabManager.Instance.OnChangeToIncomingTide += _onHandleIncomingTide;
+        CrabArenaManager.Instance.OnChangeToHighTide += _onHandleHighTide;
+        CrabArenaManager.Instance.OnChangeToLowTide += _onHandleLowTidde;
+        CrabArenaManager.Instance.OnChangeToIncomingTide += _onHandleIncomingTide;
+        CrabArenaManager.Instance.OnChangeToOutgoingTide += _onHandleOutgoingTide;
 
         ArenaManager.Instance.SetPathPoints(paths);
 
@@ -48,9 +58,10 @@ public class CrabPlatformManager : MonoBehaviour {
     private void OnDestroy() {
 
         // UnSubscribe Events
-        ArenaCrabManager.Instance.OnChangeToHighTide -= _onHandleHighTide;
-        ArenaCrabManager.Instance.OnChangeToLowTide -= _onHandleLowTidde;
-        ArenaCrabManager.Instance.OnChangeToIncomingTide -= _onHandleIncomingTide;
+        CrabArenaManager.Instance.OnChangeToHighTide -= _onHandleHighTide;
+        CrabArenaManager.Instance.OnChangeToLowTide -= _onHandleLowTidde;
+        CrabArenaManager.Instance.OnChangeToIncomingTide -= _onHandleIncomingTide;
+        CrabArenaManager.Instance.OnChangeToOutgoingTide -= _onHandleOutgoingTide;
 
         // Kill DOTween
         platformObject.transform.DOKill();
@@ -74,7 +85,7 @@ public class CrabPlatformManager : MonoBehaviour {
     }
     void HandleIncomingTide() {
         if (_playerInPlatform) {
-            ArenaCrabManager.Instance.ForceCurrentTideToEnd();
+            CrabArenaManager.Instance.ForceCurrentTideToEnd();
             return;
         }
 
@@ -90,7 +101,7 @@ public class CrabPlatformManager : MonoBehaviour {
             false,
             DamageType.Pure,
             new() { Tags.Player, },
-            ArenaCrabManager.Instance.gameObject.GetComponent<StatusManager>(),
+            CrabArenaManager.Instance.gameObject.GetComponent<StatusManager>(),
             new() {
                 {ExtraDamageContextAtributes.DamageCooldown, arenaInfo.IncomingTideAttackDamageCooldown},
             }
@@ -107,10 +118,55 @@ public class CrabPlatformManager : MonoBehaviour {
         if (_player != null) _player.transform.SetParent(platformObject.transform);
         platformObject.transform.DOLocalMoveY(arenaInfo.PlatformLowTideHeight, duration).OnComplete(() => {
             if (_player != null) _player.transform.SetParent(null);
-            ArenaManager.Instance.SetTypeOfArena(TypeOfArena.Square);
             if (walls != null) walls.SetActive(false);
         });
     }
+    void HandleOutgoingTide() {
+        ArenaManager.Instance.SetTypeOfArena(TypeOfArena.Square);
+        _instantiateAnimalCoroutine ??= StartCoroutine(InstantiateMarineAnimals());
+    }
+
+    IEnumerator InstantiateMarineAnimals() {
+
+        for (int i = 0; i < arenaInfo.AmountOfAnimals; i++) {
+            Debug.Log("Current Animal: " + i);
+            bool foundAPlace = false;
+
+            while (!foundAPlace) {
+                Debug.Log("Tryin to find a place");
+
+                Vector3 position = ArenaManager.Instance.GetRandomPosition();
+                float floorHeight = ArenaManager.Instance.FindGroundHeight(position);
+                Vector3 groundPosition = new(position.x, floorHeight, position.z);
+                position.y += 100;
+
+                Collider[] hitCollider = Physics.OverlapCapsule(groundPosition, position, arenaInfo.AnimalDistance, platformOrAnimalLayer);
+
+                if(hitCollider.Length == 0) { // Não colidiu com a plataforma
+
+                    int amountOfMaxAnimals = arenaInfo.ListOfAnimals.Count;
+                    int rng = Random.Range(0, amountOfMaxAnimals);
+                    var animal = arenaInfo.ListOfAnimals.ElementAt(rng);
+
+                    GameObject prefab = animal.Value;
+                    string prefabName = animal.Key;
+
+                    GameObject hitbox = PoolingManager.Instance.ReturnPrefabFromPool(prefabName, prefab, TypeOfSkillPrefab.Hitbox);
+                    hitbox.transform.position = groundPosition;
+                    CrabMarineAnimal crabMarineAnimal = hitbox.GetComponent<CrabMarineAnimal>();
+
+                    crabMarineAnimal.OnStart();
+
+                    foundAPlace = true;
+                }
+
+                yield return null;
+            }
+        }
+
+        _instantiateAnimalCoroutine = null;
+    }
+
     #endregion
 
     #region Trigger
@@ -120,9 +176,9 @@ public class CrabPlatformManager : MonoBehaviour {
 
         _playerInPlatform = true;
 
-        if (ArenaCrabManager.Instance.ReturnCurrentTide() == CrabArenaState.IncomingTide) {
+        if (CrabArenaManager.Instance.ReturnCurrentTide() == CrabArenaState.IncomingTide) {
             _incomingTideAttack.End();
-            ArenaCrabManager.Instance.ForceCurrentTideToEnd();
+            CrabArenaManager.Instance.ForceCurrentTideToEnd();
         }
     }
 
