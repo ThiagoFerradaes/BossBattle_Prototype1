@@ -17,7 +17,7 @@ public class CrabPlatformManager : MonoBehaviour {
     [SerializeField] CrabArenaSO arenaInfo;
     [SerializeField] GameObject platformObject;
     [SerializeField] List<PathWay> paths = new();
-    [SerializeField] GameObject walls;
+    [SerializeField] List<GameObject> walls;
     [SerializeField] LayerMask platformOrAnimalLayer;
     bool _playerInPlatform;
 
@@ -75,7 +75,7 @@ public class CrabPlatformManager : MonoBehaviour {
 
         ArenaManager.Instance.SetTypeOfArena(TypeOfArena.Paths);
 
-        if (walls != null) walls.SetActive(true);
+        if (walls != null) foreach(var wall in walls) wall.SetActive(true);
 
         if (_player != null) _player.transform.SetParent(platformObject.transform);
         platformObject.transform.DOLocalMoveY(arenaInfo.PlatformHighTideHeight, duration).OnComplete(() => {
@@ -118,7 +118,7 @@ public class CrabPlatformManager : MonoBehaviour {
         if (_player != null) _player.transform.SetParent(platformObject.transform);
         platformObject.transform.DOLocalMoveY(arenaInfo.PlatformLowTideHeight, duration).OnComplete(() => {
             if (_player != null) _player.transform.SetParent(null);
-            if (walls != null) walls.SetActive(false);
+            if (walls != null) foreach (var wall in walls) wall.SetActive(true);
         });
     }
     void HandleOutgoingTide() {
