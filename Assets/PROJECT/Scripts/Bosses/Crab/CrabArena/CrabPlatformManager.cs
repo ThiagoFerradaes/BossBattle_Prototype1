@@ -7,10 +7,12 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 
 [Serializable]
-public class PathWay {
+public class PathWay
+{
     public Vector3[] pathPoint;
 }
-public class CrabPlatformManager : MonoBehaviour {
+public class CrabPlatformManager : MonoBehaviour
+{
     #region Parameters
 
     [Header("Atributes")]
@@ -19,8 +21,7 @@ public class CrabPlatformManager : MonoBehaviour {
     [SerializeField] List<PathWay> paths = new();
     [SerializeField] List<GameObject> walls;
     [SerializeField] LayerMask platformOrAnimalLayer;
-    bool _playerInPlatform;
-
+    int _platformContacts = 0;
 
     // Components
     ContinuosDamageHitBox _incomingTideAttack;
@@ -36,7 +37,8 @@ public class CrabPlatformManager : MonoBehaviour {
 
     #region Initialize
 
-    private void Awake() {
+    private void Awake()
+    {
 
         _onHandleHighTide = HandleHighTide;
         _onHandleLowTidde = HandleLowTide;
@@ -44,7 +46,8 @@ public class CrabPlatformManager : MonoBehaviour {
         _onHandleOutgoingTide = HandleOutgoingTide;
     }
 
-    private void Start() {
+    private void Start()
+    {
         CrabArenaManager.Instance.OnChangeToHighTide += _onHandleHighTide;
         CrabArenaManager.Instance.OnChangeToLowTide += _onHandleLowTidde;
         CrabArenaManager.Instance.OnChangeToIncomingTide += _onHandleIncomingTide;
@@ -55,7 +58,8 @@ public class CrabPlatformManager : MonoBehaviour {
         _player = PlayerManager.Instance.Player;
     }
 
-    private void OnDestroy() {
+    private void OnDestroy()
+    {
 
         // UnSubscribe Events
         CrabArenaManager.Instance.OnChangeToHighTide -= _onHandleHighTide;
@@ -69,22 +73,26 @@ public class CrabPlatformManager : MonoBehaviour {
     #endregion
 
     #region HandleTides
-    void HandleHighTide() {
+    void HandleHighTide()
+    {
         float deltaDistance = arenaInfo.PlatformHighTideHeight - arenaInfo.PlatformLowTideHeight;
         float duration = deltaDistance / arenaInfo.PlatformUpSpeed;
 
         ArenaManager.Instance.SetTypeOfArena(TypeOfArena.Paths);
 
-        if (walls != null) foreach(var wall in walls) wall.SetActive(true);
+        if (walls != null) foreach (var wall in walls) wall.SetActive(true);
 
         if (_player != null) _player.transform.SetParent(platformObject.transform);
-        platformObject.transform.DOLocalMoveY(arenaInfo.PlatformHighTideHeight, duration).OnComplete(() => {
+        platformObject.transform.DOLocalMoveY(arenaInfo.PlatformHighTideHeight, duration).OnComplete(() =>
+        {
             if (_player != null) _player.transform.SetParent(null);
         });
 
     }
-    void HandleIncomingTide() {
-        if (_playerInPlatform) {
+    void HandleIncomingTide()
+    {
+        if (_platformContacts > 0)
+        {
             CrabArenaManager.Instance.ForceCurrentTideToEnd();
             return;
         }
@@ -111,28 +119,34 @@ public class CrabPlatformManager : MonoBehaviour {
         _incomingTideAttack.Initialize(context);
 
     }
-    void HandleLowTide() {
+    void HandleLowTide()
+    {
         float deltaDistance = arenaInfo.PlatformHighTideHeight - arenaInfo.PlatformLowTideHeight;
         float duration = deltaDistance / arenaInfo.PlatformDownSpeed;
 
         if (_player != null) _player.transform.SetParent(platformObject.transform);
-        platformObject.transform.DOLocalMoveY(arenaInfo.PlatformLowTideHeight, duration).OnComplete(() => {
+        platformObject.transform.DOLocalMoveY(arenaInfo.PlatformLowTideHeight, duration).OnComplete(() =>
+        {
             if (_player != null) _player.transform.SetParent(null);
-            if (walls != null) foreach (var wall in walls) wall.SetActive(true);
+            if (walls != null) foreach (var wall in walls) wall.SetActive(false);
         });
     }
-    void HandleOutgoingTide() {
+    void HandleOutgoingTide()
+    {
         ArenaManager.Instance.SetTypeOfArena(TypeOfArena.Square);
         _instantiateAnimalCoroutine ??= StartCoroutine(InstantiateMarineAnimals());
     }
 
-    IEnumerator InstantiateMarineAnimals() {
+    IEnumerator InstantiateMarineAnimals()
+    {
 
-        for (int i = 0; i < arenaInfo.AmountOfAnimals; i++) {
+        for (int i = 0; i < arenaInfo.AmountOfAnimals; i++)
+        {
             Debug.Log("Current Animal: " + i);
             bool foundAPlace = false;
 
-            while (!foundAPlace) {
+            while (!foundAPlace)
+            {
                 Debug.Log("Tryin to find a place");
 
                 Vector3 position = ArenaManager.Instance.GetRandomPosition();
@@ -142,7 +156,8 @@ public class CrabPlatformManager : MonoBehaviour {
 
                 Collider[] hitCollider = Physics.OverlapCapsule(groundPosition, position, arenaInfo.AnimalDistance, platformOrAnimalLayer);
 
-                if(hitCollider.Length == 0) { // Não colidiu com a plataforma
+                if (hitCollider.Length == 0)
+                { // Não colidiu com a plataforma
 
                     int amountOfMaxAnimals = arenaInfo.ListOfAnimals.Count;
                     int rng = Random.Range(0, amountOfMaxAnimals);
@@ -170,22 +185,31 @@ public class CrabPlatformManager : MonoBehaviour {
     #endregion
 
     #region Trigger
-    private void OnTriggerEnter(Collider other) {
+
+    private void OnTriggerEnter(Collider other)
+    {
         if (!other.CompareTag("Player")) return;
-        Debug.Log("Colisao");
 
-        _playerInPlatform = true;
-
-        if (CrabArenaManager.Instance.ReturnCurrentTide() == CrabArenaState.IncomingTide) {
-            _incomingTideAttack.End();
-            CrabArenaManager.Instance.ForceCurrentTideToEnd();
+        _platformContacts++;
+        if (_platformContacts == 1)
+        {
+            if (CrabArenaManager.Instance.ReturnCurrentTide() == CrabArenaState.IncomingTide)
+            {
+                _incomingTideAttack.End();
+                CrabArenaManager.Instance.ForceCurrentTideToEnd();
+            }
         }
     }
 
-    private void OnTriggerExit(Collider other) {
-        if (!other.CompareTag("Player") || !_playerInPlatform) return;
+    private void OnTriggerExit(Collider other)
+    {
+        if (!other.CompareTag("Player")) return;
 
-        _playerInPlatform = false;
+        _platformContacts--;
+        if (_platformContacts <= 0)
+        {
+            _platformContacts = 0; 
+        }
     }
     #endregion
 }
