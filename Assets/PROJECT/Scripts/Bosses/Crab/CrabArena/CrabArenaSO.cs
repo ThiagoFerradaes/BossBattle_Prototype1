@@ -32,6 +32,7 @@ public class CrabArenaSO : ScriptableObject
     [Header("Outgoing Tide Atributes")]
     public float DurationOfOutgoingTide = 2;
     public float AnimalDistance = 5;
+    public float AnimalHeight = 0.5f;
     public int AmountOfAnimals = 3;
     [SerializedDictionary("Name", "Prefab")]public SerializedDictionary<string, GameObject> ListOfAnimals = new();
 

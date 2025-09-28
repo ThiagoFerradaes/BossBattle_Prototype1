@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -23,7 +24,7 @@ public class CrabMarineAnimal : MonoBehaviour {
 
     IEnumerator Duration() {
 
-        yield return new WaitForSeconds(MarineAnimalInfo.duration);
+        yield return new WaitForSeconds(MarineAnimalInfo.Duration);
 
         _durationCoroutine = null;
 
@@ -39,6 +40,8 @@ public class CrabMarineAnimal : MonoBehaviour {
     }
 
     private void OnTriggerEnter(Collider other) {
+
+        if (!MarineAnimalInfo.ListOfTags.Any(tag => other.CompareTag(tag.ToString()))) return;
 
         MarineAnimalInfo.OnTrigger(other, this);
 

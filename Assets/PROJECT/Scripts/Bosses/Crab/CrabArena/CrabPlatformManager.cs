@@ -152,12 +152,13 @@ public class CrabPlatformManager : MonoBehaviour
                 Vector3 position = ArenaManager.Instance.GetRandomPosition();
                 float floorHeight = ArenaManager.Instance.FindGroundHeight(position);
                 Vector3 groundPosition = new(position.x, floorHeight, position.z);
-                position.y += 100;
 
-                Collider[] hitCollider = Physics.OverlapCapsule(groundPosition, position, arenaInfo.AnimalDistance, platformOrAnimalLayer);
+                Collider[] hitCollider = Physics.OverlapSphere(groundPosition, arenaInfo.AnimalDistance, platformOrAnimalLayer);
 
                 if (hitCollider.Length == 0)
                 { // Não colidiu com a plataforma
+
+                    Debug.Log("Não colidiu");
 
                     int amountOfMaxAnimals = arenaInfo.ListOfAnimals.Count;
                     int rng = Random.Range(0, amountOfMaxAnimals);
@@ -167,6 +168,7 @@ public class CrabPlatformManager : MonoBehaviour
                     string prefabName = animal.Key;
 
                     GameObject hitbox = PoolingManager.Instance.ReturnPrefabFromPool(prefabName, prefab, TypeOfSkillPrefab.Hitbox);
+                    groundPosition.y = arenaInfo.AnimalHeight;
                     hitbox.transform.position = groundPosition;
                     CrabMarineAnimal crabMarineAnimal = hitbox.GetComponent<CrabMarineAnimal>();
 
