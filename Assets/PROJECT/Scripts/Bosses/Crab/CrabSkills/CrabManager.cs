@@ -6,11 +6,11 @@ public class CrabManager : EnemyBehaviourManager {
     [Header("Components")]
     public StatusManager StatusManager;
 
-    GameObject _player;
+    [HideInInspector] public GameObject Player;
 
     public override IEnumerator Start() {
 
-        _player = PlayerManager.Instance.Player;
+        Player = PlayerManager.Instance.Player;
 
         return base.Start();
     }

@@ -13,19 +13,20 @@ MonoBehaviour:
   m_Name: CrabOneJump
   m_EditorClassIdentifier: Assembly-CSharp::CrabJumpAttack
   Priority: 5
-  Cooldown: 10
-  preparingAnimationParameter: 
-  preparingAnimationName: 
-  jumpUpAnimationParameter: 
-  jumpUpAnimationName: 
-  landAnimationParameter: 
-  landDownAnimationName: 
+  Cooldown: 0
+  preparingAnimationParameter: Jumped
+  preparingAnimationName: JumpPrepare
+  jumpUpAnimationParameter: OnSky
+  jumpUpAnimationName: Jump
+  landAnimationParameter: Fall
+  landDownAnimationName: ToGround
   animationLayer: 0
-  jumpForce: 5
-  jumpDuration: 1
+  jumpForce: 15
+  jumpDuration: 0.7
+  jumpDistanceToPlayer: 0.4
   cooldownBetweenThisAttackAndNext: 2
   damage: 10
-  jumpHitBoxSize: 5
+  jumpHitBoxSize: 14
   hitBoxDuration: 0.1
   hitShield: 1
   jumpHitBoxName: SphereInstante

@@ -1,4 +1,5 @@
 using DG.Tweening;
+using NUnit.Framework.Constraints;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,6 +23,7 @@ public class CrabJumpAttack : EnemyBehaviourSO {
     [Header("Jump Atributes")]
     [SerializeField] float jumpForce;
     [SerializeField] float jumpDuration;
+    [SerializeField] float jumpDistanceToPlayer;
 
     [Header("Attack Atributes")]
     [SerializeField] float cooldownBetweenThisAttackAndNext;
@@ -89,10 +91,14 @@ public class CrabJumpAttack : EnemyBehaviourSO {
         yield return jumpSequence.WaitForCompletion();
 
         InstantiateHitBox();
+
+        _crabManager.StartCoroutine(CooldownBetweenAttacks());
     }
 
     Vector3 ReturnPositionCloseToPlayer() {
-        return Vector3.one;
+        Vector3 direction = _crabManager.transform.position - _crabManager.Player.transform.position;
+        Vector3 position = _crabManager.Player.transform.position + direction * jumpDistanceToPlayer;
+        return position;
     }
 
     void InstantiateHitBox() {
@@ -112,6 +118,12 @@ public class CrabJumpAttack : EnemyBehaviourSO {
             );
 
         InstantDamageHitBox hitBox = prefab.GetComponent<InstantDamageHitBox>();
-        hitBox.Initialize(context); 
+        hitBox.Initialize(context);
+    }
+    
+    IEnumerator CooldownBetweenAttacks() {
+        yield return new WaitForSeconds(cooldownBetweenThisAttackAndNext);
+        _crabManager.ChangeBehaviourAtRandom();
+
     }
 }

@@ -9,6 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1105087825158979848}
+  - component: {fileID: 1865521473720558491}
+  - component: {fileID: 3333633698975289181}
   m_Layer: 0
   m_Name: Crab_Prefab
   m_TagString: Untagged
@@ -32,6 +34,35 @@ Transform:
   - {fileID: 1584080580329990508}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1865521473720558491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8065635182543618749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63238a5fb9f7ae640aa7aaae3a1e1d2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CrabManager
+  initialState: {fileID: 11400000, guid: cffca25e99b7e7243b614704d6fb1afa, type: 2}
+  listOfBehaviour: {fileID: 11400000, guid: 6e078fe5dfc9dbe47a6bc604f38c8af4, type: 2}
+  CooldownManager: {fileID: 0}
+  StatusManager: {fileID: 3333633698975289181}
+--- !u!114 &3333633698975289181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8065635182543618749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c54be79e511cab47bf55e344efa89fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StatusManager
+  baseStatus: {fileID: 11400000, guid: 2b1f4bcbd00d3c54bac26e615ceedc36, type: 2}
 --- !u!1001 &1328968264320323207
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -100,6 +131,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Crab
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: ed4643d5262533b40a12d94b1f23d11c, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 493cb71f82986a1489db3e598a65ebf7, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
