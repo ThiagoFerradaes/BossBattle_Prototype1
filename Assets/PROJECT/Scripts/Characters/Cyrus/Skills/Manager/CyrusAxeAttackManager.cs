@@ -71,7 +71,8 @@ public class CyrusAxeAttackManager : SkillObjectManager {
         if (_info.PreCastOn && ConfigurationWhiteBoard.Instance.PreCastOn) SetSkillRangeIndicator(skill);
 
         // Checando nível
-        if (_skillLevel >= 1) healthManager.RecieveShield(_info.AmountOfShield, _info.ShieldDuration);
+        if (_skillLevel == 1) healthManager.RecieveShield(_info.Level1AmountOfShield, _info.ShieldDuration);
+        else if (_skillLevel > 1) healthManager.RecieveShield(_info.Level2AmountOfShield, _info.ShieldDuration);
     }
 
     public override void UseSkill(SkillSO skill) {
@@ -85,7 +86,7 @@ public class CyrusAxeAttackManager : SkillObjectManager {
 
         _chargeTimer = 0;
 
-        float maxChargeTime = _skillLevel >= 2 ? _info.MaxChargeTime : _info.NewMaxChargeTime;
+        float maxChargeTime = _skillLevel >= 2 ? _info.NewMaxChargeTime : _info.MaxChargeTime;
 
         _weaponManager.OnEquipRightHand(_info.WeaponPrefab, _info.WeaponName, _info.WeaponPosition, _info.WeaponRotation);
 
@@ -221,8 +222,7 @@ public class CyrusAxeAttackManager : SkillObjectManager {
         };
 
         // Cost
-        float duration = _info.expModifierDuration + (_skillLevel * _info.aditionalExpModifierDurationPerLevel);
-        CyrusPassiveManager.Instance.ChangeExpMultiplier(_info.ExpModifier, false, duration);
+        CyrusPassiveManager.Instance.SkillCost();
     }
 
     void InstantiateVFX(SkillAnimationEvent prefabInfo) {

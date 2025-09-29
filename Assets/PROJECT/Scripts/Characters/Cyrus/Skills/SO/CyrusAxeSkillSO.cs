@@ -20,7 +20,8 @@ public class CyrusAxeSkillSO : CommonSkillSO
     [Foldout("Specific")] public float AmountOfExpGain;
 
     [Header("Level 1 & 2 Buffs")]
-    [Foldout("Specific")] public float AmountOfShield;
+    [Foldout("Specific")] public float Level1AmountOfShield;
+    [Foldout("Specific")] public float Level2AmountOfShield;
     [Foldout("Specific")] public float ShieldDuration;
     [Foldout("Specific")] public float NewMaxChargeTime;
 

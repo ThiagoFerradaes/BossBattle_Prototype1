@@ -22,4 +22,8 @@ public class CyrusPassiveSO : PassiveSO {
     [Header("Passive gain of exp")]
     public float ExpGain;
     public float ExpGainCooldown;
+
+    [Header("SkillCost")]
+    public float PercentOfDefensesLost;
+    public float PercentOfDefensesLostDuration;
 }
