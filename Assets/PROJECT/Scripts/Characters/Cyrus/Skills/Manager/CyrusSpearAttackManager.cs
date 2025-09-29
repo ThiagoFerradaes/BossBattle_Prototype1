@@ -63,7 +63,6 @@ public class CyrusSpearAttackManager : SkillObjectManager {
         int attackStateHash = stateInfo.fullPathHash;
 
         int combo = _skillLevel >= 3 ? 1 : 0;
-        Debug.Log(combo);
 
         // Ordenando a lista de prefabs pelo tempo que eles precisam aparecer
         _info.Prefabs[combo].Sort((a, b) => a.TimeToSpawnPreFab.CompareTo(b.TimeToSpawnPreFab));

@@ -1,6 +1,8 @@
 using NaughtyAttributes;
-using Unity.AppUI.UI;
+using System.Collections.Generic;
 using UnityEngine;
+
+public enum TypeOfArena { Ring, Square, Paths }
 
 public class ArenaManager : MonoBehaviour
 {
@@ -8,14 +10,13 @@ public class ArenaManager : MonoBehaviour
 
     public static ArenaManager Instance;
 
-    enum TypeOfArena { Ring, Square}
-
     // Atributos da arena
     [Header("Arena Atributes")]
     [SerializeField] TypeOfArena typeOfArena;
     [ShowIf("typeOfArena", TypeOfArena.Ring), SerializeField] float ringInnerRadius;
     [SerializeField] Vector3 centerOfArena;
     [SerializeField] Vector2 arenaSize;
+    List<PathWay> paths = new();
 
     #endregion
 
@@ -38,6 +39,7 @@ public class ArenaManager : MonoBehaviour
         return typeOfArena switch {
             TypeOfArena.Square => GetRandomRectPosition(objectRadius),
             TypeOfArena.Ring => GetRandomRingPosition(objectRadius),
+            TypeOfArena.Paths => GetRandomPointInPath(),
             _ => centerOfArena,
         };
     }
@@ -76,6 +78,41 @@ public class ArenaManager : MonoBehaviour
         return centerOfArena + new Vector3(posNormal.x, 0, posNormal.y);
     }
 
+    private Vector3 GetRandomPointInPath() {
+
+        // Escolhendo um ponto aleatório do caminho
+        int randomPath = Random.Range(0, paths.Count);
+        Vector3[] pathPoints = paths[randomPath].pathPoint;
+
+        // Declarando variáveis
+        float totalLenght = 0f;
+        int amountOfSegmentes = pathPoints.Length - 1;
+        float[] segments = new float[amountOfSegmentes];
+
+        // Definindo o tamanho total do caminho
+        for (int i = 0; i < amountOfSegmentes; i++) {
+            float dis = Vector3.Distance(pathPoints[i], pathPoints[i + 1]);
+            segments[i] = dis;
+            totalLenght += dis;
+        }
+
+        // Escolhendo um ponto aleatório ao longo da distancia
+        float randomPoint = Random.Range(0, totalLenght);
+
+        // Econtrando qual segmento o ponto pertence
+        for (int i = 0; i < segments.Length; i++) {
+
+            if (randomPoint < segments[i]) {
+                float percent = randomPoint / segments[i];
+                return Vector3.Lerp(pathPoints[i], pathPoints[i + 1], percent);
+            }
+
+            randomPoint -= segments[i];
+        }
+
+        return centerOfArena;
+    }
+
     public bool IsPointInsideArena(Vector3 point, float objectRadius = 0f) {
         switch (typeOfArena) {
             case TypeOfArena.Square:
@@ -100,5 +137,14 @@ public class ArenaManager : MonoBehaviour
 
         return 0;
     }
+
+    #endregion
+
+    #region Setter
+
+    public void SetTypeOfArena(TypeOfArena type) => typeOfArena = type; 
+
+    public void SetPathPoints(List<PathWay> paths) => this.paths = paths;
+
     #endregion
 }

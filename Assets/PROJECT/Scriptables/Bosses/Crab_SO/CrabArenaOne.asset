@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b697087366ae0b4f94e71c962af6026, type: 3}
+  m_Name: CrabArenaOne
+  m_EditorClassIdentifier: Assembly-CSharp::ArenaCrabSO
+  InitialState: 0
+  ListOfPlatforms:
+  - {fileID: 1952327732340147867, guid: 0e74b412bb7c3224999b747a7bb7b43e, type: 3}
+  DurationOfLowTide: 5
+  PlatformDownSpeed: 2
+  PlatformLowTideHeight: 0
+  IncomingTideDuration: 5
+  IncomingTideAttackDamage: 1.5
+  IncomingTideAttackDamageCooldown: 0.05
+  IncomingTideAttackDamagSize: 100
+  IncomingTideAttackHitBoxName: CrabIncomingTideAttackHitBox
+  IncomingTideAttackHitBox: {fileID: 8998219623033830514, guid: f2cad2093c1cc8042a97d053a88618a0, type: 3}
+  DurationOfHeightTide: 5
+  PlatformUpSpeed: 3
+  PlatformHighTideHeight: 3.5
+  DurationOfOutgoingTide: 0.5
+  AnimalDistance: 2
+  AmountOfAnimals: 3
+  ListOfAnimals:
+    _serializedList:
+    - Key: CrabStarFish
+      Value: {fileID: 8799205782696860131, guid: 7fdf4392d0aa9024c88f309e0b5fa640, type: 3}

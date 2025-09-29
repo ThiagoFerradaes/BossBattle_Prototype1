@@ -4,7 +4,7 @@ using UnityEngine;
 public class PlayerWhiteBoard : MonoBehaviour {
     public static PlayerWhiteBoard Instance;
 
-    Character _selectedCharacter = Character.WeaponMaster;
+    Character _selectedCharacter = Character.Cyrus;
 
     [SerializedDictionary("Character", "Kit"), SerializeField] 
     SerializedDictionary<Character, CharacterKit> _charactersCurrentSkills = new();
