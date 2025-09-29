@@ -17,16 +17,19 @@ public class CrabCameraManager : MonoBehaviour
         HandleLowTide();
     }
     private void Start() {
-        CrabArenaManager.Instance.OnChangeToHighTide += _onHandleHighTide;
-        CrabArenaManager.Instance.OnChangeToLowTide += _onHandleLowTide;
+        CrabArenaManager.Instance.OnChangeTide += HandleChangesOfTide;
     }
     private void OnDestroy() {
-        CrabArenaManager.Instance.OnChangeToHighTide -= _onHandleHighTide;
-        CrabArenaManager.Instance.OnChangeToLowTide -= _onHandleLowTide;
+        CrabArenaManager.Instance.OnChangeTide -= HandleChangesOfTide;
     }
     #endregion
 
     #region Handle Cameras
+    void HandleChangesOfTide(CrabArenaState state)
+    {
+        if (state == CrabArenaState.LowTide) HandleLowTide();
+        else if (state == CrabArenaState.HighTide) HandleHighTide();
+    }
     void HandleHighTide() {
         highTideCamera.Priority = 1;
         lowTideCamera.Priority = 0;

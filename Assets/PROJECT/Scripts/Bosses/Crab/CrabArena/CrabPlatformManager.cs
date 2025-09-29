@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -28,7 +29,7 @@ public class CrabPlatformManager : MonoBehaviour
     GameObject _player;
 
     // Actions
-    Action _onHandleHighTide, _onHandleLowTidde, _onHandleIncomingTide, _onHandleOutgoingTide;
+    Action<CrabArenaState> _onHandleChangeTide;
 
     // Coroutine
     Coroutine _instantiateAnimalCoroutine;
@@ -40,18 +41,12 @@ public class CrabPlatformManager : MonoBehaviour
     private void Awake()
     {
 
-        _onHandleHighTide = HandleHighTide;
-        _onHandleLowTidde = HandleLowTide;
-        _onHandleIncomingTide = HandleIncomingTide;
-        _onHandleOutgoingTide = HandleOutgoingTide;
+        _onHandleChangeTide = HandleChangeTide;
     }
 
     private void Start()
     {
-        CrabArenaManager.Instance.OnChangeToHighTide += _onHandleHighTide;
-        CrabArenaManager.Instance.OnChangeToLowTide += _onHandleLowTidde;
-        CrabArenaManager.Instance.OnChangeToIncomingTide += _onHandleIncomingTide;
-        CrabArenaManager.Instance.OnChangeToOutgoingTide += _onHandleOutgoingTide;
+        CrabArenaManager.Instance.OnChangeTide += _onHandleChangeTide;
 
         ArenaManager.Instance.SetPathPoints(paths);
 
@@ -62,10 +57,7 @@ public class CrabPlatformManager : MonoBehaviour
     {
 
         // UnSubscribe Events
-        CrabArenaManager.Instance.OnChangeToHighTide -= _onHandleHighTide;
-        CrabArenaManager.Instance.OnChangeToLowTide -= _onHandleLowTidde;
-        CrabArenaManager.Instance.OnChangeToIncomingTide -= _onHandleIncomingTide;
-        CrabArenaManager.Instance.OnChangeToOutgoingTide -= _onHandleOutgoingTide;
+        CrabArenaManager.Instance.OnChangeTide -= _onHandleChangeTide;
 
         // Kill DOTween
         platformObject.transform.DOKill();
@@ -73,6 +65,24 @@ public class CrabPlatformManager : MonoBehaviour
     #endregion
 
     #region HandleTides
+    void HandleChangeTide(CrabArenaState state)
+    {
+        switch (state)
+        {
+            case CrabArenaState.LowTide:
+                HandleLowTide();
+                break;
+            case CrabArenaState.IncomingTide:
+                HandleIncomingTide();
+                break;
+            case CrabArenaState.HighTide:
+                HandleHighTide();
+                break;
+            case CrabArenaState.OutgoingTide:
+                HandleOutgoingTide();
+                break;
+        }
+    }
     void HandleHighTide()
     {
         float deltaDistance = arenaInfo.PlatformHighTideHeight - arenaInfo.PlatformLowTideHeight;
@@ -142,12 +152,10 @@ public class CrabPlatformManager : MonoBehaviour
 
         for (int i = 0; i < arenaInfo.AmountOfAnimals; i++)
         {
-            Debug.Log("Current Animal: " + i);
             bool foundAPlace = false;
 
             while (!foundAPlace)
             {
-                Debug.Log("Tryin to find a place");
 
                 Vector3 position = ArenaManager.Instance.GetRandomPosition();
                 float floorHeight = ArenaManager.Instance.FindGroundHeight(position);
@@ -157,8 +165,6 @@ public class CrabPlatformManager : MonoBehaviour
 
                 if (hitCollider.Length == 0)
                 { // Não colidiu com a plataforma
-
-                    Debug.Log("Não colidiu");
 
                     int amountOfMaxAnimals = arenaInfo.ListOfAnimals.Count;
                     int rng = Random.Range(0, amountOfMaxAnimals);
