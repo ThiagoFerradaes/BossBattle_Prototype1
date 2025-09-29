@@ -190,7 +190,7 @@ public class BastianPassiveManager : PassiveSkillManager {
     }
 
     IEnumerator LooseHealthOverTime() {
-        while (_heatArea >= _info.AreaToLooseHealth) {
+        while (_heatArea == _info.AreaToLooseHealth) {
             LooseHealth();
             yield return new WaitForSeconds(_info.TimeToLooseHealth);
         }
