@@ -55,7 +55,7 @@ public class CrabJumpAttack : EnemyBehaviourSO {
         if (_crabManager != null) return;
 
         _crabManager = parent as CrabManager;
-        _anim = parent.GetComponentInChildren<Animator>();
+        _anim = _crabManager.Anim;
 
     }
 
@@ -96,7 +96,7 @@ public class CrabJumpAttack : EnemyBehaviourSO {
     }
 
     Vector3 ReturnPositionCloseToPlayer() {
-        Vector3 direction = _crabManager.transform.position - _crabManager.Player.transform.position;
+        Vector3 direction = (_crabManager.transform.position - _crabManager.Player.transform.position).normalized;
         Vector3 position = _crabManager.Player.transform.position + direction * jumpDistanceToPlayer;
         return position;
     }
