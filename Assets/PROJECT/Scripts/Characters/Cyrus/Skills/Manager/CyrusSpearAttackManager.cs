@@ -62,7 +62,7 @@ public class CyrusSpearAttackManager : SkillObjectManager {
 
         int attackStateHash = stateInfo.fullPathHash;
 
-        int combo = _skillLevel >= 3 ? 1 : 0;
+        int combo = _skillLevel >= 2 ? 1 : 0;
 
         // Ordenando a lista de prefabs pelo tempo que eles precisam aparecer
         _info.Prefabs[combo].Sort((a, b) => a.TimeToSpawnPreFab.CompareTo(b.TimeToSpawnPreFab));
@@ -99,6 +99,7 @@ public class CyrusSpearAttackManager : SkillObjectManager {
         skillManager.SkillIsInAnimation(false);
         _weaponManager.OnDesequipRightHand();
         animationCoroutine = null;
+        CyrusPassiveManager.Instance.SkillCost();
         EndWithUnblockSkills();
     }
 
@@ -106,7 +107,7 @@ public class CyrusSpearAttackManager : SkillObjectManager {
         GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFabName,
                     prefabInfo.PreFab, TypeOfSkillPrefab.Hitbox);
 
-        float zSize = _skillLevel == 3 ? _info.Level3Range : _info.Size.z;
+        float zSize = _skillLevel == 3 ? _info.Level2Range : _info.Size.z;
         preFab.transform.localScale = new(_info.Size.x, _info.Size.y, zSize);
 
         preFab.transform.SetParent(parent.transform, false);
@@ -115,7 +116,7 @@ public class CyrusSpearAttackManager : SkillObjectManager {
 
         preFab.transform.SetLocalPositionAndRotation(pos, Quaternion.identity);
 
-        float penetration = _skillLevel > 0 ? _info.Penetration : 0;
+        float penetration = _skillLevel > 2 ? _info.Level3Penetration : 0;
 
         DamageContext newContext = new(
             _info.MinDamage,
@@ -136,7 +137,7 @@ public class CyrusSpearAttackManager : SkillObjectManager {
         hitbox.OnHit += () => {
             energyManager.GainEnergy(_info.FlatEnergyGainPerHit);
             CyrusPassiveManager.Instance.GainExp(_info.ExpGain);
-            if (_skillLevel > 1) cooldownManager.ResetCooldown(SkillSlot.Dash);
+            if (_skillLevel > 0) cooldownManager.ResetCooldown(SkillSlot.Dash);
         };
     }
     #endregion

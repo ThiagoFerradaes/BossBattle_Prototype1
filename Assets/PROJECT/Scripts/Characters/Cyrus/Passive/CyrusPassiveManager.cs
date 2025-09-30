@@ -9,6 +9,7 @@ public class CyrusPassiveManager : PassiveSkillManager {
     #region Parameters
 
     public static CyrusPassiveManager Instance;
+    StatusManager _statusManager;
 
     // Components
     CyrusPassiveSO _info;
@@ -56,6 +57,7 @@ public class CyrusPassiveManager : PassiveSkillManager {
 
     void Initialize(PassiveSO passive, GameObject parent) {
         _info = passive as CyrusPassiveSO;
+        _statusManager = parent.GetComponent<StatusManager>();
     }
 
     #endregion
@@ -173,6 +175,11 @@ public class CyrusPassiveManager : PassiveSkillManager {
     #endregion
 
     #endregion
+
+    public void SkillCost() {
+        _statusManager.ChangeStatus(StatusType.Defense, _info.PercentOfDefensesLost / 100, false, _info.PercentOfDefensesLostDuration);
+        _statusManager.ChangeStatus(StatusType.SkillDefense, _info.PercentOfDefensesLost / 100, false, _info.PercentOfDefensesLostDuration);
+    }
 
     #endregion
 }

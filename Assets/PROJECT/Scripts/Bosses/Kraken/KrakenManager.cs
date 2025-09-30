@@ -200,7 +200,7 @@ public class KrakenManager : EnemyBehaviourManager {
                     prefabInfo.PreFab, TypeOfSkillPrefab.Hitbox);
 
                 attackHitBox.transform.SetPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.Euler(90, yRotation, 0));
-
+                attackHitBox.transform.localScale = Vector3.one * tentacleAttack.TentacleAttackSize;
                 float damage = ListOfTentacles[tentacleIndex].Health.ReturnIfIsDead() ?
                     tentacleAttack.DeadTentacleDamage : tentacleAttack.TentacleDamage;
 

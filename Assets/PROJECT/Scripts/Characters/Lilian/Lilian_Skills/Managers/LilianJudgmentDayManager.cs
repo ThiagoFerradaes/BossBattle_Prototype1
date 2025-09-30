@@ -5,10 +5,14 @@ public class LilianJudgmentDayManager : SkillObjectManager
 {
     // Components
     LilianJudgmentDaySO _info;
+    EnergyManager _energyManager;
     public override void UseSkill(SkillSO skill) {
         base.UseSkill(skill);
 
-        if (_info == null) _info = skill as LilianJudgmentDaySO;
+        if (_info == null) {
+            _info = skill as LilianJudgmentDaySO;
+            _energyManager = parent.GetComponent<EnergyManager>();
+        }
 
         gameObject.SetActive(true);
 
@@ -18,6 +22,7 @@ public class LilianJudgmentDayManager : SkillObjectManager
     IEnumerator Attack() {
 
         skillManager.SkillIsInAnimation(true);
+        _energyManager.LooseAllEnergy();
 
         // Animation
         anim.SetTrigger(_info.AnimationParameter);

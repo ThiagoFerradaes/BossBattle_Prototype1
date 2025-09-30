@@ -46,6 +46,7 @@ public class StatusManager : MonoBehaviour {
         else _listOfStatus[type] /= (1 + percent);
 
         _listOfStatus[type] = Mathf.Max(0.01f, _listOfStatus[type]);
+
     }
     public void ChangeStatus(StatusType type, float percent, bool increase, float duration) {
         StartCoroutine(ChangeValueRoutine(type, percent, increase, duration));

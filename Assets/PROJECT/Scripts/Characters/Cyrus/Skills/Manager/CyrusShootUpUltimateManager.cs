@@ -93,7 +93,7 @@ public class CyrusShootUpUltimateManager : SkillObjectManager {
             if (prefabInfo.PrefabType == TypeOfSkillPrefab.Hitbox) {
                 _damageCoroutine ??= StartCoroutine(Damage(prefabInfo));
                 _durationCoroutine ??= StartCoroutine(Duration());
-                Cost();
+                CyrusPassiveManager.Instance.SkillCost();
             }
 
             else {
@@ -137,9 +137,6 @@ public class CyrusShootUpUltimateManager : SkillObjectManager {
         }
     }
 
-    void Cost() {
-        statusManager.ChangeStatus(StatusType.MoveSpeed, _info.PercentOfSlow/100, false, _info.SlowDuration);
-    }
     #endregion
 
     #region Instantiate

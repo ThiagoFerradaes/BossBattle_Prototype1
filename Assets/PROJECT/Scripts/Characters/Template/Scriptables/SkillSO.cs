@@ -14,7 +14,7 @@ public class SkillAnimationEvent {
     public Vector3 PreFabPosition;
 }
 
-public enum Tags { Enemy, Player }
+public enum Tags { Enemy, Player, Construct }
 public class SkillSO : ScriptableObject
 {
     [Header("Skill Manager")]
