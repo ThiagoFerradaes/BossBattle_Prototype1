@@ -31,7 +31,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1584080580329990508}
+  - {fileID: 2751070091986542589}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1865521473720558491
@@ -54,6 +54,7 @@ MonoBehaviour:
   walkAnimationName: Walk
   walkAnimationParameter: IsWalking
   animationLayer: 0
+  rotationSpeed: 90
   Player: {fileID: 0}
 --- !u!114 &3333633698975289181
 MonoBehaviour:
@@ -68,7 +69,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StatusManager
   baseStatus: {fileID: 11400000, guid: 2b1f4bcbd00d3c54bac26e615ceedc36, type: 2}
---- !u!1001 &1328968264320323207
+--- !u!1001 &2425041963497715734
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -78,15 +79,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: ed4643d5262533b40a12d94b1f23d11c, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.5
+      value: 1.7
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ed4643d5262533b40a12d94b1f23d11c, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.5
+      value: 1.7
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ed4643d5262533b40a12d94b1f23d11c, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.5
+      value: 1.7
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ed4643d5262533b40a12d94b1f23d11c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -134,7 +135,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: ed4643d5262533b40a12d94b1f23d11c, type: 3}
       propertyPath: m_Name
-      value: Crab
+      value: Caranguejo
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: ed4643d5262533b40a12d94b1f23d11c, type: 3}
       propertyPath: m_Controller
@@ -145,8 +146,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ed4643d5262533b40a12d94b1f23d11c, type: 3}
---- !u!4 &1584080580329990508 stripped
+--- !u!4 &2751070091986542589 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ed4643d5262533b40a12d94b1f23d11c, type: 3}
-  m_PrefabInstance: {fileID: 1328968264320323207}
+  m_PrefabInstance: {fileID: 2425041963497715734}
   m_PrefabAsset: {fileID: 0}
