@@ -16,6 +16,7 @@ public class CrabManager : EnemyBehaviourManager
     [SerializeField] int animationLayer;
     [SerializeField] float rotationSpeed;
     [SerializeField] float curveMagnetude;
+    [SerializeField] float walkTolerance;
 
     [HideInInspector] public GameObject Player;
 
@@ -40,6 +41,9 @@ public class CrabManager : EnemyBehaviourManager
 
     public void WalkToPlayer(float distanceToPlayer)
     {
+        float currentDistanceToPlayer = Vector3.Distance(transform.position, Player.transform.position);
+        if (currentDistanceToPlayer <= distanceToPlayer + walkTolerance) return;
+
         _walkCoroutine ??= StartCoroutine(WalkToPlayerRoutine(distanceToPlayer));
     }
     public Coroutine ReturnWalkCoroutine() => _walkCoroutine;
@@ -64,7 +68,6 @@ public class CrabManager : EnemyBehaviourManager
 
         // Andando até o player
         yield return PathToPlayer(distanceToPlayer);
-        #endregion
 
         Anim.SetBool(walkAnimationParameter, false);
 
@@ -125,4 +128,5 @@ public class CrabManager : EnemyBehaviourManager
             transform.rotation = Quaternion.Euler(0, euler.y, 0);
         }).WaitForCompletion();
     }
+    #endregion
 }
