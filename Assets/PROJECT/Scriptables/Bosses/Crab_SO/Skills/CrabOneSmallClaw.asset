@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 790b06ea42813d34ca12c26593d130b6, type: 3}
+  m_Name: CrabOneSmallClaw
+  m_EditorClassIdentifier: Assembly-CSharp::CrabSmallClawAttack
+  Priority: 3
+  Cooldown: 0
+  preparingAnimationTrigger: SmallClaw
+  attackAnimationName: SmallPinch_Attack
+  walkAnimationParameter: IsWalking
+  preparingAnimationSpeed: 1
+  attackAnimationSpeed: 2
+  animationLayer: 0
+  distanceToPlayer: 2
+  cooldownBetweenThisAttackAndNext: 2
+  rotationSpeed: 150
+  prefabs:
+  - TimeToSpawnPreFab: 0.5
+    PrefabDuration: 0.1
+    PreFabName: CrabSmallClawHitBox
+    PrefabType: 0
+    PreFab: {fileID: 8271028322271159555, guid: 02de40013cebfe2448edca155583a4c1, type: 3}
+    PreFabPosition: {x: 2, y: 3, z: 0}
+  amoutOfAttacks: 3
+  cooldownBetweenAttacks: 0.5
+  angleOfAttack: -45
+  sizeOfHitbox: {x: 2, y: 2, z: 14}
+  damage: 30
+  hitShield: 1
+  damageType: 0
+  unitsToHit: 0100000002000000

@@ -100,8 +100,6 @@ public class CrabManager : EnemyBehaviourManager
         Vector3 startEuler = startRot.eulerAngles;
         startRot = Quaternion.Euler(0, startEuler.y, 0);
 
-        float angle = Quaternion.Angle(transform.rotation, startRot);
-
         return transform.DORotateQuaternion(startRot, 0.2f).WaitForCompletion();
     }
 
