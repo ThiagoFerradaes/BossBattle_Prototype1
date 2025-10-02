@@ -66,7 +66,7 @@ public class CrabSmallClawAttack : EnemyBehaviourSO
     IEnumerator WalkToPlayer()
     {
 
-        _crabManager.WalkToPlayer(distanceToPlayer);
+        _crabManager.WalkToTarget(distanceToPlayer, _crabManager.Player.transform.position);
 
         yield return _crabManager.ReturnWalkCoroutine();
 

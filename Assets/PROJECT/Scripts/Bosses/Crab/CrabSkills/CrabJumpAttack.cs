@@ -24,6 +24,7 @@ public class CrabJumpAttack : EnemyBehaviourSO {
     [SerializeField] float jumpForce;
     [SerializeField] float jumpDuration;
     [SerializeField] float jumpDistanceToPlayer;
+    [SerializeField] float minDistanceToJump;
 
     [Header("Attack Atributes")]
     [SerializeField] float cooldownBetweenThisAttackAndNext;
@@ -41,7 +42,9 @@ public class CrabJumpAttack : EnemyBehaviourSO {
 
         Initialize(parent);
 
-        if (CrabArenaManager.Instance.ReturnCurrentTide() != CrabArenaState.LowTide) {
+        float distanceToPlayer = Vector3.Distance(_crabManager.transform.position, _crabManager.Player.transform.transform.position);
+
+        if (CrabArenaManager.Instance.ReturnCurrentTide() != CrabArenaState.LowTide || distanceToPlayer < minDistanceToJump) {
             _crabManager.CooldownManager.SetSkillCooldown(this);
             _crabManager.ChangeBehaviourAtRandom();
         }
