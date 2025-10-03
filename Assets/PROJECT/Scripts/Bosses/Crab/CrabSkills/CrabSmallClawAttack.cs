@@ -14,6 +14,8 @@ public class CrabSmallClawAttack : EnemyBehaviourSO
     [SerializeField] string preparingAnimationTrigger;
     [SerializeField] string attackAnimationName;
     [SerializeField] string walkAnimationParameter;
+    [SerializeField] string preparingAnimationSpeedParameter;
+    [SerializeField] string attackAnimationSpeedParameter;
     [SerializeField] float preparingAnimationSpeed;
     [SerializeField] float attackAnimationSpeed;
     [SerializeField] int animationLayer;
@@ -71,6 +73,8 @@ public class CrabSmallClawAttack : EnemyBehaviourSO
             yield return RotateToPlayer();
 
             _anim.SetTrigger(preparingAnimationTrigger);
+            _anim.SetFloat(preparingAnimationSpeedParameter, preparingAnimationSpeed);
+            _anim.SetFloat(attackAnimationSpeedParameter, attackAnimationSpeed);
 
             AnimatorStateInfo stateInfo = _anim.GetCurrentAnimatorStateInfo(animationLayer);
 
