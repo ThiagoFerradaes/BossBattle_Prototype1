@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEditor;
 using UnityEngine;
 
+public enum CrabArenaWall { Up, Left, Right, None}
 public class CrabManager : EnemyBehaviourManager
 {
 
@@ -17,6 +18,9 @@ public class CrabManager : EnemyBehaviourManager
     // Coroutines
     Coroutine _walkCoroutine;
 
+    CrabArenaWall _currentWall = CrabArenaWall.None;
+
+    #region Initialize
     public override IEnumerator Start()
     {
 
@@ -31,6 +35,8 @@ public class CrabManager : EnemyBehaviourManager
         transform.DOKill();
     }
 
+    #endregion
+
     #region Walk To Player
 
     public void WalkToTarget(float stopDistance, Vector3 target)
@@ -41,5 +47,13 @@ public class CrabManager : EnemyBehaviourManager
     public Coroutine ReturnWalkCoroutine() => _walkCoroutine;
 
     public void ResetWalkCoroutine() => _walkCoroutine = null;
+    #endregion
+
+    #region Wall
+
+    public CrabArenaWall ReturnCurrentWall() => _currentWall;   
+
+    public void SetCurrentArenaWall(CrabArenaWall wall) => _currentWall = wall; 
+
     #endregion
 }
