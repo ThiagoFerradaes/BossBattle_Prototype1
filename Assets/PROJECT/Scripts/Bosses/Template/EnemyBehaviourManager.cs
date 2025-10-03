@@ -4,67 +4,51 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class EnemyBehaviourManager : MonoBehaviour {
+public class EnemyBehaviourManager : MonoBehaviour
+{
     [SerializeField] EnemyBehaviourSO initialState;
     [SerializeField] ListOfEnemyBehaviourSO listOfBehaviour;
 
+    Dictionary<int, EnemyBehaviourSO> _dictionaryOfBehaviours = new();
     EnemyBehaviourSO _currentBehaviour;
     List<EnemyBehaviourSO> _actualListOfBehaviours = new();
     [HideInInspector] public EnemyCooldownManager CooldownManager;
 
-    bool _hasStarted;
-
-    public virtual IEnumerator Start() {
-        try {
-
-            foreach (var behaviour in listOfBehaviour.ListOfEnemyBehaviours) {
-                EnemyBehaviourSO behaviourClone = Instantiate(behaviour);
-                _actualListOfBehaviours.Add(behaviourClone);
-            }
+    public virtual IEnumerator Start()
+    {
+        foreach (var behaviour in listOfBehaviour.ListOfEnemyBehaviours)
+        {
+            EnemyBehaviourSO behaviourClone = Instantiate(behaviour);
+            _actualListOfBehaviours.Add(behaviourClone);
         }
-        catch { Debug.LogWarning("No listOfBehaviours"); }
 
-        try {
-            CooldownManager = EnemyCooldownManager.Instance;
-            CooldownManager.Initiate(_actualListOfBehaviours);
+        CooldownManager = EnemyCooldownManager.Instance;
+        CooldownManager.Initiate(_actualListOfBehaviours);
 
-        }
-        catch { Debug.LogWarning("No CooldownManager"); }
-
-        _currentBehaviour = Instantiate(initialState);
-        _currentBehaviour.StartState(this);
+        _dictionaryOfBehaviours[0] = Instantiate(initialState);
+        _dictionaryOfBehaviours[0].StartState(this);
 
         yield return null;
-
-        _hasStarted = true;
     }
 
-    public virtual void Update() {
-        if (!_hasStarted) return;
+    public void ChangeBehaviourAtRandom(int behaviourChannel = 0)
+    {
+        EnemyBehaviourSO behaviour = ChooseAnAttack(behaviourChannel);
 
-        try {
-            _currentBehaviour.UpdateState();
-        }
-        catch { Debug.LogWarning("No _currentBehaviour"); }
-    }
+        if (_dictionaryOfBehaviours.ContainsKey(behaviourChannel)) _dictionaryOfBehaviours[behaviourChannel].ExitState();
 
-    public void ChangeBehaviourAtRandom() {
-        EnemyBehaviourSO behaviour = ChooseAnAttack();
-        _currentBehaviour.ExitState();
-        _currentBehaviour = behaviour;
-        _currentBehaviour.StartState(this);
+        _dictionaryOfBehaviours[behaviourChannel] = behaviour;
+        _dictionaryOfBehaviours[behaviourChannel].StartState(this);
 
     }
 
-    EnemyBehaviourSO ChooseAnAttack() {
-        var sortedSkills = _actualListOfBehaviours.OrderByDescending(skill => skill.Priority);
+    EnemyBehaviourSO ChooseAnAttack(int behaviourChannel)
+    {
+        var validSkills = _actualListOfBehaviours
+            .Where(skill => skill.Channel == behaviourChannel)
+            .Where(skill => !CooldownManager.SkillInCooldown(skill) && skill.MeetsCondition())
+            .OrderByDescending(skill => skill.Priority);
 
-        foreach (var skill in sortedSkills) {
-            if (!CooldownManager.SkillInCooldown(skill)) {
-                return skill;
-            }
-        }
-
-        return null;
+        return validSkills.FirstOrDefault();
     }
 }

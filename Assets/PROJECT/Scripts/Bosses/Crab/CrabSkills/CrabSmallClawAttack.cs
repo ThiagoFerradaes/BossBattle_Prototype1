@@ -42,18 +42,14 @@ public class CrabSmallClawAttack : EnemyBehaviourSO
 
         Initialize(parent);
 
-        if (CrabArenaManager.Instance.ReturnCurrentTide() != CrabArenaState.LowTide)
-        {
-            _crabManager.CooldownManager.SetSkillCooldown(this);
-            _crabManager.ChangeBehaviourAtRandom();
-        }
-        else
-        {
-            _crabManager.StartCoroutine(WalkToPlayer());
-        }
+        _crabManager.StartCoroutine(WalkToPlayer());
 
     }
 
+    public override bool MeetsCondition()
+    {
+        return CrabArenaManager.Instance.ReturnCurrentTide() == CrabArenaState.LowTide;
+    }
     void Initialize(EnemyBehaviourManager parent)
     {
         if (_crabManager != null) return;

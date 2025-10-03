@@ -15,6 +15,8 @@ public class CrabArenaManager : MonoBehaviour
 
     // Atributes
     CrabArenaState _currentTide;
+    float _currentTideTime;
+    float _currentTideMaxTime;
 
     // Event
     public event Action<float, float> OnUpdateTideTimer;
@@ -57,7 +59,7 @@ public class CrabArenaManager : MonoBehaviour
     {
         while (true)
         {
-            float duration = _currentTide switch
+            _currentTideMaxTime = _currentTide switch
             {
                 CrabArenaState.LowTide => arenaInfo.DurationOfLowTide,
                 CrabArenaState.IncomingTide => arenaInfo.IncomingTideDuration,
@@ -66,12 +68,12 @@ public class CrabArenaManager : MonoBehaviour
                 _ => arenaInfo.DurationOfLowTide
             };
 
-            float timer = 0;
+            _currentTideTime = 0;
 
-            while (timer < duration)
+            while (_currentTideTime < _currentTideMaxTime)
             {
-                timer += Time.deltaTime;
-                OnUpdateTideTimer?.Invoke(timer, duration);
+                _currentTideTime += Time.deltaTime;
+                OnUpdateTideTimer?.Invoke(_currentTideTime, _currentTideMaxTime);
                 yield return null;
             }
 
@@ -103,6 +105,8 @@ public class CrabArenaManager : MonoBehaviour
     #region Getters
 
     public CrabArenaState ReturnCurrentTide() => _currentTide;
+
+    public float ReturnCurrentTidePercent() => _currentTideTime / _currentTideMaxTime;
 
     #endregion
 }

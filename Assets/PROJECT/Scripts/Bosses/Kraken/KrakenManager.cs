@@ -81,15 +81,7 @@ public class KrakenManager : EnemyBehaviourManager {
 
         StartCoroutine(base.Start());
     }
-    public override void Update() {
-        if (Keyboard.current.hKey.wasPressedThisFrame) {
-            foreach (var tentacle in ListOfTentacles) {
-                tentacle.Health.TakeDamage(10000, false);
-            }
-        }
 
-        base.Update();
-    }
     private void OnDestroy() {
         for (int i = 0; i < ListOfTentacles.Count; i++) {
             int tentacleIndex = i;

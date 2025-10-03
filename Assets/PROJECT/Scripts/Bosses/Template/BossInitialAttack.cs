@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Animations;
 
@@ -5,16 +6,22 @@ using UnityEngine.Animations;
 public class BossInitialAttack : EnemyBehaviourSO {
 
     [SerializeField] float cooldown;
-    float timer = 0;
-    public override void UpdateState() {
-        timer += Time.deltaTime;
 
-        if (timer >= cooldown) {
-            enemyBehaviourManager.ChangeBehaviourAtRandom();
-        }
+    public override void StartState(EnemyBehaviourManager parent)
+    {
+        base.StartState(parent);
+
+        parent.StartCoroutine(CooldownTimer());
     }
+    IEnumerator CooldownTimer()
+    {
+        float timer = 0;
+        while ( timer < cooldown)
+        {
+            timer += Time.deltaTime;
+            yield return null;
+        }
 
-    public override void ExitState() {
-        timer = 0;
+        enemyBehaviourManager.ChangeBehaviourAtRandom();
     }
 }
