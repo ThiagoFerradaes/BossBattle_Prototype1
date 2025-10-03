@@ -46,7 +46,7 @@ public class CrabPlatformManager : MonoBehaviour
 
     private void Start()
     {
-        CrabArenaManager.Instance.OnChangeTide += _onHandleChangeTide;
+        CrabArenaManager.Instance.OnStartTide += _onHandleChangeTide;
 
         ArenaManager.Instance.SetPathPoints(paths);
 
@@ -57,7 +57,7 @@ public class CrabPlatformManager : MonoBehaviour
     {
 
         // UnSubscribe Events
-        CrabArenaManager.Instance.OnChangeTide -= _onHandleChangeTide;
+        CrabArenaManager.Instance.OnStartTide -= _onHandleChangeTide;
 
         // Kill DOTween
         platformObject.transform.DOKill();
@@ -103,7 +103,7 @@ public class CrabPlatformManager : MonoBehaviour
     {
         if (_platformContacts > 0)
         {
-            CrabArenaManager.Instance.ForceCurrentTideToEnd();
+            CrabArenaManager.Instance.ChangeCurrentTide();
             return;
         }
 
@@ -204,7 +204,7 @@ public class CrabPlatformManager : MonoBehaviour
             if (CrabArenaManager.Instance.ReturnCurrentTide() == CrabArenaState.IncomingTide)
             {
                 _incomingTideAttack.End();
-                CrabArenaManager.Instance.ForceCurrentTideToEnd();
+                CrabArenaManager.Instance.ChangeCurrentTide();
             }
         }
     }

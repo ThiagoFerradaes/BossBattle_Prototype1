@@ -20,7 +20,7 @@ public class CrabArenaManager : MonoBehaviour
 
     // Event
     public event Action<float, float> OnUpdateTideTimer;
-    public event Action<CrabArenaState> OnChangeTide;
+    public event Action<CrabArenaState> OnEndTide, OnStartTide;
 
     // Coroutines
     Coroutine _tideTimerCoroutine;
@@ -50,52 +50,61 @@ public class CrabArenaManager : MonoBehaviour
 
         // Limpando os eventos
         OnUpdateTideTimer = null;
-        OnChangeTide = null;
+        OnEndTide = null;
+        OnStartTide = null;
     }
     #endregion
 
     #region Tides
     IEnumerator TideTimerCoroutine()
     {
-        while (true)
+        OnStartTide?.Invoke(_currentTide);
+
+        DecideMaxTideDuration();
+
+        _currentTideTime = 0;
+
+        while (_currentTideTime < _currentTideMaxTime)
         {
-            _currentTideMaxTime = _currentTide switch
-            {
-                CrabArenaState.LowTide => arenaInfo.DurationOfLowTide,
-                CrabArenaState.IncomingTide => arenaInfo.IncomingTideDuration,
-                CrabArenaState.HighTide => arenaInfo.DurationOfHeightTide,
-                CrabArenaState.OutgoingTide => arenaInfo.DurationOfOutgoingTide,
-                _ => arenaInfo.DurationOfLowTide
-            };
-
-            _currentTideTime = 0;
-
-            while (_currentTideTime < _currentTideMaxTime)
-            {
-                _currentTideTime += Time.deltaTime;
-                OnUpdateTideTimer?.Invoke(_currentTideTime, _currentTideMaxTime);
-                yield return null;
-            }
-
-            Array values = Enum.GetValues(typeof(CrabArenaState));
-
-            _currentTide = (CrabArenaState)values.GetValue(((int)_currentTide + 1) % values.Length);
-
-            OnChangeTide?.Invoke(_currentTide);
+            _currentTideTime += Time.deltaTime;
+            OnUpdateTideTimer?.Invoke(_currentTideTime, _currentTideMaxTime);
+            yield return null;
         }
 
+        OnEndTide?.Invoke(_currentTide);
+
+        CheckNextTide();
+
+        _tideTimerCoroutine = null;
     }
-    public void ForceCurrentTideToEnd()
+
+    void DecideMaxTideDuration()
+    {
+        _currentTideMaxTime = _currentTide switch
+        {
+            CrabArenaState.LowTide => arenaInfo.DurationOfLowTide,
+            CrabArenaState.IncomingTide => arenaInfo.IncomingTideDuration,
+            CrabArenaState.HighTide => arenaInfo.DurationOfHeightTide,
+            CrabArenaState.OutgoingTide => arenaInfo.DurationOfOutgoingTide,
+            _ => arenaInfo.DurationOfLowTide
+        };
+    }
+
+    void CheckNextTide()
+    {
+        if (_currentTide == CrabArenaState.IncomingTide || _currentTide == CrabArenaState.OutgoingTide) ChangeCurrentTide();
+    }
+    public void ChangeCurrentTide()
     {
         if (_tideTimerCoroutine != null) StopCoroutine(_tideTimerCoroutine);
+
+        OnEndTide?.Invoke(_currentTide);
 
         Array values = Enum.GetValues(typeof(CrabArenaState));
 
         _currentTide = (CrabArenaState)values.GetValue(((int)_currentTide + 1) % values.Length);
 
         _tideTimerCoroutine = null;
-
-        OnChangeTide?.Invoke(_currentTide);
 
         _tideTimerCoroutine ??= StartCoroutine(TideTimerCoroutine());
 

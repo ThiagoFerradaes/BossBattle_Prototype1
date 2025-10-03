@@ -17,10 +17,10 @@ public class CrabCameraManager : MonoBehaviour
         HandleLowTide();
     }
     private void Start() {
-        CrabArenaManager.Instance.OnChangeTide += HandleChangesOfTide;
+        CrabArenaManager.Instance.OnStartTide += HandleChangesOfTide;
     }
     private void OnDestroy() {
-        CrabArenaManager.Instance.OnChangeTide -= HandleChangesOfTide;
+        CrabArenaManager.Instance.OnStartTide -= HandleChangesOfTide;
     }
     #endregion
 

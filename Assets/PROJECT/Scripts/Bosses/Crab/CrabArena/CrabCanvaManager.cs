@@ -24,13 +24,13 @@ public class CrabCanvaManager : MonoBehaviour
     private void Start()
     {
         CrabArenaManager.Instance.OnUpdateTideTimer += _onUpdateTideBar;
-        CrabArenaManager.Instance.OnChangeTide += _onChangeTide;
+        CrabArenaManager.Instance.OnStartTide += _onChangeTide;
     }
 
     private void OnDestroy()
     {
         CrabArenaManager.Instance.OnUpdateTideTimer -= _onUpdateTideBar;
-        CrabArenaManager.Instance.OnChangeTide -= _onChangeTide;
+        CrabArenaManager.Instance.OnStartTide -= _onChangeTide;
     }
 
     void UpdateTideBar(float current, float max)
