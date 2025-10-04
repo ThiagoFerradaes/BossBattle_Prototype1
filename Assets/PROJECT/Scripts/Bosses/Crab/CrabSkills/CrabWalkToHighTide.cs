@@ -18,6 +18,7 @@ public class CrabWalkToHighTide : EnemyBehaviourSO
     [SerializeField] float offSet;
     [SerializeField] float cooldownBetweenAttacks;
     [SerializedDictionary("Wall, Position"), SerializeField] SerializedDictionary<CrabArenaWall, Vector3> listOfPossibleFinalPositions = new();
+    [SerializeField] List<int> listOfNextAttacksChannels;
 
     [Header("Animation")]
     [SerializeField] string changeTideAnimationParameter;
@@ -25,6 +26,7 @@ public class CrabWalkToHighTide : EnemyBehaviourSO
     [SerializeField] int animationLayer;
     [SerializeField] List<SkillAnimationEvent> prefabs;
 
+    #region Initialize
     public override void StartState(EnemyBehaviourManager parent)
     {
         base.StartState(parent);
@@ -49,6 +51,7 @@ public class CrabWalkToHighTide : EnemyBehaviourSO
         _anim = _crabManager.Anim;
     }
 
+    #endregion
     IEnumerator WalkToPosition()
     {
 
@@ -64,7 +67,7 @@ public class CrabWalkToHighTide : EnemyBehaviourSO
             stateInfo = _anim.GetCurrentAnimatorStateInfo(animationLayer);
         } while (!stateInfo.IsName(changeTideAnimationName));
 
-        
+
         if (prefabs != null)
         {
             var listOfPreffabs = prefabs;
@@ -142,7 +145,8 @@ public class CrabWalkToHighTide : EnemyBehaviourSO
     }
 
     void InstantiateHitBox(SkillAnimationEvent prefab) { }
-    void InstantiateVFX(SkillAnimationEvent prefab) {
+    void InstantiateVFX(SkillAnimationEvent prefab)
+    {
         GameObject hitbox = PoolingManager.Instance.ReturnPrefabFromPool(prefab.PreFabName, prefab.PreFab, TypeOfSkillPrefab.VFX);
         hitbox.transform.position = prefab.PreFabPosition;
 
@@ -153,6 +157,9 @@ public class CrabWalkToHighTide : EnemyBehaviourSO
     {
         yield return new WaitForSeconds(cooldownBetweenAttacks);
 
-        _crabManager.ChangeBehaviourAtRandom(1);
+        foreach (var channel in listOfNextAttacksChannels)
+        {
+            _crabManager.ChangeBehaviourAtRandom(channel);
+        }
     }
 }

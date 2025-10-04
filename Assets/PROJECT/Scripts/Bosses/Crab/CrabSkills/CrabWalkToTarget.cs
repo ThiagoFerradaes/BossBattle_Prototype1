@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Crab/ Skills/ WalkToPlayer")]
-public class CrabWalkToPlayer : ScriptableObject
+public class CrabWalkToTarget : ScriptableObject
 {
     CrabManager _crabManager;
 
@@ -15,14 +15,14 @@ public class CrabWalkToPlayer : ScriptableObject
     [SerializeField] float curveMagnetude;
     [SerializeField] float walkTolerance;
 
-    public void WalkToTarget(CrabManager manager, Vector3 target, float distanceToPlayer, ref Coroutine walkRoutine)
+    public void WalkToTarget(CrabManager manager, Vector3 target, float distanceToTarget, ref Coroutine walkRoutine)
     {
         if (_crabManager == null) _crabManager = manager;
 
-        float currentDistanceToPlayer = Vector3.Distance(_crabManager.transform.position, _crabManager.Player.transform.position);
-        if (currentDistanceToPlayer <= distanceToPlayer + walkTolerance) return;
+        float currentDistanceToTarget = Vector3.Distance(_crabManager.transform.position, target);
+        if (currentDistanceToTarget <= distanceToTarget + walkTolerance) return;
 
-        walkRoutine ??= _crabManager.StartCoroutine(WalkToTargetRoutine(distanceToPlayer, target));
+        walkRoutine ??= _crabManager.StartCoroutine(WalkToTargetRoutine(distanceToTarget, target));
     }
     IEnumerator WalkToTargetRoutine(float stopDistance, Vector3 target)
     {

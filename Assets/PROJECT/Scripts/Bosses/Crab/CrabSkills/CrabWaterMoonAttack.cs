@@ -34,8 +34,6 @@ public class CrabWaterMoonAttack : EnemyBehaviourSO
     [SerializeField] List<Tags> unitsToHit;
     [SerializeField] DamageType damageType;
 
-    Coroutine _shootRoutine;
-
 
     public override void StartState(EnemyBehaviourManager parent)
     {
@@ -44,6 +42,8 @@ public class CrabWaterMoonAttack : EnemyBehaviourSO
         Initialize(parent);
 
         _crabManager.StartCoroutine(WaterMoonAttack());
+
+        Debug.Log("Moon");
     }
 
     public override bool MeetsCondition()
@@ -107,7 +107,6 @@ public class CrabWaterMoonAttack : EnemyBehaviourSO
 
             if (timer >= cooldownBetweenShoots)
             {
-                Debug.Log("Shoot" + timer);
 
                 timer -= cooldownBetweenShoots;
 
@@ -132,8 +131,6 @@ public class CrabWaterMoonAttack : EnemyBehaviourSO
     }
     void InstantiateHitBox(SkillAnimationEvent prefab)
     {
-        Debug.Log("Instantiate hitbox");
-
         GameObject hitbox = PoolingManager.Instance.ReturnPrefabFromPool(prefab.PreFabName, prefab.PreFab, TypeOfSkillPrefab.Hitbox);
         hitbox.transform.localScale = Vector3.one * projectileSize;
         Vector3 pos = _vallis.position;
@@ -172,6 +169,6 @@ public class CrabWaterMoonAttack : EnemyBehaviourSO
     {
         yield return new WaitForSeconds(cooldownBetweenAttacks);
 
-        _crabManager.ChangeBehaviourAtRandom(1);
+        _crabManager.ChangeBehaviourAtRandom(Channel);
     }
 }

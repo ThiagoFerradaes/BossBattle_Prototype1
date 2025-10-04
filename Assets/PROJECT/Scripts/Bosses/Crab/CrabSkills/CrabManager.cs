@@ -11,7 +11,7 @@ public class CrabManager : EnemyBehaviourManager
     public StatusManager StatusManager;
     [HideInInspector] public Animator Anim;
 
-    [SerializeField] CrabWalkToPlayer crabWalkToPlayerSO;
+    [SerializeField] CrabWalkToTarget crabWalkToPlayerSO;
 
     [HideInInspector] public GameObject Player;
     public Transform Apicem, Vallis;
