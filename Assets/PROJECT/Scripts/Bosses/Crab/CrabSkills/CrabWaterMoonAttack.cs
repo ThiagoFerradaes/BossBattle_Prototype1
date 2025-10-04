@@ -9,6 +9,7 @@ public class CrabWaterMoonAttack : EnemyBehaviourSO
     CrabManager _crabManager;
     Animator _anim;
     Transform _vallis;
+    StatusManager _statusManager;
 
     [Header("Animation")]
     [SerializeField] string animationParameter;
@@ -16,7 +17,7 @@ public class CrabWaterMoonAttack : EnemyBehaviourSO
     [SerializeField] int animationLayer;
     [SerializeField] List<SkillAnimationEvent> prefabs;
 
-    [Header("Attack Atributes")]
+    [Header("Rotation Atributes")]
     [SerializeField] float attackAngleAmplitude;
     [SerializeField] float cooldownBetweenShoots;
     [SerializeField] float cooldownRotations;
@@ -24,11 +25,21 @@ public class CrabWaterMoonAttack : EnemyBehaviourSO
     [SerializeField] float durationOfRotationToRight;
     [SerializeField] float cooldownBetweenAttacks;
 
+    [Header("Attack Atributes")]
+    [SerializeField] float projectileSize;
+    [SerializeField] float projectileSpeed;
+    [SerializeField] float projectileDistance;
+    [SerializeField] float damage;
+    [SerializeField] bool hitShield;
+    [SerializeField] List<Tags> unitsToHit;
+    [SerializeField] DamageType damageType;
+
+    Coroutine _shootRoutine;
+
+
     public override void StartState(EnemyBehaviourManager parent)
     {
         base.StartState(parent);
-
-        Debug.Log("Water Moon");
 
         Initialize(parent);
 
@@ -49,6 +60,7 @@ public class CrabWaterMoonAttack : EnemyBehaviourSO
         _crabManager = parent as CrabManager;
         _anim = _crabManager.Anim;
         _vallis = _crabManager.Vallis;
+        _statusManager = _crabManager.StatusManager;
     }
 
     IEnumerator WaterMoonAttack()
@@ -74,27 +86,10 @@ public class CrabWaterMoonAttack : EnemyBehaviourSO
 
     IEnumerator RotateAndShoot(Quaternion endAngle, float duration)
     {
-        Tween rotateTween = _vallis.DOLocalRotateQuaternion(endAngle, duration);
-        float timer = 0f;
+        _anim.SetBool(animationParameter, true);
 
-        while (rotateTween.IsActive() && !rotateTween.IsComplete())
-        {
-            timer += Time.deltaTime;
-
-            if (timer > cooldownBetweenShoots)
-            {
-                timer = 0f;
-
-                yield return _crabManager.StartCoroutine(Shoot());
-            }
-
-            yield return null;
-        }
-    }
-
-    IEnumerator Shoot()
-    {
-        _anim.SetTrigger(animationParameter);
+        var prefabList = prefabs;
+        prefabList.Sort((a, b) => a.TimeToSpawnPreFab.CompareTo(b.TimeToSpawnPreFab));
 
         AnimatorStateInfo stateInfo = _anim.GetCurrentAnimatorStateInfo(animationLayer);
 
@@ -104,42 +99,74 @@ public class CrabWaterMoonAttack : EnemyBehaviourSO
             yield return null;
         } while (!stateInfo.IsName(animationName));
 
-        int attackStateHash = stateInfo.fullPathHash;
+        float timer = 0f;
 
-        if (prefabs != null)
+        yield return _vallis.DOLocalRotateQuaternion(endAngle, duration).SetEase(Ease.Linear).OnUpdate(() =>
         {
-            var prefabList = prefabs;
-            prefabList.Sort((a, b) => a.TimeToSpawnPreFab.CompareTo(b.TimeToSpawnPreFab));
+            timer += Time.deltaTime;
 
-            for (int i = 0; i < prefabList.Count; i++)
+            if (timer >= cooldownBetweenShoots)
             {
-                var prefab = prefabList[i];
+                Debug.Log("Shoot" + timer);
 
-                do
-                {
-                    yield return null;
-                    stateInfo = _anim.GetCurrentAnimatorStateInfo(0);
-                } while (stateInfo.fullPathHash == attackStateHash && stateInfo.normalizedTime < prefab.TimeToSpawnPreFab);
+                timer -= cooldownBetweenShoots;
 
-                if (prefab.PrefabType == TypeOfSkillPrefab.Hitbox) InstantiateHitBox(prefab);
-                else InstantiateVFX(prefab);
-
+                Shoot(prefabList);
             }
-        }
+        }).WaitForCompletion();
 
-        do
-        {
-            yield return null;
-            stateInfo = _anim.GetCurrentAnimatorStateInfo(0);
-        } while (stateInfo.fullPathHash == attackStateHash && stateInfo.normalizedTime < 1);
+
+        _anim.SetBool(animationParameter, false);
     }
 
+    void Shoot(List<SkillAnimationEvent> prefabList)
+    {
+        for (int i = 0; i < prefabList.Count; i++)
+        {
+            var prefab = prefabList[i];
+
+            if (prefab.PrefabType == TypeOfSkillPrefab.Hitbox) InstantiateHitBox(prefab);
+            else InstantiateVFX(prefab);
+
+        }
+    }
     void InstantiateHitBox(SkillAnimationEvent prefab)
     {
+        Debug.Log("Instantiate hitbox");
 
+        GameObject hitbox = PoolingManager.Instance.ReturnPrefabFromPool(prefab.PreFabName, prefab.PreFab, TypeOfSkillPrefab.Hitbox);
+        hitbox.transform.localScale = Vector3.one * projectileSize;
+        Vector3 pos = _vallis.position;
+        pos.z += prefab.PreFabPosition.z;
+        hitbox.transform.position = pos;
+        hitbox.transform.rotation = _vallis.rotation;
+
+        DamageContext context = new(
+            damage, 
+            damage,
+            prefab.PrefabDuration, 
+            hitShield,
+            damageType,
+            unitsToHit,
+            _statusManager,
+            new() {
+                { ExtraDamageContextAtributes.Speed, projectileSpeed },
+                { ExtraDamageContextAtributes.Distance, projectileDistance },
+            }
+
+            );
+
+        ProjectileDamageHitBox projectileDamageHitBox = hitbox.GetComponent<ProjectileDamageHitBox>();
+        projectileDamageHitBox.Initialize( context );
     }
 
-    void InstantiateVFX(SkillAnimationEvent prefab) { }
+    void InstantiateVFX(SkillAnimationEvent prefab) {
+        GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefab.PreFabName,
+                        prefab.PreFab, TypeOfSkillPrefab.VFX);
+        preFab.transform.SetPositionAndRotation(prefab.PreFabPosition, Quaternion.identity);
+
+        preFab.GetComponent<VFXPreFab>().Initialize(prefab.PrefabDuration);
+    }
 
     IEnumerator CooldownBetweenAttacks()
     {

@@ -34,6 +34,8 @@ public class CrabManager : EnemyBehaviourManager
     private void OnDestroy()
     {
         transform.DOKill();
+        Apicem.DOKill();
+        Vallis.DOKill();
     }
 
     #endregion
