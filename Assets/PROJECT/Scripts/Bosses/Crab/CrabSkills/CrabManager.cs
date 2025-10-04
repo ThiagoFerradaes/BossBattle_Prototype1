@@ -14,9 +14,8 @@ public class CrabManager : EnemyBehaviourManager
     [SerializeField] CrabWalkToPlayer crabWalkToPlayerSO;
 
     [HideInInspector] public GameObject Player;
-    [HideInInspector] public Transform Apicem;
-    [HideInInspector] public Transform Vallis;
-
+    public Transform Apicem, Vallis;
+    
     // Coroutines
     Coroutine _walkCoroutine;
 

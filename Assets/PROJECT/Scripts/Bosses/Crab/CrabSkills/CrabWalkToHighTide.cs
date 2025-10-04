@@ -1,4 +1,5 @@
 using AYellowpaper.SerializedCollections;
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,7 @@ public class CrabWalkToHighTide : EnemyBehaviourSO
     [SerializeField] float percentOfLowTide;
     [SerializeField] float highTideHeight;
     [SerializeField] float offSet;
+    [SerializeField] float cooldownBetweenAttacks;
     [SerializedDictionary("Wall, Position"), SerializeField] SerializedDictionary<CrabArenaWall, Vector3> listOfPossibleFinalPositions = new();
 
     [Header("Animation")]
@@ -124,6 +126,18 @@ public class CrabWalkToHighTide : EnemyBehaviourSO
 
         yield return _crabManager.ReturnWalkCoroutine();
 
+        Vector3 zeroDir = Vector3.zero - _crabManager.transform.position;
+
+        zeroDir.y = 0;
+
+        zeroDir.Normalize();
+
+        Quaternion targetRotation = Quaternion.LookRotation(zeroDir, Vector3.up);
+
+        yield return _crabManager.transform.DORotateQuaternion(targetRotation, 0.2f).WaitForCompletion();
+
+        _crabManager.StartCoroutine(CooldownBetweenAttacks());
+
         #endregion
     }
 
@@ -133,5 +147,12 @@ public class CrabWalkToHighTide : EnemyBehaviourSO
         hitbox.transform.position = prefab.PreFabPosition;
 
         hitbox.GetComponent<VFXPreFab>().Initialize(prefab.PrefabDuration);
+    }
+
+    IEnumerator CooldownBetweenAttacks()
+    {
+        yield return new WaitForSeconds(cooldownBetweenAttacks);
+
+        _crabManager.ChangeBehaviourAtRandom(1);
     }
 }
