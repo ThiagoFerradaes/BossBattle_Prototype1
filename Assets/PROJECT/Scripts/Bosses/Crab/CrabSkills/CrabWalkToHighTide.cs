@@ -10,7 +10,6 @@ public class CrabWalkToHighTide : EnemyBehaviourSO
 
     CrabManager _crabManager;
     Animator _anim;
-    StatusManager _statusManager;
 
     [Header("Atributes")]
     [SerializeField] float percentOfLowTide;
@@ -46,7 +45,6 @@ public class CrabWalkToHighTide : EnemyBehaviourSO
 
         _crabManager = parent as CrabManager;
         _anim = _crabManager.Anim;
-        _statusManager = _crabManager.StatusManager;
     }
 
     IEnumerator WalkToPosition()
