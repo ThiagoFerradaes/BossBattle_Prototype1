@@ -5,7 +5,8 @@ using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public enum ExtraDamageContextAtributes {
+public enum ExtraDamageContextAtributes
+{
     Penetration,
     BreakShield,
 
@@ -22,7 +23,8 @@ public enum ExtraDamageContextAtributes {
     CritDamage
 
 }
-public class DamageContext {
+public class DamageContext
+{
     public float MinDamage;
     public float MaxDamage;
     public float Duration;
@@ -34,7 +36,8 @@ public class DamageContext {
     public Dictionary<ExtraDamageContextAtributes, object> DictionaryOfExtraAtributes;
 
     public DamageContext(float minDamage, float maxDamage, float hitBoxDuration, bool hitShield,
-        DamageType type, List<Tags> tags, StatusManager status, Dictionary<ExtraDamageContextAtributes, object> extraAtributes = null) {
+        DamageType type, List<Tags> tags, StatusManager status, Dictionary<ExtraDamageContextAtributes, object> extraAtributes = null)
+    {
         this.MinDamage = minDamage;
         this.MaxDamage = maxDamage;
         this.Duration = hitBoxDuration;
@@ -45,7 +48,8 @@ public class DamageContext {
         this.DictionaryOfExtraAtributes = extraAtributes ?? new();
     }
 }
-public class InstantDamageHitBox : MonoBehaviour {
+public class InstantDamageHitBox : MonoBehaviour
+{
     #region Parameters
 
     float _minDamage;
@@ -67,7 +71,8 @@ public class InstantDamageHitBox : MonoBehaviour {
     #endregion
 
     #region Methods
-    public void Initialize(DamageContext context) {
+    public void Initialize(DamageContext context)
+    {
         _minDamage = context.MinDamage;
         _maxDamage = context.MaxDamage;
         _duration = context.Duration;
@@ -93,9 +98,11 @@ public class InstantDamageHitBox : MonoBehaviour {
         gameObject.SetActive(true);
         StartCoroutine(AttackDuration());
     }
-    IEnumerator AttackDuration() {
+    IEnumerator AttackDuration()
+    {
         float timer = 0;
-        while (timer < _duration) {
+        while (timer < _duration)
+        {
             timer += Time.deltaTime;
             yield return null;
         }
@@ -103,19 +110,37 @@ public class InstantDamageHitBox : MonoBehaviour {
         End();
     }
 
-    private void OnTriggerEnter(Collider other) {
+    private void OnTriggerEnter(Collider other)
+    {
         if (!_tag.Any(tag => other.CompareTag(tag.ToString()))) return;
 
 
-        if (!other.TryGetComponent<HealthManager>(out HealthManager health)) return;
-        if (!other.TryGetComponent<StatusManager>(out StatusManager recieverStatus)) return;
+        if (!other.TryGetComponent<HealthManager>(out HealthManager health))
+        {
+            health = other.GetComponentInParent<HealthManager>();
+            if (health == null)
+            {
+                Debug.Log("No HealthManager found in this object or its parents");
+                return;
+            }
+        }
+        if (!other.TryGetComponent<StatusManager>(out StatusManager recieverStatus))
+        {
+            recieverStatus = other.GetComponentInParent<StatusManager>();
+            if (recieverStatus == null)
+            {
+                Debug.Log("No StatusManager found in this object or its parents");
+                return;
+            }
+        }
 
         if (!health.ReturnIfCanTakeDamage()) return;
 
         float damage = Random.Range(_minDamage, _maxDamage);
 
         (float, bool) newDamage;
-        if (_critRate == 0 && _critDamage == 0) {
+        if (_critRate == 0 && _critDamage == 0)
+        {
             newDamage = DamageCalculator.CalculateDamage(
                 _damageType,
                 damage,
@@ -124,7 +149,8 @@ public class InstantDamageHitBox : MonoBehaviour {
                 recieverStatus
                 );
         }
-        else {
+        else
+        {
             newDamage = DamageCalculator.CalculateDamage(
                 _damageType,
                 damage,
@@ -142,13 +168,15 @@ public class InstantDamageHitBox : MonoBehaviour {
 
         health.TakeDamage(newDamage.Item1, _hitShield);
 
-        if (!_hasHitted) { 
+        if (!_hasHitted)
+        {
             _hasHitted = true;
-            OnHit?.Invoke(); 
+            OnHit?.Invoke();
         }
     }
 
-    void End() {
+    void End()
+    {
         _hasHitted = false;
         _breakShield = false;
         _critDamage = 0;
