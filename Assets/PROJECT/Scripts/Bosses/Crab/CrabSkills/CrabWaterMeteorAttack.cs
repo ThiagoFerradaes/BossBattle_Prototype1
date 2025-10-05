@@ -9,7 +9,11 @@ public class CrabWaterMeteorAttack : EnemyBehaviourSO
     Transform _vallis;
     StatusManager _statusManager;
 
+    [Header("Attack atributes")]
     [SerializeField] float cooldownBetweenAttacks;
+    [SerializeField] float amountOfAttacks;
+    [SerializeField] float cooldownBetweenMeteors;
+    [SerializeField] float maxDistanceToPlayer;
 
     public override void StartState(EnemyBehaviourManager parent)
     {

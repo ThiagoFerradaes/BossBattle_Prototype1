@@ -29,7 +29,6 @@ public class CrabSmallClawAttack : EnemyBehaviourSO
     [Header("Attack Atributes")]
     [SerializeField] float amoutOfAttacks;
     [SerializeField] float cooldownBetweenAttacks;
-    [SerializeField] float angleOfAttack;
     [SerializeField] Vector3 sizeOfHitbox;
 
     [Header("Damage Atributes")]
@@ -68,9 +67,16 @@ public class CrabSmallClawAttack : EnemyBehaviourSO
 
         yield return _crabManager.ReturnWalkCoroutine();
 
+        yield return _crabManager.StartCoroutine(Attack());
+
+        _crabManager.StartCoroutine(CooldownBetweenAttacks());
+    }
+
+    IEnumerator Attack()
+    {
         for (int j = 0; j < amoutOfAttacks; j++)
         {
-            yield return RotateToPlayer();
+            yield return _crabManager.RotateToPlayer(_crabManager.SmallClaw, rotationSpeed);
 
             _anim.SetTrigger(preparingAnimationTrigger);
             _anim.SetFloat(preparingAnimationSpeedParameter, preparingAnimationSpeed);
@@ -115,10 +121,7 @@ public class CrabSmallClawAttack : EnemyBehaviourSO
 
             if (j < amoutOfAttacks - 1) yield return new WaitForSeconds(cooldownBetweenAttacks);
         }
-
-        _crabManager.StartCoroutine(CooldownBetweenAttacks());
     }
-
     IEnumerator CooldownBetweenAttacks()
     {
         yield return new WaitForSeconds(cooldownBetweenThisAttackAndNext);
@@ -152,28 +155,4 @@ public class CrabSmallClawAttack : EnemyBehaviourSO
         hitbox.GetComponent<VFXPreFab>().Initialize(prefab.PrefabDuration);
     }
 
-    YieldInstruction RotateToPlayer()
-    {
-        _anim.SetBool(walkAnimationParameter, true);
-
-        Vector3 playerPos = _crabManager.Player.transform.position;
-
-        Vector3 playerDir = playerPos - _crabManager.transform.position;
-        playerDir.Normalize();
-        playerDir.y = 0;
-
-        Quaternion startRot = Quaternion.LookRotation(playerDir, Vector3.up);
-
-        Quaternion offSet = startRot * Quaternion.Euler(0, angleOfAttack, 0);
-
-        // Garante rotação só no eixo Y
-        Vector3 startEuler = offSet.eulerAngles;
-        offSet = Quaternion.Euler(0, startEuler.y, 0);
-
-        float angle = Quaternion.Angle(_crabManager.transform.rotation, offSet);
-        float duration = angle / rotationSpeed;
-
-        return _crabManager.transform.DORotateQuaternion(offSet, duration).OnComplete(() => _anim.SetBool(walkAnimationParameter, false)).WaitForCompletion();
-
-    }
 }

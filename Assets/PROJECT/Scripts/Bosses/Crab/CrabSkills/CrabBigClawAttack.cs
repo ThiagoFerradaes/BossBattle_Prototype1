@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -23,6 +24,7 @@ public class CrabBigClawAttack : EnemyBehaviourSO
     [Header("Walk Atributes")]
     [SerializeField] float distanceToPlayer = 2;
     [SerializeField] float cooldownBetweenThisAttackAndNext = 2;
+    [SerializeField] float rotationSpeed = 150;
     [SerializeField] List<SkillAnimationEvent> prefabs;
 
     [Header("Damage Atributes")]
@@ -65,6 +67,8 @@ public class CrabBigClawAttack : EnemyBehaviourSO
         _crabManager.WalkToTarget(distanceToPlayer, _crabManager.Player.transform.position);
 
         yield return _crabManager.ReturnWalkCoroutine();
+
+        yield return _crabManager.RotateToPlayer(_crabManager.BigClaw, rotationSpeed);
 
         _anim.SetTrigger(preparingAnimationTrigger);
         _anim.SetFloat(preparingAnimationSpeedParameter, preparingAnimationSpeed);

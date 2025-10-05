@@ -14,7 +14,7 @@ public class CrabManager : EnemyBehaviourManager
     [SerializeField] CrabWalkToTarget crabWalkToPlayerSO;
 
     [HideInInspector] public GameObject Player;
-    public Transform Apicem, Vallis;
+    public Transform Apicem, Vallis, SmallClaw, BigClaw;
     
     // Coroutines
     Coroutine _walkCoroutine;
@@ -52,11 +52,50 @@ public class CrabManager : EnemyBehaviourManager
     public void ResetWalkCoroutine() => _walkCoroutine = null;
     #endregion
 
+    #region Rotate
+
+    public YieldInstruction RotateToPlayer(Transform originalPosition, float rotationSpeed)
+    {
+        Anim.SetBool(crabWalkToPlayerSO.WalkAnimationParameter, true);
+
+        Vector3 playerPos = Player.transform.position;
+        Vector3 playerDir = (playerPos - originalPosition.position).normalized;
+        playerDir.y = 0;
+
+        Quaternion startRot = Quaternion.LookRotation(playerDir, Vector3.up); // Angulo em quaternion do foward do inimigo até a direção do jogador
+
+        float angle = Quaternion.Angle(transform.rotation, startRot);
+        float duration = angle / rotationSpeed;
+
+        return transform.DORotateQuaternion(startRot, duration).OnComplete(() => Anim.SetBool(crabWalkToPlayerSO.WalkAnimationParameter, false)).WaitForCompletion();
+
+    }
+
+    #endregion
+
     #region Wall
 
     public CrabArenaWall ReturnCurrentWall() => _currentWall;   
 
-    public void SetCurrentArenaWall(CrabArenaWall wall) => _currentWall = wall; 
+    public void SetCurrentArenaWall(CrabArenaWall wall) => _currentWall = wall;
+
+    #endregion
+
+    #region RightOrLeft
+
+    public bool DecideIfIsRight(Vector3 target)
+    {
+        Vector3 crabPos = transform.position;
+        target.y = crabPos.y;
+
+        Vector3 rightSide = crabPos + transform.right * 1.1f;
+        Vector3 leftSide = crabPos - transform.right * 1.1f;
+
+        float rightDis = Vector3.Distance(target, rightSide);
+        float leftDis = Vector3.Distance(target, leftSide);
+
+        return rightDis <= leftDis;
+    }
 
     #endregion
 }

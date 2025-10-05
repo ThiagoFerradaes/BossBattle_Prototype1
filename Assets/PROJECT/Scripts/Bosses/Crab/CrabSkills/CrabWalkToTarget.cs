@@ -8,10 +8,10 @@ public class CrabWalkToTarget : ScriptableObject
     CrabManager _crabManager;
 
     [Header("Walk Animation")]
+    public string WalkAnimationParameter;
+    public float RotationSpeed;
     [SerializeField] string walkAnimationName;
-    [SerializeField] string walkAnimationParameter;
     [SerializeField] int animationLayer;
-    [SerializeField] float rotationSpeed;
     [SerializeField] float curveMagnetude;
     [SerializeField] float walkTolerance;
 
@@ -30,7 +30,7 @@ public class CrabWalkToTarget : ScriptableObject
         // Garantindo que esse transform não esteja fazendo nada
         _crabManager.transform.DOKill();
 
-        _crabManager.Anim.SetBool(walkAnimationParameter, true);
+        _crabManager.Anim.SetBool(WalkAnimationParameter, true);
 
         AnimatorStateInfo stateInfo = _crabManager.Anim.GetCurrentAnimatorStateInfo(animationLayer);
 
@@ -46,24 +46,10 @@ public class CrabWalkToTarget : ScriptableObject
         // Andando até o player
         yield return PathToTarget(stopDistance, target);
 
-        _crabManager.Anim.SetBool(walkAnimationParameter, false);
+        _crabManager.Anim.SetBool(WalkAnimationParameter, false);
 
         _crabManager.ResetWalkCoroutine();
 
-    }
-
-    public bool DecideIfIsRight(Vector3 target)
-    {
-        Vector3 crabPos = _crabManager.transform.position;
-        target.y = crabPos.y;
-
-        Vector3 rightSide = crabPos + _crabManager.transform.right * 1.1f;
-        Vector3 leftSide = crabPos - _crabManager.transform.right * 1.1f;
-
-        float rightDis = Vector3.Distance(target, rightSide);
-        float leftDis = Vector3.Distance(target, leftSide);
-
-        return rightDis <= leftDis;
     }
 
     YieldInstruction RotateToTarget()
@@ -80,7 +66,7 @@ public class CrabWalkToTarget : ScriptableObject
 
     YieldInstruction PathToTarget(float stopDistance, Vector3 target)
     {
-        float curve = DecideIfIsRight(target) ? curveMagnetude : -curveMagnetude;
+        float curve = _crabManager.DecideIfIsRight(target) ? curveMagnetude : -curveMagnetude;
 
         // Decidindo o caminho
         Vector3 startPos = _crabManager.transform.position;
