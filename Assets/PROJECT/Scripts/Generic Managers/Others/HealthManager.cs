@@ -62,6 +62,7 @@ public class HealthManager : MonoBehaviour {
     }
 
     public void TakeDamage(float damage, bool hitShield) {
+        Debug.Log("Damage");
         if (_isDead || !_canTakeDamage) return;
         if (!hitShield) {
             ChangeHealth(_currentHealth - damage);

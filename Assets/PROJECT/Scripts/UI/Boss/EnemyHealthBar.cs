@@ -6,6 +6,7 @@ public class EnemyHealthBar : MonoBehaviour
 {
     [SerializeField] HealthManager healthManager;
     [SerializeField] Image healthBar;
+    [SerializeField] bool isWorldCanvas = true;
     Camera cam;
     void Start()
     {
@@ -15,6 +16,7 @@ public class EnemyHealthBar : MonoBehaviour
 
     void Update()
     {
+        if (!isWorldCanvas) return;
         transform.LookAt(cam.transform.position);
     }
 
