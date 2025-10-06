@@ -95,6 +95,8 @@ public class CrabJumpAttack : EnemyBehaviourSO {
 
         InstantiateHitBox();
 
+        _crabManager.CooldownManager.SetSkillCooldown(this);
+
         _crabManager.StartCoroutine(CooldownBetweenAttacks());
     }
 

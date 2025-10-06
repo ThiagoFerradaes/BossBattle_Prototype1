@@ -111,6 +111,8 @@ public class CrabBigClawAttack : EnemyBehaviourSO
             stateInfo = _anim.GetCurrentAnimatorStateInfo(0);
         } while (stateInfo.fullPathHash == attackStateHash && stateInfo.normalizedTime < 1);
 
+        _crabManager.CooldownManager.SetSkillCooldown(this);
+
         _crabManager.StartCoroutine(CooldownBetweenAttacks());
     }
 

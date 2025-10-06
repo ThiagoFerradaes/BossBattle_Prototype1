@@ -86,6 +86,8 @@ public class CrabWaterMeteorAttack : EnemyBehaviourSO {
 
         _anim.SetBool(animationParameter, false);
 
+        _crabManager.CooldownManager.SetSkillCooldown(this);
+
         _crabManager.StartCoroutine(CooldownBetweenAttacks());
     }
     Vector3 FindAPosition() {

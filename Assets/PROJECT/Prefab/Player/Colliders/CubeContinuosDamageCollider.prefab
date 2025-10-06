@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9080946570932210309}
-  - component: {fileID: 266401258489061974}
   - component: {fileID: 1008862963885504185}
+  - component: {fileID: 253087339072701186}
   m_Layer: 0
-  m_Name: CubeInstanteDamageCollider
+  m_Name: CubeContinuosDamageCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34,18 +34,6 @@ Transform:
   - {fileID: 8756847347250251615}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &266401258489061974
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8271028322271159555}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 325399cb726a8f045a80bc48bb8eaebb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InstantDamageHitBox
 --- !u!54 &1008862963885504185
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -73,6 +61,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!114 &253087339072701186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8271028322271159555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 803134cb5c137c04185f2a0980d62453, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ContinuosDamageHitBox
 --- !u!1 &8291770609358301024
 GameObject:
   m_ObjectHideFlags: 0

@@ -69,6 +69,8 @@ public class CrabSmallClawAttack : EnemyBehaviourSO
 
         yield return _crabManager.StartCoroutine(Attack());
 
+        _crabManager.CooldownManager.SetSkillCooldown(this);
+
         _crabManager.StartCoroutine(CooldownBetweenAttacks());
     }
 

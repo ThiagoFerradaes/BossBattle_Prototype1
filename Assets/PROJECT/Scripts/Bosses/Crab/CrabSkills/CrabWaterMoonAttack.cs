@@ -43,7 +43,7 @@ public class CrabWaterMoonAttack : EnemyBehaviourSO
 
         _crabManager.StartCoroutine(WaterMoonAttack());
 
-        Debug.Log("Moon");
+
     }
 
     public override bool MeetsCondition()
@@ -80,6 +80,8 @@ public class CrabWaterMoonAttack : EnemyBehaviourSO
         yield return RotateAndShoot(rightAngle, shootDuration);
 
         yield return _vallis.DOLocalRotateQuaternion(centerAngle, durationOfRotationToRight).WaitForCompletion();
+
+        _crabManager.CooldownManager.SetSkillCooldown(this);
 
         _crabManager.StartCoroutine(CooldownBetweenAttacks());
     }
