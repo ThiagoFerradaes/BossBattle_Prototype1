@@ -29,7 +29,7 @@ public class ArenaManager : MonoBehaviour
 
     #endregion
 
-    #region Get Position
+    #region Get Random Position
 
     /// <summary>
     /// Retorna uma posição aleatória válida dentro da arena.
@@ -129,9 +129,9 @@ public class ArenaManager : MonoBehaviour
     }
 
     public float FindGroundHeight(Vector3 originalPosition) {
-        Vector3 startPos = originalPosition + Vector3.up * 0.5f;
+        Vector3 startPos = new(originalPosition.x, 1000f, originalPosition.z);
 
-        if (Physics.Raycast(startPos, Vector3.down, out RaycastHit hit, 100, LayerMask.GetMask("Floor"))){
+        if (Physics.Raycast(startPos, Vector3.down, out RaycastHit hit, 1000f, LayerMask.GetMask("Floor"))){
             return hit.point.y; 
         }
 
