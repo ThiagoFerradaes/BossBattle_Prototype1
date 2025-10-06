@@ -110,8 +110,20 @@ public class ProjectileDamageHitBox : MonoBehaviour
         if (!_tag.Any(tag => other.CompareTag(tag.ToString()))) return;
 
 
-        if (!other.TryGetComponent<HealthManager>(out HealthManager health)) return;
-        if (!other.TryGetComponent<StatusManager>(out StatusManager recieverStatus)) return;
+        if (!other.TryGetComponent<HealthManager>(out HealthManager health)) {
+            health = other.GetComponentInParent<HealthManager>();
+            if (health == null) {
+                Debug.Log("No HealthManager found in this object or its parents");
+                return;
+            }
+        }
+        if (!other.TryGetComponent<StatusManager>(out StatusManager recieverStatus)) {
+            recieverStatus = other.GetComponentInParent<StatusManager>();
+            if (recieverStatus == null) {
+                Debug.Log("No StatusManager found in this object or its parents");
+                return;
+            }
+        }
 
         if (!health.ReturnIfCanTakeDamage()) return;
 

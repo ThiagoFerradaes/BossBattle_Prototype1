@@ -19,7 +19,7 @@ public class CyrusBaseAttackManager : SkillObjectManager {
 
     #region Methods
     public override void UseSkill(SkillSO skill) {
-        
+
         Initialize(skill);
 
         if (!gameObject.activeInHierarchy) {
@@ -49,7 +49,6 @@ public class CyrusBaseAttackManager : SkillObjectManager {
         // Especifico de cada ataque do combo
         string animationParameter = _attackIndex == 1 ? _info.FirstBaseAttackParameter : _info.SecondBaseAttackParameter;
         string animationName = _attackIndex == 1 ? _info.FirstBaseAttackAnimationName : _info.SecondtBaseAttackAnimationName;
-        float penetration = _attackIndex == 1 ? _info.PenetrationFirstAttack : _info.PenetrationSecondAttack;
         Vector3 hitBoxPosition = _attackIndex == 1 ? _info.FirstBaseAttackHitBoxPosition : _info.SecondtBaseAttackHitBoxPosition;
 
         anim.SetFloat(_info.AttackSpeedAnimationParameter, attackSpeedMultiplier);
@@ -82,44 +81,8 @@ public class CyrusBaseAttackManager : SkillObjectManager {
             } while (stateInfo.fullPathHash == attackStateHash && stateInfo.normalizedTime < targetNormalizedTime);
 
 
-            if (prefabInfo.PrefabType == TypeOfSkillPrefab.Hitbox) {
-
-                GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFabName,
-                    prefabInfo.PreFab, TypeOfSkillPrefab.Hitbox);
-                preFab.transform.SetParent(parent.transform, false);
-                preFab.transform.SetLocalPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.identity);
-
-                float attackDamageOne = _attackIndex == 1 ? _info.FirstAttackMinDamage: _info.SecondAttackMinDamage;
-                float attackDamageTwo = _attackIndex == 1 ? _info.FirstAttackMaxDamage : _info.SecondAttackMaxDamage;
-
-                DamageContext newContext = new(
-                    attackDamageOne,
-                    attackDamageTwo,
-                    prefabInfo.PrefabDuration,
-                    _info.HitShield,
-                    _info.DamageType,
-                    _info.EnemyTag,
-                    parent.GetComponent<StatusManager>(),
-                    new() {
-                        {ExtraDamageContextAtributes.Penetration, penetration }
-                    }
-                    );
-
-                InstantDamageHitBox hitbox = preFab.GetComponent<InstantDamageHitBox>();
-                hitbox.Initialize(newContext);
-
-                hitbox.OnHit += () => {
-                    energyManager.GainEnergy(_info.FlatEnergyGainPerHit);
-                };
-            }
-            else {
-                GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFabName,
-                    prefabInfo.PreFab, TypeOfSkillPrefab.VFX);
-                preFab.transform.SetParent(parent.transform, false);
-                preFab.transform.SetLocalPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.identity);
-
-                preFab.GetComponent<VFXPreFab>().Initialize(prefabInfo.PrefabDuration);
-            }
+            if (prefabInfo.PrefabType == TypeOfSkillPrefab.Hitbox) InstantiateHitBox(prefabInfo);
+            else InstantiateVFX(prefabInfo);
         }
 
         while (anim.GetCurrentAnimatorStateInfo(0).fullPathHash == attackStateHash &&
@@ -127,6 +90,10 @@ public class CyrusBaseAttackManager : SkillObjectManager {
             yield return null;
         }
 
+        FinishAttack(attackSpeedMultiplier);
+    }
+
+    void FinishAttack(float attackSpeedMultiplier) {
         float cooldown = _attackIndex == 1 ? _info.CooldownBetweenAttacks : _info.Cooldown;
         float realCooldown = cooldown / attackSpeedMultiplier;
 
@@ -170,6 +137,48 @@ public class CyrusBaseAttackManager : SkillObjectManager {
     float GetAttackSpeedMultiplier() {
         float baseSpeed = statusManager.ReturnStatusValue(StatusType.AttackSpeed);
         return Mathf.Max(0.1f, baseSpeed);
+    }
+
+    void InstantiateHitBox(SkillAnimationEvent prefabInfo) {
+
+        float penetration = _attackIndex == 1 ? _info.PenetrationFirstAttack : _info.PenetrationSecondAttack;
+
+        GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFabName,
+            prefabInfo.PreFab, TypeOfSkillPrefab.Hitbox);
+        preFab.transform.SetParent(parent.transform, false);
+        preFab.transform.SetLocalPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.identity);
+
+        float attackDamageOne = _attackIndex == 1 ? _info.FirstAttackMinDamage : _info.SecondAttackMinDamage;
+        float attackDamageTwo = _attackIndex == 1 ? _info.FirstAttackMaxDamage : _info.SecondAttackMaxDamage;
+
+        DamageContext newContext = new(
+            attackDamageOne,
+            attackDamageTwo,
+            prefabInfo.PrefabDuration,
+            _info.HitShield,
+            _info.DamageType,
+            _info.EnemyTag,
+            parent.GetComponent<StatusManager>(),
+            new() {
+                {ExtraDamageContextAtributes.Penetration, penetration }
+            }
+            );
+
+        InstantDamageHitBox hitbox = preFab.GetComponent<InstantDamageHitBox>();
+        hitbox.Initialize(newContext);
+
+        hitbox.OnHit += () => {
+            energyManager.GainEnergy(_info.FlatEnergyGainPerHit);
+        };
+    }
+
+    void InstantiateVFX(SkillAnimationEvent prefabInfo) {
+        GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFabName,
+    prefabInfo.PreFab, TypeOfSkillPrefab.VFX);
+        preFab.transform.SetParent(parent.transform, false);
+        preFab.transform.SetLocalPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.identity);
+
+        preFab.GetComponent<VFXPreFab>().Initialize(prefabInfo.PrefabDuration);
     }
     #endregion
 }

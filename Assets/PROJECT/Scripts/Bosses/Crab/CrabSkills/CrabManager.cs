@@ -6,33 +6,39 @@ using UnityEngine;
 public enum CrabArenaWall { Up, Left, Right, None}
 public class CrabManager : EnemyBehaviourManager
 {
+    #region Parameters
+
+    // Components
+    [HideInInspector] public StatusManager StatusManager;
+    [HideInInspector] public Animator Anim;
+    [HideInInspector] public GameObject Player;
 
     [Header("Components")]
-    public StatusManager StatusManager;
-    [HideInInspector] public Animator Anim;
-
     [SerializeField] CrabWalkToTarget crabWalkToPlayerSO;
-
-    [HideInInspector] public GameObject Player;
     public Transform Apicem, Vallis, SmallClaw, BigClaw;
     
     // Coroutines
     Coroutine _walkCoroutine;
 
+    // Tide
     CrabArenaWall _currentWall = CrabArenaWall.None;
+
+    #endregion
 
     #region Initialize
     public override IEnumerator Start()
     {
-
+        // Pegando os componentes
         Player = PlayerManager.Instance.Player;
         Anim = GetComponentInChildren<Animator>();
+        StatusManager = GetComponent<StatusManager>();
 
         return base.Start();
     }
 
     private void OnDestroy()
     {
+        // Finalizando os Tweens
         transform.DOKill();
         Apicem.DOKill();
         Vallis.DOKill();

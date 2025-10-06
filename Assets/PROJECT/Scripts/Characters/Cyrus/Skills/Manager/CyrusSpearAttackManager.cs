@@ -107,12 +107,12 @@ public class CyrusSpearAttackManager : SkillObjectManager {
         GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFabName,
                     prefabInfo.PreFab, TypeOfSkillPrefab.Hitbox);
 
-        float zSize = _skillLevel == 3 ? _info.Level2Range : _info.Size.z;
+        float zSize = _skillLevel >= 2 ? _info.Level2Range : _info.Size.z;
         preFab.transform.localScale = new(_info.Size.x, _info.Size.y, zSize);
 
         preFab.transform.SetParent(parent.transform, false);
 
-        Vector3 pos = new(prefabInfo.PreFabPosition.x, prefabInfo.PreFabPosition.y, zSize/2);
+        Vector3 pos = new(prefabInfo.PreFabPosition.x, prefabInfo.PreFabPosition.y, zSize);
 
         preFab.transform.SetLocalPositionAndRotation(pos, Quaternion.identity);
 

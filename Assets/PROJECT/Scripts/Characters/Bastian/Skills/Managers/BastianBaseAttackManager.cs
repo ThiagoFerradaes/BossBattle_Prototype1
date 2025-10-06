@@ -117,54 +117,8 @@ public class BastianBaseAttackManager : SkillObjectManager {
             } while (stateInfo.fullPathHash == attackStateHash && stateInfo.normalizedTime < targetNormalizedTime);
 
 
-            if (prefabInfo.PrefabType == TypeOfSkillPrefab.Hitbox) {
-
-                GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFabName,
-                    prefabInfo.PreFab, TypeOfSkillPrefab.Hitbox);
-
-                preFab.transform.SetPositionAndRotation(parent.transform.position + prefabInfo.PreFabPosition, parent.transform.rotation);
-
-                float pen = BastianPassiveManager.Instance.ReturnMinHeat(HeatArea.SuperHeatArea) ? _info.PenetrationOnSuperHeat : 0;
-                float critChance = BastianPassiveManager.Instance.ReturnMinHeat(HeatArea.OverHeatArea) ? _info.CritChanceOverHeat : 0;
-                float additionalCriDmg = BastianPassiveManager.Instance.ReturnMinHeat(HeatArea.LastOverHeatArea) ?  _info.LastOverHeatCritDamage : 0;
-                float critDamage = statusManager.ReturnStatusValue(StatusType.CritDamage) + additionalCriDmg;
-
-                DamageContext newContext = new(
-                    minDamage,
-                    maxDamage,
-                    prefabInfo.PrefabDuration,
-                    _info.HitShield,
-                    _info.DamageType,
-                    _info.EnemyTag,
-                    parent.GetComponent<StatusManager>(),
-                    new() {
-                        {ExtraDamageContextAtributes.Speed, _info.ProjectileSpeed },
-                        {ExtraDamageContextAtributes.Distance, _info.AttackDistance },
-                        {ExtraDamageContextAtributes.Penetration, pen},
-                        {ExtraDamageContextAtributes.CritRate, critChance},
-                        {ExtraDamageContextAtributes.CritDamage, critDamage}
-                    }
-                    );
-
-                ProjectileDamageHitBox hitbox = preFab.GetComponent<ProjectileDamageHitBox>();
-                hitbox.Initialize(newContext);
-
-                hitbox.OnHit += () => {
-                    energyManager.GainEnergy(_info.FlatEnergyGainPerHit);
-                };
-
-                BastianPassiveManager.Instance.GainHeat(_info.HeatGain);
-
-                OnShoot?.Invoke(_attackIndex);
-            }
-            else {
-                GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFabName,
-                    prefabInfo.PreFab, TypeOfSkillPrefab.VFX);
-                preFab.transform.SetParent(parent.transform, false);
-                preFab.transform.SetLocalPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.identity);
-
-                preFab.GetComponent<VFXPreFab>().Initialize(prefabInfo.PrefabDuration);
-            }
+            if (prefabInfo.PrefabType == TypeOfSkillPrefab.Hitbox) InstantiateHitBox(prefabInfo, minDamage, maxDamage);
+            else InstantiateVFX(prefabInfo);
         }
 
         // Esperando a animação terminar
@@ -172,6 +126,9 @@ public class BastianBaseAttackManager : SkillObjectManager {
             yield return null;
         }
 
+        FinishAttack(attackSpeedMultiplier);
+    }
+    void FinishAttack(float attackSpeedMultiplier) {
         // Definindo Cooldown
         float cooldown = _attackIndex < 3 ? _info.CooldownBetweenAttacks : _info.Cooldown;
 
@@ -196,7 +153,6 @@ public class BastianBaseAttackManager : SkillObjectManager {
         // Avisando que não está mais em animação
         skillManager.SkillIsInAnimation(false);
     }
-
     IEnumerator CooldownBetweenAttacks() {
         float timer = 0;
 
@@ -225,5 +181,52 @@ public class BastianBaseAttackManager : SkillObjectManager {
         _attackIndex = 1;
         _timerBetweenAttacksCoroutine = null;
         base.EndWithUnblockSkills();
+    }
+    void InstantiateHitBox(SkillAnimationEvent prefabInfo, float minDamage, float maxDamage) {
+        GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFabName,
+    prefabInfo.PreFab, TypeOfSkillPrefab.Hitbox);
+
+        preFab.transform.SetPositionAndRotation(parent.transform.position + prefabInfo.PreFabPosition, parent.transform.rotation);
+
+        float pen = BastianPassiveManager.Instance.ReturnMinHeat(HeatArea.SuperHeatArea) ? _info.PenetrationOnSuperHeat : 0;
+        float critChance = BastianPassiveManager.Instance.ReturnMinHeat(HeatArea.OverHeatArea) ? _info.CritChanceOverHeat : 0;
+        float additionalCriDmg = BastianPassiveManager.Instance.ReturnMinHeat(HeatArea.LastOverHeatArea) ? _info.LastOverHeatCritDamage : 0;
+        float critDamage = statusManager.ReturnStatusValue(StatusType.CritDamage) + additionalCriDmg;
+
+        DamageContext newContext = new(
+            minDamage,
+            maxDamage,
+            prefabInfo.PrefabDuration,
+            _info.HitShield,
+            _info.DamageType,
+            _info.EnemyTag,
+            parent.GetComponent<StatusManager>(),
+            new() {
+                        {ExtraDamageContextAtributes.Speed, _info.ProjectileSpeed },
+                        {ExtraDamageContextAtributes.Distance, _info.AttackDistance },
+                        {ExtraDamageContextAtributes.Penetration, pen},
+                        {ExtraDamageContextAtributes.CritRate, critChance},
+                        {ExtraDamageContextAtributes.CritDamage, critDamage}
+            }
+            );
+
+        ProjectileDamageHitBox hitbox = preFab.GetComponent<ProjectileDamageHitBox>();
+        hitbox.Initialize(newContext);
+
+        hitbox.OnHit += () => {
+            energyManager.GainEnergy(_info.FlatEnergyGainPerHit);
+        };
+
+        BastianPassiveManager.Instance.GainHeat(_info.HeatGain);
+
+        OnShoot?.Invoke(_attackIndex);
+    }
+    void InstantiateVFX(SkillAnimationEvent prefabInfo) {
+        GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFabName,
+    prefabInfo.PreFab, TypeOfSkillPrefab.VFX);
+        preFab.transform.SetParent(parent.transform, false);
+        preFab.transform.SetLocalPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.identity);
+
+        preFab.GetComponent<VFXPreFab>().Initialize(prefabInfo.PrefabDuration);
     }
 }

@@ -6,8 +6,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 
 
-public class ContinuosDamageHitBox : MonoBehaviour
-{
+public class ContinuosDamageHitBox : MonoBehaviour {
     // Atributos
     float _minDamagePerTick;
     float _maxDamagePerTick;
@@ -29,8 +28,7 @@ public class ContinuosDamageHitBox : MonoBehaviour
     // Event
     public event Action OnHit;
 
-    public void Initialize(DamageContext context)
-    {
+    public void Initialize(DamageContext context) {
         _minDamagePerTick = context.MinDamage;
         _maxDamagePerTick = context.MaxDamage;
         _duration = context.Duration;
@@ -40,13 +38,11 @@ public class ContinuosDamageHitBox : MonoBehaviour
         _typeOfUnit = new(context.UnitsToHitTag);
         _extra = context.DictionaryOfExtraAtributes ?? new();
 
-        if (_extra.TryGetValue(ExtraDamageContextAtributes.Penetration, out var pen))
-        {
+        if (_extra.TryGetValue(ExtraDamageContextAtributes.Penetration, out var pen)) {
             _penetrarion = (float)pen;
         }
 
-        if (_extra.TryGetValue(ExtraDamageContextAtributes.DamageCooldown, out var damageCooldown))
-        {
+        if (_extra.TryGetValue(ExtraDamageContextAtributes.DamageCooldown, out var damageCooldown)) {
             _damageCooldown = (float)damageCooldown;
         }
 
@@ -55,11 +51,9 @@ public class ContinuosDamageHitBox : MonoBehaviour
         _attackCooldownCoroutine ??= StartCoroutine(AttackCooldown());
     }
 
-    IEnumerator AttackDuration()
-    {
+    IEnumerator AttackDuration() {
         float timer = 0;
-        while (timer < _duration)
-        {
+        while (timer < _duration) {
             timer += Time.deltaTime;
             yield return null;
         }
@@ -67,47 +61,52 @@ public class ContinuosDamageHitBox : MonoBehaviour
         End();
     }
 
-    IEnumerator AttackCooldown()
-    {
-        while (true)
-        {
+    IEnumerator AttackCooldown() {
+        while (true) {
             List<GameObject> desactiveUnits = new();
 
-            foreach (GameObject unit in _listOfHealths)
-            {
+            foreach (GameObject unit in _listOfHealths) {
 
-                if (!unit.activeInHierarchy)
-                {
+                if (!unit.activeInHierarchy) {
                     desactiveUnits.Add(unit);
                     continue;
                 }
-
-                if (unit.TryGetComponent<HealthManager>(out HealthManager health) &&
-                    unit.TryGetComponent<StatusManager>(out StatusManager recieverManager))
-                {
-
-                    if (!health.ReturnIfCanTakeDamage()) continue;
-
-                    float damage = UnityEngine.Random.Range(_minDamagePerTick, _maxDamagePerTick);
-
-                    (float, bool) newDamage = DamageCalculator.CalculateDamage(
-                        _type,
-                        damage,
-                        _penetrarion,
-                        _dealerStatus,
-                        recieverManager
-                        );
-
-                    if (unit.CompareTag(Tags.Enemy.ToString())) PopUpManager.Instance.DamageDone(
-                        (int)newDamage.Item1, health.transform.position, newDamage.Item2, _type);
-                    health.TakeDamage(newDamage.Item1, _hitShield);
-
-                    OnHit?.Invoke();
+                if (!unit.TryGetComponent<HealthManager>(out HealthManager health)) {
+                    health = unit.GetComponentInParent<HealthManager>();
+                    if (health == null) {
+                        Debug.Log("No HealthManager found in this object or its parents");
+                        continue;
+                    }
                 }
+                if (!unit.TryGetComponent<StatusManager>(out StatusManager recieverManager)) {
+                    recieverManager = unit.GetComponentInParent<StatusManager>();
+                    if (recieverManager == null) {
+                        Debug.Log("No StatusManager found in this object or its parents");
+                        continue;
+                    }
+                }
+
+                if (!health.ReturnIfCanTakeDamage()) continue;
+
+                float damage = UnityEngine.Random.Range(_minDamagePerTick, _maxDamagePerTick);
+
+                (float, bool) newDamage = DamageCalculator.CalculateDamage(
+                    _type,
+                    damage,
+                    _penetrarion,
+                    _dealerStatus,
+                    recieverManager
+                    );
+
+                if (unit.CompareTag(Tags.Enemy.ToString())) PopUpManager.Instance.DamageDone(
+                    (int)newDamage.Item1, health.transform.position, newDamage.Item2, _type);
+                health.TakeDamage(newDamage.Item1, _hitShield);
+
+                OnHit?.Invoke();
+
             }
 
-            foreach (var enemy in desactiveUnits)
-            {
+            foreach (var enemy in desactiveUnits) {
                 _listOfHealths.Remove(enemy);
             }
 
@@ -115,22 +114,19 @@ public class ContinuosDamageHitBox : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
+    private void OnTriggerEnter(Collider other) {
         if (!_typeOfUnit.Any(tag => other.CompareTag(tag.ToString()))) return;
 
         _listOfHealths.Add(other.gameObject);
     }
 
-    private void OnTriggerExit(Collider other)
-    {
+    private void OnTriggerExit(Collider other) {
         if (!_typeOfUnit.Any(tag => other.CompareTag(tag.ToString()))) return;
 
         _listOfHealths.Remove(other.gameObject);
     }
 
-    public void End()
-    {
+    public void End() {
         OnHit = null;
 
         _durationCoroutine = null;

@@ -145,7 +145,7 @@ public class PlayerMovementManager : MonoBehaviour {
 
         Ray ray = Camera.main.ScreenPointToRay(_mousePosition);
 
-        if (Physics.Raycast(ray, out RaycastHit hit, 100f, floorLayer)) {
+        if (Physics.Raycast(ray, out RaycastHit hit, 1000f, floorLayer)) {
             Vector3 direction = hit.point - transform.position;
             direction.y = 0;
 
