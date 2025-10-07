@@ -22,17 +22,27 @@ MonoBehaviour:
   animationLayer: 1
   attackPreparationDuration: 5
   cooldownBetweenAttacks: 2
+  playerPositionYOffSet: 0.5
+  layersToHit:
+    serializedVersion: 2
+    m_Bits: 256
   prefabs:
     _serializedList:
     - Key: 0
-      Value: []
+      Value:
+      - TimeToSpawnPreFab: 0
+        PrefabDuration: 0
+        PreFabName: CubeContinuosDamageColliderExtensor
+        PrefabType: 0
+        PreFab: {fileID: 8271028322271159555, guid: 58e75b5151ba07948b3a51a16adf318c, type: 3}
+        PreFabPosition: {x: 0, y: 0, z: 0}
     - Key: 1
       Value:
       - TimeToSpawnPreFab: 0.5
         PrefabDuration: 0
-        PreFabName: CubeContinuosDamageCollider
+        PreFabName: CubeContinuosDamageColliderExtensor
         PrefabType: 0
-        PreFab: {fileID: 8271028322271159555, guid: 8ad3567d40166664f940505753a1b0fc, type: 3}
+        PreFab: {fileID: 8271028322271159555, guid: 58e75b5151ba07948b3a51a16adf318c, type: 3}
         PreFabPosition: {x: 0, y: 0, z: 0}
   attackSize: {x: 1, y: 1, z: 50}
   attackDuration: 3

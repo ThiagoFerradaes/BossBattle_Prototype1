@@ -65,6 +65,9 @@ public class CrabWaterMoonAttack : EnemyBehaviourSO
 
     IEnumerator WaterMoonAttack()
     {
+        Vector3 playerDir = (_vallis.transform.position - _crabManager.Player.transform.position).normalized;
+
+
         Quaternion centerAngle = Quaternion.Euler(0, 0, 0);
         Quaternion rightAngle = Quaternion.Euler(0, attackAngleAmplitude / 2, 0);
         Quaternion leftAngle = Quaternion.Euler(0, -attackAngleAmplitude / 2, 0);
@@ -136,7 +139,7 @@ public class CrabWaterMoonAttack : EnemyBehaviourSO
         GameObject hitbox = PoolingManager.Instance.ReturnPrefabFromPool(prefab.PreFabName, prefab.PreFab, TypeOfSkillPrefab.Hitbox);
         hitbox.transform.localScale = Vector3.one * projectileSize;
         Vector3 pos = _vallis.position;
-        pos.z += prefab.PreFabPosition.z;
+        pos += prefab.PreFabPosition;
         hitbox.transform.position = pos;
         hitbox.transform.rotation = _vallis.rotation;
 
