@@ -169,11 +169,6 @@ public class CrabWaterSunAttack : EnemyBehaviourSO {
             yield return null;
         }
     }
-    IEnumerator CooldownBetweenAttacks() {
-        yield return new WaitForSeconds(cooldownBetweenAttacks);
-
-        _crabManager.ChangeBehaviourAtRandom(Channel);
-    }
 
     void EndAttack() {
 
@@ -181,7 +176,7 @@ public class CrabWaterSunAttack : EnemyBehaviourSO {
 
         _crabManager.CooldownManager.SetSkillCooldown(this);
 
-        _crabManager.StartCoroutine(CooldownBetweenAttacks());
+        _crabManager.StartCoroutine(CooldownBetweenAttacksRoutine());
     }
     #endregion
 

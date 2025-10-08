@@ -10,7 +10,6 @@ public class CrabWaterMeteorAttack : EnemyBehaviourSO {
     StatusManager _statusManager;
 
     [Header("Attack atributes")]
-    [SerializeField] float cooldownBetweenAttacks;
     [SerializeField] float amountOfAttacks;
     [SerializeField] float cooldownBetweenMeteors;
     [SerializeField] float maxDistanceToPlayer;
@@ -88,17 +87,12 @@ public class CrabWaterMeteorAttack : EnemyBehaviourSO {
 
         _crabManager.CooldownManager.SetSkillCooldown(this);
 
-        _crabManager.StartCoroutine(CooldownBetweenAttacks());
+        _crabManager.StartCoroutine(CooldownBetweenAttacksRoutine());
     }
     Vector3 FindAPosition() {
         Vector3 pos = ArenaManager.Instance.GetRandomPosition();
         pos.y = ArenaManager.Instance.FindGroundHeight(pos);
         return pos;
-    }
-    IEnumerator CooldownBetweenAttacks() {
-        yield return new WaitForSeconds(cooldownBetweenAttacks);
-
-        _crabManager.ChangeBehaviourAtRandom(Channel);
     }
 
     void InstantiateHitBox(SkillAnimationEvent prefab, Vector3 pos) {

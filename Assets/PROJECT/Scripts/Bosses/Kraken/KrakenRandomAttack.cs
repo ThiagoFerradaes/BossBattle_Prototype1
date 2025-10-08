@@ -3,7 +3,6 @@ using UnityEngine;
 
 [CreateAssetMenu(menuName = "Kraken / RandomAttack")]
 public class KrakenRandomAttack : EnemyBehaviourSO {
-    [SerializeField] float cooldownBetweenAttacks;
     [SerializeField] float preparingSpeed;
     [SerializeField] float hitSpeed;
     [SerializeField] float tentacleDownTime;
@@ -50,11 +49,7 @@ public class KrakenRandomAttack : EnemyBehaviourSO {
 
         yield return _krakenManager.ReturnTentacleCoroutine(rng);
 
-        _krakenManager.StartCoroutine(CooldownBetweenAttacks());
+        _krakenManager.StartCoroutine(CooldownBetweenAttacksRoutine());
     }
 
-    IEnumerator CooldownBetweenAttacks() {
-        yield return new WaitForSeconds(cooldownBetweenAttacks);
-        _krakenManager.ChangeBehaviourAtRandom();
-    }
 }

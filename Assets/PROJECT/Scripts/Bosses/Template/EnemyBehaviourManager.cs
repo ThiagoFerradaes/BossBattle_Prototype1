@@ -10,9 +10,10 @@ public class EnemyBehaviourManager : MonoBehaviour
     [SerializeField] ListOfEnemyBehaviourSO listOfBehaviour;
 
     Dictionary<int, EnemyBehaviourSO> _dictionaryOfBehaviours = new();
-    EnemyBehaviourSO _currentBehaviour;
     List<EnemyBehaviourSO> _actualListOfBehaviours = new();
     [HideInInspector] public EnemyCooldownManager CooldownManager;
+    Dictionary<int, bool> _activeChannels = new();
+    Dictionary<int, bool> _openChannels = new();
 
     public virtual IEnumerator Start()
     {
@@ -33,17 +34,19 @@ public class EnemyBehaviourManager : MonoBehaviour
 
     public void ChangeBehaviourAtRandom(int behaviourChannel = 0)
     {
+        if (!_openChannels.ContainsKey(behaviourChannel) || !_openChannels[behaviourChannel]) return;
+
+
         EnemyBehaviourSO behaviour = ChooseAnAttack(behaviourChannel);
 
         if (_dictionaryOfBehaviours.ContainsKey(behaviourChannel)) _dictionaryOfBehaviours[behaviourChannel].ExitState();
 
         _dictionaryOfBehaviours[behaviourChannel] = behaviour;
         _dictionaryOfBehaviours[behaviourChannel].StartState(this);
-
+        ActivateChannel(behaviourChannel);
     }
 
-    EnemyBehaviourSO ChooseAnAttack(int behaviourChannel)
-    {
+    EnemyBehaviourSO ChooseAnAttack(int behaviourChannel) {
         var validSkills = _actualListOfBehaviours
             .Where(skill => skill.Channel == behaviourChannel)
             .Where(skill => !CooldownManager.SkillInCooldown(skill) && skill.MeetsCondition())
@@ -51,4 +54,23 @@ public class EnemyBehaviourManager : MonoBehaviour
 
         return validSkills.FirstOrDefault();
     }
+
+    #region Channel Region
+    public void ActivateChannel(int channel) => _activeChannels[channel] = true;
+    public void DesactivateChannel(int channel) {
+        if (!_activeChannels.ContainsKey(channel)) return;
+
+        _activeChannels[channel] = false;
+    }
+    public void OpenChannel(int channel) => _openChannels[channel] = true;
+
+    public void CloseChannel(int channel) {
+        if (!_openChannels.ContainsKey(channel)) return;
+
+        _openChannels[channel] = false;
+    }
+
+    public Dictionary<int, bool> ReturnActiveChannels() => _activeChannels;
+    #endregion
+
 }

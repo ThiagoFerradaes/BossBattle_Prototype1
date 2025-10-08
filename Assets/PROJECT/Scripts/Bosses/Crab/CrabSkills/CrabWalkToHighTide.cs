@@ -139,7 +139,7 @@ public class CrabWalkToHighTide : EnemyBehaviourSO
 
         yield return _crabManager.transform.DORotateQuaternion(targetRotation, 0.2f).WaitForCompletion();
 
-        _crabManager.StartCoroutine(CooldownBetweenAttacks());
+        _crabManager.StartCoroutine(CooldownBetweenAttacksRoutine());
 
         #endregion
     }
@@ -153,12 +153,14 @@ public class CrabWalkToHighTide : EnemyBehaviourSO
         hitbox.GetComponent<VFXPreFab>().Initialize(prefab.PrefabDuration);
     }
 
-    IEnumerator CooldownBetweenAttacks()
+    public override IEnumerator CooldownBetweenAttacksRoutine()
     {
+        enemyBehaviourManager.DesactivateChannel(Channel);
         yield return new WaitForSeconds(cooldownBetweenAttacks);
 
         foreach (var channel in listOfNextAttacksChannels)
         {
+            _crabManager.OpenChannel(channel);
             _crabManager.ChangeBehaviourAtRandom(channel);
         }
     }

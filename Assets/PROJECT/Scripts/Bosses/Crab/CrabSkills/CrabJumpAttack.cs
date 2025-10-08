@@ -27,7 +27,6 @@ public class CrabJumpAttack : EnemyBehaviourSO {
     [SerializeField] float minDistanceToJump;
 
     [Header("Attack Atributes")]
-    [SerializeField] float cooldownBetweenThisAttackAndNext;
     [SerializeField] float damage;
     [SerializeField] float jumpHitBoxSize;
     [SerializeField] float hitBoxDuration;
@@ -97,7 +96,7 @@ public class CrabJumpAttack : EnemyBehaviourSO {
 
         _crabManager.CooldownManager.SetSkillCooldown(this);
 
-        _crabManager.StartCoroutine(CooldownBetweenAttacks());
+        _crabManager.StartCoroutine(CooldownBetweenAttacksRoutine());
     }
 
     Vector3 ReturnPositionCloseToPlayer() {
@@ -125,10 +124,5 @@ public class CrabJumpAttack : EnemyBehaviourSO {
         InstantDamageHitBox hitBox = prefab.GetComponent<InstantDamageHitBox>();
         hitBox.Initialize(context);
     }
-    
-    IEnumerator CooldownBetweenAttacks() {
-        yield return new WaitForSeconds(cooldownBetweenThisAttackAndNext);
-        _crabManager.ChangeBehaviourAtRandom();
 
-    }
 }

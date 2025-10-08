@@ -23,7 +23,6 @@ public class CrabWaterMoonAttack : EnemyBehaviourSO {
     [SerializeField] float cooldownRotations;
     [SerializeField] float rootationSpeed;
     [SerializeField] float durationOfRotationToRight;
-    [SerializeField] float cooldownBetweenAttacks;
 
     [Header("Attack Atributes")]
     [SerializeField] float projectileSize;
@@ -88,7 +87,7 @@ public class CrabWaterMoonAttack : EnemyBehaviourSO {
 
         _crabManager.CooldownManager.SetSkillCooldown(this);
 
-        _crabManager.StartCoroutine(CooldownBetweenAttacks());
+        _crabManager.StartCoroutine(CooldownBetweenAttacksRoutine());
     }
 
     IEnumerator RotateAndShoot(Quaternion endAngle, float duration) {
@@ -163,11 +162,5 @@ public class CrabWaterMoonAttack : EnemyBehaviourSO {
         preFab.transform.SetPositionAndRotation(prefab.PreFabPosition, Quaternion.identity);
 
         preFab.GetComponent<VFXPreFab>().Initialize(prefab.PrefabDuration);
-    }
-
-    IEnumerator CooldownBetweenAttacks() {
-        yield return new WaitForSeconds(cooldownBetweenAttacks);
-
-        _crabManager.ChangeBehaviourAtRandom(Channel);
     }
 }
