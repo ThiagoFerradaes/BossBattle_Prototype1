@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -16,6 +17,9 @@ public class StunManager : MonoBehaviour
     // Animation
     [Header("Animation")]
     [SerializeField] string stunParamenter;
+
+    // Coroutine
+    Coroutine _stunTimerCoroutine;
 
     private void Awake() {
         anim = GetComponentInChildren<Animator>();
@@ -42,5 +46,16 @@ public class StunManager : MonoBehaviour
         if (Keyboard.current.pKey.wasPressedThisFrame) {
             StunCharacter(!_isStunned);
         }
+    }
+
+    public void StunWithTimer(float timer, bool stun) {
+        _stunTimerCoroutine ??= StartCoroutine(StunTimer(timer, stun));
+    }
+
+    IEnumerator StunTimer(float timer, bool stun) {
+        _isStunned = stun;
+        yield return new WaitForSeconds(timer);
+        _isStunned = !stun;
+
     }
 }

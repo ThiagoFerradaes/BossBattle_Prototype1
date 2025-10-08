@@ -1,11 +1,11 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Crab/ Skills/ WaterMoon")]
-public class CrabWaterMoonAttack : EnemyBehaviourSO
-{
+public class CrabWaterMoonAttack : EnemyBehaviourSO {
     CrabManager _crabManager;
     Animator _anim;
     Transform _vallis;
@@ -35,26 +35,21 @@ public class CrabWaterMoonAttack : EnemyBehaviourSO
     [SerializeField] DamageType damageType;
 
 
-    public override void StartState(EnemyBehaviourManager parent)
-    {
+    public override void StartState(EnemyBehaviourManager parent) {
         base.StartState(parent);
 
         Initialize(parent);
 
         _crabManager.StartCoroutine(WaterMoonAttack());
-
-
     }
 
-    public override bool MeetsCondition()
-    {
+    public override bool MeetsCondition() {
         if (CrabArenaManager.Instance.ReturnCurrentTide() == CrabArenaState.HighTide) return true;
 
         return false;
     }
 
-    void Initialize(EnemyBehaviourManager parent)
-    {
+    void Initialize(EnemyBehaviourManager parent) {
         if (_crabManager != null) return;
 
         _crabManager = parent as CrabManager;
@@ -63,14 +58,21 @@ public class CrabWaterMoonAttack : EnemyBehaviourSO
         _statusManager = _crabManager.StatusManager;
     }
 
-    IEnumerator WaterMoonAttack()
-    {
-        Vector3 playerDir = (_vallis.transform.position - _crabManager.Player.transform.position).normalized;
+    IEnumerator WaterMoonAttack() {
+        //Vector3 playerDir = (_crabManager.Player.transform.position - _vallis.transform.position).normalized;
+        //playerDir.x = 0f;
+        //playerDir.z = 0f;
+        //Quaternion playerAngle = Quaternion.LookRotation(playerDir, Vector3.up);
+        //Debug.Log($" quatarion : {playerAngle} and vector {playerAngle.eulerAngles}");
 
+        var debag = Quaternion.LookRotation(_crabManager.Player.transform.position, Vector3.down);
+        Debug.Log($" rotencion {debag} and vector {debag.eulerAngles}");
 
         Quaternion centerAngle = Quaternion.Euler(0, 0, 0);
-        Quaternion rightAngle = Quaternion.Euler(0, attackAngleAmplitude / 2, 0);
-        Quaternion leftAngle = Quaternion.Euler(0, -attackAngleAmplitude / 2, 0);
+
+        Quaternion rightAngle = Quaternion.Euler(0, attackAngleAmplitude / 2f, 0);
+        Quaternion leftAngle = Quaternion.Euler(0, -attackAngleAmplitude / 2f, 0);
+
 
         yield return _vallis.DOLocalRotateQuaternion(rightAngle, durationOfRotationToRight).WaitForCompletion();
 
@@ -89,8 +91,7 @@ public class CrabWaterMoonAttack : EnemyBehaviourSO
         _crabManager.StartCoroutine(CooldownBetweenAttacks());
     }
 
-    IEnumerator RotateAndShoot(Quaternion endAngle, float duration)
-    {
+    IEnumerator RotateAndShoot(Quaternion endAngle, float duration) {
         _anim.SetBool(animationParameter, true);
 
         var prefabList = prefabs;
@@ -98,20 +99,17 @@ public class CrabWaterMoonAttack : EnemyBehaviourSO
 
         AnimatorStateInfo stateInfo = _anim.GetCurrentAnimatorStateInfo(animationLayer);
 
-        do
-        { // Aguardando entrar na animação
+        do { // Aguardando entrar na animação
             stateInfo = _anim.GetCurrentAnimatorStateInfo(animationLayer);
             yield return null;
         } while (!stateInfo.IsName(animationName));
 
         float timer = 0f;
 
-        yield return _vallis.DOLocalRotateQuaternion(endAngle, duration).SetEase(Ease.Linear).OnUpdate(() =>
-        {
+        yield return _vallis.DOLocalRotateQuaternion(endAngle, duration).SetEase(Ease.Linear).OnUpdate(() => {
             timer += Time.deltaTime;
 
-            if (timer >= cooldownBetweenShoots)
-            {
+            if (timer >= cooldownBetweenShoots) {
 
                 timer -= cooldownBetweenShoots;
 
@@ -123,10 +121,8 @@ public class CrabWaterMoonAttack : EnemyBehaviourSO
         _anim.SetBool(animationParameter, false);
     }
 
-    void Shoot(List<SkillAnimationEvent> prefabList)
-    {
-        for (int i = 0; i < prefabList.Count; i++)
-        {
+    void Shoot(List<SkillAnimationEvent> prefabList) {
+        for (int i = 0; i < prefabList.Count; i++) {
             var prefab = prefabList[i];
 
             if (prefab.PrefabType == TypeOfSkillPrefab.Hitbox) InstantiateHitBox(prefab);
@@ -134,8 +130,7 @@ public class CrabWaterMoonAttack : EnemyBehaviourSO
 
         }
     }
-    void InstantiateHitBox(SkillAnimationEvent prefab)
-    {
+    void InstantiateHitBox(SkillAnimationEvent prefab) {
         GameObject hitbox = PoolingManager.Instance.ReturnPrefabFromPool(prefab.PreFabName, prefab.PreFab, TypeOfSkillPrefab.Hitbox);
         hitbox.transform.localScale = Vector3.one * projectileSize;
         Vector3 pos = _vallis.position;
@@ -144,9 +139,9 @@ public class CrabWaterMoonAttack : EnemyBehaviourSO
         hitbox.transform.rotation = _vallis.rotation;
 
         DamageContext context = new(
-            damage, 
             damage,
-            prefab.PrefabDuration, 
+            damage,
+            prefab.PrefabDuration,
             hitShield,
             damageType,
             unitsToHit,
@@ -159,7 +154,7 @@ public class CrabWaterMoonAttack : EnemyBehaviourSO
             );
 
         ProjectileDamageHitBox projectileDamageHitBox = hitbox.GetComponent<ProjectileDamageHitBox>();
-        projectileDamageHitBox.Initialize( context );
+        projectileDamageHitBox.Initialize(context);
     }
 
     void InstantiateVFX(SkillAnimationEvent prefab) {
@@ -170,8 +165,7 @@ public class CrabWaterMoonAttack : EnemyBehaviourSO
         preFab.GetComponent<VFXPreFab>().Initialize(prefab.PrefabDuration);
     }
 
-    IEnumerator CooldownBetweenAttacks()
-    {
+    IEnumerator CooldownBetweenAttacks() {
         yield return new WaitForSeconds(cooldownBetweenAttacks);
 
         _crabManager.ChangeBehaviourAtRandom(Channel);
