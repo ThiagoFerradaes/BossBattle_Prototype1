@@ -14,6 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CrabJumpAttack
   Priority: 5
   Cooldown: 20
+  CooldownBetweenAttacks: 2
+  Channel: 0
+  OpenNewChannels: 0
+  ListOfChannelsToOpen: 
+  CloseOldChannels: 0
+  ListOfChannelsToClose: 
   preparingAnimationParameter: Jumped
   preparingAnimationName: JumpPrepare
   jumpUpAnimationParameter: OnSky
@@ -24,7 +30,7 @@ MonoBehaviour:
   jumpForce: 15
   jumpDuration: 0.7
   jumpDistanceToPlayer: 0.4
-  cooldownBetweenThisAttackAndNext: 2
+  minDistanceToJump: 0
   damage: 10
   jumpHitBoxSize: 14
   hitBoxDuration: 0.1

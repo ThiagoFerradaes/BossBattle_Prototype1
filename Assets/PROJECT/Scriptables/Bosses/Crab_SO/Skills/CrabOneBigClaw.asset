@@ -13,8 +13,13 @@ MonoBehaviour:
   m_Name: CrabOneBigClaw
   m_EditorClassIdentifier: Assembly-CSharp::CrabBigClawAttack
   Priority: 4
-  Channel: 0
   Cooldown: 10
+  CooldownBetweenAttacks: 2
+  Channel: 0
+  OpenNewChannels: 0
+  ListOfChannelsToOpen: 
+  CloseOldChannels: 0
+  ListOfChannelsToClose: 
   preparingAnimationTrigger: BigClaw
   attackAnimationName: BigClaw_Attack
   preparingAnimationSpeedParameter: BigClawPreparingSpeed
@@ -23,7 +28,6 @@ MonoBehaviour:
   attackAnimationSpeed: 2
   animationLayer: 0
   distanceToPlayer: 3
-  cooldownBetweenThisAttackAndNext: 2
   rotationSpeed: 150
   prefabs:
   - TimeToSpawnPreFab: 0.6

@@ -18,7 +18,6 @@ public class CrabWalkToHighTide : EnemyBehaviourSO
     [SerializeField] float offSet;
     [SerializeField] float cooldownBetweenAttacks;
     [SerializedDictionary("Wall, Position"), SerializeField] SerializedDictionary<CrabArenaWall, Vector3> listOfPossibleFinalPositions = new();
-    [SerializeField] List<int> listOfNextAttacksChannels;
 
     [Header("Animation")]
     [SerializeField] string changeTideAnimationParameter;
@@ -151,17 +150,5 @@ public class CrabWalkToHighTide : EnemyBehaviourSO
         hitbox.transform.position = prefab.PreFabPosition;
 
         hitbox.GetComponent<VFXPreFab>().Initialize(prefab.PrefabDuration);
-    }
-
-    public override IEnumerator CooldownBetweenAttacksRoutine()
-    {
-        enemyBehaviourManager.DesactivateChannel(Channel);
-        yield return new WaitForSeconds(cooldownBetweenAttacks);
-
-        foreach (var channel in listOfNextAttacksChannels)
-        {
-            _crabManager.OpenChannel(channel);
-            _crabManager.ChangeBehaviourAtRandom(channel);
-        }
     }
 }

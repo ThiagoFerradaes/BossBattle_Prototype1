@@ -6,6 +6,9 @@ using UnityEngine;
 
 public class EnemyBehaviourManager : MonoBehaviour
 {
+    #region Parameters
+
+    [Header("Behaviours")]
     [SerializeField] EnemyBehaviourSO initialState;
     [SerializeField] ListOfEnemyBehaviourSO listOfBehaviour;
 
@@ -15,6 +18,9 @@ public class EnemyBehaviourManager : MonoBehaviour
     Dictionary<int, bool> _activeChannels = new();
     Dictionary<int, bool> _openChannels = new();
 
+    #endregion
+
+    #region Initialize
     public virtual IEnumerator Start()
     {
         foreach (var behaviour in listOfBehaviour.ListOfEnemyBehaviours)
@@ -31,29 +37,34 @@ public class EnemyBehaviourManager : MonoBehaviour
 
         yield return null;
     }
+    #endregion
 
+    #region Change Behaviour
     public void ChangeBehaviourAtRandom(int behaviourChannel = 0)
     {
         if (!_openChannels.ContainsKey(behaviourChannel) || !_openChannels[behaviourChannel]) return;
-
 
         EnemyBehaviourSO behaviour = ChooseAnAttack(behaviourChannel);
 
         if (_dictionaryOfBehaviours.ContainsKey(behaviourChannel)) _dictionaryOfBehaviours[behaviourChannel].ExitState();
 
-        _dictionaryOfBehaviours[behaviourChannel] = behaviour;
-        _dictionaryOfBehaviours[behaviourChannel].StartState(this);
-        ActivateChannel(behaviourChannel);
+        if (behaviour != null) {
+            _dictionaryOfBehaviours[behaviourChannel] = behaviour;
+            _dictionaryOfBehaviours[behaviourChannel].StartState(this);
+            ActivateChannel(behaviourChannel);
+        }
     }
 
     EnemyBehaviourSO ChooseAnAttack(int behaviourChannel) {
         var validSkills = _actualListOfBehaviours
             .Where(skill => skill.Channel == behaviourChannel)
-            .Where(skill => !CooldownManager.SkillInCooldown(skill) && skill.MeetsCondition())
+            .Where(skill => !CooldownManager.SkillInCooldown(skill))
+            .Where(skill => skill.MeetsCondition())
             .OrderByDescending(skill => skill.Priority);
 
         return validSkills.FirstOrDefault();
     }
+    #endregion
 
     #region Channel Region
     public void ActivateChannel(int channel) => _activeChannels[channel] = true;

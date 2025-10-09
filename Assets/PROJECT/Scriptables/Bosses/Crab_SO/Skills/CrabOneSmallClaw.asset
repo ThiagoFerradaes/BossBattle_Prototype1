@@ -13,8 +13,13 @@ MonoBehaviour:
   m_Name: CrabOneSmallClaw
   m_EditorClassIdentifier: Assembly-CSharp::CrabSmallClawAttack
   Priority: 1
-  Channel: 0
   Cooldown: 0
+  CooldownBetweenAttacks: 2
+  Channel: 0
+  OpenNewChannels: 0
+  ListOfChannelsToOpen: 
+  CloseOldChannels: 0
+  ListOfChannelsToClose: 
   preparingAnimationTrigger: SmallClaw
   attackAnimationName: SmallPinch_Attack
   walkAnimationParameter: IsWalking
@@ -24,7 +29,6 @@ MonoBehaviour:
   attackAnimationSpeed: 2
   animationLayer: 0
   distanceToPlayer: 6
-  cooldownBetweenThisAttackAndNext: 2
   rotationSpeed: 150
   prefabs:
   - TimeToSpawnPreFab: 0.5
