@@ -77,21 +77,3 @@ public class FurnitureFeatures : ScriptableObject
     }
     #endregion
 }
-
-#region Enums
-/// <summary>
-/// Defines the available size categories for furniture items.
-/// Used to classify furniture based on their physical dimensions and placement requirements.
-/// </summary>
-public enum SizeOfFurniture
-{
-    /// <summary>Small-sized furniture that occupies minimal space</summary>
-    Small,
-    /// <summary>Large-sized furniture that requires more space</summary>
-    Large,
-    /// <summary>Well structures or similar installations</summary>
-    Well,
-    /// <summary>Roof elements or ceiling-mounted items</summary>
-    Roof
-}
-#endregion
