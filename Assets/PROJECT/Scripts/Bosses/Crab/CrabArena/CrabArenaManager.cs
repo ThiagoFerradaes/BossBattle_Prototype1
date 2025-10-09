@@ -12,6 +12,7 @@ public class CrabArenaManager : MonoBehaviour
     [Header("Components")]
     [SerializeField] CrabArenaSO arenaInfo;
     [SerializeField] Transform platformSpawnPosition;
+    public CrabManager CrabM;
 
     // Atributes
     CrabArenaState _currentTide;

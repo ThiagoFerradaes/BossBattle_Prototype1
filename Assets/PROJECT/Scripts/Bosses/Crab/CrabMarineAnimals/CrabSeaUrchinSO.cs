@@ -50,7 +50,7 @@ public class CrabSeaUrchinSO : CrabMarineAnimalSO {
             hitShield,
             damageType,
             ListOfTags,
-            _parent.GetComponent<StatusManager>()
+            _parent.CrabManager.GetComponent<StatusManager>()
             );
 
         InstantDamageHitBox damage = hitbox.GetComponent<InstantDamageHitBox>();

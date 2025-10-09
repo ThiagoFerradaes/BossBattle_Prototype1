@@ -16,7 +16,7 @@ public class CrabManager : EnemyBehaviourManager
     [Header("Components")]
     [SerializeField] CrabWalkToTarget crabWalkToPlayerSO;
     public Transform Apicem, Vallis, SmallClaw, BigClaw;
-    
+
     // Coroutines
     Coroutine _walkCoroutine;
 

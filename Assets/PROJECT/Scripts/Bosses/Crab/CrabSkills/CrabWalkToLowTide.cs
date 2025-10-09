@@ -101,8 +101,6 @@ public class CrabWalkToLowTide : EnemyBehaviourSO {
 
         Vector3 finalPosition = pos + (dir * offSet);
 
-        Debug.Log(finalPosition);
-
         _crabManager.WalkToTarget(0, finalPosition, false);
         #endregion
 
