@@ -1,5 +1,6 @@
-using System.Collections.Generic;
+using AYellowpaper.SerializedCollections;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 /// <summary>
 /// ScriptableObject that manages text content in different languages.
@@ -13,8 +14,10 @@ public class TextBoxes : ScriptableObject
     /// Key: Language enum value
     /// TValue: Corresponding text content
     /// </summary>
+    [FormerlySerializedAs("_text")]
+    [SerializedDictionary("Language", "Text"), SerializeField] 
     [Tooltip("Dictionary containing text content for different languages")]
-    private readonly Dictionary<EnumLanguage, string> _text = new();
+    private SerializedDictionary<EnumLanguage, string> text = new();
 
     /// <summary>
     /// Retrieves the text content for the specified language
@@ -23,7 +26,9 @@ public class TextBoxes : ScriptableObject
     /// <returns>The text content in the specified language</returns>
     public string GetText(EnumLanguage language)
     {
-        return _text[language];
+        if (text.ContainsKey(language)) return text[language];
+        Debug.LogWarning($"No text found for language {language} and {text.Count} languages available.");
+        return string.Empty;
     }
  
     #if UNITY_EDITOR
@@ -32,6 +37,6 @@ public class TextBoxes : ScriptableObject
     /// Used by the custom editor for text management.
     /// </summary>
     /// <returns>The dictionary containing all language-text pairs</returns>
-    public Dictionary<EnumLanguage, string> GetDictionary() => _text;
+    public SerializedDictionary<EnumLanguage, string> GetDictionary() => text;
     #endif
 }

@@ -4193,7 +4193,6 @@ MonoBehaviour:
   preCastOnToggle: {fileID: 1177054172}
   dashToMouseToggle: {fileID: 1560941313}
   languageDropdown: {fileID: 21568813}
-  configurationSo: {fileID: 11400000, guid: 7f18d3df96195914693f3c9c943c0e27, type: 2}
 --- !u!1 &388409838
 GameObject:
   m_ObjectHideFlags: 0
@@ -13764,6 +13763,7 @@ GameObject:
   - component: {fileID: 1390159068}
   - component: {fileID: 1390159067}
   - component: {fileID: 1390159069}
+  - component: {fileID: 1390159070}
   m_Layer: 5
   m_Name: StartButton
   m_TagString: Untagged
@@ -13873,6 +13873,20 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1390159070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1390159065}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4672021af09531c43943ee521946d619, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UITextLocalizer
+  textBox: {fileID: 11400000, guid: d8a241d3aa71ce14c8b34b9b0dab42a1, type: 2}
+  textUI: {fileID: 1505807900}
 --- !u!1 &1402995197
 GameObject:
   m_ObjectHideFlags: 0

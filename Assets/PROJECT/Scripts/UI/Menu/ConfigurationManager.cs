@@ -12,9 +12,11 @@ public class ConfigurationManager : MonoBehaviour
     [SerializeField] Toggle dashToMouseToggle;
     [SerializeField] TMP_Dropdown  languageDropdown;
     
-    [SerializeField] ConfigurationSo configurationSo;
+    private ConfigurationSo _configurationSo;
     
-    private void Start() {
+    private void Start()
+    {
+        _configurationSo = GameConfig.Config;
         SettingToggles();
     }
 
@@ -42,9 +44,11 @@ public class ConfigurationManager : MonoBehaviour
 
     private Task LoadConfiguration()
     {
-        var getPreCast = configurationSo.GetPreCast();
-        var getDashToMouse = configurationSo.GetDashToMouse();
-        var language = configurationSo.GetLanguage();
+        
+        
+        var getPreCast = _configurationSo.GetPreCast();
+        var getDashToMouse = _configurationSo.GetDashToMouse();
+        var language = _configurationSo.GetLanguage();
         
         preCastOnToggle.isOn = getPreCast;
         dashToMouseToggle.isOn = getDashToMouse;
@@ -60,15 +64,15 @@ public class ConfigurationManager : MonoBehaviour
 
     private void LanguageChange(int index)
     {
-        configurationSo.SetLanguage((EnumLanguage)index);
+        _configurationSo.SetLanguage((EnumLanguage)index);
     }
     
     void PreCastToggle(bool newValue) {
         ConfigurationWhiteBoard.Instance.PreCastOn = newValue;
-        configurationSo.SetPreCast(newValue);
+        _configurationSo.SetPreCast(newValue);
     }
     void DashToMouseToggle(bool newValue) {
         ConfigurationWhiteBoard.Instance.DashToMouse = newValue;
-        configurationSo.SetDashToMouse(newValue);
+        _configurationSo.SetDashToMouse(newValue);
     }
 }
