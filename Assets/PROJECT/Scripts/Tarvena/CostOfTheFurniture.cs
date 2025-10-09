@@ -13,4 +13,5 @@ public enum CostOfTheFurniture
     Penas,
     Sementes,
     EssênciaMonstruosa,
+    Null,
 }

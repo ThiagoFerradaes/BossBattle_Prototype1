@@ -1,8 +1,12 @@
 using System.Collections.Generic;
 using System.IO;
+using System.Text.RegularExpressions;
 using UnityEditor;
 using UnityEngine;
 
+/// <summary>
+/// Editor window for generating and editing enums in Unity
+/// </summary>
 public class EnumGeneratorWindow : EditorWindow
 {
     private string enumName = "TypeOfEnvironmentCharacteristic";
@@ -10,48 +14,50 @@ public class EnumGeneratorWindow : EditorWindow
     private List<string> elements = new List<string> { "Default", "Null" };
     private Vector2 scrollPos;
     
-    [MenuItem("Tools/Enum Generator")]
+    /// <summary>
+    /// Opens the Enum Generator window
+    /// </summary>
+    [MenuItem("Tools/Enum Generator")] 
     public static void OpenWindow()
     {
         GetWindow<EnumGeneratorWindow>("Enum Generator");
     }
-    
-     private void OnGUI()
+
+    private void OnGUI()
     {
-        GUILayout.Label("Gerador de Enum Dinâmico", EditorStyles.boldLabel);
+        GUILayout.Label("🧱 Enum Generator and Editor", EditorStyles.boldLabel);
         GUILayout.Space(10);
-
-        enumName = EditorGUILayout.TextField("Nome do Enum", enumName);
         
-        //folderPath = EditorGUILayout.TextField("Pasta de Saída", folderPath);
-
-        EditorGUILayout.BeginHorizontal();
-        EditorGUILayout.PrefixLabel("Pasta de Saída");
-        EditorGUILayout.SelectableLabel(folderPath, GUILayout.Height(16));
-        if (GUILayout.Button("Selecionar...", GUILayout.Width(100)))
+        if (GUILayout.Button("📂 Load Existing Enum...", GUILayout.Height(25)))
         {
-            string selected = EditorUtility.OpenFolderPanel("Selecione a pasta de saída", "Assets", "");
+            LoadExistingEnum();
+        }
+
+        GUILayout.Space(10);
+        
+        enumName = EditorGUILayout.TextField("Enum Name", enumName);
+        
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.PrefixLabel("Output Folder");
+        EditorGUILayout.SelectableLabel(folderPath, GUILayout.Height(16));
+        if (GUILayout.Button("Select...", GUILayout.Width(100)))
+        {
+            string selected = EditorUtility.OpenFolderPanel("Select output folder", "Assets", "");
             if (!string.IsNullOrEmpty(selected))
             {
-                // Converter caminho absoluto para relativo ao projeto (ex: Assets/...)
                 if (selected.StartsWith(Application.dataPath))
                     folderPath = "Assets" + selected.Substring(Application.dataPath.Length);
                 else
-                    EditorUtility.DisplayDialog("Aviso", "Selecione uma pasta dentro de 'Assets'!", "OK");
+                    EditorUtility.DisplayDialog("Warning", "Please select a folder inside 'Assets'!", "OK");
             }
         }
+
         EditorGUILayout.EndHorizontal();
 
         GUILayout.Space(10);
-        GUILayout.Label("Elementos do Enum:", EditorStyles.boldLabel);
-
-        // Lista de elementos com rolagem
-        scrollPos = EditorGUILayout.BeginScrollView(scrollPos, GUILayout.Height(150));
+        GUILayout.Label("Enum Elements:", EditorStyles.boldLabel);
         
-        //GUILayout.Space(10);
-        //GUILayout.Label("Elementos do Enum:", EditorStyles.boldLabel);
-
-        //scrollPos = EditorGUILayout.BeginScrollView(scrollPos, GUILayout.Height(150));
+        scrollPos = EditorGUILayout.BeginScrollView(scrollPos, GUILayout.Height(150));
         for (int i = 0; i < elements.Count; i++)
         {
             EditorGUILayout.BeginHorizontal();
@@ -61,26 +67,40 @@ public class EnumGeneratorWindow : EditorWindow
                 elements.RemoveAt(i);
                 i--;
             }
+
             EditorGUILayout.EndHorizontal();
         }
+
         EditorGUILayout.EndScrollView();
 
-        if (GUILayout.Button("+ Adicionar Elemento"))
-            elements.Add("NovoElemento");
+        if (GUILayout.Button("+ Add Element"))
+            elements.Add("NewElement");
 
         GUILayout.Space(15);
 
-        if (GUILayout.Button("📜 Gerar Enum"))
+        GUI.enabled = !string.IsNullOrEmpty(enumName) && elements.Count > 0;
+        if (GUILayout.Button("📜 Generate Enum", GUILayout.Height(30)))
         {
             GenerateEnumFile();
         }
+
+        GUI.enabled = true;
     }
 
+    /// <summary>
+    /// Generates the enum file with the specified name and elements
+    /// </summary>
     private void GenerateEnumFile()
     {
         if (string.IsNullOrEmpty(enumName))
         {
-            EditorUtility.DisplayDialog("Erro", "O nome do enum não pode estar vazio.", "OK");
+            EditorUtility.DisplayDialog("Error", "Enum name cannot be empty.", "OK");
+            return;
+        }
+
+        if (elements.Count == 0)
+        {
+            EditorUtility.DisplayDialog("Error", "Elements list cannot be empty.", "OK");
             return;
         }
 
@@ -91,7 +111,7 @@ public class EnumGeneratorWindow : EditorWindow
 
         using (StreamWriter writer = new StreamWriter(filePath))
         {
-            writer.WriteLine("// Gerado automaticamente pelo EnumGeneratorWindow");
+            writer.WriteLine("// Automatically generated by EnumGeneratorWindow");
             writer.WriteLine($"public enum {enumName}");
             writer.WriteLine("{");
             foreach (string element in elements)
@@ -106,16 +126,57 @@ public class EnumGeneratorWindow : EditorWindow
         }
 
         AssetDatabase.Refresh();
-        EditorUtility.DisplayDialog("Sucesso", $"Enum '{enumName}' gerado com sucesso em:\n{filePath}", "OK");
+        EditorUtility.DisplayDialog("✅ Success", $"Enum '{enumName}' generated or updated at:\n{filePath}", "OK");
     }
+    
+    /// <summary>
+    /// Loads an existing enum file for editing
+    /// </summary>
+    private void LoadExistingEnum()
+    {
+        string path = EditorUtility.OpenFilePanel("Select enum file", Application.dataPath, "cs");
+        if (string.IsNullOrEmpty(path))
+            return;
 
+        string content = File.ReadAllText(path);
+        string relative = path.Replace(Application.dataPath, "Assets");
+
+
+        Match nameMatch = Regex.Match(content, @"public\s+enum\s+(\w+)");
+        if (nameMatch.Success)
+            enumName = nameMatch.Groups[1].Value;
+        
+        Match bodyMatch = Regex.Match(content, @"{([^}]*)}");
+        if (bodyMatch.Success)
+        {
+            string body = bodyMatch.Groups[1].Value;
+            string[] lines = body.Split(new[] { '\n', '\r', ',' }, System.StringSplitOptions.RemoveEmptyEntries);
+            elements.Clear();
+            foreach (var line in lines)
+            {
+                string clean = line.Trim();
+                if (!string.IsNullOrEmpty(clean) && !clean.StartsWith("//"))
+                    elements.Add(clean);
+            }
+        }
+
+
+        folderPath = Path.GetDirectoryName(relative).Replace("\\", "/");
+
+        EditorUtility.DisplayDialog("✅ Enum Loaded", $"Enum '{enumName}' loaded successfully!", "OK");
+    }
+    
+    /// <summary>
+    /// Converts a string into a valid C# identifier
+    /// </summary>
+    /// <param name="name">The string to convert</param>
+    /// <returns>A valid C# identifier</returns>
     private string MakeSafeIdentifier(string name)
     {
-        // Remove espaços e caracteres inválidos
         string safe = name.Trim().Replace(" ", "_").Replace("-", "_");
-        // Garante que começa com letra
-        if (char.IsDigit(safe[0]))
+        if (safe.Length > 0 && char.IsDigit(safe[0]))
             safe = "_" + safe;
         return safe;
     }
+    
 }
