@@ -46,8 +46,6 @@ public class ConfigurationManager : MonoBehaviour
         var getDashToMouse = configurationSo.GetDashToMouse();
         var language = configurationSo.GetLanguage();
         
-        Debug.Log($"{language} and ID {(int)language}");
-        
         preCastOnToggle.isOn = getPreCast;
         dashToMouseToggle.isOn = getDashToMouse;
         languageDropdown.value = (int)language;
