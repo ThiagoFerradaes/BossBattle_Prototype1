@@ -96,12 +96,14 @@ public class CrabWalkToLowTide : EnemyBehaviourSO {
         CrabArenaWall currentWall = _crabManager.ReturnCurrentWall();
 
         Vector3 pos = listOfPossibleFinalPositions[currentWall];
-
-        Vector3 dir = (pos - Vector3.zero).normalized;
+        Vector3 pos2 = new(0, pos.y, 0);
+        Vector3 dir = (pos - pos2).normalized;
 
         Vector3 finalPosition = pos + (dir * offSet);
 
-        _crabManager.WalkToTarget(0, finalPosition);
+        Debug.Log(finalPosition);
+
+        _crabManager.WalkToTarget(0, finalPosition, false);
         #endregion
 
         yield return _crabManager.ReturnWalkCoroutine();

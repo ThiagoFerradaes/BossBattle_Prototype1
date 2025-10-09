@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class EnemyBehaviourSO : ScriptableObject
 {
+    #region Parameters
+
     public int Priority;
     public float Cooldown;
     public float CooldownBetweenAttacks;
@@ -18,6 +20,7 @@ public class EnemyBehaviourSO : ScriptableObject
     public bool CloseOldChannels = false;
     [ShowIf("CloseOldChannels")] public List<int> ListOfChannelsToClose = new();
 
+    #endregion
 
     public virtual bool MeetsCondition() => true;
 

@@ -48,9 +48,9 @@ public class CrabManager : EnemyBehaviourManager
 
     #region Walk To Player
 
-    public void WalkToTarget(float stopDistance, Vector3 target)
+    public void WalkToTarget(float stopDistance, Vector3 target, bool considerTolerance = true)
     {
-        crabWalkToPlayerSO.WalkToTarget(this, target, stopDistance, ref _walkCoroutine);
+        crabWalkToPlayerSO.WalkToTarget(this, target, stopDistance, ref _walkCoroutine, considerTolerance);
     }
 
     public Coroutine ReturnWalkCoroutine() => _walkCoroutine;
