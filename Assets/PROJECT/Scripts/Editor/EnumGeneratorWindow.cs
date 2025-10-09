@@ -9,11 +9,14 @@ using UnityEngine;
 /// </summary>
 public class EnumGeneratorWindow : EditorWindow
 {
+    #region Variables
     private string enumName = "TypeOfEnvironmentCharacteristic";
     private string folderPath = "Assets/Scripts/Generated";
     private List<string> elements = new List<string> { "Default", "Null" };
     private Vector2 scrollPos;
-    
+    #endregion
+
+    #region Unity Methods
     /// <summary>
     /// Opens the Enum Generator window
     /// </summary>
@@ -86,7 +89,9 @@ public class EnumGeneratorWindow : EditorWindow
 
         GUI.enabled = true;
     }
+    #endregion
 
+    #region File Generation
     /// <summary>
     /// Generates the enum file with the specified name and elements
     /// </summary>
@@ -128,7 +133,9 @@ public class EnumGeneratorWindow : EditorWindow
         AssetDatabase.Refresh();
         EditorUtility.DisplayDialog("✅ Success", $"Enum '{enumName}' generated or updated at:\n{filePath}", "OK");
     }
-    
+    #endregion
+
+    #region File Operations
     /// <summary>
     /// Loads an existing enum file for editing
     /// </summary>
@@ -165,7 +172,9 @@ public class EnumGeneratorWindow : EditorWindow
 
         EditorUtility.DisplayDialog("✅ Enum Loaded", $"Enum '{enumName}' loaded successfully!", "OK");
     }
-    
+    #endregion
+
+    #region Utilities
     /// <summary>
     /// Converts a string into a valid C# identifier
     /// </summary>
@@ -178,5 +187,5 @@ public class EnumGeneratorWindow : EditorWindow
             safe = "_" + safe;
         return safe;
     }
-    
+    #endregion
 }
