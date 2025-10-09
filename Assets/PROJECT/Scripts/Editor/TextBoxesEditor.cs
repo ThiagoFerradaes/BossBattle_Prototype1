@@ -3,36 +3,42 @@ using UnityEngine;
 
 namespace PROJECT.Scripts.Editor
 {
+    /// <summary>
+    /// Custom editor for the TextBoxes component to manage localized text content
+    /// </summary>
     [CustomEditor(typeof(TextBoxes))]
     public class TextBoxesEditor : UnityEditor.Editor
     {
-        private EnumLanguage newLanguage;
-        private string newText = "";
-        private bool showAddSection = false;
-        private Vector2 scrollPos;
+        private EnumLanguage _newLanguage;
+        private string _newText = "";
+        private bool _showAddSection;
+        private Vector2 _scrollPos;
 
-        private GUIStyle headerStyle;
-        private GUIStyle textAreaStyle;
-        private GUIStyle boxStyle;
+        private GUIStyle _headerStyle;
+        private GUIStyle _textAreaStyle;
+        private GUIStyle _boxStyle;
 
+        /// <summary>
+        /// Initializes custom GUI styles used in the editor
+        /// </summary>
         private void InitStyles()
         {
-            if (headerStyle == null)
+            if (_headerStyle == null)
             {
-                headerStyle = new GUIStyle(EditorStyles.boldLabel)
+                _headerStyle = new GUIStyle(EditorStyles.boldLabel)
                 {
                     alignment = TextAnchor.MiddleLeft,
                     fontSize = 12
                 };
 
-                textAreaStyle = new GUIStyle(EditorStyles.textArea)
+                _textAreaStyle = new GUIStyle(EditorStyles.textArea)
                 {
                     wordWrap = true,
                     fontSize = 11,
                     padding = new RectOffset(6, 6, 4, 4)
                 };
 
-                boxStyle = new GUIStyle("box")
+                _boxStyle = new GUIStyle("box")
                 {
                     padding = new RectOffset(10, 10, 10, 10),
                     margin = new RectOffset(0, 0, 4, 4)
@@ -40,6 +46,9 @@ namespace PROJECT.Scripts.Editor
             }
         }
 
+        /// <summary>
+        /// Draws the custom inspector GUI for managing localized texts
+        /// </summary>
         public override void OnInspectorGUI()
         {
             InitStyles();
@@ -49,22 +58,22 @@ namespace PROJECT.Scripts.Editor
 
             EditorGUILayout.LabelField("🌐 Text Box Editor", EditorStyles.boldLabel);
             EditorGUILayout.HelpBox(
-                "Gerencie textos localizados por idioma. Edite diretamente ou adicione novos abaixo.",
+                "Manage localized texts by language. Edit directly or add new ones below.",
                 MessageType.Info);
             EditorGUILayout.Space(4);
 
-            // ====== LISTA DE TEXTOS EXISTENTES ======
+            // ====== EXISTING TEXTS LIST ======
             if (dict.Count == 0)
             {
-                EditorGUILayout.HelpBox("Nenhum texto adicionado ainda.", MessageType.Warning);
+                EditorGUILayout.HelpBox("No texts added yet.", MessageType.Warning);
             }
             else
             {
-                EditorGUILayout.LabelField("Existing Entries", headerStyle);
+                EditorGUILayout.LabelField("Existing Entries", _headerStyle);
                 EditorGUILayout.Space(2);
 
-                EditorGUILayout.BeginVertical(boxStyle);
-                scrollPos = EditorGUILayout.BeginScrollView(scrollPos, GUILayout.Height(300));
+                EditorGUILayout.BeginVertical(_boxStyle);
+                _scrollPos = EditorGUILayout.BeginScrollView(_scrollPos, GUILayout.Height(300));
 
                 foreach (var lang in new System.Collections.Generic.List<EnumLanguage>(dict.Keys))
                 {
@@ -77,7 +86,7 @@ namespace PROJECT.Scripts.Editor
                     if (GUILayout.Button("🗑️", GUILayout.Width(30)))
                     {
                         if (EditorUtility.DisplayDialog("Confirm Deletion",
-                                $"Remover texto da língua '{lang}'?", "Yes", "No"))
+                                $"Remove text for language '{lang}'?", "Yes", "No"))
                         {
                             Undo.RecordObject(textBoxes, "Remove Text Entry");
                             dict.Remove(lang);
@@ -90,9 +99,9 @@ namespace PROJECT.Scripts.Editor
 
                     EditorGUILayout.EndHorizontal();
 
-                    // Área de texto editável
+                    // Editable text area
                     EditorGUI.BeginChangeCheck();
-                    string newValue = EditorGUILayout.TextArea(dict[lang], textAreaStyle, GUILayout.MinHeight(60));
+                    string newValue = EditorGUILayout.TextArea(dict[lang], _textAreaStyle, GUILayout.MinHeight(60));
                     if (EditorGUI.EndChangeCheck())
                     {
                         Undo.RecordObject(textBoxes, "Edit Text Entry");
@@ -110,43 +119,41 @@ namespace PROJECT.Scripts.Editor
             EditorGUILayout.Space(10);
             EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
 
-            // ====== SEÇÃO DE ADIÇÃO ======
-            showAddSection = EditorGUILayout.Foldout(showAddSection, "➕ Add or Replace Entry", true, headerStyle);
-            if (showAddSection)
+            // ====== ADD SECTION ======
+            _showAddSection = EditorGUILayout.Foldout(_showAddSection, "➕ Add or Replace Entry", true, _headerStyle);
+            if (!_showAddSection) return;
+            
+            EditorGUILayout.BeginVertical(_boxStyle);
+
+            EditorGUILayout.LabelField("Add / Replace Text", _headerStyle);
+
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField("Language", GUILayout.Width(70));
+            _newLanguage = (EnumLanguage)EditorGUILayout.EnumPopup(_newLanguage);
+            EditorGUILayout.EndHorizontal();
+
+            EditorGUILayout.LabelField("Text");
+            _newText = EditorGUILayout.TextArea(_newText, _textAreaStyle, GUILayout.MinHeight(80));
+
+            EditorGUILayout.Space();
+
+            if (GUILayout.Button("💾 Save Entry", GUILayout.Height(30)))
             {
-                EditorGUILayout.BeginVertical(boxStyle);
-
-                EditorGUILayout.LabelField("Add / Replace Text", headerStyle);
-
-                EditorGUILayout.BeginHorizontal();
-                EditorGUILayout.LabelField("Language", GUILayout.Width(70));
-                newLanguage = (EnumLanguage)EditorGUILayout.EnumPopup(newLanguage);
-                EditorGUILayout.EndHorizontal();
-
-                EditorGUILayout.LabelField("Text");
-                newText = EditorGUILayout.TextArea(newText, textAreaStyle, GUILayout.MinHeight(80));
-
-                EditorGUILayout.Space();
-
-                if (GUILayout.Button("💾 Save Entry", GUILayout.Height(30)))
+                if (dict.ContainsKey(_newLanguage))
                 {
-                    if (dict.ContainsKey(newLanguage))
-                    {
-                        if (!EditorUtility.DisplayDialog("Replace Existing?",
-                                $"O texto para '{newLanguage}' já existe. Deseja substituir?", "Yes", "No"))
-                            return;
-                    }
-
-                    Undo.RecordObject(textBoxes, "Add or Replace Text Entry");
-                    dict[newLanguage] = newText;
-                    EditorUtility.SetDirty(textBoxes);
-                    newText = "";
-                    showAddSection = false;
+                    if (!EditorUtility.DisplayDialog("Replace Existing?",
+                            $"Text for '{_newLanguage}' already exists. Do you want to replace it?", "Yes", "No"))
+                        return;
                 }
 
-                EditorGUILayout.EndVertical();
+                Undo.RecordObject(textBoxes, "Add or Replace Text Entry");
+                dict[_newLanguage] = _newText;
+                EditorUtility.SetDirty(textBoxes);
+                _newText = "";
+                _showAddSection = false;
             }
+
+            EditorGUILayout.EndVertical();
         }
     }
 }
-
