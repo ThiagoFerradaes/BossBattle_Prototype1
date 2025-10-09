@@ -7,7 +7,7 @@ using UnityEngine;
 /// This class manages the costs, characteristics, size, and visual representations of furniture.
 /// </summary>
 [CreateAssetMenu(fileName = "FurnitureFeatures", menuName = "Scriptable Objects/FurnitureFeatures")]
-public class FurnitureFeatures : ScriptableObject
+public class FurnitureFeaturesSo : ScriptableObject
 {
     #region Fields
     [Header("Furniture Cost")]
