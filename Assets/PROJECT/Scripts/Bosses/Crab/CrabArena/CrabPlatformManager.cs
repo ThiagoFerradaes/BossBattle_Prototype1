@@ -21,6 +21,8 @@ public class CrabPlatformManager : MonoBehaviour
     [SerializeField] GameObject platformObject;
     [SerializeField] List<PathWay> paths = new();
     [SerializeField] List<GameObject> walls;
+    [SerializeField] List<GameObject> platformWarningObject;
+    [SerializeField] List<InstantDamageHitBox> platformDamageColliderObject;
     [SerializeField] LayerMask platformOrAnimalLayer;
     int _platformContacts = 0;
 
@@ -219,5 +221,12 @@ public class CrabPlatformManager : MonoBehaviour
             _platformContacts = 0; 
         }
     }
+    #endregion
+
+    #region Getter
+
+    public List<GameObject> ReturnPlatformWarningObject() => platformWarningObject;
+    public List<InstantDamageHitBox> ReturnPlatformDamageCollider() => platformDamageColliderObject;
+
     #endregion
 }

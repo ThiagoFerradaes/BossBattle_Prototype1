@@ -13,7 +13,7 @@ public class CrabArenaManager : MonoBehaviour
     [SerializeField] CrabArenaSO arenaInfo;
     [SerializeField] Transform platformSpawnPosition;
     public CrabManager CrabM;
-
+    [HideInInspector] public GameObject CrabPlatform;
     // Atributes
     CrabArenaState _currentTide;
     float _currentTideTime;
@@ -36,9 +36,10 @@ public class CrabArenaManager : MonoBehaviour
 
         int amountOfPlatforms = arenaInfo.ListOfPlatforms.Count;
         int randomPlatformIndex = Random.Range(0, amountOfPlatforms);
-        GameObject platform = arenaInfo.ListOfPlatforms[randomPlatformIndex];
+        GameObject randomPlatform = arenaInfo.ListOfPlatforms[randomPlatformIndex];
 
-        Instantiate(platform, platformSpawnPosition.position, Quaternion.identity);
+        GameObject plataform = Instantiate(randomPlatform, platformSpawnPosition.position, Quaternion.identity);
+        CrabPlatform = plataform;
     }
     private void Start()
     {
