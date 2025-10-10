@@ -59,6 +59,8 @@ public class DialogueSystem : MonoBehaviour
         if (_config == null) return;
         
         _config.OnLanguageChanged += UpdateLanguage;
+        if(dialogues is null) return;
+        
         UpdateLanguage(_config.GetLanguage());
     }
 
