@@ -20,7 +20,7 @@ public class ConfigurationManager : MonoBehaviour
         SettingToggles();
     }
 
-    async void SettingToggles()
+    private async void SettingToggles()
     {
         try
         {
@@ -44,8 +44,6 @@ public class ConfigurationManager : MonoBehaviour
 
     private Task LoadConfiguration()
     {
-        
-        
         var getPreCast = _configurationSo.GetPreCast();
         var getDashToMouse = _configurationSo.GetDashToMouse();
         var language = _configurationSo.GetLanguage();

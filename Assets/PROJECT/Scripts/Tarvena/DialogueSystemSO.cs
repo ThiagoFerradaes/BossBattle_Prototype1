@@ -2,50 +2,80 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "DialogueSystemSO", menuName = "Texts/DialogueSystemSO")]
+/// <summary>
+/// ScriptableObject that manages dialogue systems with multiple language support and choice-based conversations.
+/// </summary>
+[CreateAssetMenu(fileName = "DialogueSystemSO", menuName = "Dialogue/DialogueSystem")]
 public class DialogueSystemSo : ScriptableObject
 {
     [SerializeField]
-    [Tooltip("Reference to the TextBoxes containing dialogue content in different languages")]
-    private List<TextBoxesAndSprite> textBoxes;
+    [Tooltip("Collection of text boxes and associated sprites for different dialogue states")]
+    private List<DialogueContent> dialogueContents = new();
 
     [SerializeField]
-    [Tooltip("List of available dialogue choices")]
-    private List<Choice> choice;
-    
-    public List<TextBoxesAndSprite> GetListTextBoxesSo { get => textBoxes; private set => textBoxes = value; }
+    [Tooltip("Available dialogue choices and their consequences")]
+    private List<DialogueChoice> choices = new();
 
-    public TextBoxesAndSprite GetTextBoxesSo(int index) { return textBoxes[index]; }
-    
-    public List<Choice> GetChoice { get => choice; private set => choice = value; }
-}
+    // Properties with validation
+    public IReadOnlyList<DialogueContent> DialogueContents => dialogueContents;
+    public IReadOnlyList<DialogueChoice> Choices => choices;
 
-[Serializable]
-public class Choice
-{
-
-    [field: Tooltip("The text that will be displayed as a dialogue choice")] 
-    [SerializeField]
-    private TextBoxesSo text;
-    
-    [field: Tooltip("The dialogue sequence that will be activated upon selecting this choice")] 
-    [SerializeField]
-    private DialogueSystemSo nextDialogueSystem;
-    
-    public TextBoxesSo GetText { get => text; private set => text = value; }
-    
-    public DialogueSystemSo GetNextDialogueSystem { get => nextDialogueSystem; private set => nextDialogueSystem = value; }
-    
-    public Choice(TextBoxesSo newText, DialogueSystemSo newNextDialogueSystem)
+    /// <summary>
+    /// Retrieves specific dialogue content by index with bound checking
+    /// </summary>
+    public DialogueContent GetDialogueContent(int index)
     {
-        text = newText;
-        nextDialogueSystem = newNextDialogueSystem;
+        if (index < 0 || index >= dialogueContents.Count)
+        {
+            Debug.LogError($"Invalid dialogue content index: {index}");
+            return null;
+        }
+        return dialogueContents[index];
     }
 }
 
+/// <summary>
+/// Represents a dialogue choice with associated text and next dialogue sequence
+/// </summary>
 [Serializable]
-public class TextBoxesAndSprite
+public class DialogueChoice
 {
+    [SerializeField]
+    [Tooltip("Text to display for this choice")]
+    private TextBoxesSo choiceText;
+
+    [SerializeField]
+    [Tooltip("Next dialogue sequence after selecting this choice")]
+    private DialogueSystemSo nextDialogue;
+
+    // Immutable properties
+    public TextBoxesSo Text => choiceText;
+    public DialogueSystemSo NextDialogue => nextDialogue;
+
+    public DialogueChoice(TextBoxesSo text, DialogueSystemSo nextDialogue)
+    {
+        this.choiceText = text ?? throw new ArgumentNullException(nameof(text));
+        this.nextDialogue = nextDialogue;
+    }
+}
+
+/// <summary>
+/// Contains the text and visual elements for a dialogue entry
+/// </summary>
+[Serializable]
+public class DialogueContent
+{
+    [SerializeField]
+    [Tooltip("Text content in multiple languages")]
     public TextBoxesSo text;
+
+    [SerializeField]
+    [Tooltip("Associated sprite/image for this dialogue")]
     public Sprite sprite;
+
+    public DialogueContent(TextBoxesSo text, Sprite sprite)
+    {
+        this.text = text ?? throw new ArgumentNullException(nameof(text));
+        this.sprite = sprite;
+    }
 }
