@@ -180,6 +180,11 @@ public class DialogueSystem : MonoBehaviour
     /// <param name="dialogueSystemSo">New dialogue system to use</param>
     public void NewDialogue(DialogueSystemSo dialogueSystemSo)
     {
+        if (dialogues is not null && dialogues != dialogueSystemSo)
+        {
+            CompletedDialogue(dialogues);
+        }
+        
         ResetDialogueState();
         dialogues = dialogueSystemSo;
         SetupDialogueUI();
