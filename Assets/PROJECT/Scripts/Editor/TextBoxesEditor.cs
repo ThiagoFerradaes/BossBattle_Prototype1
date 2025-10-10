@@ -9,6 +9,7 @@ namespace PROJECT.Scripts.Editor
     [CustomEditor(typeof(TextBoxes))]
     public class TextBoxesEditor : UnityEditor.Editor
     {
+        #region Variables
         private EnumLanguage _newLanguage;
         private string _newText = "";
         private bool _showAddSection;
@@ -17,7 +18,9 @@ namespace PROJECT.Scripts.Editor
         private GUIStyle _headerStyle;
         private GUIStyle _textAreaStyle;
         private GUIStyle _boxStyle;
+        #endregion
 
+        #region GUI Styles
         /// <summary>
         /// Initializes custom GUI styles used in the editor
         /// </summary>
@@ -45,7 +48,9 @@ namespace PROJECT.Scripts.Editor
                 };
             }
         }
+        #endregion
 
+        #region Inspector GUI
         /// <summary>
         /// Draws the custom inspector GUI for managing localized texts
         /// </summary>
@@ -155,5 +160,6 @@ namespace PROJECT.Scripts.Editor
 
             EditorGUILayout.EndVertical();
         }
+        #endregion
     }
 }

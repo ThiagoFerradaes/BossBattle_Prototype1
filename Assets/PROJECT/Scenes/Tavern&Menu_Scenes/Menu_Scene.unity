@@ -1610,11 +1610,11 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 80
+  m_fontSize: 72
   m_fontSizeBase: 80
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 0
   m_fontSizeMax: 72
   m_fontStyle: 1
   m_HorizontalAlignment: 2
@@ -2405,8 +2405,8 @@ MonoBehaviour:
   m_fontSize: 15
   m_fontSizeBase: 15
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 0
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 1
@@ -5512,6 +5512,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 550226078}
+  - component: {fileID: 550226079}
   m_Layer: 5
   m_Name: Config
   m_TagString: Untagged
@@ -5545,6 +5546,31 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &550226079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 550226077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4672021af09531c43943ee521946d619, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UITextLocalizer
+  useListMode: 1
+  textBox:
+    uiText: {fileID: 0}
+    textBoxes: {fileID: 0}
+  textBoxesList:
+  - uiText: {fileID: 1707851885}
+    textBoxes: {fileID: 11400000, guid: 242adf57d223ed445b6ca769269e36a2, type: 2}
+  - uiText: {fileID: 265725068}
+    textBoxes: {fileID: 11400000, guid: edf331e5c6407704cb7f19dd2e8726a7, type: 2}
+  - uiText: {fileID: 1635858978}
+    textBoxes: {fileID: 11400000, guid: a043df9e9032d804784ad235e0ef000a, type: 2}
+  - uiText: {fileID: 1166561334}
+    textBoxes: {fileID: 11400000, guid: 377b142c1931f574fbb9a407c0d0a2ad, type: 2}
 --- !u!1 &558460543
 GameObject:
   m_ObjectHideFlags: 0
@@ -10410,7 +10436,7 @@ MonoBehaviour:
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 18
+  m_fontSizeMin: 0
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 2
@@ -13763,7 +13789,6 @@ GameObject:
   - component: {fileID: 1390159068}
   - component: {fileID: 1390159067}
   - component: {fileID: 1390159069}
-  - component: {fileID: 1390159070}
   m_Layer: 5
   m_Name: StartButton
   m_TagString: Untagged
@@ -13873,20 +13898,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &1390159070
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1390159065}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4672021af09531c43943ee521946d619, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::UITextLocalizer
-  textBox: {fileID: 11400000, guid: d8a241d3aa71ce14c8b34b9b0dab42a1, type: 2}
-  textUI: {fileID: 1505807900}
 --- !u!1 &1402995197
 GameObject:
   m_ObjectHideFlags: 0
@@ -14623,11 +14634,11 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 80
+  m_fontSize: 72
   m_fontSizeBase: 80
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 0
   m_fontSizeMax: 72
   m_fontStyle: 1
   m_HorizontalAlignment: 2
@@ -15223,6 +15234,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1565217586}
+  - component: {fileID: 1565217587}
   m_Layer: 5
   m_Name: Buttons
   m_TagString: Untagged
@@ -15253,6 +15265,29 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1920, y: 1780}
   m_Pivot: {x: 1, y: 0.5}
+--- !u!114 &1565217587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1565217585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4672021af09531c43943ee521946d619, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UITextLocalizer
+  useListMode: 1
+  textBox:
+    uiText: {fileID: 0}
+    textBoxes: {fileID: 0}
+  textBoxesList:
+  - uiText: {fileID: 1505807900}
+    textBoxes: {fileID: 11400000, guid: d8a241d3aa71ce14c8b34b9b0dab42a1, type: 2}
+  - uiText: {fileID: 1785866962}
+    textBoxes: {fileID: 11400000, guid: da36fb2454928ce4cbc5379e842cc22b, type: 2}
+  - uiText: {fileID: 145828398}
+    textBoxes: {fileID: 11400000, guid: 7037442872dfde64d9280585923e02ed, type: 2}
 --- !u!1 &1576354223
 GameObject:
   m_ObjectHideFlags: 0
@@ -16195,8 +16230,8 @@ MonoBehaviour:
   m_fontSize: 15
   m_fontSizeBase: 15
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 0
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 1
@@ -16826,8 +16861,8 @@ MonoBehaviour:
   m_fontSize: 100
   m_fontSizeBase: 100
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 0
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 1
@@ -17639,11 +17674,11 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 80
+  m_fontSize: 72
   m_fontSizeBase: 80
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 0
   m_fontSizeMax: 72
   m_fontStyle: 1
   m_HorizontalAlignment: 2

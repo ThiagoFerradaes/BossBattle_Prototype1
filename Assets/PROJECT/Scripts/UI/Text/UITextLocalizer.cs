@@ -1,33 +1,34 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 
 /// <summary>
-/// Component responsible for localizing UI text elements based on the selected language
+/// Component responsible for managing UI text localization based on the selected language.
+/// This class handles both single and multiple text elements through different operating modes.
 /// </summary>
 public class UITextLocalizer : MonoBehaviour
 {
+    [Header("Mode Settings")]
+    [Tooltip("Enable to handle multiple text boxes simultaneously (List Mode)")]
+    [SerializeField] private bool useListMode;
+    
     /// <summary>
-    /// Reference to the game configuration
+    /// Reference to the game's configuration settings
     /// </summary>
     private ConfigurationSo _config;
     
-    /// <summary>
-    /// Reference to the TextBoxes asset containing localized text content
-    /// </summary>
     [SerializeField] 
-    [Tooltip("TextBoxes asset containing the localized text content")]
-    private TextBoxes textBox;
+    [Tooltip("Single text box configuration for basic mode")]
+    private Text textBox;
+    
+    [Tooltip("Collection of text boxes for handling multiple UI elements")]
+    [SerializeField] private List<Text> textBoxesList = new();
     
     /// <summary>
-    /// Reference to the TextMeshPro UI component that will display the text
-    /// </summary>
-    [SerializeField]
-    [Tooltip("TextMeshPro component where the text will be displayed")]
-    private TMP_Text textUI;
-    
-    /// <summary>
-    /// Called when the component is enabled
-    /// Initializes configuration and sets up language change listener
+    /// Initializes the component and sets up language change handling when enabled.
+    /// Subscribes to language change events and performs initial text update.
     /// </summary>
     private void OnEnable()
     {
@@ -40,8 +41,7 @@ public class UITextLocalizer : MonoBehaviour
     }
 
     /// <summary>
-    /// Called when the component is disabled
-    /// Removes the language change listener
+    /// Performs cleanup by unsubscribing from language change events when disabled.
     /// </summary>
     private void OnDisable()
     {
@@ -50,14 +50,42 @@ public class UITextLocalizer : MonoBehaviour
     }
 
     /// <summary>
-    /// Updates the UI text based on the selected language
+    /// Updates the UI text content based on the selected language.
+    /// Handles both single text box and list mode configurations.
     /// </summary>
-    /// <param name="lang">The language to display the text in</param>
+    /// <param name="lang">The target language for text localization</param>
     private void UpdateLanguage(EnumLanguage lang)
     {
-        if (textBox == null || textUI == null)
-            return;
+        if (!useListMode)
+        {
+            if (textBox.uiText == null || textBox.textBoxes == null)
+                return;
 
-        textUI.text = textBox.GetText(lang);
+            textBox.uiText.text = textBox.textBoxes.GetText(lang);
+        }
+        else
+        {
+            foreach (var t in textBoxesList.Where(t => t.uiText != null && t.textBoxes != null))
+            {
+                t.uiText.text = t.textBoxes.GetText(lang);
+            }
+        }
     }
+}
+
+/// <summary>
+/// Represents a text element configuration containing UI and localization data.
+/// </summary>
+[Serializable]
+public class Text
+{
+    /// <summary>
+    /// Reference to the TextMeshPro UI component
+    /// </summary>
+    public TMP_Text uiText;
+    
+    /// <summary>
+    /// Reference to the localized text content container
+    /// </summary>
+    public TextBoxes textBoxes;
 }
