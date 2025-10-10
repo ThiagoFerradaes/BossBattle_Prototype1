@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DialogueSystem : MonoBehaviour
 {
@@ -11,7 +12,8 @@ public class DialogueSystem : MonoBehaviour
     [SerializeField] private List<UITextButton> textBoxesChoice = new();
     
     [SerializeField] private GameObject dialogueBoxChoice;
-    
+
+    [SerializeField] private Image art;
     
     private ConfigurationSo _config;
 
@@ -51,7 +53,7 @@ public class DialogueSystem : MonoBehaviour
             return;
         }
         
-        newText = dialogues.GetTextBoxesSo(_index).GetText(lang);
+        newText = dialogues.GetTextBoxesSo(_index).text.GetText(lang);
 
         if (newText is null)
         {
@@ -61,6 +63,7 @@ public class DialogueSystem : MonoBehaviour
 
         if (_textBoxesList.Count == 0)
         {
+            art.sprite = dialogues.GetTextBoxesSo(0).sprite;
             dialogueBox.text.text = newText;
             return;
         }
@@ -77,6 +80,7 @@ public class DialogueSystem : MonoBehaviour
         if(dialogues.GetListTextBoxesSo.Count > _index)
         {
             _textBoxesList.Add(dialogueBox.text);
+            art.sprite = dialogues.GetTextBoxesSo(_index).sprite;
         }
         else
         {
@@ -110,12 +114,19 @@ public class DialogueSystem : MonoBehaviour
             return;
         }
 
-        Debug.Log("mor Choice");
-        dialogueBoxChoice.SetActive(false);
+        NewDialogue(nextDialogueSystem);
+        UpdateLanguage(_config.GetLanguage());
+    }
+ 
+    public void NewDialogue(DialogueSystemSo dialogueSystemSo)
+    {
         _isChoice = false;
         _index = 0;
+        _textBoxesList.Clear();
+        dialogues = dialogueSystemSo;
+        gameObject.SetActive(true);
         dialogueBox.gameObject.SetActive(true);
-        dialogues = nextDialogueSystem;
+        dialogueBoxChoice.SetActive(false);
         UpdateLanguage(_config.GetLanguage());
     }
     
