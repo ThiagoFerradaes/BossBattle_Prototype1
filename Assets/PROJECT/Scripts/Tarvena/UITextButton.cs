@@ -1,47 +1,105 @@
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+/// <summary>
+/// Manages UI button behavior with text and color state changes based on user interaction.
+/// Handles dialogue system integration for both regular progression and choice selection.
+/// </summary>
+[RequireComponent(typeof(Image))]
 public class UITextButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
-    [SerializeField] private bool chose;
-    [SerializeField] private byte ID;
+    #region Serialized Fields
+    [SerializeField]
+    [Tooltip("Determines if this button represents a dialogue choice")]
+    private bool isChoice;
+
+    [SerializeField]
+    [Tooltip("Unique identifier for choice selection")]
+    private byte choiceId;
     
-    [SerializeField] private DialogueSystem dialogue;
+    [SerializeField]
+    [Tooltip("Reference to the dialogue system controller")]
+    private DialogueSystem dialogueSystem;
     
-    [SerializeField] private Color clickedColor, normalColor, hoverColor;
+    [Header("Button Colors")]
+    [SerializeField]
+    [Tooltip("Color when button is clicked")]
+    private Color clickedColor = Color.gray;
     
-    public Image image;
+    [SerializeField]
+    [Tooltip("Default button color")]
+    private Color normalColor = Color.white;
     
-    public TMP_Text text;
-    
+    [SerializeField]
+    [Tooltip("Color when mouse hovers over button")]
+    private Color hoverColor = Color.yellow;
+    #endregion
+
+    #region Public References
+    [Header("UI Components")]
+    public Image buttonImage;
+    public TMP_Text buttonText;
+    #endregion
+
+    #region Constants
+    private const float ColorTransitionDelay = 0.3f;
+    #endregion
+
+    #region Unity Event Handlers
+    private void Awake()
+    {
+        ValidateReferences();
+    }
+
     public void OnPointerEnter(PointerEventData eventData)
     {
-        image.color = hoverColor;
+        buttonImage.color = hoverColor;
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        image.color = normalColor;
+        buttonImage.color = normalColor;
     }
     
     public void OnPointerClick(PointerEventData eventData)
     {
-        image.color = clickedColor;
-        Invoke(nameof(NormalizedColor), 0.3f);
+        HandleButtonClick();
+    }
+    #endregion
 
-        if (!chose)
+    #region Private Methods
+    private void ValidateReferences()
+    {
+        if (buttonImage == null)
         {
-            dialogue.NextDialogue();
+            buttonImage = GetComponent<Image>();
+        }
+
+        if (dialogueSystem == null)
+        {
+            Debug.LogError($"DialogueSystem reference missing on {gameObject.name}");
+        }
+    }
+
+    private void HandleButtonClick()
+    {
+        buttonImage.color = clickedColor;
+        Invoke(nameof(ResetButtonColor), ColorTransitionDelay);
+
+        if (!isChoice)
+        {
+            dialogueSystem.NextDialogue();
             return;
         }
-        dialogue.Choice(ID);
+        
+        dialogueSystem.Choice(choiceId);
     }
 
-    private void NormalizedColor()
+    private void ResetButtonColor()
     {
-        image.color = normalColor;
+        buttonImage.color = normalColor;
     }
+    #endregion
 }

@@ -3,77 +3,89 @@ using AYellowpaper.SerializedCollections;
 using UnityEngine;
 
 /// <summary>
-/// Scriptable Object that defines the properties and characteristics of furniture items in the tavern.
-/// This class manages the costs, characteristics, size, and visual representations of furniture.
+/// ScriptableObject that defines and manages furniture properties within the tavern system.
+/// This class handles furniture costs, environmental characteristics, dimensions, and visual assets.
 /// </summary>
 [CreateAssetMenu(fileName = "FurnitureFeatures", menuName = "Scriptable Objects/FurnitureFeatures")]
 public class FurnitureFeaturesSo : ScriptableObject
 {
-    #region Fields
+    #region Serialized Fields
     [Header("Furniture Cost")]
     [SerializedDictionary("Type", "Value"), SerializeField] 
-    [Tooltip("Dictionary containing different types of costs and their values")]
-    public SerializedDictionary<CostOfTheFurniture, byte> costs = new();
+    [Tooltip("Dictionary mapping cost types to their corresponding numerical values")]
+    private SerializedDictionary<CostOfTheFurniture, byte> costs = new();
     
     [Space(20)]
-    [Header("Furniture Characteristics")]
+    [Header("Furniture Characteristics")] 
     [SerializedDictionary("Type", "Value"), SerializeField]
-    [Tooltip("Dictionary containing environmental characteristics and their intensity values")]
-    public SerializedDictionary<TypeOfEnvironmentCharacteristic, byte> characteristics = new();
+    [Tooltip("Dictionary mapping environmental effects to their intensity values")]
+    private SerializedDictionary<TypeOfEnvironmentCharacteristic, byte> characteristics = new();
     
     [Space(20)]
-    [Header("Furniture Size")]
-    [Tooltip("Defines the size category of the furniture")]
-    public SizeOfFurniture size;
+    [Header("Physical Properties")]
+    [Tooltip("Size category of the furniture item")]
+    [SerializeField]
+    private SizeOfFurniture size;
     
     [Space(20)]
-    [Header("Furniture 3D Model")]
-    [Tooltip("Reference to the 3D model prefab of the furniture")]
-    public GameObject furniturePrefab;
+    [Header("Visual Assets")]
+    [Tooltip("3D model prefab for in-game representation")]
+    [SerializeField]
+    private GameObject furniturePrefab;
     
-    [Space(20)]
-    [Header("Furniture 2D Sprite")]
-    [Tooltip("2D sprite representation of the furniture for UI elements")]
-    public Sprite furnitureSprite;
+    [SerializeField]
+    [Tooltip("2D sprite used for UI and inventory representation")]
+    private Sprite furnitureSprite;
+    #endregion
+
+    #region Public Properties
+    /// <summary>
+    /// Gets or sets the size category of the furniture
+    /// </summary>
+    public SizeOfFurniture Size => size;
+
+    /// <summary>
+    /// Gets or sets the furniture's 3D model prefab representation
+    /// </summary>
+    public GameObject Prefab  => furniturePrefab;
+
+    /// <summary>
+    /// Gets or sets the furniture's 2D sprite for UI display
+    /// </summary>
+    public Sprite Art  => furnitureSprite;
+
     #endregion
 
     #region Public Methods
     /// <summary>
-    /// Retrieves the cost value for a specific cost type
+    /// Retrieves the cost value for a specified furniture cost type
     /// </summary>
-    /// <param name="cost">The type of cost to query</param>
-    /// <returns>The cost value as a byte</returns>
-    public byte GetCost(CostOfTheFurniture cost)
-    {
-        return this.costs[cost];
-    }
+    /// <param name="costType">The type of cost to query</param>
+    /// <returns>The cost value as an unsigned byte</returns>
+    public byte GetCost(CostOfTheFurniture costType) =>
+        costs.GetValueOrDefault(costType, (byte)0);
     
     /// <summary>
-    /// Retrieves the characteristic value for a specific environmental characteristic
+    /// Retrieves the intensity value for a specified environmental characteristic
     /// </summary>
-    /// <param name="characteristic">The type of characteristic to query</param>
-    /// <returns>The characteristic value as a byte</returns>
-    public byte GetCharacteristic(TypeOfEnvironmentCharacteristic characteristic)
-    {
-        return characteristics[characteristic];
-    }
+    /// <param name="type">The type of environmental effect to query</param>
+    /// <returns>The characteristic intensity as an unsigned byte</returns>
+    public byte GetCharacteristic(TypeOfEnvironmentCharacteristic type) =>
+        characteristics.GetValueOrDefault(type, (byte)0);
 
     /// <summary>
-    /// Returns all costs associated with the furniture
+    /// Gets all furniture costs as an immutable dictionary
     /// </summary>
-    /// <returns>Dictionary containing all cost types and their values</returns>
-    public Dictionary<CostOfTheFurniture, byte> GetAllCosts()
-    {
-        return costs;
-    }
+    /// <returns>Read-only dictionary of cost types and their values</returns>
+    public IReadOnlyDictionary<CostOfTheFurniture, byte> GetAllCosts() => 
+        new Dictionary<CostOfTheFurniture, byte>(costs);
     
     /// <summary>
-    /// Returns all characteristics associated with the furniture
+    /// Gets all environmental characteristics as an immutable dictionary
     /// </summary>
-    /// <returns>Dictionary containing all characteristic types and their values</returns>
-    public Dictionary<TypeOfEnvironmentCharacteristic, byte> GetAllCharacteristics()
-    {
-        return characteristics;
-    }
+    /// <returns>Read-only dictionary of characteristic types and their intensity values</returns>
+    public IReadOnlyDictionary<TypeOfEnvironmentCharacteristic, byte> GetAllCharacteristics() => 
+        new Dictionary<TypeOfEnvironmentCharacteristic, byte>(characteristics);
+    
     #endregion
 }

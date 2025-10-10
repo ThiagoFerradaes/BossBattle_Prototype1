@@ -126,7 +126,7 @@ public class DialogueSystem : MonoBehaviour
     private void InitializeFirstDialogue(string newText)
     {
         art.sprite = dialogues.GetDialogueContent(0).sprite;
-        dialogueBox.text.text = newText;
+        dialogueBox.buttonText.text = newText;
     }
     
     private void CompletedDialogue(DialogueSystemSo obj)
@@ -195,7 +195,7 @@ public class DialogueSystem : MonoBehaviour
     #region Helper Methods
     private void ContinueDialogue()
     {
-        _textBoxesList.Add(dialogueBox.text);
+        _textBoxesList.Add(dialogueBox.buttonText);
         art.sprite = dialogues.GetDialogueContent(_index).sprite;
     }
 
@@ -219,7 +219,7 @@ public class DialogueSystem : MonoBehaviour
         
         foreach (var t in textBoxesChoice)
         {
-            _textBoxesList.Add(t.text);
+            _textBoxesList.Add(t.buttonText);
             t.gameObject.SetActive(true);
         }
     }
