@@ -7,7 +7,7 @@ using UnityEngine.Serialization;
 /// Used for localization and text management in the game.
 /// </summary>
 [CreateAssetMenu(fileName = "TextBoxes", menuName = "Texts/TextBoxes")]
-public class TextBoxes : ScriptableObject
+public class TextBoxesSo : ScriptableObject
 {
     /// <summary>
     /// Dictionary storing text content for different languages.

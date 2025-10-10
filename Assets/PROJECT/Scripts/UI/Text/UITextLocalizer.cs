@@ -87,5 +87,5 @@ public class Text
     /// <summary>
     /// Reference to the localized text content container
     /// </summary>
-    public TextBoxes textBoxes;
+    public TextBoxesSo textBoxes;
 }

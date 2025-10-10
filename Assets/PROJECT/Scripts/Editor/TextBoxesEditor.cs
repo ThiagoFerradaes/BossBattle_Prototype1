@@ -6,7 +6,7 @@ namespace PROJECT.Scripts.Editor
     /// <summary>
     /// Custom editor for the TextBoxes component to manage localized text content
     /// </summary>
-    [CustomEditor(typeof(TextBoxes))]
+    [CustomEditor(typeof(TextBoxesSo))]
     public class TextBoxesEditor : UnityEditor.Editor
     {
         #region Variables
@@ -58,7 +58,7 @@ namespace PROJECT.Scripts.Editor
         {
             InitStyles();
 
-            var textBoxes = (TextBoxes)target;
+            var textBoxes = (TextBoxesSo)target;
             var dict = textBoxes.GetDictionary();
 
             EditorGUILayout.LabelField("🌐 Text Box Editor", EditorStyles.boldLabel);
