@@ -10,8 +10,8 @@ public class CrabSandGeiserAttack : EnemyBehaviourSO {
     StatusManager _statusManager;
 
     [Header("Attack Atributes")]
+    [SerializeField] float minHighTidesToAttack = 1;
     [SerializeField] float amountOfAttacks = 3;
-    [SerializeField] float cooldownBetweenGeisers = 5;
     [SerializeField] float hitboxDuration = 0.1f;
     [SerializeField] DamageAtributes damageAtributes;
 
@@ -30,7 +30,8 @@ public class CrabSandGeiserAttack : EnemyBehaviourSO {
     }
 
     public override bool MeetsCondition() {
-        return CrabArenaManager.Instance.ReturnCurrentTide() == CrabArenaState.LowTide;
+        return (CrabArenaManager.Instance.ReturnCurrentTide() == CrabArenaState.LowTide && 
+            CrabArenaManager.Instance.ReturnAmountOfTideOccurence(CrabArenaState.HighTide) >= minHighTidesToAttack);
     }
 
     void Initialize(EnemyBehaviourManager parent) {
@@ -48,6 +49,10 @@ public class CrabSandGeiserAttack : EnemyBehaviourSO {
         while (CrabArenaManager.Instance.ReturnCurrentTide() == CrabArenaState.LowTide) {
             for (int i = 0; i < amountOfAttacks; i++) {
                 yield return _crabManager.StartCoroutine(WarningCoroutine());
+
+                float warningsDuration = (amountOfWarningRepetitions * (warningTimeOn + cooldownBetweenWarningRepetitions));
+                float geiserDuration = (amountOfAttacks * (warningsDuration + hitboxDuration));
+                float cooldownBetweenGeisers = (CrabArenaManager.Instance.ReturnCurrentTideRemainingTime() - geiserDuration) / (amountOfAttacks + 1);
                 yield return new WaitForSeconds(cooldownBetweenGeisers);
             }
             break;

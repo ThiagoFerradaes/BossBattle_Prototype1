@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -14,10 +15,12 @@ public class CrabArenaManager : MonoBehaviour
     [SerializeField] Transform platformSpawnPosition;
     public CrabManager CrabM;
     [HideInInspector] public GameObject CrabPlatform;
+
     // Atributes
     CrabArenaState _currentTide;
     float _currentTideTime;
     float _currentTideMaxTime;
+    Dictionary<CrabArenaState, int> _timesTideOccurred = new();
 
     // Event
     public event Action<float, float> OnUpdateTideTimer;
@@ -61,6 +64,9 @@ public class CrabArenaManager : MonoBehaviour
     IEnumerator TideTimerCoroutine()
     {
         OnStartTide?.Invoke(_currentTide);
+
+        if (_timesTideOccurred.ContainsKey(_currentTide)) _timesTideOccurred[_currentTide]++;
+        else _timesTideOccurred[_currentTide] = 1;
 
         DecideMaxTideDuration();
 
@@ -118,6 +124,14 @@ public class CrabArenaManager : MonoBehaviour
     public CrabArenaState ReturnCurrentTide() => _currentTide;
 
     public float ReturnCurrentTidePercent() => _currentTideTime / _currentTideMaxTime;
+
+    public float ReturnCurrentTideRemainingTime() => _currentTideMaxTime - _currentTideTime;
+
+    public int ReturnAmountOfTideOccurence(CrabArenaState tide)
+    {
+        if (_timesTideOccurred.ContainsKey(tide)) return _timesTideOccurred[tide];
+        else return 0;
+    }
 
     #endregion
 }
