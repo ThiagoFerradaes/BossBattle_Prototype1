@@ -92,7 +92,7 @@ public class CrabArenaManager : MonoBehaviour
         {
             CrabArenaState.LowTide => arenaInfo.DurationOfLowTide,
             CrabArenaState.IncomingTide => arenaInfo.IncomingTideDuration,
-            CrabArenaState.HighTide => arenaInfo.DurationOfHeightTide,
+            CrabArenaState.HighTide => arenaInfo.DurationOfHightTide,
             CrabArenaState.OutgoingTide => arenaInfo.DurationOfOutgoingTide,
             _ => arenaInfo.DurationOfLowTide
         };

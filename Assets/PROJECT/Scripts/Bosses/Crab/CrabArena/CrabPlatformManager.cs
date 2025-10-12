@@ -1,3 +1,4 @@
+using AYellowpaper.SerializedCollections;
 using DG.Tweening;
 using System;
 using System.Collections;
@@ -27,12 +28,14 @@ public class CrabPlatformManager : MonoBehaviour
     int _platformContacts = 0;
 
     [Header("High Tide Barriers")]
-    [SerializeField] List<Transform> listOfPossibleBarriers;
+    [SerializedDictionary("Wall", "Transforms"), SerializeField] SerializedDictionary<CrabArenaWall, List<Transform>> listOfPossibleBarriers;
+    GameObject _barrier;
     Dictionary<Transform, GameObject> _dictionaryOfBombs = new();
 
     // Components
     ContinuosDamageHitBox _incomingTideAttack;
     GameObject _player;
+    CrabManager _crabManager;
 
     // Actions
     Action<CrabArenaState> _onHandleChangeTide;
@@ -40,6 +43,7 @@ public class CrabPlatformManager : MonoBehaviour
     // Coroutine
     Coroutine _instantiateAnimalCoroutine;
     Coroutine _highTideBombCoroutine;
+    Coroutine _highTideBarrierCoroutine;
 
     #endregion
 
@@ -57,6 +61,8 @@ public class CrabPlatformManager : MonoBehaviour
 
         ArenaManager.Instance.SetPathPoints(paths);
 
+        _crabManager = CrabArenaManager.Instance.CrabM;
+
         _player = PlayerManager.Instance.Player;
 
         foreach (var path in paths)
@@ -69,6 +75,8 @@ public class CrabPlatformManager : MonoBehaviour
                 _dictionaryOfBombs[t].transform.localScale = Vector3.one * arenaInfo.BombSize;
             }
         }
+
+        _barrier = Instantiate(arenaInfo.BarrierPrefab);
     }
 
     private void OnDestroy()
@@ -117,6 +125,7 @@ public class CrabPlatformManager : MonoBehaviour
         });
 
         _highTideBombCoroutine ??= StartCoroutine(HandleHighTideBombs());
+        _highTideBarrierCoroutine ??= StartCoroutine(HandleHidhTideBarrier());
     }
     void HandleIncomingTide()
     {
@@ -240,6 +249,29 @@ public class CrabPlatformManager : MonoBehaviour
             bomb.SetActive(false);
         }
         _highTideBombCoroutine = null;
+    }
+
+    IEnumerator HandleHidhTideBarrier()
+    {
+        yield return new WaitForSeconds(arenaInfo.TimeToSpawnBarrier);
+
+        _barrier.GetComponent<HealthManager>().Revive();
+
+        CrabArenaWall _currentWall = _crabManager.ReturnCurrentWall();
+
+        int rng = Random.Range(0, listOfPossibleBarriers[_currentWall].Count);
+
+        Vector3 pos = listOfPossibleBarriers[_currentWall][rng].position;
+        float finalHeight = pos.y;
+        pos.y -= arenaInfo.BarrierDownOffset;
+
+        _barrier.transform.position = pos;
+        _barrier.transform.rotation = _currentWall == CrabArenaWall.Up ? Quaternion.Euler(0, 0, 0) : Quaternion.Euler(0, 90, 0);
+        _barrier.SetActive(true);
+
+        yield return _barrier.transform.DOMoveY(finalHeight, arenaInfo.BarrierUpDuration);
+
+        _highTideBarrierCoroutine = null;
     }
     #endregion
 
