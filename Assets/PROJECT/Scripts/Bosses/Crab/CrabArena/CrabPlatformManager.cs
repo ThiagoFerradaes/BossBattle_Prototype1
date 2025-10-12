@@ -213,52 +213,32 @@ public class CrabPlatformManager : MonoBehaviour
     {
         while (CrabArenaManager.Instance.ReturnCurrentTide() == CrabArenaState.HighTide)
         {
+
             yield return new WaitForSeconds(arenaInfo.BombsCooldownToAppear);
 
-            bool allBombsActivated = true;
-            foreach (var bomb in _dictionaryOfBombs.Values)
-            {
-                if (bomb.activeInHierarchy == false) allBombsActivated = false;
-            }
+            var inactiveBombs = _dictionaryOfBombs
+                .Where(kv => !kv.Value.activeInHierarchy)
+                .ToList();
 
-            if (allBombsActivated) continue;
+            if (inactiveBombs.Count == 0)
+                continue; 
 
+            var chosenBomb = inactiveBombs[Random.Range(0, inactiveBombs.Count)];
+            Transform point = chosenBomb.Key;
 
-            int rngPaths = Random.Range(0, paths.Count);
-
-            bool allBombsInPathAreActivated = true;
-
-            while (allBombsInPathAreActivated)
-            {
-                foreach (Transform t in paths[rngPaths].pathPoint)
-                {
-                    if (_dictionaryOfBombs[t].activeInHierarchy == false) allBombsInPathAreActivated = false;
-                }
-
-                rngPaths = (rngPaths + 1) % paths.Count;
-
-                yield return null;
-            }
-
-            int rngBomb = Random.Range(0, paths[rngPaths].pathPoint.Count);
-
-            bool bombActivated = true;
-
-            while (bombActivated)
-            {
-                if (_dictionaryOfBombs[paths[rngPaths].pathPoint[rngBomb]].activeInHierarchy == false) bombActivated = false;
-
-                rngBomb = (rngBomb + 1) % paths[rngPaths].pathPoint.Count;
-
-                yield return null;
-            }
-
-            Vector3 bombPos = paths[rngPaths].pathPoint[rngBomb].position;
+            Vector3 bombPos = point.position;
             bombPos.y += arenaInfo.BombHeight;
-            _dictionaryOfBombs[paths[rngPaths].pathPoint[rngBomb]].transform.position = bombPos;
-            _dictionaryOfBombs[paths[rngPaths].pathPoint[rngBomb]].SetActive(true);
+
+            var bombGO = chosenBomb.Value;
+            bombGO.transform.position = bombPos;
+            bombGO.GetComponent<HealthManager>().Revive();
+            bombGO.SetActive(true);
         }
 
+        foreach (var bomb in _dictionaryOfBombs.Values)
+        {
+            bomb.SetActive(false);
+        }
         _highTideBombCoroutine = null;
     }
     #endregion

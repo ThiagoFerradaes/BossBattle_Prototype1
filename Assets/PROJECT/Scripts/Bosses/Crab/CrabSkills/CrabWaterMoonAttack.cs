@@ -64,9 +64,6 @@ public class CrabWaterMoonAttack : EnemyBehaviourSO {
         //Quaternion playerAngle = Quaternion.LookRotation(playerDir, Vector3.up);
         //Debug.Log($" quatarion : {playerAngle} and vector {playerAngle.eulerAngles}");
 
-        var debag = Quaternion.LookRotation(_crabManager.Player.transform.position, Vector3.down);
-        Debug.Log($" rotencion {debag} and vector {debag.eulerAngles}");
-
         Quaternion centerAngle = Quaternion.Euler(0, 0, 0);
 
         Quaternion rightAngle = Quaternion.Euler(0, attackAngleAmplitude / 2f, 0);

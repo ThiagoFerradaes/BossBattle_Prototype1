@@ -27,6 +27,7 @@ public class HealthManager : MonoBehaviour {
     public event Action<float, float> OnShieldChanged;
     public event Action<float> OnDamageTaken;
     public event Action OnDeath;
+    public event Action OnRevive;
 
     // Coroutines
     Coroutine _shieldCoroutine;
@@ -101,6 +102,17 @@ public class HealthManager : MonoBehaviour {
 
     public void Heal(float amount) {
         ChangeHealth(_currentHealth + amount);
+    }
+
+    public void Revive()
+    {
+        _canTakeDamage = true;
+        _isDead = false;
+
+        ChangeHealth(_maxHealth);
+        ChangeShield(0);
+
+        OnRevive?.Invoke();
     }
     #endregion
 

@@ -117,6 +117,17 @@ public class CrabArenaManager : MonoBehaviour
         _tideTimerCoroutine ??= StartCoroutine(TideTimerCoroutine());
 
     }
+
+    public void HighTideBomb()
+    {
+        ChangeCurrentTideTime(false, arenaInfo.BombAmountOfFlatTimeReduced);
+    }
+
+    public void ChangeCurrentTideTime(bool increase, float extraTime)
+    {
+        if (!increase) _currentTideTime = Mathf.Min(_currentTideTime + extraTime, _currentTideMaxTime);
+        else _currentTideTime = Mathf.Max(_currentTideTime - extraTime, 0);
+    }
     #endregion
 
     #region Getters
