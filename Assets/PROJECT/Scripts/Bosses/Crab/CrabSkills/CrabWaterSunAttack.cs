@@ -20,8 +20,8 @@ public class CrabWaterSunAttack : EnemyBehaviourSO {
 
     [Header("Preparing attack atributes")]
     [SerializeField] float attackPreparationDuration;
-    [SerializeField] float cooldownBetweenAttacks;
     [SerializeField] float playerPositionYOffSet;
+    [SerializeField] Vector3 preparingAttackSize;
     [SerializeField] LayerMask layersToHit;
     [SerializedDictionary("Combo", "List"), SerializeField] SerializedDictionary<int, List<SkillAnimationEvent>> prefabs;
 
@@ -92,7 +92,7 @@ public class CrabWaterSunAttack : EnemyBehaviourSO {
             var prefab = prefabs[0];
 
             foreach (var skillEvent in prefab) {
-                if (skillEvent.PrefabType == TypeOfSkillPrefab.Hitbox) { GameObject hitbox = InstantiateHitBox(skillEvent); listOfPreparingGameObjects.Add(hitbox); }
+                if (skillEvent.PrefabType == TypeOfSkillPrefab.Hitbox) { GameObject hitbox = InstantiateHitBox(skillEvent, preparingAttackSize); listOfPreparingGameObjects.Add(hitbox); }
                 else InstantiateVFX(skillEvent);
             }
         }
@@ -146,7 +146,7 @@ public class CrabWaterSunAttack : EnemyBehaviourSO {
                     yield return null;
                 } while (attackHash == stateInfo.fullPathHash && stateInfo.normalizedTime < skillEvent.TimeToSpawnPreFab);
 
-                if (skillEvent.PrefabType == TypeOfSkillPrefab.Hitbox) { GameObject hitbox = InstantiateHitBox(skillEvent); listOfGameObjects.Add(hitbox); }
+                if (skillEvent.PrefabType == TypeOfSkillPrefab.Hitbox) { GameObject hitbox = InstantiateHitBox(skillEvent, attackSize); listOfGameObjects.Add(hitbox); }
                 else InstantiateVFX(skillEvent);
             }
         }
@@ -181,9 +181,9 @@ public class CrabWaterSunAttack : EnemyBehaviourSO {
     #endregion
 
     #region Instantiate
-    GameObject InstantiateHitBox(SkillAnimationEvent prefab) {
+    GameObject InstantiateHitBox(SkillAnimationEvent prefab, Vector3 size) {
         GameObject hitbox = PoolingManager.Instance.ReturnPrefabFromPool(prefab.PreFabName, prefab.PreFab, TypeOfSkillPrefab.Hitbox);
-        hitbox.transform.localScale = attackSize;
+        hitbox.transform.localScale = size;
         hitbox.transform.SetParent(_apicem.transform, false);
         Vector3 pos = prefab.PreFabPosition;
 

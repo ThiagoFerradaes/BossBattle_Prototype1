@@ -25,21 +25,21 @@ MonoBehaviour:
   walkAnimationParameter: IsWalking
   preparingAnimationSpeedParameter: SmallClawPreparingSpeed
   attackAnimationSpeedParameter: SmallClawAttackSpeed
-  preparingAnimationSpeed: 1
-  attackAnimationSpeed: 2
+  preparingAnimationSpeed: 0.4
+  attackAnimationSpeed: 1
   animationLayer: 0
-  distanceToPlayer: 6
-  rotationSpeed: 150
+  distanceToPlayer: 4
+  rotationSpeed: 220
   prefabs:
   - TimeToSpawnPreFab: 0.5
     PrefabDuration: 0.1
     PreFabName: CrabSmallClawHitBox
     PrefabType: 0
     PreFab: {fileID: 8271028322271159555, guid: 02de40013cebfe2448edca155583a4c1, type: 3}
-    PreFabPosition: {x: 2, y: 3, z: 0}
+    PreFabPosition: {x: 2, y: 1.5, z: 0}
   amoutOfAttacks: 3
-  cooldownBetweenAttacks: 1
-  sizeOfHitbox: {x: 2, y: 2, z: 14}
+  cooldownBetweenAttacks: 1.2
+  sizeOfHitbox: {x: 1.5, y: 1.5, z: 12}
   damage: 30
   hitShield: 1
   damageType: 0

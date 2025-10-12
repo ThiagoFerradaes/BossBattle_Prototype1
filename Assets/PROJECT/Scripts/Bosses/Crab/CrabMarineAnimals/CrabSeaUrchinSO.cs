@@ -7,8 +7,7 @@ public class CrabSeaUrchinSO : CrabMarineAnimalSO {
 
     [Header("Explosion atributes")]
     [SerializeField] float explosionRadius;
-    [SerializeField] float stunDuration;
-
+ 
     [Header("Damage atributes")]
     [SerializeField] float explosionDamage;
     [SerializeField] bool hitShield;
@@ -28,12 +27,6 @@ public class CrabSeaUrchinSO : CrabMarineAnimalSO {
             for (int i = 0; i < prefabs.Count; i++) {
                 if (prefabs[i].PrefabType == TypeOfSkillPrefab.Hitbox) InstantiateHitBox(prefabs[i]);
                 else InstantiateVFX(prefabs[i]);
-            }
-        }
-
-        foreach (var unit in colliders) {
-            if (unit.gameObject.TryGetComponent<StunManager>(out StunManager stun)) {
-                stun.StunWithTimer(stunDuration, true);
             }
         }
     }

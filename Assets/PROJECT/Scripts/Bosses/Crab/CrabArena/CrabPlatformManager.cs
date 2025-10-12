@@ -220,11 +220,10 @@ public class CrabPlatformManager : MonoBehaviour
 
     IEnumerator HandleHighTideBombs()
     {
+        yield return new WaitForSeconds(arenaInfo.BombsCooldownToAppear/3);
+
         while (CrabArenaManager.Instance.ReturnCurrentTide() == CrabArenaState.HighTide)
         {
-
-            yield return new WaitForSeconds(arenaInfo.BombsCooldownToAppear);
-
             var inactiveBombs = _dictionaryOfBombs
                 .Where(kv => !kv.Value.activeInHierarchy)
                 .ToList();
@@ -242,12 +241,20 @@ public class CrabPlatformManager : MonoBehaviour
             bombGO.transform.position = bombPos;
             bombGO.GetComponent<HealthManager>().Revive();
             bombGO.SetActive(true);
+
+            float timer = 0;
+            while (timer < arenaInfo.BombsCooldownToAppear && CrabArenaManager.Instance.ReturnCurrentTide() == CrabArenaState.HighTide)
+            {
+                timer += Time.deltaTime;
+                yield return null;
+            }
         }
 
         foreach (var bomb in _dictionaryOfBombs.Values)
         {
             bomb.SetActive(false);
         }
+
         _highTideBombCoroutine = null;
     }
 

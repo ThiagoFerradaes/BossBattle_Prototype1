@@ -26,8 +26,8 @@ MonoBehaviour:
   attackAnimationName: Water Sun Attack
   animationLayer: 1
   attackPreparationDuration: 5
-  cooldownBetweenAttacks: 2
   playerPositionYOffSet: 0.5
+  preparingAttackSize: {x: 1, y: 1, z: 50}
   layersToHit:
     serializedVersion: 2
     m_Bits: 256
@@ -37,9 +37,9 @@ MonoBehaviour:
       Value:
       - TimeToSpawnPreFab: 0
         PrefabDuration: 0
-        PreFabName: CubeContinuosDamageColliderExtensor
+        PreFabName: CubeExtensorWarning
         PrefabType: 0
-        PreFab: {fileID: 8271028322271159555, guid: 58e75b5151ba07948b3a51a16adf318c, type: 3}
+        PreFab: {fileID: 8271028322271159555, guid: c1c1dd6d35a091e4183c97297c167094, type: 3}
         PreFabPosition: {x: 0, y: 0, z: 0}
     - Key: 1
       Value:
@@ -49,10 +49,10 @@ MonoBehaviour:
         PrefabType: 0
         PreFab: {fileID: 8271028322271159555, guid: 58e75b5151ba07948b3a51a16adf318c, type: 3}
         PreFabPosition: {x: 0, y: 0, z: 0}
-  attackSize: {x: 1, y: 1, z: 50}
+  attackSize: {x: 2, y: 2, z: 50}
   attackDuration: 3
   attackDamageCooldown: 0.25
-  damage: 1
+  damage: 20
   hitShield: 0
   unitsToHit: 0100000002000000
   damageType: 1

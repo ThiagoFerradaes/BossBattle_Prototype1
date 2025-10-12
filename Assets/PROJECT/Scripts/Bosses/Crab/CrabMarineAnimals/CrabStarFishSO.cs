@@ -14,7 +14,7 @@ public class CrabStarFishSO : CrabMarineAnimalSO {
 
         if (!other.TryGetComponent<HealthManager>(out HealthManager health)) return;
 
-        if (_vfx != null) InstantiateVFX(_vfx);
+        if (_vfx.PreFab != null) InstantiateVFX(_vfx);
 
         health.Heal(healAmount);
     }

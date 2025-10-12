@@ -82,6 +82,13 @@ public class EnemyBehaviourManager : MonoBehaviour
     }
 
     public Dictionary<int, bool> ReturnActiveChannels() => _activeChannels;
+
+    public bool ReturnIfChannelIsOpen(int channel)
+    {
+        if (!_openChannels.ContainsKey(channel)) return false;
+
+        return _openChannels[channel];
+    }
     #endregion
 
 }

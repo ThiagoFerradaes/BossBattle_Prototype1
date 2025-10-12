@@ -10,6 +10,7 @@ public class CrabJumpAttack : EnemyBehaviourSO {
     // Componentes
     CrabManager _crabManager;
     Animator _anim;
+    StunManager _stunManager;
 
     [Header("Animation")]
     [SerializeField] string preparingAnimationParameter;
@@ -36,6 +37,9 @@ public class CrabJumpAttack : EnemyBehaviourSO {
     [SerializeField] List<Tags> unitsToHitTag;
     [SerializeField] GameObject jumpHitBox;
 
+    [Header("Stun")]
+    [SerializeField] float stunDuration;
+
     public override void StartState(EnemyBehaviourManager parent) {
         base.StartState(parent);
 
@@ -58,6 +62,7 @@ public class CrabJumpAttack : EnemyBehaviourSO {
 
         _crabManager = parent as CrabManager;
         _anim = _crabManager.Anim;
+        _stunManager = parent.GetComponent<StunManager>();
 
     }
 
@@ -95,6 +100,12 @@ public class CrabJumpAttack : EnemyBehaviourSO {
         InstantiateHitBox();
 
         _crabManager.CooldownManager.SetSkillCooldown(this);
+
+        _stunManager.StunCharacter(true);
+
+        yield return new WaitForSeconds(stunDuration);
+
+        _stunManager.StunCharacter(false);
 
         _crabManager.StartCoroutine(CooldownBetweenAttacksRoutine());
     }
