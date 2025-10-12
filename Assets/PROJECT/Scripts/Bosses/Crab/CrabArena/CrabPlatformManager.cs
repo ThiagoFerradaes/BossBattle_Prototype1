@@ -10,7 +10,7 @@ using Random = UnityEngine.Random;
 [Serializable]
 public class PathWay
 {
-    public Vector3[] pathPoint;
+    public Transform[] pathPoint;
 }
 public class CrabPlatformManager : MonoBehaviour
 {

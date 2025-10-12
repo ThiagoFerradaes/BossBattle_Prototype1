@@ -29,6 +29,15 @@ public class CrabWaterMeteorAttack : EnemyBehaviourSO {
     [SerializeField] string animationName;
     [SerializeField] int animationLayer;
 
+    [Header("Warning Atributes")]
+    [SerializeField] float warningRepetitionAmount;
+    [SerializeField] float warningTimeOn;
+    [SerializeField] float warningCooldown;
+    [SerializeField] float cooldownBetweenWarningAndAttack;
+    [SerializeField] string warningName;
+    [SerializeField] Vector3 warningSize;
+    [SerializeField] GameObject warningObject;
+
     #region Initialize
     public override void StartState(EnemyBehaviourManager parent) {
         base.StartState(parent);
@@ -74,6 +83,10 @@ public class CrabWaterMeteorAttack : EnemyBehaviourSO {
 
                 for (int j = 0; j < prefabList.Count; j++) {
                     var prefab = prefabList[j];
+
+                    yield return _crabManager.StartCoroutine(WarningRoutine(pos));
+
+                    yield return new WaitForSeconds(cooldownBetweenWarningAndAttack);
 
                     if (prefab.PrefabType == TypeOfSkillPrefab.Hitbox) InstantiateHitBox(prefab, pos);
                     else InstantiateVFX(prefab, pos);
@@ -121,5 +134,20 @@ public class CrabWaterMeteorAttack : EnemyBehaviourSO {
         preFab.transform.SetPositionAndRotation(pos, Quaternion.identity);
 
         preFab.GetComponent<VFXPreFab>().Initialize(prefab.PrefabDuration);
+    }
+
+    IEnumerator WarningRoutine(Vector3 pos)
+    {
+        GameObject warning = PoolingManager.Instance.ReturnPrefabFromPool(warningName, warningObject, TypeOfSkillPrefab.VFX);
+        warning.transform.localScale = warningSize;
+        warning.transform.position = pos;
+
+        for (int i = 0; i < warningRepetitionAmount; i++)
+        {
+            warning.SetActive(true);
+            yield return new WaitForSeconds(warningTimeOn);
+            warning.SetActive(false);
+            yield return new WaitForSeconds(warningCooldown);
+        }
     }
 }

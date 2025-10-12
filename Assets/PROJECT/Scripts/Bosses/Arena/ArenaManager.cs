@@ -1,5 +1,6 @@
 using NaughtyAttributes;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public enum TypeOfArena { Ring, Square, Paths }
@@ -82,7 +83,7 @@ public class ArenaManager : MonoBehaviour
 
         // Escolhendo um ponto aleatório do caminho
         int randomPath = Random.Range(0, paths.Count);
-        Vector3[] pathPoints = paths[randomPath].pathPoint;
+        Transform[] pathPoints = paths[randomPath].pathPoint;
 
         // Declarando variáveis
         float totalLenght = 0f;
@@ -91,7 +92,7 @@ public class ArenaManager : MonoBehaviour
 
         // Definindo o tamanho total do caminho
         for (int i = 0; i < amountOfSegmentes; i++) {
-            float dis = Vector3.Distance(pathPoints[i], pathPoints[i + 1]);
+            float dis = Vector3.Distance(pathPoints[i].position, pathPoints[i + 1].position);
             segments[i] = dis;
             totalLenght += dis;
         }
@@ -104,7 +105,7 @@ public class ArenaManager : MonoBehaviour
 
             if (randomPoint < segments[i]) {
                 float percent = randomPoint / segments[i];
-                return Vector3.Lerp(pathPoints[i], pathPoints[i + 1], percent);
+                return Vector3.Lerp(pathPoints[i].position, pathPoints[i + 1].position, percent);
             }
 
             randomPoint -= segments[i];
