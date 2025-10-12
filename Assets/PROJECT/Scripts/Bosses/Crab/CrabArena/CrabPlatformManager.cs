@@ -10,7 +10,7 @@ using Random = UnityEngine.Random;
 [Serializable]
 public class PathWay
 {
-    public Transform[] pathPoint;
+    public List<Transform> pathPoint;
 }
 public class CrabPlatformManager : MonoBehaviour
 {
@@ -26,6 +26,10 @@ public class CrabPlatformManager : MonoBehaviour
     [SerializeField] LayerMask platformOrAnimalLayer;
     int _platformContacts = 0;
 
+    [Header("High Tide Barriers")]
+    [SerializeField] List<Transform> listOfPossibleBarriers;
+    Dictionary<Transform, GameObject> _dictionaryOfBombs = new();
+
     // Components
     ContinuosDamageHitBox _incomingTideAttack;
     GameObject _player;
@@ -35,6 +39,7 @@ public class CrabPlatformManager : MonoBehaviour
 
     // Coroutine
     Coroutine _instantiateAnimalCoroutine;
+    Coroutine _highTideBombCoroutine;
 
     #endregion
 
@@ -53,6 +58,17 @@ public class CrabPlatformManager : MonoBehaviour
         ArenaManager.Instance.SetPathPoints(paths);
 
         _player = PlayerManager.Instance.Player;
+
+        foreach (var path in paths)
+        {
+            foreach (var t in path.pathPoint)
+            {
+                if (_dictionaryOfBombs.ContainsKey(t)) continue;
+
+                _dictionaryOfBombs[t] = Instantiate(arenaInfo.BombPrefab);
+                _dictionaryOfBombs[t].transform.localScale = Vector3.one * arenaInfo.BombSize;
+            }
+        }
     }
 
     private void OnDestroy()
@@ -100,6 +116,7 @@ public class CrabPlatformManager : MonoBehaviour
             if (_player != null) _player.transform.SetParent(null);
         });
 
+        _highTideBombCoroutine ??= StartCoroutine(HandleHighTideBombs());
     }
     void HandleIncomingTide()
     {
@@ -192,6 +209,58 @@ public class CrabPlatformManager : MonoBehaviour
         _instantiateAnimalCoroutine = null;
     }
 
+    IEnumerator HandleHighTideBombs()
+    {
+        while (CrabArenaManager.Instance.ReturnCurrentTide() == CrabArenaState.HighTide)
+        {
+            yield return new WaitForSeconds(arenaInfo.BombsCooldownToAppear);
+
+            bool allBombsActivated = true;
+            foreach (var bomb in _dictionaryOfBombs.Values)
+            {
+                if (bomb.activeInHierarchy == false) allBombsActivated = false;
+            }
+
+            if (allBombsActivated) continue;
+
+
+            int rngPaths = Random.Range(0, paths.Count);
+
+            bool allBombsInPathAreActivated = true;
+
+            while (allBombsInPathAreActivated)
+            {
+                foreach (Transform t in paths[rngPaths].pathPoint)
+                {
+                    if (_dictionaryOfBombs[t].activeInHierarchy == false) allBombsInPathAreActivated = false;
+                }
+
+                rngPaths = (rngPaths + 1) % paths.Count;
+
+                yield return null;
+            }
+
+            int rngBomb = Random.Range(0, paths[rngPaths].pathPoint.Count);
+
+            bool bombActivated = true;
+
+            while (bombActivated)
+            {
+                if (_dictionaryOfBombs[paths[rngPaths].pathPoint[rngBomb]].activeInHierarchy == false) bombActivated = false;
+
+                rngBomb = (rngBomb + 1) % paths[rngPaths].pathPoint.Count;
+
+                yield return null;
+            }
+
+            Vector3 bombPos = paths[rngPaths].pathPoint[rngBomb].position;
+            bombPos.y += arenaInfo.BombHeight;
+            _dictionaryOfBombs[paths[rngPaths].pathPoint[rngBomb]].transform.position = bombPos;
+            _dictionaryOfBombs[paths[rngPaths].pathPoint[rngBomb]].SetActive(true);
+        }
+
+        _highTideBombCoroutine = null;
+    }
     #endregion
 
     #region Trigger
@@ -218,7 +287,7 @@ public class CrabPlatformManager : MonoBehaviour
         _platformContacts--;
         if (_platformContacts <= 0)
         {
-            _platformContacts = 0; 
+            _platformContacts = 0;
         }
     }
     #endregion

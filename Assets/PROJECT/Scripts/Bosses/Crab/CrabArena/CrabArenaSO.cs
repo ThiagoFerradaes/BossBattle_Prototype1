@@ -28,6 +28,11 @@ public class CrabArenaSO : ScriptableObject
     public float DurationOfHeightTide = 15;
     public float PlatformUpSpeed = 5;
     public float PlatformHighTideHeight = 4;
+    public float BombAmountOfFlatTimeReduced = 5;
+    public float BombsCooldownToAppear = 5;
+    public float BombHeight = 1;
+    public float BombSize = 3;
+    public GameObject BombPrefab;
 
     [Header("Outgoing Tide Atributes")]
     public float DurationOfOutgoingTide = 2;

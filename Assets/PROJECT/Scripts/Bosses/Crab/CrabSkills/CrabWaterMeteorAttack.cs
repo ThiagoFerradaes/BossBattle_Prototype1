@@ -108,6 +108,7 @@ public class CrabWaterMeteorAttack : EnemyBehaviourSO {
         return pos;
     }
 
+    #region Instantiate
     void InstantiateHitBox(SkillAnimationEvent prefab, Vector3 pos) {
         GameObject hitbox = PoolingManager.Instance.ReturnPrefabFromPool(prefab.PreFabName, prefab.PreFab, TypeOfSkillPrefab.Hitbox);
         hitbox.transform.localScale = Vector3.one * meteorSize;
@@ -150,4 +151,5 @@ public class CrabWaterMeteorAttack : EnemyBehaviourSO {
             yield return new WaitForSeconds(warningCooldown);
         }
     }
+    #endregion
 }

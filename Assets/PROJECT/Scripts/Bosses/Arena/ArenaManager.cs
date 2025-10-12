@@ -83,11 +83,11 @@ public class ArenaManager : MonoBehaviour
 
         // Escolhendo um ponto aleatório do caminho
         int randomPath = Random.Range(0, paths.Count);
-        Transform[] pathPoints = paths[randomPath].pathPoint;
+        List<Transform> pathPoints = paths[randomPath].pathPoint;
 
         // Declarando variáveis
         float totalLenght = 0f;
-        int amountOfSegmentes = pathPoints.Length - 1;
+        int amountOfSegmentes = pathPoints.Count - 1;
         float[] segments = new float[amountOfSegmentes];
 
         // Definindo o tamanho total do caminho
