@@ -35,23 +35,24 @@ public class CharactersSo : ScriptableObject
     public Character Character => character;
 
     /// <summary>
-    /// Retrieves the appropriate dialogue for a specific event.
+    /// Retrieves the dialogue associated with a specific event.
     /// </summary>
     /// <param name="eventToTrigger">The event that triggers the dialogue</param>
-    /// <returns>The dialogue system to use, or null if none exists</returns>
+    /// <returns>The dialogue system associated with the event, or null if none exists</returns>
     public DialogueSystemSo DialogueEvents(DialogueEvent eventToTrigger) =>
         eventDialogues.GetValueOrDefault(eventToTrigger);
     
     /// <summary>
-    /// Calculates a character's preference level for a given environmental characteristic value.
+    /// Evaluates a character's preference level for a given environmental characteristic value.
     /// </summary>
     /// <param name="characteristic">The environmental characteristic to evaluate</param>
-    /// <param name="value">The value to assess</param>
-    /// <returns>Preference score between -1 (strong dislike) and 1 (strong like)</returns>
+    /// <param name="value">The value to assess against the preference range</param>
+    /// <returns>Preference score ranging from -1 (strong dislike) to 1 (strong like)</returns>
     public float CalculatePreference(TypeOfEnvironmentCharacteristic characteristic, float value)
     {
         if (!preferences.TryGetValue(characteristic, out var preference)) return 0;
         
+        // Check if value falls within preferred range
         if (value >= preference.range.x && value <= preference.range.y)
         {
             if (preference.isExtreme) return preference.importance;
@@ -65,21 +66,23 @@ public class CharactersSo : ScriptableObject
 
         if (preference.isExtreme) return -preference.importance;
         
+        // Calculate negative preference for values below range
         if (value < preference.range.x)
         {
             return -math.saturate((preference.range.x - value) / preference.range.x) * preference.importance;
         }
 
+        // Calculate negative preference for values above range
         return value > preference.range.y ? 
             -math.saturate((value - preference.range.y) / (100 - preference.range.y)) * preference.importance : 0;
     }
 
     /// <summary>
-    /// Retrieves an appropriate dialogue based on the current friendship level.
+    /// Retrieves the most appropriate dialogue based on the current friendship level.
     /// </summary>
-    /// <param name="friendshipLevel">Current friendship level with the character</param>
-    /// <param name="availableDialogues">Dictionary of available dialogue options</param>
-    /// <returns>The most appropriate dialogue system, or null if none available</returns>
+    /// <param name="friendshipLevel">Current relationship level with the character</param>
+    /// <param name="availableDialogues">Collection of available dialogue options</param>
+    /// <returns>The most suitable dialogue system, or null if none available</returns>
     public DialogueSystemSo GetDialogueForFriendshipLevel(float friendshipLevel, 
         Dictionary<DialogueSystemSo, CharacterDialogue> availableDialogues) =>
         availableDialogues
@@ -88,16 +91,16 @@ public class CharactersSo : ScriptableObject
             .FirstOrDefault();
     
     /// <summary>
-    /// Provides read-only access to all character preferences.
+    /// Returns a mutable copy of character dialogues.
     /// </summary>
-    public IReadOnlyDictionary<TypeOfEnvironmentCharacteristic, PreferenceRange> Preferences() => 
-        new Dictionary<TypeOfEnvironmentCharacteristic, PreferenceRange>(preferences);
-    
+    /// <returns>Dictionary containing dialogue systems and their associated data</returns>
+    public Dictionary<DialogueSystemSo, CharacterDialogue> Dialogues() => new(characterDialogues);
+
     /// <summary>
-    /// Provides read-only access to all character dialogues.
+    /// Returns a mutable copy of character preferences.
     /// </summary>
-    public IReadOnlyDictionary<DialogueSystemSo, CharacterDialogue> Dialogues() => 
-        new Dictionary<DialogueSystemSo, CharacterDialogue>(characterDialogues);
+    /// <returns>Dictionary containing environmental characteristics and their preference ranges</returns>
+    public Dictionary<TypeOfEnvironmentCharacteristic, PreferenceRange> Preferences() => new(preferences);
 }
 
 [Serializable]

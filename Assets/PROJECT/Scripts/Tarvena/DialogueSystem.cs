@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -134,6 +135,7 @@ public class DialogueSystem : MonoBehaviour
     private void CompletedDialogue(DialogueSystemSo obj)
     {
         OnComplicitEvent?.Invoke(obj);
+        dialogues = null;
     }
     #endregion
 
@@ -180,7 +182,7 @@ public class DialogueSystem : MonoBehaviour
     /// Starts a new dialogue sequence
     /// </summary>
     /// <param name="dialogueSystemSo">New dialogue system to use</param>
-    public void NewDialogue(DialogueSystemSo dialogueSystemSo)
+    public Task NewDialogue(DialogueSystemSo dialogueSystemSo)
     {
         if (dialogues is not null && dialogues != dialogueSystemSo)
         {
@@ -191,6 +193,8 @@ public class DialogueSystem : MonoBehaviour
         dialogues = dialogueSystemSo;
         SetupDialogueUI();
         UpdateLanguage(_config.GetLanguage());
+        
+        return Task.CompletedTask;
     }
     #endregion
 
