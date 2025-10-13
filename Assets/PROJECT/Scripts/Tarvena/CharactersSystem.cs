@@ -16,9 +16,10 @@ public class CharactersSystem : MonoBehaviour
     private readonly Dictionary<DialogueSystemSo, CharacterDialogue> _availableDialogues = new();
     private readonly Dictionary<FurnitureFeaturesSo, FurnitureFeatures> _furniture = new();
     private readonly Dictionary<TypeOfEnvironmentCharacteristic,int> _availableEvents = new();
-
+    
     public event Action<DialogueSystemSo> OnDialogueEvent;
 
+    [Tooltip("Local copy of the character's dialogue system")] 
     [SerializeField] private DialogueSystem dialogueSystem;
     
     [Tooltip("Current friendship level with the character")]
@@ -155,7 +156,7 @@ public class CharactersSystem : MonoBehaviour
     {
         foreach (var (key, value) in _furniture[furniture].Furniture)
         {
-            _availableEvents[key] += value;
+            _availableEvents[key] += value.value;
         }
     }
 
@@ -167,7 +168,7 @@ public class CharactersSystem : MonoBehaviour
     {
         foreach (var (key, val) in value.Furniture)
         {
-            _availableEvents[key] -= val;
+            _availableEvents[key] -= val.value;
         }
     }
 
@@ -240,14 +241,14 @@ public class CharactersSystem : MonoBehaviour
 [Serializable]
 public class FurnitureFeatures
 {
-    public Dictionary<TypeOfEnvironmentCharacteristic, byte> Furniture { get; }
+    public Dictionary<TypeOfEnvironmentCharacteristic, ClampedVar<sbyte>> Furniture { get; }
     public byte Count { get; private set; }
     
     /// <summary>
     /// Initializes a new instance of furniture features.
     /// </summary>
     /// <param name="characteristics">Initial characteristics dictionary</param>
-    public FurnitureFeatures(IReadOnlyDictionary<TypeOfEnvironmentCharacteristic, byte> characteristics)
+    public FurnitureFeatures(IReadOnlyDictionary<TypeOfEnvironmentCharacteristic, ClampedVar<sbyte>> characteristics)
     {
         Furniture = characteristics.ToDictionary(x => x.Key, x => x.Value);
         Count = 1;

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using AYellowpaper.SerializedCollections;
+using NaughtyAttributes;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -111,7 +112,8 @@ public class PreferenceRange
     [Tooltip("Weighting factor for this preference (0-1)")]
     public float importance;
     [Tooltip("Acceptable value range (x: minimum, y: maximum)")]
-    public float2 range;
+    [MinMaxSlider(0,100)]
+    public Vector2 range;
 }
 
 [Serializable]
