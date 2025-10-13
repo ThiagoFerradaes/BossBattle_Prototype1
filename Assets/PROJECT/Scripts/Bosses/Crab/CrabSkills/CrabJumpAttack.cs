@@ -10,6 +10,7 @@ public class CrabJumpAttack : EnemyBehaviourSO {
     // Componentes
     CrabManager _crabManager;
     Animator _anim;
+    StunManager _stunManager;
 
     [Header("Animation")]
     [SerializeField] string preparingAnimationParameter;
@@ -27,7 +28,6 @@ public class CrabJumpAttack : EnemyBehaviourSO {
     [SerializeField] float minDistanceToJump;
 
     [Header("Attack Atributes")]
-    [SerializeField] float cooldownBetweenThisAttackAndNext;
     [SerializeField] float damage;
     [SerializeField] float jumpHitBoxSize;
     [SerializeField] float hitBoxDuration;
@@ -36,6 +36,9 @@ public class CrabJumpAttack : EnemyBehaviourSO {
     [SerializeField] DamageType damageType;
     [SerializeField] List<Tags> unitsToHitTag;
     [SerializeField] GameObject jumpHitBox;
+
+    [Header("Stun")]
+    [SerializeField] float stunDuration;
 
     public override void StartState(EnemyBehaviourManager parent) {
         base.StartState(parent);
@@ -59,6 +62,7 @@ public class CrabJumpAttack : EnemyBehaviourSO {
 
         _crabManager = parent as CrabManager;
         _anim = _crabManager.Anim;
+        _stunManager = parent.GetComponent<StunManager>();
 
     }
 
@@ -97,7 +101,13 @@ public class CrabJumpAttack : EnemyBehaviourSO {
 
         _crabManager.CooldownManager.SetSkillCooldown(this);
 
-        _crabManager.StartCoroutine(CooldownBetweenAttacks());
+        _stunManager.StunCharacter(true);
+
+        yield return new WaitForSeconds(stunDuration);
+
+        _stunManager.StunCharacter(false);
+
+        _crabManager.StartCoroutine(CooldownBetweenAttacksRoutine());
     }
 
     Vector3 ReturnPositionCloseToPlayer() {
@@ -125,10 +135,5 @@ public class CrabJumpAttack : EnemyBehaviourSO {
         InstantDamageHitBox hitBox = prefab.GetComponent<InstantDamageHitBox>();
         hitBox.Initialize(context);
     }
-    
-    IEnumerator CooldownBetweenAttacks() {
-        yield return new WaitForSeconds(cooldownBetweenThisAttackAndNext);
-        _crabManager.ChangeBehaviourAtRandom();
 
-    }
 }

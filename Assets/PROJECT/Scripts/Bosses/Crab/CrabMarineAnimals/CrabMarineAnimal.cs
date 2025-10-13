@@ -9,6 +9,7 @@ public class CrabMarineAnimal : MonoBehaviour {
 
     [Header("Components")]
     [SerializeField] CrabMarineAnimalSO MarineAnimalInfo;
+    [HideInInspector] public CrabManager CrabManager;
 
     // Coroutines
     Coroutine _durationCoroutine;
@@ -20,6 +21,8 @@ public class CrabMarineAnimal : MonoBehaviour {
         gameObject.SetActive(true);
 
         _durationCoroutine ??= StartCoroutine(Duration());
+
+        if (CrabManager == null ) CrabManager = CrabArenaManager.Instance.CrabM; 
     }
 
     IEnumerator Duration() {

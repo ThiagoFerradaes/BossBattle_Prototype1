@@ -1,6 +1,7 @@
 using AYellowpaper.SerializedCollections;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Crab/ Skills/ WaterSun")]
@@ -19,7 +20,9 @@ public class CrabWaterSunAttack : EnemyBehaviourSO {
 
     [Header("Preparing attack atributes")]
     [SerializeField] float attackPreparationDuration;
-    [SerializeField] float cooldownBetweenAttacks;
+    [SerializeField] float playerPositionYOffSet;
+    [SerializeField] Vector3 preparingAttackSize;
+    [SerializeField] LayerMask layersToHit;
     [SerializedDictionary("Combo", "List"), SerializeField] SerializedDictionary<int, List<SkillAnimationEvent>> prefabs;
 
     [Header("Attack atributes")]
@@ -57,6 +60,7 @@ public class CrabWaterSunAttack : EnemyBehaviourSO {
     }
     #endregion
 
+    #region Attack
     IEnumerator WaterSunAttackRoutine() {
         _anim.SetTrigger(preparingAnimationParameter);
 
@@ -67,18 +71,7 @@ public class CrabWaterSunAttack : EnemyBehaviourSO {
             yield return null;
         } while (!stateInfo.IsName(preparingAnimationName));
 
-        float timer = 0f;
-
-        while (timer < attackPreparationDuration) {
-            timer += Time.deltaTime;
-
-            Vector3 dir = (_crabManager.Player.transform.position - _apicem.position).normalized;
-            dir.y = 0;
-
-            _apicem.transform.rotation = Quaternion.LookRotation(dir, Vector3.up);
-
-            yield return null;
-        }
+        yield return _crabManager.StartCoroutine(PreparingAttack());
 
         _anim.SetBool(attackAnimationParameter, true);
 
@@ -87,42 +80,112 @@ public class CrabWaterSunAttack : EnemyBehaviourSO {
             yield return null;
         } while (!stateInfo.IsName(attackAnimationName));
 
+        yield return _crabManager.StartCoroutine(AttackRoutine(stateInfo));
+
+        EndAttack();
+    }
+
+    IEnumerator PreparingAttack() {
+        List<GameObject> listOfPreparingGameObjects = new();
+        if (prefabs != null) {
+
+            var prefab = prefabs[0];
+
+            foreach (var skillEvent in prefab) {
+                if (skillEvent.PrefabType == TypeOfSkillPrefab.Hitbox) { GameObject hitbox = InstantiateHitBox(skillEvent, preparingAttackSize); listOfPreparingGameObjects.Add(hitbox); }
+                else InstantiateVFX(skillEvent);
+            }
+        }
+
+        foreach (var obj in listOfPreparingGameObjects) {
+            obj.SetActive(true);
+        }
+
+        float timer = 0f;
+
+        while (timer < attackPreparationDuration) {
+            timer += Time.deltaTime;
+
+            Vector3 playerPos = _crabManager.Player.transform.position;
+            playerPos.y += playerPositionYOffSet;
+            Vector3 dir = (playerPos - _apicem.position).normalized;
+
+            _apicem.transform.rotation = Quaternion.LookRotation(dir, Vector3.up);
+
+            if (Physics.Raycast(_apicem.transform.position, dir, out RaycastHit hit, attackSize.z, layersToHit)) {
+                foreach (var obj in listOfPreparingGameObjects) {
+                    obj.transform.localScale = new Vector3(obj.transform.localScale.x, obj.transform.localScale.y, hit.distance);
+                }
+            }
+            else {
+                foreach (var obj in listOfPreparingGameObjects) {
+                    obj.transform.localScale = new Vector3(obj.transform.localScale.x, obj.transform.localScale.y, attackSize.z);
+                }
+            }
+
+            yield return null;
+        }
+
+        foreach (var obj in listOfPreparingGameObjects) {
+            obj.transform.SetParent(null);
+            obj.SetActive(false);
+        }
+    }
+
+    IEnumerator AttackRoutine(AnimatorStateInfo stateInfo) {
+        List<GameObject> listOfGameObjects = new();
+
         int attackHash = stateInfo.fullPathHash;
 
         if (prefabs != null) {
             var prefab = prefabs[1];
-            foreach(var skillEvent in prefab) {
+            foreach (var skillEvent in prefab) {
 
                 do {
                     stateInfo = _anim.GetCurrentAnimatorStateInfo(animationLayer);
                     yield return null;
                 } while (attackHash == stateInfo.fullPathHash && stateInfo.normalizedTime < skillEvent.TimeToSpawnPreFab);
 
-                if (skillEvent.PrefabType == TypeOfSkillPrefab.Hitbox) InstantiateHitBox(skillEvent);
+                if (skillEvent.PrefabType == TypeOfSkillPrefab.Hitbox) { GameObject hitbox = InstantiateHitBox(skillEvent, attackSize); listOfGameObjects.Add(hitbox); }
                 else InstantiateVFX(skillEvent);
             }
         }
 
-        yield return new WaitForSeconds(attackDuration);
+        float timer = 0f;
+
+        while (timer < attackDuration) {
+            timer += Time.deltaTime;
+
+            if (Physics.Raycast(_apicem.transform.position, _apicem.transform.forward, out RaycastHit hit, attackSize.z, layersToHit)) {
+                foreach (var obj in listOfGameObjects) {
+                    obj.transform.localScale = new Vector3(obj.transform.localScale.x, obj.transform.localScale.y, hit.distance);
+                }
+            }
+            else {
+                foreach (var obj in listOfGameObjects) {
+                    obj.transform.localScale = new Vector3(obj.transform.localScale.x, obj.transform.localScale.y, attackSize.z);
+                }
+            }
+            yield return null;
+        }
+    }
+
+    void EndAttack() {
 
         _anim.SetBool(attackAnimationParameter, false);
 
         _crabManager.CooldownManager.SetSkillCooldown(this);
 
-        _crabManager.StartCoroutine(CooldownBetweenAttacks());
+        _crabManager.StartCoroutine(CooldownBetweenAttacksRoutine());
     }
+    #endregion
 
-    IEnumerator CooldownBetweenAttacks() {
-        yield return new WaitForSeconds(cooldownBetweenAttacks);
-
-        _crabManager.ChangeBehaviourAtRandom(Channel);
-    }
-
-    void InstantiateHitBox(SkillAnimationEvent prefab) {
+    #region Instantiate
+    GameObject InstantiateHitBox(SkillAnimationEvent prefab, Vector3 size) {
         GameObject hitbox = PoolingManager.Instance.ReturnPrefabFromPool(prefab.PreFabName, prefab.PreFab, TypeOfSkillPrefab.Hitbox);
-        hitbox.transform.localScale = attackSize;
+        hitbox.transform.localScale = size;
         hitbox.transform.SetParent(_apicem.transform, false);
-        Vector3 pos = new(prefab.PreFabPosition.x, prefab.PreFabPosition.y, attackSize.z/2);
+        Vector3 pos = prefab.PreFabPosition;
 
         hitbox.transform.SetLocalPositionAndRotation(pos, Quaternion.identity);
 
@@ -138,10 +201,12 @@ public class CrabWaterSunAttack : EnemyBehaviourSO {
                 {ExtraDamageContextAtributes.DamageCooldown, attackDamageCooldown}
            }
            );
-        ContinuosDamageHitBox hitBox = hitbox.GetComponent<ContinuosDamageHitBox>();
+        if (hitbox.TryGetComponent<ContinuosDamageHitBox>(out ContinuosDamageHitBox damageHitBox)) { damageHitBox.Initialize(newContext); }
 
-        hitBox.Initialize(newContext);
+        return hitbox;
     }
 
     void InstantiateVFX(SkillAnimationEvent prefab) { }
+
+    #endregion
 }

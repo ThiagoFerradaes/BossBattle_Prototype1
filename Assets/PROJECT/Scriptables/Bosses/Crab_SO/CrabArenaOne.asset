@@ -15,7 +15,7 @@ MonoBehaviour:
   InitialState: 0
   ListOfPlatforms:
   - {fileID: 1952327732340147867, guid: 0e74b412bb7c3224999b747a7bb7b43e, type: 3}
-  DurationOfLowTide: 6
+  DurationOfLowTide: 45
   PlatformDownSpeed: 2
   PlatformLowTideHeight: 0
   IncomingTideDuration: 20
@@ -24,14 +24,25 @@ MonoBehaviour:
   IncomingTideAttackDamagSize: 100
   IncomingTideAttackHitBoxName: CrabIncomingTideAttackHitBox
   IncomingTideAttackHitBox: {fileID: 8998219623033830514, guid: f2cad2093c1cc8042a97d053a88618a0, type: 3}
-  DurationOfHeightTide: 500
+  DurationOfHightTide: 30
   PlatformUpSpeed: 3
-  PlatformHighTideHeight: 3.5
+  PlatformHighTideHeight: 4.5
+  BombAmountOfFlatTimeReduced: 5
+  BombsCooldownToAppear: 10
+  BombHeight: 1
+  BombSize: 2.5
+  BombPrefab: {fileID: 3459603688208005765, guid: 03dd4c80985b3074da8a00ff3e311ba7, type: 3}
+  BarrierUpDuration: 1.5
+  BarrierDownOffset: 5
+  TimeToSpawnBarrier: 3
+  BarrierPrefab: {fileID: 4406477102190814343, guid: b01cc34f14a93dc4ea010ecae90fb699, type: 3}
   DurationOfOutgoingTide: 0.5
-  AnimalDistance: 2
+  AnimalDistance: 5
   AnimalHeight: 0.5
-  AmountOfAnimals: 3
+  AmountOfAnimals: 6
   ListOfAnimals:
     _serializedList:
+    - Key: CrabSeaUrchin
+      Value: {fileID: 8799205782696860131, guid: 61573a04f030bd44bb52522bbcbb56e7, type: 3}
     - Key: CrabStarFish
       Value: {fileID: 8799205782696860131, guid: 7fdf4392d0aa9024c88f309e0b5fa640, type: 3}

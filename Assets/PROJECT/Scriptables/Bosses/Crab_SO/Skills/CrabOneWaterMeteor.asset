@@ -13,14 +13,18 @@ MonoBehaviour:
   m_Name: CrabOneWaterMeteor
   m_EditorClassIdentifier: Assembly-CSharp::CrabWaterMeteorAttack
   Priority: 1
-  Channel: 1
   Cooldown: 0
-  cooldownBetweenAttacks: 2
-  amountOfAttacks: 15
-  cooldownBetweenMeteors: 0.4
+  CooldownBetweenAttacks: 2
+  Channel: 1
+  OpenNewChannels: 0
+  ListOfChannelsToOpen: 
+  CloseOldChannels: 0
+  ListOfChannelsToClose: 
+  amountOfAttacks: 12
+  cooldownBetweenMeteors: 0.25
   maxDistanceToPlayer: 4
-  meteorFallSpeed: 25
-  meteorSize: 1.5
+  meteorFallSpeed: 100
+  meteorSize: 2
   prefabs:
   - TimeToSpawnPreFab: 0
     PrefabDuration: 0
@@ -29,10 +33,17 @@ MonoBehaviour:
     PreFab: {fileID: 5556882484380889040, guid: 73183662ed7be604f90dff0cc2f277ff, type: 3}
     PreFabPosition: {x: 0, y: 40, z: 0}
   projectileDistance: 40
-  damage: 1
+  damage: 50
   hitShield: 1
   unitsToHit: 0100000002000000
   damageType: 1
   animationParameter: WaterMeteor
   animationName: Water Meteor
   animationLayer: 1
+  warningRepetitionAmount: 3
+  warningTimeOn: 0.12
+  warningCooldown: 0.12
+  cooldownBetweenWarningAndAttack: 0.2
+  warningName: CylinderWarning
+  warningSize: {x: 3, y: 0.1, z: 3}
+  warningObject: {fileID: 3488190071178869052, guid: da0b001cfeddc2a409839928998d2897, type: 3}

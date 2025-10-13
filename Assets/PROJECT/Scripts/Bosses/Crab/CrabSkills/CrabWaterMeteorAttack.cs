@@ -10,7 +10,6 @@ public class CrabWaterMeteorAttack : EnemyBehaviourSO {
     StatusManager _statusManager;
 
     [Header("Attack atributes")]
-    [SerializeField] float cooldownBetweenAttacks;
     [SerializeField] float amountOfAttacks;
     [SerializeField] float cooldownBetweenMeteors;
     [SerializeField] float maxDistanceToPlayer;
@@ -29,6 +28,15 @@ public class CrabWaterMeteorAttack : EnemyBehaviourSO {
     [SerializeField] string animationParameter;
     [SerializeField] string animationName;
     [SerializeField] int animationLayer;
+
+    [Header("Warning Atributes")]
+    [SerializeField] float warningRepetitionAmount;
+    [SerializeField] float warningTimeOn;
+    [SerializeField] float warningCooldown;
+    [SerializeField] float cooldownBetweenWarningAndAttack;
+    [SerializeField] string warningName;
+    [SerializeField] Vector3 warningSize;
+    [SerializeField] GameObject warningObject;
 
     #region Initialize
     public override void StartState(EnemyBehaviourManager parent) {
@@ -76,6 +84,10 @@ public class CrabWaterMeteorAttack : EnemyBehaviourSO {
                 for (int j = 0; j < prefabList.Count; j++) {
                     var prefab = prefabList[j];
 
+                    yield return _crabManager.StartCoroutine(WarningRoutine(pos));
+
+                    yield return new WaitForSeconds(cooldownBetweenWarningAndAttack);
+
                     if (prefab.PrefabType == TypeOfSkillPrefab.Hitbox) InstantiateHitBox(prefab, pos);
                     else InstantiateVFX(prefab, pos);
                 }
@@ -88,19 +100,15 @@ public class CrabWaterMeteorAttack : EnemyBehaviourSO {
 
         _crabManager.CooldownManager.SetSkillCooldown(this);
 
-        _crabManager.StartCoroutine(CooldownBetweenAttacks());
+        _crabManager.StartCoroutine(CooldownBetweenAttacksRoutine());
     }
     Vector3 FindAPosition() {
         Vector3 pos = ArenaManager.Instance.GetRandomPosition();
         pos.y = ArenaManager.Instance.FindGroundHeight(pos);
         return pos;
     }
-    IEnumerator CooldownBetweenAttacks() {
-        yield return new WaitForSeconds(cooldownBetweenAttacks);
 
-        _crabManager.ChangeBehaviourAtRandom(Channel);
-    }
-
+    #region Instantiate
     void InstantiateHitBox(SkillAnimationEvent prefab, Vector3 pos) {
         GameObject hitbox = PoolingManager.Instance.ReturnPrefabFromPool(prefab.PreFabName, prefab.PreFab, TypeOfSkillPrefab.Hitbox);
         hitbox.transform.localScale = Vector3.one * meteorSize;
@@ -128,4 +136,20 @@ public class CrabWaterMeteorAttack : EnemyBehaviourSO {
 
         preFab.GetComponent<VFXPreFab>().Initialize(prefab.PrefabDuration);
     }
+
+    IEnumerator WarningRoutine(Vector3 pos)
+    {
+        GameObject warning = PoolingManager.Instance.ReturnPrefabFromPool(warningName, warningObject, TypeOfSkillPrefab.VFX);
+        warning.transform.localScale = warningSize;
+        warning.transform.position = pos;
+
+        for (int i = 0; i < warningRepetitionAmount; i++)
+        {
+            warning.SetActive(true);
+            yield return new WaitForSeconds(warningTimeOn);
+            warning.SetActive(false);
+            yield return new WaitForSeconds(warningCooldown);
+        }
+    }
+    #endregion
 }

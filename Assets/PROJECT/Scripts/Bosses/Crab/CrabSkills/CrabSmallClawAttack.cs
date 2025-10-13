@@ -22,7 +22,6 @@ public class CrabSmallClawAttack : EnemyBehaviourSO
 
     [Header("Walk Atributes")]
     [SerializeField] float distanceToPlayer = 2;
-    [SerializeField] float cooldownBetweenThisAttackAndNext = 2;
     [SerializeField] float rotationSpeed = 6;
     [SerializeField] List<SkillAnimationEvent> prefabs;
 
@@ -71,7 +70,7 @@ public class CrabSmallClawAttack : EnemyBehaviourSO
 
         _crabManager.CooldownManager.SetSkillCooldown(this);
 
-        _crabManager.StartCoroutine(CooldownBetweenAttacks());
+        _crabManager.StartCoroutine(CooldownBetweenAttacksRoutine());
     }
 
     IEnumerator Attack()
@@ -123,12 +122,6 @@ public class CrabSmallClawAttack : EnemyBehaviourSO
 
             if (j < amoutOfAttacks - 1) yield return new WaitForSeconds(cooldownBetweenAttacks);
         }
-    }
-    IEnumerator CooldownBetweenAttacks()
-    {
-        yield return new WaitForSeconds(cooldownBetweenThisAttackAndNext);
-        _crabManager.ChangeBehaviourAtRandom();
-
     }
 
     void InstantiateHitBox(SkillAnimationEvent prefab)

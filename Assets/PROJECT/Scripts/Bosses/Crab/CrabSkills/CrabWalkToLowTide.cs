@@ -1,11 +1,11 @@
 using AYellowpaper.SerializedCollections;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Crab/ Skills/ WalkToLowTidePosition")]
-public class CrabWalkToLowTide : EnemyBehaviourSO
-{
+public class CrabWalkToLowTide : EnemyBehaviourSO {
     CrabManager _crabManager;
     Animator _anim;
 
@@ -13,7 +13,8 @@ public class CrabWalkToLowTide : EnemyBehaviourSO
     [SerializeField] float percentOfHighTide;
     [SerializeField] float lowTideHeight;
     [SerializeField] float offSet;
-    [SerializedDictionary("Wall, Position"), SerializeField] SerializedDictionary<CrabArenaWall,Vector3> listOfPossibleFinalPositions = new();
+    [SerializeField] float cooldownBetweenAttacks;
+    [SerializedDictionary("Wall, Position"), SerializeField] SerializedDictionary<CrabArenaWall, Vector3> listOfPossibleFinalPositions = new();
 
     [Header("Animation")]
     [SerializeField] string changeTideAnimationParameter;
@@ -21,8 +22,7 @@ public class CrabWalkToLowTide : EnemyBehaviourSO
     [SerializeField] int animationLayer;
     [SerializeField] List<SkillAnimationEvent> prefabs;
 
-    public override void StartState(EnemyBehaviourManager parent)
-    {
+    public override void StartState(EnemyBehaviourManager parent) {
         base.StartState(parent);
 
         Initialize(parent);
@@ -30,23 +30,29 @@ public class CrabWalkToLowTide : EnemyBehaviourSO
         _crabManager.StartCoroutine(WalkToPosition());
     }
 
-    public override bool MeetsCondition()
-    {
+    public override bool MeetsCondition() {
         if (CrabArenaManager.Instance.ReturnCurrentTide() == CrabArenaState.HighTide && CrabArenaManager.Instance.ReturnCurrentTidePercent() >= percentOfHighTide) return true;
 
         return false;
     }
 
-    void Initialize(EnemyBehaviourManager parent)
-    {
+    void Initialize(EnemyBehaviourManager parent) {
         if (_crabManager != null) return;
 
         _crabManager = parent as CrabManager;
         _anim = _crabManager.Anim;
     }
 
-    IEnumerator WalkToPosition()
-    {
+    IEnumerator WalkToPosition() {
+
+        while (true) {
+            var activeChannels = _crabManager.ReturnActiveChannels();
+
+            if (!ListOfChannelsToClose.Any(a => activeChannels.ContainsKey(a) && activeChannels[a]))
+                break;
+
+            yield return null;
+        }
 
         #region Animate and ChangeTide
 
@@ -54,26 +60,22 @@ public class CrabWalkToLowTide : EnemyBehaviourSO
 
         AnimatorStateInfo stateInfo = _anim.GetCurrentAnimatorStateInfo(animationLayer);
 
-        do
-        { // Esperando entrar na animação correta
+        do { // Esperando entrar na animação correta
             yield return null;
             stateInfo = _anim.GetCurrentAnimatorStateInfo(animationLayer);
         } while (!stateInfo.IsName(changeTideAnimationName));
 
 
-        if (prefabs != null)
-        {
+        if (prefabs != null) {
             var listOfPreffabs = prefabs;
             listOfPreffabs.Sort((a, b) => a.TimeToSpawnPreFab.CompareTo(b.TimeToSpawnPreFab));
 
             int attackHash = stateInfo.fullPathHash;
 
-            for (int i = 0; i < listOfPreffabs.Count; i++)
-            {
+            for (int i = 0; i < listOfPreffabs.Count; i++) {
                 var prefab = listOfPreffabs[i];
 
-                do
-                { // Esperando o tempo pra instanciar
+                do { // Esperando o tempo pra instanciar
                     yield return null;
                     stateInfo = _anim.GetCurrentAnimatorStateInfo(animationLayer);
                 } while (stateInfo.fullPathHash == attackHash && stateInfo.normalizedTime < prefab.TimeToSpawnPreFab);
@@ -82,8 +84,7 @@ public class CrabWalkToLowTide : EnemyBehaviourSO
                 else InstantiateVFX(prefab);
             }
 
-            do
-            { // Esperando a animação terminar
+            do { // Esperando a animação terminar
                 yield return null;
                 stateInfo = _anim.GetCurrentAnimatorStateInfo(animationLayer);
             } while (stateInfo.fullPathHash == attackHash && stateInfo.normalizedTime < 1);
@@ -95,12 +96,12 @@ public class CrabWalkToLowTide : EnemyBehaviourSO
         CrabArenaWall currentWall = _crabManager.ReturnCurrentWall();
 
         Vector3 pos = listOfPossibleFinalPositions[currentWall];
-
-        Vector3 dir = (pos - Vector3.zero).normalized;
+        Vector3 pos2 = new(0, pos.y, 0);
+        Vector3 dir = (pos - pos2).normalized;
 
         Vector3 finalPosition = pos + (dir * offSet);
 
-        _crabManager.WalkToTarget(0, finalPosition);
+        _crabManager.WalkToTarget(0, finalPosition, false);
         #endregion
 
         yield return _crabManager.ReturnWalkCoroutine();
@@ -118,12 +119,12 @@ public class CrabWalkToLowTide : EnemyBehaviourSO
 
         yield return _crabManager.ReturnWalkCoroutine();
 
+        _crabManager.StartCoroutine(CooldownBetweenAttacksRoutine());
         #endregion
     }
 
     void InstantiateHitBox(SkillAnimationEvent prefab) { }
-    void InstantiateVFX(SkillAnimationEvent prefab)
-    {
+    void InstantiateVFX(SkillAnimationEvent prefab) {
         GameObject hitbox = PoolingManager.Instance.ReturnPrefabFromPool(prefab.PreFabName, prefab.PreFab, TypeOfSkillPrefab.VFX);
         hitbox.transform.position = prefab.PreFabPosition;
 

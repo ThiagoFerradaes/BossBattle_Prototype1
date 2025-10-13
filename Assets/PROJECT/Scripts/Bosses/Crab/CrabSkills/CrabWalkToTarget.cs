@@ -15,12 +15,14 @@ public class CrabWalkToTarget : ScriptableObject
     [SerializeField] float curveMagnetude;
     [SerializeField] float walkTolerance;
 
-    public void WalkToTarget(CrabManager manager, Vector3 target, float distanceToTarget, ref Coroutine walkRoutine)
+    public void WalkToTarget(CrabManager manager, Vector3 target, float distanceToTarget, ref Coroutine walkRoutine, bool considerTolerance)
     {
         if (_crabManager == null) _crabManager = manager;
 
-        float currentDistanceToTarget = Vector3.Distance(_crabManager.transform.position, target);
-        if (currentDistanceToTarget <= distanceToTarget + walkTolerance) return;
+        if (considerTolerance) {
+            float currentDistanceToTarget = Vector3.Distance(_crabManager.transform.position, target);
+            if (currentDistanceToTarget <= distanceToTarget + walkTolerance) return;
+        }
 
         walkRoutine ??= _crabManager.StartCoroutine(WalkToTargetRoutine(distanceToTarget, target));
     }

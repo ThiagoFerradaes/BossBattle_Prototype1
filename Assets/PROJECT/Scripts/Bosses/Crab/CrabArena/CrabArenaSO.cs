@@ -25,9 +25,18 @@ public class CrabArenaSO : ScriptableObject
     public GameObject IncomingTideAttackHitBox;
 
     [Header("High Tide Atributes")]
-    public float DurationOfHeightTide = 15;
+    public float DurationOfHightTide = 15;
     public float PlatformUpSpeed = 5;
     public float PlatformHighTideHeight = 4;
+    public float BombAmountOfFlatTimeReduced = 5;
+    public float BombsCooldownToAppear = 5;
+    public float BombHeight = 1;
+    public float BombSize = 3;
+    public GameObject BombPrefab;
+    public float BarrierUpDuration = 2;
+    public float BarrierDownOffset = 5;
+    public float TimeToSpawnBarrier = 3;
+    public GameObject BarrierPrefab;
 
     [Header("Outgoing Tide Atributes")]
     public float DurationOfOutgoingTide = 2;

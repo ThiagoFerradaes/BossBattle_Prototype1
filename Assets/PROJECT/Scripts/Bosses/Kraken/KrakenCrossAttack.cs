@@ -3,7 +3,6 @@ using UnityEngine;
 
 [CreateAssetMenu(menuName = "Kraken / CrossAttack")]
 public class KrakenCrossAttack : EnemyBehaviourSO {
-    [SerializeField] float cooldownBetweenAttacks;
     [SerializeField] float cooldownBetweenCrossAttacks;
     [SerializeField] float preparingSpeed;
     [SerializeField] float hitSpeed;
@@ -73,10 +72,7 @@ public class KrakenCrossAttack : EnemyBehaviourSO {
             }
         }
 
-        _krakenManager.StartCoroutine(CooldownBetweenAttacks());
+        _krakenManager.StartCoroutine(CooldownBetweenAttacksRoutine());
     }
-    IEnumerator CooldownBetweenAttacks() {
-        yield return new WaitForSeconds(cooldownBetweenAttacks);
-        _krakenManager.ChangeBehaviourAtRandom();
-    }
+
 }

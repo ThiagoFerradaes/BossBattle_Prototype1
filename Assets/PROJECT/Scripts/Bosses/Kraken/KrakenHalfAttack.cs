@@ -4,7 +4,6 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Kraken / HalfAttack")]
 public class KrakenHalfAttack : EnemyBehaviourSO {
     [SerializeField] float cooldownBetweenHalfAttacks;
-    [SerializeField] float cooldownBetweenAttacks;
     [SerializeField] float preparingSpeed;
     [SerializeField] float hitSpeed;
     [SerializeField] float tentacleDownTime;
@@ -80,11 +79,7 @@ public class KrakenHalfAttack : EnemyBehaviourSO {
         // Esperando a animação do ultimo tentáculo acabar
         yield return _krakenManager.ReturnTentacleCoroutine(secondTentacleIndex);
 
-        _krakenManager.StartCoroutine(CooldownBetweenAttacks());
+        _krakenManager.StartCoroutine(CooldownBetweenAttacksRoutine());
     }
 
-    IEnumerator CooldownBetweenAttacks() {
-        yield return new WaitForSeconds(cooldownBetweenAttacks);
-        _krakenManager.ChangeBehaviourAtRandom();
-    }
 }

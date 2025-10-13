@@ -22,6 +22,7 @@ public class BossInitialAttack : EnemyBehaviourSO {
             yield return null;
         }
 
+        enemyBehaviourManager.OpenChannel(Channel);
         enemyBehaviourManager.ChangeBehaviourAtRandom();
     }
 }

@@ -1,0 +1,61 @@
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Animations;
+
+[CreateAssetMenu(menuName = "Crab/ MarineAnimals/ SeaUrchin")]
+public class CrabSeaUrchinSO : CrabMarineAnimalSO {
+
+    [Header("Explosion atributes")]
+    [SerializeField] float explosionRadius;
+ 
+    [Header("Damage atributes")]
+    [SerializeField] float explosionDamage;
+    [SerializeField] bool hitShield;
+    [SerializeField] DamageType damageType;
+    [SerializeField] List<SkillAnimationEvent> prefabs;
+
+    CrabMarineAnimal _parent;
+
+    public override void OnTrigger(Collider other, CrabMarineAnimal parent) {
+        base.OnTrigger(other, parent);
+
+        _parent = parent;
+
+        Collider[] colliders = Physics.OverlapSphere(parent.transform.position, explosionRadius);
+
+        if (prefabs != null) {
+            for (int i = 0; i < prefabs.Count; i++) {
+                if (prefabs[i].PrefabType == TypeOfSkillPrefab.Hitbox) InstantiateHitBox(prefabs[i]);
+                else InstantiateVFX(prefabs[i]);
+            }
+        }
+    }
+    
+    void InstantiateHitBox(SkillAnimationEvent prefab) {
+        GameObject hitbox = PoolingManager.Instance.ReturnPrefabFromPool(prefab.PreFabName, prefab.PreFab, TypeOfSkillPrefab.Hitbox);
+        hitbox.transform.position = _parent.transform.position;
+        hitbox.transform.localScale = explosionRadius * Vector3.one;
+
+        DamageContext context = new(
+            explosionDamage, 
+            explosionDamage,
+            prefab.PrefabDuration,
+            hitShield,
+            damageType,
+            ListOfTags,
+            _parent.CrabManager.GetComponent<StatusManager>()
+            );
+
+        InstantDamageHitBox damage = hitbox.GetComponent<InstantDamageHitBox>();
+        damage.Initialize(context);
+    }
+
+    void InstantiateVFX(SkillAnimationEvent prefab) {
+        GameObject hitbox = PoolingManager.Instance.ReturnPrefabFromPool(prefab.PreFabName, prefab.PreFab, TypeOfSkillPrefab.VFX);
+        hitbox.transform.position = _parent.transform.position;
+        hitbox.transform.localScale = explosionRadius * Vector3.one;
+
+        VFXPreFab damage = hitbox.GetComponent<VFXPreFab>();
+        damage.Initialize(prefab.PrefabDuration);
+    }
+}

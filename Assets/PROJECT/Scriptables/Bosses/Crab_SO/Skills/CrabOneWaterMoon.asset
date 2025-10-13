@@ -13,8 +13,13 @@ MonoBehaviour:
   m_Name: CrabOneWaterMoon
   m_EditorClassIdentifier: Assembly-CSharp::CrabWaterMoonAttack
   Priority: 1
-  Channel: 2
   Cooldown: 0
+  CooldownBetweenAttacks: 2
+  Channel: 2
+  OpenNewChannels: 0
+  ListOfChannelsToOpen: 
+  CloseOldChannels: 0
+  ListOfChannelsToClose: 
   animationParameter: WaterMoon
   animationName: WaterMoon_Shot
   animationLayer: 2
@@ -24,17 +29,16 @@ MonoBehaviour:
     PreFabName: SphereProjectile
     PrefabType: 0
     PreFab: {fileID: 5556882484380889040, guid: 73183662ed7be604f90dff0cc2f277ff, type: 3}
-    PreFabPosition: {x: 0, y: 4.5, z: 0.5}
+    PreFabPosition: {x: 0, y: 0, z: 2}
   attackAngleAmplitude: 120
   cooldownBetweenShoots: 0.3
   cooldownRotations: 0.3
   rootationSpeed: 15
   durationOfRotationToRight: 0.3
-  cooldownBetweenAttacks: 2
   projectileSize: 1.5
   projectileSpeed: 30
   projectileDistance: 40
-  damage: 1
+  damage: 20
   hitShield: 1
   unitsToHit: 0100000002000000
   damageType: 1

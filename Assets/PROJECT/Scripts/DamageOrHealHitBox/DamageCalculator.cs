@@ -1,6 +1,16 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public enum DamageType { Abyssal, Ancestral, Pure}
+[Serializable]
+public class DamageAtributes {
+    public float MinDamage;
+    public float MaxDamage;
+    public bool HitShield;
+    public DamageType DamageType;
+    public List<Tags> UnitsToHit;
+}
 public static class DamageCalculator
 {
     public static (float,bool) CalculateDamage( // Considerando o crítico do personagem

@@ -12,12 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ae5556f7c5f63d41a0038fa9ba77850, type: 3}
   m_Name: CrabOneWalkToLowTidePosition
   m_EditorClassIdentifier: Assembly-CSharp::CrabWalkToLowTide
-  Priority: 1
+  Priority: 5
+  Cooldown: 2
+  CooldownBetweenAttacks: 0.5
   Channel: 0
-  Cooldown: 0
+  OpenNewChannels: 0
+  ListOfChannelsToOpen: 
+  CloseOldChannels: 1
+  ListOfChannelsToClose: 0100000002000000
   percentOfHighTide: 0.85
   lowTideHeight: 0
-  offSet: 12
+  offSet: 24
+  cooldownBetweenAttacks: 2
   listOfPossibleFinalPositions:
     _serializedList:
     - Key: 0
