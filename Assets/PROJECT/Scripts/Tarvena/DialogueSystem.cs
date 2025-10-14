@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using MyEnum;
 
 /// <summary>
 /// Manages the dialogue system for displaying text, choices, and handling language localization.

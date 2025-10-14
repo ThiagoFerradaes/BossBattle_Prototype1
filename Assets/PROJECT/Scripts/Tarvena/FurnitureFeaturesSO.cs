@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using AYellowpaper.SerializedCollections;
 using UnityEngine;
+using MyEnum;
 
 /// <summary>
 /// ScriptableObject that defines and manages furniture properties within the tavern system.

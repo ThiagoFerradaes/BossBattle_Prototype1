@@ -1,5 +1,6 @@
 using UnityEditor;
 using UnityEngine;
+using MyEnum;
 
 namespace PROJECT.Scripts.Editor
 {

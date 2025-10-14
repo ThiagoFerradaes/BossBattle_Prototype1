@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using UnityEngine;
+using MyEnum;
 
 /// <summary>
 /// ScriptableObject that manages game configuration settings including language preferences,

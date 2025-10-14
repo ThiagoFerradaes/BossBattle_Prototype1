@@ -5,6 +5,7 @@ using AYellowpaper.SerializedCollections;
 using NaughtyAttributes;
 using Unity.Mathematics;
 using UnityEngine;
+using MyEnum;
 
 /// <summary>
 /// ScriptableObject that manages character preferences and dialogue interactions within the tavern system.
