@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using MyEnum;
 
 public class ConfigurationManager : MonoBehaviour
 {
