@@ -2,7 +2,10 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+// Script responsable for the walk and rotation of characters that use inputs to walk and rotate
+// Uses the camera as the reference for what is foward
 public enum RotationType { MouseRotation, MoveRotation }
+[RequireComponent(typeof(Rigidbody), typeof(StunManager), typeof(StatusManager))]
 public class PlayerMovementManager : MonoBehaviour {
     #region Parameters
 
@@ -140,6 +143,10 @@ public class PlayerMovementManager : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Rotate the character towards the mouse direction
+    /// </summary>
+    /// <param name="lerp"></param>
     public void RotateMouse(bool lerp) {
         if (!_canRotate || !_canMove || Time.timeScale == 0) return;
 
@@ -161,16 +168,35 @@ public class PlayerMovementManager : MonoBehaviour {
     #endregion
 
     #region Setters
+    /// <summary>
+    /// Block any type of movement
+    /// </summary>
+    /// <param name="block"></param>
     public void BlockMovement(bool block) => _canMove = !block;
+
+    /// <summary>
+    /// Block the walking
+    /// </summary>
+    /// <param name="block"></param>
     public void BlockWalk(bool block) => _canWalk = !block;
-    public void BlockRotation(bool block) => _canRotate = !block;
+
+    /// <summary>
+    /// Change the rotation type to mouse or front of the character
+    /// </summary>
+    /// <param name="type"></param>
     public void ChangeRotationType(RotationType type) => _rotationType = type;
+
+    /// <summary>
+    /// Tell the PlayerMovementManager that the player is or is not dashing
+    /// </summary>
+    /// <param name="isDashing"></param>
     public void ChangeIsDashing(bool isDashing) => _isDashing = isDashing;
 
     #endregion
 
     #region Animation
-    public void UpdateWalkingAnimation() {
+
+    void UpdateWalkingAnimation() {
         bool isWalking = new Vector2(_xInput, _zInput).magnitude > 0.1f;
         _anim.SetBool(walkingAnimationParameter, isWalking);
     }

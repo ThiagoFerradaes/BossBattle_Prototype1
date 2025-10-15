@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Rendering;
 
+// Script responsible for the health of all characters in the game who receive damage.
+// It is also responsible for the shield that the character receives.
+[RequireComponent(typeof(StatusManager))]
 public class HealthManager : MonoBehaviour {
 
     #region Paramethers
@@ -121,7 +123,7 @@ public class HealthManager : MonoBehaviour {
     /// </summary>
     public void Revive()
     {
-        _canTakeDamage = true;
+        SetCanTakeDamage();
         _isDead = false;
 
         ChangeHealth(_maxHealth);
@@ -138,7 +140,7 @@ public class HealthManager : MonoBehaviour {
     }
 
     /// <summary>
-    /// 
+    /// Recieve the amount of shield for a set duration
     /// </summary>
     /// <param name="shieldAmount"></param>
     /// <param name="shieldDuration"></param>
@@ -171,6 +173,9 @@ public class HealthManager : MonoBehaviour {
         _shieldCoroutine = null;
     }
 
+    /// <summary>
+    /// Change the shield to 0
+    /// </summary>
     public void BreakShield() {
         ChangeShield(0);
     }
