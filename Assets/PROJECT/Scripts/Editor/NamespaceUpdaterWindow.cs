@@ -256,7 +256,8 @@ namespace PROJECT.Scripts.Editor
             string relativePath = path
                 .Replace("Assets/", "")
                 .TrimStart('/')
-                .Replace("/", ".");
+                .Replace("/", ".")
+                .Replace(" ", "");
 
             // 🔹 Se quiser SEMPRE basear apenas na pasta, ignora o rootNamespace completamente
             string newNs = relativePath;
