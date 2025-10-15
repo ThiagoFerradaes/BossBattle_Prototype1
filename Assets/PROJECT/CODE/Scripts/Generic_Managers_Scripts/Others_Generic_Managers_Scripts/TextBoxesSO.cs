@@ -1,6 +1,7 @@
 using AYellowpaper.SerializedCollections;
 using UnityEngine;
 using UnityEngine.Serialization;
+using MyEnum;
 
 /// <summary>
 /// ScriptableObject that manages text content in different languages.
