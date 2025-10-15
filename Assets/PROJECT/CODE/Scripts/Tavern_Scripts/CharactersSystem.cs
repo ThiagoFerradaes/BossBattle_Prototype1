@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
+using MyEnum;
 
 /// <summary>
 /// Manages character interactions, furniture preferences, and friendship systems within the tavern.
