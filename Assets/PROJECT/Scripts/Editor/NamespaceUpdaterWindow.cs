@@ -13,7 +13,7 @@ namespace PROJECT.Scripts.Editor
     /// </summary>
     public class NamespaceUpdaterWindow : EditorWindow
     {
-        #region Internal Types
+      #region Internal Types
 
         /// <summary>
         /// Settings class that stores namespace updater configurations.
@@ -22,6 +22,7 @@ namespace PROJECT.Scripts.Editor
         public class NamespaceUpdaterSettings : ScriptableObject
         {
             public bool includeEditorScripts;
+            public bool autoCreateAsmdefs = true;
             public List<string> ignoredFolders = new() { "Plugins", "ThirdParty", "External", "Generated" };
 
             private const string AssetPath = "Assets/Editor/NamespaceUpdaterSettings.asset";
@@ -33,7 +34,7 @@ namespace PROJECT.Scripts.Editor
             {
                 var settings = AssetDatabase.LoadAssetAtPath<NamespaceUpdaterSettings>(AssetPath);
                 if (settings != null) return settings;
-                
+
                 settings = CreateInstance<NamespaceUpdaterSettings>();
                 Directory.CreateDirectory(Path.GetDirectoryName(AssetPath)!);
                 AssetDatabase.CreateAsset(settings, AssetPath);
@@ -48,7 +49,7 @@ namespace PROJECT.Scripts.Editor
         private readonly struct NamespacePreview
         {
             public readonly string Path;
-            public readonly string CurrentNamespace; 
+            public readonly string CurrentNamespace;
             public readonly string NewNamespace;
 
             public NamespacePreview(string path, string currentNamespace, string newNamespace)
@@ -76,7 +77,7 @@ namespace PROJECT.Scripts.Editor
         public static void ShowWindow()
         {
             var window = GetWindow<NamespaceUpdaterWindow>("Namespace Updater");
-            window.minSize = new Vector2(800, 400);
+            window.minSize = new Vector2(850, 450);
         }
 
         #endregion
@@ -91,7 +92,7 @@ namespace PROJECT.Scripts.Editor
             DrawSettings();
             DrawActionButtons();
             DrawPreviewList();
-            
+
             // Auto-save settings
             if (GUI.changed)
             {
@@ -104,8 +105,7 @@ namespace PROJECT.Scripts.Editor
         {
             EditorGUILayout.Space(5);
             EditorGUILayout.LabelField(" Namespace Updater Tool", EditorStyles.boldLabel);
-            EditorGUILayout.HelpBox("Automatically updates script namespaces based on folder structure.",
-                MessageType.Info);
+            EditorGUILayout.HelpBox("Automatically updates script namespaces and asmdefs based on folder structure.", MessageType.Info);
             EditorGUILayout.Space(10);
         }
 
@@ -115,6 +115,7 @@ namespace PROJECT.Scripts.Editor
 
             DrawFolderSelector();
             DrawEditorScriptsToggle();
+            DrawAsmdefToggle();
             DrawIgnoredFolders();
         }
 
@@ -124,9 +125,7 @@ namespace PROJECT.Scripts.Editor
             EditorGUILayout.LabelField("Base folder:", GUILayout.Width(90));
             EditorGUILayout.SelectableLabel(_filterPath, EditorStyles.textField, GUILayout.Height(18));
             if (GUILayout.Button("Select folder", GUILayout.Width(130)))
-            {
                 SelectBaseFolder();
-            }
             EditorGUILayout.EndHorizontal();
         }
 
@@ -147,6 +146,16 @@ namespace PROJECT.Scripts.Editor
             GUILayout.Space(5);
             _settings.includeEditorScripts = EditorGUILayout.Toggle(_settings.includeEditorScripts, GUILayout.Width(20));
             EditorGUILayout.LabelField("Include scripts in 'Editor' folders", GUILayout.ExpandWidth(true));
+            EditorGUILayout.EndHorizontal();
+            EditorGUILayout.Space(5);
+        }
+
+        private void DrawAsmdefToggle()
+        {
+            EditorGUILayout.BeginHorizontal();
+            GUILayout.Space(5);
+            _settings.autoCreateAsmdefs = EditorGUILayout.Toggle(_settings.autoCreateAsmdefs, GUILayout.Width(20));
+            EditorGUILayout.LabelField("Auto-create & sync Assembly Definitions (.asmdef)", GUILayout.ExpandWidth(true));
             EditorGUILayout.EndHorizontal();
             EditorGUILayout.Space(5);
         }
@@ -203,70 +212,6 @@ namespace PROJECT.Scripts.Editor
 
         #region Core Logic
 
-        /// <summary>
-        /// Ensures that the folder containing the file has a matching Assembly Definition (.asmdef)
-        /// with the same name as the namespace.
-        /// </summary>
-        private void EnsureAssemblyDefinition(string directoryPath, string namespaceName)
-        {
-            if (string.IsNullOrEmpty(directoryPath) || !Directory.Exists(directoryPath))
-                return;
-
-            string[] asmdefFiles = Directory.GetFiles(directoryPath, "*.asmdef", SearchOption.TopDirectoryOnly);
-
-            // Desired path for new asmdef
-            string targetAsmdefPath = Path.Combine(directoryPath, $"{namespaceName}.asmdef");
-
-            if (asmdefFiles.Length == 0)
-            {
-                // Create new asmdef
-                var json = "{\n" +
-                           $"  \"name\": \"{namespaceName}\",\n" +
-                           "  \"rootNamespace\": \"" + namespaceName + "\"\n" +
-                           "}";
-                File.WriteAllText(targetAsmdefPath, json);
-                Debug.Log($"Created new asmdef: {targetAsmdefPath}");
-                return;
-            }
-
-            // If there's an existing asmdef, check its name
-            string existingPath = asmdefFiles[0];
-            string content = File.ReadAllText(existingPath);
-
-            var match = Regex.Match(content, "\"name\"\\s*:\\s*\"([^\"]+)\"");
-            if (match.Success)
-            {
-                string existingName = match.Groups[1].Value;
-                if (existingName != namespaceName)
-                {
-                    // Update name and rootNamespace
-                    content = Regex.Replace(content, "\"name\"\\s*:\\s*\"([^\"]+)\"", $"\"name\": \"{namespaceName}\"");
-                    if (content.Contains("\"rootNamespace\""))
-                        content = Regex.Replace(content, "\"rootNamespace\"\\s*:\\s*\"([^\"]+)\"",
-                            $"\"rootNamespace\": \"{namespaceName}\"");
-                    else
-                        content = content.TrimEnd('}', '\n', '\r', ' ') +
-                                  $",\n  \"rootNamespace\": \"{namespaceName}\"\n}}";
-
-                    File.WriteAllText(existingPath, content);
-
-                    // Rename file if name doesn't match
-                    if (!existingPath.EndsWith($"{namespaceName}.asmdef"))
-                    {
-                        string newPath = Path.Combine(directoryPath, $"{namespaceName}.asmdef");
-                        
-                        File.Move(existingPath, newPath);
-                        
-                        Debug.Log($"Renamed asmdef: {existingPath} → {newPath}");
-                    }
-                }
-            }
-        }
-
-
-        /// <summary>
-        /// Scans project for files needing namespace updates.
-        /// </summary>
         private void ScanProject()
         {
             _previewList.Clear();
@@ -306,15 +251,24 @@ namespace PROJECT.Scripts.Editor
             string currentNs = Regex.Match(content, @"namespace\s+([a-zA-Z0-9_.]+)").Groups[1].Value;
 
             string path = Path.GetDirectoryName(file)?.Replace("\\", "/") ?? "";
-            string relativePath = path.Replace("Assets/", "").Replace("/", ".");
-            string newNs = $"{rootNamespace}.{relativePath}".Replace("..", ".");
+
+            // Remove "Assets/" e transforma o restante em formato de namespace
+            string relativePath = path
+                .Replace("Assets/", "")
+                .TrimStart('/')
+                .Replace("/", ".");
+
+            // 🔹 Se quiser SEMPRE basear apenas na pasta, ignora o rootNamespace completamente
+            string newNs = relativePath;
+
+            // 🔸 Se estiver na raiz "Assets/" (sem subpastas), evita namespace vazio
+            if (string.IsNullOrEmpty(newNs))
+                newNs = "Global"; // ou outro nome padrão, tipo "Root"
 
             return (currentNs, newNs);
+            
         }
 
-        /// <summary>
-        /// Applies namespace changes to all scanned files.
-        /// </summary>
         private void ApplyChanges()
         {
             if (_previewList.Count == 0)
@@ -331,11 +285,12 @@ namespace PROJECT.Scripts.Editor
                 try
                 {
                     UpdateFile(item, backupDir);
-                    
-                    string folder = Path.GetDirectoryName(item.Path);
-                    if (!string.IsNullOrEmpty(folder))
+
+                    if (_settings.autoCreateAsmdefs)
                     {
-                        EnsureAssemblyDefinition(folder, item.NewNamespace);
+                        string folder = Path.GetDirectoryName(item.Path);
+                        if (!string.IsNullOrEmpty(folder))
+                            EnsureAssemblyDefinition(folder, item.NewNamespace);
                     }
                 }
                 catch (Exception ex)
@@ -343,7 +298,7 @@ namespace PROJECT.Scripts.Editor
                     Debug.LogError($"Error updating {item.Path}: {ex.Message}");
                 }
             }
-            
+
             AssetDatabase.Refresh();
             Debug.Log($" Successfully updated {_previewList.Count} files!");
         }
@@ -362,19 +317,130 @@ namespace PROJECT.Scripts.Editor
         }
 
         /// <summary>
-        /// Detects root namespace based on the project structure.
+        /// Ensures the folder has a matching Assembly Definition (.asmdef).
         /// </summary>
+        private void EnsureAssemblyDefinition(string directoryPath, string namespaceName)
+        {
+            if (string.IsNullOrEmpty(directoryPath) || !Directory.Exists(directoryPath))
+                return;
+
+            string[] asmdefFiles = Directory.GetFiles(directoryPath, "*.asmdef", SearchOption.TopDirectoryOnly);
+            string targetAsmdefPath = Path.Combine(directoryPath, $"{namespaceName}.asmdef");
+
+            // Detect dependencies before creating/updating
+            List<string> detectedDependencies = DetectAsmdefDependencies(directoryPath);
+
+            if (asmdefFiles.Length == 0)
+            {
+                var json = "{\n" +
+                           $"  \"name\": \"{namespaceName}\",\n" +
+                           $"  \"rootNamespace\": \"{namespaceName}\",\n" +
+                           $"  \"references\": [\n{string.Join(",\n", detectedDependencies.Select(d => $"    \"{d}\""))}\n  ]\n" +
+                           "}";
+                File.WriteAllText(targetAsmdefPath, json);
+                Debug.Log($"Created new asmdef: {targetAsmdefPath}");
+                return;
+            }
+
+            string existingPath = asmdefFiles[0];
+            string content = File.ReadAllText(existingPath);
+            var match = Regex.Match(content, "\"name\"\\s*:\\s*\"([^\"]+)\"");
+            if (!match.Success) return;
+
+            string existingName = match.Groups[1].Value;
+            bool changed = false;
+
+            // Update name/rootNamespace if needed
+            if (existingName != namespaceName)
+            {
+                content = Regex.Replace(content, "\"name\"\\s*:\\s*\"([^\"]+)\"", $"\"name\": \"{namespaceName}\"");
+                changed = true;
+            }
+
+            if (content.Contains("\"rootNamespace\""))
+                content = Regex.Replace(content, "\"rootNamespace\"\\s*:\\s*\"([^\"]+)\"",
+                    $"\"rootNamespace\": \"{namespaceName}\"");
+            else
+                content = content.TrimEnd('}', '\n', '\r', ' ') + $",\n  \"rootNamespace\": \"{namespaceName}\"\n}}";
+
+            // Update references section
+            string refsJson = string.Join(",\n", detectedDependencies.Select(d => $"    \"{d}\""));
+            if (Regex.IsMatch(content, "\"references\"\\s*:\\s*\\[[^\\]]*\\]"))
+                content = Regex.Replace(content, "\"references\"\\s*:\\s*\\[[^\\]]*\\]",
+                    $"\"references\": [\n{refsJson}\n  ]");
+            else
+                content = content.TrimEnd('}', '\n', '\r', ' ') + $",\n  \"references\": [\n{refsJson}\n  ]\n}}";
+
+            if (changed || detectedDependencies.Count > 0)
+                File.WriteAllText(existingPath, content);
+
+            // Rename file if name mismatch
+            if (!existingPath.EndsWith($"{namespaceName}.asmdef"))
+            {
+                string newPath = Path.Combine(directoryPath, $"{namespaceName}.asmdef");
+                File.Move(existingPath, newPath);
+                Debug.Log($"Renamed asmdef: {existingPath} → {newPath}");
+            }
+        }
+
+        /// <summary>
+        /// Scans scripts in the folder and detects which namespaces are used,
+        /// then matches them to existing asmdefs to infer dependencies.
+        /// </summary>
+        private List<string> DetectAsmdefDependencies(string folderPath)
+        {
+            var dependencies = new HashSet<string>();
+            var allAsmdefs = Directory.GetFiles("Assets", "*.asmdef", SearchOption.AllDirectories);
+
+            // Map asmdef name -> rootNamespace
+            var asmdefMap = new Dictionary<string, string>();
+            foreach (var asmdef in allAsmdefs)
+            {
+                string json = File.ReadAllText(asmdef);
+                string name = Regex.Match(json, "\"name\"\\s*:\\s*\"([^\"]+)\"").Groups[1].Value;
+                string rootNs = Regex.Match(json, "\"rootNamespace\"\\s*:\\s*\"([^\"]+)\"").Groups[1].Value;
+                if (!string.IsNullOrEmpty(name))
+                    asmdefMap[rootNs] = name;
+            }
+
+            // Analyze usings in current folder scripts
+            foreach (var cs in Directory.GetFiles(folderPath, "*.cs", SearchOption.AllDirectories))
+            {
+                foreach (Match m in Regex.Matches(File.ReadAllText(cs), @"using\s+([A-Za-z0-9_.]+)\s*;"))
+                {
+                    string usedNs = m.Groups[1].Value;
+                    if (asmdefMap.TryGetValue(usedNs, out var asmName))
+                        dependencies.Add(asmName);
+                }
+            }
+
+            return dependencies.ToList();
+        }
+        
         private static string DetectRootNamespace()
         {
+            // Busca subpastas diretas dentro de Assets
             var subDirs = Directory.GetDirectories("Assets");
+
+            // Caso só exista uma pasta, usa o nome dela
             if (subDirs.Length == 1)
                 return Path.GetFileName(subDirs[0]);
 
+            // Caso exista uma pasta com nome similar ao projeto
             string projectName = Application.productName;
-            string match = subDirs.FirstOrDefault(d => 
+            string match = subDirs.FirstOrDefault(d =>
                 Path.GetFileName(d).ToLower().Contains(projectName.ToLower()));
-            
-            return !string.IsNullOrEmpty(match) ? Path.GetFileName(match) : "Assets";
+
+            // Se encontrou, usa o nome da pasta
+            if (!string.IsNullOrEmpty(match))
+                return Path.GetFileName(match);
+
+            // 🔧 Fallback: usa o nome do projeto (garante que nunca fique vazio)
+            if (!string.IsNullOrEmpty(projectName))
+                return projectName.Replace(" ", "_");
+
+            // Último fallback caso Application.productName esteja vazio
+            return "Project";
         }
 
         #endregion
