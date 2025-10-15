@@ -21,13 +21,16 @@ public class HealthManager : MonoBehaviour {
 
     // Events
     /// <summary>
-    /// current health / max health
+    /// current / max 
     /// </summary>
-    public event Action<float, float> OnHealthChanged;
-    public event Action<float, float> OnShieldChanged;
+    public event Action<float, float> OnHealthChanged, OnShieldChanged;
+
+    /// <summary>
+    /// damage
+    /// </summary>
     public event Action<float> OnDamageTaken;
-    public event Action OnDeath;
-    public event Action OnRevive;
+
+    public event Action OnDeath, OnRevive;
 
     // Coroutines
     Coroutine _shieldCoroutine;
@@ -62,27 +65,32 @@ public class HealthManager : MonoBehaviour {
         }
     }
 
-    public void TakeDamage(float damage, bool hitShield) {
+    /// <summary>
+    /// Function to take damage. Pass in the damage and if it hits the current shield of the character
+    /// </summary>
+    /// <param name="damageTaken"></param>
+    /// <param name="hitShield"></param>
+    public void TakeDamage(float damageTaken, bool hitShield) {
         if (_isDead || !_canTakeDamage) return;
         if (!hitShield) {
-            ChangeHealth(_currentHealth - damage);
-            OnDamageTaken?.Invoke(damage);
+            ChangeHealth(_currentHealth - damageTaken);
+            OnDamageTaken?.Invoke(damageTaken);
         }
         else {
             bool isShielded = _currentShield > 0;
 
             if (isShielded) {
-                if (_currentShield > damage) ChangeShield(_currentShield - damage);
+                if (_currentShield > damageTaken) ChangeShield(_currentShield - damageTaken);
                 else {
-                    float realDamage = -(_currentShield - damage);
+                    float realDamage = -(_currentShield - damageTaken);
                     ChangeShield(0);
                     ChangeHealth(_currentHealth - realDamage);
                     OnDamageTaken?.Invoke(realDamage);
                 }
             }
             else {
-                ChangeHealth(_currentHealth - damage);
-                OnDamageTaken?.Invoke(damage);
+                ChangeHealth(_currentHealth - damageTaken);
+                OnDamageTaken?.Invoke(damageTaken);
             }
         }
     }
@@ -100,10 +108,17 @@ public class HealthManager : MonoBehaviour {
         return _canTakeDamage && !_isDead;
     }
 
+    /// <summary>
+    /// Heal the character
+    /// </summary>
+    /// <param name="amount"></param>
     public void Heal(float amount) {
         ChangeHealth(_currentHealth + amount);
     }
 
+    /// <summary>
+    /// Reset booleans -> canTakeDamage and isDead, also heals the character to max and reset the shield to 0
+    /// </summary>
     public void Revive()
     {
         _canTakeDamage = true;
@@ -121,6 +136,12 @@ public class HealthManager : MonoBehaviour {
         _currentShield = Mathf.Clamp(newShield, 0, _maxHealth * _maxShield);
         OnShieldChanged?.Invoke(_currentShield, _maxHealth * _maxShield);
     }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="shieldAmount"></param>
+    /// <param name="shieldDuration"></param>
     public void RecieveShield(float shieldAmount, float shieldDuration) {
         if (_shieldCoroutine == null)
             _shieldCoroutine = StartCoroutine(ShieldDuration(shieldAmount, shieldDuration));
