@@ -13,37 +13,40 @@ namespace PROJECT.Scripts.Editor
     {
         #region Variables
         /// <summary>
-        /// Name of the enum being generated/edited
+        /// The name of the enum to be generated or edited
         /// </summary>
         private string _enumName = "TypeOfEnvironmentCharacteristic";
 
         /// <summary>
-        /// Output folder path where the enum file will be saved
+        /// The folder path where the enum file will be saved
         /// </summary>
         private string _folderPath = "Assets/Scripts/Generated";
 
+        /// <summary>
+        /// The namespace in which the enum will be generated
+        /// </summary>
         private string _namespace = "PROJECT.Scripts.Enums";
         
         /// <summary>
-        /// List containing the enum elements
+        /// List that contains all the enum elements/values
         /// </summary>
         private readonly List<string> _elements = new() { "Default", "Null" };
 
         /// <summary>
-        /// Scroll position for elements' list
+        /// Vector2 to track scroll position in the element list UI
         /// </summary>
         private Vector2 _scrollPos;
         #endregion
 
         #region Unity Methods
         /// <summary>
-        /// Creates and shows the Enum Generator window
+        /// Opens the Enum Generator window in the Unity Editor
         /// </summary>
-        [MenuItem("Tools/Enum Generator")] 
+        [MenuItem("Tools/Project/Enum Generator")] 
         public static void OpenWindow() => GetWindow<EnumGeneratorWindow>("Enum Generator");
 
         /// <summary>
-        /// Draws the UI elements of the window
+        /// Renders the editor window GUI elements
         /// </summary>
         private void OnGUI()
         {
@@ -70,7 +73,7 @@ namespace PROJECT.Scripts.Editor
 
         #region GUI Helpers
         /// <summary>
-        /// Draws the folder selection UI
+        /// Renders the UI for selecting the output folder
         /// </summary>
         private void DrawFolderSelector()
         {
@@ -83,7 +86,7 @@ namespace PROJECT.Scripts.Editor
         }
 
         /// <summary>
-        /// Opens a folder selection dialog and validates the selected path
+        /// Opens a folder browser dialog and validates the selected output path
         /// </summary>
         private void SelectOutputFolder()
         {
@@ -97,7 +100,7 @@ namespace PROJECT.Scripts.Editor
         }
 
         /// <summary>
-        /// Draws the list of enum elements with add/remove functionality
+        /// Renders the list of enum elements with controls to add/remove elements
         /// </summary>
         private void DrawElementsList()
         {
@@ -126,7 +129,7 @@ namespace PROJECT.Scripts.Editor
 
         #region File Generation
         /// <summary>
-        /// Generates the enum file with the current settings and elements
+        /// Creates the enum file with the specified settings and elements
         /// </summary>
         private void GenerateEnumFile()
         {
@@ -167,7 +170,7 @@ namespace PROJECT.Scripts.Editor
 
         #region File Operations
         /// <summary>
-        /// Loads and parses an existing enum file
+        /// Loads and parses an existing enum file into the editor
         /// </summary>
         private void LoadExistingEnum()
         {
@@ -204,10 +207,10 @@ namespace PROJECT.Scripts.Editor
 
         #region Utilities
         /// <summary>
-        /// Converts a string into a valid C# identifier by replacing invalid characters
+        /// Creates a valid C# identifier by removing/replacing invalid characters
         /// </summary>
-        /// <param name="name">The string to convert</param>
-        /// <returns>A valid C# identifier</returns>
+        /// <param name="name">The input string to sanitize</param>
+        /// <returns>A valid C# identifier string</returns>
         private static string MakeSafeIdentifier(string name)
         {
             string safe = name.Trim().Replace(" ", "_").Replace("-", "_");
