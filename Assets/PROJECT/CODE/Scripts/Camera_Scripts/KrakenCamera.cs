@@ -10,7 +10,6 @@ public class KrakenCamera : MonoBehaviour {
     [SerializeField] float deadAngle = 3f;
 
     [Header("Camera Shake")]
-    [SerializeField] bool debugStart = false;
     [SerializeField, Range(1, 5)] float shakeIntensity = 1f;
     [SerializeField] AnimationCurve shakeCurve;
     [SerializeField, Range(0, 1)] float shakeDuration = 1f;
@@ -45,30 +44,22 @@ public class KrakenCamera : MonoBehaviour {
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         }
 
-        //debug shake
-        if (debugStart)
-        {
-            debugStart = false;
-            StartCoroutine(CameraShaking());
-        }
-
-
     }
 
-    private void ShakeCamera(float obj)
+    private void ShakeCamera(float damage)
     {
-        StartCoroutine(CameraShaking());
-        throw new NotImplementedException();
+        StartCoroutine(CameraShaking(damage));
     }
 
-    IEnumerator CameraShaking()
+    IEnumerator CameraShaking(float damage)
     {
         float elapsedTime = 0f;
         while (elapsedTime < shakeDuration)
         {
+            float damageMultiplier = damage / 400f;
             Vector3 startPosition = transform.position;
             elapsedTime += Time.deltaTime;
-            float shakeStrength = shakeCurve.Evaluate(elapsedTime / shakeDuration) * shakeIntensity;
+            float shakeStrength = shakeCurve.Evaluate(elapsedTime / shakeDuration) * shakeIntensity + damageMultiplier;
             transform.position = startPosition + UnityEngine.Random.insideUnitSphere * shakeStrength;
             yield return null;
             transform.position = startPosition;
