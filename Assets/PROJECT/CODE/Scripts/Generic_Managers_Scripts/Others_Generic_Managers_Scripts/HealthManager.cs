@@ -33,6 +33,9 @@ public class HealthManager : MonoBehaviour {
     Coroutine _shieldCoroutine;
     #endregion
 
+    //DEBUGING OPTIONS FOR VFX - SAMUEL
+    bool imortal = false; //keep this false unless you want to debug vfxs and not die
+
     #region Methods
 
     #region Initialize
@@ -41,7 +44,7 @@ public class HealthManager : MonoBehaviour {
     }
 
     private void Start() {
-        _maxHealth = _statusManager.ReturnStatusValue(StatusType.MaxHealth);
+        _maxHealth = imortal ? 1000000f : _statusManager.ReturnStatusValue(StatusType.MaxHealth);
         _maxShield = _statusManager.ReturnStatusValue(StatusType.MaxAmountOfShield)/100;
         ChangeHealth(_maxHealth);
         ChangeShield(0);
