@@ -18,7 +18,7 @@ public class CrabArenaSO : ScriptableObject
 
     [Header("Incoming Tide Atributes")]
     public float IncomingTideDuration = 5;
-    public float IncomingTideAttackDamage;
+    public DamageAtributes IncomingTideDamageAtributes;
     public float IncomingTideAttackDamageCooldown;
     public float IncomingTideAttackDamagSize;
     public string IncomingTideAttackHitBoxName;

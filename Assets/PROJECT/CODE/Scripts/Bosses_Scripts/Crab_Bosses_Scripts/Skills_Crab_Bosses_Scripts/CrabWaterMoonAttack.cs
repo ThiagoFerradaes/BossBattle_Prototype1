@@ -30,10 +30,7 @@ public class CrabWaterMoonAttack : EnemyBehaviourSO
     [SerializeField] float projectileSize;
     [SerializeField] float projectileSpeed;
     [SerializeField] float projectileDistance;
-    [SerializeField] float damage;
-    [SerializeField] bool hitShield;
-    [SerializeField] List<Tags> unitsToHit;
-    [SerializeField] DamageType damageType;
+    [SerializeField] DamageAtributes damageAtributes;
 
     Coroutine _attackCoroutine, _rotateAndShootCoroutine;
 
@@ -178,12 +175,8 @@ public class CrabWaterMoonAttack : EnemyBehaviourSO
         hitbox.transform.rotation = _vallis.rotation;
 
         DamageContext context = new(
-            damage,
-            damage,
+            damageAtributes,
             prefab.PrefabDuration,
-            hitShield,
-            damageType,
-            unitsToHit,
             _statusManager,
             new() {
                 { ExtraDamageContextAtributes.Speed, projectileSpeed },

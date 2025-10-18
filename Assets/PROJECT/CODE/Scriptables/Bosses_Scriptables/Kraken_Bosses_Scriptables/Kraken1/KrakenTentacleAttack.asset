@@ -14,6 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Priority: 0
   Cooldown: 0
+  CooldownBetweenAttacks: 0
+  Channel: 0
+  OpenNewChannels: 0
+  ListOfChannelsToOpen: 
+  CloseOldChannels: 0
+  ListOfChannelsToClose: 
   PrefabsPreparingAnimation:
   - TimeToSpawnPreFab: 0.4
     PrefabDuration: 0.7
@@ -42,10 +48,16 @@ MonoBehaviour:
   PreparingAttackSpeed: PreparingSpeed
   HitAttackSpeed: HitSpeed
   TimeInReturnToIdleToTurnOffHitBox: 0.4
-  TentacleDamage: 25
-  DeadTentacleDamage: 5
-  Penetration: 0
+  AliveTentacleDamageAtributes:
+    Damage: 25
+    Penetration: 0
+    HitShield: 1
+    DamageType: 0
+    UnitsToHit: 0100000002000000
+  DeadTentacleDamageAtributes:
+    Damage: 6
+    Penetration: 0
+    HitShield: 1
+    DamageType: 0
+    UnitsToHit: 0100000002000000
   TentacleAttackSize: 0.8
-  HitShield: 1
-  DamageType: 0
-  Tags: 0100000002000000

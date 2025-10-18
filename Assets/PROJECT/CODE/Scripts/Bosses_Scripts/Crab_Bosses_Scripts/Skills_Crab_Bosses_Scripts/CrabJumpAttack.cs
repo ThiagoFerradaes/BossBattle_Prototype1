@@ -5,7 +5,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Crab/ Skills/ Jump")]
-public class CrabJumpAttack : EnemyBehaviourSO {
+public class CrabJumpAttack : EnemyBehaviourSO
+{
 
     // Componentes
     CrabManager _crabManager;
@@ -28,36 +29,37 @@ public class CrabJumpAttack : EnemyBehaviourSO {
     [SerializeField] float minDistanceToJump;
 
     [Header("Attack Atributes")]
-    [SerializeField] float damage;
+    [SerializeField] DamageAtributes damageAtributes;
     [SerializeField] float jumpHitBoxSize;
     [SerializeField] float hitBoxDuration;
-    [SerializeField] bool hitShield;
     [SerializeField] string jumpHitBoxName;
-    [SerializeField] DamageType damageType;
-    [SerializeField] List<Tags> unitsToHitTag;
     [SerializeField] GameObject jumpHitBox;
 
     [Header("Stun")]
     [SerializeField] float stunDuration;
 
-    public override void StartState(EnemyBehaviourManager parent) {
+    public override void StartState(EnemyBehaviourManager parent)
+    {
         base.StartState(parent);
 
         Initialize(parent);
 
         float distanceToPlayer = Vector3.Distance(_crabManager.transform.position, _crabManager.Player.transform.transform.position);
 
-        if (CrabArenaManager.Instance.ReturnCurrentTide() != CrabArenaState.LowTide || distanceToPlayer < minDistanceToJump) {
+        if (CrabArenaManager.Instance.ReturnCurrentTide() != CrabArenaState.LowTide || distanceToPlayer < minDistanceToJump)
+        {
             _crabManager.CooldownManager.SetSkillCooldown(this);
             _crabManager.ChangeBehaviourAtRandom();
         }
-        else {
+        else
+        {
             _crabManager.StartCoroutine(JumpAttack());
         }
 
     }
 
-    void Initialize(EnemyBehaviourManager parent) {
+    void Initialize(EnemyBehaviourManager parent)
+    {
         if (_crabManager != null) return;
 
         _crabManager = parent as CrabManager;
@@ -66,21 +68,24 @@ public class CrabJumpAttack : EnemyBehaviourSO {
 
     }
 
-    IEnumerator JumpAttack() {
+    IEnumerator JumpAttack()
+    {
 
         _anim.SetTrigger(preparingAnimationParameter);
         _anim.SetBool(jumpUpAnimationParameter, true);
 
         AnimatorStateInfo stateInfo = _anim.GetCurrentAnimatorStateInfo(animationLayer);
 
-        do { // Esperando animação de preparo do pulo
+        do
+        { // Esperando animação de preparo do pulo
             yield return null;
             stateInfo = _anim.GetCurrentAnimatorStateInfo(animationLayer);
         } while (!stateInfo.IsName(preparingAnimationName));
 
         int attackStateHash = stateInfo.fullPathHash;
 
-        do { // Esperando o preparo do pulo terminar
+        do
+        { // Esperando o preparo do pulo terminar
             yield return null;
             stateInfo = _anim.GetCurrentAnimatorStateInfo(0);
         } while (stateInfo.fullPathHash == attackStateHash && stateInfo.normalizedTime < 1);
@@ -110,25 +115,23 @@ public class CrabJumpAttack : EnemyBehaviourSO {
         _crabManager.StartCoroutine(CooldownBetweenAttacksRoutine());
     }
 
-    Vector3 ReturnPositionCloseToPlayer() {
+    Vector3 ReturnPositionCloseToPlayer()
+    {
         Vector3 direction = (_crabManager.transform.position - _crabManager.Player.transform.position).normalized;
         Vector3 position = _crabManager.Player.transform.position + direction * jumpDistanceToPlayer;
         return position;
     }
 
-    void InstantiateHitBox() {
+    void InstantiateHitBox()
+    {
 
         GameObject prefab = PoolingManager.Instance.ReturnPrefabFromPool(jumpHitBoxName, jumpHitBox, TypeOfSkillPrefab.Hitbox);
         prefab.transform.position = _crabManager.transform.position;
         prefab.transform.localScale = Vector3.one * jumpHitBoxSize;
 
         DamageContext context = new(
-            damage, 
-            damage, 
-            hitBoxDuration, 
-            hitShield,
-            damageType,
-            unitsToHitTag,
+            damageAtributes,
+            hitBoxDuration,
             _crabManager.StatusManager
             );
 

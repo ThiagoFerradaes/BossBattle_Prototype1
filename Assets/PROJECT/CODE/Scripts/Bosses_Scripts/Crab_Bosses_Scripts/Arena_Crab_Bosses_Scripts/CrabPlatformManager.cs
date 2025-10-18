@@ -4,7 +4,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -141,12 +140,8 @@ public class CrabPlatformManager : MonoBehaviour
         hitbox.transform.localScale = Vector3.one * arenaInfo.IncomingTideAttackDamagSize;
 
         DamageContext context = new(
-            arenaInfo.IncomingTideAttackDamage,
-            arenaInfo.IncomingTideAttackDamage,
+            arenaInfo.IncomingTideDamageAtributes,
             arenaInfo.IncomingTideDuration - 1,
-            false,
-            DamageType.Pure,
-            new() { Tags.Player, },
             CrabArenaManager.Instance.gameObject.GetComponent<StatusManager>(),
             new() {
                 {ExtraDamageContextAtributes.DamageCooldown, arenaInfo.IncomingTideAttackDamageCooldown},

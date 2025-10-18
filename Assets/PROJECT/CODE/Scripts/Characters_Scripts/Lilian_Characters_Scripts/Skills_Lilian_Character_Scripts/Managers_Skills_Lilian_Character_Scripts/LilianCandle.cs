@@ -82,12 +82,8 @@ public class LilianCandle : MonoBehaviour
         float damage = CalculateDamageBasedOnCorruption();
 
         DamageContext contex = new(
-            damage,
-            damage,
+            _info.SkillDamageAtributes,
             Mathf.Infinity,
-            _info.HitShield,
-            _info.DamageType,
-            _info.EnemyTag,
             _lilianStatusManager,
             new() {
                 { ExtraDamageContextAtributes.DamageCooldown, _info.CandleContinuosDamageCooldown}
@@ -139,12 +135,8 @@ public class LilianCandle : MonoBehaviour
         float damage = CalculateExplosionDamage();
 
         DamageContext context = new(
-            damage,
-            damage, 
+            _info.SkillDamageAtributes, 
             0.1f, 
-            _info.HitShield,
-            _info.DamageType,
-            _info.EnemyTag,
             _lilianStatusManager
         );
 

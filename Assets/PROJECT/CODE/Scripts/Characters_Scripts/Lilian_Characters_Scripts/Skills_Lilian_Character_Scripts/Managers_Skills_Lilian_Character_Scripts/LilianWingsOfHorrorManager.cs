@@ -197,12 +197,8 @@ public class LilianWingsOfHorrorManager : SkillObjectManager
                 preFab.transform.localScale = Vector3.one * _info.WingsOfHorrorDamageSize;
 
                 DamageContext newContext = new(
-                    _info.MinDamage,
-                    _info.MaxDamage,
+                    _info.SkillDamageAtributes,
                     prefabInfo.PrefabDuration,
-                    _info.HitShield,
-                    _info.DamageType,
-                    _info.EnemyTag,
                     parent.GetComponent<StatusManager>()
                     );
 

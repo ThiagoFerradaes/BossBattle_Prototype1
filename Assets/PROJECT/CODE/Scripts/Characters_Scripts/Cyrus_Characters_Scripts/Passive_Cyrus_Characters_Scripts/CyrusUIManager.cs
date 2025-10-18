@@ -40,7 +40,6 @@ public class CyrusUIManager : MonoBehaviour {
 
     #region UI
     void RankUp(float currentRank, float maxRank) {
-        Debug.Log("OnRankUp" + currentRank + maxRank);
         rankProgresBar.fillAmount = currentRank/maxRank;
     }
 

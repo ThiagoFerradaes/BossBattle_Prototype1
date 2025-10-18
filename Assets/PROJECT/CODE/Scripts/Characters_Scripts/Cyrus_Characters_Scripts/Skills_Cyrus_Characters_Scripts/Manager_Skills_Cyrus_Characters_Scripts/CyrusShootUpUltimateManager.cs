@@ -153,12 +153,8 @@ public class CyrusShootUpUltimateManager : SkillObjectManager {
         float critDamage = _skillLevel > 2? charCritDamage + (_amountOfHits * _info.AditionalCritDamagePerHit) : charCritDamage;
 
         DamageContext newContext = new(
-            _info.MinDamage,
-            _info.MaxDamage,
+            _info.Atributes,
             prefabInfo.PrefabDuration,
-            _info.HitShield,
-            _info.DamageType,
-            _info.EnemyTag,
             parent.GetComponent<StatusManager>(),
             new() {
                 {ExtraDamageContextAtributes.CritRate, critRate},

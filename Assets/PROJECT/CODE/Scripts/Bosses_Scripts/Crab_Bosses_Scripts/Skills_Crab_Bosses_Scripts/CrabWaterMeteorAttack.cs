@@ -19,10 +19,7 @@ public class CrabWaterMeteorAttack : EnemyBehaviourSO {
 
     [Header("Damage Atributes")]
     [SerializeField] float projectileDistance;
-    [SerializeField] float damage;
-    [SerializeField] bool hitShield;
-    [SerializeField] List<Tags> unitsToHit;
-    [SerializeField] DamageType damageType;
+    [SerializeField] DamageAtributes damageAtributes;
 
     [Header("Animation")]
     [SerializeField] string animationParameter;
@@ -117,8 +114,9 @@ public class CrabWaterMeteorAttack : EnemyBehaviourSO {
         hitbox.transform.rotation = Quaternion.Euler(90, 0, 0);
 
         DamageContext context = new(
-            damage, damage, prefab.PrefabDuration,
-            hitShield, damageType, unitsToHit, _statusManager,
+            damageAtributes,
+            prefab.PrefabDuration,
+             _statusManager,
             new() {
                 { ExtraDamageContextAtributes.Speed, meteorFallSpeed },
                 { ExtraDamageContextAtributes.Distance, projectileDistance },

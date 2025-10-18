@@ -130,24 +130,20 @@ public class BastianFlameEchoManager : SkillObjectManager
 
             if (prefabInfo.PrefabType == TypeOfSkillPrefab.Hitbox)
             {
-                float minDamage, maxDamage;
+                DamageAtributes atributes;
                 switch (attackIndex)
                 {
                     case 1:
-                        minDamage = _info.SFirstAttackMinDamage;
-                        maxDamage = _info.SFirstAttackMaxDamage;
+                        atributes = _info.FirstAttackDamageAtributes;
                         break;
                     case 2:
-                        minDamage = _info.SSecondAttackMinDamage;
-                        maxDamage = _info.SThirdAttackMaxDamage;
+                        atributes = _info.SecondAttackDamageAtributes;
                         break;
                     case 3:
-                        minDamage = _info.SThirdAttackMinDamage;
-                        maxDamage = _info.SThirdAttackMaxDamage;
+                        atributes = _info.ThirdAttackDamageAtributes;
                         break;
                     default:
-                        minDamage = _info.SFirstAttackMinDamage;
-                        maxDamage = _info.SFirstAttackMaxDamage;
+                        atributes = _info.FirstAttackDamageAtributes;
                         break;
                 }
                 GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFabName,
@@ -161,12 +157,8 @@ public class BastianFlameEchoManager : SkillObjectManager
                 float critDamage = statusManager.ReturnStatusValue(StatusType.CritDamage) + additionalCriDmg;
 
                 DamageContext newContext = new(
-                    minDamage,
-                    maxDamage,
+                    atributes,
                     prefabInfo.PrefabDuration,
-                    _info.HitShield,
-                    _info.SDamageType,
-                    _info.EnemyTag,
                     parent.GetComponent<StatusManager>(),
                     new() {
                         {ExtraDamageContextAtributes.Speed, _info.ProjectileSpeed },

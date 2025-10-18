@@ -53,9 +53,12 @@ MonoBehaviour:
   Cancelable: 0
   FlatEnergyGainPerHit: 1
   Cooldown: 0.25
-  EnemyTag: 00000000
-  DamageType: 0
-  HitShield: 1
+  SkillDamageAtributes:
+    Damage: 0
+    Penetration: 0
+    HitShield: 0
+    DamageType: 0
+    UnitsToHit: 
   Charges: 1
   ChargeCooldown: 0
   FirstBaseAttackParameter: BaseAttackOne
@@ -63,16 +66,22 @@ MonoBehaviour:
   SecondBaseAttackParameter: BaseAttackTwo
   SecondtBaseAttackAnimationName: BaseAttackTwo
   AttackSpeedAnimationParameter: AttackSpeed
-  FirstAttackMinDamage: 16
-  FirstAttackMaxDamage: 18
-  SecondAttackMinDamage: 18
-  SecondAttackMaxDamage: 20
+  FirstAttackAtributes:
+    Damage: 16
+    Penetration: 0
+    HitShield: 1
+    DamageType: 0
+    UnitsToHit: 00000000
+  SecondAttackAtributes:
+    Damage: 18
+    Penetration: 0.1
+    HitShield: 1
+    DamageType: 0
+    UnitsToHit: 00000000
   FirstAttackHitBoxDuration: 0.1
   SecondAttackHitBoxDuration: 0.1
   CooldownBetweenAttacks: 0
   MaxTimeBetweenAttacks: 0.8
-  PenetrationFirstAttack: 0
-  PenetrationSecondAttack: 10
   SwordName: CyrusSword
   SwordPrefab: {fileID: 2980958354712852747, guid: 6793abb85d087f94b8f42eb79ca00943, type: 3}
   FirstBaseAttackHitBoxPosition: {x: 0, y: 0, z: 0}

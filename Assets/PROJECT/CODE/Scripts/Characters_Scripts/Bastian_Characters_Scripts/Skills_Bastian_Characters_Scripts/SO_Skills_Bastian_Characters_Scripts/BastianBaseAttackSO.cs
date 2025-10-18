@@ -19,12 +19,9 @@ public class BastianBaseAttackSO : CommonSkillSO {
     [Foldout("Specific")] public string AttackSpeedAnimationParameter;
 
     [Header("Attacks Atributes")]
-    [Foldout("Specific")] public float FirstAttackMinDamage;
-    [Foldout("Specific")] public float FirstAttackMaxDamage;
-    [Foldout("Specific")] public float SecondAttackMinDamage;
-    [Foldout("Specific")] public float SecondAttackMaxDamage;
-    [Foldout("Specific")] public float ThirdAttackMinDamage;
-    [Foldout("Specific")] public float ThirdAttackMaxDamage;
+    [Foldout("Specific")] public DamageAtributes FirstAttackAtributes;
+    [Foldout("Specific")] public DamageAtributes SecondAttackAtributes;
+    [Foldout("Specific")] public DamageAtributes ThirdAttackAtributes;
     [Foldout("Specific")] public float AttackDistance;
     [Foldout("Specific")] public float ProjectileSpeed;
 

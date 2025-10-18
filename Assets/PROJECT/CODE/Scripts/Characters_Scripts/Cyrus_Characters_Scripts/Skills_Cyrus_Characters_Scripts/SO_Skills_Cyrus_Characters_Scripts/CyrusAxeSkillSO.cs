@@ -28,14 +28,12 @@ public class CyrusAxeSkillSO : CommonSkillSO
     [Foldout("Specific"), SerializedDictionary("Level", "Amount")] public SerializedDictionary<int, int> AmountOfUsesPerLevel;
 
     [Header("Level 3 Buff")]
-    [Foldout("Specific")] public float BrokenRockMinDamage;
-    [Foldout("Specific")] public float BrokenRockMaxDamage;
+    [Foldout("Specific")] public DamageAtributes RocksAtributes;
     [Foldout("Specific")] public float BrokenRockDamageCooldown;
     [Foldout("Specific")] public float BrokenRockDuration;
     [Foldout("Specific")] public float BrokenRockSize;
     [Foldout("Specific")] public string BrokenRocksName;
     [Foldout("Specific")] public GameObject BrokenRocksPrefab;
-    [Foldout("Specific")] public DamageType BrokenRockDamageType;
 
     [Header("Cost")]
     [Foldout("Specific"), Range(1,100)] public float ExpModifier;

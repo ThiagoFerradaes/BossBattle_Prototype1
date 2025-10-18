@@ -193,16 +193,12 @@ public class KrakenManager : EnemyBehaviourManager {
 
                 attackHitBox.transform.SetPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.Euler(90, yRotation, 0));
                 attackHitBox.transform.localScale = Vector3.one * tentacleAttack.TentacleAttackSize;
-                float damage = ListOfTentacles[tentacleIndex].Health.ReturnIfIsDead() ?
-                    tentacleAttack.DeadTentacleDamage : tentacleAttack.TentacleDamage;
+                DamageAtributes atributes = ListOfTentacles[tentacleIndex].Health.ReturnIfIsDead() ?
+                    tentacleAttack.DeadTentacleDamageAtributes : tentacleAttack.AliveTentacleDamageAtributes;
 
                 DamageContext newContext = new(
-                damage,
-                damage,
+                atributes,
                 prefabInfo.PrefabDuration,
-                tentacleAttack.HitShield,
-                tentacleAttack.DamageType,
-                tentacleAttack.Tags,
                 ListOfTentacles[tentacleIndex].Status
                 );
 

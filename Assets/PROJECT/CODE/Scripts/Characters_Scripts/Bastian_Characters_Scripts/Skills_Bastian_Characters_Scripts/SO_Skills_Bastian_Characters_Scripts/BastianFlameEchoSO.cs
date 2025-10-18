@@ -6,16 +6,11 @@ using UnityEngine;
 public class BastianFlameEchoSO : UltimateSkillSO
 {
     [Header("Secondary Attack Damage")]
-    [Foldout("Specific")] public float SFirstAttackMinDamage;
-    [Foldout("Specific")] public float SFirstAttackMaxDamage;
-    [Foldout("Specific")] public float SSecondAttackMinDamage;
-    [Foldout("Specific")] public float SSecondAttackMaxDamage;
-    [Foldout("Specific")] public float SThirdAttackMinDamage;
-    [Foldout("Specific")] public float SThirdAttackMaxDamage;
+    [Foldout("Specific")] public DamageAtributes FirstAttackDamageAtributes;
+    [Foldout("Specific")] public DamageAtributes SecondAttackDamageAtributes;
+    [Foldout("Specific")] public DamageAtributes ThirdAttackDamageAtributes;
     [Foldout("Specific")] public float ProjectileSpeed;
     [Foldout("Specific")] public float AttackDistance;
-    [Foldout("Specific")] public bool HitShield;
-    [Foldout("Specific")] public DamageType SDamageType;
 
     [Header("Secondary Attack Passive")]
     [Foldout("Specific")] public float SHeatGain;
@@ -30,5 +25,4 @@ public class BastianFlameEchoSO : UltimateSkillSO
     [Header("Ultimate Atributes")]
     [Foldout("Specific")] public float UltimateDuration;
     [Foldout("Specific")] public float TimeBetweenFirstAndSecondShoot;
-    [Foldout("Specific")] public List<Tags> EnemyTag;
 }
