@@ -99,7 +99,6 @@ public class CyrusSpearAttackManager : SkillObjectManager {
         skillManager.SkillIsInAnimation(false);
         _weaponManager.OnDesequipRightHand();
         animationCoroutine = null;
-        CyrusPassiveManager.Instance.SkillCost();
         EndWithUnblockSkills();
     }
 
@@ -136,7 +135,7 @@ public class CyrusSpearAttackManager : SkillObjectManager {
 
         hitbox.OnHit += () => {
             energyManager.GainEnergy(_info.FlatEnergyGainPerHit);
-            CyrusPassiveManager.Instance.GainExp(_info.ExpGain);
+            if (_skillLevel < 3) CyrusPassiveManager.Instance.AddUseSkill(slot, _info.AmountOfUsesPerLevel[_skillLevel]);
             if (_skillLevel > 0) cooldownManager.ResetCooldown(SkillSlot.Dash);
         };
     }

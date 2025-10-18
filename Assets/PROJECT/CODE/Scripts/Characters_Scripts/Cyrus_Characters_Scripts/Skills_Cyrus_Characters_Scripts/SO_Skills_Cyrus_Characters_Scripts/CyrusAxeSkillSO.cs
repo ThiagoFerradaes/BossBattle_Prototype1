@@ -1,3 +1,4 @@
+using AYellowpaper.SerializedCollections;
 using NaughtyAttributes;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,6 +25,7 @@ public class CyrusAxeSkillSO : CommonSkillSO
     [Foldout("Specific")] public float Level2AmountOfShield;
     [Foldout("Specific")] public float ShieldDuration;
     [Foldout("Specific")] public float NewMaxChargeTime;
+    [Foldout("Specific"), SerializedDictionary("Level", "Amount")] public SerializedDictionary<int, int> AmountOfUsesPerLevel;
 
     [Header("Level 3 Buff")]
     [Foldout("Specific")] public float BrokenRockMinDamage;

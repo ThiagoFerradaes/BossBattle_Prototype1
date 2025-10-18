@@ -1,3 +1,4 @@
+using AYellowpaper.SerializedCollections;
 using NaughtyAttributes;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,6 +30,7 @@ public class CyrusShootUpSO : UltimateSkillSO
     [Foldout("Specific")] public float AditionalCritRate;
     [Foldout("Specific")] public float AditionalCritDamagePerHit;
     [Foldout("Specific")] public float Level3DamageCooldown;
+    [Foldout("Specific"), SerializedDictionary("Level", "Amount")] public SerializedDictionary<int, int> AmountOfUsesPerLevel;
 
     [Header("Cost")]
     [Foldout("Specific"), Range(1,100)] public float PercentOfSlow;

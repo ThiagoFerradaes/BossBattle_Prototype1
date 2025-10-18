@@ -15,22 +15,23 @@ public class CyrusPassiveManager : PassiveSkillManager {
     CyrusPassiveSO _info;
 
     // Atributes
-    float _currentAmountOfExp;
-    float _expMultiplier = 1f;
-    bool _rankUP;
     CyrusRank _currentRank = CyrusRank.E;
     Dictionary<SkillSlot, int> _skillLevel = new() {
         { SkillSlot.SkillOne, 0 },
         { SkillSlot.SkillTwo, 0 },
         { SkillSlot.Ultimate, 0 },
     };
+    Dictionary<SkillSlot, int> _skillUses = new()
+    {
+        { SkillSlot.SkillOne, 0 },
+        { SkillSlot.SkillTwo, 0 },
+        { SkillSlot.Ultimate, 0 },
+    };
 
     // Actions
-    public event Action OnRankLevelUp, OnSkillLevelUp;
-    public event Action<float, float> OnExpGain;
+    public event Action<SkillSlot> OnSkillLevelUp;
+    public event Action<float, float> OnRankLevelUp;
 
-    // Coroutines
-    Coroutine _expGainOverTimeCorouinte;
 
     #endregion
 
@@ -48,11 +49,8 @@ public class CyrusPassiveManager : PassiveSkillManager {
 
         gameObject.SetActive(true);
 
-        UpgradeSkill();
-
         AditionalUIManager.Instance.InstantiateUI(_info.CyrusUI);
 
-        _expGainOverTimeCorouinte ??= StartCoroutine(GainExpOverTime());
     }
 
     void Initialize(PassiveSO passive, GameObject parent) {
@@ -64,105 +62,35 @@ public class CyrusPassiveManager : PassiveSkillManager {
 
     #region ExpGain
     private bool HasReachedMaxRank => _currentRank >= CyrusRank.SS;
-    public void GainExp(float amountOfExp) {
-        if (_rankUP || HasReachedMaxRank) return;
 
-        if ((_currentAmountOfExp + amountOfExp * _expMultiplier) > _info.AmountOfExpPerClassification[_currentRank + 1]) {
-            _currentAmountOfExp = _info.AmountOfExpPerClassification[_currentRank + 1];
-        }
-        else
-            _currentAmountOfExp += amountOfExp * _expMultiplier;
+    public void AddUseSkill(SkillSlot slot, int amountOfUsesToUpgrade)
+    {
+        if (HasReachedMaxRank) return;
+        if (!_skillUses.ContainsKey(slot)) return;
+        if (_skillLevel[slot] >= 3) return;
 
-        CheckRankLevelUp();
+        int uses = _skillUses[slot];
 
-        UpdateExpProgress();
+        if (uses + 1 >= amountOfUsesToUpgrade) UpgradeSkill(slot);
+        else _skillUses[slot]++;
     }
-    void CheckRankLevelUp() {
 
+    void UpgradeSkill(SkillSlot slot) {
         if (HasReachedMaxRank) return;
 
-        float nextRankExp = _info.AmountOfExpPerClassification[_currentRank + 1];
+        if (!_skillLevel.ContainsKey(slot)) return;
 
-        CyrusRank newRank = _currentAmountOfExp >= nextRankExp ? _currentRank + 1 : _currentRank;
+        if (_skillLevel[slot] >= 3) return;
 
-        bool isNewRank = newRank != _currentRank;
+        _skillLevel[slot]++;
+        _skillUses[slot] = 0;
 
-        if (isNewRank) {
-            _currentRank = newRank;
-            _rankUP = true;
-            OnRankLevelUp?.Invoke();
-        }
+        _currentRank++;
 
-        if (_currentRank == CyrusRank.SS) OnExpGain?.Invoke(0, 1);
-    }
+        int maxEnum = Enum.GetValues(typeof(CyrusRank)).Length;
 
-    void UpdateExpProgress() {
-        if (HasReachedMaxRank) return;
-
-        float currentRankExp = _info.AmountOfExpPerClassification[_currentRank];
-        float nextRankEXp = _info.AmountOfExpPerClassification[_currentRank + 1];
-
-        float newMinExp = _currentAmountOfExp - currentRankExp;
-        float newMaxExp = nextRankEXp - currentRankExp;
-
-        OnExpGain?.Invoke(newMinExp, newMaxExp);
-    }
-
-
-
-    /// <summary>
-    /// The exp multiplier = expMultiplier * or / (1 + amountToMultiply/100) 
-    /// </summary>
-    /// <param name="amountToMultiply"></param>
-    /// <param name="increase"></param>
-    public void ChangeExpMultiplier(float amountToMultiply, bool increase, float duration) {
-        float realMultiplier = 1 + amountToMultiply / 100;
-        _expMultiplier = increase ? _expMultiplier * realMultiplier : _expMultiplier / realMultiplier;
-
-        StartCoroutine(ExpMultiplierTimer(amountToMultiply, !increase, duration));
-    }
-
-    IEnumerator ExpMultiplierTimer(float amountToMultiply, bool increase, float duration) {
-        yield return new WaitForSeconds(duration);
-
-        float realMultiplier = 1 + amountToMultiply / 100;
-        _expMultiplier = increase ? _expMultiplier * realMultiplier : _expMultiplier / realMultiplier;
-    }
-
-    IEnumerator GainExpOverTime() {
-
-        while (true) {
-            yield return new WaitForSeconds(_info.ExpGainCooldown);
-            GainExp(_info.ExpGain);
-        }
-
-    }
-    void UpgradeSkill() {
-        _info.UpgradeSkillOne.Enable();
-        _info.UpgradeSkillTwo.Enable();
-        _info.UpgradeUltimate.Enable();
-
-        _info.UpgradeSkillOne.performed += ctx => {
-            if (_rankUP && _skillLevel[SkillSlot.SkillOne] < 3) {
-                _rankUP = false;
-                _skillLevel[SkillSlot.SkillOne]++;
-                OnSkillLevelUp?.Invoke();
-            }
-        };
-        _info.UpgradeSkillTwo.performed += ctx => {
-            if (_rankUP && _skillLevel[SkillSlot.SkillTwo] < 3) {
-                _rankUP = false;
-                _skillLevel[SkillSlot.SkillTwo]++;
-                OnSkillLevelUp?.Invoke();
-            }
-        };
-        _info.UpgradeUltimate.performed += ctx => {
-            if (_rankUP && _skillLevel[SkillSlot.Ultimate] < 3) {
-                _rankUP = false;
-                _skillLevel[SkillSlot.Ultimate]++;
-                OnSkillLevelUp?.Invoke();
-            }
-        };
+        OnSkillLevelUp?.Invoke(slot);
+        OnRankLevelUp?.Invoke((int)_currentRank, maxEnum);
     }
 
     #region Getters
@@ -170,16 +98,9 @@ public class CyrusPassiveManager : PassiveSkillManager {
 
     public CyrusRank ReturnCyrusRank() => _currentRank;
 
-    public bool ReturnIfIsRankingUp() => _rankUP;
-
     #endregion
 
     #endregion
-
-    public void SkillCost() {
-        _statusManager.ChangeStatus(StatusType.Defense, _info.PercentOfDefensesLost / 100, false, _info.PercentOfDefensesLostDuration);
-        _statusManager.ChangeStatus(StatusType.SkillDefense, _info.PercentOfDefensesLost / 100, false, _info.PercentOfDefensesLostDuration);
-    }
 
     #endregion
 }

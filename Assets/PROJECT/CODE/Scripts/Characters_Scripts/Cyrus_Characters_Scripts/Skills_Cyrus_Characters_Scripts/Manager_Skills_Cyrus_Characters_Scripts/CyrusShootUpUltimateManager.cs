@@ -93,7 +93,7 @@ public class CyrusShootUpUltimateManager : SkillObjectManager {
             if (prefabInfo.PrefabType == TypeOfSkillPrefab.Hitbox) {
                 _damageCoroutine ??= StartCoroutine(Damage(prefabInfo));
                 _durationCoroutine ??= StartCoroutine(Duration());
-                CyrusPassiveManager.Instance.SkillCost();
+                if (_skillLevel < 3) CyrusPassiveManager.Instance.AddUseSkill(slot, _info.AmountOfUsesPerLevel[_skillLevel]);
             }
 
             else {

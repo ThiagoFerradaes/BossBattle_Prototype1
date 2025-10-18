@@ -1,5 +1,6 @@
 using AYellowpaper.SerializedCollections;
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,70 +8,59 @@ public class CyrusUIManager : MonoBehaviour {
 
     // Components
     [Header("Rank")]
-    [SerializeField] Image RankIconImage;
-    [SerializeField] Image ExpProgressImage;
-    [SerializedDictionary("CyrusRank", "Sprite"), SerializeField]
-    SerializedDictionary<CyrusRank, Sprite> dictionaryOfRankSprites;
+    [SerializeField] Image rankProgresBar;
 
     [Header("Skills")]
     [SerializedDictionary("SkillSlot", "Image"), SerializeField]
     SerializedDictionary<SkillSlot, Image> dictionaryOfImages;
 
     // Actions
-    Action _onRankUP, _onTurnLevelUpSkillOff;
-    Action<float,float> _onUpdateExpProgress;
+    Action<SkillSlot> _onSkillLevelUp;
+    Action<float, float> _onRankUP;
 
     #region Initialize
     private void Awake() {
         _onRankUP = RankUp;
-        _onTurnLevelUpSkillOff = TurnLevelUpSkillOff;
-        _onUpdateExpProgress = UpdateExpProgress;
+        _onSkillLevelUp = SkillLevelUp;
     }
 
     private void Start() {
         CyrusPassiveManager.Instance.OnRankLevelUp += _onRankUP;
-        CyrusPassiveManager.Instance.OnSkillLevelUp  += _onTurnLevelUpSkillOff;
-        CyrusPassiveManager.Instance.OnExpGain  += _onUpdateExpProgress;
+        CyrusPassiveManager.Instance.OnSkillLevelUp  += _onSkillLevelUp;
 
         TurnLevelUpSkillOff();
     }
 
     private void OnDestroy() {
         CyrusPassiveManager.Instance.OnRankLevelUp -= _onRankUP;
-        CyrusPassiveManager.Instance.OnSkillLevelUp -= _onTurnLevelUpSkillOff;
-        CyrusPassiveManager.Instance.OnExpGain -= _onUpdateExpProgress;
+        CyrusPassiveManager.Instance.OnSkillLevelUp -= _onSkillLevelUp;
     }
 
     #endregion
 
     #region UI
-    void RankUp() {
-        CyrusRank rank = CyrusPassiveManager.Instance.ReturnCyrusRank();
-        Sprite newSprite = dictionaryOfRankSprites[rank];
-
-        RankIconImage.sprite = newSprite;
-
-        TurnLevelUpSkillOn();
-    }
-
-    void TurnLevelUpSkillOn() {
-        foreach (var skill in dictionaryOfImages) {
-            SkillSlot slot = skill.Key;
-            int skillLevel = CyrusPassiveManager.Instance.ReturnSkillLevel(slot);
-
-            bool turnOn = skillLevel < 3;
-            dictionaryOfImages[slot].gameObject.SetActive(turnOn);
-        }
+    void RankUp(float currentRank, float maxRank) {
+        Debug.Log("OnRankUp" + currentRank + maxRank);
+        rankProgresBar.fillAmount = currentRank/maxRank;
     }
 
     void TurnLevelUpSkillOff() {
+        RankUp(0, 1);
         foreach (var skill in dictionaryOfImages) {
             skill.Value.gameObject.SetActive(false);
         }
     }
 
-    void UpdateExpProgress(float current, float max) {
-        ExpProgressImage.fillAmount = current / max;
+    void SkillLevelUp(SkillSlot slot)
+    {
+        StartCoroutine(SkillLevelUpTimer(dictionaryOfImages[slot]));
+    }
+
+    IEnumerator SkillLevelUpTimer(Image image)
+    {
+        image.gameObject.SetActive(true);
+        yield return new WaitForSeconds(1);
+        image.gameObject.SetActive(false);
     }
     #endregion
 }

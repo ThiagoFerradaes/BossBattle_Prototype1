@@ -1,3 +1,4 @@
+using AYellowpaper.SerializedCollections;
 using NaughtyAttributes;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,6 +21,7 @@ public class CyrusSpearSkillSO : CommonSkillSO
     [Foldout("Specific")] public float Level2Range;
     [Foldout("Specific")] public float Level3Penetration;
     [Foldout("Specific")] public float Level3Cooldown;
+    [Foldout("Specific"), SerializedDictionary("Level", "Amount")] public SerializedDictionary<int, int> AmountOfUsesPerLevel;
 
     [Header("Strings")]
     [Foldout("Specific")] public string SpearName;
