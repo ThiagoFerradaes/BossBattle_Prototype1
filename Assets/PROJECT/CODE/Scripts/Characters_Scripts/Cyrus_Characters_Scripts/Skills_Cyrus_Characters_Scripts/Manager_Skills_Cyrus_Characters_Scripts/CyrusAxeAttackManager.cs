@@ -31,12 +31,12 @@ public class CyrusAxeAttackManager : SkillObjectManager {
         if (ctx.phase == InputActionPhase.Started) {
             _preCasted = true;
             _isHoldingInput = true;
-            OnPreCast(skill);
+            PreCast(skill);
         }
         if (ctx.phase == InputActionPhase.Canceled && _preCasted) {
             _preCasted = false;
             _isHoldingInput = false;
-            OnRelease(skill);
+            ReleaseInput(skill);
         }
     }
 
@@ -51,7 +51,7 @@ public class CyrusAxeAttackManager : SkillObjectManager {
 
     }
 
-    public override void OnPreCast(SkillSO skill) {
+    public override void PreCast(SkillSO skill) {
 
         // Bloqueando movimentação e outros inputs
         movementManager.BlockWalk(skill.BlockWalkWhilePreCasting);
@@ -98,7 +98,7 @@ public class CyrusAxeAttackManager : SkillObjectManager {
 
         if (_chargeTimer >= maxChargeTime) {
             _preCasted = false;
-            OnRelease(_info);
+            ReleaseInput(_info);
         }
 
         _chargeTimeCoroutine = null;

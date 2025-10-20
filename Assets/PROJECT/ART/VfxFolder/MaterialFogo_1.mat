@@ -7,23 +7,31 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: AguaRedemoinho
-  m_Shader: {fileID: -6465566751694194690, guid: 7326d36d4b0756a4b90202a1f4660b9a, type: 3}
+  m_Name: MaterialFogo_1
+  m_Shader: {fileID: -6465566751694194690, guid: 9be5f106571624045992b3caab047f3e, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
+  m_ValidKeywords:
+  - _SURFACE_TYPE_TRANSPARENT
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2000
-  stringTagMap: {}
+  m_CustomRenderQueue: -1
+  stringTagMap:
+    RenderType: Transparent
   disabledShaderPasses:
   - MOTIONVECTORS
-  m_LockedProperties: _Color _StepBool _Tex_Rotation_Speed _speed
+  - SHADOWCASTER
+  - DepthOnly
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _SampleTexture2D_558af90459814112bf57ef4db8da911e_Texture_1_Texture2D:
+        m_Texture: {fileID: 10300, guid: 0000000000000000f000000000000000, type: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -40,40 +48,32 @@ Material:
     m_Floats:
     - _AlphaClip: 0
     - _AlphaToMask: 0
-    - _Blend: 0
+    - _Blend: 2
+    - _Boolean: 0
     - _CastShadows: 0
     - _Cull: 2
-    - _DstBlend: 0
-    - _Float: 313.2
-    - _Forca: 1.37
+    - _DstBlend: 1
+    - _DstBlendAlpha: 1
+    - _Float: 12
+    - _Float_1: 5
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _SrcBlend: 1
-    - _StepBool: 0
-    - _StepBoolFoam: 1
-    - _StepFoamFloat: 0.698
-    - _Surface: 0
-    - _Tex_Counter_Rotation_Speed: -0.47
-    - _Tex_Rotation_Speed: 0.4
-    - _Texture_Counter_Rotation_Speed: -0.2
-    - _Texture_Rotation_Speed: 0.4
-    - _TwirlFloat: 8.62
-    - _Twirl_Amount: 5.1
+    - _Speed: -1.2
+    - _SrcBlend: 5
+    - _SrcBlendAlpha: 1
+    - _Surface: 1
+    - _Time: -0.8
     - _ZTest: 4
-    - _ZWrite: 1
+    - _ZWrite: 0
     - _ZWriteControl: 0
-    - _deciderTipeOffMove: 0
-    - _depth: 0
-    - _noise: 1.05
-    - _speed: 0
-    - _textureRotationVelocity: 0.4
     m_Colors:
-    - _Color: {r: 0.44705883, g: 0.78431374, b: 0.77803046, a: 0}
-    - _Color_1: {r: 0.4494482, g: 0.87283224, b: 0.9433962, a: 0}
-    - _FoamColor: {r: 0.8160377, g: 1, b: 0.99278575, a: 0}
+    - _Color: {r: 70.35027, g: 4.903614, b: 0, a: 0}
+    - _Color_1: {r: 5.0178795, g: 0.12406242, b: 0, a: 0}
+    - _Vector2: {r: 2, g: 5, b: 0, a: 0}
+    - _Vector2_1: {r: 0.0016, g: 0.0055, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
---- !u!114 &6786068923845002755
+--- !u!114 &7888377870976537214
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -84,5 +84,5 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Editor::UnityEditor.Rendering.Universal.AssetVersion
+  m_EditorClassIdentifier: 
   version: 10
