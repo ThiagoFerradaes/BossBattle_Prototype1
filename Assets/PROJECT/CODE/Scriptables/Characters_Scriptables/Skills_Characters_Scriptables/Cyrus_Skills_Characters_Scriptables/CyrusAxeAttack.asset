@@ -1,0 +1,82 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba1e37a230649b949b4b4451c6f160eb, type: 3}
+  m_Name: CyrusAxeAttack
+  m_EditorClassIdentifier: 
+  SkillManagerObject: {fileID: 8217681042118647236, guid: e6293f237e32a1a40a1e3d233031b521, type: 3}
+  SkillManagerName: AxeAttackManager
+  Prefabs:
+    _serializedList:
+    - Key: 0
+      Value:
+      - TimeToSpawnPreFab: 0.1
+        PrefabDuration: 0.25
+        PreFabName: AxeVFX
+        PrefabType: 1
+        PreFab: {fileID: 455172127242433270, guid: 2b1e4b0a3559eaf46b3c7be66c61300a, type: 3}
+        PreFabPosition: {x: 0, y: 0, z: -1.15}
+      - TimeToSpawnPreFab: 0.5
+        PrefabDuration: 0.1
+        PreFabName: AxeAttackHitBox
+        PrefabType: 0
+        PreFab: {fileID: 7295537954416935036, guid: 710e6b023eb2d4a4fb3bc8e7576e845a, type: 3}
+        PreFabPosition: {x: 0, y: 0.5, z: 1.5}
+  SkillObjectRangeObject: {fileID: 7295537954416935036, guid: 2cd15af29a69803439873d8a1751fec9, type: 3}
+  SkillObjectRangeName: AxeAttackRangeIndicator
+  BlockWalkWhilePreCasting: 1
+  BlockDashWhilePreCasting: 1
+  PreCastOn: 1
+  SkillCharacter: 0
+  Cancelable: 1
+  FlatEnergyGainPerHit: 15
+  Cooldown: 12
+  EnemyTag: 00000000
+  DamageType: 0
+  HitShield: 1
+  Charges: 1
+  ChargeCooldown: 0
+  FirstAnimationParameterName: AxeSkillOne
+  SecondAnimationParameterName: AxeSkillTwo
+  SecondAnimationName: AxeSkillTwo
+  MinimalChargeTime: 0.5
+  MaxChargeTime: 1.8
+  MinDamage: 80
+  MaxDamage: 200
+  Penetration: 0
+  AmountOfExpGain: 10
+  Level1AmountOfShield: 10
+  Level2AmountOfShield: 20
+  ShieldDuration: 10
+  NewMaxChargeTime: 0.9
+  AmountOfUsesPerLevel:
+    _serializedList:
+    - Key: 0
+      Value: 2
+    - Key: 1
+      Value: 4
+    - Key: 2
+      Value: 6
+  BrokenRockMinDamage: 20
+  BrokenRockMaxDamage: 22
+  BrokenRockDamageCooldown: 0.5
+  BrokenRockDuration: 10
+  BrokenRockSize: 6
+  BrokenRocksName: SphereContinuosHitBox
+  BrokenRocksPrefab: {fileID: 8998219623033830514, guid: f2cad2093c1cc8042a97d053a88618a0, type: 3}
+  BrokenRockDamageType: 1
+  ExpModifier: 25
+  expModifierDuration: 2
+  aditionalExpModifierDurationPerLevel: 1
+  WeaponName: Axe
+  WeaponPrefab: {fileID: 2959415985370578672, guid: 2714152a00b35324f8b6fef038dba403, type: 3}
+  WeaponPosition: {x: -0.3, y: 0.3, z: 0}
+  WeaponRotation: {x: 0, y: 0, z: 60}

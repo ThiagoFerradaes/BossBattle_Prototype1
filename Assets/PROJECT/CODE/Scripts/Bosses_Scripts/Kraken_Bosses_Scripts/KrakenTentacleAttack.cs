@@ -1,0 +1,23 @@
+using NaughtyAttributes;
+using System.Collections.Generic;
+using UnityEngine;
+
+[CreateAssetMenu(menuName = "Kraken / TentacleAttack")]
+public class KrakenTentacleAttack : EnemyBehaviourSO {
+    [Foldout("Prefabs")] public List<SkillAnimationEvent> PrefabsPreparingAnimation;
+    [Foldout("Prefabs")] public List<SkillAnimationEvent> PrefabsHitAnimation;
+
+    [Foldout("Animations")] public string AttackAnimationParameter;
+    [Foldout("Animations")] public string ReturnToIdleAnimationParameter;
+    [Foldout("Animations")] public string AttackAnimationName;
+    [Foldout("Animations")] public string AttackHitAnimationName;
+    [Foldout("Animations")] public string ReturnToIdleAnimationName;
+    [Foldout("Animations")] public string PreparingAttackSpeed;
+    [Foldout("Animations")] public string HitAttackSpeed;
+    [Foldout("Animations")] public float TimeInReturnToIdleToTurnOffHitBox;
+
+    [Foldout("Variables")] public DamageAtributes AliveTentacleDamageAtributes;
+    [Foldout("Variables")] public DamageAtributes DeadTentacleDamageAtributes;
+    [Foldout("Variables"), Range(0, 1)] public float TentacleAttackSize;
+
+}

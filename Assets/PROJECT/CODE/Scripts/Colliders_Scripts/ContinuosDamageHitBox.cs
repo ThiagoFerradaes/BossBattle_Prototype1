@@ -1,0 +1,146 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+using UnityEngine.Rendering;
+
+
+public class ContinuosDamageHitBox : MonoBehaviour
+{
+    // Atributos
+    DamageAtributes _damageAtributes;
+    float _duration;
+    StatusManager _dealerStatus;
+
+    // Listas
+    Dictionary<ExtraDamageContextAtributes, object> _extra = new();
+    HashSet<GameObject> _listOfHealths = new();
+
+    // Corrotinas
+    Coroutine _durationCoroutine, _attackCooldownCoroutine;
+
+    // Event
+    public event Action OnHit;
+
+    public void Initialize(DamageContext context)
+    {
+        _damageAtributes = context.Atributes;
+        _dealerStatus = context.StatusManager;
+        _duration = context.Duration;
+        _extra = context.DictionaryOfExtraAtributes ?? new();
+
+        gameObject.SetActive(true);
+        _durationCoroutine ??= StartCoroutine(AttackDuration());
+        _attackCooldownCoroutine ??= StartCoroutine(AttackCooldown());
+    }
+
+    IEnumerator AttackDuration()
+    {
+        float timer = 0;
+        while (timer < _duration)
+        {
+            timer += Time.deltaTime;
+            yield return null;
+        }
+
+        End();
+    }
+
+    IEnumerator AttackCooldown()
+    {
+        while (true)
+        {
+            List<GameObject> desactiveUnits = new();
+
+            foreach (GameObject unit in _listOfHealths)
+            {
+
+                if (!unit.activeInHierarchy)
+                {
+                    desactiveUnits.Add(unit);
+                    continue;
+                }
+                if (!unit.TryGetComponent<HealthManager>(out HealthManager health))
+                {
+                    health = unit.GetComponentInParent<HealthManager>();
+                    if (health == null)
+                    {
+                        Debug.Log("No HealthManager found in this object or its parents");
+                        continue;
+                    }
+                }
+                if (!unit.TryGetComponent<StatusManager>(out StatusManager recieverManager))
+                {
+                    recieverManager = unit.GetComponentInParent<StatusManager>();
+                    if (recieverManager == null)
+                    {
+                        Debug.Log("No StatusManager found in this object or its parents");
+                        continue;
+                    }
+                }
+
+                if (!health.ReturnIfCanTakeDamage()) continue;
+
+                (float, bool) newDamage;
+                if (_extra.ContainsKey(ExtraDamageContextAtributes.CritRate) && _extra.ContainsKey(ExtraDamageContextAtributes.CritDamage))
+                {
+                    newDamage = DamageCalculator.CalculateDamage(
+                    _damageAtributes,
+                    (float)_extra[ExtraDamageContextAtributes.CritRate],
+                    (float)_extra[ExtraDamageContextAtributes.CritDamage],
+                    _dealerStatus,
+                    recieverManager
+                    );
+                }
+                else
+                {
+                    newDamage = DamageCalculator.CalculateDamage(
+                    _damageAtributes,
+                    _dealerStatus,
+                    recieverManager
+                    );
+                }
+
+                if (unit.CompareTag(Tags.Enemy.ToString())) PopUpManager.Instance.DamageDone(
+                    (int)newDamage.Item1, health.transform.position, newDamage.Item2, _damageAtributes.DamageType);
+                health.TakeDamage(newDamage.Item1, _damageAtributes.HitShield);
+
+                OnHit?.Invoke();
+
+            }
+
+            foreach (var enemy in desactiveUnits)
+            {
+                _listOfHealths.Remove(enemy);
+            }
+
+            yield return new WaitForSeconds((float)_extra[ExtraDamageContextAtributes.DamageCooldown]);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (!_damageAtributes.UnitsToHit.Any(tag => other.CompareTag(tag.ToString()))) return;
+
+        _listOfHealths.Add(other.gameObject);
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (!_damageAtributes.UnitsToHit.Any(tag => other.CompareTag(tag.ToString()))) return;
+
+        _listOfHealths.Remove(other.gameObject);
+    }
+
+    public void End()
+    {
+        OnHit = null;
+
+        _durationCoroutine = null;
+        _attackCooldownCoroutine = null;
+
+        _listOfHealths.Clear();
+        PoolingManager.Instance.ReturnObjectToPool(this.gameObject, TypeOfSkillPrefab.Hitbox);
+    }
+}

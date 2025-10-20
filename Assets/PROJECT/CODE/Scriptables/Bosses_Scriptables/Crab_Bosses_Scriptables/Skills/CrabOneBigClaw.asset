@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d551ae0448467f647abe4f31c3612a15, type: 3}
+  m_Name: CrabOneBigClaw
+  m_EditorClassIdentifier: Assembly-CSharp::CrabBigClawAttack
+  Priority: 4
+  Cooldown: 10
+  CooldownBetweenAttacks: 2
+  Channel: 0
+  OpenNewChannels: 0
+  ListOfChannelsToOpen: 
+  CloseOldChannels: 0
+  ListOfChannelsToClose: 
+  preparingAnimationTrigger: BigClaw
+  attackAnimationName: BigClaw_Attack
+  preparingAnimationSpeedParameter: BigClawPreparingSpeed
+  attackAnimationSpeedParameter: BigClawAttackSpeed
+  preparingAnimationSpeed: 0.2
+  attackAnimationSpeed: 2
+  animationLayer: 0
+  distanceToPlayer: 2
+  rotationSpeed: 150
+  prefabs:
+  - TimeToSpawnPreFab: 0.6
+    PrefabDuration: 0.1
+    PreFabName: CrabHitBox
+    PrefabType: 0
+    PreFab: {fileID: 4072845924315506650, guid: 7b15a55247e35bc43a8f065ecdbaabb6, type: 3}
+    PreFabPosition: {x: -5, y: 3.5, z: 0}
+  damage: 60
+  hitShield: 1
+  damageType: 0
+  unitsToHit: 0100000002000000

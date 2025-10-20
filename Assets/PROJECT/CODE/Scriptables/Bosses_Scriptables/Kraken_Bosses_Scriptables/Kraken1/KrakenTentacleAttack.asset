@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9978c5adc3615f14388ca820fd5165c7, type: 3}
+  m_Name: KrakenTentacleAttack
+  m_EditorClassIdentifier: 
+  Priority: 0
+  Cooldown: 0
+  CooldownBetweenAttacks: 0
+  Channel: 0
+  OpenNewChannels: 0
+  ListOfChannelsToOpen: 
+  CloseOldChannels: 0
+  ListOfChannelsToClose: 
+  PrefabsPreparingAnimation:
+  - TimeToSpawnPreFab: 0.4
+    PrefabDuration: 0.7
+    PreFabName: TentaclePreparingVFX
+    PrefabType: 1
+    PreFab: {fileID: 818511502771708411, guid: 2c2e12b1d138d3a42a7badf831c4f0f5, type: 3}
+    PreFabPosition: {x: 0, y: 0, z: 0}
+  PrefabsHitAnimation:
+  - TimeToSpawnPreFab: 0.5
+    PrefabDuration: 1.5
+    PreFabName: TentacleHitVFX
+    PrefabType: 1
+    PreFab: {fileID: 7576390327370907376, guid: 2246f39ab3c0f3e48bef02c89084344d, type: 3}
+    PreFabPosition: {x: 0, y: 0, z: 0}
+  - TimeToSpawnPreFab: 0.6
+    PrefabDuration: 0.05
+    PreFabName: TentacleHitBox
+    PrefabType: 0
+    PreFab: {fileID: 8778551947811663126, guid: ec0e2113e657cd041aa14a3c82a33f2a, type: 3}
+    PreFabPosition: {x: 0, y: 3, z: 0}
+  AttackAnimationParameter: Attack
+  ReturnToIdleAnimationParameter: BackToIdle
+  AttackAnimationName: Preparing
+  AttackHitAnimationName: Hit
+  ReturnToIdleAnimationName: Back
+  PreparingAttackSpeed: PreparingSpeed
+  HitAttackSpeed: HitSpeed
+  TimeInReturnToIdleToTurnOffHitBox: 0.4
+  AliveTentacleDamageAtributes:
+    Damage: 25
+    Penetration: 0
+    HitShield: 1
+    DamageType: 0
+    UnitsToHit: 0100000002000000
+  DeadTentacleDamageAtributes:
+    Damage: 6
+    Penetration: 0
+    HitShield: 1
+    DamageType: 0
+    UnitsToHit: 0100000002000000
+  TentacleAttackSize: 0.8
