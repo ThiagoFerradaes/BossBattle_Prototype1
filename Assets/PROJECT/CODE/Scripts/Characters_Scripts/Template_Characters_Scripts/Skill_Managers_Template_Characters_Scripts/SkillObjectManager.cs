@@ -24,7 +24,7 @@ public abstract class SkillObjectManager : MonoBehaviour {
     #endregion
 
     #region Methods
-    public virtual void OnStart(SkillSO skill, GameObject parent, SkillSlot slot, InputAction.CallbackContext ctx) {
+    public virtual void Initialize(SkillSO skill, GameObject parent, SkillSlot slot, InputAction.CallbackContext ctx) {
         if (!_hasStarted) {
             _hasStarted = true;
             skillManager = parent.GetComponent<PlayerSkillManager>();
@@ -46,13 +46,13 @@ public abstract class SkillObjectManager : MonoBehaviour {
     public virtual void HandleInput(SkillSO skill, InputAction.CallbackContext ctx) {
         if (ctx.phase == InputActionPhase.Started) {
             _preCasted = true;
-            OnPreCast(skill);
+            PreCast(skill);
         }
         if (ctx.phase == InputActionPhase.Canceled && _preCasted) {
-            OnRelease(skill);
+            ReleaseInput(skill);
         }
     }
-    public virtual void OnPreCast(SkillSO skill) {
+    public virtual void PreCast(SkillSO skill) {
 
         movementManager.BlockWalk(skill.BlockWalkWhilePreCasting);
         skillManager.BlockAllButOneSkill(slot, true);
@@ -68,11 +68,11 @@ public abstract class SkillObjectManager : MonoBehaviour {
 
             movementManager.RotateMouse(false);
 
-            OnRelease(skill);
+            ReleaseInput(skill);
         }
     }
 
-    public virtual void OnRelease(SkillSO skill) {
+    public virtual void ReleaseInput(SkillSO skill) {
 
         _preCasted = false;
         ReleaseSkillRangeIndicator();

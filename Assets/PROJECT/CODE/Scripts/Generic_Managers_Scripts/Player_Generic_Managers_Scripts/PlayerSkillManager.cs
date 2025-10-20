@@ -159,7 +159,7 @@ public class PlayerSkillManager : MonoBehaviour {
     void UseSkill(InputAction.CallbackContext ctx, SkillSO skill, SkillSlot slot) {
         GameObject skillManager = PoolingManager.Instance.ReturnManagerFromPool(skill.SkillManagerName, skill.SkillManagerObject.gameObject);
         SkillObjectManager manager = skillManager.GetComponent<SkillObjectManager>();
-        manager.OnStart(skill, this.gameObject, slot, ctx);
+        manager.Initialize(skill, this.gameObject, slot, ctx);
 
     }
 
