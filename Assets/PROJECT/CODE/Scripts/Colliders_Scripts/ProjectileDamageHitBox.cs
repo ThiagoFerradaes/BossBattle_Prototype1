@@ -4,8 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class ProjectileDamageHitBox : MonoBehaviour
-{
+public class ProjectileDamageHitBox : MonoBehaviour {
 
     DamageAtributes _damageAtributes;
     StatusManager _statusManager;
@@ -15,8 +14,7 @@ public class ProjectileDamageHitBox : MonoBehaviour
 
     public event Action OnHit;
 
-    public void Initialize(DamageContext context)
-    {
+    public void Initialize(DamageContext context) {
         _damageAtributes = context.Atributes;
         _statusManager = context.StatusManager;
         _extra = context.DictionaryOfExtraAtributes ?? new();
@@ -26,13 +24,11 @@ public class ProjectileDamageHitBox : MonoBehaviour
         _moveRoutine ??= StartCoroutine(ProjectileMoveRoutine());
     }
 
-    IEnumerator ProjectileMoveRoutine()
-    {
+    IEnumerator ProjectileMoveRoutine() {
         float duration = (float)_extra[ExtraDamageContextAtributes.Distance] / (float)_extra[ExtraDamageContextAtributes.Speed];
         float timer = 0;
 
-        while (timer < duration)
-        {
+        while (timer < duration) {
             transform.position += (float)_extra[ExtraDamageContextAtributes.Speed] * Time.deltaTime * transform.forward;
             timer += Time.deltaTime;
             yield return null;
@@ -41,8 +37,7 @@ public class ProjectileDamageHitBox : MonoBehaviour
         End();
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
+    private void OnTriggerEnter(Collider other) {
         if (!_damageAtributes.UnitsToHit.Any(tag => other.CompareTag(tag.ToString()))) return;
 
 
@@ -72,7 +67,8 @@ public class ProjectileDamageHitBox : MonoBehaviour
         if (!other.CompareTag(Tags.Player.ToString())) PopUpManager.Instance.
                 DamageDone((int)newDamage.Item1, other.transform.position, newDamage.Item2, _damageAtributes.DamageType);
 
-        if (_extra.ContainsKey(ExtraDamageContextAtributes.BreakShield)) health.BreakShield();
+        if (_extra.ContainsKey(ExtraDamageContextAtributes.BreakShield) &&
+            (bool)_extra[ExtraDamageContextAtributes.BreakShield]) health.BreakShield();
 
         health.TakeDamage(newDamage.Item1, _damageAtributes.HitShield);
 
@@ -81,8 +77,7 @@ public class ProjectileDamageHitBox : MonoBehaviour
         if (!_extra.ContainsKey(ExtraDamageContextAtributes.CrossEnemy)) End();
     }
 
-    void End()
-    {
+    void End() {
         OnHit = null;
 
         StopCoroutine(_moveRoutine);

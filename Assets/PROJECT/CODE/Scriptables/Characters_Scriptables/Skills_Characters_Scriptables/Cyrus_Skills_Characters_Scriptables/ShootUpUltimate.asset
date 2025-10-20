@@ -41,12 +41,15 @@ MonoBehaviour:
   AnimationParameterTrigger: ShootUp
   AnimationName: ShootUp
   LastAnimationName: Guarda
-  MinDamage: 5
-  MaxDamage: 7
+  Atributes:
+    Damage: 10
+    Penetration: 0
+    HitShield: 1
+    DamageType: 1
+    UnitsToHit: 00000000
   Duration: 5
   DamageCooldown: 0.3
   Size: 100
-  HitShield: 1
   WeaponName: GunWeapon
   Level1Duration: 8
   AditionalCritRate: 55
@@ -62,8 +65,6 @@ MonoBehaviour:
       Value: 1
   PercentOfSlow: 50
   SlowDuration: 5
-  EnemyTag: 00000000
-  DamageType: 1
   WeaponPrefab: {fileID: 693180943480246370, guid: 017297137351d024aafcba3c332e78a1, type: 3}
   WeaponPosition: {x: -0.1, y: 0.2, z: 0}
   WeaponTwoPosition: {x: 0.1, y: 0.2, z: 0}

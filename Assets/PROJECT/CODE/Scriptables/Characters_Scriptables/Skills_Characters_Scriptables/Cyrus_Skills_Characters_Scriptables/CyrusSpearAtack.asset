@@ -53,9 +53,12 @@ MonoBehaviour:
   Cancelable: 0
   FlatEnergyGainPerHit: 10
   Cooldown: 4
-  EnemyTag: 00000000
-  DamageType: 0
-  HitShield: 1
+  SkillDamageAtributes:
+    Damage: 60
+    Penetration: 0
+    HitShield: 1
+    DamageType: 0
+    UnitsToHit: 00000000
   Charges: 1
   ChargeCooldown: 0
   SpearAttackTriggerName: SpearAttack
@@ -72,9 +75,9 @@ MonoBehaviour:
     - Key: 0
       Value: 2
     - Key: 1
-      Value: 4
+      Value: 2
     - Key: 2
-      Value: 6
+      Value: 2
   SpearName: CyrusSpearWeapon
   SpearPrefab: {fileID: 2847143835849212098, guid: e92e5ac7b41ec62409c76332d976c10a, type: 3}
   WeaponPosition: {x: 0, y: 1, z: 0}

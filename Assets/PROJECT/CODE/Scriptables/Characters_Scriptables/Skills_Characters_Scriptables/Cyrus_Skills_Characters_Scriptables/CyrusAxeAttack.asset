@@ -39,9 +39,12 @@ MonoBehaviour:
   Cancelable: 1
   FlatEnergyGainPerHit: 15
   Cooldown: 12
-  EnemyTag: 00000000
-  DamageType: 0
-  HitShield: 1
+  SkillDamageAtributes:
+    Damage: 0
+    Penetration: 0
+    HitShield: 1
+    DamageType: 0
+    UnitsToHit: 00000000
   Charges: 1
   ChargeCooldown: 0
   FirstAnimationParameterName: AxeSkillOne
@@ -51,8 +54,6 @@ MonoBehaviour:
   MaxChargeTime: 1.8
   MinDamage: 80
   MaxDamage: 200
-  Penetration: 0
-  AmountOfExpGain: 10
   Level1AmountOfShield: 10
   Level2AmountOfShield: 20
   ShieldDuration: 10
@@ -62,20 +63,20 @@ MonoBehaviour:
     - Key: 0
       Value: 2
     - Key: 1
-      Value: 4
+      Value: 2
     - Key: 2
-      Value: 6
-  BrokenRockMinDamage: 20
-  BrokenRockMaxDamage: 22
+      Value: 2
+  RocksAtributes:
+    Damage: 0
+    Penetration: 0
+    HitShield: 0
+    DamageType: 0
+    UnitsToHit: 
   BrokenRockDamageCooldown: 0.5
   BrokenRockDuration: 10
   BrokenRockSize: 6
   BrokenRocksName: SphereContinuosHitBox
   BrokenRocksPrefab: {fileID: 8998219623033830514, guid: f2cad2093c1cc8042a97d053a88618a0, type: 3}
-  BrokenRockDamageType: 1
-  ExpModifier: 25
-  expModifierDuration: 2
-  aditionalExpModifierDurationPerLevel: 1
   WeaponName: Axe
   WeaponPrefab: {fileID: 2959415985370578672, guid: 2714152a00b35324f8b6fef038dba403, type: 3}
   WeaponPosition: {x: -0.3, y: 0.3, z: 0}

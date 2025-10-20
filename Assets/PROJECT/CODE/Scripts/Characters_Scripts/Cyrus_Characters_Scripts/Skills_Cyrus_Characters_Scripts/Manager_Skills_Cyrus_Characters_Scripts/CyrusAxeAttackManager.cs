@@ -194,6 +194,7 @@ public class CyrusAxeAttackManager : SkillObjectManager {
     void InstantiateHitBox(SkillAnimationEvent prefabInfo) {
         GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFabName,
                     prefabInfo.PreFab, TypeOfSkillPrefab.Hitbox);
+
         preFab.transform.SetParent(parent.transform, false);
         preFab.transform.SetLocalPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.identity);
 
@@ -205,7 +206,7 @@ public class CyrusAxeAttackManager : SkillObjectManager {
             prefabInfo.PrefabDuration,
             parent.GetComponent<StatusManager>(),
             new() {
-                        {ExtraDamageContextAtributes.BreakShield, (bool)ReturnBreakShield() }
+                {ExtraDamageContextAtributes.BreakShield, (bool)ReturnBreakShield() }
             }
             );
 

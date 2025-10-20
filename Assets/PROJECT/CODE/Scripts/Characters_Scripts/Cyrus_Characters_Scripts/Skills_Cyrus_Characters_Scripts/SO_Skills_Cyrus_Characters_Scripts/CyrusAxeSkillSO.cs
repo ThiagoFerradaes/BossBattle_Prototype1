@@ -17,8 +17,6 @@ public class CyrusAxeSkillSO : CommonSkillSO
     [Foldout("Specific")] public float MaxChargeTime;
     [Foldout("Specific")] public float MinDamage;
     [Foldout("Specific")] public float MaxDamage;
-    [Foldout("Specific")] public float Penetration;
-    [Foldout("Specific")] public float AmountOfExpGain;
 
     [Header("Level 1 & 2 Buffs")]
     [Foldout("Specific")] public float Level1AmountOfShield;
@@ -34,11 +32,6 @@ public class CyrusAxeSkillSO : CommonSkillSO
     [Foldout("Specific")] public float BrokenRockSize;
     [Foldout("Specific")] public string BrokenRocksName;
     [Foldout("Specific")] public GameObject BrokenRocksPrefab;
-
-    [Header("Cost")]
-    [Foldout("Specific"), Range(1,100)] public float ExpModifier;
-    [Foldout("Specific")] public float expModifierDuration;
-    [Foldout("Specific")] public float aditionalExpModifierDurationPerLevel;
 
     [Header("Weapon")]
     [Foldout("Specific")] public string WeaponName;
