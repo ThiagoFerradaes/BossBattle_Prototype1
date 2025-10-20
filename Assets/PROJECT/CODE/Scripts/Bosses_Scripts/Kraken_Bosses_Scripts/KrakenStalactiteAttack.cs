@@ -9,11 +9,8 @@ public class KrakenStalactiteAttack : EnemyBehaviourSO {
     [Foldout("Attack Atributes"), SerializeField] float cooldownBetweenEachStalactite;
     [Foldout("Attack Atributes"), SerializeField] float stalactiteFallSpeed;
     [Foldout("Attack Atributes"), SerializeField] float stalactiteFallDuration;
-    [Foldout("Attack Atributes"), SerializeField] float stalactiteMinDamage;
-    [Foldout("Attack Atributes"), SerializeField] float stalactiteMaxDamage;
     [Foldout("Attack Atributes"), SerializeField] float stalactiteHeight;
-    [Foldout("Attack Atributes"), SerializeField] DamageType damageType;
-    [Foldout("Attack Atributes"), SerializeField] List<Tags> tags;
+    [Foldout("Attack Atributes"), SerializeField] DamageAtributes damageAtributes;
 
     [Foldout("Cooldown"), SerializeField] float smallCooldown;
     [Foldout("Cooldown"), SerializeField] float cooldownBetweenStalactiteAndNextAttack;
@@ -108,12 +105,8 @@ public class KrakenStalactiteAttack : EnemyBehaviourSO {
         stalactite.SetActive(true);
 
         DamageContext context = new(
-            stalactiteMinDamage,
-            stalactiteMaxDamage,
+            damageAtributes,
             stalactiteFallDuration,
-            true,
-            damageType,
-            tags,
             _krakenManager.KrakenStatus
         );
 

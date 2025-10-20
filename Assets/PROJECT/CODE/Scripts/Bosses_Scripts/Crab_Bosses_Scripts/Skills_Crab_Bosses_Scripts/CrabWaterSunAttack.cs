@@ -29,10 +29,7 @@ public class CrabWaterSunAttack : EnemyBehaviourSO {
     [SerializeField] Vector3 attackSize;
     [SerializeField] float attackDuration;
     [SerializeField] float attackDamageCooldown;
-    [SerializeField] float damage;
-    [SerializeField] bool hitShield;
-    [SerializeField] List<Tags> unitsToHit;
-    [SerializeField] DamageType damageType;
+    [SerializeField] DamageAtributes damageAtributes;
 
 
     #region Initialize
@@ -190,12 +187,8 @@ public class CrabWaterSunAttack : EnemyBehaviourSO {
         hitbox.transform.SetLocalPositionAndRotation(pos, Quaternion.identity);
 
         DamageContext newContext = new(
-           damage,
-           damage,
+           damageAtributes,
            attackDuration,
-           hitShield,
-           damageType,
-           unitsToHit,
            _statusManager,
            new() {
                 {ExtraDamageContextAtributes.DamageCooldown, attackDamageCooldown}

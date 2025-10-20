@@ -27,10 +27,7 @@ public class CrabBigClawAttack : EnemyBehaviourSO
     [SerializeField] List<SkillAnimationEvent> prefabs;
 
     [Header("Damage Atributes")]
-    [SerializeField] float damage;
-    [SerializeField] bool hitShield;
-    [SerializeField] DamageType damageType;
-    [SerializeField] List<Tags> unitsToHit;
+    [SerializeField] DamageAtributes damageAtributes;
 
 
     public override void StartState(EnemyBehaviourManager parent)
@@ -122,13 +119,13 @@ public class CrabBigClawAttack : EnemyBehaviourSO
         hitbox.transform.SetLocalPositionAndRotation(prefab.PreFabPosition, Quaternion.identity);
 
         DamageContext context = new(
-            damage, damage, prefab.PrefabDuration,
-            hitShield, damageType,
-            unitsToHit, _statusManager
+            damageAtributes,
+            prefab.PrefabDuration,
+             _statusManager
             );
 
         InstantDamageHitBox damageHitBox = hitbox.GetComponent<InstantDamageHitBox>();
-        damageHitBox.Initialize( context );
+        damageHitBox.Initialize(context);
     }
 
     void InstantiateVFX(SkillAnimationEvent prefab)

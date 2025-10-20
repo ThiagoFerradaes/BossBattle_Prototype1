@@ -197,14 +197,12 @@ public class CyrusAxeAttackManager : SkillObjectManager {
         preFab.transform.SetParent(parent.transform, false);
         preFab.transform.SetLocalPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.identity);
 
-        float damage = ReturnDamage();
+        DamageAtributes atributes = _info.SkillDamageAtributes;
+        atributes.Damage = ReturnDamage();
+
         DamageContext newContext = new(
-            damage,
-            damage,
+            atributes,
             prefabInfo.PrefabDuration,
-            true,
-            _info.DamageType,
-            _info.EnemyTag,
             parent.GetComponent<StatusManager>(),
             new() {
                         {ExtraDamageContextAtributes.BreakShield, (bool)ReturnBreakShield() }
@@ -217,12 +215,9 @@ public class CyrusAxeAttackManager : SkillObjectManager {
         // On Hit
         hitbox.OnHit += () => {
             energyManager.GainEnergy(_info.FlatEnergyGainPerHit);
-            CyrusPassiveManager.Instance.GainExp(_info.AmountOfExpGain);
+            if (_skillLevel < 3) CyrusPassiveManager.Instance.AddUseSkill(slot, _info.AmountOfUsesPerLevel[_skillLevel]);
             if (_skillLevel == 3) InstantiateBrokenRocks();
         };
-
-        // Cost
-        CyrusPassiveManager.Instance.SkillCost();
     }
 
     void InstantiateVFX(SkillAnimationEvent prefabInfo) {
@@ -241,12 +236,8 @@ public class CyrusAxeAttackManager : SkillObjectManager {
         preFab.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
 
         DamageContext newContext = new(
-            _info.BrokenRockMinDamage,
-            _info.BrokenRockMaxDamage,
+            _info.RocksAtributes,
             _info.BrokenRockDuration,
-            true,
-            _info.BrokenRockDamageType,
-            _info.EnemyTag,
             parent.GetComponent<StatusManager>(),
             new() {
              {ExtraDamageContextAtributes.DamageCooldown, _info.BrokenRockDamageCooldown }

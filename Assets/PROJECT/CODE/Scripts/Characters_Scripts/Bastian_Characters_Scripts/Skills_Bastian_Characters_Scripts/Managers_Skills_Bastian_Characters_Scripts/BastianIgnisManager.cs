@@ -108,12 +108,8 @@ public class BastianIgnisManager : SkillObjectManager
                 float critDamage = statusManager.ReturnStatusValue(StatusType.CritDamage) + additionalCriDmg;
 
                 DamageContext newContext = new(
-                    _info.AttackMinDamage,
-                    _info.AttackMaxDamage,
+                    _info.SkillDamageAtributes,
                     prefabInfo.PrefabDuration,
-                    _info.HitShield,
-                    _info.DamageType,
-                    _info.EnemyTag,
                     parent.GetComponent<StatusManager>(),
                     new() {
                         {ExtraDamageContextAtributes.Speed, _info.ProjectileSpeed },

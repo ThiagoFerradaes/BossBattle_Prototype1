@@ -1,3 +1,4 @@
+using AYellowpaper.SerializedCollections;
 using NaughtyAttributes;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,14 +13,10 @@ public class CyrusShootUpSO : UltimateSkillSO
 
     [Header("Atributes")]
     [Header("Floats")]
-    [Foldout("Specific")] public float MinDamage;
-    [Foldout("Specific")] public float MaxDamage;
+    [Foldout("Specific")] public DamageAtributes Atributes;
     [Foldout("Specific")] public float Duration;
     [Foldout("Specific")] public float DamageCooldown;
     [Foldout("Specific")] public float Size;
-
-    [Header("Booleans")]
-    [Foldout("Specific")] public bool HitShield;
 
     [Header("Strings")]
     [Foldout("Specific")] public string WeaponName;
@@ -29,14 +26,11 @@ public class CyrusShootUpSO : UltimateSkillSO
     [Foldout("Specific")] public float AditionalCritRate;
     [Foldout("Specific")] public float AditionalCritDamagePerHit;
     [Foldout("Specific")] public float Level3DamageCooldown;
+    [Foldout("Specific"), SerializedDictionary("Level", "Amount")] public SerializedDictionary<int, int> AmountOfUsesPerLevel;
 
     [Header("Cost")]
     [Foldout("Specific"), Range(1,100)] public float PercentOfSlow;
     [Foldout("Specific")] public float SlowDuration;
-
-    [Header("Enums")]
-    [Foldout("Specific")] public List<Tags> EnemyTag;
-    [Foldout("Specific")] public DamageType DamageType;
 
     [Header("Weapon")]
     [Foldout("Specific")] public GameObject WeaponPrefab;

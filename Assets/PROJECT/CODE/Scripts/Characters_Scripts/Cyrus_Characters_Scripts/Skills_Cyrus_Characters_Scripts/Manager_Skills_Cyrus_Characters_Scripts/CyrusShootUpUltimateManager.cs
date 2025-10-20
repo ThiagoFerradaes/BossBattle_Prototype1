@@ -93,7 +93,7 @@ public class CyrusShootUpUltimateManager : SkillObjectManager {
             if (prefabInfo.PrefabType == TypeOfSkillPrefab.Hitbox) {
                 _damageCoroutine ??= StartCoroutine(Damage(prefabInfo));
                 _durationCoroutine ??= StartCoroutine(Duration());
-                CyrusPassiveManager.Instance.SkillCost();
+                if (_skillLevel < 3) CyrusPassiveManager.Instance.AddUseSkill(slot, _info.AmountOfUsesPerLevel[_skillLevel]);
             }
 
             else {
@@ -153,12 +153,8 @@ public class CyrusShootUpUltimateManager : SkillObjectManager {
         float critDamage = _skillLevel > 2? charCritDamage + (_amountOfHits * _info.AditionalCritDamagePerHit) : charCritDamage;
 
         DamageContext newContext = new(
-            _info.MinDamage,
-            _info.MaxDamage,
+            _info.Atributes,
             prefabInfo.PrefabDuration,
-            _info.HitShield,
-            _info.DamageType,
-            _info.EnemyTag,
             parent.GetComponent<StatusManager>(),
             new() {
                 {ExtraDamageContextAtributes.CritRate, critRate},

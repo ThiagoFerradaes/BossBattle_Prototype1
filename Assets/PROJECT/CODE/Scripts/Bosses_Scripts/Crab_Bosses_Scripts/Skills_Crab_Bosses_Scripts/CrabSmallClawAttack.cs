@@ -31,10 +31,7 @@ public class CrabSmallClawAttack : EnemyBehaviourSO
     [SerializeField] Vector3 sizeOfHitbox;
 
     [Header("Damage Atributes")]
-    [SerializeField] float damage;
-    [SerializeField] bool hitShield;
-    [SerializeField] DamageType damageType;
-    [SerializeField] List<Tags> unitsToHit;
+    [SerializeField] DamageAtributes damageAtributes;
 
     public override void StartState(EnemyBehaviourManager parent)
     {
@@ -133,9 +130,9 @@ public class CrabSmallClawAttack : EnemyBehaviourSO
         hitbox.transform.SetLocalPositionAndRotation(hitboxPosition, Quaternion.identity);
 
         DamageContext context = new(
-            damage, damage, prefab.PrefabDuration,
-            hitShield, damageType,
-            unitsToHit, _statusManager
+            damageAtributes, 
+            prefab.PrefabDuration,
+             _statusManager
             );
 
         InstantDamageHitBox damageHitBox = hitbox.GetComponent<InstantDamageHitBox>();

@@ -6,16 +6,11 @@ using UnityEngine;
 using UnityEngine.Rendering;
 
 
-public class ContinuosDamageHitBox : MonoBehaviour {
+public class ContinuosDamageHitBox : MonoBehaviour
+{
     // Atributos
-    float _minDamagePerTick;
-    float _maxDamagePerTick;
-    float _damageCooldown;
+    DamageAtributes _damageAtributes;
     float _duration;
-    float _penetrarion;
-    bool _hitShield;
-    DamageType _type;
-    List<Tags> _typeOfUnit = new();
     StatusManager _dealerStatus;
 
     // Listas
@@ -28,32 +23,23 @@ public class ContinuosDamageHitBox : MonoBehaviour {
     // Event
     public event Action OnHit;
 
-    public void Initialize(DamageContext context) {
-        _minDamagePerTick = context.MinDamage;
-        _maxDamagePerTick = context.MaxDamage;
-        _duration = context.Duration;
-        _type = context.TypeOfDamage;
+    public void Initialize(DamageContext context)
+    {
+        _damageAtributes = context.Atributes;
         _dealerStatus = context.StatusManager;
-        _hitShield = context.HitShield;
-        _typeOfUnit = new(context.UnitsToHitTag);
+        _duration = context.Duration;
         _extra = context.DictionaryOfExtraAtributes ?? new();
-
-        if (_extra.TryGetValue(ExtraDamageContextAtributes.Penetration, out var pen)) {
-            _penetrarion = (float)pen;
-        }
-
-        if (_extra.TryGetValue(ExtraDamageContextAtributes.DamageCooldown, out var damageCooldown)) {
-            _damageCooldown = (float)damageCooldown;
-        }
 
         gameObject.SetActive(true);
         _durationCoroutine ??= StartCoroutine(AttackDuration());
         _attackCooldownCoroutine ??= StartCoroutine(AttackCooldown());
     }
 
-    IEnumerator AttackDuration() {
+    IEnumerator AttackDuration()
+    {
         float timer = 0;
-        while (timer < _duration) {
+        while (timer < _duration)
+        {
             timer += Time.deltaTime;
             yield return null;
         }
@@ -61,26 +47,34 @@ public class ContinuosDamageHitBox : MonoBehaviour {
         End();
     }
 
-    IEnumerator AttackCooldown() {
-        while (true) {
+    IEnumerator AttackCooldown()
+    {
+        while (true)
+        {
             List<GameObject> desactiveUnits = new();
 
-            foreach (GameObject unit in _listOfHealths) {
+            foreach (GameObject unit in _listOfHealths)
+            {
 
-                if (!unit.activeInHierarchy) {
+                if (!unit.activeInHierarchy)
+                {
                     desactiveUnits.Add(unit);
                     continue;
                 }
-                if (!unit.TryGetComponent<HealthManager>(out HealthManager health)) {
+                if (!unit.TryGetComponent<HealthManager>(out HealthManager health))
+                {
                     health = unit.GetComponentInParent<HealthManager>();
-                    if (health == null) {
+                    if (health == null)
+                    {
                         Debug.Log("No HealthManager found in this object or its parents");
                         continue;
                     }
                 }
-                if (!unit.TryGetComponent<StatusManager>(out StatusManager recieverManager)) {
+                if (!unit.TryGetComponent<StatusManager>(out StatusManager recieverManager))
+                {
                     recieverManager = unit.GetComponentInParent<StatusManager>();
-                    if (recieverManager == null) {
+                    if (recieverManager == null)
+                    {
                         Debug.Log("No StatusManager found in this object or its parents");
                         continue;
                     }
@@ -88,45 +82,59 @@ public class ContinuosDamageHitBox : MonoBehaviour {
 
                 if (!health.ReturnIfCanTakeDamage()) continue;
 
-                float damage = UnityEngine.Random.Range(_minDamagePerTick, _maxDamagePerTick);
-
-                (float, bool) newDamage = DamageCalculator.CalculateDamage(
-                    _type,
-                    damage,
-                    _penetrarion,
+                (float, bool) newDamage;
+                if (_extra.ContainsKey(ExtraDamageContextAtributes.CritRate) && _extra.ContainsKey(ExtraDamageContextAtributes.CritDamage))
+                {
+                    newDamage = DamageCalculator.CalculateDamage(
+                    _damageAtributes,
+                    (float)_extra[ExtraDamageContextAtributes.CritRate],
+                    (float)_extra[ExtraDamageContextAtributes.CritDamage],
                     _dealerStatus,
                     recieverManager
                     );
+                }
+                else
+                {
+                    newDamage = DamageCalculator.CalculateDamage(
+                    _damageAtributes,
+                    _dealerStatus,
+                    recieverManager
+                    );
+                }
 
                 if (unit.CompareTag(Tags.Enemy.ToString())) PopUpManager.Instance.DamageDone(
-                    (int)newDamage.Item1, health.transform.position, newDamage.Item2, _type);
-                health.TakeDamage(newDamage.Item1, _hitShield);
+                    (int)newDamage.Item1, health.transform.position, newDamage.Item2, _damageAtributes.DamageType);
+                health.TakeDamage(newDamage.Item1, _damageAtributes.HitShield);
 
                 OnHit?.Invoke();
 
             }
 
-            foreach (var enemy in desactiveUnits) {
+            foreach (var enemy in desactiveUnits)
+            {
                 _listOfHealths.Remove(enemy);
             }
 
-            yield return new WaitForSeconds(_damageCooldown);
+            yield return new WaitForSeconds((float)_extra[ExtraDamageContextAtributes.DamageCooldown]);
         }
     }
 
-    private void OnTriggerEnter(Collider other) {
-        if (!_typeOfUnit.Any(tag => other.CompareTag(tag.ToString()))) return;
+    private void OnTriggerEnter(Collider other)
+    {
+        if (!_damageAtributes.UnitsToHit.Any(tag => other.CompareTag(tag.ToString()))) return;
 
         _listOfHealths.Add(other.gameObject);
     }
 
-    private void OnTriggerExit(Collider other) {
-        if (!_typeOfUnit.Any(tag => other.CompareTag(tag.ToString()))) return;
+    private void OnTriggerExit(Collider other)
+    {
+        if (!_damageAtributes.UnitsToHit.Any(tag => other.CompareTag(tag.ToString()))) return;
 
         _listOfHealths.Remove(other.gameObject);
     }
 
-    public void End() {
+    public void End()
+    {
         OnHit = null;
 
         _durationCoroutine = null;

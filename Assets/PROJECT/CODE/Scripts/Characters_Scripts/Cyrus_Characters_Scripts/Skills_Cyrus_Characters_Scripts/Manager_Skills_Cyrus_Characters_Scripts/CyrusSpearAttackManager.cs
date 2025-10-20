@@ -99,7 +99,6 @@ public class CyrusSpearAttackManager : SkillObjectManager {
         skillManager.SkillIsInAnimation(false);
         _weaponManager.OnDesequipRightHand();
         animationCoroutine = null;
-        CyrusPassiveManager.Instance.SkillCost();
         EndWithUnblockSkills();
     }
 
@@ -119,12 +118,8 @@ public class CyrusSpearAttackManager : SkillObjectManager {
         float penetration = _skillLevel > 2 ? _info.Level3Penetration : 0;
 
         DamageContext newContext = new(
-            _info.MinDamage,
-            _info.MaxDamage,
+            _info.SkillDamageAtributes,
             prefabInfo.PrefabDuration,
-            _info.HitShield,
-            _info.DamageType,
-            _info.EnemyTag,
             parent.GetComponent<StatusManager>(),
             new() {
                { ExtraDamageContextAtributes.Penetration, penetration }
@@ -136,7 +131,7 @@ public class CyrusSpearAttackManager : SkillObjectManager {
 
         hitbox.OnHit += () => {
             energyManager.GainEnergy(_info.FlatEnergyGainPerHit);
-            CyrusPassiveManager.Instance.GainExp(_info.ExpGain);
+            if (_skillLevel < 3) CyrusPassiveManager.Instance.AddUseSkill(slot, _info.AmountOfUsesPerLevel[_skillLevel]);
             if (_skillLevel > 0) cooldownManager.ResetCooldown(SkillSlot.Dash);
         };
     }

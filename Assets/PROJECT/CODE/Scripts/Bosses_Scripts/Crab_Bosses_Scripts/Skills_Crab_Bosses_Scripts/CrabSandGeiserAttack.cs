@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Crab/ Skills/ SandGeiser")]
-public class CrabSandGeiserAttack : EnemyBehaviourSO {
+public class CrabSandGeiserAttack : EnemyBehaviourSO
+{
     CrabManager _crabManager;
     Animator _anim;
     StatusManager _statusManager;
@@ -20,7 +21,8 @@ public class CrabSandGeiserAttack : EnemyBehaviourSO {
     [SerializeField] float cooldownBetweenWarningRepetitions;
     [SerializeField] float warningTimeOn;
 
-    public override void StartState(EnemyBehaviourManager parent) {
+    public override void StartState(EnemyBehaviourManager parent)
+    {
         base.StartState(parent);
 
         Initialize(parent);
@@ -29,12 +31,14 @@ public class CrabSandGeiserAttack : EnemyBehaviourSO {
 
     }
 
-    public override bool MeetsCondition() {
-        return (CrabArenaManager.Instance.ReturnCurrentTide() == CrabArenaState.LowTide && 
+    public override bool MeetsCondition()
+    {
+        return (CrabArenaManager.Instance.ReturnCurrentTide() == CrabArenaState.LowTide &&
             CrabArenaManager.Instance.ReturnAmountOfTideOccurence(CrabArenaState.HighTide) >= minHighTidesToAttack);
     }
 
-    void Initialize(EnemyBehaviourManager parent) {
+    void Initialize(EnemyBehaviourManager parent)
+    {
         if (_crabManager != null) return;
 
         _crabManager = parent as CrabManager;
@@ -42,12 +46,15 @@ public class CrabSandGeiserAttack : EnemyBehaviourSO {
         _statusManager = _crabManager.StatusManager;
     }
 
-    IEnumerator GeiserRoutine() {
+    IEnumerator GeiserRoutine()
+    {
 
         _crabManager.StartCoroutine(CooldownBetweenAttacksRoutine());
 
-        while (CrabArenaManager.Instance.ReturnCurrentTide() == CrabArenaState.LowTide) {
-            for (int i = 0; i < amountOfAttacks; i++) {
+        while (CrabArenaManager.Instance.ReturnCurrentTide() == CrabArenaState.LowTide)
+        {
+            for (int i = 0; i < amountOfAttacks; i++)
+            {
                 yield return _crabManager.StartCoroutine(WarningCoroutine());
 
                 float warningsDuration = (amountOfWarningRepetitions * (warningTimeOn + cooldownBetweenWarningRepetitions));
@@ -61,32 +68,38 @@ public class CrabSandGeiserAttack : EnemyBehaviourSO {
     }
 
 
-    void InstantiateHitBoxAttack() {
+    void InstantiateHitBoxAttack()
+    {
 
         CrabPlatformManager platform = CrabArenaManager.Instance.CrabPlatform.GetComponent<CrabPlatformManager>();
 
         DamageContext context = new(
-        damageAtributes.MinDamage, damageAtributes.MaxDamage,
-        hitboxDuration, damageAtributes.HitShield, damageAtributes.DamageType,
-        damageAtributes.UnitsToHit, _statusManager
+        damageAtributes,
+        hitboxDuration,
+        _statusManager
         );
 
         List<InstantDamageHitBox> hitboxes = platform.ReturnPlatformDamageCollider();
-        foreach (var hitbox in hitboxes) {
+        foreach (var hitbox in hitboxes)
+        {
             hitbox.Initialize(context);
         }
     }
 
-    IEnumerator WarningCoroutine() {
+    IEnumerator WarningCoroutine()
+    {
         List<GameObject> listOfWarnings = CrabArenaManager.Instance.CrabPlatform.GetComponent<CrabPlatformManager>().ReturnPlatformWarningObject();
-        for (int i = 0; i < amountOfWarningRepetitions; i++) {
-            foreach (var warning in listOfWarnings) {
+        for (int i = 0; i < amountOfWarningRepetitions; i++)
+        {
+            foreach (var warning in listOfWarnings)
+            {
                 warning.SetActive(true);
             }
 
             yield return new WaitForSeconds(warningTimeOn);
 
-            foreach (var warning in listOfWarnings) {
+            foreach (var warning in listOfWarnings)
+            {
                 warning.SetActive(false);
             }
 

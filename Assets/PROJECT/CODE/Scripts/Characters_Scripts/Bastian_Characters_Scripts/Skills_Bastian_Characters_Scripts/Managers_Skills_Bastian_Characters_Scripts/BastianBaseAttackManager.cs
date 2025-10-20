@@ -48,30 +48,26 @@ public class BastianBaseAttackManager : SkillObjectManager {
         float attackSpeedMultiplier = GetAttackSpeedMultiplier();
 
         // Decidingo dano e animação baseado no attack index;
-        float minDamage, maxDamage;
         string animationParameterName, animationName;
+        DamageAtributes atributes;
         switch (_attackIndex) {
             case 1:
-                minDamage = _info.FirstAttackMinDamage;
-                maxDamage = _info.FirstAttackMaxDamage;
+                atributes = _info.FirstAttackAtributes;
                 animationParameterName = _info.AnimationOneParameter;
                 animationName = _info.AnimationOneName;
                 break;
             case 2:
-                minDamage = _info.SecondAttackMinDamage;
-                maxDamage = _info.ThirdAttackMaxDamage;
+                atributes = _info.SecondAttackAtributes;
                 animationParameterName = _info.AnimationTwoParameter;
                 animationName = _info.AnimationTwoName;
                 break;
             case 3:
-                minDamage = _info.ThirdAttackMinDamage;
-                maxDamage = _info.ThirdAttackMaxDamage;
+                atributes = _info.ThirdAttackAtributes;
                 animationParameterName = _info.AnimationThreeParameter;
                 animationName = _info.AnimationThreeName;
                 break;
             default:
-                minDamage = _info.FirstAttackMinDamage;
-                maxDamage = _info.FirstAttackMaxDamage;
+                atributes = _info.FirstAttackAtributes;
                 animationParameterName = _info.AnimationOneParameter;
                 animationName = _info.AnimationOneName;
                 break;
@@ -117,7 +113,7 @@ public class BastianBaseAttackManager : SkillObjectManager {
             } while (stateInfo.fullPathHash == attackStateHash && stateInfo.normalizedTime < targetNormalizedTime);
 
 
-            if (prefabInfo.PrefabType == TypeOfSkillPrefab.Hitbox) InstantiateHitBox(prefabInfo, minDamage, maxDamage);
+            if (prefabInfo.PrefabType == TypeOfSkillPrefab.Hitbox) InstantiateHitBox(prefabInfo, atributes);
             else InstantiateVFX(prefabInfo);
         }
 
@@ -182,7 +178,7 @@ public class BastianBaseAttackManager : SkillObjectManager {
         _timerBetweenAttacksCoroutine = null;
         base.EndWithUnblockSkills();
     }
-    void InstantiateHitBox(SkillAnimationEvent prefabInfo, float minDamage, float maxDamage) {
+    void InstantiateHitBox(SkillAnimationEvent prefabInfo, DamageAtributes atributes) {
         GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFabName,
     prefabInfo.PreFab, TypeOfSkillPrefab.Hitbox);
 
@@ -194,12 +190,8 @@ public class BastianBaseAttackManager : SkillObjectManager {
         float critDamage = statusManager.ReturnStatusValue(StatusType.CritDamage) + additionalCriDmg;
 
         DamageContext newContext = new(
-            minDamage,
-            maxDamage,
+            atributes,
             prefabInfo.PrefabDuration,
-            _info.HitShield,
-            _info.DamageType,
-            _info.EnemyTag,
             parent.GetComponent<StatusManager>(),
             new() {
                         {ExtraDamageContextAtributes.Speed, _info.ProjectileSpeed },

@@ -141,27 +141,17 @@ public class CyrusBaseAttackManager : SkillObjectManager {
 
     void InstantiateHitBox(SkillAnimationEvent prefabInfo) {
 
-        float penetration = _attackIndex == 1 ? _info.PenetrationFirstAttack : _info.PenetrationSecondAttack;
-
         GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFabName,
             prefabInfo.PreFab, TypeOfSkillPrefab.Hitbox);
         preFab.transform.SetParent(parent.transform, false);
         preFab.transform.SetLocalPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.identity);
 
-        float attackDamageOne = _attackIndex == 1 ? _info.FirstAttackMinDamage : _info.SecondAttackMinDamage;
-        float attackDamageTwo = _attackIndex == 1 ? _info.FirstAttackMaxDamage : _info.SecondAttackMaxDamage;
+        DamageAtributes atributes = _attackIndex == 1 ? _info.FirstAttackAtributes : _info.SecondAttackAtributes;
 
         DamageContext newContext = new(
-            attackDamageOne,
-            attackDamageTwo,
+            atributes,
             prefabInfo.PrefabDuration,
-            _info.HitShield,
-            _info.DamageType,
-            _info.EnemyTag,
-            parent.GetComponent<StatusManager>(),
-            new() {
-                {ExtraDamageContextAtributes.Penetration, penetration }
-            }
+            parent.GetComponent<StatusManager>()
             );
 
         InstantDamageHitBox hitbox = preFab.GetComponent<InstantDamageHitBox>();

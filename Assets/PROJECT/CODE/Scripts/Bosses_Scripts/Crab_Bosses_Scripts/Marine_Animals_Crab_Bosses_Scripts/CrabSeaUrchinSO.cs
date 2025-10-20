@@ -9,9 +9,7 @@ public class CrabSeaUrchinSO : CrabMarineAnimalSO {
     [SerializeField] float explosionRadius;
  
     [Header("Damage atributes")]
-    [SerializeField] float explosionDamage;
-    [SerializeField] bool hitShield;
-    [SerializeField] DamageType damageType;
+    [SerializeField] DamageAtributes damageAtributes;
     [SerializeField] List<SkillAnimationEvent> prefabs;
 
     CrabMarineAnimal _parent;
@@ -37,12 +35,8 @@ public class CrabSeaUrchinSO : CrabMarineAnimalSO {
         hitbox.transform.localScale = explosionRadius * Vector3.one;
 
         DamageContext context = new(
-            explosionDamage, 
-            explosionDamage,
+            damageAtributes,
             prefab.PrefabDuration,
-            hitShield,
-            damageType,
-            ListOfTags,
             _parent.CrabManager.GetComponent<StatusManager>()
             );
 
