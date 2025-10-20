@@ -17,11 +17,11 @@ public class BastianIgnisManager : SkillObjectManager
         if (ctx.phase == InputActionPhase.Started)
         {
             _preCasted = true;
-            OnPreCast(skill);
+            PreCast(skill);
         }
         if (ctx.phase == InputActionPhase.Canceled && _preCasted)
         {
-            OnRelease(skill);
+            ReleaseInput(skill);
         }
     }
 
