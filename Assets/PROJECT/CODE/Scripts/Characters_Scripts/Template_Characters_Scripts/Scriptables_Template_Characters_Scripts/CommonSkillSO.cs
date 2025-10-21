@@ -1,16 +1,18 @@
-using AYellowpaper.SerializedCollections;
 using NaughtyAttributes;
-using System.Collections.Generic;
 using UnityEngine;
 
 
-public abstract class CommonSkillSO : SkillSO
-{
-    [Foldout("Common SKill")]public float FlatEnergyGainPerHit;
-    [Foldout("Common SKill")] public float Cooldown;
+public abstract class CommonSkillSO : SkillSO {
 
-    [Foldout("Common SKill")] public DamageAtributes SkillDamageAtributes;
+    [Header("Skill Atributes")]
+    [Foldout("Common SKill Atributes")] public float FlatEnergyGainPerHit;
+    [Foldout("Common SKill Atributes")] public float Cooldown;
 
-    [Foldout("Common SKill")] public int Charges = 1;
-    [Foldout("Common SKill")] public float ChargeCooldown;
+    [Header("Charges")]
+    [Foldout("Common SKill Atributes")] public bool HasCharges = false;
+    [Foldout("Common SKill Atributes"), ShowIf("HasCharges")] public int Charges = 1;
+    [Foldout("Common SKill Atributes"), ShowIf("HasCharges")] public float ChargeCooldown;
+
+    [Header("Damage Atributes")]
+    [Foldout("Common SKill Atributes")] public DamageAtributes SkillDamageAtributes;
 }

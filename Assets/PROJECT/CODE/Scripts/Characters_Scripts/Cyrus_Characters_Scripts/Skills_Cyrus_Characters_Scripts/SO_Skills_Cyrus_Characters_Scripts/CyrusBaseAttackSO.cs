@@ -20,6 +20,7 @@ public class CyrusBaseAttackSO : CommonSkillSO {
     [Foldout("Specific")] public float SecondAttackHitBoxDuration;
     [Foldout("Specific")] public float CooldownBetweenAttacks;
     [Foldout("Specific")] public float MaxTimeBetweenAttacks;
+    [Foldout("Specific")] public Vector3 Size;
 
     [Header("Strings")]
     [Foldout("Specific")] public string SwordName;
