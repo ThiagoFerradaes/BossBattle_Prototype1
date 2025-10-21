@@ -10,11 +10,10 @@ public class BastianIgnisSO : CommonSkillSO
     [Foldout("Specific")] public string AttackSpeedAnimationParameter;
 
     [Header("Attacks Atributes")]
-    [Foldout("Specific")] public float AttackMinDamage;
-    [Foldout("Specific")] public float AttackMaxDamage;
     [Foldout("Specific")] public float AttackDistance;
     [Foldout("Specific")] public float ProjectileSpeed;
     [Foldout("Specific")] public bool CrossTarget;
+    [Foldout("Specific")] public Vector3 Size = new(1, 1, 1);
 
     [Header("Passive")]
     [Foldout("Specific")] public float HeatGain;

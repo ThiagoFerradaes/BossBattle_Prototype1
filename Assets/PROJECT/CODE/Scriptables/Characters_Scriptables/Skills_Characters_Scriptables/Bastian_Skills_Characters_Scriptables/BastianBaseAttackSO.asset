@@ -22,7 +22,7 @@ MonoBehaviour:
         PrefabDuration: 1
         PreFabName: BastianBaseAttackHitBox
         PrefabType: 0
-        PreFab: {fileID: 5556882484380889040, guid: 3a0c353cfe6bb294097868dfad5cf4ab, type: 3}
+        PreFab: {fileID: 5556882484380889040, guid: 73183662ed7be604f90dff0cc2f277ff, type: 3}
         PreFabPosition: {x: 0, y: 1, z: 0}
     - Key: 2
       Value:
@@ -30,7 +30,7 @@ MonoBehaviour:
         PrefabDuration: 1
         PreFabName: BastianBaseAttackHitBox
         PrefabType: 0
-        PreFab: {fileID: 5556882484380889040, guid: 3a0c353cfe6bb294097868dfad5cf4ab, type: 3}
+        PreFab: {fileID: 5556882484380889040, guid: 73183662ed7be604f90dff0cc2f277ff, type: 3}
         PreFabPosition: {x: 0, y: 1, z: 0}
     - Key: 3
       Value:
@@ -38,7 +38,7 @@ MonoBehaviour:
         PrefabDuration: 1
         PreFabName: BastianLastBaseAttackHitBox
         PrefabType: 0
-        PreFab: {fileID: 5556882484380889040, guid: 5124a06f2b6fabe4885ff3ff7920b78e, type: 3}
+        PreFab: {fileID: 5556882484380889040, guid: 73183662ed7be604f90dff0cc2f277ff, type: 3}
         PreFabPosition: {x: 0, y: 1, z: 0}
   SkillObjectRangeObject: {fileID: 5203434260948203345, guid: ade6d2bcd504d27418184cc1070b8f59, type: 3}
   SkillObjectRangeName: BastianRangeBaseAttack
@@ -49,11 +49,15 @@ MonoBehaviour:
   Cancelable: 0
   FlatEnergyGainPerHit: 1
   Cooldown: 0.6
-  EnemyTag: 00000000
-  DamageType: 0
-  HitShield: 1
+  HasCharges: 0
   Charges: 1
   ChargeCooldown: 0
+  SkillDamageAtributes:
+    Damage: 0
+    Penetration: 0
+    HitShield: 0
+    DamageType: 0
+    UnitsToHit: 
   AnimationOneParameter: BaseAttack
   AnimationTwoParameter: BaseAttack
   AnimationThreeParameter: LastShoot
@@ -61,14 +65,27 @@ MonoBehaviour:
   AnimationTwoName: Shoot
   AnimationThreeName: LastShoot
   AttackSpeedAnimationParameter: AttackSpeed
-  FirstAttackMinDamage: 16
-  FirstAttackMaxDamage: 18
-  SecondAttackMinDamage: 17
-  SecondAttackMaxDamage: 19
-  ThirdAttackMinDamage: 26
-  ThirdAttackMaxDamage: 28
+  FirstAttackAtributes:
+    Damage: 10
+    Penetration: 0
+    HitShield: 1
+    DamageType: 0
+    UnitsToHit: 00000000
+  SecondAttackAtributes:
+    Damage: 12
+    Penetration: 0
+    HitShield: 1
+    DamageType: 0
+    UnitsToHit: 00000000
+  ThirdAttackAtributes:
+    Damage: 14
+    Penetration: 0
+    HitShield: 1
+    DamageType: 0
+    UnitsToHit: 00000000
   AttackDistance: 8
   ProjectileSpeed: 28
+  ProjectileSize: 0.5
   CooldownBetweenAttacks: 0
   MaxTimeBetweenAttacks: 1
   HeatGain: 5

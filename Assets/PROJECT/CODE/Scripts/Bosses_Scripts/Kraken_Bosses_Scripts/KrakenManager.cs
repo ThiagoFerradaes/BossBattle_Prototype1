@@ -10,12 +10,12 @@ public class KrakenTentacle {
     public Animator Anim;
     public HealthManager Health;
     public GameObject HitBox;
-    public MeshRenderer MeshRend;
+    public SkinnedMeshRenderer MeshRend;
     public StatusManager Status;
 
     public KrakenTentacle(GameObject tentacle) {
         Anim = tentacle.GetComponentInChildren<Animator>();
-        MeshRend = tentacle.GetComponentInChildren<MeshRenderer>();
+        MeshRend = tentacle.GetComponentInChildren<SkinnedMeshRenderer>();
 
         foreach (Transform child in tentacle.transform) {
             if (child.gameObject.CompareTag("Enemy")) {

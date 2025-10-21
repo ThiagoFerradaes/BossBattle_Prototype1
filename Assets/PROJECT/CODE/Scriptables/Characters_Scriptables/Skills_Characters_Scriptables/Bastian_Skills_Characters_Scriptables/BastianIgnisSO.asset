@@ -22,7 +22,7 @@ MonoBehaviour:
         PrefabDuration: 0
         PreFabName: BastianIgnisHitBox
         PrefabType: 0
-        PreFab: {fileID: 5556882484380889040, guid: 5f434a6835f91de45a56780a85e7ad4f, type: 3}
+        PreFab: {fileID: 5556882484380889040, guid: 73183662ed7be604f90dff0cc2f277ff, type: 3}
         PreFabPosition: {x: 0, y: 1, z: 0}
   SkillObjectRangeObject: {fileID: 5203434260948203345, guid: 33b85ce993cf5ac42bc2d8a1f986e21e, type: 3}
   SkillObjectRangeName: BastianIgnisRange
@@ -33,16 +33,18 @@ MonoBehaviour:
   Cancelable: 0
   FlatEnergyGainPerHit: 5
   Cooldown: 5
-  EnemyTag: 00000000
-  DamageType: 1
-  HitShield: 1
+  HasCharges: 1
   Charges: 3
   ChargeCooldown: 0.5
+  SkillDamageAtributes:
+    Damage: 30
+    Penetration: 0
+    HitShield: 1
+    DamageType: 1
+    UnitsToHit: 00000000
   AnimationParameter: Ignis
   AnimationName: Ignis
   AttackSpeedAnimationParameter: AttackSpeed
-  AttackMinDamage: 30
-  AttackMaxDamage: 32
   AttackDistance: 12
   ProjectileSpeed: 30
   CrossTarget: 1

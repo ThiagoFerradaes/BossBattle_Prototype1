@@ -182,6 +182,7 @@ public class BastianBaseAttackManager : SkillObjectManager {
         GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFabName,
     prefabInfo.PreFab, TypeOfSkillPrefab.Hitbox);
 
+        preFab.transform.localScale = Vector3.one * _info.ProjectileSize;
         preFab.transform.SetPositionAndRotation(parent.transform.position + prefabInfo.PreFabPosition, parent.transform.rotation);
 
         float pen = BastianPassiveManager.Instance.ReturnMinHeat(HeatArea.SuperHeatArea) ? _info.PenetrationOnSuperHeat : 0;

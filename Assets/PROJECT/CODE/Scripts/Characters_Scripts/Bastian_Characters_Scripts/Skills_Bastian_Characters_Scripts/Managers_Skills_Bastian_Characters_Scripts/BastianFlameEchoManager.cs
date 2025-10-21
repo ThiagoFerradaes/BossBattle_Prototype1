@@ -128,51 +128,7 @@ public class BastianFlameEchoManager : SkillObjectManager
         {
             SkillAnimationEvent prefabInfo = prefabList[i];
 
-            if (prefabInfo.PrefabType == TypeOfSkillPrefab.Hitbox)
-            {
-                DamageAtributes atributes;
-                switch (attackIndex)
-                {
-                    case 1:
-                        atributes = _info.FirstAttackDamageAtributes;
-                        break;
-                    case 2:
-                        atributes = _info.SecondAttackDamageAtributes;
-                        break;
-                    case 3:
-                        atributes = _info.ThirdAttackDamageAtributes;
-                        break;
-                    default:
-                        atributes = _info.FirstAttackDamageAtributes;
-                        break;
-                }
-                GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFabName,
-                    prefabInfo.PreFab, TypeOfSkillPrefab.Hitbox);
-
-                preFab.transform.SetPositionAndRotation(parent.transform.position + prefabInfo.PreFabPosition, parent.transform.rotation);
-
-                float pen = BastianPassiveManager.Instance.ReturnMinHeat(HeatArea.SuperHeatArea) ? _info.SPenetrationOnSuperHeat : 0;
-                float critChance = BastianPassiveManager.Instance.ReturnMinHeat(HeatArea.OverHeatArea) ? _info.SCritChanceOverHeat : 0;
-                float additionalCriDmg = BastianPassiveManager.Instance.ReturnMinHeat(HeatArea.LastOverHeatArea) ? _info.SLastOverHeatCritDamage : 0;
-                float critDamage = statusManager.ReturnStatusValue(StatusType.CritDamage) + additionalCriDmg;
-
-                DamageContext newContext = new(
-                    atributes,
-                    prefabInfo.PrefabDuration,
-                    parent.GetComponent<StatusManager>(),
-                    new() {
-                        {ExtraDamageContextAtributes.Speed, _info.ProjectileSpeed },
-                        {ExtraDamageContextAtributes.Distance, _info.AttackDistance },
-                        {ExtraDamageContextAtributes.Penetration, pen},
-                        //{ExtraDamageContextAtributes.CritChance, critChance},
-                        //{ExtraDamageContextAtributes.CritDamage, critDamage}
-                    }
-                    );
-
-                ProjectileDamageHitBox hitbox = preFab.GetComponent<ProjectileDamageHitBox>();
-                hitbox.Initialize(newContext);
-
-            }
+            if (prefabInfo.PrefabType == TypeOfSkillPrefab.Hitbox) InstantiateHitBox(prefabInfo, attackIndex);
         }
     }
 
@@ -183,5 +139,40 @@ public class BastianFlameEchoManager : SkillObjectManager
         _energyManager.SetCanGainEnergy(true);
 
         base.EndWithUnblockSkills();
+    }
+
+    void InstantiateHitBox(SkillAnimationEvent prefabInfo, int attackIndex) {
+        DamageAtributes atributes = attackIndex switch {
+            1 => _info.FirstAttackDamageAtributes,
+            2 => _info.SecondAttackDamageAtributes,
+            3 => _info.ThirdAttackDamageAtributes,
+            _ => _info.FirstAttackDamageAtributes,
+        };
+        GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFabName,
+            prefabInfo.PreFab, TypeOfSkillPrefab.Hitbox);
+
+        preFab.transform.localScale = _info.ProjectileSize * Vector3.one;
+        preFab.transform.SetPositionAndRotation(parent.transform.position + prefabInfo.PreFabPosition, parent.transform.rotation);
+
+        float pen = BastianPassiveManager.Instance.ReturnMinHeat(HeatArea.SuperHeatArea) ? _info.SPenetrationOnSuperHeat : 0;
+        float critChance = BastianPassiveManager.Instance.ReturnMinHeat(HeatArea.OverHeatArea) ? _info.SCritChanceOverHeat : 0;
+        float additionalCriDmg = BastianPassiveManager.Instance.ReturnMinHeat(HeatArea.LastOverHeatArea) ? _info.SLastOverHeatCritDamage : 0;
+        float critDamage = statusManager.ReturnStatusValue(StatusType.CritDamage) + additionalCriDmg;
+
+        DamageContext newContext = new(
+            atributes,
+            prefabInfo.PrefabDuration,
+            parent.GetComponent<StatusManager>(),
+            new() {
+                        {ExtraDamageContextAtributes.Speed, _info.ProjectileSpeed },
+                        {ExtraDamageContextAtributes.Distance, _info.AttackDistance },
+                        {ExtraDamageContextAtributes.Penetration, pen},
+                //{ExtraDamageContextAtributes.CritChance, critChance},
+                //{ExtraDamageContextAtributes.CritDamage, critDamage}
+            }
+            );
+
+        ProjectileDamageHitBox hitbox = preFab.GetComponent<ProjectileDamageHitBox>();
+        hitbox.Initialize(newContext);
     }
 }
