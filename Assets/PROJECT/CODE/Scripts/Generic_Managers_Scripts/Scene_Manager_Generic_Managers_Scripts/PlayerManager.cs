@@ -1,11 +1,11 @@
 using AYellowpaper.SerializedCollections;
 using NaughtyAttributes;
+using System;
 using Unity.Cinemachine;
 using UnityEngine;
 
-public enum Character { Cyrus, Bastian, Lilian, Shapeshifter, SamuraiFrog, Sequencer, Null}
-public class PlayerManager : MonoBehaviour
-{
+public enum Character { Cyrus, Bastian, Lilian, Shapeshifter, SamuraiFrog, Sequencer, TavernKeeper, Null }
+public class PlayerManager : MonoBehaviour {
     // Singleton
     public static PlayerManager Instance;
 
@@ -14,8 +14,11 @@ public class PlayerManager : MonoBehaviour
     [Foldout("Dictionary"), SerializedDictionary("Character", "PraFab"), SerializeField]
     SerializedDictionary<Character, GameObject> characterPrefabDictionary = new();
     [HideInInspector] public GameObject Player;
+    [SerializeField] bool isTavernScene = false;
 
     PlayerWhiteBoard _playerWhiteBoard;
+
+    Action _onDefeat;
 
     private void Awake() {
         if (Instance == null) Instance = this;
@@ -23,11 +26,19 @@ public class PlayerManager : MonoBehaviour
 
         _playerWhiteBoard = PlayerWhiteBoard.Instance;
 
+        _onDefeat = Defeat;
+
         SpawnPlayer();
     }
 
     void SpawnPlayer() {
         if (_playerWhiteBoard == null) return;
+
+        if (isTavernScene) {
+            GameObject player = Instantiate(characterPrefabDictionary[Character.TavernKeeper], PlayerSpawnPoint.position, Quaternion.identity);
+            Player = player;
+            return;
+        }
 
         Character currentCharacter = _playerWhiteBoard.ReturnSelectedCharacter();
 
@@ -38,15 +49,15 @@ public class PlayerManager : MonoBehaviour
 
     }
     private void Start() {
+        if (Player != null && Player.TryGetComponent<HealthManager>(out HealthManager healthManager)) {
+            healthManager.OnDeath += _onDefeat;
+        }
 
-        Player.GetComponent<HealthManager>().OnDeath -= Defeat;
-        Player.GetComponent<HealthManager>().OnDeath += Defeat;
     }
 
     private void OnDisable() {
-        if (Player != null) {
-            if (Player.TryGetComponent<HealthManager>(out var health))
-                health.OnDeath -= Defeat;
+        if (Player != null && Player.TryGetComponent<HealthManager>(out var health)) {
+            health.OnDeath -= _onDefeat;
         }
     }
 
