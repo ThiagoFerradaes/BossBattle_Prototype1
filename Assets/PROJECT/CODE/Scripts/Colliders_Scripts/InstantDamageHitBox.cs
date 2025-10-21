@@ -127,7 +127,8 @@ public class InstantDamageHitBox : MonoBehaviour
         if (!other.CompareTag(Tags.Player.ToString())) PopUpManager.Instance.
                 DamageDone((int)newDamage.Item1, other.transform.position, newDamage.Item2, _damageAtributes.DamageType);
 
-        if (_extra.ContainsKey(ExtraDamageContextAtributes.BreakShield)) health.BreakShield();
+        if (_extra.ContainsKey(ExtraDamageContextAtributes.BreakShield) &&
+            (bool)_extra[ExtraDamageContextAtributes.BreakShield]) health.BreakShield();
 
         health.TakeDamage(newDamage.Item1, _damageAtributes.HitShield);
 

@@ -48,7 +48,7 @@ public class EnergyManager : MonoBehaviour
     public void GainEnergy(float energyAmount) {
         if (!_canGainEnergy) return;
 
-        float energyRecharge = _statusManager.ReturnStatusValue(StatusType.EnergyRecharge)/100;
+        float energyRecharge = _statusManager.ReturnStatusValue(StatusType.EnergyRecharge);
         float energyGain = energyAmount * energyRecharge;
 
         _currentEnergy += energyGain;

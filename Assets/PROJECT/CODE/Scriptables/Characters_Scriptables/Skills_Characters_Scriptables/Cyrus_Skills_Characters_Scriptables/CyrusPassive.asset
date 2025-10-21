@@ -15,125 +15,18 @@ MonoBehaviour:
   PassiveManager: {fileID: 845164626259810451, guid: d940ab5c30bad0a498af36290d1ec3e7, type: 3}
   PassiveName: WeaponMasterPassive
   PassiveCharacter: 0
-  AmountOfExpPerClassification:
-    _serializedList:
-    - Key: 0
-      Value: 0
-    - Key: 1
-      Value: 20
-    - Key: 2
-      Value: 60
-    - Key: 3
-      Value: 120
-    - Key: 4
-      Value: 200
-    - Key: 5
-      Value: 300
-    - Key: 6
-      Value: 420
-  SpritePerClassification:
-    _serializedList: []
-  UpgradeSkillOne:
-    m_Name: Upgrade Skill One
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 13f87ec4-25ea-47ff-9b30-a149c0f9d0e6
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: One Modifier
-      m_Id: b9e8d491-ee7d-4814-b82c-e4b44b061f5c
-      m_Path: OneModifier
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Upgrade Skill One
-      m_Flags: 4
-    - m_Name: modifier
-      m_Id: c075d931-b1b4-42d5-97c6-d9f94798ae33
-      m_Path: <Keyboard>/ctrl
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Upgrade Skill One
-      m_Flags: 8
-    - m_Name: binding
-      m_Id: e613ee09-30e8-46da-9ce8-0c7ea35bed66
-      m_Path: <Mouse>/rightButton
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Upgrade Skill One
-      m_Flags: 8
-    m_Flags: 0
-  UpgradeSkillTwo:
-    m_Name: Upgrade Skill Two
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 08fe0433-44b7-4fb6-8d5f-85d5837ed3d6
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: One Modifier
-      m_Id: 8d68d7de-a04e-4eff-be01-72f79183d8c5
-      m_Path: OneModifier
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Upgrade Skill Two
-      m_Flags: 4
-    - m_Name: modifier
-      m_Id: 8e355141-a078-4497-90ff-b997fc77dd09
-      m_Path: <Keyboard>/ctrl
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Upgrade Skill Two
-      m_Flags: 8
-    - m_Name: binding
-      m_Id: 41c461d7-1ab2-4997-9656-3960652db43b
-      m_Path: <Keyboard>/e
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Upgrade Skill Two
-      m_Flags: 8
-    m_Flags: 0
-  UpgradeUltimate:
-    m_Name: Upgrade Ultimate
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: efe1ebab-139c-4630-8ee5-cdc114d3572f
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: One Modifier
-      m_Id: 324a823b-5daa-45ec-9a46-5820e57d2da8
-      m_Path: OneModifier
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Upgrade Ultimate
-      m_Flags: 4
-    - m_Name: modifier
-      m_Id: 0d30a81a-eabc-44e3-ade6-d0c726ae3d8b
-      m_Path: <Keyboard>/ctrl
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Upgrade Ultimate
-      m_Flags: 8
-    - m_Name: binding
-      m_Id: 1b73fff6-92f2-4851-9963-bf2cf2da1247
-      m_Path: <Keyboard>/q
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Upgrade Ultimate
-      m_Flags: 8
-    m_Flags: 0
   CyrusUI: {fileID: 6736270834710436962, guid: f27b04e3e6823654481bdafb4a551fc6, type: 3}
-  ExpGain: 0.05
-  ExpGainCooldown: 0.05
-  PercentOfDefensesLost: 10
-  PercentOfDefensesLostDuration: 8
+  ListOfStatusToBuff:
+    _serializedList:
+    - Key: 2
+      Value: 20
+    - Key: 3
+      Value: 20
+    - Key: 4
+      Value: 15
+    - Key: 5
+      Value: 15
+    - Key: 6
+      Value: 20
+    - Key: 7
+      Value: 50

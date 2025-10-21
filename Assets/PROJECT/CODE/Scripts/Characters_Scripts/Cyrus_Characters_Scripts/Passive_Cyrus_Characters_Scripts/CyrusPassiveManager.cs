@@ -90,9 +90,19 @@ public class CyrusPassiveManager : PassiveSkillManager {
         int maxEnum = Enum.GetValues(typeof(CyrusRank)).Length;
 
         OnSkillLevelUp?.Invoke(slot);
-        OnRankLevelUp?.Invoke((int)_currentRank, maxEnum);
+        OnRankLevelUp?.Invoke((int)_currentRank, maxEnum - 1);
+
+        if (_currentRank == CyrusRank.SS) {
+            ReachRankSS();
+        }
     }
 
+    void ReachRankSS() {
+        foreach(var status in _info.ListOfStatusToBuff.Keys) {
+            float percent = _info.ListOfStatusToBuff[status] / 100;
+            _statusManager.ChangeStatus(status, percent, true);
+        }
+    }
     #region Getters
     public int ReturnSkillLevel(SkillSlot slot) => _skillLevel[slot];
 

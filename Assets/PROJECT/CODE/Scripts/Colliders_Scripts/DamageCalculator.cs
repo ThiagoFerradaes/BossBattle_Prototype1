@@ -23,8 +23,8 @@ public static class DamageCalculator
 
         float rawDamage = atributes.DamageType switch
         {
-            DamageType.Abyssal => atributes.Damage / 100 * statusDealer.ReturnStatusValue(StatusType.BaseAttack),
-            DamageType.Ancestral => atributes.Damage / 100 * statusDealer.ReturnStatusValue(StatusType.SkillAttack),
+            DamageType.Abyssal => atributes.Damage * statusDealer.ReturnStatusValue(StatusType.BaseAttack),
+            DamageType.Ancestral => atributes.Damage * statusDealer.ReturnStatusValue(StatusType.SkillAttack),
             DamageType.Pure => atributes.Damage,
             _ => atributes.Damage
         };
@@ -60,8 +60,8 @@ public static class DamageCalculator
 
         float rawDamage = atributes.DamageType switch
         {
-            DamageType.Abyssal => atributes.Damage / 100 * statusDealer.ReturnStatusValue(StatusType.BaseAttack),
-            DamageType.Ancestral => atributes.Damage / 100 * statusDealer.ReturnStatusValue(StatusType.SkillAttack),
+            DamageType.Abyssal => atributes.Damage * statusDealer.ReturnStatusValue(StatusType.BaseAttack),
+            DamageType.Ancestral => atributes.Damage * statusDealer.ReturnStatusValue(StatusType.SkillAttack),
             DamageType.Pure => atributes.Damage,
             _ => atributes.Damage
         };

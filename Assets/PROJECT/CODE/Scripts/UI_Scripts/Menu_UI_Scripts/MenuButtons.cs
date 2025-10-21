@@ -9,6 +9,7 @@ public class MenuButtons : MonoBehaviour
     [SerializeField] Button exitButton;
     [SerializeField] Button configButton;
     [SerializeField] Button exitConfigButton;
+    [SerializeField] Button tavernButton;
 
     [Header ("Temporario")]
     [SerializeField] GameObject Map;
@@ -17,7 +18,7 @@ public class MenuButtons : MonoBehaviour
     [SerializeField] GameObject configCanvas;
 
     private void Start() {
-        //startButton.onClick.AddListener(() => LoadingScreenManager.Instance.ReturnToTavern());
+        tavernButton.onClick.AddListener(() => LoadingScreenManager.Instance.ReturnToTavern());
         startButton.onClick.AddListener(OpenMap);
         exitButton.onClick.AddListener(ExitGame);
         configButton.onClick.AddListener(() => HandleConfigUI(true));
