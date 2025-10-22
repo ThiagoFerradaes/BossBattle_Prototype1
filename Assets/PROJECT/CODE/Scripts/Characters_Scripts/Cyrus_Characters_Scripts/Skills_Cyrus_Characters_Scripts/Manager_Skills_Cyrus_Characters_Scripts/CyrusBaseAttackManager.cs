@@ -143,6 +143,8 @@ public class CyrusBaseAttackManager : SkillObjectManager {
 
         GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFabName,
             prefabInfo.PreFab, TypeOfSkillPrefab.Hitbox);
+
+        preFab.transform.localScale = _info.Size;
         preFab.transform.SetParent(parent.transform, false);
         preFab.transform.SetLocalPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.identity);
 
@@ -150,7 +152,6 @@ public class CyrusBaseAttackManager : SkillObjectManager {
 
         DamageContext newContext = new(
             atributes,
-            prefabInfo.PrefabDuration,
             parent.GetComponent<StatusManager>()
             );
 

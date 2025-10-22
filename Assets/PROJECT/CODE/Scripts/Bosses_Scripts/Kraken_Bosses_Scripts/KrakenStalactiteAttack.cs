@@ -106,7 +106,6 @@ public class KrakenStalactiteAttack : EnemyBehaviourSO {
 
         DamageContext context = new(
             damageAtributes,
-            stalactiteFallDuration,
             _krakenManager.KrakenStatus
         );
 

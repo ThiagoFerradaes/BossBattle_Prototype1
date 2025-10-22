@@ -131,7 +131,6 @@ public class CrabJumpAttack : EnemyBehaviourSO
 
         DamageContext context = new(
             damageAtributes,
-            hitBoxDuration,
             _crabManager.StatusManager
             );
 

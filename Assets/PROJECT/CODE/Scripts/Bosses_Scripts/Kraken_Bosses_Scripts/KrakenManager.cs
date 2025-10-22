@@ -10,12 +10,12 @@ public class KrakenTentacle {
     public Animator Anim;
     public HealthManager Health;
     public GameObject HitBox;
-    public SkinnedMeshRenderer SkinnedMeshRenderer;
+    public SkinnedMeshRenderer MeshRend;
     public StatusManager Status;
 
     public KrakenTentacle(GameObject tentacle) {
         Anim = tentacle.GetComponentInChildren<Animator>();
-        SkinnedMeshRenderer = tentacle.GetComponentInChildren<SkinnedMeshRenderer>();
+        MeshRend = tentacle.GetComponentInChildren<SkinnedMeshRenderer>();
 
         foreach (Transform child in tentacle.transform) {
             if (child.gameObject.CompareTag("Enemy")) {
@@ -198,7 +198,6 @@ public class KrakenManager : EnemyBehaviourManager {
 
                 DamageContext newContext = new(
                 atributes,
-                prefabInfo.PrefabDuration,
                 ListOfTentacles[tentacleIndex].Status
                 );
 
@@ -255,7 +254,7 @@ public class KrakenManager : EnemyBehaviourManager {
     #region Others
     void CheckTentaclesHealth(int tentacleId) {
         _listOfTentaclesDead[tentacleId] = true;
-        ListOfTentacles[tentacleId].SkinnedMeshRenderer.material = deadTentacleMaterial;
+        ListOfTentacles[tentacleId].MeshRend.material = deadTentacleMaterial;
 
         bool allTentaclesDead = true;
         foreach (var tentacle in _listOfTentaclesDead) {

@@ -19,24 +19,24 @@ MonoBehaviour:
     - Key: 1
       Value:
       - TimeToSpawnPreFab: 0.5
-        PrefabDuration: 1
-        PreFabName: CyrusBaseAttackHitBox
-        PrefabType: 0
-        PreFab: {fileID: 6515590897142706737, guid: b8062dac27f9b494b8b991dc5e006d17, type: 3}
-        PreFabPosition: {x: 0, y: 1, z: 1}
-      - TimeToSpawnPreFab: 0.5
         PrefabDuration: 0.8
         PreFabName: CyrusBaseAttackVFX
         PrefabType: 1
         PreFab: {fileID: 5817764269134444336, guid: 46db7471ceefaf346a408063a7977400, type: 3}
         PreFabPosition: {x: 0, y: 0, z: 1}
+      - TimeToSpawnPreFab: 0.6
+        PrefabDuration: 0.1
+        PreFabName: CyrusBaseAttackHitBox
+        PrefabType: 0
+        PreFab: {fileID: 8271028322271159555, guid: 02de40013cebfe2448edca155583a4c1, type: 3}
+        PreFabPosition: {x: 0, y: 1, z: 1}
     - Key: 2
       Value:
       - TimeToSpawnPreFab: 0.5
         PrefabDuration: 0.1
         PreFabName: CyrusBaseAttackHitBox
         PrefabType: 0
-        PreFab: {fileID: 6515590897142706737, guid: b8062dac27f9b494b8b991dc5e006d17, type: 3}
+        PreFab: {fileID: 8271028322271159555, guid: 02de40013cebfe2448edca155583a4c1, type: 3}
         PreFabPosition: {x: 0, y: 1, z: 1}
       - TimeToSpawnPreFab: 0.5
         PrefabDuration: 0.8
@@ -53,14 +53,16 @@ MonoBehaviour:
   Cancelable: 0
   FlatEnergyGainPerHit: 1
   Cooldown: 0.25
+  HasCharges: 0
+  Charges: 1
+  ChargeCooldown: 0
   SkillDamageAtributes:
     Damage: 0
-    Penetration: 0
     HitShield: 0
     DamageType: 0
     UnitsToHit: 
-  Charges: 1
-  ChargeCooldown: 0
+    ExtraAtributes:
+      _serializedList: []
   FirstBaseAttackParameter: BaseAttackOne
   FirstBaseAttackAnimationName: BaseAttackOne
   SecondBaseAttackParameter: BaseAttackTwo
@@ -68,20 +70,23 @@ MonoBehaviour:
   AttackSpeedAnimationParameter: AttackSpeed
   FirstAttackAtributes:
     Damage: 16
-    Penetration: 0
     HitShield: 1
     DamageType: 0
     UnitsToHit: 00000000
+    ExtraAtributes:
+      _serializedList: []
   SecondAttackAtributes:
     Damage: 18
-    Penetration: 0.1
     HitShield: 1
     DamageType: 0
     UnitsToHit: 00000000
+    ExtraAtributes:
+      _serializedList: []
   FirstAttackHitBoxDuration: 0.1
   SecondAttackHitBoxDuration: 0.1
   CooldownBetweenAttacks: 0
   MaxTimeBetweenAttacks: 0.8
+  Size: {x: 3, y: 2, z: 1.5}
   SwordName: CyrusSword
   SwordPrefab: {fileID: 2980958354712852747, guid: 6793abb85d087f94b8f42eb79ca00943, type: 3}
   FirstBaseAttackHitBoxPosition: {x: 0, y: 0, z: 0}

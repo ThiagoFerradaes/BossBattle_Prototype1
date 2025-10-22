@@ -10,11 +10,9 @@ public class ContinuosDamageHitBox : MonoBehaviour
 {
     // Atributos
     DamageAtributes _damageAtributes;
-    float _duration;
     StatusManager _dealerStatus;
 
     // Listas
-    Dictionary<ExtraDamageContextAtributes, object> _extra = new();
     HashSet<GameObject> _listOfHealths = new();
 
     // Corrotinas
@@ -27,8 +25,6 @@ public class ContinuosDamageHitBox : MonoBehaviour
     {
         _damageAtributes = context.Atributes;
         _dealerStatus = context.StatusManager;
-        _duration = context.Duration;
-        _extra = context.DictionaryOfExtraAtributes ?? new();
 
         gameObject.SetActive(true);
         _durationCoroutine ??= StartCoroutine(AttackDuration());
@@ -38,7 +34,7 @@ public class ContinuosDamageHitBox : MonoBehaviour
     IEnumerator AttackDuration()
     {
         float timer = 0;
-        while (timer < _duration)
+        while (timer < _damageAtributes.HitBoxDuration)
         {
             timer += Time.deltaTime;
             yield return null;
@@ -83,12 +79,13 @@ public class ContinuosDamageHitBox : MonoBehaviour
                 if (!health.ReturnIfCanTakeDamage()) continue;
 
                 (float, bool) newDamage;
-                if (_extra.ContainsKey(ExtraDamageContextAtributes.CritRate) && _extra.ContainsKey(ExtraDamageContextAtributes.CritDamage))
+                if (_damageAtributes.ExtraAtributes.ContainsKey(ExtraDamageContextAtributes.CritRate) &&
+                    _damageAtributes.ExtraAtributes.ContainsKey(ExtraDamageContextAtributes.CritDamage))
                 {
                     newDamage = DamageCalculator.CalculateDamage(
                     _damageAtributes,
-                    (float)_extra[ExtraDamageContextAtributes.CritRate],
-                    (float)_extra[ExtraDamageContextAtributes.CritDamage],
+                    _damageAtributes.ExtraAtributes[ExtraDamageContextAtributes.CritRate],
+                    _damageAtributes.ExtraAtributes[ExtraDamageContextAtributes.CritDamage],
                     _dealerStatus,
                     recieverManager
                     );
@@ -115,7 +112,7 @@ public class ContinuosDamageHitBox : MonoBehaviour
                 _listOfHealths.Remove(enemy);
             }
 
-            yield return new WaitForSeconds((float)_extra[ExtraDamageContextAtributes.DamageCooldown]);
+            yield return new WaitForSeconds(_damageAtributes.ExtraAtributes[ExtraDamageContextAtributes.DamageCooldown]);
         }
     }
 

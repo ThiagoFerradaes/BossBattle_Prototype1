@@ -24,6 +24,7 @@ public class BastianBaseAttackSO : CommonSkillSO {
     [Foldout("Specific")] public DamageAtributes ThirdAttackAtributes;
     [Foldout("Specific")] public float AttackDistance;
     [Foldout("Specific")] public float ProjectileSpeed;
+    [Foldout("Specific")] public float ProjectileSize = 0.5f;
 
     [Header("Cooldown")]
     [Foldout("Specific")] public float CooldownBetweenAttacks;

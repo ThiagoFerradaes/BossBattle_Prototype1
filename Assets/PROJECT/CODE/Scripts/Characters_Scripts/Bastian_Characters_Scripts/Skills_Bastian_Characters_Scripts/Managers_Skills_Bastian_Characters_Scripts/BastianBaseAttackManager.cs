@@ -182,6 +182,7 @@ public class BastianBaseAttackManager : SkillObjectManager {
         GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFabName,
     prefabInfo.PreFab, TypeOfSkillPrefab.Hitbox);
 
+        preFab.transform.localScale = Vector3.one * _info.ProjectileSize;
         preFab.transform.SetPositionAndRotation(parent.transform.position + prefabInfo.PreFabPosition, parent.transform.rotation);
 
         float pen = BastianPassiveManager.Instance.ReturnMinHeat(HeatArea.SuperHeatArea) ? _info.PenetrationOnSuperHeat : 0;
@@ -189,17 +190,13 @@ public class BastianBaseAttackManager : SkillObjectManager {
         float additionalCriDmg = BastianPassiveManager.Instance.ReturnMinHeat(HeatArea.LastOverHeatArea) ? _info.LastOverHeatCritDamage : 0;
         float critDamage = statusManager.ReturnStatusValue(StatusType.CritDamage) + additionalCriDmg;
 
+        atributes.ExtraAtributes[ExtraDamageContextAtributes.Penetration] = pen;
+        atributes.ExtraAtributes[ExtraDamageContextAtributes.CritRate] = critChance;
+        atributes.ExtraAtributes[ExtraDamageContextAtributes.CritDamage] = critDamage;
+
         DamageContext newContext = new(
             atributes,
-            prefabInfo.PrefabDuration,
-            parent.GetComponent<StatusManager>(),
-            new() {
-                        {ExtraDamageContextAtributes.Speed, _info.ProjectileSpeed },
-                        {ExtraDamageContextAtributes.Distance, _info.AttackDistance },
-                        {ExtraDamageContextAtributes.Penetration, pen},
-                        {ExtraDamageContextAtributes.CritRate, critChance},
-                        {ExtraDamageContextAtributes.CritDamage, critDamage}
-            }
+            parent.GetComponent<StatusManager>()
             );
 
         ProjectileDamageHitBox hitbox = preFab.GetComponent<ProjectileDamageHitBox>();

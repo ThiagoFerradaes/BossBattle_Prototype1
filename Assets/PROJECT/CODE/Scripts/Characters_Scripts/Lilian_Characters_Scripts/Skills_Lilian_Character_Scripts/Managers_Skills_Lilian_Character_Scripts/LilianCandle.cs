@@ -83,11 +83,7 @@ public class LilianCandle : MonoBehaviour
 
         DamageContext contex = new(
             _info.SkillDamageAtributes,
-            Mathf.Infinity,
-            _lilianStatusManager,
-            new() {
-                { ExtraDamageContextAtributes.DamageCooldown, _info.CandleContinuosDamageCooldown}
-                }
+            _lilianStatusManager
             );
 
         _continuosHitBox = hitBox.GetComponent<ContinuosDamageHitBox>();
@@ -136,7 +132,6 @@ public class LilianCandle : MonoBehaviour
 
         DamageContext context = new(
             _info.SkillDamageAtributes, 
-            0.1f, 
             _lilianStatusManager
         );
 

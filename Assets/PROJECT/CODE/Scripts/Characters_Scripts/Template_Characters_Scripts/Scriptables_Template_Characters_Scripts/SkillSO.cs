@@ -7,16 +7,16 @@ public enum TypeOfSkillPrefab { Hitbox, VFX, PreCastRange, Manager }
 [System.Serializable]
 public class SkillAnimationEvent {
     public float TimeToSpawnPreFab;
-    public float PrefabDuration;
     public string PreFabName;
     public TypeOfSkillPrefab PrefabType;
+    [ShowIf("PrefabType", TypeOfSkillPrefab.VFX), AllowNesting]
+    public float PrefabDuration;
     public GameObject PreFab;
     public Vector3 PreFabPosition;
 }
 
 public enum Tags { Enemy, Player, Construct }
-public class SkillSO : ScriptableObject
-{
+public class SkillSO : ScriptableObject {
     [Header("Skill Manager")]
     [Foldout("Generic")] public SkillObjectManager SkillManagerObject;
     [Foldout("Generic")] public string SkillManagerName;
@@ -37,4 +37,5 @@ public class SkillSO : ScriptableObject
     [Header("Skill Parameters")]
     [Foldout("Generic")] public Character SkillCharacter;
     [Foldout("Generic")] public bool Cancelable;
+
 }

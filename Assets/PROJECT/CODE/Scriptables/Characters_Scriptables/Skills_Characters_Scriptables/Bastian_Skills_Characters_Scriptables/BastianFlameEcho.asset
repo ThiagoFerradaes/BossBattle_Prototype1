@@ -22,7 +22,7 @@ MonoBehaviour:
         PrefabDuration: 0
         PreFabName: BastianSpecialBaseAttack
         PrefabType: 0
-        PreFab: {fileID: 5556882484380889040, guid: 5cb72af231218cb4da56f8fdd86c86dc, type: 3}
+        PreFab: {fileID: 5556882484380889040, guid: 73183662ed7be604f90dff0cc2f277ff, type: 3}
         PreFabPosition: {x: 0, y: 1, z: 0}
     - Key: 2
       Value:
@@ -30,7 +30,7 @@ MonoBehaviour:
         PrefabDuration: 0
         PreFabName: BastianSpecialBaseAttack
         PrefabType: 0
-        PreFab: {fileID: 5556882484380889040, guid: 5cb72af231218cb4da56f8fdd86c86dc, type: 3}
+        PreFab: {fileID: 5556882484380889040, guid: 73183662ed7be604f90dff0cc2f277ff, type: 3}
         PreFabPosition: {x: 0, y: 1, z: 0}
     - Key: 3
       Value:
@@ -38,7 +38,7 @@ MonoBehaviour:
         PrefabDuration: 0
         PreFabName: BastianSpecialLastBaseAttack
         PrefabType: 0
-        PreFab: {fileID: 5556882484380889040, guid: 9adbc6eb48a14074bbb8340be2471b11, type: 3}
+        PreFab: {fileID: 5556882484380889040, guid: 73183662ed7be604f90dff0cc2f277ff, type: 3}
         PreFabPosition: {x: 0, y: 1, z: 0}
   SkillObjectRangeObject: {fileID: 5203434260948203345, guid: ade6d2bcd504d27418184cc1070b8f59, type: 3}
   SkillObjectRangeName: BastianRangeBaseAttack
@@ -47,17 +47,28 @@ MonoBehaviour:
   PreCastOn: 1
   SkillCharacter: 1
   Cancelable: 0
-  EnergyCost: 50
-  SFirstAttackMinDamage: 6
-  SFirstAttackMaxDamage: 8
-  SSecondAttackMinDamage: 7
-  SSecondAttackMaxDamage: 9
-  SThirdAttackMinDamage: 12
-  SThirdAttackMaxDamage: 14
+  EnergyCost: 10
+  FirstAttackDamageAtributes:
+    Damage: 5
+    Penetration: 0
+    HitShield: 1
+    DamageType: 2
+    UnitsToHit: 00000000
+  SecondAttackDamageAtributes:
+    Damage: 7
+    Penetration: 0
+    HitShield: 1
+    DamageType: 2
+    UnitsToHit: 00000000
+  ThirdAttackDamageAtributes:
+    Damage: 9
+    Penetration: 0
+    HitShield: 1
+    DamageType: 2
+    UnitsToHit: 00000000
   ProjectileSpeed: 25
   AttackDistance: 7
-  HitShield: 1
-  SDamageType: 2
+  ProjectileSize: 0.5
   SHeatGain: 0
   SPenetrationOnSuperHeat: 0
   SCritChanceOverHeat: 0
@@ -66,4 +77,3 @@ MonoBehaviour:
   AnimationName: Ultimate
   UltimateDuration: 6
   TimeBetweenFirstAndSecondShoot: 0.15
-  EnemyTag: 00000000

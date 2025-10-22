@@ -198,7 +198,6 @@ public class LilianWingsOfHorrorManager : SkillObjectManager
 
                 DamageContext newContext = new(
                     _info.SkillDamageAtributes,
-                    prefabInfo.PrefabDuration,
                     parent.GetComponent<StatusManager>()
                     );
 
