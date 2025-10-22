@@ -201,14 +201,12 @@ public class CyrusAxeAttackManager : SkillObjectManager {
 
         DamageAtributes atributes = _info.SkillDamageAtributes;
         atributes.Damage = ReturnDamage();
+        atributes.ExtraAtributes[ExtraDamageContextAtributes.BreakShield] = ReturnBreakShield() ? 1 : 0;
 
         DamageContext newContext = new(
             atributes,
             prefabInfo.PrefabDuration,
-            parent.GetComponent<StatusManager>(),
-            new() {
-                {ExtraDamageContextAtributes.BreakShield, (bool)ReturnBreakShield() }
-            }
+            parent.GetComponent<StatusManager>()
             );
 
         InstantDamageHitBox hitbox = preFab.GetComponent<InstantDamageHitBox>();
@@ -240,10 +238,7 @@ public class CyrusAxeAttackManager : SkillObjectManager {
         DamageContext newContext = new(
             _info.RocksAtributes,
             _info.BrokenRockDuration,
-            parent.GetComponent<StatusManager>(),
-            new() {
-             {ExtraDamageContextAtributes.DamageCooldown, _info.BrokenRockDamageCooldown }
-            }
+            parent.GetComponent<StatusManager>()
             );
 
         ContinuosDamageHitBox hitbox = preFab.GetComponent<ContinuosDamageHitBox>();

@@ -116,11 +116,7 @@ public class CrabWaterMeteorAttack : EnemyBehaviourSO {
         DamageContext context = new(
             damageAtributes,
             prefab.PrefabDuration,
-             _statusManager,
-            new() {
-                { ExtraDamageContextAtributes.Speed, meteorFallSpeed },
-                { ExtraDamageContextAtributes.Distance, projectileDistance },
-            }
+             _statusManager
             );
 
         ProjectileDamageHitBox projectile = hitbox.GetComponent<ProjectileDamageHitBox>();

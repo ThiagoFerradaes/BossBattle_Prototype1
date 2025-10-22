@@ -5,25 +5,23 @@ using UnityEngine;
 
 public enum DamageType { Abyssal, Ancestral, Pure }
 [Serializable]
-public class DamageAtributes
-{
+public class DamageAtributes {
     public float Damage;
-    [Range(0, 1)] public float Penetration;
     public bool HitShield;
     public DamageType DamageType;
     public List<Tags> UnitsToHit;
+    [SerializedDictionary("Extra atribute", "Value")]
+    [Tooltip("Bool values are considered true if > 0")]
+    public SerializedDictionary<ExtraDamageContextAtributes, float> ExtraAtributes;
 }
-public static class DamageCalculator
-{
+public static class DamageCalculator {
     public static (float, bool) CalculateDamage( // Considerando o crítico do personagem
         DamageAtributes atributes,
         StatusManager statusDealer,
         StatusManager statusReciever
-        )
-    {
+        ) {
 
-        float rawDamage = atributes.DamageType switch
-        {
+        float rawDamage = atributes.DamageType switch {
             DamageType.Abyssal => atributes.Damage * statusDealer.ReturnStatusValue(StatusType.BaseAttack),
             DamageType.Ancestral => atributes.Damage * statusDealer.ReturnStatusValue(StatusType.SkillAttack),
             DamageType.Pure => atributes.Damage,
@@ -33,15 +31,17 @@ public static class DamageCalculator
         bool isCrit = UnityEngine.Random.value <= statusDealer.ReturnStatusValue(StatusType.CritRate) / 100;
         if (isCrit) rawDamage *= statusDealer.ReturnStatusValue(StatusType.CritDamage) / 100;
 
-        float targetDefense = atributes.DamageType switch
-        {
+        float targetDefense = atributes.DamageType switch {
             DamageType.Abyssal => statusReciever.ReturnStatusValue(StatusType.Defense),
             DamageType.Ancestral => statusReciever.ReturnStatusValue(StatusType.SkillDefense),
             DamageType.Pure => 0,
             _ => 0
         };
 
-        float penetration = Mathf.Min(0.75f, atributes.Penetration);
+        float penetration = 0;
+        
+        if (atributes.ExtraAtributes.ContainsKey(ExtraDamageContextAtributes.Penetration))
+            penetration = Mathf.Min(0.75f, atributes.ExtraAtributes[ExtraDamageContextAtributes.Penetration]);
 
         targetDefense *= (1 - penetration);
 
@@ -56,11 +56,9 @@ public static class DamageCalculator
     float critDamage,
     StatusManager statusDealer,
     StatusManager statusReciever
-    )
-    {
+    ) {
 
-        float rawDamage = atributes.DamageType switch
-        {
+        float rawDamage = atributes.DamageType switch {
             DamageType.Abyssal => atributes.Damage * statusDealer.ReturnStatusValue(StatusType.BaseAttack),
             DamageType.Ancestral => atributes.Damage * statusDealer.ReturnStatusValue(StatusType.SkillAttack),
             DamageType.Pure => atributes.Damage,
@@ -70,15 +68,17 @@ public static class DamageCalculator
         bool isCrit = UnityEngine.Random.value <= critRate / 100;
         if (isCrit) rawDamage *= critDamage / 100;
 
-        float targetDefense = atributes.DamageType switch
-        {
+        float targetDefense = atributes.DamageType switch {
             DamageType.Abyssal => statusReciever.ReturnStatusValue(StatusType.Defense),
             DamageType.Ancestral => statusReciever.ReturnStatusValue(StatusType.SkillDefense),
             DamageType.Pure => 0,
             _ => 0
         };
 
-        float penetration = Mathf.Min(0.75f, atributes.Penetration);
+        float penetration = 0;
+
+        if (atributes.ExtraAtributes.ContainsKey(ExtraDamageContextAtributes.Penetration))
+            penetration = Mathf.Min(0.75f, atributes.ExtraAtributes[ExtraDamageContextAtributes.Penetration]);
 
         targetDefense *= (1 - penetration);
 

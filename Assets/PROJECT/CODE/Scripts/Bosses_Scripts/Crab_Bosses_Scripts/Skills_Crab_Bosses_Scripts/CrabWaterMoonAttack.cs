@@ -177,12 +177,7 @@ public class CrabWaterMoonAttack : EnemyBehaviourSO
         DamageContext context = new(
             damageAtributes,
             prefab.PrefabDuration,
-            _statusManager,
-            new() {
-                { ExtraDamageContextAtributes.Speed, projectileSpeed },
-                { ExtraDamageContextAtributes.Distance, projectileDistance },
-            }
-
+            _statusManager
             );
 
         ProjectileDamageHitBox projectileDamageHitBox = hitbox.GetComponent<ProjectileDamageHitBox>();

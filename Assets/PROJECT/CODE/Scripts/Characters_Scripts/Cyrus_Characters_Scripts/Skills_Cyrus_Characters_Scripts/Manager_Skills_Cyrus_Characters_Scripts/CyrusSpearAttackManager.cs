@@ -117,13 +117,13 @@ public class CyrusSpearAttackManager : SkillObjectManager {
 
         float penetration = _skillLevel > 2 ? _info.Level3Penetration : 0;
 
+        DamageAtributes atributes = _info.SkillDamageAtributes;
+        atributes.ExtraAtributes[ExtraDamageContextAtributes.Penetration] = penetration;
+
         DamageContext newContext = new(
-            _info.SkillDamageAtributes,
+            atributes,
             prefabInfo.PrefabDuration,
-            parent.GetComponent<StatusManager>(),
-            new() {
-               { ExtraDamageContextAtributes.Penetration, penetration }
-            }
+            parent.GetComponent<StatusManager>()
             );
 
         InstantDamageHitBox hitbox = preFab.GetComponent<InstantDamageHitBox>();

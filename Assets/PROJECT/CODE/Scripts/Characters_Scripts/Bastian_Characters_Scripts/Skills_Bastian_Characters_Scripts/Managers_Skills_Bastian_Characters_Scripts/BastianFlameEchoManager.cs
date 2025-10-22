@@ -159,17 +159,12 @@ public class BastianFlameEchoManager : SkillObjectManager
         float additionalCriDmg = BastianPassiveManager.Instance.ReturnMinHeat(HeatArea.LastOverHeatArea) ? _info.SLastOverHeatCritDamage : 0;
         float critDamage = statusManager.ReturnStatusValue(StatusType.CritDamage) + additionalCriDmg;
 
+        atributes.ExtraAtributes[ExtraDamageContextAtributes.Penetration] = pen;
+
         DamageContext newContext = new(
             atributes,
             prefabInfo.PrefabDuration,
-            parent.GetComponent<StatusManager>(),
-            new() {
-                        {ExtraDamageContextAtributes.Speed, _info.ProjectileSpeed },
-                        {ExtraDamageContextAtributes.Distance, _info.AttackDistance },
-                        {ExtraDamageContextAtributes.Penetration, pen},
-                //{ExtraDamageContextAtributes.CritChance, critChance},
-                //{ExtraDamageContextAtributes.CritDamage, critDamage}
-            }
+            parent.GetComponent<StatusManager>()
             );
 
         ProjectileDamageHitBox hitbox = preFab.GetComponent<ProjectileDamageHitBox>();

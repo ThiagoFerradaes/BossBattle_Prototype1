@@ -8,7 +8,6 @@ public class ProjectileDamageHitBox : MonoBehaviour {
 
     DamageAtributes _damageAtributes;
     StatusManager _statusManager;
-    Dictionary<ExtraDamageContextAtributes, object> _extra = new();
 
     Coroutine _moveRoutine;
 
@@ -17,7 +16,6 @@ public class ProjectileDamageHitBox : MonoBehaviour {
     public void Initialize(DamageContext context) {
         _damageAtributes = context.Atributes;
         _statusManager = context.StatusManager;
-        _extra = context.DictionaryOfExtraAtributes ?? new();
 
         gameObject.SetActive(true);
 
@@ -25,11 +23,12 @@ public class ProjectileDamageHitBox : MonoBehaviour {
     }
 
     IEnumerator ProjectileMoveRoutine() {
-        float duration = (float)_extra[ExtraDamageContextAtributes.Distance] / (float)_extra[ExtraDamageContextAtributes.Speed];
+        float duration = 
+            _damageAtributes.ExtraAtributes[ExtraDamageContextAtributes.Distance] / _damageAtributes.ExtraAtributes[ExtraDamageContextAtributes.Speed];
         float timer = 0;
 
         while (timer < duration) {
-            transform.position += (float)_extra[ExtraDamageContextAtributes.Speed] * Time.deltaTime * transform.forward;
+            transform.position += _damageAtributes.ExtraAtributes[ExtraDamageContextAtributes.Speed] * Time.deltaTime * transform.forward;
             timer += Time.deltaTime;
             yield return null;
         }
@@ -67,14 +66,14 @@ public class ProjectileDamageHitBox : MonoBehaviour {
         if (!other.CompareTag(Tags.Player.ToString())) PopUpManager.Instance.
                 DamageDone((int)newDamage.Item1, other.transform.position, newDamage.Item2, _damageAtributes.DamageType);
 
-        if (_extra.ContainsKey(ExtraDamageContextAtributes.BreakShield) &&
-            (bool)_extra[ExtraDamageContextAtributes.BreakShield]) health.BreakShield();
+        if (_damageAtributes.ExtraAtributes.ContainsKey(ExtraDamageContextAtributes.BreakShield) &&
+            _damageAtributes.ExtraAtributes[ExtraDamageContextAtributes.BreakShield] > 0) health.BreakShield();
 
         health.TakeDamage(newDamage.Item1, _damageAtributes.HitShield);
 
         OnHit?.Invoke();
 
-        if (!_extra.ContainsKey(ExtraDamageContextAtributes.CrossEnemy)) End();
+        if (!_damageAtributes.ExtraAtributes.ContainsKey(ExtraDamageContextAtributes.CrossEnemy)) End();
     }
 
     void End() {

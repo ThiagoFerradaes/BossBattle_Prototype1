@@ -118,19 +118,15 @@ public class BastianIgnisManager : SkillObjectManager {
         float additionalCriDmg = BastianPassiveManager.Instance.ReturnMinHeat(HeatArea.LastOverHeatArea) ? _info.LastOverHeatCritDamage : 0;
         float critDamage = statusManager.ReturnStatusValue(StatusType.CritDamage) + additionalCriDmg;
 
+        DamageAtributes atributes = _info.SkillDamageAtributes;
+        atributes.ExtraAtributes[ExtraDamageContextAtributes.Penetration] = pen;
+        atributes.ExtraAtributes[ExtraDamageContextAtributes.CritRate] = critChance;
+        atributes.ExtraAtributes[ExtraDamageContextAtributes.CritDamage] = critDamage;
+        
         DamageContext newContext = new(
             _info.SkillDamageAtributes,
             prefabInfo.PrefabDuration,
-            parent.GetComponent<StatusManager>(),
-            new() {
-                        {ExtraDamageContextAtributes.Speed, _info.ProjectileSpeed },
-                        {ExtraDamageContextAtributes.Distance, _info.AttackDistance },
-                        {ExtraDamageContextAtributes.Penetration, pen},
-                        {ExtraDamageContextAtributes.CritRate, critChance},
-                        {ExtraDamageContextAtributes.CritDamage, critDamage},
-                        {ExtraDamageContextAtributes.CrossEnemy, _info.CrossTarget},
-
-            }
+            parent.GetComponent<StatusManager>()
             );
 
         ProjectileDamageHitBox hitbox = preFab.GetComponent<ProjectileDamageHitBox>();
