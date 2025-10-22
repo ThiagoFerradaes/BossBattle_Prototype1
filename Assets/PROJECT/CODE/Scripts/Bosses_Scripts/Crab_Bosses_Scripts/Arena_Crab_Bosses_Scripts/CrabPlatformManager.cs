@@ -141,7 +141,6 @@ public class CrabPlatformManager : MonoBehaviour
 
         DamageContext context = new(
             arenaInfo.IncomingTideDamageAtributes,
-            arenaInfo.IncomingTideDuration - 1,
             CrabArenaManager.Instance.gameObject.GetComponent<StatusManager>()
             );
 

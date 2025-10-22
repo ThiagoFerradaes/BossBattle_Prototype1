@@ -158,7 +158,6 @@ public class CyrusShootUpUltimateManager : SkillObjectManager {
 
         DamageContext newContext = new(
             atributes,
-            prefabInfo.PrefabDuration,
             parent.GetComponent<StatusManager>()
             );
         InstantDamageHitBox hitBox = preFab.GetComponent<InstantDamageHitBox>();

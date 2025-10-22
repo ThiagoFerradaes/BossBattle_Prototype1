@@ -122,7 +122,6 @@ public class CyrusSpearAttackManager : SkillObjectManager {
 
         DamageContext newContext = new(
             atributes,
-            prefabInfo.PrefabDuration,
             parent.GetComponent<StatusManager>()
             );
 

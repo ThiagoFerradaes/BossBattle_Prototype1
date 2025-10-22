@@ -152,7 +152,6 @@ public class CyrusBaseAttackManager : SkillObjectManager {
 
         DamageContext newContext = new(
             atributes,
-            prefabInfo.PrefabDuration,
             parent.GetComponent<StatusManager>()
             );
 

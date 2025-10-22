@@ -10,7 +10,6 @@ public class ContinuosDamageHitBox : MonoBehaviour
 {
     // Atributos
     DamageAtributes _damageAtributes;
-    float _duration;
     StatusManager _dealerStatus;
 
     // Listas
@@ -26,7 +25,6 @@ public class ContinuosDamageHitBox : MonoBehaviour
     {
         _damageAtributes = context.Atributes;
         _dealerStatus = context.StatusManager;
-        _duration = context.Duration;
 
         gameObject.SetActive(true);
         _durationCoroutine ??= StartCoroutine(AttackDuration());
@@ -36,7 +34,7 @@ public class ContinuosDamageHitBox : MonoBehaviour
     IEnumerator AttackDuration()
     {
         float timer = 0;
-        while (timer < _duration)
+        while (timer < _damageAtributes.HitBoxDuration)
         {
             timer += Time.deltaTime;
             yield return null;

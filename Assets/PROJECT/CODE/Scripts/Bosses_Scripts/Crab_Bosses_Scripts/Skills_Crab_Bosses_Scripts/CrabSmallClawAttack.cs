@@ -131,7 +131,6 @@ public class CrabSmallClawAttack : EnemyBehaviourSO
 
         DamageContext context = new(
             damageAtributes, 
-            prefab.PrefabDuration,
              _statusManager
             );
 

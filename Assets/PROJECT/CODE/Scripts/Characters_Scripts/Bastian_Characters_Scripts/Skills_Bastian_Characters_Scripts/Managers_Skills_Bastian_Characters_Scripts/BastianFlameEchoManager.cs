@@ -163,7 +163,6 @@ public class BastianFlameEchoManager : SkillObjectManager
 
         DamageContext newContext = new(
             atributes,
-            prefabInfo.PrefabDuration,
             parent.GetComponent<StatusManager>()
             );
 

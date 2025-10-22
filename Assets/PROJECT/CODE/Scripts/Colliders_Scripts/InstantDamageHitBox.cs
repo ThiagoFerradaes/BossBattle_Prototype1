@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -8,12 +7,10 @@ using Random = UnityEngine.Random;
 public enum ExtraDamageContextAtributes
 {
     Penetration,
-    BreakShield,
 
     // Projectile
     Distance,
     Speed,
-    CrossEnemy,
 
     // Dps
     DamageCooldown,
@@ -26,18 +23,12 @@ public enum ExtraDamageContextAtributes
 public class DamageContext
 {
     public DamageAtributes Atributes;
-    public float Duration;
     public StatusManager StatusManager;
 
-    //public Dictionary<ExtraDamageContextAtributes, object> DictionaryOfExtraAtributes;
-
-    public DamageContext(DamageAtributes atributes, float hitBoxDuration,
-         StatusManager status)
+    public DamageContext(DamageAtributes atributes, StatusManager status)
     {
         this.Atributes = atributes;
-        this.Duration = hitBoxDuration;
         this.StatusManager = status;
-        //this.DictionaryOfExtraAtributes = extraAtributes ?? new();
     }
 }
 public class InstantDamageHitBox : MonoBehaviour
@@ -45,9 +36,7 @@ public class InstantDamageHitBox : MonoBehaviour
     #region Parameters
 
     DamageAtributes _damageAtributes;
-    float _duration;
     StatusManager _statusManager;
-    //Dictionary<ExtraDamageContextAtributes, object> _extra = new();
 
     public event Action OnHit;
     bool _hasHitted;
@@ -58,9 +47,7 @@ public class InstantDamageHitBox : MonoBehaviour
     public void Initialize(DamageContext context)
     {
         _damageAtributes = context.Atributes;
-        _duration = context.Duration;
         _statusManager = context.StatusManager;
-        //_extra = context.DictionaryOfExtraAtributes ?? new();
 
         gameObject.SetActive(true);
         StartCoroutine(AttackDuration());
@@ -68,7 +55,7 @@ public class InstantDamageHitBox : MonoBehaviour
     IEnumerator AttackDuration()
     {
         float timer = 0;
-        while (timer < _duration)
+        while (timer < _damageAtributes.HitBoxDuration)
         {
             timer += Time.deltaTime;
             yield return null;
@@ -127,8 +114,7 @@ public class InstantDamageHitBox : MonoBehaviour
         if (!other.CompareTag(Tags.Player.ToString())) PopUpManager.Instance.
                 DamageDone((int)newDamage.Item1, other.transform.position, newDamage.Item2, _damageAtributes.DamageType);
 
-        if (_damageAtributes.ExtraAtributes.ContainsKey(ExtraDamageContextAtributes.BreakShield) &&
-            _damageAtributes.ExtraAtributes[ExtraDamageContextAtributes.BreakShield] > 0) health.BreakShield();
+        if (_damageAtributes.BreakShield) health.BreakShield();
 
         health.TakeDamage(newDamage.Item1, _damageAtributes.HitShield);
 

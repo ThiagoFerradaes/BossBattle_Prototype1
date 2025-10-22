@@ -36,7 +36,6 @@ public class CrabSeaUrchinSO : CrabMarineAnimalSO {
 
         DamageContext context = new(
             damageAtributes,
-            prefab.PrefabDuration,
             _parent.CrabManager.GetComponent<StatusManager>()
             );
 

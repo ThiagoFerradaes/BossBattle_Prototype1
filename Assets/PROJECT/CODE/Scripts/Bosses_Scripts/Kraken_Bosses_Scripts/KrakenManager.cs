@@ -198,7 +198,6 @@ public class KrakenManager : EnemyBehaviourManager {
 
                 DamageContext newContext = new(
                 atributes,
-                prefabInfo.PrefabDuration,
                 ListOfTentacles[tentacleIndex].Status
                 );
 

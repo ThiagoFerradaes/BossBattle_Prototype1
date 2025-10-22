@@ -201,11 +201,10 @@ public class CyrusAxeAttackManager : SkillObjectManager {
 
         DamageAtributes atributes = _info.SkillDamageAtributes;
         atributes.Damage = ReturnDamage();
-        atributes.ExtraAtributes[ExtraDamageContextAtributes.BreakShield] = ReturnBreakShield() ? 1 : 0;
+        atributes.BreakShield = ReturnBreakShield();
 
         DamageContext newContext = new(
             atributes,
-            prefabInfo.PrefabDuration,
             parent.GetComponent<StatusManager>()
             );
 
@@ -237,7 +236,6 @@ public class CyrusAxeAttackManager : SkillObjectManager {
 
         DamageContext newContext = new(
             _info.RocksAtributes,
-            _info.BrokenRockDuration,
             parent.GetComponent<StatusManager>()
             );
 

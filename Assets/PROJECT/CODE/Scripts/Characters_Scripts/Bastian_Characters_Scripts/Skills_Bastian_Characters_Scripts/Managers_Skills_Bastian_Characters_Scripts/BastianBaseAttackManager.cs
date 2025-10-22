@@ -196,7 +196,6 @@ public class BastianBaseAttackManager : SkillObjectManager {
 
         DamageContext newContext = new(
             atributes,
-            prefabInfo.PrefabDuration,
             parent.GetComponent<StatusManager>()
             );
 

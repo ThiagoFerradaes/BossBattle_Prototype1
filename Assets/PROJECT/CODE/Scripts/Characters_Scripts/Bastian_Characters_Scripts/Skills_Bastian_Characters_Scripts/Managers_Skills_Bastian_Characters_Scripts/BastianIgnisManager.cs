@@ -124,8 +124,7 @@ public class BastianIgnisManager : SkillObjectManager {
         atributes.ExtraAtributes[ExtraDamageContextAtributes.CritDamage] = critDamage;
         
         DamageContext newContext = new(
-            _info.SkillDamageAtributes,
-            prefabInfo.PrefabDuration,
+            atributes,
             parent.GetComponent<StatusManager>()
             );
 

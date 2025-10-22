@@ -75,7 +75,6 @@ public class CrabSandGeiserAttack : EnemyBehaviourSO
 
         DamageContext context = new(
         damageAtributes,
-        hitboxDuration,
         _statusManager
         );
 

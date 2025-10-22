@@ -6,12 +6,19 @@ using UnityEngine;
 public enum DamageType { Abyssal, Ancestral, Pure }
 [Serializable]
 public class DamageAtributes {
+    [Header("Floats")]
     public float Damage;
-    public bool HitShield;
+    public float HitBoxDuration = 0.1f;
+
+    [Header("Booleans")]
+    public bool HitShield = true;
+    public bool BreakShield = false;
+    public bool CrossEnemy = false;
+
+    [Header("Other variables")]
     public DamageType DamageType;
     public List<Tags> UnitsToHit;
     [SerializedDictionary("Extra atribute", "Value")]
-    [Tooltip("Bool values are considered true if > 0")]
     public SerializedDictionary<ExtraDamageContextAtributes, float> ExtraAtributes;
 }
 public static class DamageCalculator {

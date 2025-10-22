@@ -176,7 +176,6 @@ public class CrabWaterMoonAttack : EnemyBehaviourSO
 
         DamageContext context = new(
             damageAtributes,
-            prefab.PrefabDuration,
             _statusManager
             );
 

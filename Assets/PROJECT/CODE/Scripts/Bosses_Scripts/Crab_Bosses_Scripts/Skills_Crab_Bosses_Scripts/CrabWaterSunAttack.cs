@@ -188,7 +188,6 @@ public class CrabWaterSunAttack : EnemyBehaviourSO {
 
         DamageContext newContext = new(
            damageAtributes,
-           attackDuration,
            _statusManager
            );
         if (hitbox.TryGetComponent<ContinuosDamageHitBox>(out ContinuosDamageHitBox damageHitBox)) { damageHitBox.Initialize(newContext); }

@@ -66,14 +66,13 @@ public class ProjectileDamageHitBox : MonoBehaviour {
         if (!other.CompareTag(Tags.Player.ToString())) PopUpManager.Instance.
                 DamageDone((int)newDamage.Item1, other.transform.position, newDamage.Item2, _damageAtributes.DamageType);
 
-        if (_damageAtributes.ExtraAtributes.ContainsKey(ExtraDamageContextAtributes.BreakShield) &&
-            _damageAtributes.ExtraAtributes[ExtraDamageContextAtributes.BreakShield] > 0) health.BreakShield();
+        if (_damageAtributes.BreakShield) health.BreakShield();
 
         health.TakeDamage(newDamage.Item1, _damageAtributes.HitShield);
 
         OnHit?.Invoke();
 
-        if (!_damageAtributes.ExtraAtributes.ContainsKey(ExtraDamageContextAtributes.CrossEnemy)) End();
+        if (!_damageAtributes.CrossEnemy) End();
     }
 
     void End() {
