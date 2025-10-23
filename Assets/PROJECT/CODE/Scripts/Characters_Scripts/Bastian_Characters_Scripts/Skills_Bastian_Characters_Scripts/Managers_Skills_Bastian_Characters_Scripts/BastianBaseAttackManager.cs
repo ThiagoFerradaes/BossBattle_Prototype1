@@ -17,6 +17,7 @@ public class BastianBaseAttackManager : SkillObjectManager {
     // Actions
     public static event Action<int> OnShoot;
 
+    float _attackSpeedMultiplier;
     public override void HandleInput(SkillSO skill, InputAction.CallbackContext ctx) {
         if (!BastianPassiveManager.Instance.CanShoot) {
             return;
@@ -38,97 +39,37 @@ public class BastianBaseAttackManager : SkillObjectManager {
             _timerBetweenAttacksCoroutine = null;
         }
 
-        animationCoroutine ??= StartCoroutine(Attack());
-    }
-
-    IEnumerator Attack() {
-
-        skillManager.SkillIsInAnimation(true);
-
-        float attackSpeedMultiplier = GetAttackSpeedMultiplier();
-
-        // Decidingo dano e animação baseado no attack index;
         string animationParameterName, animationName;
-        DamageAtributes atributes;
         switch (_attackIndex) {
             case 1:
-                atributes = _info.FirstAttackAtributes;
                 animationParameterName = _info.AnimationOneParameter;
                 animationName = _info.AnimationOneName;
                 break;
             case 2:
-                atributes = _info.SecondAttackAtributes;
                 animationParameterName = _info.AnimationTwoParameter;
                 animationName = _info.AnimationTwoName;
                 break;
             case 3:
-                atributes = _info.ThirdAttackAtributes;
                 animationParameterName = _info.AnimationThreeParameter;
                 animationName = _info.AnimationThreeName;
                 break;
             default:
-                atributes = _info.FirstAttackAtributes;
                 animationParameterName = _info.AnimationOneParameter;
                 animationName = _info.AnimationOneName;
                 break;
         }
-
-        // Animation
-        anim.SetFloat(_info.AttackSpeedAnimationParameter, attackSpeedMultiplier);
-        anim.SetTrigger(animationParameterName);
-        AnimatorStateInfo stateInfo;
-
-        yield return null;
-
-        int layer = 0; // Encontrando a layer da animação
-        for (int i = 0; i < anim.layerCount; i++) {
-            AnimatorStateInfo state = anim.GetCurrentAnimatorStateInfo(i);
-            AnimatorStateInfo nextState = anim.GetNextAnimatorStateInfo(i);
-
-            if (state.IsName(animationName) || nextState.IsName(animationName)) {
-                layer = i;
-                break;
-            }
-        }
-
-        do { // Esperando entrar na animação
-            yield return null;
-            stateInfo = anim.GetCurrentAnimatorStateInfo(layer);
-        } while (!stateInfo.IsName(animationName));
-
-        int attackStateHash = stateInfo.fullPathHash;
-
-        // Pegando a lista de prefabs e ordenando pelo tempo de spawn delas
-        var prefabList = _info.Prefabs[_attackIndex];
-        prefabList.Sort((a, b) => a.TimeToSpawnPreFab.CompareTo(b.TimeToSpawnPreFab));
-
-        // Instanciando prefabs
-        for (int i = 0; i < prefabList.Count; i++) {
-            SkillAnimationEvent prefabInfo = prefabList[i];
-            float targetNormalizedTime = prefabInfo.TimeToSpawnPreFab;
-
-            do { // Esperando o tempo para instanciar hit box
-                yield return null;
-                stateInfo = anim.GetCurrentAnimatorStateInfo(layer);
-            } while (stateInfo.fullPathHash == attackStateHash && stateInfo.normalizedTime < targetNormalizedTime);
-
-
-            if (prefabInfo.PrefabType == TypeOfSkillPrefab.Hitbox) InstantiateHitBox(prefabInfo, atributes);
-            else InstantiateVFX(prefabInfo);
-        }
-
-        // Esperando a animação terminar
-        while (anim.GetCurrentAnimatorStateInfo(layer).fullPathHash == attackStateHash) {
-            yield return null;
-        }
-
-        FinishAttack(attackSpeedMultiplier);
+        animationCoroutine ??= StartCoroutine(AttackCoroutine(1, animationParameterName, animationName, _attackIndex));
     }
-    void FinishAttack(float attackSpeedMultiplier) {
+
+    public override void FirstFunc() {
+        _attackSpeedMultiplier = GetAttackSpeedMultiplier();
+        anim.SetFloat(_info.AttackSpeedAnimationParameter, _attackSpeedMultiplier);
+    }
+    public override void FourthFunc() {
         // Definindo Cooldown
         float cooldown = _attackIndex < 3 ? _info.CooldownBetweenAttacks : _info.Cooldown;
 
-        float realCooldown = cooldown / attackSpeedMultiplier;
+        float realCooldown = cooldown / _attackSpeedMultiplier;
 
         cooldownManager.SetCooldownSingleCharge(slot, realCooldown);
 
@@ -149,6 +90,7 @@ public class BastianBaseAttackManager : SkillObjectManager {
         // Avisando que não está mais em animação
         skillManager.SkillIsInAnimation(false);
     }
+
     IEnumerator CooldownBetweenAttacks() {
         float timer = 0;
 
@@ -178,7 +120,7 @@ public class BastianBaseAttackManager : SkillObjectManager {
         _timerBetweenAttacksCoroutine = null;
         base.EndWithUnblockSkills();
     }
-    void InstantiateHitBox(SkillAnimationEvent prefabInfo, DamageAtributes atributes) {
+    public override void InstantiateHitBox(SkillAnimationEvent prefabInfo) {
         GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFab, TypeOfSkillPrefab.Hitbox);
 
         preFab.transform.localScale = Vector3.one * _info.ProjectileSize;
@@ -188,6 +130,22 @@ public class BastianBaseAttackManager : SkillObjectManager {
         float critChance = BastianPassiveManager.Instance.ReturnMinHeat(HeatArea.OverHeatArea) ? _info.CritChanceOverHeat : 0;
         float additionalCriDmg = BastianPassiveManager.Instance.ReturnMinHeat(HeatArea.LastOverHeatArea) ? _info.LastOverHeatCritDamage : 0;
         float critDamage = statusManager.ReturnStatusValue(StatusType.CritDamage) + additionalCriDmg;
+
+        DamageAtributes atributes;
+        switch (_attackIndex) {
+            case 1:
+                atributes = _info.FirstAttackAtributes;
+                break;
+            case 2:
+                atributes = _info.SecondAttackAtributes;
+                break;
+            case 3:
+                atributes = _info.ThirdAttackAtributes;
+                break;
+            default:
+                atributes = _info.FirstAttackAtributes;
+                break;
+        }
 
         atributes.ExtraAtributes[ExtraDamageContextAtributes.Penetration] = pen;
         atributes.ExtraAtributes[ExtraDamageContextAtributes.CritRate] = critChance;
@@ -209,7 +167,7 @@ public class BastianBaseAttackManager : SkillObjectManager {
 
         OnShoot?.Invoke(_attackIndex);
     }
-    void InstantiateVFX(SkillAnimationEvent prefabInfo) {
+    public override void InstantiateVFX(SkillAnimationEvent prefabInfo) {
         GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFab, TypeOfSkillPrefab.VFX);
         preFab.transform.SetParent(parent.transform, false);
         preFab.transform.SetLocalPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.identity);

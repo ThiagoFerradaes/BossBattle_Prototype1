@@ -6,6 +6,7 @@ public class BastianIgnisManager : SkillObjectManager {
     // Components
     BastianIgnisSO _info;
 
+    float _attackSpeedMultiplier;
     public override void HandleInput(SkillSO skill, InputAction.CallbackContext ctx) {
         if (!BastianPassiveManager.Instance.CanShoot) {
             return;
@@ -29,68 +30,19 @@ public class BastianIgnisManager : SkillObjectManager {
             gameObject.SetActive(true);
         }
 
-        animationCoroutine ??= StartCoroutine(Attack());
+        animationCoroutine ??= StartCoroutine(AttackCoroutine(1, _info.AnimationParameter, _info.AnimationName, 0));
     }
 
-    IEnumerator Attack() {
-        // Definindo Cooldown
-
+    public override void FirstFunc() {
         cooldownManager.SetCooldownWithCharges(slot, _info);
-
-        float attackSpeedMultiplier = GetAttackSpeedMultiplier();
+        _attackSpeedMultiplier = GetAttackSpeedMultiplier();
 
         skillManager.SkillIsInAnimation(true);
 
-        // Animation
-        anim.SetFloat(_info.AttackSpeedAnimationParameter, attackSpeedMultiplier);
-        anim.SetTrigger(_info.AnimationParameter);
-        AnimatorStateInfo stateInfo;
+        anim.SetFloat(_info.AttackSpeedAnimationParameter, _attackSpeedMultiplier);
+    }
 
-        yield return null;
-
-        int layer = 0; // Encontrando a layer da animação
-        for (int i = 0; i < anim.layerCount; i++) {
-            AnimatorStateInfo state = anim.GetCurrentAnimatorStateInfo(i);
-            AnimatorStateInfo nextState = anim.GetNextAnimatorStateInfo(i);
-
-            if (state.IsName(_info.AnimationName) || nextState.IsName(_info.AnimationName)) {
-                layer = i;
-                break;
-            }
-        }
-
-        do { // Esperando entrar na animação
-            yield return null;
-            stateInfo = anim.GetCurrentAnimatorStateInfo(layer);
-        } while (!stateInfo.IsName(_info.AnimationName));
-
-        int attackStateHash = stateInfo.fullPathHash;
-
-        // Pegando a lista de prefabs e ordenando pelo tempo de spawn delas
-        var prefabList = _info.Prefabs[0];
-        prefabList.Sort((a, b) => a.TimeToSpawnPreFab.CompareTo(b.TimeToSpawnPreFab));
-
-        // Instanciando prefabs
-        for (int i = 0; i < prefabList.Count; i++) {
-            SkillAnimationEvent prefabInfo = prefabList[i];
-            float targetNormalizedTime = prefabInfo.TimeToSpawnPreFab;
-
-            do { // Esperando o tempo para instanciar hit box
-                yield return null;
-                stateInfo = anim.GetCurrentAnimatorStateInfo(layer);
-            } while (stateInfo.fullPathHash == attackStateHash && stateInfo.normalizedTime < targetNormalizedTime);
-
-
-            if (prefabInfo.PrefabType == TypeOfSkillPrefab.Hitbox) InstantiateHitBox(prefabInfo);
-            else InstantiateVFX(prefabInfo);
-        }
-
-        // Esperando a animação terminar
-        while (anim.GetCurrentAnimatorStateInfo(layer).fullPathHash == attackStateHash) {
-            yield return null;
-        }
-
-
+    public override void FourthFunc() {
         // Resetando a velocidade da animação
         anim.SetFloat(_info.AttackSpeedAnimationParameter, 1);
 
@@ -106,7 +58,7 @@ public class BastianIgnisManager : SkillObjectManager {
         return Mathf.Max(0.1f, baseSpeed);
     }
 
-    void InstantiateHitBox(SkillAnimationEvent prefabInfo) {
+    public override void InstantiateHitBox(SkillAnimationEvent prefabInfo) {
         GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFab, TypeOfSkillPrefab.Hitbox);
 
         preFab.transform.localScale = _info.Size;
@@ -139,7 +91,7 @@ public class BastianIgnisManager : SkillObjectManager {
         else BastianPassiveManager.Instance.GainHeat(1);
     }
 
-    void InstantiateVFX(SkillAnimationEvent prefabInfo) {
+    public override void InstantiateVFX(SkillAnimationEvent prefabInfo) {
         GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFab, TypeOfSkillPrefab.VFX);
         preFab.transform.SetParent(parent.transform, false);
         preFab.transform.SetLocalPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.identity);

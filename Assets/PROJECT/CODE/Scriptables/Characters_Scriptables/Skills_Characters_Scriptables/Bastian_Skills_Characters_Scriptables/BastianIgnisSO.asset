@@ -19,7 +19,6 @@ MonoBehaviour:
     - Key: 0
       Value:
       - TimeToSpawnPreFab: 0.5
-        PreFabName: BastianIgnisHitBox
         PrefabType: 0
         PrefabDuration: 0
         PreFab: {fileID: 5556882484380889040, guid: 73183662ed7be604f90dff0cc2f277ff, type: 3}
@@ -37,23 +36,22 @@ MonoBehaviour:
   Charges: 3
   ChargeCooldown: 0.5
   SkillDamageAtributes:
+    DamageType: 1
+    UnitsToHit: 00000000
     Damage: 30
     HitBoxDuration: 0.1
     HitShield: 1
     BreakShield: 0
-    CrossEnemy: 0
-    DamageType: 1
-    UnitsToHit: 00000000
+    TypeOfPrefab: 2
+    DamageCooldown: 0.1
+    Distance: 12
+    Speed: 30
+    CrossEnemy: 1
     ExtraAtributes:
-      _serializedList:
-      - Key: 3
-        Value: 30
+      _serializedList: []
   AnimationParameter: Ignis
   AnimationName: Ignis
   AttackSpeedAnimationParameter: AttackSpeed
-  AttackDistance: 12
-  ProjectileSpeed: 30
-  CrossTarget: 1
   Size: {x: 1, y: 1, z: 1}
   HeatGain: 16
   PenetrationOnSuperHeat: 10

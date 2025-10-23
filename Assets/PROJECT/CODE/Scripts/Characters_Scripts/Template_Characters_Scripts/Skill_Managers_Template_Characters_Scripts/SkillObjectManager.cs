@@ -166,7 +166,7 @@ public abstract class SkillObjectManager : MonoBehaviour {
 
         do {
             yield return null;
-            stateInfo = anim.GetCurrentAnimatorStateInfo(0);
+            stateInfo = anim.GetCurrentAnimatorStateInfo(animationLayer);
         } while (stateInfo.fullPathHash == attackStateHash && stateInfo.normalizedTime < 1);
 
         FourthFunc();
