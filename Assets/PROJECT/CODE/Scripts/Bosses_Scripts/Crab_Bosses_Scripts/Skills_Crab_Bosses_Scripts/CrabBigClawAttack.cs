@@ -114,7 +114,7 @@ public class CrabBigClawAttack : EnemyBehaviourSO
 
     void InstantiateHitBox(SkillAnimationEvent prefab)
     {
-        GameObject hitbox = PoolingManager.Instance.ReturnPrefabFromPool(prefab.PreFabName, prefab.PreFab, TypeOfSkillPrefab.Hitbox);
+        GameObject hitbox = PoolingManager.Instance.ReturnPrefabFromPool(prefab.PreFab, TypeOfSkillPrefab.Hitbox);
         hitbox.transform.SetParent(_crabManager.transform, false);
         hitbox.transform.SetLocalPositionAndRotation(prefab.PreFabPosition, Quaternion.identity);
 
@@ -129,7 +129,7 @@ public class CrabBigClawAttack : EnemyBehaviourSO
 
     void InstantiateVFX(SkillAnimationEvent prefab)
     {
-        GameObject hitbox = PoolingManager.Instance.ReturnPrefabFromPool(prefab.PreFabName, prefab.PreFab, TypeOfSkillPrefab.VFX);
+        GameObject hitbox = PoolingManager.Instance.ReturnPrefabFromPool(prefab.PreFab, TypeOfSkillPrefab.VFX);
         hitbox.transform.position = prefab.PreFabPosition;
 
         hitbox.GetComponent<VFXPreFab>().Initialize(prefab.PrefabDuration);

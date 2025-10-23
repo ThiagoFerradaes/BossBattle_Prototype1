@@ -87,8 +87,7 @@ public class LilianWingsOfHorrorManager : SkillObjectManager
 
             if (prefabInfo.PrefabType == TypeOfSkillPrefab.VFX)
             {
-                GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFabName,
-                    prefabInfo.PreFab, TypeOfSkillPrefab.VFX);
+                GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFab, TypeOfSkillPrefab.VFX);
                 preFab.transform.SetParent(parent.transform, false);
                 preFab.transform.SetLocalPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.identity);
 
@@ -181,8 +180,7 @@ public class LilianWingsOfHorrorManager : SkillObjectManager
 
             if (prefabInfo.PrefabType == TypeOfSkillPrefab.VFX)
             {
-                GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFabName,
-                    prefabInfo.PreFab, TypeOfSkillPrefab.VFX);
+                GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFab, TypeOfSkillPrefab.VFX);
                 preFab.transform.SetParent(parent.transform, false);
                 preFab.transform.SetLocalPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.identity);
 
@@ -190,8 +188,7 @@ public class LilianWingsOfHorrorManager : SkillObjectManager
             }
             else
             {
-                GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFabName,
-                    prefabInfo.PreFab, TypeOfSkillPrefab.Hitbox);
+                GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFab, TypeOfSkillPrefab.Hitbox);
                 preFab.transform.SetParent(transform, false);
                 preFab.transform.SetLocalPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.identity);
                 preFab.transform.localScale = Vector3.one * _info.WingsOfHorrorDamageSize;

@@ -74,8 +74,7 @@ public class LilianFlameOfPenitenceManager : SkillObjectManager
 
             if (prefabInfo.PrefabType == TypeOfSkillPrefab.VFX)
             {
-                GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFabName,
-                    prefabInfo.PreFab, TypeOfSkillPrefab.VFX);
+                GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFab, TypeOfSkillPrefab.VFX);
                 preFab.transform.SetParent(parent.transform, false);
                 preFab.transform.SetLocalPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.identity);
 
@@ -115,7 +114,7 @@ public class LilianFlameOfPenitenceManager : SkillObjectManager
 
     void InstantiateCandle()
     {
-        GameObject candle = PoolingManager.Instance.ReturnPrefabFromPool(_info.CandlePrefabName, _info.CandlePrefab, TypeOfSkillPrefab.Hitbox);
+        GameObject candle = PoolingManager.Instance.ReturnPrefabFromPool(_info.CandlePrefab, TypeOfSkillPrefab.Hitbox);
 
         Vector3 foward = parent.transform.forward;
         foward.y = 0;

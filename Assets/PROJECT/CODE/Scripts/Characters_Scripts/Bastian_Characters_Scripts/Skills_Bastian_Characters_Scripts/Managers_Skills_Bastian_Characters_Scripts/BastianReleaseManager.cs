@@ -61,8 +61,7 @@ public class BastianReleaseManager : SkillObjectManager
 
 
             if (prefabInfo.PrefabType == TypeOfSkillPrefab.VFX) { 
-                GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFabName,
-                    prefabInfo.PreFab, TypeOfSkillPrefab.VFX);
+                GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFab, TypeOfSkillPrefab.VFX);
                 preFab.transform.SetParent(parent.transform, false);
                 preFab.transform.SetLocalPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.identity);
 

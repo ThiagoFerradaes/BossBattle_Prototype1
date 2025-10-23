@@ -83,8 +83,7 @@ public abstract class SkillObjectManager : MonoBehaviour {
     }
 
     public virtual void SetSkillRangeIndicator(SkillSO skill) {
-        currentSkillRange = PoolingManager.Instance.ReturnPrefabFromPool(skill.SkillObjectRangeName,
-            skill.SkillObjectRangeObject, TypeOfSkillPrefab.PreCastRange);
+        currentSkillRange = PoolingManager.Instance.ReturnPrefabFromPool(skill.SkillObjectRangeObject, TypeOfSkillPrefab.PreCastRange);
 
         currentSkillRange.transform.SetParent(parent.transform);
 

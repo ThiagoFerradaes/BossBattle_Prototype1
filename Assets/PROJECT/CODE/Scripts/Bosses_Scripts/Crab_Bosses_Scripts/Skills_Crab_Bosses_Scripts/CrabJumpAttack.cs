@@ -125,7 +125,7 @@ public class CrabJumpAttack : EnemyBehaviourSO
     void InstantiateHitBox()
     {
 
-        GameObject prefab = PoolingManager.Instance.ReturnPrefabFromPool(jumpHitBoxName, jumpHitBox, TypeOfSkillPrefab.Hitbox);
+        GameObject prefab = PoolingManager.Instance.ReturnPrefabFromPool(jumpHitBox, TypeOfSkillPrefab.Hitbox);
         prefab.transform.position = _crabManager.transform.position;
         prefab.transform.localScale = Vector3.one * jumpHitBoxSize;
 

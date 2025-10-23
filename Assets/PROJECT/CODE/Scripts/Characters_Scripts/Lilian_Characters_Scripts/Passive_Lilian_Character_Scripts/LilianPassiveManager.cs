@@ -101,7 +101,7 @@ public class LilianPassiveManager : PassiveSkillManager {
     IEnumerator Blessing() {
         Vector3 pos = ArenaManager.Instance.GetRandomPosition(_info.BlessingSize);
         pos.y = ArenaManager.Instance.FindGroundHeight(pos);
-        GameObject blessingArea = PoolingManager.Instance.ReturnPrefabFromPool(_info.BlessingObjectName, _info.BlessingObject, TypeOfSkillPrefab.Hitbox);
+        GameObject blessingArea = PoolingManager.Instance.ReturnPrefabFromPool(_info.BlessingObject, TypeOfSkillPrefab.Hitbox);
         blessingArea.transform.localScale = new(_info.BlessingSize, _info.BlessingSize, _info.BlessingSize);
         blessingArea.transform.position = pos;
         blessingArea.SetActive(true);

@@ -146,7 +146,7 @@ public class CrabWalkToHighTide : EnemyBehaviourSO
     void InstantiateHitBox(SkillAnimationEvent prefab) { }
     void InstantiateVFX(SkillAnimationEvent prefab)
     {
-        GameObject hitbox = PoolingManager.Instance.ReturnPrefabFromPool(prefab.PreFabName, prefab.PreFab, TypeOfSkillPrefab.VFX);
+        GameObject hitbox = PoolingManager.Instance.ReturnPrefabFromPool(prefab.PreFab, TypeOfSkillPrefab.VFX);
         hitbox.transform.position = prefab.PreFabPosition;
 
         hitbox.GetComponent<VFXPreFab>().Initialize(prefab.PrefabDuration);

@@ -134,8 +134,7 @@ public class CrabPlatformManager : MonoBehaviour
             return;
         }
 
-        GameObject hitbox = PoolingManager.Instance.ReturnPrefabFromPool(arenaInfo.IncomingTideAttackHitBoxName,
-            arenaInfo.IncomingTideAttackHitBox, TypeOfSkillPrefab.Hitbox);
+        GameObject hitbox = PoolingManager.Instance.ReturnPrefabFromPool(arenaInfo.IncomingTideAttackHitBox, TypeOfSkillPrefab.Hitbox);
         hitbox.transform.position = Vector3.zero;
         hitbox.transform.localScale = Vector3.one * arenaInfo.IncomingTideAttackDamagSize;
 
@@ -192,7 +191,7 @@ public class CrabPlatformManager : MonoBehaviour
                     GameObject prefab = animal.Value;
                     string prefabName = animal.Key;
 
-                    GameObject hitbox = PoolingManager.Instance.ReturnPrefabFromPool(prefabName, prefab, TypeOfSkillPrefab.Hitbox);
+                    GameObject hitbox = PoolingManager.Instance.ReturnPrefabFromPool(prefab, TypeOfSkillPrefab.Hitbox);
                     groundPosition.y = arenaInfo.AnimalHeight;
                     hitbox.transform.position = groundPosition;
                     CrabMarineAnimal crabMarineAnimal = hitbox.GetComponent<CrabMarineAnimal>();

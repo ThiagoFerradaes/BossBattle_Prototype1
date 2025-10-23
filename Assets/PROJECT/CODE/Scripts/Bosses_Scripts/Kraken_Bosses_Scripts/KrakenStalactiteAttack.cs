@@ -78,12 +78,10 @@ public class KrakenStalactiteAttack : EnemyBehaviourSO {
             Vector3 pos = ArenaManager.Instance.GetRandomPosition(1);
             Vector3 stalactitePosition = new(pos.x, stalactiteHeight, pos.z);
 
-            GameObject stalactite = PoolingManager.Instance.ReturnPrefabFromPool(stalactitePrefabName,
-                stalactitePrefab, TypeOfSkillPrefab.Hitbox);
+            GameObject stalactite = PoolingManager.Instance.ReturnPrefabFromPool(stalactitePrefab, TypeOfSkillPrefab.Hitbox);
             stalactite.transform.position = stalactitePosition;
 
-            GameObject warningVFX = PoolingManager.Instance.ReturnPrefabFromPool(warningPrefabName,
-               stalactiteWarning, TypeOfSkillPrefab.VFX);
+            GameObject warningVFX = PoolingManager.Instance.ReturnPrefabFromPool(stalactiteWarning, TypeOfSkillPrefab.VFX);
 
             float floorHeight = ArenaManager.Instance.FindGroundHeight(stalactitePosition); 
             Vector3 warningPos = new(pos.x, floorHeight + warningHeight, pos.z);

@@ -192,8 +192,7 @@ public class CyrusAxeAttackManager : SkillObjectManager {
 
     #region Instantiate
     void InstantiateHitBox(SkillAnimationEvent prefabInfo) {
-        GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFabName,
-                    prefabInfo.PreFab, TypeOfSkillPrefab.Hitbox);
+        GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFab, TypeOfSkillPrefab.Hitbox);
 
         preFab.transform.localScale = _info.Size;
         preFab.transform.SetParent(parent.transform, false);
@@ -220,16 +219,14 @@ public class CyrusAxeAttackManager : SkillObjectManager {
     }
 
     void InstantiateVFX(SkillAnimationEvent prefabInfo) {
-        GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFabName,
-                    prefabInfo.PreFab, TypeOfSkillPrefab.VFX);
+        GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFab, TypeOfSkillPrefab.VFX);
         preFab.transform.SetParent(parent.transform, false);
         Vector3 rotation = new Vector3(-90, -180, 90);
         preFab.transform.SetLocalPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.Euler(rotation));
         preFab.GetComponent<VFXPreFab>().Initialize(prefabInfo.PrefabDuration);
     }
     void InstantiateBrokenRocks() {
-        GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(_info.BrokenRocksName,
-                    _info.BrokenRocksPrefab, TypeOfSkillPrefab.Hitbox);
+        GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(_info.BrokenRocksPrefab, TypeOfSkillPrefab.Hitbox);
         preFab.transform.localScale = Vector3.one * _info.BrokenRockSize;
         preFab.transform.SetParent(parent.transform, false);
         preFab.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);

@@ -179,7 +179,7 @@ public class CrabWaterSunAttack : EnemyBehaviourSO {
 
     #region Instantiate
     GameObject InstantiateHitBox(SkillAnimationEvent prefab, Vector3 size) {
-        GameObject hitbox = PoolingManager.Instance.ReturnPrefabFromPool(prefab.PreFabName, prefab.PreFab, TypeOfSkillPrefab.Hitbox);
+        GameObject hitbox = PoolingManager.Instance.ReturnPrefabFromPool(prefab.PreFab, TypeOfSkillPrefab.Hitbox);
         hitbox.transform.localScale = size;
         hitbox.transform.SetParent(_apicem.transform, false);
         Vector3 pos = prefab.PreFabPosition;

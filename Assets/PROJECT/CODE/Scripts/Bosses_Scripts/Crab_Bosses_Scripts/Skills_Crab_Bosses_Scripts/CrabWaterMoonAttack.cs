@@ -167,7 +167,7 @@ public class CrabWaterMoonAttack : EnemyBehaviourSO
     }
     void InstantiateHitBox(SkillAnimationEvent prefab)
     {
-        GameObject hitbox = PoolingManager.Instance.ReturnPrefabFromPool(prefab.PreFabName, prefab.PreFab, TypeOfSkillPrefab.Hitbox);
+        GameObject hitbox = PoolingManager.Instance.ReturnPrefabFromPool(prefab.PreFab, TypeOfSkillPrefab.Hitbox);
         hitbox.transform.localScale = Vector3.one * projectileSize;
         Vector3 pos = _vallis.position;
         pos += prefab.PreFabPosition;
@@ -185,8 +185,7 @@ public class CrabWaterMoonAttack : EnemyBehaviourSO
 
     void InstantiateVFX(SkillAnimationEvent prefab)
     {
-        GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefab.PreFabName,
-                        prefab.PreFab, TypeOfSkillPrefab.VFX);
+        GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefab.PreFab, TypeOfSkillPrefab.VFX);
         preFab.transform.SetPositionAndRotation(prefab.PreFabPosition, Quaternion.identity);
 
         preFab.GetComponent<VFXPreFab>().Initialize(prefab.PrefabDuration);

@@ -20,7 +20,7 @@ public class CrabStarFishSO : CrabMarineAnimalSO {
     }
 
     void InstantiateVFX(SkillAnimationEvent prefab) {
-        GameObject hitbox = PoolingManager.Instance.ReturnPrefabFromPool(prefab.PreFabName, prefab.PreFab, TypeOfSkillPrefab.VFX);
+        GameObject hitbox = PoolingManager.Instance.ReturnPrefabFromPool(prefab.PreFab, TypeOfSkillPrefab.VFX);
         hitbox.transform.position = _parent.position;
         hitbox.transform.localScale = explosionRadius * Vector3.one;
 

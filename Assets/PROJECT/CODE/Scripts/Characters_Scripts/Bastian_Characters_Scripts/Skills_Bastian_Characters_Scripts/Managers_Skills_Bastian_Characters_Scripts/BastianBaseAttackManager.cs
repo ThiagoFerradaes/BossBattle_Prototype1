@@ -179,8 +179,7 @@ public class BastianBaseAttackManager : SkillObjectManager {
         base.EndWithUnblockSkills();
     }
     void InstantiateHitBox(SkillAnimationEvent prefabInfo, DamageAtributes atributes) {
-        GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFabName,
-    prefabInfo.PreFab, TypeOfSkillPrefab.Hitbox);
+        GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFab, TypeOfSkillPrefab.Hitbox);
 
         preFab.transform.localScale = Vector3.one * _info.ProjectileSize;
         preFab.transform.SetPositionAndRotation(parent.transform.position + prefabInfo.PreFabPosition, parent.transform.rotation);
@@ -211,8 +210,7 @@ public class BastianBaseAttackManager : SkillObjectManager {
         OnShoot?.Invoke(_attackIndex);
     }
     void InstantiateVFX(SkillAnimationEvent prefabInfo) {
-        GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFabName,
-    prefabInfo.PreFab, TypeOfSkillPrefab.VFX);
+        GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFab, TypeOfSkillPrefab.VFX);
         preFab.transform.SetParent(parent.transform, false);
         preFab.transform.SetLocalPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.identity);
 

@@ -107,7 +107,7 @@ public class CrabWaterMeteorAttack : EnemyBehaviourSO {
 
     #region Instantiate
     void InstantiateHitBox(SkillAnimationEvent prefab, Vector3 pos) {
-        GameObject hitbox = PoolingManager.Instance.ReturnPrefabFromPool(prefab.PreFabName, prefab.PreFab, TypeOfSkillPrefab.Hitbox);
+        GameObject hitbox = PoolingManager.Instance.ReturnPrefabFromPool(prefab.PreFab, TypeOfSkillPrefab.Hitbox);
         hitbox.transform.localScale = Vector3.one * meteorSize;
         pos.y += prefab.PreFabPosition.y;
         hitbox.transform.position = pos;
@@ -122,8 +122,7 @@ public class CrabWaterMeteorAttack : EnemyBehaviourSO {
         projectile.Initialize(context);
     }
     void InstantiateVFX(SkillAnimationEvent prefab, Vector3 pos) {
-        GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefab.PreFabName,
-                        prefab.PreFab, TypeOfSkillPrefab.VFX);
+        GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefab.PreFab, TypeOfSkillPrefab.VFX);
         pos.y += prefab.PreFabPosition.y;
         preFab.transform.SetPositionAndRotation(pos, Quaternion.identity);
 
@@ -132,7 +131,7 @@ public class CrabWaterMeteorAttack : EnemyBehaviourSO {
 
     IEnumerator WarningRoutine(Vector3 pos)
     {
-        GameObject warning = PoolingManager.Instance.ReturnPrefabFromPool(warningName, warningObject, TypeOfSkillPrefab.VFX);
+        GameObject warning = PoolingManager.Instance.ReturnPrefabFromPool(warningObject, TypeOfSkillPrefab.VFX);
         warning.transform.localScale = warningSize;
         warning.transform.position = pos;
 

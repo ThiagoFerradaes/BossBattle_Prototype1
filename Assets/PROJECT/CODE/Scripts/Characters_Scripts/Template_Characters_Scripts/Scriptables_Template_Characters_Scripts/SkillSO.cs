@@ -7,7 +7,6 @@ public enum TypeOfSkillPrefab { Hitbox, VFX, PreCastRange, Manager }
 [System.Serializable]
 public class SkillAnimationEvent {
     public float TimeToSpawnPreFab;
-    public string PreFabName;
     public TypeOfSkillPrefab PrefabType;
     [ShowIf("PrefabType", TypeOfSkillPrefab.VFX), AllowNesting]
     public float PrefabDuration;

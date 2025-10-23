@@ -30,7 +30,7 @@ public class CrabSeaUrchinSO : CrabMarineAnimalSO {
     }
     
     void InstantiateHitBox(SkillAnimationEvent prefab) {
-        GameObject hitbox = PoolingManager.Instance.ReturnPrefabFromPool(prefab.PreFabName, prefab.PreFab, TypeOfSkillPrefab.Hitbox);
+        GameObject hitbox = PoolingManager.Instance.ReturnPrefabFromPool(prefab.PreFab, TypeOfSkillPrefab.Hitbox);
         hitbox.transform.position = _parent.transform.position;
         hitbox.transform.localScale = explosionRadius * Vector3.one;
 
@@ -44,7 +44,7 @@ public class CrabSeaUrchinSO : CrabMarineAnimalSO {
     }
 
     void InstantiateVFX(SkillAnimationEvent prefab) {
-        GameObject hitbox = PoolingManager.Instance.ReturnPrefabFromPool(prefab.PreFabName, prefab.PreFab, TypeOfSkillPrefab.VFX);
+        GameObject hitbox = PoolingManager.Instance.ReturnPrefabFromPool(prefab.PreFab, TypeOfSkillPrefab.VFX);
         hitbox.transform.position = _parent.transform.position;
         hitbox.transform.localScale = explosionRadius * Vector3.one;
 

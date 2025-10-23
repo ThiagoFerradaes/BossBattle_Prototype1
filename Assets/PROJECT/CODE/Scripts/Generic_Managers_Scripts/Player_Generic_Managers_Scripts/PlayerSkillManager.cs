@@ -97,7 +97,7 @@ public class PlayerSkillManager : MonoBehaviour {
         }
     }
     void StartPassive() {
-        GameObject passiveManager = PoolingManager.Instance.ReturnManagerFromPool(_passive.PassiveName, _passive.PassiveManager.gameObject);
+        GameObject passiveManager = PoolingManager.Instance.ReturnManagerFromPool(_passive.PassiveManager.gameObject);
         PassiveSkillManager manager = passiveManager.GetComponent<PassiveSkillManager>();
         manager.OnStart(_passive, this.gameObject);
     }
@@ -157,7 +157,7 @@ public class PlayerSkillManager : MonoBehaviour {
         }
     }
     void UseSkill(InputAction.CallbackContext ctx, SkillSO skill, SkillSlot slot) {
-        GameObject skillManager = PoolingManager.Instance.ReturnManagerFromPool(skill.SkillManagerName, skill.SkillManagerObject.gameObject);
+        GameObject skillManager = PoolingManager.Instance.ReturnManagerFromPool(skill.SkillManagerObject.gameObject);
         SkillObjectManager manager = skillManager.GetComponent<SkillObjectManager>();
         manager.Initialize(skill, this.gameObject, slot, ctx);
 

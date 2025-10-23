@@ -7,10 +7,10 @@ public class PoolingManager : MonoBehaviour {
     public static PoolingManager Instance;
 
     // Dicionários
-    Dictionary<string, List<GameObject>> listOfHitboxes = new();
-    Dictionary<string, List<GameObject>> listOfPreCastingRange = new();
-    Dictionary<string, List<GameObject>> listOfVFX = new();
-    Dictionary<string, GameObject> listOfManagers = new();
+    Dictionary<GameObject, List<GameObject>> listOfHitboxes = new();
+    Dictionary<GameObject, List<GameObject>> listOfPreCastingRange = new();
+    Dictionary<GameObject, List<GameObject>> listOfVFX = new();
+    Dictionary<GameObject, GameObject> listOfManagers = new();
 
     // Transforms
     public Transform HitboxContainer, ManagerContainer, VFXContainer, PreCastingContainer;
@@ -23,19 +23,19 @@ public class PoolingManager : MonoBehaviour {
         else Destroy(this);
     }
 
-    public GameObject ReturnPrefabFromPool(string objectName, GameObject prefab, TypeOfSkillPrefab type) {
+    public GameObject ReturnPrefabFromPool(GameObject prefab, TypeOfSkillPrefab type) {
 
-        Dictionary<string, List<GameObject>> pool = type switch {
+        Dictionary<GameObject, List<GameObject>> pool = type switch {
             TypeOfSkillPrefab.Hitbox => listOfHitboxes,
             TypeOfSkillPrefab.VFX => listOfVFX,
             _ => listOfPreCastingRange
         };
 
-        if (!pool.ContainsKey(objectName)) {
-            pool[objectName] = new List<GameObject>();
+        if (!pool.ContainsKey(prefab)) {
+            pool[prefab] = new List<GameObject>();
         }
 
-        var list = pool[objectName];
+        var list = pool[prefab];
 
         for (int i = 0; i < list.Count; i++) {
             if (!list[i].activeInHierarchy) return list[i];
@@ -54,9 +54,9 @@ public class PoolingManager : MonoBehaviour {
     }
 
 
-    public GameObject ReturnManagerFromPool(string managerName, GameObject prefab) {
+    public GameObject ReturnManagerFromPool(GameObject prefab) {
 
-        if (listOfManagers.TryGetValue(managerName, out GameObject manager)) {
+        if (listOfManagers.TryGetValue(prefab, out GameObject manager)) {
             return manager;
         }
 
@@ -64,8 +64,8 @@ public class PoolingManager : MonoBehaviour {
             GameObject newManager = Instantiate(prefab, ManagerContainer);
             newManager.transform.SetParent(ManagerContainer.transform);
             newManager.SetActive(false);
-            listOfManagers[managerName] = newManager;
-            return listOfManagers[managerName];
+            listOfManagers[prefab] = newManager;
+            return listOfManagers[prefab];
         }
     }
 

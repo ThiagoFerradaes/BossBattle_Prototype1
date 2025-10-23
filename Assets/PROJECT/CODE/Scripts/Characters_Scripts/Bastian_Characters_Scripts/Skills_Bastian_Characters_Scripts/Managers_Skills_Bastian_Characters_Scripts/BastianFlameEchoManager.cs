@@ -79,8 +79,7 @@ public class BastianFlameEchoManager : SkillObjectManager
 
             if (prefabInfo.PrefabType == TypeOfSkillPrefab.VFX)
             {
-                GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFabName,
-                    prefabInfo.PreFab, TypeOfSkillPrefab.VFX);
+                GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFab, TypeOfSkillPrefab.VFX);
                 preFab.transform.SetParent(parent.transform, false);
                 preFab.transform.SetLocalPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.identity);
 
@@ -148,8 +147,7 @@ public class BastianFlameEchoManager : SkillObjectManager
             3 => _info.ThirdAttackDamageAtributes,
             _ => _info.FirstAttackDamageAtributes,
         };
-        GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFabName,
-            prefabInfo.PreFab, TypeOfSkillPrefab.Hitbox);
+        GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFab, TypeOfSkillPrefab.Hitbox);
 
         preFab.transform.localScale = _info.ProjectileSize * Vector3.one;
         preFab.transform.SetPositionAndRotation(parent.transform.position + prefabInfo.PreFabPosition, parent.transform.rotation);

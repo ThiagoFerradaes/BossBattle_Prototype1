@@ -144,8 +144,7 @@ public class KrakenManager : EnemyBehaviourManager {
             } while (stateInfo.fullPathHash == attackStateHash && stateInfo.normalizedTime < targetNormalizedTime);
 
             if (prefabInfo.PrefabType == TypeOfSkillPrefab.VFX) {
-                GameObject attackHitBox = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFabName,
-                    prefabInfo.PreFab, TypeOfSkillPrefab.VFX);
+                GameObject attackHitBox = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFab, TypeOfSkillPrefab.VFX);
 
                 float yRotation = 180 + (tentacleIndex * 45);
                 attackHitBox.transform.SetPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.Euler(0, yRotation + 22.5f, 0));
@@ -188,8 +187,7 @@ public class KrakenManager : EnemyBehaviourManager {
             float yRotation = 180 + (tentacleIndex * 45);
 
             if (prefabInfo.PrefabType == TypeOfSkillPrefab.Hitbox) {
-                GameObject attackHitBox = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFabName,
-                    prefabInfo.PreFab, TypeOfSkillPrefab.Hitbox);
+                GameObject attackHitBox = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFab, TypeOfSkillPrefab.Hitbox);
 
                 attackHitBox.transform.SetPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.Euler(90, yRotation, 0));
                 attackHitBox.transform.localScale = Vector3.one * tentacleAttack.TentacleAttackSize;
@@ -204,8 +202,7 @@ public class KrakenManager : EnemyBehaviourManager {
                 attackHitBox.GetComponent<InstantDamageHitBox>().Initialize(newContext);
             }
             else {
-                GameObject attackHitBox = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFabName,
-                    prefabInfo.PreFab, TypeOfSkillPrefab.VFX);
+                GameObject attackHitBox = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFab, TypeOfSkillPrefab.VFX);
                 attackHitBox.transform.SetPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.Euler(-90, yRotation + 202.5f, 0));
                 ParticleSystem ps = attackHitBox.GetComponent<ParticleSystem>();
                 var main = ps.main;

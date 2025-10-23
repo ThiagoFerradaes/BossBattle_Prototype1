@@ -40,8 +40,7 @@ public class CyrusShootUpUltimateManager : SkillObjectManager {
     }
 
     public override void SetSkillRangeIndicator(SkillSO skill) {
-        currentSkillRange = PoolingManager.Instance.ReturnPrefabFromPool(skill.SkillObjectRangeName,
-            skill.SkillObjectRangeObject, TypeOfSkillPrefab.PreCastRange);
+        currentSkillRange = PoolingManager.Instance.ReturnPrefabFromPool(skill.SkillObjectRangeObject, TypeOfSkillPrefab.PreCastRange);
 
         currentSkillRange.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
         currentSkillRange.SetActive(true);
@@ -141,8 +140,7 @@ public class CyrusShootUpUltimateManager : SkillObjectManager {
 
     #region Instantiate
     void InstantiateHitBox(SkillAnimationEvent prefabInfo) {
-        GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFabName,
-    prefabInfo.PreFab, TypeOfSkillPrefab.Hitbox);
+        GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFab, TypeOfSkillPrefab.Hitbox);
         preFab.transform.localScale = Vector3.one * _info.Size;
         preFab.transform.SetPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.identity);
 
@@ -172,8 +170,7 @@ public class CyrusShootUpUltimateManager : SkillObjectManager {
     }
 
     void InstantiateVFX(SkillAnimationEvent prefabInfo) {
-        GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFabName,
-                    prefabInfo.PreFab, TypeOfSkillPrefab.VFX);
+        GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFab, TypeOfSkillPrefab.VFX);
         preFab.transform.SetPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.identity);
 
         float duration = _skillLevel > 0 ? _info.Level1Duration : _info.Duration;

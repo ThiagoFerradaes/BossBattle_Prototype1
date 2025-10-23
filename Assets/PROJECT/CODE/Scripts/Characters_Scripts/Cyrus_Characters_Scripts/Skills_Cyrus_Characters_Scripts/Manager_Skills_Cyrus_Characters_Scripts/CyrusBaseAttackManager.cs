@@ -141,8 +141,7 @@ public class CyrusBaseAttackManager : SkillObjectManager {
 
     void InstantiateHitBox(SkillAnimationEvent prefabInfo) {
 
-        GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFabName,
-            prefabInfo.PreFab, TypeOfSkillPrefab.Hitbox);
+        GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFab, TypeOfSkillPrefab.Hitbox);
 
         preFab.transform.localScale = _info.Size;
         preFab.transform.SetParent(parent.transform, false);
@@ -164,8 +163,7 @@ public class CyrusBaseAttackManager : SkillObjectManager {
     }
 
     void InstantiateVFX(SkillAnimationEvent prefabInfo) {
-        GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFabName,
-    prefabInfo.PreFab, TypeOfSkillPrefab.VFX);
+        GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFab, TypeOfSkillPrefab.VFX);
         preFab.transform.SetParent(parent.transform, false);
         preFab.transform.SetLocalPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.identity);
 

@@ -74,7 +74,7 @@ public class LilianCandle : MonoBehaviour
 
     void TurnContinuosHitBoxOn()
     {
-        GameObject hitBox = PoolingManager.Instance.ReturnPrefabFromPool(_info.ContinuosHitBoxName, _info.ContinuosHitBox, TypeOfSkillPrefab.Hitbox);
+        GameObject hitBox = PoolingManager.Instance.ReturnPrefabFromPool(_info.ContinuosHitBox, TypeOfSkillPrefab.Hitbox);
         hitBox.transform.SetParent(transform);
         hitBox.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
         hitBox.transform.localScale = Vector3.one * _info.CandleContinuosDamageSize;
@@ -124,7 +124,7 @@ public class LilianCandle : MonoBehaviour
 
     public void Explode()
     {
-        GameObject hitbox = PoolingManager.Instance.ReturnPrefabFromPool(_info.ExplosionHitBoxName, _info.ExplosionHitBox, TypeOfSkillPrefab.Hitbox);
+        GameObject hitbox = PoolingManager.Instance.ReturnPrefabFromPool(_info.ExplosionHitBox, TypeOfSkillPrefab.Hitbox);
         hitbox.transform.localScale = Vector3.one * _info.CandleExplosionDamageSize;
         hitbox.transform.position = this.transform.position;
 
