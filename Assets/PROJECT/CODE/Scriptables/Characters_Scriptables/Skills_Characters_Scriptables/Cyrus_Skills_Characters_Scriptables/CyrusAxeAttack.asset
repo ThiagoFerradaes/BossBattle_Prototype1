@@ -19,13 +19,11 @@ MonoBehaviour:
     - Key: 0
       Value:
       - TimeToSpawnPreFab: 0.1
-        PreFabName: AxeVFX
         PrefabType: 1
         PrefabDuration: 0.25
         PreFab: {fileID: 455172127242433270, guid: 2b1e4b0a3559eaf46b3c7be66c61300a, type: 3}
         PreFabPosition: {x: 0, y: 0, z: -1.15}
       - TimeToSpawnPreFab: 0.65
-        PreFabName: CubeInstantDamageCollider
         PrefabType: 0
         PrefabDuration: 0
         PreFab: {fileID: 8271028322271159555, guid: 02de40013cebfe2448edca155583a4c1, type: 3}
@@ -43,13 +41,17 @@ MonoBehaviour:
   Charges: 1
   ChargeCooldown: 0
   SkillDamageAtributes:
+    DamageType: 0
+    UnitsToHit: 00000000
     Damage: 200
     HitBoxDuration: 0.1
     HitShield: 1
     BreakShield: 0
+    TypeOfPrefab: 0
+    DamageCooldown: 0.1
+    Distance: 5
+    Speed: 10
     CrossEnemy: 0
-    DamageType: 0
-    UnitsToHit: 00000000
     ExtraAtributes:
       _serializedList: []
   FirstAnimationParameterName: AxeSkillOne
@@ -73,19 +75,20 @@ MonoBehaviour:
     - Key: 2
       Value: 2
   RocksAtributes:
-    Damage: 0
-    HitBoxDuration: 0.1
-    HitShield: 1
-    BreakShield: 0
-    CrossEnemy: 0
     DamageType: 1
     UnitsToHit: 00000000
+    Damage: 5
+    HitBoxDuration: 10
+    HitShield: 1
+    BreakShield: 0
+    TypeOfPrefab: 1
+    DamageCooldown: 0.5
+    Distance: 5
+    Speed: 10
+    CrossEnemy: 0
     ExtraAtributes:
       _serializedList: []
-  BrokenRockDamageCooldown: 0.5
-  BrokenRockDuration: 10
   BrokenRockSize: 6
-  BrokenRocksName: SphereContinuosHitBox
   BrokenRocksPrefab: {fileID: 8998219623033830514, guid: f2cad2093c1cc8042a97d053a88618a0, type: 3}
   WeaponName: Axe
   WeaponPrefab: {fileID: 2959415985370578672, guid: 2714152a00b35324f8b6fef038dba403, type: 3}

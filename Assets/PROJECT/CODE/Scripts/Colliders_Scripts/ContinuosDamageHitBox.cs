@@ -112,7 +112,7 @@ public class ContinuosDamageHitBox : MonoBehaviour
                 _listOfHealths.Remove(enemy);
             }
 
-            yield return new WaitForSeconds(_damageAtributes.ExtraAtributes[ExtraDamageContextAtributes.DamageCooldown]);
+            yield return new WaitForSeconds(_damageAtributes.DamageCooldown);
         }
     }
 

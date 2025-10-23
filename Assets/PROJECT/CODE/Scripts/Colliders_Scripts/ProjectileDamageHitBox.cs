@@ -24,11 +24,11 @@ public class ProjectileDamageHitBox : MonoBehaviour {
 
     IEnumerator ProjectileMoveRoutine() {
         float duration = 
-            _damageAtributes.ExtraAtributes[ExtraDamageContextAtributes.Distance] / _damageAtributes.ExtraAtributes[ExtraDamageContextAtributes.Speed];
+            _damageAtributes.Distance / _damageAtributes.Speed;
         float timer = 0;
 
         while (timer < duration) {
-            transform.position += _damageAtributes.ExtraAtributes[ExtraDamageContextAtributes.Speed] * Time.deltaTime * transform.forward;
+            transform.position += _damageAtributes.Speed * Time.deltaTime * transform.forward;
             timer += Time.deltaTime;
             yield return null;
         }

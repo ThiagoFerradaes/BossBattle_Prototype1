@@ -16,8 +16,6 @@ public class CyrusBaseAttackSO : CommonSkillSO {
     [Header("Floats")]
     [Foldout("Specific")] public DamageAtributes FirstAttackAtributes;
     [Foldout("Specific")] public DamageAtributes SecondAttackAtributes;
-    [Foldout("Specific")] public float FirstAttackHitBoxDuration;
-    [Foldout("Specific")] public float SecondAttackHitBoxDuration;
     [Foldout("Specific")] public float CooldownBetweenAttacks;
     [Foldout("Specific")] public float MaxTimeBetweenAttacks;
     [Foldout("Specific")] public Vector3 Size;

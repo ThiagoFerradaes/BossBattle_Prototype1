@@ -1,11 +1,19 @@
 using AYellowpaper.SerializedCollections;
+using NaughtyAttributes;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum TypeOfCollider { Instant, Continuos, Projectile}
 public enum DamageType { Abyssal, Ancestral, Pure }
+public enum ExtraDamageContextAtributes { Penetration, CritRate, CritDamage }
+
 [Serializable]
 public class DamageAtributes {
+    [Header ("Main Atributes")]
+    public DamageType DamageType;
+    public List<Tags> UnitsToHit;
+
     [Header("Floats")]
     public float Damage;
     public float HitBoxDuration = 0.1f;
@@ -13,11 +21,22 @@ public class DamageAtributes {
     [Header("Booleans")]
     public bool HitShield = true;
     public bool BreakShield = false;
+
+    [Header("Type of Collider")]
+    [SerializeField] TypeOfCollider TypeOfPrefab;
+
+    [ShowIf("TypeOfPrefab", TypeOfCollider.Continuos), AllowNesting]
+    public float DamageCooldown = 0.1f;
+
+    // Projectile
+    [ShowIf("TypeOfPrefab", TypeOfCollider.Projectile), AllowNesting]
+    public float Distance = 5f;
+    [ShowIf("TypeOfPrefab", TypeOfCollider.Projectile), AllowNesting]
+    public float Speed = 10f;
+    [ShowIf("TypeOfPrefab", TypeOfCollider.Projectile), AllowNesting]
     public bool CrossEnemy = false;
 
-    [Header("Other variables")]
-    public DamageType DamageType;
-    public List<Tags> UnitsToHit;
+    [Header("Extra atributes")]
     [SerializedDictionary("Extra atribute", "Value")]
     public SerializedDictionary<ExtraDamageContextAtributes, float> ExtraAtributes;
 }

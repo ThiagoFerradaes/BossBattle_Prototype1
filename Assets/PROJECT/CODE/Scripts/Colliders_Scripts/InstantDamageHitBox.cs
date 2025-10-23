@@ -4,22 +4,7 @@ using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public enum ExtraDamageContextAtributes
-{
-    Penetration,
 
-    // Projectile
-    Distance,
-    Speed,
-
-    // Dps
-    DamageCooldown,
-
-    // Crit
-    CritRate,
-    CritDamage
-
-}
 public class DamageContext
 {
     public DamageAtributes Atributes;

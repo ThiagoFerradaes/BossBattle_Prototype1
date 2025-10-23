@@ -14,9 +14,8 @@ public class CyrusShootUpSO : UltimateSkillSO
     [Header("Atributes")]
     [Header("Floats")]
     [Foldout("Specific")] public DamageAtributes Atributes;
-    [Foldout("Specific")] public float Duration;
-    [Foldout("Specific")] public float DamageCooldown;
     [Foldout("Specific")] public float Size;
+    [Foldout("Specific")] public float UltimateDuration = 5;
 
     [Header("Strings")]
     [Foldout("Specific")] public string WeaponName;

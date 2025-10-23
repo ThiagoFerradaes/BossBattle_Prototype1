@@ -28,10 +28,7 @@ public class CyrusAxeSkillSO : CommonSkillSO
 
     [Header("Level 3 Buff")]
     [Foldout("Specific")] public DamageAtributes RocksAtributes;
-    [Foldout("Specific")] public float BrokenRockDamageCooldown;
-    [Foldout("Specific")] public float BrokenRockDuration;
     [Foldout("Specific")] public float BrokenRockSize;
-    [Foldout("Specific")] public string BrokenRocksName;
     [Foldout("Specific")] public GameObject BrokenRocksPrefab;
 
     [Header("Weapon")]

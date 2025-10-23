@@ -122,13 +122,13 @@ public class CyrusShootUpUltimateManager : SkillObjectManager {
         UnblockInputs();
     }
     IEnumerator Duration() {
-        float duration = _skillLevel > 0 ? _info.Level1Duration : _info.Duration;
+        float duration = _skillLevel > 0 ? _info.Level1Duration : _info.UltimateDuration;
         yield return new WaitForSeconds(duration);
 
         EndWithUnblockSkills();
     }
     IEnumerator Damage(SkillAnimationEvent prefabInfo) {
-        float damageCooldown = _skillLevel == 3 ? _info.Level3DamageCooldown : _info.DamageCooldown;
+        float damageCooldown = _skillLevel == 3 ? _info.Level3DamageCooldown : _info.Atributes.DamageCooldown;
 
         while (true) {
             yield return new WaitForSeconds(damageCooldown);
@@ -173,7 +173,7 @@ public class CyrusShootUpUltimateManager : SkillObjectManager {
         GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFab, TypeOfSkillPrefab.VFX);
         preFab.transform.SetPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.identity);
 
-        float duration = _skillLevel > 0 ? _info.Level1Duration : _info.Duration;
+        float duration = _skillLevel > 0 ? _info.Level1Duration : _info.UltimateDuration;
 
         preFab.GetComponent<VFXPreFab>().Initialize(duration);
     }

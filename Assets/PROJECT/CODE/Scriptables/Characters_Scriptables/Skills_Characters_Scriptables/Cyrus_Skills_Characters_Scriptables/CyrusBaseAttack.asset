@@ -19,29 +19,25 @@ MonoBehaviour:
     - Key: 1
       Value:
       - TimeToSpawnPreFab: 0.5
-        PrefabDuration: 0.8
-        PreFabName: CyrusBaseAttackVFX
         PrefabType: 1
+        PrefabDuration: 0.8
         PreFab: {fileID: 5817764269134444336, guid: 46db7471ceefaf346a408063a7977400, type: 3}
         PreFabPosition: {x: 0, y: 0, z: 1}
       - TimeToSpawnPreFab: 0.6
-        PrefabDuration: 0.1
-        PreFabName: CyrusBaseAttackHitBox
         PrefabType: 0
+        PrefabDuration: 0.1
         PreFab: {fileID: 8271028322271159555, guid: 02de40013cebfe2448edca155583a4c1, type: 3}
         PreFabPosition: {x: 0, y: 1, z: 1}
     - Key: 2
       Value:
       - TimeToSpawnPreFab: 0.5
-        PrefabDuration: 0.1
-        PreFabName: CyrusBaseAttackHitBox
         PrefabType: 0
+        PrefabDuration: 0.1
         PreFab: {fileID: 8271028322271159555, guid: 02de40013cebfe2448edca155583a4c1, type: 3}
         PreFabPosition: {x: 0, y: 1, z: 1}
       - TimeToSpawnPreFab: 0.5
-        PrefabDuration: 0.8
-        PreFabName: CyrusBaseAttackVFX
         PrefabType: 1
+        PrefabDuration: 0.8
         PreFab: {fileID: 9067519135874036081, guid: 386870ab5af5faa429eafc69f7b3b4e3, type: 3}
         PreFabPosition: {x: 0, y: 0, z: 1}
   SkillObjectRangeObject: {fileID: 261372437491194248, guid: c83d144d01a675b458028fc94a087be4, type: 3}
@@ -57,10 +53,17 @@ MonoBehaviour:
   Charges: 1
   ChargeCooldown: 0
   SkillDamageAtributes:
-    Damage: 0
-    HitShield: 0
     DamageType: 0
     UnitsToHit: 
+    Damage: 0
+    HitBoxDuration: 0.1
+    HitShield: 0
+    BreakShield: 0
+    TypeOfPrefab: 0
+    DamageCooldown: 0.1
+    Distance: 5
+    Speed: 10
+    CrossEnemy: 0
     ExtraAtributes:
       _serializedList: []
   FirstBaseAttackParameter: BaseAttackOne
@@ -69,17 +72,31 @@ MonoBehaviour:
   SecondtBaseAttackAnimationName: BaseAttackTwo
   AttackSpeedAnimationParameter: AttackSpeed
   FirstAttackAtributes:
-    Damage: 16
-    HitShield: 1
     DamageType: 0
     UnitsToHit: 00000000
+    Damage: 16
+    HitBoxDuration: 0.1
+    HitShield: 1
+    BreakShield: 0
+    TypeOfPrefab: 0
+    DamageCooldown: 0.1
+    Distance: 5
+    Speed: 10
+    CrossEnemy: 0
     ExtraAtributes:
       _serializedList: []
   SecondAttackAtributes:
-    Damage: 18
-    HitShield: 1
     DamageType: 0
     UnitsToHit: 00000000
+    Damage: 18
+    HitBoxDuration: 0.1
+    HitShield: 1
+    BreakShield: 0
+    TypeOfPrefab: 0
+    DamageCooldown: 0.1
+    Distance: 5
+    Speed: 10
+    CrossEnemy: 0
     ExtraAtributes:
       _serializedList: []
   FirstAttackHitBoxDuration: 0.1
