@@ -1,4 +1,7 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -18,7 +21,7 @@ public abstract class SkillObjectManager : MonoBehaviour {
     protected EnergyManager energyManager;
     protected Coroutine animationCoroutine;
     protected HealthManager healthManager;
-
+    protected SkillSO info;
     Action _stopSkill;
 
     #endregion
@@ -35,6 +38,7 @@ public abstract class SkillObjectManager : MonoBehaviour {
             statusManager = parent.GetComponent<StatusManager>();
             energyManager = parent.GetComponent<EnergyManager>();
             healthManager = parent.GetComponent<HealthManager>();
+            info = skill;
         }
         this.slot = slot;
         HandleInput(skill, ctx);
@@ -87,7 +91,7 @@ public abstract class SkillObjectManager : MonoBehaviour {
 
         currentSkillRange.transform.SetParent(parent.transform);
 
-        float groundY = ArenaManager.Instance.FindGroundHeight(parent.transform.position); 
+        float groundY = ArenaManager.Instance.FindGroundHeight(parent.transform.position);
         Vector3 groundPos = new(0, groundY - parent.transform.position.y, 0);
 
         currentSkillRange.transform.SetLocalPositionAndRotation(groundPos, Quaternion.identity);
@@ -112,7 +116,7 @@ public abstract class SkillObjectManager : MonoBehaviour {
     public virtual void UseSkill(SkillSO skill) { }
 
     public virtual void EndWithUnblockSkills() {
-        if(!skillManager.ReturnIfIsSkillAnimation()) UnblockInputs();
+        if (!skillManager.ReturnIfIsSkillAnimation()) UnblockInputs();
 
         PoolingManager.Instance.ReturnObjectToPool(this.gameObject, TypeOfSkillPrefab.Manager);
 
@@ -137,5 +141,78 @@ public abstract class SkillObjectManager : MonoBehaviour {
         EndWithUnblockSkills();
     }
 
+
+    #region AttackAnimation
+    public virtual IEnumerator AttackCoroutine(int animationLayer, string animiationTriggerName, string animationName, int comboIndex, bool isTrigger = true) {
+        FirstFunc();
+
+        if (isTrigger) anim.SetTrigger(animiationTriggerName);
+        else anim.SetBool(animationName, true);
+
+        AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(animationLayer);
+
+        do {
+            yield return null;
+            stateInfo = anim.GetCurrentAnimatorStateInfo(animationLayer);
+        } while (!stateInfo.IsName(animationName));
+
+        SecondFunc();
+
+        int attackStateHash = stateInfo.fullPathHash;
+
+        yield return StartCoroutine(InstantiatePrefabs(attackStateHash, stateInfo, comboIndex));
+
+        ThirdFunc();
+
+        do {
+            yield return null;
+            stateInfo = anim.GetCurrentAnimatorStateInfo(animationLayer);
+        } while (stateInfo.fullPathHash == attackStateHash && stateInfo.normalizedTime < 1);
+
+        FourthFunc();
+    }
+
+    /// <summary>
+    /// Called before the animation start
+    /// </summary>
+    public virtual void FirstFunc() { }
+    /// <summary>
+    /// Called after the animation start, before hitbox and vfx inistantiate
+    /// </summary>
+    public virtual void SecondFunc() { }
+    /// <summary>
+    /// Called after hitbox and vfx instantiate
+    /// </summary>
+    public virtual void ThirdFunc() { }
+    /// <summary>
+    /// Called after the animation ends
+    /// </summary>
+    public virtual void FourthFunc() { }
+
+    public virtual IEnumerator InstantiatePrefabs(int attackStateHash, AnimatorStateInfo stateInfo, int prefabIndex = 0) {
+
+        if (info.Prefabs != null) {
+            var prefabList = info.Prefabs[prefabIndex];
+            prefabList.Sort((a, b) => a.TimeToSpawnPreFab.CompareTo(b.TimeToSpawnPreFab));
+
+            for (int i = 0; i < prefabList.Count; i++) {
+                var prefab = prefabList[i];
+
+                do {
+                    yield return null;
+                    stateInfo = anim.GetCurrentAnimatorStateInfo(0);
+                } while (stateInfo.fullPathHash == attackStateHash && stateInfo.normalizedTime < prefab.TimeToSpawnPreFab);
+
+                if (prefab.PrefabType == TypeOfSkillPrefab.Hitbox) InstantiateHitBox(prefab);
+                else InstantiateVFX(prefab);
+
+            }
+        }
+    }
+
+    public virtual void InstantiateHitBox(SkillAnimationEvent prefab) { }
+    public virtual void InstantiateVFX(SkillAnimationEvent prefab) { }
+
+    #endregion
     #endregion
 }

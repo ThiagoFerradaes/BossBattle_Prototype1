@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Resources;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -107,43 +108,11 @@ public class CyrusAxeAttackManager : SkillObjectManager {
     IEnumerator Attack() {
         while (_chargeTimer < _info.MinimalChargeTime) yield return null;
 
-        anim.SetTrigger(_info.SecondAnimationParameterName);
+        StartCoroutine(AttackCoroutine(0, _info.SecondAnimationParameterName, _info.SecondAnimationName, 0));
+       
+    }
 
-        AnimatorStateInfo stateInfo;
-
-        do { // Esperando entrar na animação correta
-            yield return null;
-            stateInfo = anim.GetCurrentAnimatorStateInfo(0);
-        } while (!stateInfo.IsName(_info.SecondAnimationName));
-
-        int attackStateHash = stateInfo.fullPathHash;
-
-        // Ordenando a lista de prefabs pelo tempo que eles precisam aparecer
-        _info.Prefabs[0].Sort((a, b) => a.TimeToSpawnPreFab.CompareTo(b.TimeToSpawnPreFab));
-
-        for (int i = 0; i < _info.Prefabs[0].Count; i++) {
-            SkillAnimationEvent prefabInfo = _info.Prefabs[0][i];
-            float targetNormalizedTime = prefabInfo.TimeToSpawnPreFab;
-
-            do { // Esperando o tempo para instanciar hit box
-                yield return null;
-                stateInfo = anim.GetCurrentAnimatorStateInfo(0);
-            } while (stateInfo.fullPathHash == attackStateHash && stateInfo.normalizedTime < targetNormalizedTime);
-
-
-            if (prefabInfo.PrefabType == TypeOfSkillPrefab.Hitbox) {
-                InstantiateHitBox(prefabInfo);
-            }
-            else {
-                InstantiateVFX(prefabInfo);
-            }
-        }
-
-        while (anim.GetCurrentAnimatorStateInfo(0).fullPathHash == attackStateHash &&
-               anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f) {
-            yield return null;
-        }
-
+    public override void FourthFunc() {
         _weaponManager.OnDesequipRightHand();
 
         animationCoroutine = null;
@@ -191,7 +160,7 @@ public class CyrusAxeAttackManager : SkillObjectManager {
     #endregion
 
     #region Instantiate
-    void InstantiateHitBox(SkillAnimationEvent prefabInfo) {
+    public override void InstantiateHitBox(SkillAnimationEvent prefabInfo) {
         GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFab, TypeOfSkillPrefab.Hitbox);
 
         preFab.transform.localScale = _info.Size;
@@ -218,7 +187,7 @@ public class CyrusAxeAttackManager : SkillObjectManager {
         };
     }
 
-    void InstantiateVFX(SkillAnimationEvent prefabInfo) {
+    public override void InstantiateVFX(SkillAnimationEvent prefabInfo) {
         GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFab, TypeOfSkillPrefab.VFX);
         preFab.transform.SetParent(parent.transform, false);
         Vector3 rotation = new Vector3(-90, -180, 90);

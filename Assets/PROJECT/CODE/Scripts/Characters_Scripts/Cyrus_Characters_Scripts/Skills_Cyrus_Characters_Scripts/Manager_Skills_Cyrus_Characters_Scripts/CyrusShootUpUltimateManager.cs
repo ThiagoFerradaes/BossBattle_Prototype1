@@ -34,7 +34,7 @@ public class CyrusShootUpUltimateManager : SkillObjectManager {
         Initialize(skill);
         if (!gameObject.activeInHierarchy) {
             gameObject.SetActive(true);
-            animationCoroutine ??= StartCoroutine(Attack());
+            animationCoroutine ??= StartCoroutine(AttackCoroutine(0, _info.AnimationParameterTrigger, _info.LastAnimationName, 0));
         }
 
     }
@@ -58,27 +58,28 @@ public class CyrusShootUpUltimateManager : SkillObjectManager {
     #endregion
 
     #region Coroutines
-    IEnumerator Attack() {
+
+    public override void FirstFunc() {
         _energyManager.LooseAllEnergy();
-        anim.SetTrigger(_info.AnimationParameterTrigger);
 
         skillManager.SkillIsInAnimation(true);
 
         _weaponManager.OnEquipRightHand(_info.WeaponPrefab, _info.WeaponName, _info.WeaponPosition, _info.WeaponOneRotation);
         _weaponManager.OnEquipLeftHand(_info.WeaponPrefab, _info.WeaponName, _info.WeaponTwoPosition, _info.WeaponTwoRotation);
+    }
 
-        AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
+    public override void FourthFunc() {
+        _weaponManager.OnDesequipLeftHand();
+        _weaponManager.OnDesequipRightHand();
 
-        do {
-            yield return null;
-            stateInfo = anim.GetCurrentAnimatorStateInfo(0);
-        } while (!stateInfo.IsName(_info.AnimationName));
+        skillManager.SkillIsInAnimation(false);
 
-        int attackStateHash = stateInfo.fullPathHash;
+        animationCoroutine = null;
 
-        // Ordenando a lista de prefabs pelo tempo que eles precisam aparecer
-        _info.Prefabs[0].Sort((a, b) => a.TimeToSpawnPreFab.CompareTo(b.TimeToSpawnPreFab));
+        UnblockInputs();
+    }
 
+    public override IEnumerator InstantiatePrefabs(int attackStateHash, AnimatorStateInfo stateInfo, int prefabIndex = 0) {
         for (int i = 0; i < _info.Prefabs[0].Count; i++) {
             SkillAnimationEvent prefabInfo = _info.Prefabs[0][i];
             float targetNormalizedTime = prefabInfo.TimeToSpawnPreFab;
@@ -99,28 +100,8 @@ public class CyrusShootUpUltimateManager : SkillObjectManager {
                 InstantiateVFX(prefabInfo);
             }
         }
-
-        do {
-            yield return null;
-            stateInfo = anim.GetCurrentAnimatorStateInfo(0);
-        } while (!stateInfo.IsName(_info.LastAnimationName));
-
-        attackStateHash = stateInfo.fullPathHash;
-
-        while (anim.GetCurrentAnimatorStateInfo(0).fullPathHash == attackStateHash &&
-               anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f) {
-            yield return null;
-        }
-
-        _weaponManager.OnDesequipLeftHand();
-        _weaponManager.OnDesequipRightHand();
-
-        skillManager.SkillIsInAnimation(false);
-
-        animationCoroutine = null;
-
-        UnblockInputs();
     }
+
     IEnumerator Duration() {
         float duration = _skillLevel > 0 ? _info.Level1Duration : _info.UltimateDuration;
         yield return new WaitForSeconds(duration);
@@ -139,7 +120,7 @@ public class CyrusShootUpUltimateManager : SkillObjectManager {
     #endregion
 
     #region Instantiate
-    void InstantiateHitBox(SkillAnimationEvent prefabInfo) {
+    public override void InstantiateHitBox(SkillAnimationEvent prefabInfo) {
         GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFab, TypeOfSkillPrefab.Hitbox);
         preFab.transform.localScale = Vector3.one * _info.Size;
         preFab.transform.SetPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.identity);
@@ -169,7 +150,7 @@ public class CyrusShootUpUltimateManager : SkillObjectManager {
         
     }
 
-    void InstantiateVFX(SkillAnimationEvent prefabInfo) {
+    public override void InstantiateVFX(SkillAnimationEvent prefabInfo) {
         GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFab, TypeOfSkillPrefab.VFX);
         preFab.transform.SetPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.identity);
 

@@ -19,25 +19,22 @@ MonoBehaviour:
     - Key: 1
       Value:
       - TimeToSpawnPreFab: 0.7
-        PrefabDuration: 1
-        PreFabName: BastianBaseAttackHitBox
         PrefabType: 0
+        PrefabDuration: 1
         PreFab: {fileID: 5556882484380889040, guid: 73183662ed7be604f90dff0cc2f277ff, type: 3}
         PreFabPosition: {x: 0, y: 1, z: 0}
     - Key: 2
       Value:
       - TimeToSpawnPreFab: 0.7
-        PrefabDuration: 1
-        PreFabName: BastianBaseAttackHitBox
         PrefabType: 0
+        PrefabDuration: 1
         PreFab: {fileID: 5556882484380889040, guid: 73183662ed7be604f90dff0cc2f277ff, type: 3}
         PreFabPosition: {x: 0, y: 1, z: 0}
     - Key: 3
       Value:
       - TimeToSpawnPreFab: 0.7
-        PrefabDuration: 1
-        PreFabName: BastianLastBaseAttackHitBox
         PrefabType: 0
+        PrefabDuration: 1
         PreFab: {fileID: 5556882484380889040, guid: 73183662ed7be604f90dff0cc2f277ff, type: 3}
         PreFabPosition: {x: 0, y: 1, z: 0}
   SkillObjectRangeObject: {fileID: 5203434260948203345, guid: ade6d2bcd504d27418184cc1070b8f59, type: 3}
@@ -53,11 +50,19 @@ MonoBehaviour:
   Charges: 1
   ChargeCooldown: 0
   SkillDamageAtributes:
-    Damage: 0
-    Penetration: 0
-    HitShield: 0
     DamageType: 0
     UnitsToHit: 
+    Damage: 0
+    HitBoxDuration: 0.1
+    HitShield: 0
+    BreakShield: 0
+    TypeOfPrefab: 0
+    DamageCooldown: 0.1
+    Distance: 5
+    Speed: 10
+    CrossEnemy: 0
+    ExtraAtributes:
+      _serializedList: []
   AnimationOneParameter: BaseAttack
   AnimationTwoParameter: BaseAttack
   AnimationThreeParameter: LastShoot
@@ -66,23 +71,47 @@ MonoBehaviour:
   AnimationThreeName: LastShoot
   AttackSpeedAnimationParameter: AttackSpeed
   FirstAttackAtributes:
+    DamageType: 0
+    UnitsToHit: 00000000
     Damage: 10
-    Penetration: 0
+    HitBoxDuration: 0.1
     HitShield: 1
-    DamageType: 0
-    UnitsToHit: 00000000
+    BreakShield: 0
+    TypeOfPrefab: 2
+    DamageCooldown: 0.1
+    Distance: 5
+    Speed: 10
+    CrossEnemy: 0
+    ExtraAtributes:
+      _serializedList: []
   SecondAttackAtributes:
+    DamageType: 0
+    UnitsToHit: 00000000
     Damage: 12
-    Penetration: 0
+    HitBoxDuration: 0.1
     HitShield: 1
-    DamageType: 0
-    UnitsToHit: 00000000
+    BreakShield: 0
+    TypeOfPrefab: 2
+    DamageCooldown: 0.1
+    Distance: 5
+    Speed: 10
+    CrossEnemy: 0
+    ExtraAtributes:
+      _serializedList: []
   ThirdAttackAtributes:
-    Damage: 14
-    Penetration: 0
-    HitShield: 1
     DamageType: 0
     UnitsToHit: 00000000
+    Damage: 14
+    HitBoxDuration: 0.1
+    HitShield: 1
+    BreakShield: 0
+    TypeOfPrefab: 2
+    DamageCooldown: 0.1
+    Distance: 5
+    Speed: 10
+    CrossEnemy: 0
+    ExtraAtributes:
+      _serializedList: []
   AttackDistance: 8
   ProjectileSpeed: 28
   ProjectileSize: 0.5

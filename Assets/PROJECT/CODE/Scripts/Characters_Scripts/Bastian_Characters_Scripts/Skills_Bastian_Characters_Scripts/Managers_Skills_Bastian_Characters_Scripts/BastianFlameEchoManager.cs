@@ -22,78 +22,16 @@ public class BastianFlameEchoManager : SkillObjectManager
 
         gameObject.SetActive(true);
 
-        animationCoroutine ??= StartCoroutine(Attack());
+        animationCoroutine ??= StartCoroutine(AttackCoroutine(2, _info.AnimationParameter, _info.AnimationName, 1));
 
         _onShootAction = (int attackIdex) => StartCoroutine(SecondaryShoot(attackIdex));
     }
 
-    IEnumerator Attack()
-    {
+    public override void FirstFunc() {
         skillManager.SkillIsInAnimation(true);
-
-        // Animation
-        anim.SetTrigger(_info.AnimationParameter);
-        AnimatorStateInfo stateInfo;
-
-        yield return null;
-
-        int layer = 0; // Encontrando a layer da animação
-        for (int i = 0; i < anim.layerCount; i++)
-        {
-            AnimatorStateInfo state = anim.GetCurrentAnimatorStateInfo(i);
-            AnimatorStateInfo nextState = anim.GetNextAnimatorStateInfo(i);
-
-            if (state.IsName(_info.AnimationName) || nextState.IsName(_info.AnimationName))
-            {
-                layer = i;
-                break;
-            }
-        }
-
-        do
-        { // Esperando entrar na animação
-            yield return null;
-            stateInfo = anim.GetCurrentAnimatorStateInfo(layer);
-        } while (!stateInfo.IsName(_info.AnimationName));
-
-        // Perdendo energia
         _energyManager.LooseAllEnergy();
-
-        int attackStateHash = stateInfo.fullPathHash;
-
-        var prefabList = _info.Prefabs[1];
-        prefabList.Sort((a, b) => a.TimeToSpawnPreFab.CompareTo(b.TimeToSpawnPreFab));
-
-        // Instanciando prefabs
-        for (int i = 0; i < prefabList.Count; i++)
-        {
-            SkillAnimationEvent prefabInfo = prefabList[i];
-            float targetNormalizedTime = prefabInfo.TimeToSpawnPreFab;
-
-            do
-            { // Esperando o tempo para instanciar hit box
-                yield return null;
-                stateInfo = anim.GetCurrentAnimatorStateInfo(layer);
-            } while (stateInfo.fullPathHash == attackStateHash && stateInfo.normalizedTime < targetNormalizedTime);
-
-
-            if (prefabInfo.PrefabType == TypeOfSkillPrefab.VFX)
-            {
-                GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFab, TypeOfSkillPrefab.VFX);
-                preFab.transform.SetParent(parent.transform, false);
-                preFab.transform.SetLocalPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.identity);
-
-                preFab.GetComponent<VFXPreFab>().Initialize(prefabInfo.PrefabDuration);
-            }
-        }
-
-        // Esperando a animação terminar
-        while (anim.GetCurrentAnimatorStateInfo(layer).fullPathHash == attackStateHash)
-        {
-            yield return null;
-        }
-
-        // Corrotina
+    }
+    public override void FourthFunc() {
         animationCoroutine = null;
 
         // Avisando que não ta mais em animação
@@ -127,7 +65,7 @@ public class BastianFlameEchoManager : SkillObjectManager
         {
             SkillAnimationEvent prefabInfo = prefabList[i];
 
-            if (prefabInfo.PrefabType == TypeOfSkillPrefab.Hitbox) InstantiateHitBox(prefabInfo, attackIndex);
+            if (prefabInfo.PrefabType == TypeOfSkillPrefab.Hitbox) InstantiateSecondShoot(prefabInfo, attackIndex);
         }
     }
 
@@ -140,7 +78,7 @@ public class BastianFlameEchoManager : SkillObjectManager
         base.EndWithUnblockSkills();
     }
 
-    void InstantiateHitBox(SkillAnimationEvent prefabInfo, int attackIndex) {
+    void InstantiateSecondShoot(SkillAnimationEvent prefabInfo, int attackIndex) {
         DamageAtributes atributes = attackIndex switch {
             1 => _info.FirstAttackDamageAtributes,
             2 => _info.SecondAttackDamageAtributes,
@@ -166,5 +104,13 @@ public class BastianFlameEchoManager : SkillObjectManager
 
         ProjectileDamageHitBox hitbox = preFab.GetComponent<ProjectileDamageHitBox>();
         hitbox.Initialize(newContext);
+    }
+
+    public override void InstantiateVFX(SkillAnimationEvent prefab) {
+        GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefab.PreFab, TypeOfSkillPrefab.VFX);
+        preFab.transform.SetParent(parent.transform, false);
+        preFab.transform.SetLocalPositionAndRotation(prefab.PreFabPosition, Quaternion.identity);
+
+        preFab.GetComponent<VFXPreFab>().Initialize(prefab.PrefabDuration);
     }
 }

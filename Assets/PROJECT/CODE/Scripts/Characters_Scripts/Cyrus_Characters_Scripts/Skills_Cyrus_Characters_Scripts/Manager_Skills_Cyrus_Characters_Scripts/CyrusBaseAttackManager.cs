@@ -15,6 +15,7 @@ public class CyrusBaseAttackManager : SkillObjectManager {
     // Coroutine
     Coroutine _timerBetweenAttacksCoroutine;
 
+    float _attackSpeedMultiplier;
     #endregion
 
     #region Methods
@@ -31,7 +32,9 @@ public class CyrusBaseAttackManager : SkillObjectManager {
             _timerBetweenAttacksCoroutine = null;
         }
 
-        animationCoroutine ??= StartCoroutine(Attack());
+        string animationParameter = _attackIndex == 1 ? _info.FirstBaseAttackParameter : _info.SecondBaseAttackParameter;
+        string animationName = _attackIndex == 1 ? _info.FirstBaseAttackAnimationName : _info.SecondtBaseAttackAnimationName;
+        animationCoroutine ??= StartCoroutine(AttackCoroutine(0, animationParameter, animationName, _attackIndex));
     }
 
     private void Initialize(SkillSO skill) {
@@ -41,61 +44,21 @@ public class CyrusBaseAttackManager : SkillObjectManager {
         }
 
     }
-    IEnumerator Attack() {
-        float attackSpeedMultiplier = GetAttackSpeedMultiplier();
+    public override void FirstFunc() {
+        _attackSpeedMultiplier = GetAttackSpeedMultiplier();
 
         skillManager.SkillIsInAnimation(true);
 
-        // Especifico de cada ataque do combo
-        string animationParameter = _attackIndex == 1 ? _info.FirstBaseAttackParameter : _info.SecondBaseAttackParameter;
-        string animationName = _attackIndex == 1 ? _info.FirstBaseAttackAnimationName : _info.SecondtBaseAttackAnimationName;
-        Vector3 hitBoxPosition = _attackIndex == 1 ? _info.FirstBaseAttackHitBoxPosition : _info.SecondtBaseAttackHitBoxPosition;
-
-        anim.SetFloat(_info.AttackSpeedAnimationParameter, attackSpeedMultiplier);
-
-        anim.SetTrigger(animationParameter);
-
-        AnimatorStateInfo stateInfo;
-
-        do {
-            yield return null;
-            stateInfo = anim.GetCurrentAnimatorStateInfo(0);
-        } while (!stateInfo.IsName(animationName));
-
-        _weaponManager.OnEquipRightHand(_info.SwordPrefab, _info.SwordName, _info.WeaponPosition, _info.WeaponRotation);
-
-        int attackStateHash = stateInfo.fullPathHash;
-
-        // Ordenando a lista de prefabs pelo tempo que eles precisam aparecer
-        var prefabList = _info.Prefabs[_attackIndex];
-
-        prefabList.Sort((a, b) => a.TimeToSpawnPreFab.CompareTo(b.TimeToSpawnPreFab));
-
-        for (int i = 0; i < prefabList.Count; i++) {
-            SkillAnimationEvent prefabInfo = prefabList[i];
-            float targetNormalizedTime = prefabInfo.TimeToSpawnPreFab;
-
-            do { // Esperando o tempo para instanciar hit box
-                yield return null;
-                stateInfo = anim.GetCurrentAnimatorStateInfo(0);
-            } while (stateInfo.fullPathHash == attackStateHash && stateInfo.normalizedTime < targetNormalizedTime);
-
-
-            if (prefabInfo.PrefabType == TypeOfSkillPrefab.Hitbox) InstantiateHitBox(prefabInfo);
-            else InstantiateVFX(prefabInfo);
-        }
-
-        while (anim.GetCurrentAnimatorStateInfo(0).fullPathHash == attackStateHash &&
-               anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f) {
-            yield return null;
-        }
-
-        FinishAttack(attackSpeedMultiplier);
+        anim.SetFloat(_info.AttackSpeedAnimationParameter, _attackSpeedMultiplier);
     }
 
-    void FinishAttack(float attackSpeedMultiplier) {
+    public override void SecondFunc() {
+        _weaponManager.OnEquipRightHand(_info.SwordPrefab, _info.SwordName, _info.WeaponPosition, _info.WeaponRotation);
+    }
+
+    public override void FourthFunc() {
         float cooldown = _attackIndex == 1 ? _info.CooldownBetweenAttacks : _info.Cooldown;
-        float realCooldown = cooldown / attackSpeedMultiplier;
+        float realCooldown = cooldown / _attackSpeedMultiplier;
 
         cooldownManager.SetCooldownSingleCharge(slot, realCooldown);
 
@@ -139,7 +102,7 @@ public class CyrusBaseAttackManager : SkillObjectManager {
         return Mathf.Max(0.1f, baseSpeed);
     }
 
-    void InstantiateHitBox(SkillAnimationEvent prefabInfo) {
+    public override void InstantiateHitBox(SkillAnimationEvent prefabInfo) {
 
         GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFab, TypeOfSkillPrefab.Hitbox);
 
@@ -162,7 +125,7 @@ public class CyrusBaseAttackManager : SkillObjectManager {
         };
     }
 
-    void InstantiateVFX(SkillAnimationEvent prefabInfo) {
+    public override void InstantiateVFX(SkillAnimationEvent prefabInfo) {
         GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFab, TypeOfSkillPrefab.VFX);
         preFab.transform.SetParent(parent.transform, false);
         preFab.transform.SetLocalPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.identity);
