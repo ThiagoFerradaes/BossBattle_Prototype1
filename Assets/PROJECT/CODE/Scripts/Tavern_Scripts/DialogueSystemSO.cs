@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using PROJECT.Scripts.Enums;
 using UnityEngine;
 
 /// <summary>
@@ -32,6 +33,8 @@ public class DialogueSystemSo : ScriptableObject
         }
         return dialogueContents[index];
     }
+    
+    
 }
 
 /// <summary>
@@ -66,16 +69,31 @@ public class DialogueChoice
 public class DialogueContent
 {
     [SerializeField]
-    [Tooltip("Text content in multiple languages")]
+    [Tooltip("Text content Name in multiple languages")]
+    public TextBoxesSo name;
+                                                                                                                                                
+    [SerializeField]
+    [Tooltip("Text content dialogue in multiple languages")]
     public TextBoxesSo text;
 
     [SerializeField]
     [Tooltip("Associated sprite/image for this dialogue")]
-    public Sprite sprite;
-
-    public DialogueContent(TextBoxesSo text, Sprite sprite)
+    public Sprite spritePerson1;
+       
+    [SerializeField]
+    [Tooltip("Associated sprite/image for this dialogue")]
+    public Sprite spritePerson2;
+    
+    [SerializeField]
+    [Tooltip("Associated person talking for this dialogue")]
+    public WhosTalkingEnum talking;
+    
+    
+    public DialogueContent(TextBoxesSo text, Sprite sprite1,  Sprite sprite2, WhosTalkingEnum talking)
     {
         this.text = text ?? throw new ArgumentNullException(nameof(text));
-        this.sprite = sprite;
+        spritePerson1 = sprite1;
+        spritePerson2 = sprite2;
+        this.talking = talking;
     }
 }
