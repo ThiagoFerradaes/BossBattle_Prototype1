@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using MyEnum;
+using PROJECT.Scripts.Enums;
 
 /// <summary>
 /// Manages the dialogue system for displaying text, choices, and handling language localization.
@@ -19,6 +20,9 @@ public class DialogueSystem : MonoBehaviour
     [SerializeField, Tooltip("Main dialogue text box UI element")] 
     private UITextButton dialogueBox;
     
+    [SerializeField, Tooltip("Name of the dialogue box UI element")]
+    private TMP_Text dialogueBoxName;
+    
     [SerializeField, Tooltip("List of choice text boxes for branching dialogue")]
     private List<UITextButton> textBoxesChoice = new();
     
@@ -26,7 +30,13 @@ public class DialogueSystem : MonoBehaviour
     private GameObject dialogueBoxChoice;
 
     [SerializeField, Tooltip("Character/scene artwork display")]
-    private Image art;
+    private Image art1, art2;
+    
+    [SerializeField, Tooltip("Person Local Transform")]
+    private RectTransform personDialogue1Rect, personDialogue2Rect ,nameRect1, nameRect2;
+    
+    [SerializeField, Tooltip("Panel for displaying dialogue")]
+    private GameObject dialoguePanelPerson1 , dialoguePanelPerson2;
     
     /// <summary>
     /// Event triggered when a dialogue sequence is completed
@@ -56,7 +66,7 @@ public class DialogueSystem : MonoBehaviour
     #region Private Methods
     private void InitializeConfiguration()
     {
-        _config = GameConfig.Config;
+        _config = Resources.Load<ConfigurationSo>("Configuration/ConfigurationSO");;
         
         if (_config == null) return;
         
@@ -105,7 +115,8 @@ public class DialogueSystem : MonoBehaviour
     private void UpdateDialogueText(EnumLanguage lang)
     {
         var newText = dialogues.GetDialogueContent(_index).text.GetText(lang);
-
+        dialogueBoxName.text = dialogues.GetDialogueContent(_index).name.GetText(lang);
+        
         if (newText == null)
         {
             LogDialogueError(null);
@@ -129,7 +140,14 @@ public class DialogueSystem : MonoBehaviour
 
     private void InitializeFirstDialogue(string newText)
     {
-        art.sprite = dialogues.GetDialogueContent(0).sprite;
+        var dialogueContent = dialogues.GetDialogueContent(0);
+        
+        art1.sprite = dialogueContent.spritePerson1;
+        art2.sprite = dialogueContent.spritePerson2;
+
+        
+        PersonTalk(dialogueContent);
+        
         dialogueBox.buttonText.text = newText;
     }
     
@@ -200,10 +218,48 @@ public class DialogueSystem : MonoBehaviour
     #endregion
 
     #region Helper Methods
+    
+    private void PersonTalk(DialogueContent dialogueContent)
+    {
+        switch (dialogueContent.talking)
+        {
+            case WhosTalkingEnum.Left:
+                dialogueBoxName.gameObject.SetActive(true); 
+                dialogueBox.buttonText.rectTransform.position = personDialogue1Rect.position;
+                dialogueBoxName.rectTransform.position = nameRect1.position;
+                
+                dialoguePanelPerson1.SetActive(true);
+                dialoguePanelPerson2.SetActive(false);
+                break;
+            case WhosTalkingEnum.Right:
+                dialogueBoxName.gameObject.SetActive(true);
+                dialogueBox.buttonText.rectTransform.position = personDialogue2Rect.position;
+                dialogueBoxName.rectTransform.position = nameRect2.position;
+                
+                dialoguePanelPerson1.SetActive(false);
+                dialoguePanelPerson2.SetActive(true);
+                break;
+            case WhosTalkingEnum.Nothing:
+                dialogueBoxName.gameObject.SetActive(false);
+                
+                dialoguePanelPerson1.SetActive(false);
+                dialoguePanelPerson2.SetActive(false);
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+    }
+    
     private void ContinueDialogue()
     {
         _textBoxesList.Add(dialogueBox.buttonText);
-        art.sprite = dialogues.GetDialogueContent(_index).sprite;
+        
+        var dialogueContent = dialogues.GetDialogueContent(_index);
+        
+        art1.sprite = dialogueContent.spritePerson1;
+        art2.sprite = dialogueContent.spritePerson2;
+        
+        PersonTalk(dialogueContent);
     }
 
     private void HandleDialogueEnd()
