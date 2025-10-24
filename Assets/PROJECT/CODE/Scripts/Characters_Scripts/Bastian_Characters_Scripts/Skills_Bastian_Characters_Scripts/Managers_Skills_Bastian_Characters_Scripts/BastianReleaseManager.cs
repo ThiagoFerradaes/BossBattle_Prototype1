@@ -12,7 +12,7 @@ public class BastianReleaseManager : SkillObjectManager {
 
         gameObject.SetActive(true);
 
-        animationCoroutine ??= StartCoroutine(AttackCoroutine(2, _info.AnimationParameter, _info.AnimationName, 0));
+        animationCoroutine ??= StartCoroutine(AttackCoroutine(0, _info.AnimationParameter, _info.AnimationName, 0));
     }
 
     public override void FirstFunc() {
@@ -23,10 +23,11 @@ public class BastianReleaseManager : SkillObjectManager {
 
     public override void ThirdFunc() {
         BastianPassiveManager.Instance.LooseHeat(_info.HeatLost);
-        statusManager.ChangeStatus(StatusType.AttackSpeed, _info.AttackSpeedGain, true, _info.AttackSpeedDuration);
     }
 
     public override void FourthFunc() {
+        statusManager.ChangeStatus(StatusType.AttackSpeed, _info.AttackSpeedGain, true, _info.AttackSpeedDuration);
+
         animationCoroutine = null;
 
         skillManager.SkillIsInAnimation(false);

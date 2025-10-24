@@ -58,14 +58,16 @@ public class BastianBaseAttackManager : SkillObjectManager {
                 animationName = _info.AnimationOneName;
                 break;
         }
-        animationCoroutine ??= StartCoroutine(AttackCoroutine(1, animationParameterName, animationName, _attackIndex));
+        animationCoroutine ??= StartCoroutine(AttackCoroutine(0, animationParameterName, animationName, _attackIndex));
     }
 
     public override void FirstFunc() {
         _attackSpeedMultiplier = GetAttackSpeedMultiplier();
         anim.SetFloat(_info.AttackSpeedAnimationParameter, _attackSpeedMultiplier);
+        skillManager.SkillIsInAnimation(true);
     }
     public override void FourthFunc() {
+
         // Definindo Cooldown
         float cooldown = _attackIndex < 3 ? _info.CooldownBetweenAttacks : _info.Cooldown;
 
@@ -131,22 +133,13 @@ public class BastianBaseAttackManager : SkillObjectManager {
         float additionalCriDmg = BastianPassiveManager.Instance.ReturnMinHeat(HeatArea.LastOverHeatArea) ? _info.LastOverHeatCritDamage : 0;
         float critDamage = statusManager.ReturnStatusValue(StatusType.CritDamage) + additionalCriDmg;
 
-        DamageAtributes atributes;
-        switch (_attackIndex) {
-            case 1:
-                atributes = _info.FirstAttackAtributes;
-                break;
-            case 2:
-                atributes = _info.SecondAttackAtributes;
-                break;
-            case 3:
-                atributes = _info.ThirdAttackAtributes;
-                break;
-            default:
-                atributes = _info.FirstAttackAtributes;
-                break;
-        }
-
+        DamageAtributes atributes = _attackIndex switch
+        {
+            1 => _info.FirstAttackAtributes,
+            2 => _info.SecondAttackAtributes,
+            3 => _info.ThirdAttackAtributes,
+            _ => _info.FirstAttackAtributes,
+        };
         atributes.ExtraAtributes[ExtraDamageContextAtributes.Penetration] = pen;
         atributes.ExtraAtributes[ExtraDamageContextAtributes.CritRate] = critChance;
         atributes.ExtraAtributes[ExtraDamageContextAtributes.CritDamage] = critDamage;
