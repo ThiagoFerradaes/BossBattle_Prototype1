@@ -20,7 +20,7 @@ Material:
   stringTagMap: {}
   disabledShaderPasses:
   - MOTIONVECTORS
-  m_LockedProperties: 
+  m_LockedProperties: _QueueOffset _Refraction_Speed
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -40,11 +40,25 @@ Material:
     m_Floats:
     - _Depth: 2
     - _Float: 0
+    - _Foam_Ammount: 3.12
+    - _Foam_CutOff: 2.8
+    - _Foam_Scale: 120
+    - _Foam_Speed: 2.8
     - _ObjDepth: 1
     - _QueueControl: 0
     - _QueueOffset: 0
+    - _Refraction_Scale: 0.67
+    - _Refraction_Speed: 0.085
+    - _Refraction_Strength: 0.69
+    - _Vertex_Amplitude: 0.48
+    - _Vertex_Scale: 1
+    - _Vertex_Speed: 0.221
+    - _Water_Depth: 2.5
     - _scene_size: 40.7
-    m_Colors: []
+    m_Colors:
+    - _Deep_Water: {r: 0.003737994, g: 0.38902944, b: 0.7924528, a: 0.49019608}
+    - _Foam_Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Shallow_Water: {r: 0.39999983, g: 0.9208449, b: 1, a: 0.3764706}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &70692452304945407
