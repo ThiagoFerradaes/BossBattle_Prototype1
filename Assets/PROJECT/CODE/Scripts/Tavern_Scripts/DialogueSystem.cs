@@ -15,7 +15,6 @@ using UnityEditor;
 public class DialogueSystem : MonoBehaviour
 {
     #region Serialized Fields
-    
     [SerializeField, Tooltip("rectTransform of the image that displays the dialogue text")]
     private RectTransform dialogueBoxRectTransform;
     
@@ -54,7 +53,7 @@ public class DialogueSystem : MonoBehaviour
     #endregion
 
     #region Unity Lifecycle Methods
-
+    
     private void OnEnable()
     {
         InitializeConfiguration();
@@ -158,7 +157,13 @@ public class DialogueSystem : MonoBehaviour
 
     private void CompletedDialogue(DialogueSystemSo obj)
     {
+        for (var index = 0; index < gameObject.transform.childCount; index++)
+        {
+            transform.GetChild(index).gameObject.SetActive(false);
+        }
+        
         OnComplicitEvent?.Invoke(obj);
+        
         dialogues = null;
     }
 
@@ -219,6 +224,11 @@ public class DialogueSystem : MonoBehaviour
         dialogues = dialogueSystemSo;
         SetupDialogueUI();
         UpdateLanguage(_config.GetLanguage());
+        
+        for (var index = 0; index < gameObject.transform.childCount; index++)
+        {
+            transform.GetChild(index).gameObject.SetActive(true);
+        }
 
         return Task.CompletedTask;
     }
@@ -654,5 +664,3 @@ public class DialogueSystem : MonoBehaviour
     #endif
     #endregion
 }
-
-
