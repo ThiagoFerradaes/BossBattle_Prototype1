@@ -47,6 +47,8 @@ public abstract class SkillObjectManager : MonoBehaviour {
 
         skillManager.OnStopSkills += _stopSkill;
     }
+
+    #region Inputs
     public virtual void HandleInput(SkillSO skill, InputAction.CallbackContext ctx) {
         if (ctx.phase == InputActionPhase.Started) {
             _preCasted = true;
@@ -85,7 +87,18 @@ public abstract class SkillObjectManager : MonoBehaviour {
 
         UseSkill(skill);
     }
+    public virtual void UnblockInputs()
+    {
 
+        skillManager.MoveManager.BlockWalk(false);
+        skillManager.BlockAllButOneSkill(slot, false);
+        skillManager.BlockAllSkills(false);
+        skillManager.MoveManager.ChangeRotationType(RotationType.MoveRotation);
+    }
+    public virtual void UseSkill(SkillSO skill) { }
+    #endregion
+
+    #region RangeIndicator
     public virtual void SetSkillRangeIndicator(SkillSO skill) {
         currentSkillRange = PoolingManager.Instance.ReturnPrefabFromPool(skill.SkillObjectRangeObject, TypeOfSkillPrefab.PreCastRange);
 
@@ -106,15 +119,9 @@ public abstract class SkillObjectManager : MonoBehaviour {
         currentSkillRange = null;
 
     }
-    public virtual void UnblockInputs() {
+    #endregion
 
-        skillManager.MoveManager.BlockWalk(false);
-        skillManager.BlockAllButOneSkill(slot, false);
-        skillManager.BlockAllSkills(false);
-        skillManager.MoveManager.ChangeRotationType(RotationType.MoveRotation);
-    }
-    public virtual void UseSkill(SkillSO skill) { }
-
+    #region End
     public virtual void EndWithUnblockSkills() {
         if (!skillManager.ReturnIfIsSkillAnimation()) UnblockInputs();
 
@@ -140,14 +147,16 @@ public abstract class SkillObjectManager : MonoBehaviour {
 
         EndWithUnblockSkills();
     }
-
+    #endregion
 
     #region AttackAnimation
-    public virtual IEnumerator AttackCoroutine(int animationLayer, string animiationTriggerName, string animationName, int comboIndex, bool isTrigger = true) {
+    public virtual IEnumerator AttackCoroutine(int animationLayer, string animationTriggerName, string animationName, int comboIndex, bool isTrigger = true) {
         FirstFunc();
 
-        if (isTrigger) anim.SetTrigger(animiationTriggerName);
+        if (isTrigger) anim.SetTrigger(animationTriggerName);
         else anim.SetBool(animationName, true);
+
+        yield return null;
 
         AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(animationLayer);
 
@@ -156,9 +165,8 @@ public abstract class SkillObjectManager : MonoBehaviour {
             stateInfo = anim.GetCurrentAnimatorStateInfo(animationLayer);
         } while (!stateInfo.IsName(animationName));
 
-        SecondFunc();
-
         int attackStateHash = stateInfo.fullPathHash;
+        SecondFunc();
 
         yield return StartCoroutine(InstantiatePrefabs(attackStateHash, stateInfo, comboIndex));
 
@@ -167,7 +175,7 @@ public abstract class SkillObjectManager : MonoBehaviour {
         do {
             yield return null;
             stateInfo = anim.GetCurrentAnimatorStateInfo(animationLayer);
-        } while (stateInfo.fullPathHash == attackStateHash && stateInfo.normalizedTime < 1);
+        } while (stateInfo.fullPathHash == attackStateHash);
 
         FourthFunc();
     }
