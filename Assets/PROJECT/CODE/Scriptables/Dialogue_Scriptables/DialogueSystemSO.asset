@@ -13,14 +13,26 @@ MonoBehaviour:
   m_Name: DialogueSystemSO
   m_EditorClassIdentifier: Assembly-CSharp::DialogueSystemSo
   dialogueContents:
-  - text: {fileID: 11400000, guid: 280b24c1cea98ff4289844e871a286ea, type: 2}
-    sprite: {fileID: 21300000, guid: 006452d585dba2b42a39b4c45062ac92, type: 3}
-  - text: {fileID: 11400000, guid: ed553f798fe73684a96ca40a3c9de9c3, type: 2}
-    sprite: {fileID: 21300000, guid: 33101dae05c079e469ae133d56327b9c, type: 3}
-  - text: {fileID: 11400000, guid: 72110f4ba9974ae49b4b7da1f9706711, type: 2}
-    sprite: {fileID: 21300000, guid: c4702886833e8c749a18ed000aaa0977, type: 3}
-  - text: {fileID: 11400000, guid: 5f0e9034c16b6eb4aab0b1a4f204af97, type: 2}
-    sprite: {fileID: 21300000, guid: 5b2c26ca47bcbe847af0bf0666f48d7d, type: 3}
+  - name: {fileID: 11400000, guid: a043df9e9032d804784ad235e0ef000a, type: 2}
+    text: {fileID: 11400000, guid: 280b24c1cea98ff4289844e871a286ea, type: 2}
+    spritePerson1: {fileID: 21300000, guid: d7c62ce64ee0498458191b3186fe622b, type: 3}
+    spritePerson2: {fileID: 21300000, guid: 6a136774e10ed9f41b31cdf9e98bdec6, type: 3}
+    talking: 0
+  - name: {fileID: 11400000, guid: a043df9e9032d804784ad235e0ef000a, type: 2}
+    text: {fileID: 11400000, guid: ed553f798fe73684a96ca40a3c9de9c3, type: 2}
+    spritePerson1: {fileID: 21300000, guid: 050010323276a684cbbde1185daf02a1, type: 3}
+    spritePerson2: {fileID: 21300000, guid: dcb8715dd3d59a14faab3125e6d460f2, type: 3}
+    talking: 0
+  - name: {fileID: 11400000, guid: 7037442872dfde64d9280585923e02ed, type: 2}
+    text: {fileID: 11400000, guid: 72110f4ba9974ae49b4b7da1f9706711, type: 2}
+    spritePerson1: {fileID: 21300000, guid: c4702886833e8c749a18ed000aaa0977, type: 3}
+    spritePerson2: {fileID: 21300000, guid: c4702886833e8c749a18ed000aaa0977, type: 3}
+    talking: 1
+  - name: {fileID: 11400000, guid: 7037442872dfde64d9280585923e02ed, type: 2}
+    text: {fileID: 11400000, guid: 5f0e9034c16b6eb4aab0b1a4f204af97, type: 2}
+    spritePerson1: {fileID: 21300000, guid: 805c48c874c4fdb439f4bdaf6e18e432, type: 3}
+    spritePerson2: {fileID: 21300000, guid: 6a136774e10ed9f41b31cdf9e98bdec6, type: 3}
+    talking: 1
   choices:
   - choiceText: {fileID: 11400000, guid: f6a4f68d50155d54d80e14c2cfb193d1, type: 2}
     nextDialogue: {fileID: 11400000}

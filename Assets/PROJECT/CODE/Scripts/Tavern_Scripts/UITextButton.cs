@@ -35,6 +35,11 @@ public class UITextButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     [SerializeField]
     [Tooltip("Color when mouse hovers over button")]
     private Color hoverColor = Color.yellow;
+    
+    [SerializeField]
+    [Tooltip("Positon of the dialogue box")]
+    private RectTransform positionDialogue1, positionDialogue2;
+
     #endregion
 
     #region Public References
@@ -101,5 +106,13 @@ public class UITextButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     {
         buttonImage.color = normalColor;
     }
+    #endregion
+    
+    #region Public Methods
+    public RectTransform SetPosition(byte position)
+    {
+        return position == 1 ? positionDialogue1 : positionDialogue2;
+    }
+    
     #endregion
 }
