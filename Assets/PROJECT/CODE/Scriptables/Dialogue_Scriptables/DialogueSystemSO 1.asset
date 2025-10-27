@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5bed83311bea8d48b6b1cc9381708a4, type: 3}
+  m_Name: DialogueSystemSO 1
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueSystemSo
+  dialogueContents:
+  - name: {fileID: 11400000, guid: 242adf57d223ed445b6ca769269e36a2, type: 2}
+    text: {fileID: 11400000, guid: 96cdc112c5542e84488073cbda27efc2, type: 2}
+    spritePerson1: {fileID: 21300000, guid: 805c48c874c4fdb439f4bdaf6e18e432, type: 3}
+    spritePerson2: {fileID: 21300000, guid: 2df73794ae4912f43b997f080666da92, type: 3}
+    talking: 1
+  - name: {fileID: 11400000, guid: a043df9e9032d804784ad235e0ef000a, type: 2}
+    text: {fileID: 11400000, guid: 7037442872dfde64d9280585923e02ed, type: 2}
+    spritePerson1: {fileID: 21300000, guid: 7786bbe55aa41264291a7bd7d1d5ef06, type: 3}
+    spritePerson2: {fileID: 21300000, guid: d817da5c45ae83743945ee367112a30b, type: 3}
+    talking: 0
+  - name: {fileID: 11400000, guid: 242adf57d223ed445b6ca769269e36a2, type: 2}
+    text: {fileID: 11400000, guid: d8a241d3aa71ce14c8b34b9b0dab42a1, type: 2}
+    spritePerson1: {fileID: 21300000, guid: 9c3c9750e260a1e49bfb1ae2e990f41c, type: 3}
+    spritePerson2: {fileID: 972425431, guid: f65a9fd6eeef08043b3aa9a384c930d3, type: 3}
+    talking: 1
+  - name: {fileID: 11400000, guid: a043df9e9032d804784ad235e0ef000a, type: 2}
+    text: {fileID: 11400000, guid: da36fb2454928ce4cbc5379e842cc22b, type: 2}
+    spritePerson1: {fileID: 21300000, guid: 87ddd6fa0dffefa4dac5732b2512289b, type: 3}
+    spritePerson2: {fileID: 21300000, guid: bc54802d92840c8419f129fbdc834718, type: 3}
+    talking: 0
+  choices:
+  - choiceText: {fileID: 11400000, guid: f6a4f68d50155d54d80e14c2cfb193d1, type: 2}
+    nextDialogue: {fileID: 11400000}
+  - choiceText: {fileID: 11400000, guid: ba96cf2c205f37d4d8192aec59dd2b9e, type: 2}
+    nextDialogue: {fileID: 0}
+  - choiceText: {fileID: 11400000, guid: 96cdc112c5542e84488073cbda27efc2, type: 2}
+    nextDialogue: {fileID: 0}
+  - choiceText: {fileID: 11400000, guid: 34f33241e7af2cf4b973eb6b871d16b1, type: 2}
+    nextDialogue: {fileID: 0}
