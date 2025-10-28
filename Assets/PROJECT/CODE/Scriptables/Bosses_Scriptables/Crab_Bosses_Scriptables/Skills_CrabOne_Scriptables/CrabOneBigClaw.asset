@@ -31,12 +31,26 @@ MonoBehaviour:
   rotationSpeed: 150
   prefabs:
   - TimeToSpawnPreFab: 0.6
-    PrefabDuration: 0.1
-    PreFabName: CrabHitBox
     PrefabType: 0
+    PrefabDuration: 0.1
     PreFab: {fileID: 4072845924315506650, guid: 7b15a55247e35bc43a8f065ecdbaabb6, type: 3}
     PreFabPosition: {x: -5, y: 3.5, z: 0}
-  damage: 60
-  hitShield: 1
-  damageType: 0
-  unitsToHit: 0100000002000000
+  damageAtributes:
+    DamageType: 0
+    UnitsToHit: 0100000002000000
+    Damage: 100
+    HitBoxDuration: 0.1
+    HitShield: 1
+    BreakShield: 1
+    TypeOfPrefab: 0
+    DamageCooldown: 0.1
+    Distance: 5
+    Speed: 10
+    CrossEnemy: 0
+    ExtraAtributes:
+      _serializedList: []
+  warningRepetitionAmount: 2
+  warningDuration: 0.1
+  warningSize: {x: 1, y: 0.1, z: 1}
+  warningPosition: {x: -5, y: 3.5, z: 0}
+  warningPrefab: {fileID: 4072845924315506650, guid: d6071f1adb245a04aaf20b3c37a8dc4b, type: 3}

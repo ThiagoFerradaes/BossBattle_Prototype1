@@ -38,7 +38,7 @@ MonoBehaviour:
     PreFabPosition: {x: 2, y: 1.5, z: 0}
   amoutOfAttacks: 3
   cooldownBetweenAttacks: 1.2
-  sizeOfHitbox: {x: 1.5, y: 1.5, z: 12}
+  sizeOfHitbox: {x: 1.5, y: 1.5, z: 16}
   damageAtributes:
     DamageType: 0
     UnitsToHit: 0100000002000000
@@ -52,7 +52,9 @@ MonoBehaviour:
     Speed: 10
     CrossEnemy: 0
     ExtraAtributes:
-      _serializedList: []
+      _serializedList:
+      - Key: 0
+        Value: 50
   warningRepetitionAmount: 2
   warningDuration: 0.1
   warningSize: {x: 1.5, y: 0.1, z: 12}
