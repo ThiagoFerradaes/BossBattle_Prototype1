@@ -1,11 +1,11 @@
 using System;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Debug = UnityEngine.Debug;
 
 public class PlayerInteractionManager : MonoBehaviour
 {
-    private PlayerActionMap _playerInput;
-
     private bool _inputActionsEnabled;
     
     private bool _isInteracting;
@@ -17,6 +17,8 @@ public class PlayerInteractionManager : MonoBehaviour
 
     private DialogueSystem _dialogueSystem;
     
+    private MapManager _mapManager;
+    
     [SerializeField, Tooltip("The player's interaction LayerMask")]
     private LayerMask interactionLayer;
     
@@ -25,32 +27,16 @@ public class PlayerInteractionManager : MonoBehaviour
     
     private void OnEnable()
     {
-        _playerInput = new PlayerActionMap();
-        _playerInput.Enable();
-        _dialogueSystem = FindAnyObjectByType<DialogueSystem>();
-        try
-        {
-            _playerInput.Player.Interaction.started += StartInteraction;
-            _playerInput.Player.Interaction.canceled += EndInteraction;
-
-            _inputActionsEnabled = true;
-        }
-        catch
-        {
-            // Fallback if InputActions setup fails
-            _inputActionsEnabled = false;
-        }
+        CanvasTavernaManager.OnTavernaLoaded += CanvasTavernaManager_OnDisable;
     }
 
-    private void OnDisable()
+    private void CanvasTavernaManager_OnDisable()
     {
-        if (!_inputActionsEnabled) return;
-        
-        _playerInput.Player.Interaction.started -= StartInteraction;
-        _playerInput.Player.Interaction.canceled -= EndInteraction;
-        _playerInput.Disable();
+        _dialogueSystem = CanvasTavernaManager.Instance.DialogueSystem;
+        _mapManager = CanvasTavernaManager.Instance.MapManager;
+        CanvasTavernaManager.OnTavernaLoaded -= CanvasTavernaManager_OnDisable;
     }
-
+    
     private async void FixedUpdate()
     {
         try
@@ -64,24 +50,18 @@ public class PlayerInteractionManager : MonoBehaviour
                     interactionLayer))
                 return;
 
-            InteractiveObjectForDialogue dialoguesSo;
-            if (!hit.collider.gameObject.TryGetComponent(out dialoguesSo))
+            if (!hit.collider.gameObject.TryGetComponent(out InteractiveObject dialoguesSo))
             {
                 Debug.Log("No DialogueSystemSo found in this object or its parents");
                 return;
             }
             
-
             _isInteracting = false;
-            _playerInput.Disable();
             playerMovementManager.BlockWalk(true);
             playerMovementManager.BlockMovement(true);
             _isPaused = true;
             
-            _dialogueSystem.gameObject.SetActive(true);
-            
-            _dialogueSystem.OnComplicitEvent += EndInteraction;
-            await _dialogueSystem.NewDialogue(dialoguesSo.dialogue);
+            await dialoguesSo.interaction.Execute(_dialogueSystem, this);
         }
         catch (Exception e)
         {
@@ -89,23 +69,36 @@ public class PlayerInteractionManager : MonoBehaviour
         }
     }
     
-    private void EndInteraction(DialogueSystemSo obj)
+    public void EndDialogue(DialogueSystemSo obj)
     {
-        _dialogueSystem.OnComplicitEvent -= EndInteraction;
+        _dialogueSystem.OnComplicitEvent -= EndDialogue;
+        EndInteraction();
+    }
+    
+    public void OpenMap()
+    {
+        Debug.Log("OpenMap");
+        _mapManager.OnCloseMap += EndMap;
+        _mapManager.gameObject.SetActive(true);
+    }
+
+    private void EndMap()
+    {
+        _mapManager.OnCloseMap -= EndMap;
+        EndInteraction();
+    }
+    
+    private void EndInteraction()
+    {
         _isPaused = false;
-        _playerInput.Enable();
         playerMovementManager.BlockWalk(false);
         playerMovementManager.BlockMovement(false);
     }
-
-    private void StartInteraction(InputAction.CallbackContext context)
-    {
-        _isInteracting = true;
-    }
     
-    private void EndInteraction(InputAction.CallbackContext context)
+    public void Interaction(InputAction.CallbackContext context)
     {
-        _isInteracting = false;
+        if(context.started)_isInteracting = true;
+        if(context.canceled)_isInteracting = false;
     }
     
 }

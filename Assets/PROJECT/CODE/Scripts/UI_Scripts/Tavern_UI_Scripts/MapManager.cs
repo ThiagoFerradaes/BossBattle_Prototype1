@@ -1,3 +1,4 @@
+using System;
 using AYellowpaper.SerializedCollections;
 using NaughtyAttributes;
 using System.Collections.Generic;
@@ -31,7 +32,9 @@ public class MapManager : MonoBehaviour {
     [Foldout("Second Map"), SerializeField] Color characterDeselectedColor;
 
     int _nextSceneIndex;
-
+    public event Action OnCloseMap;
+    
+    
     private void Awake() {
         SetButtons();
     }
@@ -82,6 +85,8 @@ public class MapManager : MonoBehaviour {
         }
 
         CloseMapButton.onClick.AddListener(() => gameObject.SetActive(false));
+        CloseMapButton.onClick.AddListener(() => OnCloseMap?.Invoke());
+        
         CloseSecondMapButton.onClick.AddListener(() => SecondMap.SetActive(false));
 
         TestIslandButton.onClick.AddListener(() => TurnScreenOn(TestIslandDescription));
@@ -121,5 +126,6 @@ public class MapManager : MonoBehaviour {
     }
     void Sail(BossDescription description) {
         LoadingScreenManager.Instance.LoadFightScene(description.LoadingScreen, _nextSceneIndex);
+        OnCloseMap?.Invoke();
     }
 }
