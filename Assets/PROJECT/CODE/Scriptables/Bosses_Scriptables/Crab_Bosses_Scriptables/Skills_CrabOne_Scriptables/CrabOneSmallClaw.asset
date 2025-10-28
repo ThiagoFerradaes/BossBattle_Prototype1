@@ -28,19 +28,33 @@ MonoBehaviour:
   preparingAnimationSpeed: 0.4
   attackAnimationSpeed: 1
   animationLayer: 0
-  distanceToPlayer: 4
+  distanceToPlayer: 3
   rotationSpeed: 220
   prefabs:
   - TimeToSpawnPreFab: 0.5
-    PrefabDuration: 0.1
-    PreFabName: CrabSmallClawHitBox
     PrefabType: 0
+    PrefabDuration: 0.1
     PreFab: {fileID: 8271028322271159555, guid: 02de40013cebfe2448edca155583a4c1, type: 3}
     PreFabPosition: {x: 2, y: 1.5, z: 0}
   amoutOfAttacks: 3
   cooldownBetweenAttacks: 1.2
   sizeOfHitbox: {x: 1.5, y: 1.5, z: 12}
-  damage: 30
-  hitShield: 1
-  damageType: 0
-  unitsToHit: 0100000002000000
+  damageAtributes:
+    DamageType: 0
+    UnitsToHit: 0100000002000000
+    Damage: 15
+    HitBoxDuration: 0.1
+    HitShield: 1
+    BreakShield: 0
+    TypeOfPrefab: 0
+    DamageCooldown: 0.1
+    Distance: 5
+    Speed: 10
+    CrossEnemy: 0
+    ExtraAtributes:
+      _serializedList: []
+  warningRepetitionAmount: 2
+  warningDuration: 0.1
+  warningSize: {x: 1.5, y: 0.1, z: 12}
+  warningPosition: {x: 2, y: 0, z: 0}
+  warningPrefab: {fileID: 7424019394619580813, guid: 1c37ad68e512fec4799226ff4d774045, type: 3}

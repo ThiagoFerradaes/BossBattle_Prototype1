@@ -2,6 +2,7 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 [CreateAssetMenu(menuName = "Crab/ Skills/ SmalClaw")]
 public class CrabSmallClawAttack : EnemyBehaviourSO
@@ -32,6 +33,13 @@ public class CrabSmallClawAttack : EnemyBehaviourSO
 
     [Header("Damage Atributes")]
     [SerializeField] DamageAtributes damageAtributes;
+
+    [Header("Warning Atributes")]
+    [SerializeField] float warningRepetitionAmount = 2f;
+    [SerializeField] float warningDuration = 0.1f;
+    [SerializeField] Vector3 warningSize;
+    [SerializeField] Vector3 warningPosition;
+    [SerializeField] GameObject warningPrefab;
 
     public override void StartState(EnemyBehaviourManager parent)
     {
@@ -75,6 +83,8 @@ public class CrabSmallClawAttack : EnemyBehaviourSO
         for (int j = 0; j < amoutOfAttacks; j++)
         {
             yield return _crabManager.RotateToPlayer(_crabManager.SmallClaw, rotationSpeed);
+
+            yield return _crabManager.StartCoroutine(WarningRoutine());
 
             _anim.SetTrigger(preparingAnimationTrigger);
             _anim.SetFloat(preparingAnimationSpeedParameter, preparingAnimationSpeed);
@@ -121,6 +131,29 @@ public class CrabSmallClawAttack : EnemyBehaviourSO
         }
     }
 
+    IEnumerator WarningRoutine() {
+
+        GameObject warningObject = PoolingManager.Instance.ReturnPrefabFromPool(warningPrefab, TypeOfSkillPrefab.PreCastRange);
+
+        warningObject.transform.SetParent(_crabManager.transform, false);
+
+        Vector3 hitboxPosition = new(warningPosition.x, warningPosition.y, sizeOfHitbox.z / 2);
+        float y = ArenaManager.Instance.FindGroundHeight(hitboxPosition);
+        hitboxPosition.y = y;
+        warningObject.transform.SetLocalPositionAndRotation(hitboxPosition, Quaternion.identity);
+
+
+        warningObject.transform.localScale = warningSize;
+
+        for (int i = 0; i < warningRepetitionAmount; i++) {
+            warningObject.SetActive(true);
+            yield return new WaitForSeconds(warningDuration / 2);
+            warningObject.SetActive(false);
+            yield return new WaitForSeconds(warningDuration / 2);
+        }
+
+        PoolingManager.Instance.ReturnObjectToPool(warningObject, TypeOfSkillPrefab.PreCastRange);
+    }
     void InstantiateHitBox(SkillAnimationEvent prefab)
     {
         GameObject hitbox = PoolingManager.Instance.ReturnPrefabFromPool(prefab.PreFab, TypeOfSkillPrefab.Hitbox);
