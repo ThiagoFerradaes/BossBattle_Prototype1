@@ -134,6 +134,13 @@ public class HealthManager : MonoBehaviour {
 
         OnRevive?.Invoke();
     }
+
+    /// <summary>
+    /// The object dies
+    /// </summary>
+    public void Die() {
+        ChangeHealth(0);
+    }
     #endregion
 
     #region Shield
