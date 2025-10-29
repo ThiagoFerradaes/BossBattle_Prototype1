@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Kraken / Stalactite")]
+[CreateAssetMenu(menuName = "Bosses/ Behaviour/ Kraken / Stalactite")]
 public class KrakenStalactiteAttack : EnemyBehaviourSO {
     [Foldout("Attack Atributes"), SerializeField] float attackDuration;
     [Foldout("Attack Atributes"), SerializeField] float cooldownBetweenEachStalactite;

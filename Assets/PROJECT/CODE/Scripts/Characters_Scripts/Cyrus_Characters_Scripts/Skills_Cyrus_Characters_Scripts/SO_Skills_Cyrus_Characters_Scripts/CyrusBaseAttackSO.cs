@@ -2,7 +2,7 @@ using NaughtyAttributes;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Skills/Cyrus/BaseAttack")]
+[CreateAssetMenu(menuName = "Characters/ Skills/ Cyrus/ BaseAttack")]
 public class CyrusBaseAttackSO : CommonSkillSO {
 
     [Header("Animation")]

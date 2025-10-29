@@ -1,10 +1,8 @@
 using DG.Tweening;
-using NUnit.Framework.Constraints;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Crab/ Skills/ Jump")]
+[CreateAssetMenu(menuName = "Bosses/ Behaviour/ Crab/ Jump")]
 public class CrabJumpAttack : EnemyBehaviourSO {
 
     // Componentes

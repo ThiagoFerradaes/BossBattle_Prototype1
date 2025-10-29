@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Crab/ Skills/ BigClaw")]
+[CreateAssetMenu(menuName = "Bosses/ Behaviour/ Crab/ BigClaw")]
 public class CrabBigClawAttack : EnemyBehaviourSO
 {
 

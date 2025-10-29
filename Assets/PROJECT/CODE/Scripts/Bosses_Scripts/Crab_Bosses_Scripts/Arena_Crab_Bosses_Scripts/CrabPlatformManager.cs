@@ -29,6 +29,7 @@ public class CrabPlatformManager : MonoBehaviour
     [Header("High Tide Barriers")]
     [SerializedDictionary("Wall", "Transforms"), SerializeField] SerializedDictionary<CrabArenaWall, List<Transform>> listOfPossibleBarriers;
     GameObject _barrier;
+    HealthManager _barrierHealthManager;
     Dictionary<Transform, GameObject> _dictionaryOfBombs = new();
 
     // Components
@@ -75,7 +76,8 @@ public class CrabPlatformManager : MonoBehaviour
             }
         }
 
-        _barrier = Instantiate(arenaInfo.BarrierPrefab);
+        _barrier = PoolingManager.Instance.ReturnPrefabFromPool(arenaInfo.BarrierPrefab, TypeOfSkillPrefab.Hitbox);
+        _barrierHealthManager = _barrier.GetComponent<HealthManager>();
     }
 
     private void OnDestroy()
@@ -108,28 +110,26 @@ public class CrabPlatformManager : MonoBehaviour
                 break;
         }
     }
-    void HandleHighTide()
-    {
+
+    // LOW TIDE
+    #region LowTide
+    void HandleLowTide() {
         float deltaDistance = arenaInfo.PlatformHighTideHeight - arenaInfo.PlatformLowTideHeight;
-        float duration = deltaDistance / arenaInfo.PlatformUpSpeed;
-
-        ArenaManager.Instance.SetTypeOfArena(TypeOfArena.Paths);
-
-        if (walls != null) foreach (var wall in walls) wall.SetActive(true);
+        float duration = deltaDistance / arenaInfo.PlatformDownSpeed;
 
         if (_player != null) _player.transform.SetParent(platformObject.transform);
-        platformObject.transform.DOLocalMoveY(arenaInfo.PlatformHighTideHeight, duration).OnComplete(() =>
-        {
+        platformObject.transform.DOLocalMoveY(arenaInfo.PlatformLowTideHeight, duration).OnComplete(() => {
             if (_player != null) _player.transform.SetParent(null);
+            if (walls != null) foreach (var wall in walls) wall.SetActive(false);
         });
-
-        _highTideBombCoroutine ??= StartCoroutine(HandleHighTideBombs());
-        _highTideBarrierCoroutine ??= StartCoroutine(HandleHidhTideBarrier());
     }
-    void HandleIncomingTide()
-    {
-        if (_platformContacts > 0)
-        {
+
+    #endregion
+
+    // INCOMING TIDE
+    #region IncomingTide
+    void HandleIncomingTide() {
+        if (_platformContacts > 0) {
             CrabArenaManager.Instance.ChangeCurrentTide();
             return;
         }
@@ -147,18 +147,93 @@ public class CrabPlatformManager : MonoBehaviour
         _incomingTideAttack.Initialize(context);
 
     }
-    void HandleLowTide()
-    {
+
+    #endregion
+
+    // HIGH TIDE
+    #region HighTide
+    void HandleHighTide() {
         float deltaDistance = arenaInfo.PlatformHighTideHeight - arenaInfo.PlatformLowTideHeight;
-        float duration = deltaDistance / arenaInfo.PlatformDownSpeed;
+        float duration = deltaDistance / arenaInfo.PlatformUpSpeed;
+
+        ArenaManager.Instance.SetTypeOfArena(TypeOfArena.Paths);
+
+        if (walls != null) foreach (var wall in walls) wall.SetActive(true);
 
         if (_player != null) _player.transform.SetParent(platformObject.transform);
-        platformObject.transform.DOLocalMoveY(arenaInfo.PlatformLowTideHeight, duration).OnComplete(() =>
-        {
+
+        platformObject.transform.DOLocalMoveY(arenaInfo.PlatformHighTideHeight, duration).OnComplete(() => {
             if (_player != null) _player.transform.SetParent(null);
-            if (walls != null) foreach (var wall in walls) wall.SetActive(false);
+            _highTideBombCoroutine ??= StartCoroutine(HandleHighTideBombs());
+            _highTideBarrierCoroutine ??= StartCoroutine(HandleHighTideBarrier());
         });
     }
+
+    IEnumerator HandleHighTideBombs() {
+        yield return new WaitForSeconds(arenaInfo.BombsCooldownToAppear / 3);
+
+        while (CrabArenaManager.Instance.ReturnCurrentTide() == CrabArenaState.HighTide) {
+            var inactiveBombs = _dictionaryOfBombs
+                .Where(kv => !kv.Value.activeInHierarchy)
+                .ToList();
+
+            if (inactiveBombs.Count == 0)
+                continue;
+
+            var chosenBomb = inactiveBombs[Random.Range(0, inactiveBombs.Count)];
+            Transform point = chosenBomb.Key;
+
+            Vector3 bombPos = point.position;
+            bombPos.y += arenaInfo.BombHeight;
+
+            var bombGO = chosenBomb.Value;
+            bombGO.transform.position = bombPos;
+            bombGO.GetComponent<HealthManager>().Revive();
+            bombGO.SetActive(true);
+
+            float timer = 0;
+            while (timer < arenaInfo.BombsCooldownToAppear && CrabArenaManager.Instance.ReturnCurrentTide() == CrabArenaState.HighTide) {
+                timer += Time.deltaTime;
+                yield return null;
+            }
+        }
+
+        foreach (var bomb in _dictionaryOfBombs.Values) {
+            bomb.SetActive(false);
+        }
+
+        _highTideBombCoroutine = null;
+    }
+
+    IEnumerator HandleHighTideBarrier() {
+        yield return new WaitForSeconds(arenaInfo.TimeToSpawnBarrier);
+
+        _barrier.GetComponent<HealthManager>().Revive();
+
+        CrabArenaWall _currentWall = _crabManager.ReturnCurrentWall();
+
+        int rng = Random.Range(0, listOfPossibleBarriers[_currentWall].Count);
+
+        Vector3 pos = listOfPossibleBarriers[_currentWall][rng].position;
+        float finalHeight = pos.y;
+        pos.y -= arenaInfo.BarrierDownOffset;
+
+        _barrier.transform.position = pos;
+        _barrier.transform.rotation = _currentWall == CrabArenaWall.Up ? Quaternion.Euler(0, 0, 0) : Quaternion.Euler(0, 90, 0);
+        _barrier.SetActive(true);
+
+        yield return _barrier.transform.DOMoveY(finalHeight, arenaInfo.BarrierUpDuration);
+
+        while (CrabArenaManager.Instance.ReturnCurrentTide() == CrabArenaState.HighTide) yield return null;
+
+        _barrierHealthManager.Die();
+
+        _highTideBarrierCoroutine = null;
+    }
+    #endregion
+
+    // OUTGOING TIDE
+    #region OutgoingTide
     void HandleOutgoingTide()
     {
         ArenaManager.Instance.SetTypeOfArena(TypeOfArena.Square);
@@ -208,68 +283,8 @@ public class CrabPlatformManager : MonoBehaviour
         _instantiateAnimalCoroutine = null;
     }
 
-    IEnumerator HandleHighTideBombs()
-    {
-        yield return new WaitForSeconds(arenaInfo.BombsCooldownToAppear/3);
+    #endregion
 
-        while (CrabArenaManager.Instance.ReturnCurrentTide() == CrabArenaState.HighTide)
-        {
-            var inactiveBombs = _dictionaryOfBombs
-                .Where(kv => !kv.Value.activeInHierarchy)
-                .ToList();
-
-            if (inactiveBombs.Count == 0)
-                continue; 
-
-            var chosenBomb = inactiveBombs[Random.Range(0, inactiveBombs.Count)];
-            Transform point = chosenBomb.Key;
-
-            Vector3 bombPos = point.position;
-            bombPos.y += arenaInfo.BombHeight;
-
-            var bombGO = chosenBomb.Value;
-            bombGO.transform.position = bombPos;
-            bombGO.GetComponent<HealthManager>().Revive();
-            bombGO.SetActive(true);
-
-            float timer = 0;
-            while (timer < arenaInfo.BombsCooldownToAppear && CrabArenaManager.Instance.ReturnCurrentTide() == CrabArenaState.HighTide)
-            {
-                timer += Time.deltaTime;
-                yield return null;
-            }
-        }
-
-        foreach (var bomb in _dictionaryOfBombs.Values)
-        {
-            bomb.SetActive(false);
-        }
-
-        _highTideBombCoroutine = null;
-    }
-
-    IEnumerator HandleHidhTideBarrier()
-    {
-        yield return new WaitForSeconds(arenaInfo.TimeToSpawnBarrier);
-
-        _barrier.GetComponent<HealthManager>().Revive();
-
-        CrabArenaWall _currentWall = _crabManager.ReturnCurrentWall();
-
-        int rng = Random.Range(0, listOfPossibleBarriers[_currentWall].Count);
-
-        Vector3 pos = listOfPossibleBarriers[_currentWall][rng].position;
-        float finalHeight = pos.y;
-        pos.y -= arenaInfo.BarrierDownOffset;
-
-        _barrier.transform.position = pos;
-        _barrier.transform.rotation = _currentWall == CrabArenaWall.Up ? Quaternion.Euler(0, 0, 0) : Quaternion.Euler(0, 90, 0);
-        _barrier.SetActive(true);
-
-        yield return _barrier.transform.DOMoveY(finalHeight, arenaInfo.BarrierUpDuration);
-
-        _highTideBarrierCoroutine = null;
-    }
     #endregion
 
     #region Trigger

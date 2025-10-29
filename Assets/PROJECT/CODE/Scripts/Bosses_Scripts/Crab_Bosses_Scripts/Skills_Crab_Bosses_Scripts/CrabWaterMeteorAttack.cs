@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Crab/ Skills/ WaterMeteor")]
+[CreateAssetMenu(menuName = "Bosses/ Behaviour/ Crab/ WaterMeteor")]
 public class CrabWaterMeteorAttack : EnemyBehaviourSO {
     CrabManager _crabManager;
     Animator _anim;

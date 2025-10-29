@@ -2,7 +2,7 @@ using NaughtyAttributes;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Passives/LilianPassive")]
+[CreateAssetMenu(menuName = "Characters/ Passives/ LilianPassive")]
 public class LilianPassiveSO : PassiveSO {
 
     [Header("Atributes")]

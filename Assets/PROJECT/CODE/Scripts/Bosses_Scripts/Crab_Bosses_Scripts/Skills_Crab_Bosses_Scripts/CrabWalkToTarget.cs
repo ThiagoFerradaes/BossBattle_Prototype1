@@ -2,7 +2,7 @@ using DG.Tweening;
 using System.Collections;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Crab/ Skills/ WalkToPlayer")]
+[CreateAssetMenu(menuName = "Bosses/ Behaviour/ Crab/ WalkToPlayer")]
 public class CrabWalkToTarget : ScriptableObject
 {
     CrabManager _crabManager;

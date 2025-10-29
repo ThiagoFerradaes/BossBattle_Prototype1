@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Crab/ Skills/ WaitSkill")]
+[CreateAssetMenu(menuName = "Bosses/ Behaviour/ Crab/ WaitSkill")]
 public class CrabWaitSkill : EnemyBehaviourSO {
 
     CrabManager _crabManager;

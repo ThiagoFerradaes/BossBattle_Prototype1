@@ -3,7 +3,7 @@ using NaughtyAttributes;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu( menuName = "Skills/Cyrus/ShootUpUltimate")]
+[CreateAssetMenu( menuName = "Characters/ Skills / Cyrus/ ShootUpUltimate")]
 public class CyrusShootUpSO : UltimateSkillSO
 {
     [Header("Animation")]
