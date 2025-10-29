@@ -36,23 +36,31 @@ MonoBehaviour:
     - Key: 0
       Value:
       - TimeToSpawnPreFab: 0
-        PrefabDuration: 0
-        PreFabName: CubeExtensorWarning
         PrefabType: 0
+        PrefabDuration: 0
         PreFab: {fileID: 8271028322271159555, guid: c1c1dd6d35a091e4183c97297c167094, type: 3}
         PreFabPosition: {x: 0, y: 0, z: 0}
     - Key: 1
       Value:
       - TimeToSpawnPreFab: 0.5
-        PrefabDuration: 0
-        PreFabName: CubeContinuosDamageColliderExtensor
         PrefabType: 0
+        PrefabDuration: 0
         PreFab: {fileID: 8271028322271159555, guid: 58e75b5151ba07948b3a51a16adf318c, type: 3}
         PreFabPosition: {x: 0, y: 0, z: 0}
   attackSize: {x: 2, y: 2, z: 50}
   attackDuration: 3
   attackDamageCooldown: 0.25
-  damage: 20
-  hitShield: 0
-  unitsToHit: 0100000002000000
-  damageType: 1
+  damageAtributes:
+    DamageType: 0
+    UnitsToHit: 0100000002000000
+    Damage: 3
+    HitBoxDuration: 1.5
+    HitShield: 1
+    BreakShield: 0
+    TypeOfPrefab: 1
+    DamageCooldown: 0.1
+    Distance: 5
+    Speed: 10
+    CrossEnemy: 0
+    ExtraAtributes:
+      _serializedList: []

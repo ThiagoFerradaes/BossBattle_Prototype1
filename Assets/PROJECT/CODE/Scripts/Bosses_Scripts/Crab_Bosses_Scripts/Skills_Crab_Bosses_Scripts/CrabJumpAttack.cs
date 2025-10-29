@@ -51,7 +51,8 @@ public class CrabJumpAttack : EnemyBehaviourSO {
     public override bool MeetsCondition(EnemyBehaviourManager parent) {
         Initialize(parent);
         float distanceToPlayer = Vector3.Distance(_crabManager.transform.position, _crabManager.Player.transform.transform.position);
-        return CrabArenaManager.Instance.ReturnCurrentTide() != CrabArenaState.LowTide || distanceToPlayer < minDistanceToJump;
+        Debug.Log(CrabArenaManager.Instance.ReturnCurrentTide());
+        return CrabArenaManager.Instance.ReturnCurrentTide() == CrabArenaState.LowTide && distanceToPlayer > minDistanceToJump;
     }
 
     void Initialize(EnemyBehaviourManager parent) {

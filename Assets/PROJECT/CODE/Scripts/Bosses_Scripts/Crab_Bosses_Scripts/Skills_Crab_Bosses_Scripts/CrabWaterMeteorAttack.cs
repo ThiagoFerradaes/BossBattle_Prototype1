@@ -15,9 +15,6 @@ public class CrabWaterMeteorAttack : EnemyBehaviourSO {
     [SerializeField] float maxDistanceToPlayer;
     [SerializeField] float meteorSize;
     [SerializeField] List<SkillAnimationEvent> prefabs;
-
-    [Header("Damage Atributes")]
-    [SerializeField] float projectileDistance;
     [SerializeField] DamageAtributes damageAtributes;
 
     [Header("Animation")]
