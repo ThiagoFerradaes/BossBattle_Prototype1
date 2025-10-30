@@ -27,8 +27,6 @@ public class CrabWaterSunAttack : EnemyBehaviourSO {
 
     [Header("Attack atributes")]
     [SerializeField] Vector3 attackSize;
-    [SerializeField] float attackDuration;
-    [SerializeField] float attackDamageCooldown;
     [SerializeField] DamageAtributes damageAtributes;
 
 
@@ -150,7 +148,7 @@ public class CrabWaterSunAttack : EnemyBehaviourSO {
 
         float timer = 0f;
 
-        while (timer < attackDuration) {
+        while (timer < damageAtributes.HitBoxDuration) {
             timer += Time.deltaTime;
 
             if (Physics.Raycast(_apicem.transform.position, _apicem.transform.forward, out RaycastHit hit, attackSize.z, layersToHit)) {

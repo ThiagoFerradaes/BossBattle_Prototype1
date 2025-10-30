@@ -13,15 +13,24 @@ MonoBehaviour:
   m_Name: SeaUrchinCrabOne
   m_EditorClassIdentifier: Assembly-CSharp::CrabSeaUrchinSO
   Duration: 30
-  ListOfTags: 000000000100000002000000
+  Atributes:
+    DamageType: 0
+    UnitsToHit: 0100000000000000
+    Damage: 30
+    HitShield: 1
+    BreakShield: 0
+    TypeOfPrefab: 0
+    HitBoxDuration: 0.1
+    DamageCooldown: 0.1
+    Distance: 5
+    Speed: 10
+    CrossEnemy: 0
+    ExtraAtributes:
+      _serializedList: []
   explosionRadius: 5
-  explosionDamage: 30
-  hitShield: 1
-  damageType: 0
   prefabs:
   - TimeToSpawnPreFab: 0
-    PrefabDuration: 0.1
-    PreFabName: SphereInstantHitBox
     PrefabType: 0
+    PrefabDuration: 0.1
     PreFab: {fileID: 8998219623033830514, guid: 690c34d54c88e12448b7561adfe65ab9, type: 3}
     PreFabPosition: {x: 0, y: 0, z: 0}

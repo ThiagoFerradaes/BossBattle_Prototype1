@@ -16,7 +16,7 @@ public class DamageAtributes {
 
     [Header("Floats")]
     public float Damage;
-    public float HitBoxDuration = 0.1f;
+    bool hasDuration => TypeOfPrefab == TypeOfCollider.Instant || TypeOfPrefab == TypeOfCollider.Continuos;
 
     [Header("Booleans")]
     public bool HitShield = true;
@@ -25,6 +25,9 @@ public class DamageAtributes {
     [Header("Type of Collider")]
     [SerializeField] TypeOfCollider TypeOfPrefab;
 
+    [ShowIf("hasDuration"), AllowNesting] public float HitBoxDuration = 0.1f;
+
+    // Continuos
     [ShowIf("TypeOfPrefab", TypeOfCollider.Continuos), AllowNesting]
     public float DamageCooldown = 0.1f;
 

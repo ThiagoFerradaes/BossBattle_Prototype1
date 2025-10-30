@@ -60,6 +60,7 @@ public class EnemyBehaviourManager : MonoBehaviour
             .Where(skill => skill.Channel == behaviourChannel)
             .Where(skill => !CooldownManager.SkillInCooldown(skill))
             .Where(skill => skill.MeetsCondition())
+            .Where(skill => skill.MeetsCondition(this))
             .OrderByDescending(skill => skill.Priority);
 
         return validSkills.FirstOrDefault();
