@@ -39,6 +39,7 @@ public class HealthManager : MonoBehaviour {
     #endregion
 
     //DEBUGING OPTIONS FOR VFX - SAMUEL
+    [SerializeField]
     bool imortal = false; //keep this false unless you want to debug vfxs and not die
 
     #region Methods
