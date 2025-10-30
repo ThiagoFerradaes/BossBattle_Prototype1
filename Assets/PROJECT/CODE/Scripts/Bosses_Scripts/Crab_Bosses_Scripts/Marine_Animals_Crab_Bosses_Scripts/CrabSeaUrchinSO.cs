@@ -9,7 +9,6 @@ public class CrabSeaUrchinSO : CrabMarineAnimalSO {
     [SerializeField] float explosionRadius;
  
     [Header("Damage atributes")]
-    [SerializeField] DamageAtributes damageAtributes;
     [SerializeField] List<SkillAnimationEvent> prefabs;
 
     CrabMarineAnimal _parent;
@@ -18,8 +17,6 @@ public class CrabSeaUrchinSO : CrabMarineAnimalSO {
         base.OnTrigger(other, parent);
 
         _parent = parent;
-
-        Collider[] colliders = Physics.OverlapSphere(parent.transform.position, explosionRadius);
 
         if (prefabs != null) {
             for (int i = 0; i < prefabs.Count; i++) {
@@ -35,7 +32,7 @@ public class CrabSeaUrchinSO : CrabMarineAnimalSO {
         hitbox.transform.localScale = explosionRadius * Vector3.one;
 
         DamageContext context = new(
-            damageAtributes,
+            Atributes,
             _parent.CrabManager.GetComponent<StatusManager>()
             );
 
