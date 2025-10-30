@@ -9,8 +9,6 @@ public class BastianFlameEchoSO : UltimateSkillSO
     [Foldout("Specific")] public DamageAtributes FirstAttackDamageAtributes;
     [Foldout("Specific")] public DamageAtributes SecondAttackDamageAtributes;
     [Foldout("Specific")] public DamageAtributes ThirdAttackDamageAtributes;
-    [Foldout("Specific")] public float ProjectileSpeed;
-    [Foldout("Specific")] public float AttackDistance;
     [Foldout("Specific")] public float ProjectileSize;
 
     [Header("Secondary Attack Passive")]
