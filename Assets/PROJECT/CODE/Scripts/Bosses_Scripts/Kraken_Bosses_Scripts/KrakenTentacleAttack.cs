@@ -2,7 +2,7 @@ using NaughtyAttributes;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Kraken / TentacleAttack")]
+[CreateAssetMenu(menuName = "Bosses/ Behaviour/ Kraken / TentacleAttack")]
 public class KrakenTentacleAttack : EnemyBehaviourSO {
     [Foldout("Prefabs")] public List<SkillAnimationEvent> PrefabsPreparingAnimation;
     [Foldout("Prefabs")] public List<SkillAnimationEvent> PrefabsHitAnimation;

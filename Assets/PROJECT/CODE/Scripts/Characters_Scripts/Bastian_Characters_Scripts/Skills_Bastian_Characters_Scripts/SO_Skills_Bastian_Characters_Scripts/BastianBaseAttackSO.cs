@@ -2,7 +2,7 @@ using NaughtyAttributes;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Skills/Bastian/BastianBaseAttackSO")]
+[CreateAssetMenu(menuName = "Characters/ Skills/ Bastian/ BastianBaseAttackSO")]
 public class BastianBaseAttackSO : CommonSkillSO {
 
     [Header("Animation Parameter")]

@@ -2,10 +2,9 @@ using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Crab/ Skills/ WaterMoon")]
+[CreateAssetMenu(menuName = "Bosses/ Behaviour/ Crab/ WaterMoon")]
 public class CrabWaterMoonAttack : EnemyBehaviourSO
 {
     CrabManager _crabManager;
@@ -28,8 +27,6 @@ public class CrabWaterMoonAttack : EnemyBehaviourSO
 
     [Header("Attack Atributes")]
     [SerializeField] float projectileSize;
-    [SerializeField] float projectileSpeed;
-    [SerializeField] float projectileDistance;
     [SerializeField] DamageAtributes damageAtributes;
 
     Coroutine _attackCoroutine, _rotateAndShootCoroutine;

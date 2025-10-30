@@ -1,7 +1,7 @@
 using NaughtyAttributes;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Skills/Lilian/JudgmentDay")]
+[CreateAssetMenu(menuName = "Characters/ Skills/ Lilian/ JudgmentDay")]
 public class LilianJudgmentDaySO : UltimateSkillSO
 {
     [Header("Animation")]

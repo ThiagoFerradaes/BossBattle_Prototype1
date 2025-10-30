@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Crab/ Skills/ WalkToLowTidePosition")]
+[CreateAssetMenu(menuName = "Bosses/ Behaviour/ Crab/ WalkToLowTidePosition")]
 public class CrabWalkToLowTide : EnemyBehaviourSO {
     CrabManager _crabManager;
     Animator _anim;

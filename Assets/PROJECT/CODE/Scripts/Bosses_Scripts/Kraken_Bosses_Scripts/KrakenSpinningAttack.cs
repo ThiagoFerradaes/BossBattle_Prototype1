@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Kraken / SpinningAttack")]
+[CreateAssetMenu(menuName = "Bosses/ Behaviour/ Kraken / SpinningAttack")]
 public class KrakenSpinningAttack : EnemyBehaviourSO {
     [SerializeField] float cooldownBetweenEachTentacle;
     [SerializeField] float hitSpeed;

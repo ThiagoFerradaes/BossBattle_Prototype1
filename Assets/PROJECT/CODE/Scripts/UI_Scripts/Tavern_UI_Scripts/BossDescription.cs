@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Bosses/BossDescription")]
+[CreateAssetMenu(menuName = "Bosses/ BossDescription")]
 public class BossDescription : ScriptableObject
 {
     public int SceneIndex;

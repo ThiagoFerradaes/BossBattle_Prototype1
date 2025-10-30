@@ -10,7 +10,7 @@ public class Reward {
     public int Amount;
 }
 
-[CreateAssetMenu(menuName = "BossReward/ Generic")]
+[CreateAssetMenu(menuName = "Bosses/ BossReward/ Generic")]
 public class BossRewardSO : ScriptableObject
 {
     public List<Reward> ListOfRewards = new();

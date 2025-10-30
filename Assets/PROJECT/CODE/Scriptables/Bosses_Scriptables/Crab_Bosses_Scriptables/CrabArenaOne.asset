@@ -19,7 +19,20 @@ MonoBehaviour:
   PlatformDownSpeed: 2
   PlatformLowTideHeight: 0
   IncomingTideDuration: 20
-  IncomingTideAttackDamage: 1.5
+  IncomingTideDamageAtributes:
+    DamageType: 2
+    UnitsToHit: 01000000
+    Damage: 10
+    HitShield: 1
+    BreakShield: 0
+    TypeOfPrefab: 1
+    HitBoxDuration: 20
+    DamageCooldown: 0.1
+    Distance: 5
+    Speed: 10
+    CrossEnemy: 0
+    ExtraAtributes:
+      _serializedList: []
   IncomingTideAttackDamageCooldown: 0.05
   IncomingTideAttackDamagSize: 100
   IncomingTideAttackHitBoxName: CrabIncomingTideAttackHitBox

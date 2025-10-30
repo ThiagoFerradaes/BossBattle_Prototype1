@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Crab/ Skills/ WaterMeteor")]
+[CreateAssetMenu(menuName = "Bosses/ Behaviour/ Crab/ WaterMeteor")]
 public class CrabWaterMeteorAttack : EnemyBehaviourSO {
     CrabManager _crabManager;
     Animator _anim;
@@ -13,12 +13,8 @@ public class CrabWaterMeteorAttack : EnemyBehaviourSO {
     [SerializeField] float amountOfAttacks;
     [SerializeField] float cooldownBetweenMeteors;
     [SerializeField] float maxDistanceToPlayer;
-    [SerializeField] float meteorFallSpeed;
     [SerializeField] float meteorSize;
     [SerializeField] List<SkillAnimationEvent> prefabs;
-
-    [Header("Damage Atributes")]
-    [SerializeField] float projectileDistance;
     [SerializeField] DamageAtributes damageAtributes;
 
     [Header("Animation")]

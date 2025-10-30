@@ -2,7 +2,7 @@ using NaughtyAttributes;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Skills/Bastian/FlameEcho")]
+[CreateAssetMenu(menuName = "Characters/ Skills/ Bastian/ FlameEcho")]
 public class BastianFlameEchoSO : UltimateSkillSO
 {
     [Header("Secondary Attack Damage")]

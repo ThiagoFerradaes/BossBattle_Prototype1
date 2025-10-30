@@ -44,7 +44,7 @@ public class CrabMarineAnimal : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other) {
 
-        if (!MarineAnimalInfo.ListOfTags.Any(tag => other.CompareTag(tag.ToString()))) return;
+        if (!MarineAnimalInfo.Atributes.UnitsToHit.Any(tag => other.CompareTag(tag.ToString()))) return;
 
         MarineAnimalInfo.OnTrigger(other, this);
 

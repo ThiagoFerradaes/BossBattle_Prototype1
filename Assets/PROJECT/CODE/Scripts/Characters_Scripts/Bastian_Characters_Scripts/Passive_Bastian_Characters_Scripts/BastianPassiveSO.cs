@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Passives/BastianPassive")]
+[CreateAssetMenu(menuName = "Characters/ Passives/ BastianPassive")]
 public class BastianPassiveSO : PassiveSO
 {
     [Header("Heat Areas")]

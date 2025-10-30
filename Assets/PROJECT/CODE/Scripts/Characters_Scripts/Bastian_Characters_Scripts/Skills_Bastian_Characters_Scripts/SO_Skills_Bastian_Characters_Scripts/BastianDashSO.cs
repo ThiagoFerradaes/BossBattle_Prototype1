@@ -1,7 +1,7 @@
 using NaughtyAttributes;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Skills/Bastian/Dash")]
+[CreateAssetMenu(menuName = "Characters/ Skills/ Bastian/ Dash")]
 public class BastianDashSO : DashSO {
 
     [Header("Atributes")]

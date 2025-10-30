@@ -10,7 +10,7 @@ using MyEnum;
 /// <summary>
 /// ScriptableObject that manages character preferences and dialogue interactions within the tavern system.
 /// </summary>
-[CreateAssetMenu(fileName = "CharacterPersonality", menuName = "Characters/CharacterPersonality")]
+[CreateAssetMenu(fileName = "CharacterPersonality", menuName = "Characters/ CharacterPersonality")]
 public class CharactersSo : ScriptableObject
 {
     [SerializeField] 

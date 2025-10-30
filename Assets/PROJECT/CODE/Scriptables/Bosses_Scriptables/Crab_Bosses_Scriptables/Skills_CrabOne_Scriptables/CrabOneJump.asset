@@ -28,15 +28,27 @@ MonoBehaviour:
   landDownAnimationName: ToGround
   animationLayer: 0
   jumpForce: 16
-  jumpDuration: 0.5
+  jumpDuration: 0.3
   jumpDistanceToPlayer: 2
   minDistanceToJump: 7
-  damage: 50
+  damageAtributes:
+    DamageType: 0
+    UnitsToHit: 01000000
+    Damage: 50
+    HitShield: 1
+    BreakShield: 0
+    TypeOfPrefab: 0
+    HitBoxDuration: 0.1
+    DamageCooldown: 0.1
+    Distance: 5
+    Speed: 10
+    CrossEnemy: 0
+    ExtraAtributes:
+      _serializedList: []
   jumpHitBoxSize: 20
-  hitBoxDuration: 0.1
-  hitShield: 1
-  jumpHitBoxName: SphereInstante
-  damageType: 0
-  unitsToHitTag: 0100000002000000
   jumpHitBox: {fileID: 8998219623033830514, guid: 690c34d54c88e12448b7561adfe65ab9, type: 3}
+  warningRepetitionAmount: 2
+  warningDuration: 0.1
+  warningSize: {x: 20, y: 0.1, z: 20}
+  warningPrefab: {fileID: 1039868285973720394, guid: deacfb0a4bd246b4488aad0ab7d54255, type: 3}
   stunDuration: 2
