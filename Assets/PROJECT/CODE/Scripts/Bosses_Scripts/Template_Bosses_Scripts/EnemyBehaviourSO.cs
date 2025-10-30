@@ -23,6 +23,7 @@ public class EnemyBehaviourSO : ScriptableObject
     #endregion
 
     public virtual bool MeetsCondition() => true;
+    public virtual bool MeetsCondition(EnemyBehaviourManager parent) => true;
 
     public virtual void StartState(EnemyBehaviourManager parent) { 
         enemyBehaviourManager = parent; 

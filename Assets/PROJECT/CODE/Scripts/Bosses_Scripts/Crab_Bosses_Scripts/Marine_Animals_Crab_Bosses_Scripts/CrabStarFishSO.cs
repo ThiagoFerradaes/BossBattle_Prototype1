@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Crab/ MarineAnimals/ Starfish")]
+[CreateAssetMenu(menuName = "Bosses/ MarineAnimals/ Starfish")]
 public class CrabStarFishSO : CrabMarineAnimalSO {
     [SerializeField] float healAmount;
     [SerializeField] float explosionRadius;

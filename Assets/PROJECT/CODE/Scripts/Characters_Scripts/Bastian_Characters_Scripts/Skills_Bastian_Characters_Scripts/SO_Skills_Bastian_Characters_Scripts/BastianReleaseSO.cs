@@ -1,7 +1,7 @@
 using NaughtyAttributes;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Skills/Bastian/Release")]
+[CreateAssetMenu(menuName = "Characters/ Skills/ Bastian/ Release")]
 public class BastianReleaseSO : CommonSkillSO {
 
     [Header("Atributes")]

@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Kraken / InvertedHalfAttack")]
+[CreateAssetMenu(menuName = "Bosses/ Behaviour/ Kraken / InvertedHalfAttack")]
 public class KrakenInvertedHalfAttack : EnemyBehaviourSO {
     [SerializeField] float cooldownBetweenHalfAttacks;
     [SerializeField] float preparingSpeed;

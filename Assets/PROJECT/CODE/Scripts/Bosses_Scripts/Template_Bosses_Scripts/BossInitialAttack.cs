@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Animations;
 
-[CreateAssetMenu(menuName = "Boss / InitialCooldown")]
+[CreateAssetMenu(menuName = "Bosses/ Behaviour/ Generic/ InitialCooldown")]
 public class BossInitialAttack : EnemyBehaviourSO {
 
     [SerializeField] float cooldown;

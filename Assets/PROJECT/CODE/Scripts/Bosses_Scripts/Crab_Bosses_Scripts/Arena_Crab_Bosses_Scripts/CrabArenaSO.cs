@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum CrabArenaState { LowTide, IncomingTide,  HighTide, OutgoingTide }
 
-[CreateAssetMenu(menuName = "Crab/ Arena")]
+[CreateAssetMenu(menuName = "Bosses/ Arena/ CrabArena")]
 public class CrabArenaSO : ScriptableObject
 {
     [Header("Arena Atributes")]

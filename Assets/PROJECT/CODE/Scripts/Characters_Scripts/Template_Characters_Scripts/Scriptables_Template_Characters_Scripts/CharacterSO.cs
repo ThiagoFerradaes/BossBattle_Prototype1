@@ -1,6 +1,4 @@
 using AYellowpaper.SerializedCollections;
-using JetBrains.Annotations;
-using NaughtyAttributes;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,7 +12,7 @@ public class CharacterKit {
     public PassiveSO Passive;
 }
 
-[CreateAssetMenu(menuName = "CharactersDescriptions")]
+[CreateAssetMenu(menuName = "Characters/ CharactersDescriptions")]
 public class CharacterSO : ScriptableObject
 {
     public Character Character;

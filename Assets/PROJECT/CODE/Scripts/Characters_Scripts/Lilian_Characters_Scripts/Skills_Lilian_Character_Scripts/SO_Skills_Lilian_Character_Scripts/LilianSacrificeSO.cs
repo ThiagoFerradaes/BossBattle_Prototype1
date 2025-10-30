@@ -1,7 +1,7 @@
 using NaughtyAttributes;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Skills/Lilian/Sacrifice")]
+[CreateAssetMenu(menuName = "Characters/ Skills/ Lilian/ Sacrifice")]
 public class LilianSacrificeSO : CommonSkillSO
 {
     [Header("Animation")]

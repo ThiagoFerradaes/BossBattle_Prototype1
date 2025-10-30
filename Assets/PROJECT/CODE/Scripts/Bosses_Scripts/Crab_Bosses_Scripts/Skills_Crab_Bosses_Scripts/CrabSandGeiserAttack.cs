@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Crab/ Skills/ SandGeiser")]
+[CreateAssetMenu(menuName = "Bosses/ Behaviour/ Crab/ SandGeiser")]
 public class CrabSandGeiserAttack : EnemyBehaviourSO
 {
     CrabManager _crabManager;

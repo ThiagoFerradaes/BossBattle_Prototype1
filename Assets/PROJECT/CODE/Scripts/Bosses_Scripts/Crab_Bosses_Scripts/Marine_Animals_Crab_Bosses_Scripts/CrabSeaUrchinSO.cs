@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Animations;
 
-[CreateAssetMenu(menuName = "Crab/ MarineAnimals/ SeaUrchin")]
+[CreateAssetMenu(menuName = "Bosses/ MarineAnimals/ SeaUrchin")]
 public class CrabSeaUrchinSO : CrabMarineAnimalSO {
 
     [Header("Explosion atributes")]
