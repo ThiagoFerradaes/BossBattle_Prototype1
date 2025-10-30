@@ -27,6 +27,10 @@ public class BastianFlameEchoManager : SkillObjectManager
         _onShootAction = (int attackIdex) => StartCoroutine(SecondaryShoot(attackIdex));
     }
 
+    private void OnDestroy() {
+        BastianBaseAttackManager.OnShoot -= _onShootAction;
+    }
+
     public override void FirstFunc() {
         skillManager.SkillIsInAnimation(true);
         _energyManager.LooseAllEnergy();
