@@ -22,6 +22,9 @@ public class DamageAtributes {
     public bool HitShield = true;
     public bool BreakShield = false;
 
+    [Header("Vectors3")]
+    public Vector3 Size = Vector3.one;
+
     [Header("Type of Collider")]
     [SerializeField] TypeOfCollider TypeOfPrefab;
 
@@ -39,7 +42,7 @@ public class DamageAtributes {
     [ShowIf("TypeOfPrefab", TypeOfCollider.Projectile), AllowNesting]
     public bool CrossEnemy = false;
 
-    [Header("Extra atributes")]
+    [Header("Extra atributes"), Tooltip("Penetration 0 - 0.75")]
     [SerializedDictionary("Extra atribute", "Value")]
     public SerializedDictionary<ExtraDamageContextAtributes, float> ExtraAtributes;
 }
@@ -57,6 +60,7 @@ public static class DamageCalculator {
             _ => atributes.Damage
         };
 
+        
         bool isCrit = UnityEngine.Random.value <= statusDealer.ReturnStatusValue(StatusType.CritRate) / 100;
         if (isCrit) rawDamage *= statusDealer.ReturnStatusValue(StatusType.CritDamage) / 100;
 

@@ -53,7 +53,6 @@ public class InstantDamageHitBox : MonoBehaviour
     {
         if (!_damageAtributes.UnitsToHit.Any(tag => other.CompareTag(tag.ToString()))) return;
 
-
         if (!other.TryGetComponent<HealthManager>(out HealthManager health))
         {
             health = other.GetComponentInParent<HealthManager>();

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CrabJumpAttack
   Priority: 5
   Cooldown: 20
-  CooldownBetweenAttacks: 1
+  CooldownBetweenAttacks: 1.5
   Channel: 0
   OpenNewChannels: 0
   ListOfChannelsToOpen: 
@@ -34,9 +34,10 @@ MonoBehaviour:
   damageAtributes:
     DamageType: 0
     UnitsToHit: 01000000
-    Damage: 50
+    Damage: 100
     HitShield: 1
     BreakShield: 0
+    Size: {x: 1, y: 1, z: 1}
     TypeOfPrefab: 0
     HitBoxDuration: 0.1
     DamageCooldown: 0.1
@@ -51,4 +52,4 @@ MonoBehaviour:
   warningDuration: 0.1
   warningSize: {x: 20, y: 0.1, z: 20}
   warningPrefab: {fileID: 1039868285973720394, guid: deacfb0a4bd246b4488aad0ab7d54255, type: 3}
-  stunDuration: 2
+  stunDuration: 1
