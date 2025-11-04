@@ -84,8 +84,6 @@ public class ContinuosDamageHitBox : MonoBehaviour
                 {
                     newDamage = DamageCalculator.CalculateDamage(
                     _damageAtributes,
-                    _damageAtributes.ExtraAtributes[ExtraDamageContextAtributes.CritRate],
-                    _damageAtributes.ExtraAtributes[ExtraDamageContextAtributes.CritDamage],
                     _dealerStatus,
                     recieverManager
                     );

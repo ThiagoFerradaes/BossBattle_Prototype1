@@ -89,8 +89,6 @@ public class InstantDamageHitBox : MonoBehaviour
         {
             newDamage = DamageCalculator.CalculateDamage(
                 _damageAtributes,
-                (float)_damageAtributes.ExtraAtributes[ExtraDamageContextAtributes.CritRate],
-                (float)_damageAtributes.ExtraAtributes[ExtraDamageContextAtributes.CritDamage],
                 _statusManager,
                 recieverStatus
                 );
