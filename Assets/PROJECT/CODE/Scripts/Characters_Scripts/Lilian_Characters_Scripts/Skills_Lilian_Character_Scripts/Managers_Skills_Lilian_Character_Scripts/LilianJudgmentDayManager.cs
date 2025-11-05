@@ -89,6 +89,6 @@ public class LilianJudgmentDayManager : SkillObjectManager
     void DecidePassive() {
         float health = _info.PercentOfCurrentHealthToCauseWrath/100 * healthManager.ReturnMaxHealth();
         bool isBlessing = (healthManager.ReturnCurrentHealth() < health);
-        LilianPassiveManager.Instance.ForceJudgment(isBlessing);
+        //LilianPassiveManager.Instance.ForceJudgment(isBlessing);
     }
 }

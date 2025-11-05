@@ -6,63 +6,30 @@ using UnityEngine.UI;
 public class LilianUiManager : MonoBehaviour
 {
     // Components
-    [SerializeField] Image judgmentTimerBar;
-    [SerializeField] TextMeshProUGUI judgmentTimerText;
-    [SerializeField] TextMeshProUGUI corruptionText;
-    [SerializeField] TextMeshProUGUI tributesText;
-    LilianPassiveManager passive;
+    [SerializeField] Image tributesBar;
+    LilianPassiveManager _passive;
 
     // Actions
-    Action<float, float> _onJudgmentTimer;
-    Action<float> _onCorruptionUpdate, _onTributeUpdte;
-    Action<bool> _onJudgmentDay;
+    Action<float, float> _onTributeUpdte;
     void Start()
     {
         InitializeTextsAndImages();
+        _onTributeUpdte = UpdateTributesBar;
 
-        _onJudgmentTimer = UpdateJudgmentTimerBar;
-        _onCorruptionUpdate = UpdateCorruptionText;
-        _onTributeUpdte = UpdateTributeText;
-        _onJudgmentDay = UpdateJudgmentText;
+        _passive = LilianPassiveManager.Instance;
 
-        passive = LilianPassiveManager.Instance;
-
-        passive.OnJudgmentTimer += _onJudgmentTimer;
-        passive.OnCorruptionChange += _onCorruptionUpdate;
-        passive.OnTributesChange += _onTributeUpdte;
-        passive.OnJudgmentDay += _onJudgmentDay;
+        _passive.OnTributesChange += _onTributeUpdte;
     }
 
     private void OnDestroy() {
-        passive.OnJudgmentTimer -= _onJudgmentTimer;
-        passive.OnCorruptionChange -= _onCorruptionUpdate;
-        passive.OnTributesChange -= _onTributeUpdte;
-        passive.OnJudgmentDay -= _onJudgmentDay;
+        _passive.OnTributesChange -= _onTributeUpdte;
     }
 
     void InitializeTextsAndImages() {
-        UpdateCorruptionText(0);
-        UpdateJudgmentTimerBar(0, 1);
-        UpdateJudgmentText(false);
-        UpdateTributeText(0);
+        UpdateTributesBar(0, 1);
     }
-    void UpdateJudgmentTimerBar(float current, float max) {
-        judgmentTimerBar.fillAmount = current / max;
+    void UpdateTributesBar(float current, float max) {
+        tributesBar.fillAmount = current / max;
     }
 
-    void UpdateJudgmentText(bool isJudgmentDay) {
-        if (isJudgmentDay) {
-            judgmentTimerText.text = "JUDGMENT DAY";
-        }
-        else {
-            judgmentTimerText.text = "Judgment Timer";
-        }
-    }
-    void UpdateCorruptionText(float amount) {
-        corruptionText.text = amount.ToString("F0");
-    }
-
-    void UpdateTributeText(float amount) {
-        tributesText.text = amount.ToString("F0");
-    }
 }

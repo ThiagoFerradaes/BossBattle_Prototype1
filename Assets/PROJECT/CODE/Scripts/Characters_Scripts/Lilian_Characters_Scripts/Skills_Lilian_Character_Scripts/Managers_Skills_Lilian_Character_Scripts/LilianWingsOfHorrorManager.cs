@@ -220,19 +220,9 @@ public class LilianWingsOfHorrorManager : SkillObjectManager
     IEnumerator WingsOfHorrorColldown(float cooldown)
     {
         yield return new WaitForSeconds(cooldown);
-        CheckTributes();
         _wingsOfHorrorCooldownCoroutine = null;
     }
 
-    void CheckTributes()
-    {
-        if (LilianPassiveManager.Instance.ReturnAmountOfTributes() < _info.TributeCost) EndWithUnblockSkills();
-        else
-        {
-            LilianPassiveManager.Instance.ChangeTributeAmount(-_info.TributeCost);
-            _wingsOfHorrorCoroutine ??= StartCoroutine(WingsOfHorrorAnimation());
-        }
-    }
 
     public override void EndWithUnblockSkills()
     {

@@ -90,6 +90,6 @@ public class LilianSacrificeManager : SkillObjectManager
 
         float tributes = healthToLoose * _info.AmountOfTributesGainPerHealthLost;
 
-        LilianPassiveManager.Instance.ChangeTributeAmount(tributes);
+        //LilianPassiveManager.Instance.ChangeTributeAmount(tributes);
     }
 }
