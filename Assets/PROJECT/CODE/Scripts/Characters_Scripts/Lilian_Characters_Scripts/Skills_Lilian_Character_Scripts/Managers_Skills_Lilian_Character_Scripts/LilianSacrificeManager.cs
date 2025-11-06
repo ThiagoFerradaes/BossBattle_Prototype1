@@ -1,8 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class LilianSacrificeManager : SkillObjectManager
-{
+public class LilianSacrificeManager : SkillObjectManager {
     // Components
     LilianSacrificeSO _info;
     public override void UseSkill(SkillSO skill) {
@@ -12,84 +11,33 @@ public class LilianSacrificeManager : SkillObjectManager
 
         gameObject.SetActive(true);
 
-        animationCoroutine ??= StartCoroutine(Attack());
+        animationCoroutine ??= StartCoroutine(AttackCoroutine(0, _info.AnimationParameter, _info.AnimationName, 0));
     }
 
-    IEnumerator Attack() {
+    public override void FirstFunc() {
+        base.FirstFunc();
+
         // Definindo Cooldown
         cooldownManager.SetCooldownWithCharges(slot, _info);
+    }
 
-        skillManager.SkillIsInAnimation(true);
+    public override void ThirdFunc() {
+        base.ThirdFunc();
 
-        // Animation
-        anim.SetTrigger(_info.AnimationParameter);
-        AnimatorStateInfo stateInfo;
+        healthManager.TakeDamage(_info.PercentOfCurrentHealthToLoose / 100 * healthManager.ReturnCurrentHealth());
 
-        yield return null;
+        float lerp = Mathf.InverseLerp(_info.HealthLimit, healthManager.ReturnMaxHealth(), healthManager.ReturnCurrentHealth());
+        float t = 1 - lerp;
+        float shield = Mathf.Lerp(_info.AmountOfShieldGainBasedOnHealth.x, _info.AmountOfShieldGainBasedOnHealth.y, t);
+        
+        healthManager.RecieveShield(shield, _info.ShieldDuration);
+    }
 
-        int layer = 0; // Encontrando a layer da animação
-        for (int i = 0; i < anim.layerCount; i++) {
-            AnimatorStateInfo state = anim.GetCurrentAnimatorStateInfo(i);
-            AnimatorStateInfo nextState = anim.GetNextAnimatorStateInfo(i);
+    public override void FourthFunc() {
+        base.FourthFunc();
 
-            if (state.IsName(_info.AnimationName) || nextState.IsName(_info.AnimationName)) {
-                layer = i;
-                break;
-            }
-        }
-
-        do { // Esperando entrar na animação
-            yield return null;
-            stateInfo = anim.GetCurrentAnimatorStateInfo(layer);
-        } while (!stateInfo.IsName(_info.AnimationName));
-
-        int attackStateHash = stateInfo.fullPathHash;
-
-        var prefabList = _info.Prefabs[0];
-        prefabList.Sort((a, b) => a.TimeToSpawnPreFab.CompareTo(b.TimeToSpawnPreFab));
-
-        // Instanciando prefabs
-        for (int i = 0; i < prefabList.Count; i++) {
-            SkillAnimationEvent prefabInfo = prefabList[i];
-            float targetNormalizedTime = prefabInfo.TimeToSpawnPreFab;
-
-            do { // Esperando o tempo para instanciar hit box
-                yield return null;
-                stateInfo = anim.GetCurrentAnimatorStateInfo(layer);
-            } while (stateInfo.fullPathHash == attackStateHash && stateInfo.normalizedTime < targetNormalizedTime);
-
-
-            if (prefabInfo.PrefabType == TypeOfSkillPrefab.VFX) {
-                GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFab, TypeOfSkillPrefab.VFX);
-                preFab.transform.SetParent(parent.transform, false);
-                preFab.transform.SetLocalPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.identity);
-
-                preFab.GetComponent<VFXPreFab>().Initialize(prefabInfo.PrefabDuration);
-            }
-        }
-
-        GainTributesAndLooseHealth();
-
-        // Esperando a animação terminar
-        while (anim.GetCurrentAnimatorStateInfo(layer).fullPathHash == attackStateHash) {
-            yield return null;
-        }
-
-        // Corrotina
-        animationCoroutine = null;
-
-        skillManager.SkillIsInAnimation(false);
 
         EndWithUnblockSkills();
     }
 
-    void GainTributesAndLooseHealth() {
-        float oldHealth = healthManager.ReturnCurrentHealth();
-        float healthToLoose = oldHealth * _info.PercentOfCurrentHealthToLoose/100;
-        healthManager.TakeDamage(healthToLoose, false);
-
-        float tributes = healthToLoose * _info.AmountOfTributesGainPerHealthLost;
-
-        //LilianPassiveManager.Instance.ChangeTributeAmount(tributes);
-    }
 }
