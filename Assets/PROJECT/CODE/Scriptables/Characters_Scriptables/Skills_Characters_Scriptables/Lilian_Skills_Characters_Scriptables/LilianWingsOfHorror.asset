@@ -35,8 +35,8 @@ MonoBehaviour:
   PreCastOn: 1
   SkillCharacter: 2
   Cancelable: 0
-  FlatEnergyGainPerHit: 10
-  Cooldown: 12
+  FlatEnergyGainPerHit: 1
+  Cooldown: 6
   HasCharges: 1
   Charges: 3
   ChargeCooldown: 1
@@ -47,9 +47,9 @@ MonoBehaviour:
     HitShield: 1
     BreakShield: 0
     Size: {x: 0.5, y: 0.5, z: 0.5}
-    TypeOfPrefab: 2
+    TypeOfPrefab: 1
     HitBoxDuration: 10
-    DamageCooldown: 0.5
+    DamageCooldown: 0.15
     Distance: 10
     Speed: 50
     CrossEnemy: 0
@@ -62,5 +62,6 @@ MonoBehaviour:
   LayersToHit:
     serializedVersion: 2
     m_Bits: 128
-  RadiusOfAttack: 8
+  RadiusOfAttack: 12
   RotationSpeed: 160
+  HealthPercentLostPerAttack: 2

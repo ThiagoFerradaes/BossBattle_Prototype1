@@ -1,18 +1,23 @@
 using DG.Tweening;
 using System.Collections;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 public class LilianWingsOfHorrorObject : MonoBehaviour
 {
 
     LilianWingsOfHorrorSO _info;
     StatusManager _status;
+    HealthManager _health;
+    EnergyManager _energy;
     Animator _anim;
 
     Coroutine _durationRoutine, _attackRountine;
-    public void Initialize(StatusManager status, LilianWingsOfHorrorSO info) {
+    public void Initialize(StatusManager status, LilianWingsOfHorrorSO info, HealthManager health, EnergyManager energy) {
         _info = info;
         _status = status;
+        _health = health;
+        _energy = energy;
 
         if (_anim == null) _anim = GetComponentInChildren<Animator>();
 
@@ -63,7 +68,7 @@ public class LilianWingsOfHorrorObject : MonoBehaviour
             float angle = Quaternion.Angle(transform.rotation, skullDir);
             float rotationDuration = angle / _info.RotationSpeed;
 
-            yield return transform.DORotate(skullDir.eulerAngles, rotationDuration).WaitForCompletion();
+            yield return transform.DOLookAt(closestEnemy.position, rotationDuration).WaitForCompletion();
 
             yield return StartCoroutine(Attack());
         }
@@ -81,15 +86,25 @@ public class LilianWingsOfHorrorObject : MonoBehaviour
             stateInfo = _anim.GetCurrentAnimatorStateInfo(0);
         }
 
-        int hashState = stateInfo.GetHashCode();
+        int attackStateHash = stateInfo.fullPathHash;
 
         GameObject projectile = PoolingManager.Instance.ReturnPrefabFromPool(skillEvent.PreFab, TypeOfSkillPrefab.Hitbox);
-        projectile.transform.SetPositionAndRotation(skillEvent.PreFabPosition, transform.rotation);
+        projectile.transform.SetPositionAndRotation(transform.position + skillEvent.PreFabPosition, transform.rotation);
         DamageContext newContext = new(_info.SkillDamageAtributes, _status);
 
-        projectile.GetComponent<ProjectileDamageHitBox>().Initialize(newContext);
+        ProjectileDamageHitBox collider = projectile.GetComponent<ProjectileDamageHitBox>();
+        collider.Initialize(newContext);
+        collider.OnHit += () => {
+            _energy.GainEnergy(_info.FlatEnergyGainPerHit);
+        };
 
-        while (stateInfo.GetHashCode() == hashState) yield return null; 
+        _health.TakeDamage(_info.HealthPercentLostPerAttack/100 * _health.ReturnCurrentHealth());
+
+        do
+        {
+            yield return null;
+            stateInfo = _anim.GetCurrentAnimatorStateInfo(0);
+        } while (stateInfo.fullPathHash == attackStateHash);
     }
     private void OnDestroy() {
         transform.DOKill();

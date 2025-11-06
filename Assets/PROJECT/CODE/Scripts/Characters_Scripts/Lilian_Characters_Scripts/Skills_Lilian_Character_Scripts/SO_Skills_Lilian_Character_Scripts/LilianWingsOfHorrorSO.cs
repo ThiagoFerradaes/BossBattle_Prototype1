@@ -5,7 +5,7 @@ using UnityEngine;
 public class LilianWingsOfHorrorSO : CommonSkillSO
 {
     [Header("Lilian Animation")]
-    [Foldout("Specific")]public string AnimationParameter;
+    [Foldout("Specific")] public string AnimationParameter;
     [Foldout("Specific")] public string AnimationName;
 
     [Header("Wings of Horror Animation")]
@@ -16,4 +16,5 @@ public class LilianWingsOfHorrorSO : CommonSkillSO
     [Foldout("Specific")] public LayerMask LayersToHit;
     [Foldout("Specific")] public float RadiusOfAttack;
     [Foldout("Specific")] public float RotationSpeed;
+    [Foldout("Specific"), Range(0, 100)] public float HealthPercentLostPerAttack;
 }

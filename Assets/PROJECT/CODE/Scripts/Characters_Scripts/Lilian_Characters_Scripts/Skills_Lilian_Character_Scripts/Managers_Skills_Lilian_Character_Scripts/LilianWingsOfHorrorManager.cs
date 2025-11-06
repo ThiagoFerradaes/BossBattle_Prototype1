@@ -32,16 +32,13 @@ public class LilianWingsOfHorrorManager : SkillObjectManager {
     public override void InstantiateHitBox(SkillAnimationEvent prefab) {
         GameObject skull = PoolingManager.Instance.ReturnPrefabFromPool(prefab.PreFab, TypeOfSkillPrefab.Hitbox);
 
-        Debug.Log(parent.name);
         skull.transform.SetParent(parent.transform);
         skull.transform.localPosition = prefab.PreFabPosition;
 
-        Vector3 skullDir = (parent.transform.position - skull.transform.position).normalized;
-        Quaternion skullQuaternion = Quaternion.LookRotation(skullDir);
         skull.transform.SetParent(null);
-        skull.transform.rotation = skullQuaternion;
+        skull.transform.LookAt(parent.transform.position);
 
-        skull.GetComponent<LilianWingsOfHorrorObject>().Initialize(statusManager, _info);
+        skull.GetComponent<LilianWingsOfHorrorObject>().Initialize(statusManager, _info, healthManager, energyManager);
 
     }
 }
