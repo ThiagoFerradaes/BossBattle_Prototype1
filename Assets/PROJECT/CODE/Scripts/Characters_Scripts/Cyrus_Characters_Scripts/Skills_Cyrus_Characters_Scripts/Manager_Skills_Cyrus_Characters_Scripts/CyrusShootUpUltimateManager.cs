@@ -64,8 +64,8 @@ public class CyrusShootUpUltimateManager : SkillObjectManager {
 
         skillManager.SkillIsInAnimation(true);
 
-        _weaponManager.OnEquipRightHand(_info.WeaponPrefab, _info.WeaponName, _info.WeaponPosition, _info.WeaponOneRotation);
-        _weaponManager.OnEquipLeftHand(_info.WeaponPrefab, _info.WeaponName, _info.WeaponTwoPosition, _info.WeaponTwoRotation);
+        _weaponManager.OnEquipRightHand(_info.WeaponPrefab, _info.WeaponPosition, _info.WeaponOneRotation);
+        _weaponManager.OnEquipLeftHand(_info.WeaponPrefab, _info.WeaponTwoPosition, _info.WeaponTwoRotation);
     }
 
     public override void FourthFunc() {
@@ -103,7 +103,7 @@ public class CyrusShootUpUltimateManager : SkillObjectManager {
     }
 
     IEnumerator Duration() {
-        float duration = _skillLevel > 0 ? _info.Level1Duration : _info.UltimateDuration;
+        float duration = _skillLevel > 0 ? _info.Level1Duration : _info.Atributes.HitBoxDuration;
         yield return new WaitForSeconds(duration);
 
         EndWithUnblockSkills();
@@ -122,7 +122,7 @@ public class CyrusShootUpUltimateManager : SkillObjectManager {
     #region Instantiate
     public override void InstantiateHitBox(SkillAnimationEvent prefabInfo) {
         GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFab, TypeOfSkillPrefab.Hitbox);
-        preFab.transform.localScale = Vector3.one * _info.Size;
+        preFab.transform.localScale = _info.Atributes.Size;
         preFab.transform.SetPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.identity);
 
         float charCritRate = statusManager.ReturnStatusValue(StatusType.CritRate);
@@ -154,7 +154,7 @@ public class CyrusShootUpUltimateManager : SkillObjectManager {
         GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFab, TypeOfSkillPrefab.VFX);
         preFab.transform.SetPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.identity);
 
-        float duration = _skillLevel > 0 ? _info.Level1Duration : _info.UltimateDuration;
+        float duration = _skillLevel > 0 ? _info.Level1Duration : _info.Atributes.HitBoxDuration;
 
         preFab.GetComponent<VFXPreFab>().Initialize(duration);
     }

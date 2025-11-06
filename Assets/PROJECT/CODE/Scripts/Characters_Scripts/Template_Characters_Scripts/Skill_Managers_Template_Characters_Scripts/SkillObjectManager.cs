@@ -87,8 +87,7 @@ public abstract class SkillObjectManager : MonoBehaviour {
 
         UseSkill(skill);
     }
-    public virtual void UnblockInputs()
-    {
+    public virtual void UnblockInputs() {
 
         skillManager.MoveManager.BlockWalk(false);
         skillManager.BlockAllButOneSkill(slot, false);
@@ -183,7 +182,7 @@ public abstract class SkillObjectManager : MonoBehaviour {
     /// <summary>
     /// Called before the animation start
     /// </summary>
-    public virtual void FirstFunc() { }
+    public virtual void FirstFunc() { skillManager.SkillIsInAnimation(true); }
     /// <summary>
     /// Called after the animation start, before hitbox and vfx inistantiate
     /// </summary>
@@ -195,7 +194,13 @@ public abstract class SkillObjectManager : MonoBehaviour {
     /// <summary>
     /// Called after the animation ends
     /// </summary>
-    public virtual void FourthFunc() { }
+    public virtual void FourthFunc() {
+        // Corrotina
+        animationCoroutine = null;
+
+        // Avisando que não está mais em animação
+        skillManager.SkillIsInAnimation(false);
+    }
 
     public virtual IEnumerator InstantiatePrefabs(int attackStateHash, AnimatorStateInfo stateInfo, int prefabIndex = 0) {
 

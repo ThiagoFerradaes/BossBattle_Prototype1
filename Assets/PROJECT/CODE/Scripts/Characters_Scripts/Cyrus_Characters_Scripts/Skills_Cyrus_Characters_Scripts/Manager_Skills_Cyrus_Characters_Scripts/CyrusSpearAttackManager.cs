@@ -45,7 +45,7 @@ public class CyrusSpearAttackManager : SkillObjectManager {
     }
 
     public override void SecondFunc() {
-        _weaponManager.OnEquipRightHand(_info.SpearPrefab, _info.SpearName, _info.WeaponPosition, _info.WeaponRotation);
+        _weaponManager.OnEquipRightHand(_info.SpearPrefab, _info.WeaponPosition, _info.WeaponRotation);
     }
 
     public override void FourthFunc() {

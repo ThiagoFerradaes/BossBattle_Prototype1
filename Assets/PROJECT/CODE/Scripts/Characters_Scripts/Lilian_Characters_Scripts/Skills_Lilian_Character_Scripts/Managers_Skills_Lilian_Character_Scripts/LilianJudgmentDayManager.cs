@@ -1,94 +1,80 @@
 using System.Collections;
 using UnityEngine;
 
-public class LilianJudgmentDayManager : SkillObjectManager
-{
+public class LilianJudgmentDayManager : SkillObjectManager {
     // Components
     LilianJudgmentDaySO _info;
     EnergyManager _energyManager;
+    HealthManager _healthManager;
+    ContinuosDamageHitBox _damageHitBox;
+
+    Coroutine _durationRoutine, _damageRoutine;
     public override void UseSkill(SkillSO skill) {
         base.UseSkill(skill);
 
         if (_info == null) {
             _info = skill as LilianJudgmentDaySO;
             _energyManager = parent.GetComponent<EnergyManager>();
+            _healthManager = parent.GetComponent<HealthManager>();
         }
 
         gameObject.SetActive(true);
 
-        animationCoroutine ??= StartCoroutine(Attack());
+        animationCoroutine ??= StartCoroutine(AttackCoroutine(0, _info.AnimationParameter, _info.AnimationName, 0));
     }
 
-    IEnumerator Attack() {
+    public override void FirstFunc() {
+        base.FirstFunc();
 
-        skillManager.SkillIsInAnimation(true);
         _energyManager.LooseAllEnergy();
 
-        // Animation
-        anim.SetTrigger(_info.AnimationParameter);
-        AnimatorStateInfo stateInfo;
-
-        yield return null;
-
-        int layer = 0; // Encontrando a layer da animação
-        for (int i = 0; i < anim.layerCount; i++) {
-            AnimatorStateInfo state = anim.GetCurrentAnimatorStateInfo(i);
-            AnimatorStateInfo nextState = anim.GetNextAnimatorStateInfo(i);
-
-            if (state.IsName(_info.AnimationName) || nextState.IsName(_info.AnimationName)) {
-                layer = i;
-                break;
-            }
-        }
-
-        do { // Esperando entrar na animação
-            yield return null;
-            stateInfo = anim.GetCurrentAnimatorStateInfo(layer);
-        } while (!stateInfo.IsName(_info.AnimationName));
-
-        int attackStateHash = stateInfo.fullPathHash;
-
-        var prefabList = _info.Prefabs[0];
-        prefabList.Sort((a, b) => a.TimeToSpawnPreFab.CompareTo(b.TimeToSpawnPreFab));
-
-        // Instanciando prefabs
-        for (int i = 0; i < prefabList.Count; i++) {
-            SkillAnimationEvent prefabInfo = prefabList[i];
-            float targetNormalizedTime = prefabInfo.TimeToSpawnPreFab;
-
-            do { // Esperando o tempo para instanciar hit box
-                yield return null;
-                stateInfo = anim.GetCurrentAnimatorStateInfo(layer);
-            } while (stateInfo.fullPathHash == attackStateHash && stateInfo.normalizedTime < targetNormalizedTime);
-
-
-            if (prefabInfo.PrefabType == TypeOfSkillPrefab.VFX) {
-                GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFab, TypeOfSkillPrefab.VFX);
-                preFab.transform.SetParent(parent.transform, false);
-                preFab.transform.SetLocalPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.identity);
-
-                preFab.GetComponent<VFXPreFab>().Initialize(prefabInfo.PrefabDuration);
-            }
-        }
-
-        DecidePassive();
-
-        // Esperando a animação terminar
-        while (anim.GetCurrentAnimatorStateInfo(layer).fullPathHash == attackStateHash) {
-            yield return null;
-        }
-
-        // Corrotina
-        animationCoroutine = null;
-
-        skillManager.SkillIsInAnimation(false);
-
-        EndWithUnblockSkills();
+        _energyManager.SetCanGainEnergy(false);
     }
 
-    void DecidePassive() {
-        float health = _info.PercentOfCurrentHealthToCauseWrath/100 * healthManager.ReturnMaxHealth();
-        bool isBlessing = (healthManager.ReturnCurrentHealth() < health);
-        //LilianPassiveManager.Instance.ForceJudgment(isBlessing);
+    public override void FourthFunc() {
+        base.FourthFunc();
+
+        // Desbloqueando inputs
+        UnblockInputs();
+    }
+
+    IEnumerator Duration() {
+        while (_healthManager.ReturnCurrentHealth() > 1) {
+            yield return null;
+        }
+
+        _damageHitBox.End();
+        _damageHitBox = null;
+
+        _durationRoutine = null;
+        if (_damageRoutine != null) {
+            StopCoroutine(_damageRoutine);
+            _damageRoutine = null;
+        }
+        End();
+    }
+
+    IEnumerator DamageToLilianRoutine() {
+        while (true) {
+            yield return new WaitForSeconds(_info.Atributes.DamageCooldown);
+            _healthManager.TakeDamage(_info.DamageToLilian);
+        }
+    }
+
+    public override void InstantiateHitBox(SkillAnimationEvent prefab) {
+
+        GameObject hitbox = PoolingManager.Instance.ReturnPrefabFromPool(prefab.PreFab, TypeOfSkillPrefab.Hitbox);
+        hitbox.transform.SetParent(parent.transform);
+        hitbox.transform.localScale = _info.Atributes.Size;
+        hitbox.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+
+        DamageContext context = new(_info.Atributes, statusManager);
+
+        ContinuosDamageHitBox damageHitbox = hitbox.GetComponent<ContinuosDamageHitBox>();
+        _damageHitBox = damageHitbox;
+        _damageHitBox.Initialize(context);
+
+        _durationRoutine ??= StartCoroutine(Duration());
+        _damageRoutine ??= StartCoroutine(DamageToLilianRoutine());
     }
 }

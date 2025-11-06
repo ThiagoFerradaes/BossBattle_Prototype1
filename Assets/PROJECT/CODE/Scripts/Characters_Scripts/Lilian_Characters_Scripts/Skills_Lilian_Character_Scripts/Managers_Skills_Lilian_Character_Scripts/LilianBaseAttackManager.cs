@@ -73,6 +73,8 @@ public class LilianBaseAttackManager : SkillObjectManager
 
     public override void FourthFunc()
     {
+        base.FourthFunc();
+
         // Cooldown
         cooldownManager.SetCooldownSingleCharge(slot, _info.Cooldown);
 
@@ -90,11 +92,6 @@ public class LilianBaseAttackManager : SkillObjectManager
                 break;
         }
 
-        // Corrotina
-        animationCoroutine = null;
-
-        // Avisando que não está mais em animação
-        skillManager.SkillIsInAnimation(false);
 
         // Desbloqueando inputs
         UnblockInputs();

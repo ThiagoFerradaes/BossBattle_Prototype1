@@ -53,7 +53,7 @@ public class CyrusBaseAttackManager : SkillObjectManager {
     }
 
     public override void SecondFunc() {
-        _weaponManager.OnEquipRightHand(_info.SwordPrefab, _info.SwordName, _info.WeaponPosition, _info.WeaponRotation);
+        _weaponManager.OnEquipRightHand(_info.SwordPrefab, _info.WeaponPosition, _info.WeaponRotation);
     }
 
     public override void FourthFunc() {
