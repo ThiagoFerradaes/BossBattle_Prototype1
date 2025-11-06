@@ -13,41 +13,54 @@ MonoBehaviour:
   m_Name: LilianWingsOfHorror
   m_EditorClassIdentifier: Assembly-CSharp::LilianWingsOfHorrorSO
   SkillManagerObject: {fileID: -2912945388451382330, guid: 63dd808355eee4541ac3314272e3eca8, type: 3}
-  SkillManagerName: LilianWingsOfHorrorManager
   Prefabs:
     _serializedList:
     - Key: 0
-      Value: []
+      Value:
+      - TimeToSpawnPreFab: 0.5
+        PrefabType: 0
+        PrefabDuration: 0.1
+        PreFab: {fileID: 8264813264520993978, guid: 6dda3e24c1de5a34e9fecdc1776bcc59, type: 3}
+        PreFabPosition: {x: 0, y: 1.5, z: 2}
     - Key: 1
       Value:
       - TimeToSpawnPreFab: 0.5
-        PrefabDuration: 0.1
-        PreFabName: LilianWingsOfHorrorHitBox
         PrefabType: 0
-        PreFab: {fileID: 8998219623033830514, guid: 690c34d54c88e12448b7561adfe65ab9, type: 3}
+        PrefabDuration: 0.1
+        PreFab: {fileID: 5556882484380889040, guid: 73183662ed7be604f90dff0cc2f277ff, type: 3}
         PreFabPosition: {x: 0, y: 0, z: 0}
   SkillObjectRangeObject: {fileID: 1479167575052944571, guid: c7a5ab9fc1363e7449ec66128e7e8586, type: 3}
-  SkillObjectRangeName: LilianWingsOfHorrorRange
   BlockWalkWhilePreCasting: 1
   BlockDashWhilePreCasting: 1
   PreCastOn: 1
   SkillCharacter: 2
   Cancelable: 0
   FlatEnergyGainPerHit: 10
-  Cooldown: 1
-  EnemyTag: 00000000
-  DamageType: 1
-  HitShield: 1
-  Charges: 1
-  ChargeCooldown: 0
+  Cooldown: 12
+  HasCharges: 1
+  Charges: 3
+  ChargeCooldown: 1
+  SkillDamageAtributes:
+    DamageType: 1
+    UnitsToHit: 00000000
+    Damage: 1
+    HitShield: 1
+    BreakShield: 0
+    Size: {x: 0.5, y: 0.5, z: 0.5}
+    TypeOfPrefab: 2
+    HitBoxDuration: 10
+    DamageCooldown: 0.5
+    Distance: 10
+    Speed: 50
+    CrossEnemy: 0
+    ExtraAtributes:
+      _serializedList: []
   AnimationParameter: SkullSummon
   AnimationName: Lilian_Skill_Summon
   WingsOfHorrorAnimationParameter: Attack
   WingsOfHorrorAnimationName: attack
-  TributeCost: 4
-  MinDamage: 60
-  MaxDamage: 62
-  WingsOfHorrorCooldown: 2.5
-  WingsOfHorrorDistance: 1.5
-  WingsOfHorrorHeight: 2
-  WingsOfHorrorDamageSize: 14
+  LayersToHit:
+    serializedVersion: 2
+    m_Bits: 128
+  RadiusOfAttack: 8
+  RotationSpeed: 160

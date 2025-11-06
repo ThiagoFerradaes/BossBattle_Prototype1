@@ -13,11 +13,7 @@ public class LilianWingsOfHorrorSO : CommonSkillSO
     [Foldout("Specific")] public string WingsOfHorrorAnimationName;
 
     [Header("Paramters")]
-    [Foldout("Specific")] public float TributeCost;
-    [Foldout("Specific")] public float MinDamage;
-    [Foldout("Specific")] public float MaxDamage;
-    [Foldout("Specific")] public float WingsOfHorrorCooldown;
-    [Foldout("Specific")] public float WingsOfHorrorDistance;
-    [Foldout("Specific")] public float WingsOfHorrorHeight;
-    [Foldout("Specific")] public float WingsOfHorrorDamageSize;
+    [Foldout("Specific")] public LayerMask LayersToHit;
+    [Foldout("Specific")] public float RadiusOfAttack;
+    [Foldout("Specific")] public float RotationSpeed;
 }
