@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CanvasTavernaManager : MonoBehaviour
 {
@@ -18,8 +19,12 @@ public class CanvasTavernaManager : MonoBehaviour
     [SerializeField]
     private MapManager mapManager;
 
+    [SerializeField]
+    private Button editorRoomButton;
+    
     public MapManager MapManager => mapManager;
 
-
     public DialogueSystem DialogueSystem => dialogueSystem;
+    
+    public Button EditorRoomButton => editorRoomButton;
 }
