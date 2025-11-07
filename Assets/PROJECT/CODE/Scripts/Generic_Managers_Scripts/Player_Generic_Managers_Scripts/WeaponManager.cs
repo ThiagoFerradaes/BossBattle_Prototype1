@@ -1,14 +1,13 @@
 using NaughtyAttributes;
 using UnityEngine;
 
-public class WeaponManager : MonoBehaviour
-{
+public class WeaponManager : MonoBehaviour {
     [SerializeField] Transform rightWeaponPosition;
     [SerializeField] Transform leftWeaponPosition;
     GameObject _currentRightHandWeapon, _currentLeftHandWeapon;
     bool _rightHandOccupied, _leftHandOccupied;
 
-    public void OnEquipRightHand(GameObject prefab, string prefabName, Vector3 weaponPosition, Vector3 weaponRotation) {
+    public void OnEquipRightHand(GameObject prefab, Vector3 weaponPosition, Vector3 weaponRotation) {
         if (_rightHandOccupied) {
             _currentRightHandWeapon.SetActive(false);
             _currentRightHandWeapon = null;
@@ -22,7 +21,7 @@ public class WeaponManager : MonoBehaviour
         _rightHandOccupied = true;
     }
 
-    public void OnEquipLeftHand(GameObject prefab, string prefabName, Vector3 weaponPosition, Vector3 weaponRotation) {
+    public void OnEquipLeftHand(GameObject prefab, Vector3 weaponPosition, Vector3 weaponRotation) {
         if (_leftHandOccupied) {
             _currentLeftHandWeapon.SetActive(false);
             _currentLeftHandWeapon = null;

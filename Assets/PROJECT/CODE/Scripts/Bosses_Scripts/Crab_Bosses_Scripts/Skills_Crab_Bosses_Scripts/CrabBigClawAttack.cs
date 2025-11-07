@@ -1,7 +1,5 @@
-using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Bosses/ Behaviour/ Crab/ BigClaw")]
@@ -145,7 +143,9 @@ public class CrabBigClawAttack : EnemyBehaviourSO
     {
         GameObject hitbox = PoolingManager.Instance.ReturnPrefabFromPool(prefab.PreFab, TypeOfSkillPrefab.Hitbox);
         hitbox.transform.SetParent(_crabManager.transform, false);
-        hitbox.transform.SetLocalPositionAndRotation(prefab.PreFabPosition, Quaternion.identity);
+        hitbox.transform.localScale = damageAtributes.Size;
+        Vector3 pos = new(-damageAtributes.Size.x / 2, prefab.PreFabPosition.y, prefab.PreFabPosition.z);
+        hitbox.transform.SetLocalPositionAndRotation(pos, Quaternion.identity);
 
         DamageContext context = new(
             damageAtributes,

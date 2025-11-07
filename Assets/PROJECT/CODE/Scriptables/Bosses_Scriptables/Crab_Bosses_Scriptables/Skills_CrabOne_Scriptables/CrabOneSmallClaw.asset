@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CrabSmallClawAttack
   Priority: 1
   Cooldown: 0
-  CooldownBetweenAttacks: 2
+  CooldownBetweenAttacks: 1.5
   Channel: 0
   OpenNewChannels: 0
   ListOfChannelsToOpen: 
@@ -37,14 +37,14 @@ MonoBehaviour:
     PreFab: {fileID: 8271028322271159555, guid: 02de40013cebfe2448edca155583a4c1, type: 3}
     PreFabPosition: {x: 2, y: 1.5, z: 0}
   amoutOfAttacks: 3
-  cooldownBetweenAttacks: 0.6
-  sizeOfHitbox: {x: 1.5, y: 1.5, z: 16}
+  cooldownBetweenAttacks: 0.3
   damageAtributes:
     DamageType: 0
     UnitsToHit: 0100000002000000
-    Damage: 15
+    Damage: 40
     HitShield: 1
     BreakShield: 0
+    Size: {x: 2, y: 1.5, z: 20}
     TypeOfPrefab: 0
     HitBoxDuration: 0.1
     DamageCooldown: 0.1
@@ -54,7 +54,7 @@ MonoBehaviour:
     ExtraAtributes:
       _serializedList:
       - Key: 0
-        Value: 50
+        Value: 0.5
   warningRepetitionAmount: 2
   warningDuration: 0.1
   warningSize: {x: 1.5, y: 0.1, z: 12}
