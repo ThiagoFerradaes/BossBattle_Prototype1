@@ -1,5 +1,4 @@
 using System;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -28,7 +27,8 @@ public class PlayerInteractionManager : MonoBehaviour
     
     private RoomEnterable _roomEnterable;
     private Button editorRoomButton;
-    
+
+    private bool cameraInfo;
     public event Action OnEditorInteraction;
     
     private void OnEnable()
@@ -36,12 +36,18 @@ public class PlayerInteractionManager : MonoBehaviour
         CanvasTavernaManager.OnTavernaLoaded += CanvasTavernaManager_OnDisable;
     }
 
+    private void OnDisable()
+    {
+        CameraCenterTaverna.Instance.OnCameraChanged -= ChangeCamera;
+    }
+
     private void CanvasTavernaManager_OnDisable()
     {
         _dialogueSystem = CanvasTavernaManager.Instance.DialogueSystem;
         _mapManager = CanvasTavernaManager.Instance.MapManager;
         editorRoomButton = CanvasTavernaManager.Instance.EditorRoomButton;
-        
+        CameraCenterTaverna.Instance.OnCameraChanged += ChangeCamera;
+        CameraCenterTaverna.Instance.SetPlayerTransform(transform);
         editorRoomButton.onClick.AddListener(OnEditorInteractionEvent);
         CanvasTavernaManager.OnTavernaLoaded -= CanvasTavernaManager_OnDisable;
     }
@@ -125,5 +131,10 @@ public class PlayerInteractionManager : MonoBehaviour
     {
         _roomEnterable = roomEnterable;
     }
-    
+
+    private void ChangeCamera()
+    { 
+        cameraInfo = CameraCenterTaverna.Instance.GetCamera();
+        playerMovementManager.RoomEditor(cameraInfo);
+    }
 }

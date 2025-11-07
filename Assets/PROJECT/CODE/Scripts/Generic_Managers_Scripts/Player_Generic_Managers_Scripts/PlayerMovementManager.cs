@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 public enum RotationType { MouseRotation, MoveRotation }
 [RequireComponent(typeof(Rigidbody), typeof(StunManager), typeof(StatusManager))]
 public class PlayerMovementManager : MonoBehaviour {
+    
     #region Parameters
 
     // Inputs
@@ -23,7 +24,8 @@ public class PlayerMovementManager : MonoBehaviour {
     bool _canRotate = true;
     bool _isDashing = false;
     bool _isPaused = false;
-
+    bool _isRoomEditor = false;
+    
     // Animation
     [Header("Animation")]
     [SerializeField] string walkingAnimationParameter;
@@ -35,6 +37,7 @@ public class PlayerMovementManager : MonoBehaviour {
     Transform _cameraCenter;
     StunManager _stunManager;
 
+    
     // Atributes
     [Header("Atributes")]
     [SerializeField] float rotationSpeed;
@@ -64,7 +67,7 @@ public class PlayerMovementManager : MonoBehaviour {
             BlockMovement(isStunned);
         };
     }
-
+    
     private void Start() {
         _cameraCenter = PlayerManager.Instance.CameraCenter;
 
@@ -119,7 +122,8 @@ public class PlayerMovementManager : MonoBehaviour {
             float moveSpeed = _statusManager.ReturnStatusValue(StatusType.MoveSpeed);
             Vector3 movedir = new Vector3(_xInput, 0, _zInput).normalized;
             Vector3 moveDirection = _cameraCenter.transform.TransformDirection(movedir);
-            _rb.linearVelocity = moveDirection * moveSpeed;
+            if(!_isRoomEditor)_rb.linearVelocity = moveDirection * moveSpeed;
+            else return;
         }
 
         UpdateWalkingAnimation();
@@ -192,8 +196,12 @@ public class PlayerMovementManager : MonoBehaviour {
     /// <param name="isDashing"></param>
     public void ChangeIsDashing(bool isDashing) => _isDashing = isDashing;
 
+    /// <summary>
+    /// Change the camera center of the player
+    /// </summary>
+    /// <param name="isPlayer"></param>
+    public void RoomEditor( bool isPlayer) => _isRoomEditor = isPlayer;
     #endregion
-
     #region Animation
 
     void UpdateWalkingAnimation() {

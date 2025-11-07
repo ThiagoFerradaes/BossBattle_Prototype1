@@ -68,7 +68,8 @@ public class RoomEnterable : MonoBehaviour
     private void OpenEditor()
     {
         isEditorOpen =! isEditorOpen;
-
+        CameraCenterTaverna.Instance.ChangeCamera();
+        
         if (isEditorOpen)
         {
             editorRoomText.text = closeEditorButton;
