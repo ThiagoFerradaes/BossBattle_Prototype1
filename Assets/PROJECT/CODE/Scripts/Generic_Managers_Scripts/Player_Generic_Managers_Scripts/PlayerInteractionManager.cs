@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 using Debug = UnityEngine.Debug;
 
 public class PlayerInteractionManager : MonoBehaviour
@@ -26,6 +27,7 @@ public class PlayerInteractionManager : MonoBehaviour
     private PlayerMovementManager playerMovementManager;
     
     private RoomEnterable _roomEnterable;
+    private Button editorRoomButton;
     
     public event Action OnEditorInteraction;
     
@@ -38,6 +40,9 @@ public class PlayerInteractionManager : MonoBehaviour
     {
         _dialogueSystem = CanvasTavernaManager.Instance.DialogueSystem;
         _mapManager = CanvasTavernaManager.Instance.MapManager;
+        editorRoomButton = CanvasTavernaManager.Instance.EditorRoomButton;
+        
+        editorRoomButton.onClick.AddListener(OnEditorInteractionEvent);
         CanvasTavernaManager.OnTavernaLoaded -= CanvasTavernaManager_OnDisable;
     }
     
