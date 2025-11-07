@@ -39,7 +39,7 @@ public class LilianJudgmentDayManager : SkillObjectManager {
     }
 
     IEnumerator Duration() {
-        while (_healthManager.ReturnCurrentHealth() > 1) {
+        while (_healthManager.ReturnCurrentHealth() > _info.HealthLimit) {
             yield return null;
         }
 
