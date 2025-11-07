@@ -10,13 +10,73 @@ public class RoomEnterable : MonoBehaviour
     
     [SerializeField] private bool isDoorOpen;
 
+    [SerializeField] private LayerMask playerLayer;
+
+    private PlayerInteractionManager _playerInteractionManager;
+    
+    private bool isEditorOpen;
+    
     private void OnEnable()
     {
         SetEnableRoom(isDoorOpen);
     }
     
     public event Action<RoomEnterable> OnRoomEntered;
+    
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if(!other.gameObject.layer.Equals(playerLayer)) return;
+        
+        PlayerEntered(other);
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if(!other.gameObject.layer.Equals(playerLayer)) return;
+        
+        PlayerExited(other);
+    }
+    
+    private void PlayerEntered(Collider other)
+    {
+        if(_playerInteractionManager is not null) return;
+
+        if (!other.TryGetComponent(out _playerInteractionManager))
+        {
+            return;
+        }
+        
+        _playerInteractionManager.SetRoomEnterable(this);
+        
+        _playerInteractionManager.OnEditorInteraction += OpenEditor;
+    }
+
+    private void OpenEditor()
+    {
+        isEditorOpen =! isEditorOpen;
+
+        if (isEditorOpen)
+        {
+            
+            return;
+        }
+        
+        //close editor
+    }
+    
+    private void PlayerExited(Collider other)
+    {
+        if(_playerInteractionManager is null) return; 
+        
+        if(!_playerInteractionManager.gameObject.Equals(other.gameObject)) return;
+        
+        _playerInteractionManager.OnEditorInteraction -= OpenEditor;
+        
+        _playerInteractionManager.SetRoomEnterable(null);
+        
+        _playerInteractionManager = null;
+    }
     
     #region Door
     public bool GetEnableRoom()

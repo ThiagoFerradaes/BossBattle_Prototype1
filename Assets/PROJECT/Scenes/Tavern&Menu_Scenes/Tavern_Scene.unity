@@ -490,7 +490,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 76dda13e55354004ead3a7e60bf8b6a9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2019,6 +2019,75 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CanvasTavernaManager
   dialogueSystem: {fileID: 1074010289}
   mapManager: {fileID: 710544869}
+--- !u!1 &382362005
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 382362006}
+  - component: {fileID: 382362007}
+  - component: {fileID: 382362008}
+  m_Layer: 0
+  m_Name: Room
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &382362006
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 382362005}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.57, y: 0.5, z: 14.22}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 963141764}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &382362007
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 382362005}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 8.218252, y: 7.3225555, z: 10.536521}
+  m_Center: {x: 0.07903218, y: 3.1612778, z: -0.13172007}
+--- !u!114 &382362008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 382362005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9fdfd91a8ca8965d9ad053a412cebc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RoomEnterable
+  door: {fileID: 82178241}
+  isDoorOpen: 1
 --- !u!1 &468105314
 GameObject:
   m_ObjectHideFlags: 0
@@ -2911,9 +2980,8 @@ GameObject:
   - component: {fileID: 963141763}
   - component: {fileID: 963141762}
   - component: {fileID: 963141761}
-  - component: {fileID: 963141765}
   m_Layer: 0
-  m_Name: Room
+  m_Name: floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3004,8 +3072,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963141760}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.57, y: 0.5, z: 14.22}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 7.8860726, y: 0.41035202, z: 10.127739}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3016,22 +3084,8 @@ Transform:
   - {fileID: 1979528391}
   - {fileID: 1337250842}
   - {fileID: 82178245}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 382362006}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &963141765
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 963141760}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9fdfd91a8ca8965d9ad053a412cebc4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::RoomEnterable
-  door: {fileID: 82178241}
-  isDoorOpen: 1
 --- !u!1 &966544404
 GameObject:
   m_ObjectHideFlags: 0
@@ -4913,4 +4967,4 @@ SceneRoots:
   - {fileID: 1099038886}
   - {fileID: 925579953}
   - {fileID: 1187482425}
-  - {fileID: 963141764}
+  - {fileID: 382362006}

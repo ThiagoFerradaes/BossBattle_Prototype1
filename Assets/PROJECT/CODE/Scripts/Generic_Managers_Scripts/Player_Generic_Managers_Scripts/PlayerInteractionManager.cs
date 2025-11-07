@@ -25,6 +25,10 @@ public class PlayerInteractionManager : MonoBehaviour
     [SerializeField,Tooltip("PlayerMovementManager reference")]
     private PlayerMovementManager playerMovementManager;
     
+    private RoomEnterable _roomEnterable;
+    
+    public event Action OnEditorInteraction;
+    
     private void OnEnable()
     {
         CanvasTavernaManager.OnTavernaLoaded += CanvasTavernaManager_OnDisable;
@@ -99,6 +103,22 @@ public class PlayerInteractionManager : MonoBehaviour
     {
         if(context.started)_isInteracting = true;
         if(context.canceled)_isInteracting = false;
+    }
+    
+    public void EditorInteractionMap(InputAction.CallbackContext context)
+    {
+        if(_roomEnterable is null) return;
+        if(context.started) OnEditorInteractionEvent();
+    }
+    
+    public void OnEditorInteractionEvent()
+    {
+        OnEditorInteraction?.Invoke();
+    }
+
+    public void SetRoomEnterable(RoomEnterable roomEnterable)
+    {
+        _roomEnterable = roomEnterable;
     }
     
 }
