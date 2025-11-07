@@ -110,7 +110,6 @@ public class LilianBaseAttackManager : SkillObjectManager
         preFab.transform.localScale = _info.SkillDamageAtributes.Size;
         preFab.transform.SetPositionAndRotation(parent.transform.position + prefabInfo.PreFabPosition, parent.transform.rotation);
 
-
         DamageContext newContext = new(
             _info.SkillDamageAtributes,
             parent.GetComponent<StatusManager>()
