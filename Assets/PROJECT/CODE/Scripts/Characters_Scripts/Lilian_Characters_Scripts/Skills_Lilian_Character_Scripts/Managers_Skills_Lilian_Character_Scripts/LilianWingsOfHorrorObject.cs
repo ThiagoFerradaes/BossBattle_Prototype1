@@ -3,8 +3,7 @@ using System.Collections;
 using UnityEngine;
 using static UnityEngine.Rendering.DebugUI;
 
-public class LilianWingsOfHorrorObject : MonoBehaviour
-{
+public class LilianWingsOfHorrorObject : MonoBehaviour {
 
     LilianWingsOfHorrorSO _info;
     StatusManager _status;
@@ -44,14 +43,29 @@ public class LilianWingsOfHorrorObject : MonoBehaviour
     IEnumerator AttackRoutine() {
         while (true) {
             yield return new WaitForSeconds(_info.SkillDamageAtributes.DamageCooldown);
-            Collider[] enemiesInRange = Physics.OverlapSphere(transform.position, _info.RadiusOfAttack, _info.LayersToHit);
+            Collider[] enemiesInRange = new Collider[100];
+            int amountOfEnemies = Physics.OverlapSphereNonAlloc(transform.position, _info.RadiusOfAttack, enemiesInRange, _info.LayersToHit);
 
-            if (enemiesInRange.Length <= 0) continue;
+            if (amountOfEnemies <= 0) continue;
 
             Transform closestEnemy = null;
             float closestDistance = Mathf.Infinity;
 
-            for (int i = 0; i < enemiesInRange.Length; i++) {
+            for (int i = 0; i < amountOfEnemies; i++) {
+                HealthManager enemyHealth = null;
+
+                if (enemiesInRange[i].TryGetComponent<HealthManager>(out HealthManager health)) {
+                    enemyHealth = health;
+                }
+                else if (enemiesInRange[i].GetComponentInChildren<HealthManager>() != null) {
+                    enemyHealth = enemiesInRange[i].GetComponentInChildren<HealthManager>();
+                }
+                else if (enemiesInRange[i].GetComponentInParent<HealthManager>() != null) {
+                    enemyHealth = enemiesInRange[i].GetComponentInParent<HealthManager>();
+                }
+
+                if (enemyHealth == null || enemyHealth.ReturnIfIsDead() || !enemyHealth.ReturnIfCanTakeDamage()) continue;
+
                 float distance = Vector3.Distance(enemiesInRange[i].transform.position, transform.position);
 
                 if (distance < closestDistance) {
@@ -98,10 +112,9 @@ public class LilianWingsOfHorrorObject : MonoBehaviour
             _energy.GainEnergy(_info.FlatEnergyGainPerHit);
         };
 
-        _health.TakeDamage(_info.HealthPercentLostPerAttack/100 * _health.ReturnCurrentHealth());
+        _health.TakeDamage(_info.HealthPercentLostPerAttack / 100 * _health.ReturnCurrentHealth());
 
-        do
-        {
+        do {
             yield return null;
             stateInfo = _anim.GetCurrentAnimatorStateInfo(0);
         } while (stateInfo.fullPathHash == attackStateHash);

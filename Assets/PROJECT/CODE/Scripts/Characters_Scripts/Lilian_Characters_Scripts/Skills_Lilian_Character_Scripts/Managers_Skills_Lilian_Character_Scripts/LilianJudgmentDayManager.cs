@@ -4,8 +4,6 @@ using UnityEngine;
 public class LilianJudgmentDayManager : SkillObjectManager {
     // Components
     LilianJudgmentDaySO _info;
-    EnergyManager _energyManager;
-    HealthManager _healthManager;
     ContinuosDamageHitBox _damageHitBox;
 
     Coroutine _durationRoutine, _damageRoutine;
@@ -14,8 +12,6 @@ public class LilianJudgmentDayManager : SkillObjectManager {
 
         if (_info == null) {
             _info = skill as LilianJudgmentDaySO;
-            _energyManager = parent.GetComponent<EnergyManager>();
-            _healthManager = parent.GetComponent<HealthManager>();
         }
 
         gameObject.SetActive(true);
@@ -26,11 +22,16 @@ public class LilianJudgmentDayManager : SkillObjectManager {
     public override void FirstFunc() {
         base.FirstFunc();
 
-        _energyManager.LooseAllEnergy();
+        energyManager.LooseAllEnergy();
 
-        _energyManager.SetCanGainEnergy(false);
+        energyManager.SetCanGainEnergy(false);
     }
 
+    public override void ThirdFunc() {
+        base.ThirdFunc();
+
+        healthManager.Heal(_info.InitialHeal);
+    }
     public override void FourthFunc() {
         base.FourthFunc();
 
@@ -39,7 +40,7 @@ public class LilianJudgmentDayManager : SkillObjectManager {
     }
 
     IEnumerator Duration() {
-        while (_healthManager.ReturnCurrentHealth() > _info.HealthLimit) {
+        while (healthManager.ReturnCurrentHealth() > _info.HealthLimit) {
             yield return null;
         }
 
@@ -51,13 +52,24 @@ public class LilianJudgmentDayManager : SkillObjectManager {
             StopCoroutine(_damageRoutine);
             _damageRoutine = null;
         }
+
+        energyManager.SetCanGainEnergy(true);
+
         End();
     }
 
     IEnumerator DamageToLilianRoutine() {
         while (true) {
             yield return new WaitForSeconds(_info.Atributes.DamageCooldown);
-            _healthManager.TakeDamage(_info.DamageToLilian);
+
+            float damageToLilian = _info.DamageToLilian;
+            float currentHealth = healthManager.ReturnCurrentHealth();
+
+            if (currentHealth - damageToLilian <= _info.HealthLimit) {
+                float damage = currentHealth - _info.HealthLimit;
+                healthManager.TakeDamage(damage);
+            }
+            else healthManager.TakeDamage(damageToLilian);
         }
     }
 
