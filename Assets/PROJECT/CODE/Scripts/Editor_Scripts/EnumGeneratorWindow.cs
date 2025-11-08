@@ -1,3 +1,4 @@
+#if UnityEditor
 using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -219,3 +220,4 @@ namespace PROJECT.Scripts.Editor
         #endregion
     }
 }
+#endif

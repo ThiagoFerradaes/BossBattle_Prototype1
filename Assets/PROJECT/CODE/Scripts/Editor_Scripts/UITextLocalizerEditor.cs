@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using UnityEditor;
 
 namespace PROJECT.Scripts.Editor
@@ -46,3 +47,4 @@ namespace PROJECT.Scripts.Editor
         }
     }
 }
+#endif
