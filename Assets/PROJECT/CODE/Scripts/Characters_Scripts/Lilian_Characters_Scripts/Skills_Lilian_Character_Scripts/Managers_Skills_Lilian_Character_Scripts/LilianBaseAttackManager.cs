@@ -74,7 +74,7 @@ public class LilianBaseAttackManager : SkillObjectManager
         // Cooldown
         cooldownManager.SetCooldownSingleCharge(slot, _info.Cooldown);
 
-        // Resetando a velocidade da animação
+        // Resetando a velocidade da animaï¿½ï¿½o
         anim.SetFloat(_info.AttackSpeedAnimationParameter, 1);
 
         // Attack Index
