@@ -69,9 +69,8 @@ public class CrabWaterMoonAttack : EnemyBehaviourSO
     }
     public override bool MeetsCondition()
     {
-        if (CrabArenaManager.Instance.ReturnCurrentTide() == CrabArenaState.HighTide) return true;
+        return CrabArenaManager.Instance.ReturnCurrentTide() == CrabArenaState.HighTide;
 
-        return false;
     }
 
     void Initialize(EnemyBehaviourManager parent)
@@ -87,12 +86,6 @@ public class CrabWaterMoonAttack : EnemyBehaviourSO
 
     IEnumerator WaterMoonAttack()
     {
-        //Vector3 playerDir = (_crabManager.Player.transform.position - _vallis.transform.position).normalized;
-        //playerDir.x = 0f;
-        //playerDir.z = 0f;
-        //Quaternion playerAngle = Quaternion.LookRotation(playerDir, Vector3.up);
-        //Debug.Log($" quatarion : {playerAngle} and vector {playerAngle.eulerAngles}");
-
         Quaternion centerAngle = Quaternion.Euler(0, 0, 0);
 
         Quaternion rightAngle = Quaternion.Euler(0, attackAngleAmplitude / 2f, 0);

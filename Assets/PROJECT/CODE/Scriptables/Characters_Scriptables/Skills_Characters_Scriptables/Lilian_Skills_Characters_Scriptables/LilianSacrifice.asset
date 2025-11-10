@@ -13,26 +13,41 @@ MonoBehaviour:
   m_Name: LilianSacrifice
   m_EditorClassIdentifier: Assembly-CSharp::LilianSacrificeSO
   SkillManagerObject: {fileID: 2826128453249546946, guid: 0ed1a087ebe8f3c4d8bfd09d824c23b9, type: 3}
-  SkillManagerName: LilianSacrificeManager
   Prefabs:
     _serializedList:
     - Key: 0
       Value: []
   SkillObjectRangeObject: {fileID: 0}
-  SkillObjectRangeName: 
   BlockWalkWhilePreCasting: 1
   BlockDashWhilePreCasting: 1
   PreCastOn: 0
   SkillCharacter: 2
   Cancelable: 0
   FlatEnergyGainPerHit: 0
-  Cooldown: 20
-  EnemyTag: 
-  DamageType: 0
-  HitShield: 0
+  Cooldown: 6
+  HasCharges: 0
   Charges: 1
   ChargeCooldown: 0
+  SkillDamageAtributes:
+    DamageType: 0
+    UnitsToHit: 
+    Damage: 0
+    HitShield: 1
+    BreakShield: 0
+    Size: {x: 1, y: 1, z: 1}
+    TypeOfPrefab: 0
+    HitBoxDuration: 0.1
+    DamageCooldown: 0.1
+    Distance: 5
+    Speed: 10
+    CrossEnemy: 0
+    ExtraAtributes:
+      _serializedList: []
   AnimationParameter: Sacrifice
   AnimationName: Lilian_Skill_Sacrifice
   PercentOfCurrentHealthToLoose: 30
-  AmountOfTributesGainPerHealthLost: 2
+  AmountOfShieldGainBasedOnHealth:
+    x: 30
+    y: 90
+  HealthLimit: 10
+  ShieldDuration: 8

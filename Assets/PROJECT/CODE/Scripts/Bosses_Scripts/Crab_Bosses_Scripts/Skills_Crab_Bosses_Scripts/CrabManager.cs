@@ -1,6 +1,5 @@
 using DG.Tweening;
 using System.Collections;
-using UnityEditor;
 using UnityEngine;
 
 public enum CrabArenaWall { Up, Left, Right, None}

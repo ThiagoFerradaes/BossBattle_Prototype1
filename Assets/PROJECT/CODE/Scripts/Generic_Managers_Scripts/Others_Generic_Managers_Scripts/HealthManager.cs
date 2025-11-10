@@ -32,7 +32,7 @@ public class HealthManager : MonoBehaviour {
     /// </summary>
     public event Action<float> OnDamageTaken;
 
-    public event Action OnDeath, OnRevive;
+    public event Action OnDeath, OnRevive, OnHit;
 
     // Coroutines
     Coroutine _shieldCoroutine;
@@ -76,8 +76,12 @@ public class HealthManager : MonoBehaviour {
     /// </summary>
     /// <param name="damageTaken"></param>
     /// <param name="hitShield"></param>
-    public void TakeDamage(float damageTaken, bool hitShield) {
+    public void TakeDamage(float damageTaken, bool hitShield = true) {
+
         if (_isDead || !_canTakeDamage) return;
+
+        OnHit?.Invoke();
+
         if (!hitShield) {
             ChangeHealth(_currentHealth - damageTaken);
             OnDamageTaken?.Invoke(damageTaken);

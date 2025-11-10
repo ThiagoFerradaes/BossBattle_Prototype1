@@ -53,7 +53,6 @@ public class InstantDamageHitBox : MonoBehaviour
     {
         if (!_damageAtributes.UnitsToHit.Any(tag => other.CompareTag(tag.ToString()))) return;
 
-
         if (!other.TryGetComponent<HealthManager>(out HealthManager health))
         {
             health = other.GetComponentInParent<HealthManager>();
@@ -90,8 +89,6 @@ public class InstantDamageHitBox : MonoBehaviour
         {
             newDamage = DamageCalculator.CalculateDamage(
                 _damageAtributes,
-                (float)_damageAtributes.ExtraAtributes[ExtraDamageContextAtributes.CritRate],
-                (float)_damageAtributes.ExtraAtributes[ExtraDamageContextAtributes.CritDamage],
                 _statusManager,
                 recieverStatus
                 );
