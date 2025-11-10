@@ -69,12 +69,7 @@ public class CyrusShootUpUltimateManager : SkillObjectManager {
     }
 
     public override void FourthFunc() {
-        _weaponManager.OnDesequipLeftHand();
-        _weaponManager.OnDesequipRightHand();
-
-        skillManager.SkillIsInAnimation(false);
-
-        animationCoroutine = null;
+        base.FourthFunc();
 
         UnblockInputs();
     }

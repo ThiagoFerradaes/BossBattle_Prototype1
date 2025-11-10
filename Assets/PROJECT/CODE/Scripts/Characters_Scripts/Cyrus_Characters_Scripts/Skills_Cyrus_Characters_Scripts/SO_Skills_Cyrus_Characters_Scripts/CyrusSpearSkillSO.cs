@@ -10,13 +10,6 @@ public class CyrusSpearSkillSO : CommonSkillSO
     [Foldout("Specific")] public string SpearAttackTriggerName;
     [Foldout("Specific")] public string AnimationName;
 
-    [Header("Atributes")]
-    [Header("Floats")]
-    [Foldout("Specific")] public float MinDamage;
-    [Foldout("Specific")] public float MaxDamage;
-    [Foldout("Specific")] public float ExpGain;
-    [Foldout("Specific")] public Vector3 Size;
-
     [Header("Level Up Buffs")]
     [Foldout("Specific")] public float Level2Range;
     [Foldout("Specific")] public float Level3Penetration;

@@ -32,7 +32,7 @@ public class HealthManager : MonoBehaviour {
     /// </summary>
     public event Action<float> OnDamageTaken;
 
-    public event Action OnDeath, OnRevive, OnHit;
+    public event Action OnDeath, OnRevive, OnHit, OnShieldBreak;
 
     // Coroutines
     Coroutine _shieldCoroutine;
@@ -152,6 +152,8 @@ public class HealthManager : MonoBehaviour {
     void ChangeShield(float newShield) {
         _currentShield = Mathf.Clamp(newShield, 0, _maxHealth * _maxShield);
         OnShieldChanged?.Invoke(_currentShield, _maxHealth * _maxShield);
+
+        if (_currentShield == 0) OnShieldBreak?.Invoke();
     }
 
     /// <summary>
