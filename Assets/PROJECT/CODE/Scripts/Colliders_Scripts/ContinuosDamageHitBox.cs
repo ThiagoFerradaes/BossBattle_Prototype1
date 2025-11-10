@@ -6,8 +6,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 
 
-public class ContinuosDamageHitBox : MonoBehaviour
-{
+public class ContinuosDamageHitBox : MonoBehaviour {
     // Atributos
     DamageAtributes _damageAtributes;
     StatusManager _dealerStatus;
@@ -21,8 +20,7 @@ public class ContinuosDamageHitBox : MonoBehaviour
     // Event
     public event Action OnHit;
 
-    public void Initialize(DamageContext context)
-    {
+    public void Initialize(DamageContext context) {
         _damageAtributes = context.Atributes;
         _dealerStatus = context.StatusManager;
 
@@ -31,11 +29,9 @@ public class ContinuosDamageHitBox : MonoBehaviour
         _attackCooldownCoroutine ??= StartCoroutine(AttackCooldown());
     }
 
-    IEnumerator AttackDuration()
-    {
+    IEnumerator AttackDuration() {
         float timer = 0;
-        while (timer < _damageAtributes.HitBoxDuration)
-        {
+        while (timer < _damageAtributes.HitBoxDuration) {
             timer += Time.deltaTime;
             yield return null;
         }
@@ -43,34 +39,26 @@ public class ContinuosDamageHitBox : MonoBehaviour
         End();
     }
 
-    IEnumerator AttackCooldown()
-    {
-        while (true)
-        {
+    IEnumerator AttackCooldown() {
+        while (true) {
             List<GameObject> desactiveUnits = new();
 
-            foreach (GameObject unit in _listOfHealths)
-            {
+            foreach (GameObject unit in _listOfHealths) {
 
-                if (!unit.activeInHierarchy)
-                {
+                if (!unit.activeInHierarchy) {
                     desactiveUnits.Add(unit);
                     continue;
                 }
-                if (!unit.TryGetComponent<HealthManager>(out HealthManager health))
-                {
+                if (!unit.TryGetComponent<HealthManager>(out HealthManager health)) {
                     health = unit.GetComponentInParent<HealthManager>();
-                    if (health == null)
-                    {
+                    if (health == null) {
                         Debug.Log("No HealthManager found in this object or its parents");
                         continue;
                     }
                 }
-                if (!unit.TryGetComponent<StatusManager>(out StatusManager recieverManager))
-                {
+                if (!unit.TryGetComponent<StatusManager>(out StatusManager recieverManager)) {
                     recieverManager = unit.GetComponentInParent<StatusManager>();
-                    if (recieverManager == null)
-                    {
+                    if (recieverManager == null) {
                         Debug.Log("No StatusManager found in this object or its parents");
                         continue;
                     }
@@ -80,18 +68,14 @@ public class ContinuosDamageHitBox : MonoBehaviour
 
                 (float, bool) newDamage;
                 if (_damageAtributes.ExtraAtributes.ContainsKey(ExtraDamageContextAtributes.CritRate) &&
-                    _damageAtributes.ExtraAtributes.ContainsKey(ExtraDamageContextAtributes.CritDamage))
-                {
+                    _damageAtributes.ExtraAtributes.ContainsKey(ExtraDamageContextAtributes.CritDamage)) {
                     newDamage = DamageCalculator.CalculateDamage(
                     _damageAtributes,
-                    _damageAtributes.ExtraAtributes[ExtraDamageContextAtributes.CritRate],
-                    _damageAtributes.ExtraAtributes[ExtraDamageContextAtributes.CritDamage],
                     _dealerStatus,
                     recieverManager
                     );
                 }
-                else
-                {
+                else {
                     newDamage = DamageCalculator.CalculateDamage(
                     _damageAtributes,
                     _dealerStatus,
@@ -107,8 +91,7 @@ public class ContinuosDamageHitBox : MonoBehaviour
 
             }
 
-            foreach (var enemy in desactiveUnits)
-            {
+            foreach (var enemy in desactiveUnits) {
                 _listOfHealths.Remove(enemy);
             }
 
@@ -116,28 +99,33 @@ public class ContinuosDamageHitBox : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
+    private void OnTriggerEnter(Collider other) {
         if (!_damageAtributes.UnitsToHit.Any(tag => other.CompareTag(tag.ToString()))) return;
 
         _listOfHealths.Add(other.gameObject);
     }
 
-    private void OnTriggerExit(Collider other)
-    {
+    private void OnTriggerExit(Collider other) {
         if (!_damageAtributes.UnitsToHit.Any(tag => other.CompareTag(tag.ToString()))) return;
 
         _listOfHealths.Remove(other.gameObject);
     }
 
-    public void End()
-    {
+    public void End() {
         OnHit = null;
 
-        _durationCoroutine = null;
-        _attackCooldownCoroutine = null;
+        if (_durationCoroutine != null) {
+            StopCoroutine(_durationCoroutine);
+            _durationCoroutine = null;
+        }
+
+        if (_attackCooldownCoroutine != null) {
+            StopCoroutine(_attackCooldownCoroutine);
+            _attackCooldownCoroutine = null;
+        }
 
         _listOfHealths.Clear();
+
         PoolingManager.Instance.ReturnObjectToPool(this.gameObject, TypeOfSkillPrefab.Hitbox);
     }
 }

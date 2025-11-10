@@ -1,7 +1,7 @@
 using System;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 using Debug = UnityEngine.Debug;
 
 public class PlayerInteractionManager : MonoBehaviour
@@ -25,15 +25,30 @@ public class PlayerInteractionManager : MonoBehaviour
     [SerializeField,Tooltip("PlayerMovementManager reference")]
     private PlayerMovementManager playerMovementManager;
     
+    private RoomEnterable _roomEnterable;
+    private Button editorRoomButton;
+
+    private bool cameraInfo;
+    public event Action OnEditorInteraction;
+    
     private void OnEnable()
     {
         CanvasTavernaManager.OnTavernaLoaded += CanvasTavernaManager_OnDisable;
+    }
+
+    private void OnDisable()
+    {
+        CameraCenterTaverna.Instance.OnCameraChanged -= ChangeCamera;
     }
 
     private void CanvasTavernaManager_OnDisable()
     {
         _dialogueSystem = CanvasTavernaManager.Instance.DialogueSystem;
         _mapManager = CanvasTavernaManager.Instance.MapManager;
+        editorRoomButton = CanvasTavernaManager.Instance.EditorRoomButton;
+        CameraCenterTaverna.Instance.OnCameraChanged += ChangeCamera;
+        CameraCenterTaverna.Instance.SetPlayerTransform(transform);
+        editorRoomButton.onClick.AddListener(OnEditorInteractionEvent);
         CanvasTavernaManager.OnTavernaLoaded -= CanvasTavernaManager_OnDisable;
     }
     
@@ -101,4 +116,25 @@ public class PlayerInteractionManager : MonoBehaviour
         if(context.canceled)_isInteracting = false;
     }
     
+    public void EditorInteractionMap(InputAction.CallbackContext context)
+    {
+        if(_roomEnterable is null) return;
+        if(context.started) OnEditorInteractionEvent();
+    }
+    
+    public void OnEditorInteractionEvent()
+    {
+        OnEditorInteraction?.Invoke();
+    }
+
+    public void SetRoomEnterable(RoomEnterable roomEnterable)
+    {
+        _roomEnterable = roomEnterable;
+    }
+
+    private void ChangeCamera()
+    { 
+        cameraInfo = CameraCenterTaverna.Instance.GetCamera();
+        playerMovementManager.RoomEditor(cameraInfo);
+    }
 }

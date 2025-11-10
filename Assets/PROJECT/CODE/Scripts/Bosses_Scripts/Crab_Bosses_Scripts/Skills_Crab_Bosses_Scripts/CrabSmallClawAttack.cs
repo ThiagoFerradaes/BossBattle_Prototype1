@@ -29,7 +29,6 @@ public class CrabSmallClawAttack : EnemyBehaviourSO
     [Header("Attack Atributes")]
     [SerializeField] float amoutOfAttacks;
     [SerializeField] float cooldownBetweenAttacks;
-    [SerializeField] Vector3 sizeOfHitbox;
 
     [Header("Damage Atributes")]
     [SerializeField] DamageAtributes damageAtributes;
@@ -137,13 +136,13 @@ public class CrabSmallClawAttack : EnemyBehaviourSO
 
         warningObject.transform.SetParent(_crabManager.transform, false);
 
-        Vector3 hitboxPosition = new(warningPosition.x, warningPosition.y, sizeOfHitbox.z / 2);
+        Vector3 hitboxPosition = new(warningPosition.x, warningPosition.y, damageAtributes.Size.z / 2);
         float y = ArenaManager.Instance.FindGroundHeight(hitboxPosition);
         hitboxPosition.y = y;
         warningObject.transform.SetLocalPositionAndRotation(hitboxPosition, Quaternion.identity);
 
 
-        warningObject.transform.localScale = warningSize;
+        warningObject.transform.localScale = damageAtributes.Size;
 
         for (int i = 0; i < warningRepetitionAmount; i++) {
             warningObject.SetActive(true);
@@ -157,9 +156,9 @@ public class CrabSmallClawAttack : EnemyBehaviourSO
     void InstantiateHitBox(SkillAnimationEvent prefab)
     {
         GameObject hitbox = PoolingManager.Instance.ReturnPrefabFromPool(prefab.PreFab, TypeOfSkillPrefab.Hitbox);
-        hitbox.transform.localScale = sizeOfHitbox;
+        hitbox.transform.localScale = damageAtributes.Size;
         hitbox.transform.SetParent(_crabManager.transform, false);
-        Vector3 hitboxPosition = new(prefab.PreFabPosition.x, prefab.PreFabPosition.y, sizeOfHitbox.z/2);
+        Vector3 hitboxPosition = new(prefab.PreFabPosition.x, prefab.PreFabPosition.y, damageAtributes.Size.z/2);
         hitbox.transform.SetLocalPositionAndRotation(hitboxPosition, Quaternion.identity);
 
         DamageContext context = new(

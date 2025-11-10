@@ -13,19 +13,39 @@ MonoBehaviour:
   m_Name: LilianJudgmentDay
   m_EditorClassIdentifier: Assembly-CSharp::LilianJudgmentDaySO
   SkillManagerObject: {fileID: 8939686091223594809, guid: f1e9f3f5c16d11e47847db26919ba162, type: 3}
-  SkillManagerName: LilianJudgmentDayManager
   Prefabs:
     _serializedList:
     - Key: 0
-      Value: []
+      Value:
+      - TimeToSpawnPreFab: 0.5
+        PrefabType: 0
+        PrefabDuration: 0
+        PreFab: {fileID: 8998219623033830514, guid: f2cad2093c1cc8042a97d053a88618a0, type: 3}
+        PreFabPosition: {x: 0, y: 0, z: 0}
   SkillObjectRangeObject: {fileID: 0}
-  SkillObjectRangeName: 
   BlockWalkWhilePreCasting: 1
   BlockDashWhilePreCasting: 1
   PreCastOn: 0
   SkillCharacter: 2
   Cancelable: 0
-  EnergyCost: 30
+  EnergyCost: 50
+  Atributes:
+    DamageType: 1
+    UnitsToHit: 00000000
+    Damage: 5
+    HitShield: 1
+    BreakShield: 0
+    Size: {x: 20, y: 20, z: 20}
+    TypeOfPrefab: 1
+    HitBoxDuration: 1e+17
+    DamageCooldown: 0.5
+    Distance: 5
+    Speed: 10
+    CrossEnemy: 0
+    ExtraAtributes:
+      _serializedList: []
   AnimationParameter: Judgment
   AnimationName: Lilian_Skill_BurstPart1
-  PercentOfCurrentHealthToCauseWrath: 50
+  DamageToLilian: 10
+  HealthLimit: 10
+  InitialHeal: 10

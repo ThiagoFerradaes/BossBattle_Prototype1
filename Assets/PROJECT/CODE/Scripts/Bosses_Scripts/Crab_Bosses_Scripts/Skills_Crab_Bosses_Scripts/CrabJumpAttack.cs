@@ -89,7 +89,6 @@ public class CrabJumpAttack : EnemyBehaviourSO {
         } while (stateInfo.fullPathHash == attackStateHash && stateInfo.normalizedTime < 1);
 
         Sequence jumpSequence = DOTween.Sequence();
-
         jumpSequence.Append(_crabManager.transform.DOJump(finalPos, jumpForce, 1, jumpDuration));
 
         jumpSequence.Insert(jumpDuration / 2, DOVirtual.DelayedCall(0, () => _anim.SetBool(jumpUpAnimationParameter, false)));
@@ -113,7 +112,7 @@ public class CrabJumpAttack : EnemyBehaviourSO {
 
     IEnumerator WarningRoutine(Vector3 pos) {
         GameObject warningObject = PoolingManager.Instance.ReturnPrefabFromPool(warningPrefab, TypeOfSkillPrefab.PreCastRange);
-
+        pos.y = 0.5f;
         warningObject.transform.position = pos;
         warningObject.transform.localScale = warningSize;
 
@@ -129,6 +128,7 @@ public class CrabJumpAttack : EnemyBehaviourSO {
     Vector3 ReturnPositionCloseToPlayer() {
         Vector3 direction = (_crabManager.transform.position - _crabManager.Player.transform.position).normalized;
         Vector3 position = _crabManager.Player.transform.position + direction * jumpDistanceToPlayer;
+        position.y = 0;
         return position;
     }
 
