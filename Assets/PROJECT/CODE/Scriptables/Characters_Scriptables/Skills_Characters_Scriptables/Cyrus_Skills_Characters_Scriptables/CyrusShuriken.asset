@@ -16,7 +16,12 @@ MonoBehaviour:
   Prefabs:
     _serializedList:
     - Key: 0
-      Value: []
+      Value:
+      - TimeToSpawnPreFab: 0.5
+        PrefabType: 0
+        PrefabDuration: 0
+        PreFab: {fileID: 8998219623033830514, guid: 690c34d54c88e12448b7561adfe65ab9, type: 3}
+        PreFabPosition: {x: 0, y: 1, z: 0}
   SkillObjectRangeObject: {fileID: 0}
   BlockWalkWhilePreCasting: 1
   BlockDashWhilePreCasting: 1
@@ -41,7 +46,10 @@ MonoBehaviour:
       _serializedList: []
   AnimationParameter: Shuriken
   AnimationName: Shuriken
-  RotationSpeed: 120
+  RotationSpeed: 360
+  InitialAngle: 0
+  Radius: 3
+  AmountOfShurikensLevelZero: 2
   AmountOfUsesPerLevel:
     _serializedList:
     - Key: 0
@@ -50,6 +58,8 @@ MonoBehaviour:
       Value: 1
     - Key: 2
       Value: 1
+  AmountOfShurikensLevelOne: 4
   PenetrationLevelOne: 30
-  RotationSpeedLevelTwo: 240
-  RotationSpeedLevelThree: 360
+  AmountOfShurikensLevelTwo: 6
+  RotationSpeedLevelTwo: 480
+  RotationSpeedLevelThree: 720

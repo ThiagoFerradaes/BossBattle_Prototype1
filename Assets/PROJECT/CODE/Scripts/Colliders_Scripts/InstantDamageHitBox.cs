@@ -29,14 +29,16 @@ public class InstantDamageHitBox : MonoBehaviour
     #endregion
 
     #region Methods
-    public void Initialize(DamageContext context)
+    public void Initialize(DamageContext context, bool hasTimer = true)
     {
         _damageAtributes = context.Atributes;
         _statusManager = context.StatusManager;
 
         gameObject.SetActive(true);
-        StartCoroutine(AttackDuration());
+        if (hasTimer) StartCoroutine(AttackDuration());
     }
+
+    public void ForceEnd() => End();
     IEnumerator AttackDuration()
     {
         float timer = 0;
