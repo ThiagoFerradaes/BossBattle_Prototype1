@@ -13,7 +13,7 @@ GameObject:
   m_Layer: 0
   m_Name: CyrusShurikenManager
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -29,7 +29,11 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 4052069770599459519}
+  - {fileID: 7398882369068958169}
+  - {fileID: 2531789170887947601}
+  - {fileID: 4119445912420051395}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1672021949089473204
@@ -44,3 +48,318 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2d8aafb93a3fd74294df1090032fa26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CyrusShurikenSkillManager
+  shurikenLevelZero: {fileID: 1774453347031278575}
+  ListOfShurikensLevelOne:
+  - {fileID: 1774453347031278575}
+  - {fileID: 268369624839781377}
+  ListOfShurikensLevelTwo:
+  - {fileID: 5059183155456575625}
+  - {fileID: 1851258918036824211}
+--- !u!1001 &2414309528321104965
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2054002135607230333}
+    m_Modifications:
+    - target: {fileID: 4684495465048104229, guid: 722f76bd101b04045ac487bb18e6c058, type: 3}
+      propertyPath: m_Name
+      value: WestShuriken
+      objectReference: {fileID: 0}
+    - target: {fileID: 4684495465048104229, guid: 722f76bd101b04045ac487bb18e6c058, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5129395368603819420, guid: 722f76bd101b04045ac487bb18e6c058, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5129395368603819420, guid: 722f76bd101b04045ac487bb18e6c058, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5129395368603819420, guid: 722f76bd101b04045ac487bb18e6c058, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5129395368603819420, guid: 722f76bd101b04045ac487bb18e6c058, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5129395368603819420, guid: 722f76bd101b04045ac487bb18e6c058, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5129395368603819420, guid: 722f76bd101b04045ac487bb18e6c058, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5129395368603819420, guid: 722f76bd101b04045ac487bb18e6c058, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5129395368603819420, guid: 722f76bd101b04045ac487bb18e6c058, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5129395368603819420, guid: 722f76bd101b04045ac487bb18e6c058, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5129395368603819420, guid: 722f76bd101b04045ac487bb18e6c058, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 722f76bd101b04045ac487bb18e6c058, type: 3}
+--- !u!114 &5059183155456575625 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7472753808201389260, guid: 722f76bd101b04045ac487bb18e6c058, type: 3}
+  m_PrefabInstance: {fileID: 2414309528321104965}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 325399cb726a8f045a80bc48bb8eaebb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InstantDamageHitBox
+--- !u!4 &7398882369068958169 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5129395368603819420, guid: 722f76bd101b04045ac487bb18e6c058, type: 3}
+  m_PrefabInstance: {fileID: 2414309528321104965}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &7209697027576228045
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2054002135607230333}
+    m_Modifications:
+    - target: {fileID: 4684495465048104229, guid: 722f76bd101b04045ac487bb18e6c058, type: 3}
+      propertyPath: m_Name
+      value: SouthShuriken
+      objectReference: {fileID: 0}
+    - target: {fileID: 4684495465048104229, guid: 722f76bd101b04045ac487bb18e6c058, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5129395368603819420, guid: 722f76bd101b04045ac487bb18e6c058, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5129395368603819420, guid: 722f76bd101b04045ac487bb18e6c058, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5129395368603819420, guid: 722f76bd101b04045ac487bb18e6c058, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5129395368603819420, guid: 722f76bd101b04045ac487bb18e6c058, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5129395368603819420, guid: 722f76bd101b04045ac487bb18e6c058, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5129395368603819420, guid: 722f76bd101b04045ac487bb18e6c058, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5129395368603819420, guid: 722f76bd101b04045ac487bb18e6c058, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5129395368603819420, guid: 722f76bd101b04045ac487bb18e6c058, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5129395368603819420, guid: 722f76bd101b04045ac487bb18e6c058, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5129395368603819420, guid: 722f76bd101b04045ac487bb18e6c058, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 722f76bd101b04045ac487bb18e6c058, type: 3}
+--- !u!114 &268369624839781377 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7472753808201389260, guid: 722f76bd101b04045ac487bb18e6c058, type: 3}
+  m_PrefabInstance: {fileID: 7209697027576228045}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 325399cb726a8f045a80bc48bb8eaebb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InstantDamageHitBox
+--- !u!4 &2531789170887947601 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5129395368603819420, guid: 722f76bd101b04045ac487bb18e6c058, type: 3}
+  m_PrefabInstance: {fileID: 7209697027576228045}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &9080510096396612703
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2054002135607230333}
+    m_Modifications:
+    - target: {fileID: 4684495465048104229, guid: 722f76bd101b04045ac487bb18e6c058, type: 3}
+      propertyPath: m_Name
+      value: LestShuriken
+      objectReference: {fileID: 0}
+    - target: {fileID: 4684495465048104229, guid: 722f76bd101b04045ac487bb18e6c058, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5129395368603819420, guid: 722f76bd101b04045ac487bb18e6c058, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5129395368603819420, guid: 722f76bd101b04045ac487bb18e6c058, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5129395368603819420, guid: 722f76bd101b04045ac487bb18e6c058, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5129395368603819420, guid: 722f76bd101b04045ac487bb18e6c058, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5129395368603819420, guid: 722f76bd101b04045ac487bb18e6c058, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5129395368603819420, guid: 722f76bd101b04045ac487bb18e6c058, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5129395368603819420, guid: 722f76bd101b04045ac487bb18e6c058, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5129395368603819420, guid: 722f76bd101b04045ac487bb18e6c058, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5129395368603819420, guid: 722f76bd101b04045ac487bb18e6c058, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5129395368603819420, guid: 722f76bd101b04045ac487bb18e6c058, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 722f76bd101b04045ac487bb18e6c058, type: 3}
+--- !u!114 &1851258918036824211 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7472753808201389260, guid: 722f76bd101b04045ac487bb18e6c058, type: 3}
+  m_PrefabInstance: {fileID: 9080510096396612703}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 325399cb726a8f045a80bc48bb8eaebb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InstantDamageHitBox
+--- !u!4 &4119445912420051395 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5129395368603819420, guid: 722f76bd101b04045ac487bb18e6c058, type: 3}
+  m_PrefabInstance: {fileID: 9080510096396612703}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &9157104565194585891
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2054002135607230333}
+    m_Modifications:
+    - target: {fileID: 4684495465048104229, guid: 722f76bd101b04045ac487bb18e6c058, type: 3}
+      propertyPath: m_Name
+      value: NorthShuriken
+      objectReference: {fileID: 0}
+    - target: {fileID: 4684495465048104229, guid: 722f76bd101b04045ac487bb18e6c058, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5129395368603819420, guid: 722f76bd101b04045ac487bb18e6c058, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5129395368603819420, guid: 722f76bd101b04045ac487bb18e6c058, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5129395368603819420, guid: 722f76bd101b04045ac487bb18e6c058, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5129395368603819420, guid: 722f76bd101b04045ac487bb18e6c058, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5129395368603819420, guid: 722f76bd101b04045ac487bb18e6c058, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5129395368603819420, guid: 722f76bd101b04045ac487bb18e6c058, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5129395368603819420, guid: 722f76bd101b04045ac487bb18e6c058, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5129395368603819420, guid: 722f76bd101b04045ac487bb18e6c058, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5129395368603819420, guid: 722f76bd101b04045ac487bb18e6c058, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5129395368603819420, guid: 722f76bd101b04045ac487bb18e6c058, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 722f76bd101b04045ac487bb18e6c058, type: 3}
+--- !u!114 &1774453347031278575 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7472753808201389260, guid: 722f76bd101b04045ac487bb18e6c058, type: 3}
+  m_PrefabInstance: {fileID: 9157104565194585891}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 325399cb726a8f045a80bc48bb8eaebb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InstantDamageHitBox
+--- !u!4 &4052069770599459519 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5129395368603819420, guid: 722f76bd101b04045ac487bb18e6c058, type: 3}
+  m_PrefabInstance: {fileID: 9157104565194585891}
+  m_PrefabAsset: {fileID: 0}

@@ -1,16 +1,24 @@
+using AYellowpaper.SerializedCollections;
+using NaughtyAttributes;
 using UnityEngine;
 
-public class CyrusShurikenSkillSO : MonoBehaviour
-{
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+[CreateAssetMenu(menuName = "Characters/ Skills/ Cyrus/ Shuriken")]
+public class CyrusShurikenSkillSO : UltimateSkillSO {
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [Header("Animation")]
+    [Foldout("Specific")] public string AnimationParameter;
+    [Foldout("Specific")] public string AnimationName;
+
+    [Header("Level Zero Atributes")]
+    [Foldout("Specific")] public float RotationSpeed;
+    [Foldout("Specific"), SerializedDictionary("Level", "Amount")] public SerializedDictionary<int, int> AmountOfUsesPerLevel;
+
+    [Header("Level One Atributes")]
+    [Foldout("Specific")] public float PenetrationLevelOne;
+
+    [Header("Level Two Atributes")]
+    [Foldout("Specific")] public float RotationSpeedLevelTwo;
+
+    [Header("Level Two Atributes")]
+    [Foldout("Specific")] public float RotationSpeedLevelThree;
 }
