@@ -45,6 +45,25 @@ public class DamageAtributes {
     [Header("Extra atributes"), Tooltip("Penetration 0 - 0.75")]
     [SerializedDictionary("Extra atribute", "Value")]
     public SerializedDictionary<ExtraDamageContextAtributes, float> ExtraAtributes;
+
+    public DamageAtributes(DamageAtributes source) {
+        DamageType = source.DamageType;
+        UnitsToHit = source.UnitsToHit;
+        Damage = source.Damage;
+        HitShield = source.HitShield;
+        BreakShield = source.BreakShield;
+        Size = source.Size;
+        TypeOfPrefab = source.TypeOfPrefab;
+        HitBoxDuration = source.HitBoxDuration;
+        DamageCooldown = source.DamageCooldown;
+        Distance = source.Distance;
+        Speed = source.Speed;
+        CrossEnemy = source.CrossEnemy;
+
+        ExtraAtributes = new SerializedDictionary<ExtraDamageContextAtributes, float>();
+        foreach (var kvp in source.ExtraAtributes)
+            ExtraAtributes.Add(kvp.Key, kvp.Value);
+    }
 }
 public static class DamageCalculator {
     public static (float, bool) CalculateDamage( // Considerando o crítico do personagem

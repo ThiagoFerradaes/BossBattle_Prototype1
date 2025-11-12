@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: CyrusAxeAttack
   m_EditorClassIdentifier: 
   SkillManagerObject: {fileID: 8217681042118647236, guid: e6293f237e32a1a40a1e3d233031b521, type: 3}
-  SkillManagerName: AxeAttackManager
   Prefabs:
     _serializedList:
     - Key: 0
@@ -29,7 +28,6 @@ MonoBehaviour:
         PreFab: {fileID: 8271028322271159555, guid: 02de40013cebfe2448edca155583a4c1, type: 3}
         PreFabPosition: {x: 0, y: 0.5, z: 1.5}
   SkillObjectRangeObject: {fileID: 7295537954416935036, guid: 2cd15af29a69803439873d8a1751fec9, type: 3}
-  SkillObjectRangeName: AxeAttackRangeIndicator
   BlockWalkWhilePreCasting: 1
   BlockDashWhilePreCasting: 1
   PreCastOn: 1
@@ -43,11 +41,12 @@ MonoBehaviour:
   SkillDamageAtributes:
     DamageType: 0
     UnitsToHit: 00000000
-    Damage: 149.95833
-    HitBoxDuration: 0.1
+    Damage: 60
     HitShield: 1
     BreakShield: 0
+    Size: {x: 0, y: 0, z: 0}
     TypeOfPrefab: 0
+    HitBoxDuration: 0.1
     DamageCooldown: 0.1
     Distance: 5
     Speed: 10
@@ -78,10 +77,11 @@ MonoBehaviour:
     DamageType: 1
     UnitsToHit: 00000000
     Damage: 5
-    HitBoxDuration: 10
     HitShield: 1
     BreakShield: 0
+    Size: {x: 0, y: 0, z: 0}
     TypeOfPrefab: 1
+    HitBoxDuration: 10
     DamageCooldown: 0.5
     Distance: 5
     Speed: 10

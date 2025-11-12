@@ -174,7 +174,9 @@ public class CyrusShurikenSkillManager : SkillObjectManager
 
             shuriken.transform.SetLocalPositionAndRotation(shurikenPosition, Quaternion.identity);
 
-            DamageContext newContext = new(_info.Atributes, statusManager);
+            DamageAtributes newAtributes = new(_info.Atributes);
+            if (_skillLevel > 0) newAtributes.ExtraAtributes[ExtraDamageContextAtributes.Penetration] = _info.PenetrationLevelOne;
+            DamageContext newContext = new(newAtributes, statusManager);
 
             InstantDamageHitBox collider = shuriken.GetComponent<InstantDamageHitBox>();
 

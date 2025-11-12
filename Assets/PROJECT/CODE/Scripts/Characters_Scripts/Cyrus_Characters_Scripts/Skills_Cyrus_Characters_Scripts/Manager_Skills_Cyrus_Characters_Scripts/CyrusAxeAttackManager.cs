@@ -167,9 +167,10 @@ public class CyrusAxeAttackManager : SkillObjectManager {
         preFab.transform.SetParent(parent.transform, false);
         preFab.transform.SetLocalPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.identity);
 
-        DamageAtributes atributes = _info.SkillDamageAtributes;
-        atributes.Damage = ReturnDamage();
-        atributes.BreakShield = ReturnBreakShield();
+        DamageAtributes atributes = new(_info.SkillDamageAtributes) {
+            Damage = ReturnDamage(),
+            BreakShield = ReturnBreakShield()
+        };
 
         DamageContext newContext = new(
             atributes,

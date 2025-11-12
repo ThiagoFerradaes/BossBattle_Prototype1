@@ -69,7 +69,7 @@ public class CyrusSpearAttackManager : SkillObjectManager {
 
         float penetration = _skillLevel > 2 ? _info.Level3Penetration : 0;
 
-        DamageAtributes atributes = _info.SkillDamageAtributes;
+        DamageAtributes atributes = new(_info.SkillDamageAtributes);
         atributes.ExtraAtributes[ExtraDamageContextAtributes.Penetration] = penetration;
 
         DamageContext newContext = new(
