@@ -30,9 +30,7 @@ public class CyrusKanaboSkillManager : SkillObjectManager
         base.FirstFunc();
 
         cooldownManager.SetCooldownSingleCharge(slot, _info.Cooldown);
-        Debug.Log("old level = " + _skillLevel);
         if (_skillLevel < 3) CyrusPassiveManager.Instance.AddUseSkill(slot, _info.AmountOfUsesPerLevel[_skillLevel]);
-        Debug.Log("new level = " + _skillLevel);
     }
 
     public override void FourthFunc() {

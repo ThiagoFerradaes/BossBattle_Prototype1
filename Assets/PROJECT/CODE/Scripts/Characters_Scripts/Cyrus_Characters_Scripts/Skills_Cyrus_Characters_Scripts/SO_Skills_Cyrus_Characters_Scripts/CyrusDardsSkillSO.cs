@@ -1,16 +1,26 @@
+using AYellowpaper.SerializedCollections;
+using NaughtyAttributes;
 using UnityEngine;
 
-public class CyrusDardsSkillSO : MonoBehaviour
+[CreateAssetMenu(menuName = "Characters/ Skills/ Cyrus/ Dards")]
+public class CyrusDardsSkillSO : CommonSkillSO
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    [Header("Animation")]
+    [Foldout("Specific")] public string AnimationParameter;
+    [Foldout("Specific")] public string AnimationName;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [Header("Level Zero Atributes")]
+    [Foldout("Specific")] public float AmountOfDards;
+    [Foldout("Specific"), SerializedDictionary("Level", "Amount")] public SerializedDictionary<int, int> AmountOfUsesPerLevel;
+
+    [Header("Level One Atributes")]
+    [Foldout("Specific")] public float AmountOfDefenseDrop;
+    [Foldout("Specific")] public float DefenseDropDuration;
+
+    [Header("Level Two Atributes")]
+    [Foldout("Specific")] public float CooldownLevelTwo;
+
+    [Header("Level Three Atributes")]
+    [Foldout("Specific")] public float AmountOfDardsLevelThree;
+    [Foldout("Specific")] public float TimeBetweenDards;
 }

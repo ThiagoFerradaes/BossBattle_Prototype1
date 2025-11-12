@@ -9,6 +9,7 @@ public class PlayerSkillCooldownManager : MonoBehaviour
 
     // Dictionaries
     private Dictionary<SkillSlot, float> _cooldowns = new();
+    private Dictionary<SkillSlot, float> _MaxCooldowns = new();
     private Dictionary<SkillSlot, Coroutine> _runningCoroutines = new();
     private Dictionary<SkillSlot, int> _chargesDictionary = new();
     private Dictionary<SkillSlot, bool> _cooldownChargeDictionary = new();
@@ -58,7 +59,7 @@ public class PlayerSkillCooldownManager : MonoBehaviour
     #region CooldownLogic
     public void SetCooldownWithCharges(SkillSlot slot, CommonSkillSO skill)
     {
-        if (_chargesDictionary[slot] == skill.Charges) _cooldowns[slot] = skill.Cooldown;
+        _MaxCooldowns[slot] = skill.Cooldown;
 
         _chargesDictionary[slot] = Mathf.Max(0, _chargesDictionary[slot] - 1);
         OnChargesChange?.Invoke(slot, _chargesDictionary[slot]);
@@ -69,7 +70,18 @@ public class PlayerSkillCooldownManager : MonoBehaviour
         _runningCoroutines[slot] ??= StartCoroutine(CooldownCoroutine(slot, skill.Charges));
 
     }
+    public void SetCooldownWithCharges(SkillSlot slot, CommonSkillSO skill, float cooldown) {
+        _MaxCooldowns[slot] = cooldown;
 
+        _chargesDictionary[slot] = Mathf.Max(0, _chargesDictionary[slot] - 1);
+        OnChargesChange?.Invoke(slot, _chargesDictionary[slot]);
+
+        _cooldownChargeDictionary[slot] = true;
+        StartCoroutine(CooldownBetweenChargesRoutine(slot, skill.ChargeCooldown));
+
+        _runningCoroutines[slot] ??= StartCoroutine(CooldownCoroutine(slot, skill.Charges));
+
+    }
     IEnumerator CooldownBetweenChargesRoutine(SkillSlot slot, float cooldown)
     {
         yield return new WaitForSeconds(cooldown);
@@ -82,15 +94,16 @@ public class PlayerSkillCooldownManager : MonoBehaviour
         _chargesDictionary[slot] = Mathf.Max(0, _chargesDictionary[slot] - 1);
         OnChargesChange?.Invoke(slot, _chargesDictionary[slot]);
 
-        _cooldowns[slot] = cooldown;
+        _MaxCooldowns[slot] = cooldown;
         _runningCoroutines[slot] ??= StartCoroutine(CooldownCoroutine(slot, 1));
 
     }
 
     private IEnumerator CooldownCoroutine(SkillSlot slot, int maxCharges)
     {
-        float maxCooldown = _cooldowns[slot];
-        OnCooldownSet?.Invoke(slot, maxCooldown);
+        OnCooldownSet?.Invoke(slot, _MaxCooldowns[slot]);
+        _cooldowns[slot] = _MaxCooldowns[slot];
+        Debug.Log(slot + " " + _cooldowns[slot]);
 
         while (_cooldowns[slot] > 0f)
         {
@@ -105,7 +118,7 @@ public class PlayerSkillCooldownManager : MonoBehaviour
 
         if (_chargesDictionary[slot] < maxCharges)
         {
-            _cooldowns[slot] = maxCooldown;
+            _cooldowns[slot] = _MaxCooldowns[slot];
             _runningCoroutines[slot] = StartCoroutine(CooldownCoroutine(slot, maxCharges));
         }
     }
