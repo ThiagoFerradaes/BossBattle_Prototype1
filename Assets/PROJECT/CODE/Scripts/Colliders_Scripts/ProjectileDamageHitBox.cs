@@ -79,6 +79,7 @@ public class ProjectileDamageHitBox : MonoBehaviour {
 
     void End() {
         OnHit = null;
+        OnCollision = null;
 
         StopCoroutine(_moveRoutine);
 

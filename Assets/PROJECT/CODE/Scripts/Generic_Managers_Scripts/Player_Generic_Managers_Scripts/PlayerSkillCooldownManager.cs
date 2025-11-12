@@ -103,7 +103,6 @@ public class PlayerSkillCooldownManager : MonoBehaviour
     {
         OnCooldownSet?.Invoke(slot, _MaxCooldowns[slot]);
         _cooldowns[slot] = _MaxCooldowns[slot];
-        Debug.Log(slot + " " + _cooldowns[slot]);
 
         while (_cooldowns[slot] > 0f)
         {

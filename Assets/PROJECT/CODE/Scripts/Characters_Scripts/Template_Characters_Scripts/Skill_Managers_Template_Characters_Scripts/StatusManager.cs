@@ -44,7 +44,6 @@ public class StatusManager : MonoBehaviour {
 
         if (increase) _listOfStatus[type] *= (1 + percent);
         else _listOfStatus[type] /= (1 + percent);
-
         _listOfStatus[type] = Mathf.Max(0.01f, _listOfStatus[type]);
 
     }
