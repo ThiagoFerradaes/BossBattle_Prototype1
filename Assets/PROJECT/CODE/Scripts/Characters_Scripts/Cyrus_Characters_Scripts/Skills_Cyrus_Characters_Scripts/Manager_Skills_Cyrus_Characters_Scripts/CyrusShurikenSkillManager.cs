@@ -9,10 +9,11 @@ public class CyrusShurikenSkillManager : SkillObjectManager
 
     float _rotationSpeed;
     int _skillLevel;
+    bool isFirstTimeLevelThree = true;
 
     Coroutine _rotationRoutine, _accelerateRoutine;
 
-    List<InstantDamageHitBox> _listOfShurikens = new();
+    public List<InstantDamageHitBox> _listOfShurikens = new();
 
     public override void UseSkill(SkillSO skill)
     {
@@ -39,8 +40,6 @@ public class CyrusShurikenSkillManager : SkillObjectManager
 
         energyManager.SetCanGainEnergy(false);
         energyManager.LooseAllEnergy();
-
-        if (_skillLevel < 3) CyrusPassiveManager.Instance.AddUseSkill(slot, _info.AmountOfUsesPerLevel[_skillLevel]);
     }
 
     public override void ThirdFunc()
@@ -59,12 +58,13 @@ public class CyrusShurikenSkillManager : SkillObjectManager
     {
         base.FourthFunc();
 
+        if (_skillLevel < 3) CyrusPassiveManager.Instance.AddUseSkill(slot, _info.AmountOfUsesPerLevel[_skillLevel]);
+
         UnblockInputs();
     }
 
     IEnumerator Duration()
     {
-        Debug.Log("Duration");
         float timer = 0f;
         float currentAngle = 0f;
 
@@ -88,6 +88,8 @@ public class CyrusShurikenSkillManager : SkillObjectManager
 
         foreach (var shuriken in _listOfShurikens) shuriken.ForceEnd();
 
+        _listOfShurikens.Clear();
+
         energyManager.SetCanGainEnergy(true);
         _rotationRoutine = null;
         End();
@@ -95,7 +97,6 @@ public class CyrusShurikenSkillManager : SkillObjectManager
 
     IEnumerator DurationLevelThree()
     {
-        Debug.Log("Duration3");
         float currentAngle = 0f;
 
         while (true)
@@ -117,8 +118,19 @@ public class CyrusShurikenSkillManager : SkillObjectManager
 
         yield return new WaitForSeconds(_info.Atributes.HitBoxDuration);
 
+        for (int i = 0; i < _listOfShurikens.Count; i++)
+        {
+            if ((i + 1) % 2 == 0)
+            {
+                _listOfShurikens[i].ForceEnd();
+                _listOfShurikens[i] = null;
+            }
+        }
+
+        isFirstTimeLevelThree = false;
         energyManager.SetCanGainEnergy(true);
         _rotationSpeed = _info.RotationSpeed;
+        _accelerateRoutine = null;
     }
     public override void InstantiateHitBox(SkillAnimationEvent prefab)
     {
@@ -136,10 +148,24 @@ public class CyrusShurikenSkillManager : SkillObjectManager
             case 2:
                 amountOfShurikens = _info.AmountOfShurikensLevelTwo;
                 break;
+            case 3:
+                amountOfShurikens = _info.AmountOfShurikensLevelTwo;
+                break;
         }
+
+        InstantiateShuriken(prefab, amountOfShurikens);
+    }
+
+    void InstantiateShuriken(SkillAnimationEvent prefab, int amountOfShurikens)
+    {
 
         for (int i = 0; i < amountOfShurikens; i++)
         {
+            if (_skillLevel >= 3 && !isFirstTimeLevelThree)
+            {
+                if (i < _listOfShurikens.Count && _listOfShurikens[i] != null) continue;
+            }
+
             GameObject shuriken = PoolingManager.Instance.ReturnPrefabFromPool(prefab.PreFab, TypeOfSkillPrefab.Hitbox);
             Vector2 pos = GetPosition(i, amountOfShurikens);
             Vector3 shurikenPosition = new(pos.x, prefab.PreFabPosition.y, pos.y);
@@ -151,10 +177,14 @@ public class CyrusShurikenSkillManager : SkillObjectManager
             DamageContext newContext = new(_info.Atributes, statusManager);
 
             InstantDamageHitBox collider = shuriken.GetComponent<InstantDamageHitBox>();
-            _listOfShurikens.Add(collider);
+
+            if (i >= _listOfShurikens.Count) _listOfShurikens.Add(collider);
+            else _listOfShurikens[i] = collider;
+
             collider.Initialize(newContext, false);
         }
     }
+
     Vector2 GetPosition(int index, int maxAmount)
     {
         float angle = _info.InitialAngle + (360 / maxAmount) * index;
