@@ -69,7 +69,7 @@ public class BastianIgnisManager : SkillObjectManager {
         float additionalCriDmg = BastianPassiveManager.Instance.ReturnMinHeat(HeatArea.LastOverHeatArea) ? _info.LastOverHeatCritDamage : 0;
         float critDamage = statusManager.ReturnStatusValue(StatusType.CritDamage) + additionalCriDmg;
 
-        DamageAtributes atributes = _info.SkillDamageAtributes;
+        DamageAtributes atributes = new(_info.SkillDamageAtributes);
         atributes.ExtraAtributes[ExtraDamageContextAtributes.Penetration] = pen;
         atributes.ExtraAtributes[ExtraDamageContextAtributes.CritRate] = critChance;
         atributes.ExtraAtributes[ExtraDamageContextAtributes.CritDamage] = critDamage;

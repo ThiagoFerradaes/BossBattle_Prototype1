@@ -1,0 +1,32 @@
+using AYellowpaper.SerializedCollections;
+using NaughtyAttributes;
+using UnityEngine;
+
+[CreateAssetMenu(menuName = "Characters/ Skills/ Cyrus/ Kanabo")]
+public class CyrusKanaboSkillSO : CommonSkillSO
+{
+    [Header("Animation")]
+    [Foldout("Specific")] public string AnimationParameter;
+    [Foldout("Specific")] public string AnimationName;
+
+    [Header("Atributes")]
+    [Foldout("Specific"), SerializedDictionary("Level", "Amount")] public SerializedDictionary<int, int> AmountOfUsesPerLevel;
+
+    [Header("Level One Atributes")]
+    [Foldout("Specific")] public float AmountOfExplosionLevelOne;
+    [Foldout("Specific")] public float TimeBetweenHitAndExplosion;
+    [Foldout("Specific")] public GameObject ExplosionPrefab;
+    [Foldout("Specific")] public DamageAtributes ExplosionAtributes;
+
+    [Header("Level Two Atributes")]
+    [Foldout("Specific")] public float AmountOfExplosionLevelTwo;
+    [Foldout("Specific")] public float ExplosionCritRateLevelTwo;
+    [Foldout("Specific")] public float TimeBetweenExplosions;
+
+    [Header("Level Three Atributes")]
+    [Foldout("Specific")] public float AmountOfExplosionLevelThree;
+    [Foldout("Specific")] public float ExplosionCritDamageLevelThree;
+    [Foldout("Specific")] public float ExplosionRadiusLevelThree;
+    [Foldout("Specific")] public GameObject ContinuosDamagePrefab;
+    [Foldout("Specific")] public DamageAtributes ContinuosDamageAreaAtributes;
+}

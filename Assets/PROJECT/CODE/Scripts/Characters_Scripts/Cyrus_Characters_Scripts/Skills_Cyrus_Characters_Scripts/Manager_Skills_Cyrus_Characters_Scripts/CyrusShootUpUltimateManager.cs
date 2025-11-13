@@ -69,12 +69,7 @@ public class CyrusShootUpUltimateManager : SkillObjectManager {
     }
 
     public override void FourthFunc() {
-        _weaponManager.OnDesequipLeftHand();
-        _weaponManager.OnDesequipRightHand();
-
-        skillManager.SkillIsInAnimation(false);
-
-        animationCoroutine = null;
+        base.FourthFunc();
 
         UnblockInputs();
     }
@@ -131,7 +126,7 @@ public class CyrusShootUpUltimateManager : SkillObjectManager {
         float charCritDamage = statusManager.ReturnStatusValue(StatusType.CritDamage);
         float critDamage = _skillLevel > 2? charCritDamage + (_amountOfHits * _info.AditionalCritDamagePerHit) : charCritDamage;
 
-        DamageAtributes atributes = _info.Atributes;
+        DamageAtributes atributes = new(_info.Atributes);
         atributes.ExtraAtributes[ExtraDamageContextAtributes.CritRate] = critRate;
         atributes.ExtraAtributes[ExtraDamageContextAtributes.CritDamage] = critDamage;
 

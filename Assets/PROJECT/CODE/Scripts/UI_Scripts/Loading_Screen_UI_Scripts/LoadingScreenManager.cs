@@ -100,6 +100,7 @@ public class LoadingScreenManager : MonoBehaviour {
             StopCoroutine(tipCoroutine);
             tipCoroutine = null;
         }
+
     }
 
     IEnumerator SavingIconFade() {
@@ -109,7 +110,7 @@ public class LoadingScreenManager : MonoBehaviour {
         while (true) {
 
             yield return canvasG.DOFade(minSaveIconAlpha, saveIconFadeTime).SetUpdate(true).WaitForCompletion();
-            
+
             yield return canvasG.DOFade(maxSaveIconAlpha, saveIconFadeTime).SetUpdate(true).WaitForCompletion();
 
         }
