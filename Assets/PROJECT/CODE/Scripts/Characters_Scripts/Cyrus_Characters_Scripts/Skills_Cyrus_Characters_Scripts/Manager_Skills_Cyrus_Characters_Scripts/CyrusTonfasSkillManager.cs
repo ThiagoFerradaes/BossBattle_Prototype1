@@ -27,7 +27,6 @@ public class CyrusTonfasSkillManager : SkillObjectManager
 
         energyManager.SetCanGainEnergy(false);
         energyManager.LooseAllEnergy();
-        if (_skillLevel >= 1) energyManager.ChangeMaxEnergy(_info.EnergyCostLevelOne);
 
         float animationSpeed = _skillLevel > 1 ? _info.AnimationSpeedLevelTwo : 1;
         anim.SetFloat(_info.AnimationSpeedParameter, animationSpeed);
@@ -71,6 +70,8 @@ public class CyrusTonfasSkillManager : SkillObjectManager
 
         collider.OnHit += () => {
             if (_skillLevel < 3) CyrusPassiveManager.Instance.AddUseSkill(slot, _info.AmountOfUsesPerLevel[_skillLevel]);
+            int newLevel = CyrusPassiveManager.Instance.ReturnSkillLevel(slot);
+            if (newLevel >= 1) energyManager.ChangeMaxEnergy(_info.EnergyCostLevelOne);
         };
     }
 }
