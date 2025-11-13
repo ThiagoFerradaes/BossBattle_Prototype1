@@ -1,16 +1,26 @@
+using AYellowpaper.SerializedCollections;
+using NaughtyAttributes;
 using UnityEngine;
 
-public class CyrusOrbsSkillSO : MonoBehaviour
+[CreateAssetMenu(menuName = "Characters/ Skills/ Cyrus/ Orb")]
+public class CyrusOrbsSkillSO : CommonSkillSO
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    [Header("Animation")]
+    [Foldout("Specific")] public string AnimationParameter;
+    [Foldout("Specific")] public string AnimationName;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [Header("Atributes")]
+    [Foldout("Specific"), SerializedDictionary("Level", "Amount")] public SerializedDictionary<int, int> AmountOfUsesPerLevel;
+
+    [Header("Level One Atributes")]
+    [Foldout("Specific")] public float OrbSpeedLevelOne;
+    
+    [Header("Level Two Atributes")]
+    [Foldout("Specific")] public float OrbCritRateLevelTwo;
+
+    [Header("Level Three Atributes")]
+    [Foldout("Specific")] public float MaxAmountOfOrbs;
+    [Foldout("Specific")] public float TimeHoldingOrb;
+    [Foldout("Specific")] public float TimeBetweenEachOrb;
+
 }
