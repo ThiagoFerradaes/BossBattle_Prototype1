@@ -41,6 +41,10 @@ public class EnergyManager : MonoBehaviour
         PlayerSkillManager.OnSkillsSet -= _setMaxEnergy;
     }
 
+    public void ChangeMaxEnergy(float newMaxEnergyValue) {
+        _maxEnergy = newMaxEnergyValue;
+    }
+
     /// <summary>
     /// The character recieve an amount of energy
     /// </summary>

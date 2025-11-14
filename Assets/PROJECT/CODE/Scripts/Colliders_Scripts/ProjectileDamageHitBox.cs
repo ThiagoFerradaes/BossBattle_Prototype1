@@ -12,6 +12,7 @@ public class ProjectileDamageHitBox : MonoBehaviour {
     Coroutine _moveRoutine;
 
     public event Action OnHit;
+    public event Action<Collider> OnCollision;
 
     public void Initialize(DamageContext context) {
         _damageAtributes = context.Atributes;
@@ -71,12 +72,14 @@ public class ProjectileDamageHitBox : MonoBehaviour {
         health.TakeDamage(newDamage.Item1, _damageAtributes.HitShield);
 
         OnHit?.Invoke();
+        OnCollision?.Invoke(other);
 
         if (!_damageAtributes.CrossEnemy) End();
     }
 
     void End() {
         OnHit = null;
+        OnCollision = null;
 
         StopCoroutine(_moveRoutine);
 

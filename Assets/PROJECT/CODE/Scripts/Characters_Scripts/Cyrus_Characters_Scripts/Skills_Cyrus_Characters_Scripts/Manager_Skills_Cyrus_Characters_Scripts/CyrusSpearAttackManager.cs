@@ -58,8 +58,8 @@ public class CyrusSpearAttackManager : SkillObjectManager {
     public override void InstantiateHitBox(SkillAnimationEvent prefabInfo) {
         GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFab, TypeOfSkillPrefab.Hitbox);
 
-        float zSize = _skillLevel >= 2 ? _info.Level2Range : _info.Size.z;
-        preFab.transform.localScale = new(_info.Size.x, _info.Size.y, zSize);
+        float zSize = _skillLevel >= 2 ? _info.Level2Range : _info.SkillDamageAtributes.Size.z;
+        preFab.transform.localScale = new(_info.SkillDamageAtributes.Size.x, _info.SkillDamageAtributes.Size.y, zSize);
 
         preFab.transform.SetParent(parent.transform, false);
 
@@ -69,7 +69,7 @@ public class CyrusSpearAttackManager : SkillObjectManager {
 
         float penetration = _skillLevel > 2 ? _info.Level3Penetration : 0;
 
-        DamageAtributes atributes = _info.SkillDamageAtributes;
+        DamageAtributes atributes = new(_info.SkillDamageAtributes);
         atributes.ExtraAtributes[ExtraDamageContextAtributes.Penetration] = penetration;
 
         DamageContext newContext = new(

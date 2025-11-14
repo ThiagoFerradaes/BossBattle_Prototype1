@@ -140,12 +140,15 @@ public class BastianBaseAttackManager : SkillObjectManager {
             3 => _info.ThirdAttackAtributes,
             _ => _info.FirstAttackAtributes,
         };
-        atributes.ExtraAtributes[ExtraDamageContextAtributes.Penetration] = pen;
-        atributes.ExtraAtributes[ExtraDamageContextAtributes.CritRate] = critChance;
-        atributes.ExtraAtributes[ExtraDamageContextAtributes.CritDamage] = critDamage;
+
+        DamageAtributes newAtributes = new(atributes);
+
+        newAtributes.ExtraAtributes[ExtraDamageContextAtributes.Penetration] = pen;
+        newAtributes.ExtraAtributes[ExtraDamageContextAtributes.CritRate] = critChance;
+        newAtributes.ExtraAtributes[ExtraDamageContextAtributes.CritDamage] = critDamage;
 
         DamageContext newContext = new(
-            atributes,
+            newAtributes,
             parent.GetComponent<StatusManager>()
             );
 
