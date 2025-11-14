@@ -30,7 +30,6 @@ public class CyrusKanaboSkillManager : SkillObjectManager
         base.FirstFunc();
 
         cooldownManager.SetCooldownSingleCharge(slot, _info.Cooldown);
-        if (_skillLevel < 3) CyrusPassiveManager.Instance.AddUseSkill(slot, _info.AmountOfUsesPerLevel[_skillLevel]);
     }
 
     public override void FourthFunc() {
@@ -59,7 +58,7 @@ public class CyrusKanaboSkillManager : SkillObjectManager
 
         collider.OnHit += () => {
             energyManager.GainEnergy(_info.FlatEnergyGainPerHit);
-
+            if (_skillLevel < 3) CyrusPassiveManager.Instance.AddUseSkill(slot, _info.AmountOfUsesPerLevel[_skillLevel]);
         };
 
 
@@ -113,7 +112,7 @@ public class CyrusKanaboSkillManager : SkillObjectManager
         hitbox.transform.localScale = size;
         hitbox.transform.SetPositionAndRotation(position, Quaternion.identity);
 
-        DamageAtributes newAtributes = _info.ExplosionAtributes;
+        DamageAtributes newAtributes = new(_info.ExplosionAtributes);
 
         if (_skillLevel > 1) 
             newAtributes.ExtraAtributes[ExtraDamageContextAtributes.CritRate] = _info.ExplosionCritRateLevelTwo;

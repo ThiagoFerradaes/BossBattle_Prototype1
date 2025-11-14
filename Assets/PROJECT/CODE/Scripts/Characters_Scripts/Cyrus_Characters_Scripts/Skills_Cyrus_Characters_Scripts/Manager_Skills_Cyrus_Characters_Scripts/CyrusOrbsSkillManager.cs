@@ -30,7 +30,8 @@ public class CyrusOrbsSkillManager : SkillObjectManager {
     public override void FirstFunc() {
         base.FirstFunc();
 
-        cooldownManager.SetCooldownSingleCharge(slot, _info.Cooldown);
+        float cooldown = _skillLevel > 0 ? _info.OrbCooldownLevelOne : _info.Cooldown;
+        cooldownManager.SetCooldownSingleCharge(slot, cooldown);
     }
 
     public override void FourthFunc() {
@@ -86,7 +87,8 @@ public class CyrusOrbsSkillManager : SkillObjectManager {
 
             // Ativando a hitbox
             DamageAtributes newAtributes = new(_info.SkillDamageAtributes);
-            if (_skillLevel > 1) newAtributes.ExtraAtributes[ExtraDamageContextAtributes.CritRate] = _info.OrbCritRateLevelTwo;
+            if (_skillLevel > 0) newAtributes.Speed = _info.OrbSpeedLevelOne;
+            if (_skillLevel > 1) newAtributes.ExtraAtributes[ExtraDamageContextAtributes.CritRate] = _info.OrbCritRateLevelTwo/100;
 
             DamageContext newContext = new(newAtributes, statusManager);
 

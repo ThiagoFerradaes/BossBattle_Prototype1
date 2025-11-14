@@ -25,8 +25,6 @@ public class CyrusShootUpUltimateManager : SkillObjectManager {
     #region Override & Initialize
     public override void HandleInput(SkillSO skill, InputAction.CallbackContext ctx) {
 
-        if (Keyboard.current.ctrlKey.isPressed) return;
-
         base.HandleInput(skill, ctx);
     }
     public override void UseSkill(SkillSO skill) {

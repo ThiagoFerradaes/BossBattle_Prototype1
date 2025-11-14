@@ -42,9 +42,11 @@ public class StatusManager : MonoBehaviour {
 
         percent = Mathf.Abs(percent);
 
+        //Debug.Log($"Status: {type} old value: {_listOfStatus[type]}");
         if (increase) _listOfStatus[type] *= (1 + percent);
         else _listOfStatus[type] /= (1 + percent);
         _listOfStatus[type] = Mathf.Max(0.01f, _listOfStatus[type]);
+        //Debug.Log($"Status: {type} new value: {_listOfStatus[type]}");
 
     }
     public void ChangeStatus(StatusType type, float percent, bool increase, float duration) {

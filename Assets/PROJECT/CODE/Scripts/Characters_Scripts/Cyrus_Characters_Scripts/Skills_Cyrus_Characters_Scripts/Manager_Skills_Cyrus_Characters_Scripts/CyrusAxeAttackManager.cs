@@ -113,9 +113,9 @@ public class CyrusAxeAttackManager : SkillObjectManager {
     }
 
     public override void FourthFunc() {
-        _weaponManager.OnDesequipRightHand();
+        base.FourthFunc();
 
-        animationCoroutine = null;
+        _weaponManager.OnDesequipRightHand();
 
         EndWithUnblockSkills();
     }
