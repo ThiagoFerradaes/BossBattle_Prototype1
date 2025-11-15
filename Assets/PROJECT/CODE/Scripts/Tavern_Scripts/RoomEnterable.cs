@@ -1,4 +1,5 @@
 using System;
+using MyEnum;
 using TMPro;
 using UnityEngine;
 
@@ -9,16 +10,54 @@ public class RoomEnterable : MonoBehaviour
     [SerializeField] private LayerMask playerLayer;
     [SerializeField]private GameObject editorUI;
     [SerializeField]private TMP_Text editorRoomText;
-    [SerializeField,TextArea(0,1)]private string openEditorButton, closeEditorButton; 
+    [SerializeField] private TextBoxesSo openEditorButtonText, closeEditorButtonText;
+    private string openEditorButton, closeEditorButton; 
 
     private bool _enableRoom;
     private PlayerInteractionManager _playerInteractionManager;
     private bool isEditorOpen;
+    private ConfigurationSo _config;
+    
+    
+    #region Unity Lifecycle Methods
     
     private void OnEnable()
     {
         SetEnableRoom(isDoorOpen);
+        InitializeConfiguration();
     }
+    
+    private void OnDisable()
+    {
+        UnsubscribeFromEvents();
+    }
+
+    #endregion
+
+    #region Lang
+    private void InitializeConfiguration()
+    {
+        _config = Resources.Load<ConfigurationSo>("Configuration/ConfigurationSO");
+
+        if (_config == null) return;
+
+        _config.OnLanguageChanged += UpdateLanguage;
+        UpdateLanguage(_config.GetLanguage());
+    }
+    
+    private void UnsubscribeFromEvents()
+    {
+        if (_config != null)
+            _config.OnLanguageChanged -= UpdateLanguage;
+    }
+    
+    private void UpdateLanguage(EnumLanguage lang)
+    {
+        openEditorButton = openEditorButtonText.GetText(lang);
+        closeEditorButton = closeEditorButtonText.GetText(lang);
+    }
+
+    #endregion
     
     public event Action<RoomEnterable> OnRoomEntered;
 

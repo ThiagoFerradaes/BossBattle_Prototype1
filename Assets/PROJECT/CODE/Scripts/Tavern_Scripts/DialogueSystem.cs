@@ -148,8 +148,7 @@ public class DialogueSystem : MonoBehaviour
 
         art1.art.sprite = dialogueContent.spritePerson1;
         art2.art.sprite = dialogueContent.spritePerson2;
-
-
+        
         PersonTalk(dialogueContent);
 
         dialogueBox.buttonText.text = newText;
