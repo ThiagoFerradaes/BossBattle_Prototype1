@@ -26,7 +26,7 @@ MonoBehaviour:
         PrefabType: 0
         PrefabDuration: 0
         PreFab: {fileID: 8271028322271159555, guid: 02de40013cebfe2448edca155583a4c1, type: 3}
-        PreFabPosition: {x: 0, y: 0.5, z: 1.5}
+        PreFabPosition: {x: 0, y: 1, z: 1.5}
   SkillObjectRangeObject: {fileID: 7295537954416935036, guid: 2cd15af29a69803439873d8a1751fec9, type: 3}
   BlockWalkWhilePreCasting: 1
   BlockDashWhilePreCasting: 1
@@ -34,7 +34,7 @@ MonoBehaviour:
   SkillCharacter: 0
   Cancelable: 1
   FlatEnergyGainPerHit: 15
-  Cooldown: 12
+  Cooldown: 10
   HasCharges: 0
   Charges: 1
   ChargeCooldown: 0
@@ -44,13 +44,15 @@ MonoBehaviour:
     Damage: 60
     HitShield: 1
     BreakShield: 0
-    Size: {x: 0, y: 0, z: 0}
+    Size: {x: 2, y: 1, z: 2}
     TypeOfPrefab: 0
     HitBoxDuration: 0.1
     DamageCooldown: 0.1
     Distance: 5
     Speed: 10
     CrossEnemy: 0
+    TimeStopped: 0
+    MinDistanceBack: 0
     ExtraAtributes:
       _serializedList: []
   FirstAnimationParameterName: AxeSkillOne
@@ -60,35 +62,35 @@ MonoBehaviour:
   MaxChargeTime: 1.8
   MinDamage: 80
   MaxDamage: 200
-  Size: {x: 2, y: 1, z: 2}
-  Level1AmountOfShield: 10
-  Level2AmountOfShield: 20
+  Level1AmountOfShield: 15
+  Level2AmountOfShield: 30
   ShieldDuration: 10
   NewMaxChargeTime: 0.9
   AmountOfUsesPerLevel:
     _serializedList:
     - Key: 0
-      Value: 2
+      Value: 1
     - Key: 1
-      Value: 2
+      Value: 1
     - Key: 2
-      Value: 2
+      Value: 1
   RocksAtributes:
     DamageType: 1
     UnitsToHit: 00000000
     Damage: 5
     HitShield: 1
     BreakShield: 0
-    Size: {x: 0, y: 0, z: 0}
+    Size: {x: 4, y: 4, z: 4}
     TypeOfPrefab: 1
     HitBoxDuration: 10
     DamageCooldown: 0.5
     Distance: 5
     Speed: 10
     CrossEnemy: 0
+    TimeStopped: 0
+    MinDistanceBack: 0
     ExtraAtributes:
       _serializedList: []
-  BrokenRockSize: 6
   BrokenRocksPrefab: {fileID: 8998219623033830514, guid: f2cad2093c1cc8042a97d053a88618a0, type: 3}
   WeaponName: Axe
   WeaponPrefab: {fileID: 2959415985370578672, guid: 2714152a00b35324f8b6fef038dba403, type: 3}

@@ -9,7 +9,6 @@ public class CyrusShootUpUltimateManager : SkillObjectManager {
     // Components
     CyrusShootUpSO _info;
     WeaponManager _weaponManager;
-    EnergyManager _energyManager;
 
     // Atributes
     int _skillLevel = 0;
@@ -23,17 +22,11 @@ public class CyrusShootUpUltimateManager : SkillObjectManager {
     #region Methods
 
     #region Override & Initialize
-    public override void HandleInput(SkillSO skill, InputAction.CallbackContext ctx) {
-
-        base.HandleInput(skill, ctx);
-    }
     public override void UseSkill(SkillSO skill) {
 
         Initialize(skill);
-        if (!gameObject.activeInHierarchy) {
-            gameObject.SetActive(true);
-            animationCoroutine ??= StartCoroutine(AttackCoroutine(0, _info.AnimationParameterTrigger, _info.LastAnimationName, 0));
-        }
+
+        animationCoroutine ??= StartCoroutine(AttackCoroutine(0, _info.AnimationParameterTrigger, _info.AnimationName, 0));
 
     }
 
@@ -47,10 +40,11 @@ public class CyrusShootUpUltimateManager : SkillObjectManager {
     void Initialize(SkillSO skill) {
         if (_info == null) _info = skill as CyrusShootUpSO;
 
-        if (_weaponManager == null) _weaponManager = parent.GetComponent<WeaponManager>(); 
-        if (_energyManager == null) _energyManager = parent.GetComponent<EnergyManager>();
+        if (_weaponManager == null) _weaponManager = parent.GetComponent<WeaponManager>();
 
         _skillLevel = CyrusPassiveManager.Instance.ReturnSkillLevel(slot);
+
+        if (!gameObject.activeInHierarchy) gameObject.SetActive(true);
     }
 
     #endregion
@@ -58,9 +52,10 @@ public class CyrusShootUpUltimateManager : SkillObjectManager {
     #region Coroutines
 
     public override void FirstFunc() {
-        _energyManager.LooseAllEnergy();
+        base.FirstFunc();
 
-        skillManager.SkillIsInAnimation(true);
+        energyManager.LooseAllEnergy();
+        energyManager.SetCanGainEnergy(false);
 
         _weaponManager.OnEquipRightHand(_info.WeaponPrefab, _info.WeaponPosition, _info.WeaponOneRotation);
         _weaponManager.OnEquipLeftHand(_info.WeaponPrefab, _info.WeaponTwoPosition, _info.WeaponTwoRotation);
@@ -68,6 +63,11 @@ public class CyrusShootUpUltimateManager : SkillObjectManager {
 
     public override void FourthFunc() {
         base.FourthFunc();
+
+        _weaponManager.OnDesequipRightHand();
+        _weaponManager.OnDesequipLeftHand();
+
+        energyManager.SetCanGainEnergy(true);
 
         UnblockInputs();
     }
@@ -96,17 +96,23 @@ public class CyrusShootUpUltimateManager : SkillObjectManager {
     }
 
     IEnumerator Duration() {
-        float duration = _skillLevel > 0 ? _info.Level1Duration : _info.Atributes.HitBoxDuration;
+        float duration = _skillLevel > 0 ? _info.Level1Duration : _info.Duration;
+
         yield return new WaitForSeconds(duration);
 
-        EndWithUnblockSkills();
+        if (_damageCoroutine != null) {
+            StopCoroutine(_damageCoroutine);
+            _damageCoroutine = null;
+        }
+
+        End();
     }
     IEnumerator Damage(SkillAnimationEvent prefabInfo) {
         float damageCooldown = _skillLevel == 3 ? _info.Level3DamageCooldown : _info.Atributes.DamageCooldown;
 
         while (true) {
-            yield return new WaitForSeconds(damageCooldown);
             InstantiateHitBox(prefabInfo);
+            yield return new WaitForSeconds(damageCooldown);
         }
     }
 
@@ -118,15 +124,12 @@ public class CyrusShootUpUltimateManager : SkillObjectManager {
         preFab.transform.localScale = _info.Atributes.Size;
         preFab.transform.SetPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.identity);
 
-        float charCritRate = statusManager.ReturnStatusValue(StatusType.CritRate);
-        float critRate = _skillLevel > 1? charCritRate + _info.AditionalCritRate: charCritRate; 
-
         float charCritDamage = statusManager.ReturnStatusValue(StatusType.CritDamage);
-        float critDamage = _skillLevel > 2? charCritDamage + (_amountOfHits * _info.AditionalCritDamagePerHit) : charCritDamage;
+        float critDamage = charCritDamage + (_amountOfHits * _info.AditionalCritDamagePerHit);
 
         DamageAtributes atributes = new(_info.Atributes);
-        atributes.ExtraAtributes[ExtraDamageContextAtributes.CritRate] = critRate;
-        atributes.ExtraAtributes[ExtraDamageContextAtributes.CritDamage] = critDamage;
+        if(_skillLevel > 1) atributes.ExtraAtributes[ExtraDamageContextAtributes.CritRate] = _info.AditionalCritRate;
+        if (_skillLevel > 2) atributes.ExtraAtributes[ExtraDamageContextAtributes.CritDamage] = critDamage;
 
         DamageContext newContext = new(
             atributes,
@@ -140,26 +143,32 @@ public class CyrusShootUpUltimateManager : SkillObjectManager {
             _amountOfHits++;
         };
 
-        
+
     }
 
     public override void InstantiateVFX(SkillAnimationEvent prefabInfo) {
         GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFab, TypeOfSkillPrefab.VFX);
         preFab.transform.SetPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.identity);
 
-        float duration = _skillLevel > 0 ? _info.Level1Duration : _info.Atributes.HitBoxDuration;
+        float duration = _skillLevel > 0 ? _info.Level1Duration : _info.Duration;
 
         preFab.GetComponent<VFXPreFab>().Initialize(duration);
     }
     #endregion
 
     #region End
-    public override void EndWithUnblockSkills() {
 
-        _durationCoroutine = null;
-        StopCoroutine(_damageCoroutine);
-        _damageCoroutine = null;    
+    public override void End() {
 
+        if (_durationCoroutine != null) {
+            StopCoroutine(_durationCoroutine);
+            _durationCoroutine = null;
+        }
+
+        if (_damageCoroutine != null) {
+            StopCoroutine(_damageCoroutine);
+            _damageCoroutine = null;
+        }
         _amountOfHits = 0;
 
         base.End();

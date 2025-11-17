@@ -12,6 +12,7 @@ public class CyrusShootUpSO : UltimateSkillSO
     [Foldout("Specific")] public string LastAnimationName;
 
     [Header("Level Up bufs")]
+    [Foldout("Specific")] public float Duration;
     [Foldout("Specific")] public float Level1Duration;
     [Foldout("Specific")] public float AditionalCritRate;
     [Foldout("Specific")] public float AditionalCritDamagePerHit;

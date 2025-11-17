@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: CyrusShootUpUltimate
   m_EditorClassIdentifier: 
   SkillManagerObject: {fileID: 614902175585998129, guid: 4655faff3e068074da75a6634805ba56, type: 3}
-  SkillManagerName: ShootUp Ultimate
   Prefabs:
     _serializedList:
     - Key: 0
@@ -29,40 +28,36 @@ MonoBehaviour:
         PreFab: {fileID: 8998219623033830514, guid: 690c34d54c88e12448b7561adfe65ab9, type: 3}
         PreFabPosition: {x: 0, y: 0, z: 0}
   SkillObjectRangeObject: {fileID: 2473945529430228706, guid: 315e344938d30e140a32109ebb24d44a, type: 3}
-  SkillObjectRangeName: ShootUp Ultimate Range
   BlockWalkWhilePreCasting: 1
   BlockDashWhilePreCasting: 1
   PreCastOn: 1
   SkillCharacter: 0
   Cancelable: 0
-  EnergyCost: 50
-  AnimationParameterTrigger: ShootUp
-  AnimationName: ShootUp
-  LastAnimationName: Guarda
+  EnergyCost: 1
   Atributes:
     DamageType: 1
     UnitsToHit: 00000000
     Damage: 10
-    HitBoxDuration: 0.1
     HitShield: 1
     BreakShield: 0
-    TypeOfPrefab: 1
+    Size: {x: 30, y: 30, z: 30}
+    TypeOfPrefab: 0
+    HitBoxDuration: 0.1
     DamageCooldown: 0.5
     Distance: 5
     Speed: 10
     CrossEnemy: 0
+    TimeStopped: 0
+    MinDistanceBack: 0
     ExtraAtributes:
-      _serializedList:
-      - Key: 1
-        Value: 5
-      - Key: 2
-        Value: 200
-  Size: 100
-  UltimateDuration: 5
-  WeaponName: GunWeapon
+      _serializedList: []
+  AnimationParameterTrigger: ShootUp
+  AnimationName: ShootUp
+  LastAnimationName: Guarda
+  Duration: 5
   Level1Duration: 8
-  AditionalCritRate: 55
-  AditionalCritDamagePerHit: 10
+  AditionalCritRate: 65
+  AditionalCritDamagePerHit: 5
   Level3DamageCooldown: 0.15
   AmountOfUsesPerLevel:
     _serializedList:
@@ -72,8 +67,6 @@ MonoBehaviour:
       Value: 1
     - Key: 2
       Value: 1
-  PercentOfSlow: 50
-  SlowDuration: 5
   WeaponPrefab: {fileID: 693180943480246370, guid: 017297137351d024aafcba3c332e78a1, type: 3}
   WeaponPosition: {x: -0.1, y: 0.2, z: 0}
   WeaponTwoPosition: {x: 0.1, y: 0.2, z: 0}

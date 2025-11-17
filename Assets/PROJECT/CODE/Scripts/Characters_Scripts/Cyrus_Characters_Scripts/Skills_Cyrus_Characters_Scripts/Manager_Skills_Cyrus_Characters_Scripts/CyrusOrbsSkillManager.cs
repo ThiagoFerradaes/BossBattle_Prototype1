@@ -88,7 +88,7 @@ public class CyrusOrbsSkillManager : SkillObjectManager {
             // Ativando a hitbox
             DamageAtributes newAtributes = new(_info.SkillDamageAtributes);
             if (_skillLevel > 0) newAtributes.Speed = _info.OrbSpeedLevelOne;
-            if (_skillLevel > 1) newAtributes.ExtraAtributes[ExtraDamageContextAtributes.CritRate] = _info.OrbCritRateLevelTwo/100;
+            if (_skillLevel > 1) newAtributes.ExtraAtributes[ExtraDamageContextAtributes.CritRate] = _info.OrbCritRateLevelTwo;
 
             DamageContext newContext = new(newAtributes, statusManager);
 

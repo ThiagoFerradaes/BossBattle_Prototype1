@@ -13,39 +13,33 @@ MonoBehaviour:
   m_Name: CyrusSpearAtack
   m_EditorClassIdentifier: Assembly-CSharp::CyrusSpearSkillSO
   SkillManagerObject: {fileID: 8727905917451407449, guid: 60f532cd97f7b204fa02ffa0434e1ac5, type: 3}
-  SkillManagerName: CyrusSpearAttackManager
   Prefabs:
     _serializedList:
     - Key: 0
       Value:
       - TimeToSpawnPreFab: 0.4
-        PrefabDuration: 0.8
-        PreFabName: CyrusSpearAttackPVFX
         PrefabType: 1
+        PrefabDuration: 0.8
         PreFab: {fileID: 5506473260308187096, guid: dd09b869056ae834f9ea207979b51e68, type: 3}
         PreFabPosition: {x: 0, y: 0.35, z: 0}
       - TimeToSpawnPreFab: 0.5
-        PrefabDuration: 0.1
-        PreFabName: CyrusSpearAttackHitBox
         PrefabType: 0
+        PrefabDuration: 0.1
         PreFab: {fileID: 8271028322271159555, guid: 02de40013cebfe2448edca155583a4c1, type: 3}
         PreFabPosition: {x: 0, y: 1, z: 0}
     - Key: 1
       Value:
       - TimeToSpawnPreFab: 0.4
-        PrefabDuration: 0.8
-        PreFabName: CyrusSpearAttackGVFX
         PrefabType: 1
+        PrefabDuration: 0.8
         PreFab: {fileID: 4337469997810033031, guid: 4e6058edc01bcdb4188f8af92b6c485c, type: 3}
         PreFabPosition: {x: 0, y: 0.35, z: 0}
       - TimeToSpawnPreFab: 0.5
-        PrefabDuration: 0.1
-        PreFabName: CyrusSpearAttackHitBox
         PrefabType: 0
+        PrefabDuration: 0.1
         PreFab: {fileID: 8271028322271159555, guid: 02de40013cebfe2448edca155583a4c1, type: 3}
         PreFabPosition: {x: 0, y: 1, z: 0}
   SkillObjectRangeObject: {fileID: 7722846992070484997, guid: 4813218b9301f9f40b8323d5bccdb721, type: 3}
-  SkillObjectRangeName: CyrusSpearAttackRange
   BlockWalkWhilePreCasting: 1
   BlockDashWhilePreCasting: 1
   PreCastOn: 1
@@ -57,29 +51,35 @@ MonoBehaviour:
   Charges: 1
   ChargeCooldown: 0
   SkillDamageAtributes:
-    Damage: 60
-    HitShield: 1
     DamageType: 0
     UnitsToHit: 00000000
+    Damage: 60
+    HitShield: 1
+    BreakShield: 0
+    Size: {x: 0.5, y: 0.5, z: 4}
+    TypeOfPrefab: 0
+    HitBoxDuration: 0.1
+    DamageCooldown: 0
+    Distance: 0
+    Speed: 0
+    CrossEnemy: 0
+    TimeStopped: 0
+    MinDistanceBack: 0
     ExtraAtributes:
       _serializedList: []
   SpearAttackTriggerName: SpearAttack
   AnimationName: SpearAttack
-  MinDamage: 60
-  MaxDamage: 62
-  ExpGain: 10
-  Size: {x: 0.2, y: 0.2, z: 2}
-  Level2Range: 4
+  Level2Range: 6
   Level3Penetration: 50
   Level3Cooldown: 2
   AmountOfUsesPerLevel:
     _serializedList:
     - Key: 0
-      Value: 2
+      Value: 1
     - Key: 1
-      Value: 2
+      Value: 1
     - Key: 2
-      Value: 2
+      Value: 1
   SpearName: CyrusSpearWeapon
   SpearPrefab: {fileID: 2847143835849212098, guid: e92e5ac7b41ec62409c76332d976c10a, type: 3}
   WeaponPosition: {x: 0, y: 1, z: 0}
