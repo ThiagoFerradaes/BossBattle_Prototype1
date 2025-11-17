@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum TypeOfCollider { Instant, Continuos, Projectile}
+public enum TypeOfCollider { Instant, Continuos, Projectile, Boomerang}
 public enum DamageType { Abyssal, Ancestral, Pure }
 public enum ExtraDamageContextAtributes { Penetration, CritRate, CritDamage }
 
@@ -34,13 +34,20 @@ public class DamageAtributes {
     [ShowIf("TypeOfPrefab", TypeOfCollider.Continuos), AllowNesting]
     public float DamageCooldown = 0.1f;
 
+    bool projectileOrBoomerang => TypeOfPrefab == TypeOfCollider.Projectile || TypeOfPrefab == TypeOfCollider.Boomerang;
     // Projectile
-    [ShowIf("TypeOfPrefab", TypeOfCollider.Projectile), AllowNesting]
+    [ShowIf("projectileOrBoomerang"), AllowNesting]
     public float Distance = 5f;
-    [ShowIf("TypeOfPrefab", TypeOfCollider.Projectile), AllowNesting]
+    [ShowIf("projectileOrBoomerang"), AllowNesting]
     public float Speed = 10f;
     [ShowIf("TypeOfPrefab", TypeOfCollider.Projectile), AllowNesting]
     public bool CrossEnemy = false;
+
+    // Boomerang
+    [ShowIf("TypeOfPrefab", TypeOfCollider.Boomerang), AllowNesting]
+    public float TimeStopped = 0;
+    [ShowIf("TypeOfPrefab", TypeOfCollider.Boomerang), AllowNesting]
+    public float MinDistanceBack = 0.1f;
 
     [Header("Extra atributes"), Tooltip("Penetration 0 - 0.75")]
     [SerializedDictionary("Extra atribute", "Value")]
@@ -59,6 +66,8 @@ public class DamageAtributes {
         Distance = source.Distance;
         Speed = source.Speed;
         CrossEnemy = source.CrossEnemy;
+        TimeStopped = source.TimeStopped;
+        MinDistanceBack = source.MinDistanceBack;
 
         ExtraAtributes = new SerializedDictionary<ExtraDamageContextAtributes, float>();
         foreach (var kvp in source.ExtraAtributes)
