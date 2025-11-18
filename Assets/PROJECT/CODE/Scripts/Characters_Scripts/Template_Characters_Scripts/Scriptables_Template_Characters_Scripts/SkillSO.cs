@@ -18,6 +18,7 @@ public enum Tags { Enemy, Player, Construct }
 public class SkillSO : ScriptableObject {
     [Header("Skill Manager")]
     [Foldout("Generic")] public SkillObjectManager SkillManagerObject;
+    [Foldout("Generic")] public Sprite SkillSpriteIcon;
 
     [Header("Skill Prefabs")]
     [Foldout("Generic"), SerializedDictionary("Combo", "Event")]

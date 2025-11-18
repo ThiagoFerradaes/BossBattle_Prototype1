@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: CyrusShieldAttack
   m_EditorClassIdentifier: Assembly-CSharp::CyrusShieldSkillSO
   SkillManagerObject: {fileID: 4203944083679177219, guid: fa4b84222df573746911cb7bcc3ca84e, type: 3}
+  SkillSpriteIcon: {fileID: 21300000, guid: f8e60840d72bbe24b96a72f614cb7d68, type: 3}
   Prefabs:
     _serializedList:
     - Key: 0
@@ -46,13 +47,14 @@ MonoBehaviour:
     Distance: 5
     Speed: 10
     CrossEnemy: 0
+    TimeStopped: 0
+    MinDistanceBack: 0
     ExtraAtributes:
       _serializedList: []
   SpearAttackTriggerName: Shield
   AnimationName: ShieldUp
   ShieldAmount: 25
   ShieldDuration: 6
-  ExplosionDamageIncreasePerDamageTaken: 1
   ShieldAmountLevelTwo: 50
   ShieldDurationLevelTwo: 10
   ShieldExplosionSizeLevelTwo: 10
