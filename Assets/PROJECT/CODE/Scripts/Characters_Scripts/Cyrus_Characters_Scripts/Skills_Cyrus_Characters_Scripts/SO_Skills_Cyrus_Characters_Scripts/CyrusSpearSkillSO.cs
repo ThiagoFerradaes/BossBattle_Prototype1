@@ -15,12 +15,4 @@ public class CyrusSpearSkillSO : CommonSkillSO
     [Foldout("Specific")] public float Level3Penetration;
     [Foldout("Specific")] public float Level3Cooldown;
     [Foldout("Specific"), SerializedDictionary("Level", "Amount")] public SerializedDictionary<int, int> AmountOfUsesPerLevel;
-
-    [Header("Strings")]
-    [Foldout("Specific")] public string SpearName;
-
-    [Header("Weapon")]
-    [Foldout("Specific")] public GameObject SpearPrefab;
-    [Foldout("Specific")] public Vector3 WeaponPosition;
-    [Foldout("Specific")] public Vector3 WeaponRotation;
 }
