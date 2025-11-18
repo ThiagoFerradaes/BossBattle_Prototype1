@@ -83,7 +83,7 @@ public class ContinuosDamageHitBox : MonoBehaviour {
                     );
                 }
 
-                if (unit.CompareTag(Tags.Enemy.ToString())) PopUpManager.Instance.DamageDone(
+                if (unit.gameObject.layer == LayerMask.NameToLayer("Enemy")) PopUpManager.Instance.DamageDone(
                     (int)newDamage.Item1, health.transform.position, newDamage.Item2, _damageAtributes.DamageType);
                 health.TakeDamage(newDamage.Item1, _damageAtributes.HitShield);
 
@@ -100,13 +100,13 @@ public class ContinuosDamageHitBox : MonoBehaviour {
     }
 
     private void OnTriggerEnter(Collider other) {
-        if (!_damageAtributes.UnitsToHit.Any(tag => other.CompareTag(tag.ToString()))) return;
+        if (!_damageAtributes.UnitsToHit.ContainsLayer(other.gameObject.layer)) return;
 
         _listOfHealths.Add(other.gameObject);
     }
 
     private void OnTriggerExit(Collider other) {
-        if (!_damageAtributes.UnitsToHit.Any(tag => other.CompareTag(tag.ToString()))) return;
+        if (!_damageAtributes.UnitsToHit.ContainsLayer(other.gameObject.layer)) return;
 
         _listOfHealths.Remove(other.gameObject);
     }

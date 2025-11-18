@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BastianBaseAttackSO
   m_EditorClassIdentifier: Assembly-CSharp::BastianBaseAttackSO
   SkillManagerObject: {fileID: 7423082187053757486, guid: 847e527322c9b4a4685bbcceebc6b21c, type: 3}
-  SkillManagerName: BastianBaseAttackManager
+  SkillSpriteIcon: {fileID: 0}
   Prefabs:
     _serializedList:
     - Key: 1
@@ -38,7 +38,6 @@ MonoBehaviour:
         PreFab: {fileID: 5556882484380889040, guid: 73183662ed7be604f90dff0cc2f277ff, type: 3}
         PreFabPosition: {x: 0, y: 1, z: 0}
   SkillObjectRangeObject: {fileID: 5203434260948203345, guid: ade6d2bcd504d27418184cc1070b8f59, type: 3}
-  SkillObjectRangeName: BastianRangeBaseAttack
   BlockWalkWhilePreCasting: 1
   BlockDashWhilePreCasting: 1
   PreCastOn: 1
@@ -51,7 +50,9 @@ MonoBehaviour:
   ChargeCooldown: 0
   SkillDamageAtributes:
     DamageType: 0
-    UnitsToHit: 
+    UnitsToHit:
+      serializedVersion: 2
+      m_Bits: 0
     Damage: 0
     HitShield: 0
     BreakShield: 0
@@ -62,6 +63,8 @@ MonoBehaviour:
     Distance: 5
     Speed: 10
     CrossEnemy: 0
+    TimeStopped: 0
+    MinDistanceBack: 0
     ExtraAtributes:
       _serializedList: []
   AnimationOneParameter: BaseAttack
@@ -73,7 +76,9 @@ MonoBehaviour:
   AttackSpeedAnimationParameter: AttackSpeed
   FirstAttackAtributes:
     DamageType: 0
-    UnitsToHit: 00000000
+    UnitsToHit:
+      serializedVersion: 2
+      m_Bits: 128
     Damage: 10
     HitShield: 1
     BreakShield: 0
@@ -84,6 +89,8 @@ MonoBehaviour:
     Distance: 7
     Speed: 20
     CrossEnemy: 0
+    TimeStopped: 0
+    MinDistanceBack: 0
     ExtraAtributes:
       _serializedList:
       - Key: 0
@@ -94,7 +101,9 @@ MonoBehaviour:
         Value: 252
   SecondAttackAtributes:
     DamageType: 0
-    UnitsToHit: 00000000
+    UnitsToHit:
+      serializedVersion: 2
+      m_Bits: 128
     Damage: 12
     HitShield: 1
     BreakShield: 0
@@ -105,6 +114,8 @@ MonoBehaviour:
     Distance: 7
     Speed: 20
     CrossEnemy: 0
+    TimeStopped: 0
+    MinDistanceBack: 0
     ExtraAtributes:
       _serializedList:
       - Key: 0
@@ -115,7 +126,9 @@ MonoBehaviour:
         Value: 252
   ThirdAttackAtributes:
     DamageType: 0
-    UnitsToHit: 00000000
+    UnitsToHit:
+      serializedVersion: 2
+      m_Bits: 128
     Damage: 14
     HitShield: 1
     BreakShield: 0
@@ -126,6 +139,8 @@ MonoBehaviour:
     Distance: 7
     Speed: 20
     CrossEnemy: 0
+    TimeStopped: 0
+    MinDistanceBack: 0
     ExtraAtributes:
       _serializedList:
       - Key: 0

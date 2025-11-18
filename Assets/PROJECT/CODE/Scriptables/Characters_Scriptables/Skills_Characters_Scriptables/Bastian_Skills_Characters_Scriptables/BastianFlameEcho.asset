@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BastianFlameEcho
   m_EditorClassIdentifier: Assembly-CSharp::BastianFlameEchoSO
   SkillManagerObject: {fileID: 7163133310608096753, guid: e8c06cefe6c72b94fa7291e8f3c733bc, type: 3}
-  SkillManagerName: BastianFlameEchoManager
+  SkillSpriteIcon: {fileID: 0}
   Prefabs:
     _serializedList:
     - Key: 1
@@ -38,16 +38,36 @@ MonoBehaviour:
         PreFab: {fileID: 5556882484380889040, guid: 73183662ed7be604f90dff0cc2f277ff, type: 3}
         PreFabPosition: {x: 0, y: 1, z: 0}
   SkillObjectRangeObject: {fileID: 5203434260948203345, guid: ade6d2bcd504d27418184cc1070b8f59, type: 3}
-  SkillObjectRangeName: BastianRangeBaseAttack
   BlockWalkWhilePreCasting: 1
   BlockDashWhilePreCasting: 1
   PreCastOn: 1
   SkillCharacter: 1
   Cancelable: 0
   EnergyCost: 30
+  Atributes:
+    DamageType: 0
+    UnitsToHit:
+      serializedVersion: 2
+      m_Bits: 0
+    Damage: 0
+    HitShield: 0
+    BreakShield: 0
+    Size: {x: 0, y: 0, z: 0}
+    TypeOfPrefab: 0
+    HitBoxDuration: 0
+    DamageCooldown: 0
+    Distance: 0
+    Speed: 0
+    CrossEnemy: 0
+    TimeStopped: 0
+    MinDistanceBack: 0
+    ExtraAtributes:
+      _serializedList: []
   FirstAttackDamageAtributes:
     DamageType: 2
-    UnitsToHit: 00000000
+    UnitsToHit:
+      serializedVersion: 2
+      m_Bits: 128
     Damage: 5
     HitShield: 1
     BreakShield: 0
@@ -58,13 +78,17 @@ MonoBehaviour:
     Distance: 7
     Speed: 20
     CrossEnemy: 0
+    TimeStopped: 0
+    MinDistanceBack: 0
     ExtraAtributes:
       _serializedList:
       - Key: 0
         Value: 0
   SecondAttackDamageAtributes:
     DamageType: 2
-    UnitsToHit: 00000000
+    UnitsToHit:
+      serializedVersion: 2
+      m_Bits: 128
     Damage: 7
     HitShield: 1
     BreakShield: 0
@@ -75,13 +99,17 @@ MonoBehaviour:
     Distance: 7
     Speed: 20
     CrossEnemy: 0
+    TimeStopped: 0
+    MinDistanceBack: 0
     ExtraAtributes:
       _serializedList:
       - Key: 0
         Value: 0
   ThirdAttackDamageAtributes:
     DamageType: 2
-    UnitsToHit: 00000000
+    UnitsToHit:
+      serializedVersion: 2
+      m_Bits: 128
     Damage: 9
     HitShield: 1
     BreakShield: 0
@@ -92,6 +120,8 @@ MonoBehaviour:
     Distance: 7
     Speed: 20
     CrossEnemy: 0
+    TimeStopped: 0
+    MinDistanceBack: 0
     ExtraAtributes:
       _serializedList:
       - Key: 0

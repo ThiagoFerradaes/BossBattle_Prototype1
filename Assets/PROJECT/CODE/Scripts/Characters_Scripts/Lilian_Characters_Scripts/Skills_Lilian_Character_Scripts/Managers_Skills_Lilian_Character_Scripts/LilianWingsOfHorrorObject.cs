@@ -44,7 +44,7 @@ public class LilianWingsOfHorrorObject : MonoBehaviour {
         while (true) {
             yield return new WaitForSeconds(_info.SkillDamageAtributes.DamageCooldown);
             Collider[] enemiesInRange = new Collider[100];
-            int amountOfEnemies = Physics.OverlapSphereNonAlloc(transform.position, _info.RadiusOfAttack, enemiesInRange, _info.LayersToHit);
+            int amountOfEnemies = Physics.OverlapSphereNonAlloc(transform.position, _info.RadiusOfAttack, enemiesInRange, _info.SkillDamageAtributes.UnitsToHit);
 
             if (amountOfEnemies <= 0) continue;
 

@@ -5,15 +5,7 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 
 
-public class DamageContext {
-    public DamageAtributes Atributes;
-    public StatusManager StatusManager;
 
-    public DamageContext(DamageAtributes atributes, StatusManager status) {
-        this.Atributes = atributes;
-        this.StatusManager = status;
-    }
-}
 public class InstantDamageHitBox : MonoBehaviour {
     #region Parameters
 
@@ -46,7 +38,7 @@ public class InstantDamageHitBox : MonoBehaviour {
     }
 
     private void OnTriggerEnter(Collider other) {
-        if (!_damageAtributes.UnitsToHit.Any(tag => other.CompareTag(tag.ToString()))) return;
+        if (!_damageAtributes.UnitsToHit.ContainsLayer(other.gameObject.layer)) return;
 
         if (!other.TryGetComponent<HealthManager>(out HealthManager health)) {
             health = other.GetComponentInParent<HealthManager>();
@@ -72,7 +64,7 @@ public class InstantDamageHitBox : MonoBehaviour {
                 recieverStatus
                 );
 
-        if (!other.CompareTag(Tags.Player.ToString())) PopUpManager.Instance.
+        if (other.gameObject.layer == LayerMask.NameToLayer("Enemy")) PopUpManager.Instance.
                 DamageDone((int)newDamage.Item1, other.transform.position, newDamage.Item2, _damageAtributes.DamageType);
 
         if (_damageAtributes.BreakShield) health.BreakShield();

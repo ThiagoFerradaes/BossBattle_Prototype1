@@ -66,7 +66,7 @@ public class BoomerangDamageHitBox : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider other) {
-        if (!_damageAtributes.UnitsToHit.Any(tag => other.CompareTag(tag.ToString()))) return;
+        if (!_damageAtributes.UnitsToHit.ContainsLayer(other.gameObject.layer)) return;
 
 
         if (!other.TryGetComponent<HealthManager>(out HealthManager health)) {
@@ -92,7 +92,7 @@ public class BoomerangDamageHitBox : MonoBehaviour
             recieverStatus
             );
 
-        if (!other.CompareTag(Tags.Player.ToString())) PopUpManager.Instance.
+        if (other.gameObject.layer == LayerMask.NameToLayer("Enemy")) PopUpManager.Instance.
                 DamageDone((int)newDamage.Item1, other.transform.position, newDamage.Item2, _damageAtributes.DamageType);
 
         if (_damageAtributes.BreakShield) health.BreakShield();

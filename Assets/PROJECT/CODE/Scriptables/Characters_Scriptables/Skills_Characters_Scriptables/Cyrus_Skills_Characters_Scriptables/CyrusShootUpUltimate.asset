@@ -37,7 +37,9 @@ MonoBehaviour:
   EnergyCost: 1
   Atributes:
     DamageType: 1
-    UnitsToHit: 00000000
+    UnitsToHit:
+      serializedVersion: 2
+      m_Bits: 128
     Damage: 10
     HitShield: 1
     BreakShield: 0
@@ -68,8 +70,3 @@ MonoBehaviour:
       Value: 1
     - Key: 2
       Value: 1
-  WeaponPrefab: {fileID: 693180943480246370, guid: 017297137351d024aafcba3c332e78a1, type: 3}
-  WeaponPosition: {x: -0.1, y: 0.2, z: 0}
-  WeaponTwoPosition: {x: 0.1, y: 0.2, z: 0}
-  WeaponOneRotation: {x: 180, y: 180, z: -90}
-  WeaponTwoRotation: {x: 0, y: 180, z: 90}
