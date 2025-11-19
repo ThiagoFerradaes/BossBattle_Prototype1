@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using AYellowpaper.SerializedCollections;
 using MyEnum;
 using TMPro;
 using UnityEngine;
@@ -45,9 +46,14 @@ public class RoomSystem : MonoBehaviour
     [Tooltip("Debug array of furniture features for testing")]
     private FurnitureFeaturesSo[] furnitureFeaturesSos;
     
+    [Space (5),SerializedDictionary("Type", "Value"),SerializeField]
+    private SerializedDictionary<TypeOfEnvironmentCharacteristicEnum, int> _lockedFurnitureBySize = new SerializedDictionary<TypeOfEnvironmentCharacteristicEnum, int>();
+   
+
     #endregion
     
     #region Private Fields
+    
     
     /// <summary>Reference to the game configuration for language settings</summary>
     private ConfigurationSo _config;
@@ -67,7 +73,13 @@ public class RoomSystem : MonoBehaviour
         {
             RoomCanvasStatic.Instance.AddUnlockedFurniture(furnitureFeature.Size, furnitureFeature);
         }
-    }
+
+        foreach (var slot in TypeOfEnvironmentCharacteristicEnum.GetValues(typeof(TypeOfEnvironmentCharacteristicEnum)))
+        {
+            _lockedFurnitureBySize.Add((TypeOfEnvironmentCharacteristicEnum)slot, 0);
+        }
+
+    }   
     
     /// <summary>
     /// Initializes the furniture list and activates slots based on room size
@@ -140,10 +152,18 @@ public class RoomSystem : MonoBehaviour
     /// <param name="newFurniture">The furniture features to add</param>
     public void AddFurniture(FurnitureFeaturesSo newFurniture)
     {
-        foreach (var furniture in listOfFurniture.Where(furniture => furniture is null))
+        foreach (var furniture in listOfFurniture)
         {
-            furniture?.AddFurniture(newFurniture);
-            break;
+            if(furniture.furniture == null)
+            {
+                furniture.AddFurniture(newFurniture);
+
+                foreach (var characteristic in newFurniture.GetAllCharacteristics())
+                {
+                    _lockedFurnitureBySize[characteristic.Key] += characteristic.Value.value;
+                }
+                break;
+            }
         }
     }
 
@@ -156,6 +176,10 @@ public class RoomSystem : MonoBehaviour
         foreach (var furniture in listOfFurniture.Where(furniture => furniture.furniture == furnitureToRemove))
         {
             furniture.RemoveFurniture();
+            foreach (var characteristic in furnitureToRemove.GetAllCharacteristics())
+            {
+                _lockedFurnitureBySize[characteristic.Key] -= characteristic.Value.value;
+            }
             break;
         }
     }
@@ -219,6 +243,7 @@ public class Furniture
     public void AddFurniture(FurnitureFeaturesSo newFurniture)
     {
         furniture = newFurniture;
+        sizeOfFurniture = newFurniture.Size;
         OnFurnitureAdded?.Invoke(furniture);
     }
     
