@@ -16,7 +16,7 @@ public class CharactersSystem : MonoBehaviour
 
     private readonly Dictionary<DialogueSystemSo, CharacterDialogue> _availableDialogues = new();
     private readonly Dictionary<FurnitureFeaturesSo, FurnitureFeatures> _furniture = new();
-    private readonly Dictionary<TypeOfEnvironmentCharacteristic,int> _availableEvents = new();
+    private readonly Dictionary<TypeOfEnvironmentCharacteristicEnum,int> _availableEvents = new();
     
     public event Action<DialogueSystemSo> OnDialogueEvent;
 
@@ -36,7 +36,7 @@ public class CharactersSystem : MonoBehaviour
         try
         {
             _availableEvents.Clear();
-            foreach(TypeOfEnvironmentCharacteristic characteristic in Enum.GetValues(typeof(TypeOfEnvironmentCharacteristic)))
+            foreach(TypeOfEnvironmentCharacteristicEnum characteristic in Enum.GetValues(typeof(TypeOfEnvironmentCharacteristicEnum)))
             {
                 _availableEvents[characteristic] = 0;
             }
@@ -242,14 +242,14 @@ public class CharactersSystem : MonoBehaviour
 [Serializable]
 public class FurnitureFeatures
 {
-    public Dictionary<TypeOfEnvironmentCharacteristic, ClampedVar<sbyte>> Furniture { get; }
+    public Dictionary<TypeOfEnvironmentCharacteristicEnum, ClampedVar<sbyte>> Furniture { get; }
     public byte Count { get; private set; }
     
     /// <summary>
     /// Initializes a new instance of furniture features.
     /// </summary>
     /// <param name="characteristics">Initial characteristics dictionary</param>
-    public FurnitureFeatures(IReadOnlyDictionary<TypeOfEnvironmentCharacteristic, ClampedVar<sbyte>> characteristics)
+    public FurnitureFeatures(IReadOnlyDictionary<TypeOfEnvironmentCharacteristicEnum, ClampedVar<sbyte>> characteristics)
     {
         Furniture = characteristics.ToDictionary(x => x.Key, x => x.Value);
         Count = 1;

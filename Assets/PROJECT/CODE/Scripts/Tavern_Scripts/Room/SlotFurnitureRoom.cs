@@ -1,3 +1,4 @@
+using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -8,7 +9,7 @@ using UnityEngine.EventSystems;
 public class SlotFurnitureRoom : MonoBehaviour, IPointerClickHandler
 {
     #region Inspector Fields
-    
+
     [Header("Room Configuration")]
     [SerializeField]
     [Tooltip("Reference to the room system that manages all furniture")]
@@ -16,17 +17,9 @@ public class SlotFurnitureRoom : MonoBehaviour, IPointerClickHandler
     
     [SerializeField]
     [Tooltip("Size category of this furniture slot (Small, Large, Well, Roof)")]
-    private SizeOfFurniture slotType;
+    private SizeOfFurnitureEnum slotType;
     
     [Header("UI References")]
-    [SerializeField]
-    [Tooltip("UI panel that displays the list of available furniture")]
-    private GameObject uiListFurniture;
-    
-    [SerializeField]
-    [Tooltip("Content container where furniture UI prefabs will be instantiated")]
-    private GameObject content;
-    
     [SerializeField]
     [Tooltip("Prefab template for furniture UI list items")]
     private GameObject prefabFurniture;
@@ -46,8 +39,25 @@ public class SlotFurnitureRoom : MonoBehaviour, IPointerClickHandler
     /// <summary>Currently assigned furniture data for this slot</summary>
     private FurnitureFeaturesSo _currentFurniture;
     
+    private RoomCanvasStatic roomCanvasSington;
+
+    private GameObject uiListFurniture;
+    
+    private GameObject content;
+
     #endregion
     
+    #region Unity Methods
+
+    private void Start()
+    {
+        roomCanvasSington = RoomCanvasStatic.Instance;
+        content = roomCanvasSington.Content;
+        uiListFurniture = roomCanvasSington.PrefabFurniture;
+    }
+
+    #endregion
+
     #region Pointer Events
     
     /// <summary>
@@ -72,10 +82,10 @@ public class SlotFurnitureRoom : MonoBehaviour, IPointerClickHandler
     /// </summary>
     private void PopulateFurnitureList()
     {
-        foreach (var keyValue in roomSystem.listOfFurnitureUnlocked[slotType])
+        foreach (var keyValue in roomCanvasSington.ListOfFurnitureUnlocked[slotType])
         {
             // Reuse existing UI prefab if already created
-            if (roomSystem.prefabsFurniture.TryGetValue(keyValue.Key, out var existingPrefab))
+            if (roomCanvasSington.PrefabsFurniture.TryGetValue(keyValue.Key, out var existingPrefab))
             {
                 existingPrefab.slot = this;
                 existingPrefab.gameObject.SetActive(true);
@@ -108,7 +118,7 @@ public class SlotFurnitureRoom : MonoBehaviour, IPointerClickHandler
         prefabComponent.slot = this;
         
         // Cache the prefab for reuse
-        roomSystem.prefabsFurniture.Add(furniture, prefabComponent);
+        roomCanvasSington.AddPrefabsFurnitute(furniture, prefabComponent);
     }
     
     #endregion
@@ -151,7 +161,7 @@ public class SlotFurnitureRoom : MonoBehaviour, IPointerClickHandler
     /// <param name="newFurniture">The furniture to assign</param>
     private void AssignNewFurniture(FurnitureFeaturesSo newFurniture)
     {
-        roomSystem.RemoveUnlockedFurniture(slotType, newFurniture);
+        roomCanvasSington.RemoveUnlockedFurniture(slotType, newFurniture);
         _currentFurniture = newFurniture;
         roomSystem.AddFurniture(_currentFurniture);
     }
@@ -164,16 +174,17 @@ public class SlotFurnitureRoom : MonoBehaviour, IPointerClickHandler
     private void ReplaceFurniture(FurnitureFeaturesSo newFurniture)
     {
         // Remove new furniture from the unlocked list
-        roomSystem.RemoveUnlockedFurniture(slotType, newFurniture);
+        roomCanvasSington.RemoveUnlockedFurniture(slotType, newFurniture);
         
         // Return old furniture to unlocked list
-        roomSystem.AddUnlockedFurniture(slotType, _currentFurniture);
+        roomCanvasSington.AddUnlockedFurniture(slotType, _currentFurniture);
 
         // Update room system
         roomSystem.RemoveFurniture(_currentFurniture);
+        roomSystem.AddFurniture(newFurniture);
+
         _currentFurniture = newFurniture;
-        roomSystem.AddFurniture(_currentFurniture);
-        
+    
         // Clean up old 3D instance
         if (_currentFurnitureInstance != null)
         {

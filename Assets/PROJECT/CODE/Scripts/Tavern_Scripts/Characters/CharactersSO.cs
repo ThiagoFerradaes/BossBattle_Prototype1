@@ -20,7 +20,7 @@ public class CharactersSo : ScriptableObject
     [Header("Personality Traits")]
     [SerializedDictionary("Environmental Characteristic", "Preference Range"), SerializeField]
     [Tooltip("Character's preferences for different environmental characteristics")]
-    private SerializedDictionary<TypeOfEnvironmentCharacteristic, PreferenceRange> preferences = new();
+    private SerializedDictionary<TypeOfEnvironmentCharacteristicEnum, PreferenceRange> preferences = new();
     
     [Header("Dialogue System")]
     [SerializedDictionary("Dialogue Type", "Dialogue Data"), SerializeField] 
@@ -29,7 +29,7 @@ public class CharactersSo : ScriptableObject
 
     [SerializedDictionary("Event Type", "Associated Dialogue"), SerializeField]
     [Tooltip("Specific dialogues triggered by game events")]
-    private SerializedDictionary<DialogueEvent, DialogueSystemSo> eventDialogues = new();
+    private SerializedDictionary<DialogueEventEnum, DialogueSystemSo> eventDialogues = new();
     
     /// <summary>
     /// Gets the character associated with this personality profile.
@@ -41,7 +41,7 @@ public class CharactersSo : ScriptableObject
     /// </summary>
     /// <param name="eventToTrigger">The event that triggers the dialogue</param>
     /// <returns>The dialogue system associated with the event, or null if none exists</returns>
-    public DialogueSystemSo DialogueEvents(DialogueEvent eventToTrigger) =>
+    public DialogueSystemSo DialogueEvents(DialogueEventEnum eventToTrigger) =>
         eventDialogues.GetValueOrDefault(eventToTrigger);
     
     /// <summary>
@@ -50,7 +50,7 @@ public class CharactersSo : ScriptableObject
     /// <param name="characteristic">The environmental characteristic to evaluate</param>
     /// <param name="value">The value to assess against the preference range</param>
     /// <returns>Preference score ranging from -1 (strong dislike) to 1 (strong like)</returns>
-    public float CalculatePreference(TypeOfEnvironmentCharacteristic characteristic, float value)
+    public float CalculatePreference(TypeOfEnvironmentCharacteristicEnum characteristic, float value)
     {
         if (!preferences.TryGetValue(characteristic, out var preference)) return 0;
         
@@ -102,7 +102,7 @@ public class CharactersSo : ScriptableObject
     /// Returns a mutable copy of character preferences.
     /// </summary>
     /// <returns>Dictionary containing environmental characteristics and their preference ranges</returns>
-    public Dictionary<TypeOfEnvironmentCharacteristic, PreferenceRange> Preferences() => new(preferences);
+    public Dictionary<TypeOfEnvironmentCharacteristicEnum, PreferenceRange> Preferences() => new(preferences);
 }
 
 [Serializable]
