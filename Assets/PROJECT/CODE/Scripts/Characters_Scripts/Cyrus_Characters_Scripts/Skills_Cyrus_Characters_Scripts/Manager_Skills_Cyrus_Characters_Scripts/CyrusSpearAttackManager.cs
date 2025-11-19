@@ -41,7 +41,7 @@ public class CyrusSpearAttackManager : SkillObjectManager {
         float cooldown = _skillLevel >= 3 ? _info.Level3Cooldown : _info.Cooldown;
         cooldownManager.SetCooldownSingleCharge(slot, cooldown);
 
-        skillManager.SkillIsInAnimation(true);
+        base.FirstFunc();
     }
 
     public override void SecondFunc() {
@@ -49,9 +49,9 @@ public class CyrusSpearAttackManager : SkillObjectManager {
     }
 
     public override void FourthFunc() {
-        skillManager.SkillIsInAnimation(false);
+        base.FourthFunc();
         _weaponManager.OnDesequipRightHand();
-        animationCoroutine = null;
+        
         EndWithUnblockSkills();
     }
 
@@ -63,9 +63,11 @@ public class CyrusSpearAttackManager : SkillObjectManager {
 
         preFab.transform.SetParent(parent.transform, false);
 
-        Vector3 pos = new(prefabInfo.PreFabPosition.x, prefabInfo.PreFabPosition.y, zSize);
+        Vector3 pos = new(prefabInfo.PreFabPosition.x, prefabInfo.PreFabPosition.y, zSize/2);
 
         preFab.transform.SetLocalPositionAndRotation(pos, Quaternion.identity);
+
+        preFab.transform.SetParent(null);
 
         float penetration = _skillLevel > 2 ? _info.Level3Penetration : 0;
 

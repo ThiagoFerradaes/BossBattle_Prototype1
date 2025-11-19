@@ -47,16 +47,6 @@ public class RoomSystem : MonoBehaviour
     
     #endregion
     
-    #region Public Fields
-    
-    /// <summary>Dictionary storing unlocked furniture organized by size and features</summary>
-    public readonly Dictionary<SizeOfFurniture, Dictionary<FurnitureFeaturesSo, uint>> listOfFurnitureUnlocked = new();
-    
-    /// <summary>Dictionary mapping furniture features to their UI prefab instances</summary>
-    public Dictionary<FurnitureFeaturesSo, PrefabUiFurniture> prefabsFurniture = new();
-    
-    #endregion
-    
     #region Private Fields
     
     /// <summary>Reference to the game configuration for language settings</summary>
@@ -71,14 +61,11 @@ public class RoomSystem : MonoBehaviour
     /// </summary>
     private void Awake()
     {
-        foreach (SizeOfFurniture size in Enum.GetValues(typeof(SizeOfFurniture)))
-        {
-            listOfFurnitureUnlocked[size] = new Dictionary<FurnitureFeaturesSo, uint>();
-        }
+        if(furnitureFeaturesSos.Length == 0) return;
 
         foreach (var furnitureFeature in furnitureFeaturesSos)
         {
-            AddUnlockedFurniture(furnitureFeature.Size, furnitureFeature);
+            RoomCanvasStatic.Instance.AddUnlockedFurniture(furnitureFeature.Size, furnitureFeature);
         }
     }
     
@@ -189,145 +176,6 @@ public class RoomSystem : MonoBehaviour
     
     #endregion
 
-    #region Dictionary Management
-    
-    /// <summary>
-    /// Adds a single furniture piece to the unlocked inventory
-    /// Increments count if furniture already exists
-    /// </summary>
-    /// <param name="sizeOfFurniture">Size category of the furniture</param>
-    /// <param name="furniture">The furniture features to unlock</param>
-    public void AddUnlockedFurniture(SizeOfFurniture sizeOfFurniture, FurnitureFeaturesSo furniture)
-    {
-        if (!listOfFurnitureUnlocked.TryGetValue(sizeOfFurniture, out var value))
-        {
-            Debug.LogWarning($"Unlocked furniture for size {sizeOfFurniture} not found.");
-            return;
-        }
-
-        if (value.TryAdd(furniture, 1)) return;
-        
-        value[furniture]++;
-    }
-
-    /// <summary>
-    /// Replaces the entire furniture list for a specific size category
-    /// </summary>
-    /// <param name="sizeOfFurniture">Size category of the furniture</param>
-    /// <param name="listFurniture">Dictionary of furniture and their quantities</param>
-    public void AddListFurniture(SizeOfFurniture sizeOfFurniture, IReadOnlyDictionary<FurnitureFeaturesSo, uint> listFurniture)
-    {
-        if (!listOfFurnitureUnlocked.ContainsKey(sizeOfFurniture))
-        {
-            Debug.LogWarning($"Unlocked furniture for size {sizeOfFurniture} not found.");
-            return;
-        }
-
-        listOfFurnitureUnlocked[sizeOfFurniture] = listFurniture.ToDictionary(pair => pair.Key, pair => pair.Value);
-    }
-
-    /// <summary>
-    /// Removes one instance of a furniture piece from the unlocked inventory
-    /// Removes from prefabs dictionary if count reaches zero
-    /// </summary>
-    /// <param name="sizeOfFurniture">Size category of the furniture</param>
-    /// <param name="furniture">The furniture features to remove</param>
-    public void RemoveUnlockedFurniture(SizeOfFurniture sizeOfFurniture, FurnitureFeaturesSo furniture)
-    {
-        if (!listOfFurnitureUnlocked.TryGetValue(sizeOfFurniture, out var value))
-        {
-            Debug.LogWarning($"Unlocked furniture for size {sizeOfFurniture} not found.");
-            return;
-        }
-        
-        if (!value.TryGetValue(furniture, out var count)) return;
-
-        count--;
-        if (count > 0) return;
-        
-        value.Remove(furniture);
-        prefabsFurniture.Remove(furniture);
-    }
-
-    /// <summary>
-    /// Removes multiple furniture pieces from the unlocked inventory
-    /// Removes from prefabs dictionary if any count reaches zero
-    /// </summary>
-    /// <param name="sizeOfFurniture">Size category of the furniture</param>
-    /// <param name="listFurniture">Dictionary of furniture and quantities to remove</param>
-    public void RemoveListFurniture(SizeOfFurniture sizeOfFurniture,
-        IReadOnlyDictionary<FurnitureFeaturesSo, uint> listFurniture)
-    {
-        if (!listOfFurnitureUnlocked.TryGetValue(sizeOfFurniture, out var value))
-        {
-            Debug.LogWarning($"Unlocked furniture for size {sizeOfFurniture} not found.");
-            return;
-        }
-        
-        foreach (var furniture in listFurniture)
-        {
-            value[furniture.Key] -= furniture.Value;
-            if (value[furniture.Key] > 0) continue;
-            
-            value.Remove(furniture.Key);
-            prefabsFurniture.Remove(furniture.Key);
-        }
-    }
-
-    /// <summary>
-    /// Clears all unlocked furniture for a specific size category
-    /// Also clears all prefabs from the UI dictionary
-    /// </summary>
-    /// <param name="sizeOfFurniture">Size category to clear</param>
-    public void ClearDictionary(SizeOfFurniture sizeOfFurniture)
-    {
-        if (!listOfFurnitureUnlocked.TryGetValue(sizeOfFurniture, out var value))
-        {
-            Debug.LogWarning($"Unlocked furniture for size {sizeOfFurniture} not found.");
-            return;
-        }
-        value.Clear();
-        prefabsFurniture.Clear();
-    }
-
-    /// <summary>
-    /// Removes all instances of a specific furniture type from unlocked inventory
-    /// </summary>
-    /// <param name="sizeOfFurniture">Size category of the furniture</param>
-    /// <param name="furniture">The furniture features to remove completely</param>
-    public void RemoveAllFurnitureByType(SizeOfFurniture sizeOfFurniture, FurnitureFeaturesSo furniture)
-    {
-        if (!listOfFurnitureUnlocked.TryGetValue(sizeOfFurniture, out var value))
-        {
-            Debug.LogWarning($"Unlocked furniture for size {sizeOfFurniture} not found.");
-            return;
-        }
-        value.Remove(furniture);
-        prefabsFurniture.Remove(furniture);
-    }
-
-    /// <summary>
-    /// Removes all instances of multiple furniture types from unlocked inventory
-    /// </summary>
-    /// <param name="sizeOfFurniture">Size category of the furniture</param>
-    /// <param name="furniture">Array of furniture features to remove completely</param>
-    public void RemoveAllFurnitureByList(SizeOfFurniture sizeOfFurniture, FurnitureFeaturesSo[] furniture)
-    {
-        if (!listOfFurnitureUnlocked.TryGetValue(sizeOfFurniture, out var value))
-        {
-            Debug.LogWarning($"Unlocked furniture for size {sizeOfFurniture} not found.");
-            return;
-        }
-        
-        foreach (var furnitureToRemove in furniture)
-        {
-            value.Remove(furnitureToRemove);
-            prefabsFurniture.Remove(furnitureToRemove);
-        }
-    }
-    
-    #endregion
-    
     #region Getters
     
     /// <summary>
@@ -353,7 +201,7 @@ public class RoomSystem : MonoBehaviour
 public class Furniture
 {
     /// <summary>Size category of the furniture in this slot</summary>
-    public SizeOfFurniture sizeOfFurniture;
+    public SizeOfFurnitureEnum sizeOfFurniture;
     
     /// <summary>Current furniture features assigned to this slot</summary>
     public FurnitureFeaturesSo furniture;

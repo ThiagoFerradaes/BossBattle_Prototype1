@@ -113,9 +113,9 @@ public class CyrusAxeAttackManager : SkillObjectManager {
     }
 
     public override void FourthFunc() {
-        _weaponManager.OnDesequipRightHand();
+        base.FourthFunc();
 
-        animationCoroutine = null;
+        _weaponManager.OnDesequipRightHand();
 
         EndWithUnblockSkills();
     }
@@ -163,9 +163,10 @@ public class CyrusAxeAttackManager : SkillObjectManager {
     public override void InstantiateHitBox(SkillAnimationEvent prefabInfo) {
         GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFab, TypeOfSkillPrefab.Hitbox);
 
-        preFab.transform.localScale = _info.Size;
+        preFab.transform.localScale = _info.SkillDamageAtributes.Size;
         preFab.transform.SetParent(parent.transform, false);
         preFab.transform.SetLocalPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.identity);
+        preFab.transform.SetParent(null);
 
         DamageAtributes atributes = new(_info.SkillDamageAtributes) {
             Damage = ReturnDamage(),
@@ -191,13 +192,13 @@ public class CyrusAxeAttackManager : SkillObjectManager {
     public override void InstantiateVFX(SkillAnimationEvent prefabInfo) {
         GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFab, TypeOfSkillPrefab.VFX);
         preFab.transform.SetParent(parent.transform, false);
-        Vector3 rotation = new Vector3(-90, -180, 90);
+        Vector3 rotation = new(-90, -180, 90);
         preFab.transform.SetLocalPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.Euler(rotation));
         preFab.GetComponent<VFXPreFab>().Initialize(prefabInfo.PrefabDuration);
     }
     void InstantiateBrokenRocks() {
         GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(_info.BrokenRocksPrefab, TypeOfSkillPrefab.Hitbox);
-        preFab.transform.localScale = Vector3.one * _info.BrokenRockSize;
+        preFab.transform.localScale = _info.RocksAtributes.Size;
         preFab.transform.SetParent(parent.transform, false);
         preFab.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
 

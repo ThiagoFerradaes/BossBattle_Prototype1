@@ -14,6 +14,7 @@ public class CyrusOrbsSkillSO : CommonSkillSO
 
     [Header("Level One Atributes")]
     [Foldout("Specific")] public float OrbSpeedLevelOne;
+    [Foldout("Specific")] public float OrbCooldownLevelOne;
     
     [Header("Level Two Atributes")]
     [Foldout("Specific")] public float OrbCritRateLevelTwo;

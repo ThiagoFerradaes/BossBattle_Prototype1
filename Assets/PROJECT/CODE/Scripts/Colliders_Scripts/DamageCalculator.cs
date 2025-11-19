@@ -91,7 +91,7 @@ public static class DamageCalculator {
         // Vendo se critou
         bool isCrit;
         if (atributes.ExtraAtributes.ContainsKey(ExtraDamageContextAtributes.CritRate))
-            isCrit = UnityEngine.Random.value <= atributes.ExtraAtributes[ExtraDamageContextAtributes.CritRate];
+            isCrit = UnityEngine.Random.value <= atributes.ExtraAtributes[ExtraDamageContextAtributes.CritRate]/100;
         else isCrit = UnityEngine.Random.value <= statusDealer.ReturnStatusValue(StatusType.CritRate) / 100;
 
         // Vendo dano crítico

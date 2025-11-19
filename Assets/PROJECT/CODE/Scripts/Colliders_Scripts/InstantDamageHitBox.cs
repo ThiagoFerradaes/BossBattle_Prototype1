@@ -5,19 +5,16 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 
 
-public class DamageContext
-{
+public class DamageContext {
     public DamageAtributes Atributes;
     public StatusManager StatusManager;
 
-    public DamageContext(DamageAtributes atributes, StatusManager status)
-    {
+    public DamageContext(DamageAtributes atributes, StatusManager status) {
         this.Atributes = atributes;
         this.StatusManager = status;
     }
 }
-public class InstantDamageHitBox : MonoBehaviour
-{
+public class InstantDamageHitBox : MonoBehaviour {
     #region Parameters
 
     DamageAtributes _damageAtributes;
@@ -29,8 +26,7 @@ public class InstantDamageHitBox : MonoBehaviour
     #endregion
 
     #region Methods
-    public void Initialize(DamageContext context, bool hasTimer = true)
-    {
+    public void Initialize(DamageContext context, bool hasTimer = true) {
         _damageAtributes = context.Atributes;
         _statusManager = context.StatusManager;
 
@@ -39,11 +35,9 @@ public class InstantDamageHitBox : MonoBehaviour
     }
 
     public void ForceEnd() => End();
-    IEnumerator AttackDuration()
-    {
+    IEnumerator AttackDuration() {
         float timer = 0;
-        while (timer < _damageAtributes.HitBoxDuration)
-        {
+        while (timer < _damageAtributes.HitBoxDuration) {
             timer += Time.deltaTime;
             yield return null;
         }
@@ -51,24 +45,19 @@ public class InstantDamageHitBox : MonoBehaviour
         End();
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
+    private void OnTriggerEnter(Collider other) {
         if (!_damageAtributes.UnitsToHit.Any(tag => other.CompareTag(tag.ToString()))) return;
 
-        if (!other.TryGetComponent<HealthManager>(out HealthManager health))
-        {
+        if (!other.TryGetComponent<HealthManager>(out HealthManager health)) {
             health = other.GetComponentInParent<HealthManager>();
-            if (health == null)
-            {
+            if (health == null) {
                 Debug.Log("No HealthManager found in this object or its parents");
                 return;
             }
         }
-        if (!other.TryGetComponent<StatusManager>(out StatusManager recieverStatus))
-        {
+        if (!other.TryGetComponent<StatusManager>(out StatusManager recieverStatus)) {
             recieverStatus = other.GetComponentInParent<StatusManager>();
-            if (recieverStatus == null)
-            {
+            if (recieverStatus == null) {
                 Debug.Log("No StatusManager found in this object or its parents");
                 return;
             }
@@ -77,24 +66,12 @@ public class InstantDamageHitBox : MonoBehaviour
         if (!health.ReturnIfCanTakeDamage()) return;
 
 
-        (float, bool) newDamage;
-        if (!_damageAtributes.ExtraAtributes.ContainsKey(ExtraDamageContextAtributes.CritRate) ||
-            !_damageAtributes.ExtraAtributes.ContainsKey(ExtraDamageContextAtributes.CritDamage))
-        {
-            newDamage = DamageCalculator.CalculateDamage(
+        (float, bool) newDamage = DamageCalculator.CalculateDamage(
                 _damageAtributes,
                 _statusManager,
                 recieverStatus
                 );
-        }
-        else
-        {
-            newDamage = DamageCalculator.CalculateDamage(
-                _damageAtributes,
-                _statusManager,
-                recieverStatus
-                );
-        }
+
         if (!other.CompareTag(Tags.Player.ToString())) PopUpManager.Instance.
                 DamageDone((int)newDamage.Item1, other.transform.position, newDamage.Item2, _damageAtributes.DamageType);
 
@@ -102,15 +79,13 @@ public class InstantDamageHitBox : MonoBehaviour
 
         health.TakeDamage(newDamage.Item1, _damageAtributes.HitShield);
 
-        if (!_hasHitted)
-        {
+        if (!_hasHitted) {
             _hasHitted = true;
             OnHit?.Invoke();
         }
     }
 
-    void End()
-    {
+    void End() {
         _hasHitted = false;
         OnHit = null;
         PoolingManager.Instance.ReturnObjectToPool(this.gameObject, TypeOfSkillPrefab.Hitbox);

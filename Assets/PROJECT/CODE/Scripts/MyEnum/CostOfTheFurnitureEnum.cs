@@ -1,5 +1,5 @@
 // Gerado automaticamente pelo EnumGeneratorWindow
-public enum CostOfTheFurniture
+public enum CostOfTheFurnitureEnum
 {
     Estilhaços,
     Destroços,
