@@ -125,7 +125,6 @@ public class PlayerMovementManager : MonoBehaviour {
             if(!_isRoomEditor)_rb.linearVelocity = moveDirection * moveSpeed;
             else return;
         }
-
         UpdateWalkingAnimation();
     }
 
@@ -202,6 +201,7 @@ public class PlayerMovementManager : MonoBehaviour {
     /// <param name="isPlayer"></param>
     public void RoomEditor( bool isPlayer) => _isRoomEditor = isPlayer;
     #endregion
+
     #region Animation
 
     void UpdateWalkingAnimation() {

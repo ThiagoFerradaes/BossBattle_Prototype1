@@ -25,7 +25,6 @@ public class InstantDamageHitBox : MonoBehaviour {
         gameObject.SetActive(true);
         if (hasTimer) StartCoroutine(AttackDuration());
     }
-
     public void ForceEnd() => End();
     IEnumerator AttackDuration() {
         float timer = 0;

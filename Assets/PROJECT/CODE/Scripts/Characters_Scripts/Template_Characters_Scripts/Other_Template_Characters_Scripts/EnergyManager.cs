@@ -27,6 +27,9 @@ public class EnergyManager : MonoBehaviour
         PlayerSkillManager.OnSkillsSet += _setMaxEnergy;
     }
 
+    private void OnDestroy() {
+        OnEnergyValueChanged = null;
+    }
     #endregion
 
     #region Energy

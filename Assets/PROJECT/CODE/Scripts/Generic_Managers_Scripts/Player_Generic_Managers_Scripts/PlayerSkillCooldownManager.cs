@@ -35,6 +35,8 @@ public class PlayerSkillCooldownManager : MonoBehaviour
     private void OnDestroy()
     {
         OnCooldownSet = null;
+        OnChargesSet = null;
+        OnChargesChange = null;
         PlayerSkillManager.OnSkillsSet -= _setCharges;
     }
 

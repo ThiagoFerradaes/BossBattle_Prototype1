@@ -22,7 +22,6 @@ public class ProjectileDamageHitBox : MonoBehaviour {
 
         _moveRoutine ??= StartCoroutine(ProjectileMoveRoutine());
     }
-
     IEnumerator ProjectileMoveRoutine() {
         float duration = 
             _damageAtributes.Distance / _damageAtributes.Speed;
