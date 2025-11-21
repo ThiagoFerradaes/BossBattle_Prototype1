@@ -8,7 +8,6 @@ public class CyrusShootUpUltimateManager : SkillObjectManager {
 
     // Components
     CyrusShootUpSO _info;
-    WeaponManager _weaponManager;
 
     // Atributes
     int _skillLevel = 0;
@@ -40,8 +39,6 @@ public class CyrusShootUpUltimateManager : SkillObjectManager {
     void Initialize(SkillSO skill) {
         if (_info == null) _info = skill as CyrusShootUpSO;
 
-        if (_weaponManager == null) _weaponManager = parent.GetComponent<WeaponManager>();
-
         _skillLevel = CyrusPassiveManager.Instance.ReturnSkillLevel(slot);
 
         if (!gameObject.activeInHierarchy) gameObject.SetActive(true);
@@ -56,16 +53,10 @@ public class CyrusShootUpUltimateManager : SkillObjectManager {
 
         energyManager.LooseAllEnergy();
         energyManager.SetCanGainEnergy(false);
-
-        _weaponManager.OnEquipRightHand(_info.WeaponPrefab, _info.WeaponPosition, _info.WeaponOneRotation);
-        _weaponManager.OnEquipLeftHand(_info.WeaponPrefab, _info.WeaponTwoPosition, _info.WeaponTwoRotation);
     }
 
     public override void FourthFunc() {
         base.FourthFunc();
-
-        _weaponManager.OnDesequipRightHand();
-        _weaponManager.OnDesequipLeftHand();
 
         energyManager.SetCanGainEnergy(true);
 

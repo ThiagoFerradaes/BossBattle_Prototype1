@@ -13,11 +13,10 @@ MonoBehaviour:
   m_Name: Dash
   m_EditorClassIdentifier: 
   SkillManagerObject: {fileID: 2372894199157366626, guid: f2e224e06b323ba47bc1fefd5737c6d9, type: 3}
-  SkillManagerName: DashManager
+  SkillSpriteIcon: {fileID: 21300000, guid: 56181bbc7f2118043bdb6c6330a54b86, type: 3}
   Prefabs:
     _serializedList: []
   SkillObjectRangeObject: {fileID: 1830691435722458984, guid: 38e053e2505371642bf9f2d656737eac, type: 3}
-  SkillObjectRangeName: DashRangeIndicator
   BlockWalkWhilePreCasting: 1
   BlockDashWhilePreCasting: 1
   PreCastOn: 1
@@ -41,6 +40,8 @@ MonoBehaviour:
     Distance: 5
     Speed: 10
     CrossEnemy: 0
+    TimeStopped: 0
+    MinDistanceBack: 0
     ExtraAtributes:
       _serializedList: []
   AnimationParameter: Dash

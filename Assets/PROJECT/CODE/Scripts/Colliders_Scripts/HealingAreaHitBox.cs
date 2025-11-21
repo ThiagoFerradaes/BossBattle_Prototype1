@@ -5,14 +5,14 @@ using UnityEngine;
 
 public class HealingAreaHitBox : MonoBehaviour {
 
-    List<Tags> _listOfTags;
+    LayerMask _layer;
     HashSet<HealthManager> _listOfUnitsToHeal = new();
 
     Coroutine _durationRoutine, _healingRoutine;
-    public void Initialize(float healing, float duration, float healingCooldown, List<Tags> listOfTags) {
+    public void Initialize(float healing, float duration, float healingCooldown, LayerMask layer) {
         gameObject.SetActive(true);
 
-        _listOfTags = listOfTags;
+        _layer = layer;
 
         _durationRoutine ??= StartCoroutine(Duration(duration));
         _healingRoutine ??= StartCoroutine(Healing(healing, healingCooldown));
@@ -42,7 +42,7 @@ public class HealingAreaHitBox : MonoBehaviour {
     }
 
     private void OnTriggerEnter(Collider other) {
-        if (!_listOfTags.Any(tag => other.CompareTag(tag.ToString()))) return;
+        if (!_layer.ContainsLayer(other.gameObject.layer)) return;
 
         if (!other.TryGetComponent(out HealthManager health)) return;
 
@@ -50,7 +50,7 @@ public class HealingAreaHitBox : MonoBehaviour {
     }
 
     private void OnTriggerExit(Collider other) {
-        if (!_listOfTags.Any(tag => other.CompareTag(tag.ToString()))) return;
+        if (!_layer.ContainsLayer(other.gameObject.layer)) return;
 
         if (!other.TryGetComponent(out HealthManager health)) return;
 

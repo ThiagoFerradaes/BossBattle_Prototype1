@@ -7,7 +7,6 @@ public class CyrusSpearAttackManager : SkillObjectManager {
 
     // Components
     CyrusSpearSkillSO _info;
-    WeaponManager _weaponManager;
 
     // Atributes
     int _skillLevel = 0;
@@ -30,7 +29,6 @@ public class CyrusSpearAttackManager : SkillObjectManager {
         if (_info == null) {
             _info = skill as CyrusSpearSkillSO;
             cooldownManager = skillManager.CooldownManager;
-            _weaponManager = parent.GetComponent<WeaponManager>();
         }
 
         _skillLevel = CyrusPassiveManager.Instance.ReturnSkillLevel(slot);
@@ -44,13 +42,9 @@ public class CyrusSpearAttackManager : SkillObjectManager {
         base.FirstFunc();
     }
 
-    public override void SecondFunc() {
-        _weaponManager.OnEquipRightHand(_info.SpearPrefab, _info.WeaponPosition, _info.WeaponRotation);
-    }
 
     public override void FourthFunc() {
         base.FourthFunc();
-        _weaponManager.OnDesequipRightHand();
         
         EndWithUnblockSkills();
     }

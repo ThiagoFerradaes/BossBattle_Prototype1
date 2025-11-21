@@ -19,14 +19,4 @@ public class CyrusBaseAttackSO : CommonSkillSO {
     [Foldout("Specific")] public float CooldownBetweenAttacks;
     [Foldout("Specific")] public float MaxTimeBetweenAttacks;
     [Foldout("Specific")] public Vector3 Size;
-
-    [Header("Strings")]
-    [Foldout("Specific")] public string SwordName;
-
-    [Header("Weapon")]
-    [Foldout("Specific")] public GameObject SwordPrefab;
-    [Foldout("Specific")] public Vector3 FirstBaseAttackHitBoxPosition;
-    [Foldout("Specific")] public Vector3 SecondtBaseAttackHitBoxPosition;
-    [Foldout("Specific")] public Vector3 WeaponPosition;
-    [Foldout("Specific")] public Vector3 WeaponRotation;
 }

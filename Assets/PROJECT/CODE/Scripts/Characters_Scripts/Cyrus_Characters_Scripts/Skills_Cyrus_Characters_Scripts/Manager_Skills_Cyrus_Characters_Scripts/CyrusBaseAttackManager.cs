@@ -7,7 +7,6 @@ public class CyrusBaseAttackManager : SkillObjectManager {
 
     // Components
     CyrusBaseAttackSO _info;
-    WeaponManager _weaponManager;
 
     // Int
     int _attackIndex = 1;
@@ -40,21 +39,17 @@ public class CyrusBaseAttackManager : SkillObjectManager {
     private void Initialize(SkillSO skill) {
         if (_info == null) {
             _info = skill as CyrusBaseAttackSO;
-            _weaponManager = parent.GetComponent<WeaponManager>();
         }
 
     }
     public override void FirstFunc() {
         _attackSpeedMultiplier = GetAttackSpeedMultiplier();
 
-        skillManager.SkillIsInAnimation(true);
-
         anim.SetFloat(_info.AttackSpeedAnimationParameter, _attackSpeedMultiplier);
+
+        base.FirstFunc();
     }
 
-    public override void SecondFunc() {
-        _weaponManager.OnEquipRightHand(_info.SwordPrefab, _info.WeaponPosition, _info.WeaponRotation);
-    }
 
     public override void FourthFunc() {
         float cooldown = _attackIndex == 1 ? _info.CooldownBetweenAttacks : _info.Cooldown;
@@ -65,8 +60,6 @@ public class CyrusBaseAttackManager : SkillObjectManager {
         anim.SetFloat(_info.AttackSpeedAnimationParameter, 1);
 
         _attackIndex = _attackIndex == 1 ? _attackIndex = 2 : _attackIndex = 1;
-
-        _weaponManager.OnDesequipRightHand();
 
         UnblockInputs();
 

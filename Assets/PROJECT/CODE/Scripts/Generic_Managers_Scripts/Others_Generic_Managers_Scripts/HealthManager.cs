@@ -55,6 +55,17 @@ public class HealthManager : MonoBehaviour {
         ChangeHealth(_maxHealth);
         ChangeShield(0);
     }
+
+    private void OnDestroy() {
+        OnDeath = null;
+        OnRevive = null;
+        OnHit = null;
+        OnShieldBreak = null;
+        OnDamageTaken = null;
+        OnHealthChanged = null;
+        OnShieldChanged = null;
+    }
+
     #endregion
 
     #region Health

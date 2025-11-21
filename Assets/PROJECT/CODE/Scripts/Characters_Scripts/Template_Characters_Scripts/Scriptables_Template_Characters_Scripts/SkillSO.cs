@@ -3,7 +3,7 @@ using NaughtyAttributes;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum TypeOfSkillPrefab { Hitbox, VFX, PreCastRange, Manager }
+
 [System.Serializable]
 public class SkillAnimationEvent {
     public float TimeToSpawnPreFab;
@@ -14,10 +14,10 @@ public class SkillAnimationEvent {
     public Vector3 PreFabPosition;
 }
 
-public enum Tags { Enemy, Player, Construct }
 public class SkillSO : ScriptableObject {
     [Header("Skill Manager")]
     [Foldout("Generic")] public SkillObjectManager SkillManagerObject;
+    [Foldout("Generic")] public Sprite SkillSpriteIcon;
 
     [Header("Skill Prefabs")]
     [Foldout("Generic"), SerializedDictionary("Combo", "Event")]

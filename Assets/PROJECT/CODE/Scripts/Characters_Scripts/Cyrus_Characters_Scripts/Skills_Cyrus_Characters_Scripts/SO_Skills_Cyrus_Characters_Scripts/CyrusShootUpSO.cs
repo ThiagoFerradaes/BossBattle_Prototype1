@@ -18,11 +18,4 @@ public class CyrusShootUpSO : UltimateSkillSO
     [Foldout("Specific")] public float AditionalCritDamagePerHit;
     [Foldout("Specific")] public float Level3DamageCooldown;
     [Foldout("Specific"), SerializedDictionary("Level", "Amount")] public SerializedDictionary<int, int> AmountOfUsesPerLevel;
-
-    [Header("Weapon")]
-    [Foldout("Specific")] public GameObject WeaponPrefab;
-    [Foldout("Specific")] public Vector3 WeaponPosition;
-    [Foldout("Specific")] public Vector3 WeaponTwoPosition;
-    [Foldout("Specific")] public Vector3 WeaponOneRotation;
-    [Foldout("Specific")] public Vector3 WeaponTwoRotation;
 }

@@ -28,10 +28,4 @@ public class CyrusAxeSkillSO : CommonSkillSO
     [Header("Level 3 Buff")]
     [Foldout("Specific")] public DamageAtributes RocksAtributes;
     [Foldout("Specific")] public GameObject BrokenRocksPrefab;
-
-    [Header("Weapon")]
-    [Foldout("Specific")] public string WeaponName;
-    [Foldout("Specific")] public GameObject WeaponPrefab;
-    [Foldout("Specific")] public Vector3 WeaponPosition;
-    [Foldout("Specific")] public Vector3 WeaponRotation;
 }

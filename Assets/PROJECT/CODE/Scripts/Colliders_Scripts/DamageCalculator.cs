@@ -1,18 +1,26 @@
 using AYellowpaper.SerializedCollections;
 using NaughtyAttributes;
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
+public enum TypeOfSkillPrefab { Hitbox, VFX, PreCastRange, Manager }
 public enum TypeOfCollider { Instant, Continuos, Projectile, Boomerang}
 public enum DamageType { Abyssal, Ancestral, Pure }
 public enum ExtraDamageContextAtributes { Penetration, CritRate, CritDamage }
+public class DamageContext {
+    public DamageAtributes Atributes;
+    public StatusManager StatusManager;
 
+    public DamageContext(DamageAtributes atributes, StatusManager status) {
+        this.Atributes = atributes;
+        this.StatusManager = status;
+    }
+}
 [Serializable]
 public class DamageAtributes {
     [Header ("Main Atributes")]
     public DamageType DamageType;
-    public List<Tags> UnitsToHit;
+    public LayerMask UnitsToHit;
 
     [Header("Floats")]
     public float Damage;

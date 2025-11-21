@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CyrusBaseAttack
   m_EditorClassIdentifier: Assembly-CSharp::CyrusBaseAttackSO
   SkillManagerObject: {fileID: 915159781484785722, guid: de3c47dc503a52546be7e01c6b93c28b, type: 3}
-  SkillManagerName: CyrusBaseAttackManager
+  SkillSpriteIcon: {fileID: 0}
   Prefabs:
     _serializedList:
     - Key: 1
@@ -41,7 +41,6 @@ MonoBehaviour:
         PreFab: {fileID: 9067519135874036081, guid: 386870ab5af5faa429eafc69f7b3b4e3, type: 3}
         PreFabPosition: {x: 0, y: 0, z: 1}
   SkillObjectRangeObject: {fileID: 261372437491194248, guid: c83d144d01a675b458028fc94a087be4, type: 3}
-  SkillObjectRangeName: CyrusBaseAttackRangeIndicator
   BlockWalkWhilePreCasting: 1
   BlockDashWhilePreCasting: 1
   PreCastOn: 1
@@ -54,16 +53,21 @@ MonoBehaviour:
   ChargeCooldown: 0
   SkillDamageAtributes:
     DamageType: 0
-    UnitsToHit: 
+    UnitsToHit:
+      serializedVersion: 2
+      m_Bits: 128
     Damage: 0
-    HitBoxDuration: 0.1
     HitShield: 0
     BreakShield: 0
+    Size: {x: 0, y: 0, z: 0}
     TypeOfPrefab: 0
+    HitBoxDuration: 0.1
     DamageCooldown: 0.1
     Distance: 5
     Speed: 10
     CrossEnemy: 0
+    TimeStopped: 0
+    MinDistanceBack: 0
     ExtraAtributes:
       _serializedList: []
   FirstBaseAttackParameter: BaseAttackOne
@@ -73,38 +77,42 @@ MonoBehaviour:
   AttackSpeedAnimationParameter: AttackSpeed
   FirstAttackAtributes:
     DamageType: 0
-    UnitsToHit: 00000000
+    UnitsToHit:
+      serializedVersion: 2
+      m_Bits: 128
     Damage: 16
-    HitBoxDuration: 0.1
     HitShield: 1
     BreakShield: 0
+    Size: {x: 0, y: 0, z: 0}
     TypeOfPrefab: 0
+    HitBoxDuration: 0.1
     DamageCooldown: 0.1
     Distance: 7
     Speed: 20
     CrossEnemy: 0
+    TimeStopped: 0
+    MinDistanceBack: 0
     ExtraAtributes:
       _serializedList: []
   SecondAttackAtributes:
     DamageType: 0
-    UnitsToHit: 00000000
+    UnitsToHit:
+      serializedVersion: 2
+      m_Bits: 128
     Damage: 18
-    HitBoxDuration: 0.1
     HitShield: 1
     BreakShield: 0
+    Size: {x: 0, y: 0, z: 0}
     TypeOfPrefab: 0
+    HitBoxDuration: 0.1
     DamageCooldown: 0.1
     Distance: 7
     Speed: 20
     CrossEnemy: 0
+    TimeStopped: 0
+    MinDistanceBack: 0
     ExtraAtributes:
       _serializedList: []
   CooldownBetweenAttacks: 0
   MaxTimeBetweenAttacks: 0.8
   Size: {x: 3, y: 2, z: 1.5}
-  SwordName: CyrusSword
-  SwordPrefab: {fileID: 2980958354712852747, guid: 6793abb85d087f94b8f42eb79ca00943, type: 3}
-  FirstBaseAttackHitBoxPosition: {x: 0, y: 0, z: 0}
-  SecondtBaseAttackHitBoxPosition: {x: 0, y: 0, z: 0}
-  WeaponPosition: {x: 0, y: 0, z: 0}
-  WeaponRotation: {x: 0, y: 0, z: 0}

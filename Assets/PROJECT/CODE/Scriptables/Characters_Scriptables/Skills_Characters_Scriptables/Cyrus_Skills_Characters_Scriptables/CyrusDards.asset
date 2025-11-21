@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: CyrusDards
   m_EditorClassIdentifier: Assembly-CSharp::CyrusDardsSkillSO
   SkillManagerObject: {fileID: 2708456213846731736, guid: ff299287f953f2041a4951a7f69b1a10, type: 3}
+  SkillSpriteIcon: {fileID: 21300000, guid: abb3ba7866a0bb047936ae8572dcd72d, type: 3}
   Prefabs:
     _serializedList:
     - Key: 0
@@ -35,7 +36,9 @@ MonoBehaviour:
   ChargeCooldown: 0.5
   SkillDamageAtributes:
     DamageType: 1
-    UnitsToHit: 00000000
+    UnitsToHit:
+      serializedVersion: 2
+      m_Bits: 128
     Damage: 10
     HitShield: 1
     BreakShield: 0
@@ -46,6 +49,8 @@ MonoBehaviour:
     Distance: 3
     Speed: 30
     CrossEnemy: 0
+    TimeStopped: 0
+    MinDistanceBack: 0
     ExtraAtributes:
       _serializedList: []
   AnimationParameter: Dards
