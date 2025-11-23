@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: CyrusAxeAttack
   m_EditorClassIdentifier: 
   SkillManagerObject: {fileID: 8217681042118647236, guid: e6293f237e32a1a40a1e3d233031b521, type: 3}
+  SkillSpriteIcon: {fileID: 21300000, guid: 70159ca479080f24eb6f0f37d1d052a0, type: 3}
   Prefabs:
     _serializedList:
     - Key: 0
@@ -40,7 +41,9 @@ MonoBehaviour:
   ChargeCooldown: 0
   SkillDamageAtributes:
     DamageType: 0
-    UnitsToHit: 00000000
+    UnitsToHit:
+      serializedVersion: 2
+      m_Bits: 128
     Damage: 60
     HitShield: 1
     BreakShield: 0
@@ -76,7 +79,9 @@ MonoBehaviour:
       Value: 1
   RocksAtributes:
     DamageType: 1
-    UnitsToHit: 00000000
+    UnitsToHit:
+      serializedVersion: 2
+      m_Bits: 128
     Damage: 5
     HitShield: 1
     BreakShield: 0
@@ -92,7 +97,3 @@ MonoBehaviour:
     ExtraAtributes:
       _serializedList: []
   BrokenRocksPrefab: {fileID: 8998219623033830514, guid: f2cad2093c1cc8042a97d053a88618a0, type: 3}
-  WeaponName: Axe
-  WeaponPrefab: {fileID: 2959415985370578672, guid: 2714152a00b35324f8b6fef038dba403, type: 3}
-  WeaponPosition: {x: -0.3, y: 0.3, z: 0}
-  WeaponRotation: {x: 0, y: 0, z: 60}

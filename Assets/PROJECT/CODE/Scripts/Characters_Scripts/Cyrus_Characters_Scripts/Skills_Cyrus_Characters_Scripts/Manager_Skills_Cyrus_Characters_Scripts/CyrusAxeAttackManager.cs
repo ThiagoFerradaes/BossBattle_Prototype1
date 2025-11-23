@@ -8,7 +8,6 @@ public class CyrusAxeAttackManager : SkillObjectManager {
     #region Parameter
     // Components
     CyrusAxeSkillSO _info;
-    WeaponManager _weaponManager;
 
     // Atributes
     bool _isHoldingInput;
@@ -46,7 +45,6 @@ public class CyrusAxeAttackManager : SkillObjectManager {
         if (!gameObject.activeInHierarchy) gameObject.SetActive(true);
 
         if (_info == null) _info = skill as CyrusAxeSkillSO;
-        if (_weaponManager == null) _weaponManager = parent.GetComponent<WeaponManager>();
 
         _skillLevel = CyrusPassiveManager.Instance.ReturnSkillLevel(slot);
 
@@ -89,8 +87,6 @@ public class CyrusAxeAttackManager : SkillObjectManager {
 
         float maxChargeTime = _skillLevel >= 2 ? _info.NewMaxChargeTime : _info.MaxChargeTime;
 
-        _weaponManager.OnEquipRightHand(_info.WeaponPrefab, _info.WeaponPosition, _info.WeaponRotation);
-
         while (_isHoldingInput || _chargeTimer < _info.MinimalChargeTime) {
             _chargeTimer += Time.deltaTime;
             if (_chargeTimer >= maxChargeTime) break;
@@ -114,8 +110,6 @@ public class CyrusAxeAttackManager : SkillObjectManager {
 
     public override void FourthFunc() {
         base.FourthFunc();
-
-        _weaponManager.OnDesequipRightHand();
 
         EndWithUnblockSkills();
     }
@@ -150,9 +144,6 @@ public class CyrusAxeAttackManager : SkillObjectManager {
 
         _preCasted = false;
         _isHoldingInput = false;
-
-        // tirar arma
-        _weaponManager?.OnDesequipRightHand();
 
         EndWithUnblockSkills();
     }

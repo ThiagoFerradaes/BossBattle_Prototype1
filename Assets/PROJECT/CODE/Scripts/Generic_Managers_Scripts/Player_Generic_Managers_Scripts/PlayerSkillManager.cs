@@ -68,6 +68,8 @@ public class PlayerSkillManager : MonoBehaviour {
 
     private void OnDestroy() {
         StunManager.OnStun -= _onStun;
+        OnSkillsSet = null;
+        OnStopSkills = null;
     }
     void SetSkills() {
         PlayerWhiteBoard whiteboard = PlayerWhiteBoard.Instance;

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: LilianWingsOfHorror
   m_EditorClassIdentifier: Assembly-CSharp::LilianWingsOfHorrorSO
   SkillManagerObject: {fileID: -2912945388451382330, guid: 63dd808355eee4541ac3314272e3eca8, type: 3}
+  SkillSpriteIcon: {fileID: 0}
   Prefabs:
     _serializedList:
     - Key: 0
@@ -42,7 +43,9 @@ MonoBehaviour:
   ChargeCooldown: 1
   SkillDamageAtributes:
     DamageType: 1
-    UnitsToHit: 00000000
+    UnitsToHit:
+      serializedVersion: 2
+      m_Bits: 128
     Damage: 8
     HitShield: 1
     BreakShield: 0
@@ -53,15 +56,14 @@ MonoBehaviour:
     Distance: 10
     Speed: 50
     CrossEnemy: 0
+    TimeStopped: 0
+    MinDistanceBack: 0
     ExtraAtributes:
       _serializedList: []
   AnimationParameter: SkullSummon
   AnimationName: Lilian_Skill_Summon
   WingsOfHorrorAnimationParameter: Attack
   WingsOfHorrorAnimationName: attack
-  LayersToHit:
-    serializedVersion: 2
-    m_Bits: 128
   RadiusOfAttack: 10
   RotationSpeed: 160
   HealthPercentLostPerAttack: 2

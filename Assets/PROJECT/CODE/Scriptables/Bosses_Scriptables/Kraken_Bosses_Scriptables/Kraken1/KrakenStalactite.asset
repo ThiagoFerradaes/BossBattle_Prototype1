@@ -14,15 +14,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::KrakenStalactiteAttack
   Priority: 4
   Cooldown: 30
+  CooldownBetweenAttacks: 0
+  Channel: 0
+  OpenNewChannels: 0
+  ListOfChannelsToOpen: 
+  CloseOldChannels: 0
+  ListOfChannelsToClose: 
   attackDuration: 8
   cooldownBetweenEachStalactite: 0.4
   stalactiteFallSpeed: 15
   stalactiteFallDuration: 1.5
-  stalactiteMinDamage: 20
-  stalactiteMaxDamage: 25
   stalactiteHeight: 10
-  damageType: 1
-  tags: 0100000002000000
+  damageAtributes:
+    DamageType: 0
+    UnitsToHit:
+      serializedVersion: 2
+      m_Bits: 256
+    Damage: 0
+    HitShield: 0
+    BreakShield: 0
+    Size: {x: 0, y: 0, z: 0}
+    TypeOfPrefab: 0
+    HitBoxDuration: 0
+    DamageCooldown: 0
+    Distance: 0
+    Speed: 0
+    CrossEnemy: 0
+    TimeStopped: 0
+    MinDistanceBack: 0
+    ExtraAtributes:
+      _serializedList: []
   smallCooldown: 10
   cooldownBetweenStalactiteAndNextAttack: 1
   healthLimit: 50

@@ -47,7 +47,9 @@ MonoBehaviour:
   TimeInReturnToIdleToTurnOffHitBox: 0.4
   AliveTentacleDamageAtributes:
     DamageType: 0
-    UnitsToHit: 0100000002000000
+    UnitsToHit:
+      serializedVersion: 2
+      m_Bits: 256
     Damage: 25
     HitShield: 1
     BreakShield: 0
@@ -58,11 +60,15 @@ MonoBehaviour:
     Distance: 5
     Speed: 10
     CrossEnemy: 0
+    TimeStopped: 0
+    MinDistanceBack: 0
     ExtraAtributes:
       _serializedList: []
   DeadTentacleDamageAtributes:
     DamageType: 0
-    UnitsToHit: 0100000002000000
+    UnitsToHit:
+      serializedVersion: 2
+      m_Bits: 0
     Damage: 6
     HitShield: 1
     BreakShield: 0
@@ -73,6 +79,8 @@ MonoBehaviour:
     Distance: 5
     Speed: 10
     CrossEnemy: 0
+    TimeStopped: 0
+    MinDistanceBack: 0
     ExtraAtributes:
       _serializedList: []
   TentacleAttackSize: 0.8

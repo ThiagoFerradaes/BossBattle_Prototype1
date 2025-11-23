@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: LilianBaseAttack
   m_EditorClassIdentifier: Assembly-CSharp::LilianBaseAttackSO
   SkillManagerObject: {fileID: -3911848889666694597, guid: bbc0b97b271761d45b99e9f5a4b80efa, type: 3}
+  SkillSpriteIcon: {fileID: 0}
   Prefabs:
     _serializedList:
     - Key: 0
@@ -35,7 +36,9 @@ MonoBehaviour:
   ChargeCooldown: 0
   SkillDamageAtributes:
     DamageType: 1
-    UnitsToHit: 00000000
+    UnitsToHit:
+      serializedVersion: 2
+      m_Bits: 128
     Damage: 15
     HitShield: 1
     BreakShield: 0
@@ -46,6 +49,8 @@ MonoBehaviour:
     Distance: 10
     Speed: 30
     CrossEnemy: 1
+    TimeStopped: 0
+    MinDistanceBack: 0
     ExtraAtributes:
       _serializedList: []
   AnimationOneParameter: BaseAttackOne
