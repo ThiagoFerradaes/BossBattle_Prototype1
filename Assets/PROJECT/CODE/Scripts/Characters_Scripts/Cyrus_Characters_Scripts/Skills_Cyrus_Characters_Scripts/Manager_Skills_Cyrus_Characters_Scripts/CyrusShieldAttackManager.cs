@@ -1,6 +1,4 @@
 using System;
-using Unity.Burst.Intrinsics;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class CyrusShieldAttackManager : SkillObjectManager {
