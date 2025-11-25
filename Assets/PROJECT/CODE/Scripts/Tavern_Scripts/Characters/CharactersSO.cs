@@ -79,6 +79,22 @@ public class CharactersSo : ScriptableObject
             -math.saturate((value - preference.range.y) / (100 - preference.range.y)) * preference.importance : 0;
     }
 
+    public float CalculateAllPreferences(List<FurnitureFeaturesSo> environmentCharacteristics)
+    {
+        float totalPreference = 0f;
+        foreach (var (characteristicKey, charactertisValue) in preferences)
+        {
+            if(environmentCharacteristics.GetAllCharacteristics().TryGetValue(characteristicKey, out var characteristicValue))
+            {
+                totalPreference += CalculatePreference(characteristicKey, characteristicValue);
+                continue;
+            }
+            totalPreference += CalculatePreference(characteristicKey, 0);
+        }   
+
+        return totalPreference;
+    }
+
     /// <summary>
     /// Retrieves the most appropriate dialogue based on the current friendship level.
     /// </summary>

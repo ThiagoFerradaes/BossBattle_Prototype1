@@ -128,12 +128,12 @@ public class RoomSystem : MonoBehaviour
             return;
         }
 
-        float preference = 0f;
+        List<FurnitureFeaturesSo> list = new List<FurnitureFeaturesSo>();
 
-        foreach (var characteristic in RoomAtributes.GetAllCharacteristics())
-        {
-            preference += character.CalculatePreference(characteristic.Key, _lockedFurnitureBySize[characteristic.Key]);
-        }
+        list.Add(RoomAtributes);
+        list.AddRange(furnitureFeaturesSos);
+
+        float preference = character.CalculateAllPreferences(list);
 
         characterhappiness.character = character.Character;
         characterhappiness.value = preference;
