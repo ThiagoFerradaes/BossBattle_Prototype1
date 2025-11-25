@@ -41,10 +41,10 @@ public class RoomSystem : MonoBehaviour
     private TMP_Text descriptionFurniture;
 
     [Space(10)]
-    [header("Attributes")]
+    [Header("Attributes")]
     [SerializeField]
     [Tooltip("Attributes of the room affecting character preferences")]
-    private FurnitureFeaturesSo[] RoomAtributes;
+    private FurnitureFeaturesSo RoomAtributes;
 
     [Space(50)]
     [Header("Debug")]
@@ -127,6 +127,8 @@ public class RoomSystem : MonoBehaviour
         {
             return;
         }
+
+        float preference = 0f;
 
         foreach (var characteristic in RoomAtributes.GetAllCharacteristics())
         {
