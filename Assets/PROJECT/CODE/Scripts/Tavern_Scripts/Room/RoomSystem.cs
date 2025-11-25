@@ -40,6 +40,12 @@ public class RoomSystem : MonoBehaviour
     [Tooltip("Text component displaying furniture description")]
     private TMP_Text descriptionFurniture;
 
+    [Space(10)]
+    [header("Attributes")]
+    [SerializeField]
+    [Tooltip("Attributes of the room affecting character preferences")]
+    private FurnitureFeaturesSo[] RoomAtributes;
+
     [Space(50)]
     [Header("Debug")]
     [SerializeField]
@@ -49,6 +55,7 @@ public class RoomSystem : MonoBehaviour
     [Space(5), SerializedDictionary("Type", "Value"), SerializeField]
     private SerializedDictionary<TypeOfEnvironmentCharacteristicEnum, int> _lockedFurnitureBySize = new SerializedDictionary<TypeOfEnvironmentCharacteristicEnum, int>();
 
+    [Space(10)]
     [SerializeField] private CharacterValue characterhappiness;
 
     #endregion
@@ -98,6 +105,8 @@ public class RoomSystem : MonoBehaviour
         }
 
         InitializeConfiguration();
+
+        AddPreferenceToCharacter();
     }
 
     /// <summary>
@@ -106,6 +115,26 @@ public class RoomSystem : MonoBehaviour
     private void OnDisable()
     {
         UnsubscribeFromEvents();
+    }
+
+    #endregion
+
+    #region Functionality
+
+    private void AddPreferenceToCharacter()
+    {
+        if (character is null)
+        {
+            return;
+        }
+
+        foreach (var characteristic in RoomAtributes.GetAllCharacteristics())
+        {
+            preference += character.CalculatePreference(characteristic.Key, _lockedFurnitureBySize[characteristic.Key]);
+        }
+
+        characterhappiness.character = character.Character;
+        characterhappiness.value = preference;
     }
 
     #endregion
@@ -158,7 +187,7 @@ public class RoomSystem : MonoBehaviour
             if (furniture.furniture == null)
             {
                 furniture.AddFurniture(newFurniture);
-                float preference = 0;
+                float preference = characterhappiness.value;
 
                 foreach (var characteristic in newFurniture.GetAllCharacteristics())
                 {
