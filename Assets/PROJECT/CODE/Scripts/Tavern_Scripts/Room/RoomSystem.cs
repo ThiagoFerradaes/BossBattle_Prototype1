@@ -5,6 +5,7 @@ using AYellowpaper.SerializedCollections;
 using MyEnum;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 /// <summary>
 /// Manages the room furniture system, including furniture placement, unlocking, and UI display.
@@ -40,24 +41,25 @@ public class RoomSystem : MonoBehaviour
     [Tooltip("Text component displaying furniture description")]
     private TMP_Text descriptionFurniture;
 
+    [FormerlySerializedAs("RoomAtributes")]
     [Space(10)]
     [Header("Attributes")]
     [SerializeField]
     [Tooltip("Attributes of the room affecting character preferences")]
-    private FurnitureFeaturesSo RoomAtributes;
-
+    private FurnitureFeaturesSo roomAttributes;
+    
     [Space(50)]
     [Header("Debug")]
     [SerializeField]
     [Tooltip("Debug array of furniture features for testing")]
     private FurnitureFeaturesSo[] furnitureFeaturesSos;
 
-    [Space(5), SerializedDictionary("Type", "Value"), SerializeField]
-    private SerializedDictionary<TypeOfEnvironmentCharacteristicEnum, int> _lockedFurnitureBySize = new SerializedDictionary<TypeOfEnvironmentCharacteristicEnum, int>();
+    [FormerlySerializedAs("_lockedFurnitureBySize")] [Space(5), SerializedDictionary("Type", "Value"), SerializeField]
+    private SerializedDictionary<TypeOfEnvironmentCharacteristicEnum, int> lockedFurnitureBySize = new SerializedDictionary<TypeOfEnvironmentCharacteristicEnum, int>();
 
     [Space(10)]
-    [SerializeField] private CharacterValue characterhappiness;
-
+    [SerializeField] private CharacterValue characterHappiness;
+    
     #endregion
 
     #region Private Fields
@@ -82,9 +84,9 @@ public class RoomSystem : MonoBehaviour
             RoomCanvasStatic.Instance.AddUnlockedFurniture(furnitureFeature.Size, furnitureFeature);
         }
 
-        foreach (var slot in TypeOfEnvironmentCharacteristicEnum.GetValues(typeof(TypeOfEnvironmentCharacteristicEnum)))
+        foreach (var slot in Enum.GetValues(typeof(TypeOfEnvironmentCharacteristicEnum)))
         {
-            _lockedFurnitureBySize.Add((TypeOfEnvironmentCharacteristicEnum)slot, 0);
+            lockedFurnitureBySize.Add((TypeOfEnvironmentCharacteristicEnum)slot, 0);
         }
 
     }
@@ -128,15 +130,14 @@ public class RoomSystem : MonoBehaviour
             return;
         }
 
-        List<FurnitureFeaturesSo> list = new List<FurnitureFeaturesSo>();
+        List<FurnitureFeaturesSo> list = new List<FurnitureFeaturesSo> { roomAttributes };
 
-        list.Add(RoomAtributes);
         list.AddRange(furnitureFeaturesSos);
 
         float preference = character.CalculateAllPreferences(list);
 
-        characterhappiness.character = character.Character;
-        characterhappiness.value = preference;
+        characterHappiness.character = character.Character;
+        characterHappiness.value = preference;
     }
 
     #endregion
@@ -189,17 +190,17 @@ public class RoomSystem : MonoBehaviour
             if (furniture.furniture == null)
             {
                 furniture.AddFurniture(newFurniture);
-                float preference = characterhappiness.value;
+                float preference = characterHappiness.value;
 
                 foreach (var characteristic in newFurniture.GetAllCharacteristics())
                 {
-                    _lockedFurnitureBySize[characteristic.Key] += characteristic.Value.value;
+                    lockedFurnitureBySize[characteristic.Key] += characteristic.Value.value;
 
                     if (character is null)
                     {
                         continue;
                     }
-                    preference += character.CalculatePreference(characteristic.Key, _lockedFurnitureBySize[characteristic.Key]);
+                    preference += character.CalculatePreference(characteristic.Key, lockedFurnitureBySize[characteristic.Key]);
                 }
 
                 if (character is null)
@@ -207,8 +208,8 @@ public class RoomSystem : MonoBehaviour
                     break;
                 }
 
-                characterhappiness.character = character.Character;
-                characterhappiness.value = preference;
+                characterHappiness.character = character.Character;
+                characterHappiness.value = preference;
 
                 break;
             }
@@ -224,17 +225,19 @@ public class RoomSystem : MonoBehaviour
         foreach (var furniture in listOfFurniture.Where(furniture => furniture.furniture == furnitureToRemove))
         {
             furniture.RemoveFurniture();
-            float preference = characterhappiness.value;
+            float preference = characterHappiness.value;
 
             foreach (var characteristic in furnitureToRemove.GetAllCharacteristics())
             {
-                _lockedFurnitureBySize[characteristic.Key] -= characteristic.Value.value;
+                int beginner = lockedFurnitureBySize[characteristic.Key];
+                int newValue = beginner - characteristic.Value.value;
+                lockedFurnitureBySize[characteristic.Key] = newValue;
 
                 if (character is null)
                 {
                     continue;
                 }
-                preference -= character.CalculatePreference(characteristic.Key, _lockedFurnitureBySize[characteristic.Key]);
+                preference = character.CalculateRemove(characteristic.Key,beginner, newValue, preference);
             }
 
             if (character is null)
@@ -242,8 +245,8 @@ public class RoomSystem : MonoBehaviour
                 break;
             }
 
-            characterhappiness.character = character.Character;
-            characterhappiness.value = preference;
+            characterHappiness.character = character.Character;
+            characterHappiness.value = preference;
 
             break;
         }
