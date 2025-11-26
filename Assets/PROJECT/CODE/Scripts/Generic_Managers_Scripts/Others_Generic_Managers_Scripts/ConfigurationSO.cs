@@ -34,8 +34,8 @@ public class ConfigurationSo : ScriptableObject
         public bool dashToMouse; 
         public EnumLanguage language;
     }
-
-    private string SavePath => Path.Combine(Application.persistentDataPath, "config.json");
+    
+    private static string SavePath => Path.Combine(Application.persistentDataPath, "config.json");
 
     /// <summary>
     /// Sets the game language and triggers the language change event if the new language is different

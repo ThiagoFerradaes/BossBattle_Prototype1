@@ -12,18 +12,13 @@ public class PlayerSkillUI : MonoBehaviour {
 
     public static PlayerSkillUI Instance;
 
-    [Header("Skill Object")]
-    [SerializeField] private GameObject baseAttackObject;
-
     [Header("Skill Image")]
-    [SerializeField] private Image baseAttackSkillImage;
     [SerializeField] private Image dashSkillImage;
     [SerializeField] private Image skillOneImage;
     [SerializeField] private Image skillTwoImage;
     [SerializeField] private Image ultimateImage;
 
     [Header("Cooldown Image")]
-    [SerializeField] private Image baseAttackCooldown;
     [SerializeField] private Image dashCooldown;
     [SerializeField] private Image skillOneCooldown;
     [SerializeField] private Image skillTwoCooldown;
@@ -63,14 +58,13 @@ public class PlayerSkillUI : MonoBehaviour {
         StartDictionary();
         SetSkillsImage();
         SetCooldownImagesOff();
-        
+
     }
 
     void StartDictionary() {
         cooldownCoroutines = new Dictionary<SkillSlot, Coroutine>();
         cooldownImages = new Dictionary<SkillSlot, Image>
         {
-            {SkillSlot.BaseAttack,  baseAttackCooldown},
             { SkillSlot.Dash, dashCooldown },
             { SkillSlot.SkillOne, skillOneCooldown },
             { SkillSlot.SkillTwo, skillTwoCooldown },
@@ -93,6 +87,8 @@ public class PlayerSkillUI : MonoBehaviour {
     }
 
     private void StartCooldownUI(SkillSlot slot, float cooldown) {
+        if (slot == SkillSlot.BaseAttack) return;
+
         if (cooldownCoroutines.TryGetValue(slot, out Coroutine currentRoutine) && currentRoutine != null) {
             StopCoroutine(currentRoutine);
         }
@@ -122,6 +118,17 @@ public class PlayerSkillUI : MonoBehaviour {
 
     private void SetSkillsImage() {
         Debug.Log("Skills have image");
+
+        PlayerWhiteBoard whiteboard = PlayerWhiteBoard.Instance;
+        Character selectedCharacter = whiteboard.ReturnSelectedCharacter();
+
+        if (whiteboard.ReturnSkillOne(selectedCharacter).SkillSpriteIcon)
+            skillOneImage.sprite = whiteboard.ReturnSkillOne(selectedCharacter).SkillSpriteIcon;
+        if (whiteboard.ReturnSkillTwo(selectedCharacter).SkillSpriteIcon)
+            skillTwoImage.sprite = whiteboard.ReturnSkillTwo(selectedCharacter).SkillSpriteIcon;
+        if (whiteboard.ReturnUltimate(selectedCharacter).SkillSpriteIcon)
+            ultimateImage.sprite = whiteboard.ReturnUltimate(selectedCharacter).SkillSpriteIcon;
+
     }
 
     private void SetCooldownImagesOff() {
@@ -142,14 +149,6 @@ public class PlayerSkillUI : MonoBehaviour {
 
     void SetInitialChargeNumbers(SkillSlot slot, int charges) {
         switch (slot) {
-            case SkillSlot.BaseAttack:
-                if (charges < 2)
-                    baseAttackCharge.gameObject.SetActive(false);
-                else {
-                    baseAttackCharge.gameObject.SetActive(true);
-                    baseAttackCharge.text = charges.ToString();
-                }
-                break;
             case SkillSlot.Dash:
                 if (charges < 2)
                     dashCharge.gameObject.SetActive(false);
@@ -179,9 +178,6 @@ public class PlayerSkillUI : MonoBehaviour {
 
     void ChangeCharge(SkillSlot slot, int currentCharges) {
         switch (slot) {
-            case SkillSlot.BaseAttack:
-                baseAttackCharge.text = currentCharges.ToString();
-                break;
             case SkillSlot.Dash:
                 dashCharge.text = currentCharges.ToString();
                 break;
@@ -193,8 +189,6 @@ public class PlayerSkillUI : MonoBehaviour {
                 break;
         }
     }
-
-    public void TurnBaseAttackImageOn() => baseAttackObject.SetActive(true);
 
     #endregion
 }

@@ -37,8 +37,6 @@ public class CyrusDardsSkillManager : SkillObjectManager {
     public override void FourthFunc() {
         base.FourthFunc();
 
-        if (_skillLevel < 3) CyrusPassiveManager.Instance.AddUseSkill(slot, _info.AmountOfUsesPerLevel[_skillLevel]);
-
         EndWithUnblockSkills();
     }
 
@@ -65,10 +63,16 @@ public class CyrusDardsSkillManager : SkillObjectManager {
             projectile.OnCollision += (Collider collision) => {
                 energyManager.GainEnergy(_info.FlatEnergyGainPerHit);
 
+                if (_skillLevel < 3) CyrusPassiveManager.Instance.AddUseSkill(slot, _info.AmountOfUsesPerLevel[_skillLevel]);
+
                 if (_skillLevel > 0) {
                     if (collision.TryGetComponent<StatusManager>(out StatusManager status)) {
                         status.ChangeStatus(StatusType.Defense, _info.AmountOfDefenseDrop/100, false, _info.DefenseDropDuration);
                     }
+                    //else {
+                    //    collision.GetComponentInParent<StatusManager>().
+                    //    ChangeStatus(StatusType.Defense, _info.AmountOfDefenseDrop / 100, false, _info.DefenseDropDuration);
+                    //}
                 }
             };
 

@@ -8,7 +8,6 @@ public class CyrusAxeAttackManager : SkillObjectManager {
     #region Parameter
     // Components
     CyrusAxeSkillSO _info;
-    WeaponManager _weaponManager;
 
     // Atributes
     bool _isHoldingInput;
@@ -46,7 +45,6 @@ public class CyrusAxeAttackManager : SkillObjectManager {
         if (!gameObject.activeInHierarchy) gameObject.SetActive(true);
 
         if (_info == null) _info = skill as CyrusAxeSkillSO;
-        if (_weaponManager == null) _weaponManager = parent.GetComponent<WeaponManager>();
 
         _skillLevel = CyrusPassiveManager.Instance.ReturnSkillLevel(slot);
 
@@ -89,8 +87,6 @@ public class CyrusAxeAttackManager : SkillObjectManager {
 
         float maxChargeTime = _skillLevel >= 2 ? _info.NewMaxChargeTime : _info.MaxChargeTime;
 
-        _weaponManager.OnEquipRightHand(_info.WeaponPrefab, _info.WeaponPosition, _info.WeaponRotation);
-
         while (_isHoldingInput || _chargeTimer < _info.MinimalChargeTime) {
             _chargeTimer += Time.deltaTime;
             if (_chargeTimer >= maxChargeTime) break;
@@ -113,9 +109,7 @@ public class CyrusAxeAttackManager : SkillObjectManager {
     }
 
     public override void FourthFunc() {
-        _weaponManager.OnDesequipRightHand();
-
-        animationCoroutine = null;
+        base.FourthFunc();
 
         EndWithUnblockSkills();
     }
@@ -151,9 +145,6 @@ public class CyrusAxeAttackManager : SkillObjectManager {
         _preCasted = false;
         _isHoldingInput = false;
 
-        // tirar arma
-        _weaponManager?.OnDesequipRightHand();
-
         EndWithUnblockSkills();
     }
 
@@ -163,9 +154,10 @@ public class CyrusAxeAttackManager : SkillObjectManager {
     public override void InstantiateHitBox(SkillAnimationEvent prefabInfo) {
         GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFab, TypeOfSkillPrefab.Hitbox);
 
-        preFab.transform.localScale = _info.Size;
+        preFab.transform.localScale = _info.SkillDamageAtributes.Size;
         preFab.transform.SetParent(parent.transform, false);
         preFab.transform.SetLocalPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.identity);
+        preFab.transform.SetParent(null);
 
         DamageAtributes atributes = new(_info.SkillDamageAtributes) {
             Damage = ReturnDamage(),
@@ -191,13 +183,13 @@ public class CyrusAxeAttackManager : SkillObjectManager {
     public override void InstantiateVFX(SkillAnimationEvent prefabInfo) {
         GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFab, TypeOfSkillPrefab.VFX);
         preFab.transform.SetParent(parent.transform, false);
-        Vector3 rotation = new Vector3(-90, -180, 90);
+        Vector3 rotation = new(-90, -180, 90);
         preFab.transform.SetLocalPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.Euler(rotation));
         preFab.GetComponent<VFXPreFab>().Initialize(prefabInfo.PrefabDuration);
     }
     void InstantiateBrokenRocks() {
         GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(_info.BrokenRocksPrefab, TypeOfSkillPrefab.Hitbox);
-        preFab.transform.localScale = Vector3.one * _info.BrokenRockSize;
+        preFab.transform.localScale = _info.RocksAtributes.Size;
         preFab.transform.SetParent(parent.transform, false);
         preFab.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
 

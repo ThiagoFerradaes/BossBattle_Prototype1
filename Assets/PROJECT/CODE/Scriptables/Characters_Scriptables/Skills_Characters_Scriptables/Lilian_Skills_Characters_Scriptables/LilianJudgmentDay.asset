@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: LilianJudgmentDay
   m_EditorClassIdentifier: Assembly-CSharp::LilianJudgmentDaySO
   SkillManagerObject: {fileID: 8939686091223594809, guid: f1e9f3f5c16d11e47847db26919ba162, type: 3}
+  SkillSpriteIcon: {fileID: 0}
   Prefabs:
     _serializedList:
     - Key: 0
@@ -31,7 +32,9 @@ MonoBehaviour:
   EnergyCost: 50
   Atributes:
     DamageType: 1
-    UnitsToHit: 00000000
+    UnitsToHit:
+      serializedVersion: 2
+      m_Bits: 128
     Damage: 5
     HitShield: 1
     BreakShield: 0
@@ -42,6 +45,8 @@ MonoBehaviour:
     Distance: 5
     Speed: 10
     CrossEnemy: 0
+    TimeStopped: 0
+    MinDistanceBack: 0
     ExtraAtributes:
       _serializedList: []
   AnimationParameter: Judgment

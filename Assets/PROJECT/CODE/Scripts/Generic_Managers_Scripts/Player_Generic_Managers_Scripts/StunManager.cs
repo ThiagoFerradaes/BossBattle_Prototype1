@@ -58,4 +58,8 @@ public class StunManager : MonoBehaviour
         _isStunned = !stun;
 
     }
+
+    private void OnDestroy() {
+        OnStun = null;
+    }
 }

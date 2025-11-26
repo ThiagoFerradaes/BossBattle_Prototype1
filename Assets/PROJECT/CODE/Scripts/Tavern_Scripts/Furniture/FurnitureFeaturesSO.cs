@@ -14,19 +14,19 @@ public class FurnitureFeaturesSo : ScriptableObject
     [Header("Furniture Cost")]
     [SerializedDictionary("Type", "Value"), SerializeField] 
     [Tooltip("Dictionary mapping cost types (e.g., gold, resources) to their respective values")]
-    private SerializedDictionary<CostOfTheFurniture, ClampedVar<byte>> costs = new();
+    private SerializedDictionary<CostOfTheFurnitureEnum, ClampedVar<byte>> costs = new();
     
     [Space(20)]
     [Header("Environmental Impact")] 
     [SerializedDictionary("Type", "Value"), SerializeField]
     [Tooltip("Dictionary mapping environmental effects (e.g., comfort, atmosphere) to their impact values")]
-    private SerializedDictionary<TypeOfEnvironmentCharacteristic, ClampedVar<sbyte>> characteristics = new();
+    private SerializedDictionary<TypeOfEnvironmentCharacteristicEnum, ClampedVar<sbyte>> characteristics = new();
     
     [Space(20)]
     [Header("Physical Properties")]
     [Tooltip("Specifies the furniture's size category (Small, Medium, Large)")]
     [SerializeField]
-    private SizeOfFurniture size;
+    private SizeOfFurnitureEnum size;
 
     [Space(20)]
     [Header("Visual Assets")]
@@ -55,7 +55,7 @@ public class FurnitureFeaturesSo : ScriptableObject
     /// <summary>
     /// Gets the size category of the furniture item.
     /// </summary>
-    public SizeOfFurniture Size => size;
+    public SizeOfFurnitureEnum Size => size;
 
     /// <summary>
     /// Gets the localized name of the furniture item.
@@ -84,7 +84,7 @@ public class FurnitureFeaturesSo : ScriptableObject
     /// </summary>
     /// <param name="costType">The type of cost to query.</param>
     /// <returns>The cost value (range: 0-255). Returns 0 if the cost type is not defined.</returns>
-    public byte GetCost(CostOfTheFurniture costType) =>
+    public byte GetCost(CostOfTheFurnitureEnum costType) =>
         costs.TryGetValue(costType, out var cost) ? cost.value : (byte)0;
     
     /// <summary>
@@ -92,22 +92,22 @@ public class FurnitureFeaturesSo : ScriptableObject
     /// </summary>
     /// <param name="type">The type of environmental effect to query.</param>
     /// <returns>The characteristic intensity (range: -128 to 127). Returns 0 if the characteristic is not defined.</returns>
-    public sbyte GetCharacteristic(TypeOfEnvironmentCharacteristic type) =>
+    public sbyte GetCharacteristic(TypeOfEnvironmentCharacteristicEnum type) =>
         characteristics.TryGetValue(type, out var characteristic) ? characteristic.value : (sbyte)0;
 
     /// <summary>
     /// Provides an immutable copy of all furniture costs.
     /// </summary>
     /// <returns>A read-only dictionary containing all cost types and their values.</returns>
-    public IReadOnlyDictionary<CostOfTheFurniture, ClampedVar<byte>> GetAllCosts() => 
-        new Dictionary<CostOfTheFurniture, ClampedVar<byte>>(costs);
+    public IReadOnlyDictionary<CostOfTheFurnitureEnum, ClampedVar<byte>> GetAllCosts() => 
+        new Dictionary<CostOfTheFurnitureEnum, ClampedVar<byte>>(costs);
     
     /// <summary>
     /// Provides an immutable copy of all environmental characteristics.
     /// </summary>
     /// <returns>A read-only dictionary containing all characteristic types and their values.</returns>
-    public IReadOnlyDictionary<TypeOfEnvironmentCharacteristic, ClampedVar<sbyte>> GetAllCharacteristics() => 
-        new Dictionary<TypeOfEnvironmentCharacteristic, ClampedVar<sbyte>>(characteristics);
+    public IReadOnlyDictionary<TypeOfEnvironmentCharacteristicEnum, ClampedVar<sbyte>> GetAllCharacteristics() => 
+        new Dictionary<TypeOfEnvironmentCharacteristicEnum, ClampedVar<sbyte>>(characteristics);
     #endregion
 }
 

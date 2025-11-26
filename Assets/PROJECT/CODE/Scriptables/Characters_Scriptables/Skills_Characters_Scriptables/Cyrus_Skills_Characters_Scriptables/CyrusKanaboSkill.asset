@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: CyrusKanaboSkill
   m_EditorClassIdentifier: Assembly-CSharp::CyrusKanaboSkillSO
   SkillManagerObject: {fileID: 5377058787476192221, guid: bc1b6aa1b76ae0b41ab263b371a3b5ae, type: 3}
+  SkillSpriteIcon: {fileID: 21300000, guid: 21f64324e6888e5439f03726b1ccd273, type: 3}
   Prefabs:
     _serializedList:
     - Key: 0
@@ -21,7 +22,7 @@ MonoBehaviour:
         PrefabType: 0
         PrefabDuration: 0
         PreFab: {fileID: 8271028322271159555, guid: 02de40013cebfe2448edca155583a4c1, type: 3}
-        PreFabPosition: {x: 0, y: 1, z: 1}
+        PreFabPosition: {x: 0, y: 1, z: 1.5}
   SkillObjectRangeObject: {fileID: 0}
   BlockWalkWhilePreCasting: 1
   BlockDashWhilePreCasting: 1
@@ -35,7 +36,9 @@ MonoBehaviour:
   ChargeCooldown: 0
   SkillDamageAtributes:
     DamageType: 0
-    UnitsToHit: 00000000
+    UnitsToHit:
+      serializedVersion: 2
+      m_Bits: 128
     Damage: 20
     HitShield: 1
     BreakShield: 0
@@ -46,6 +49,8 @@ MonoBehaviour:
     Distance: 5
     Speed: 10
     CrossEnemy: 0
+    TimeStopped: 0
+    MinDistanceBack: 0
     ExtraAtributes:
       _serializedList: []
   AnimationParameter: Kanabo
@@ -63,7 +68,9 @@ MonoBehaviour:
   ExplosionPrefab: {fileID: 8998219623033830514, guid: 690c34d54c88e12448b7561adfe65ab9, type: 3}
   ExplosionAtributes:
     DamageType: 1
-    UnitsToHit: 00000000
+    UnitsToHit:
+      serializedVersion: 2
+      m_Bits: 128
     Damage: 50
     HitShield: 1
     BreakShield: 0
@@ -74,6 +81,8 @@ MonoBehaviour:
     Distance: 5
     Speed: 10
     CrossEnemy: 0
+    TimeStopped: 0
+    MinDistanceBack: 0
     ExtraAtributes:
       _serializedList: []
   AmountOfExplosionLevelTwo: 2
@@ -85,7 +94,9 @@ MonoBehaviour:
   ContinuosDamagePrefab: {fileID: 8998219623033830514, guid: f2cad2093c1cc8042a97d053a88618a0, type: 3}
   ContinuosDamageAreaAtributes:
     DamageType: 1
-    UnitsToHit: 00000000
+    UnitsToHit:
+      serializedVersion: 2
+      m_Bits: 128
     Damage: 1
     HitShield: 1
     BreakShield: 0
@@ -96,5 +107,7 @@ MonoBehaviour:
     Distance: 5
     Speed: 10
     CrossEnemy: 0
+    TimeStopped: 0
+    MinDistanceBack: 0
     ExtraAtributes:
       _serializedList: []

@@ -1,18 +1,26 @@
 using AYellowpaper.SerializedCollections;
 using NaughtyAttributes;
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
+public enum TypeOfSkillPrefab { Hitbox, VFX, PreCastRange, Manager }
 public enum TypeOfCollider { Instant, Continuos, Projectile, Boomerang}
 public enum DamageType { Abyssal, Ancestral, Pure }
 public enum ExtraDamageContextAtributes { Penetration, CritRate, CritDamage }
+public class DamageContext {
+    public DamageAtributes Atributes;
+    public StatusManager StatusManager;
 
+    public DamageContext(DamageAtributes atributes, StatusManager status) {
+        this.Atributes = atributes;
+        this.StatusManager = status;
+    }
+}
 [Serializable]
 public class DamageAtributes {
     [Header ("Main Atributes")]
     public DamageType DamageType;
-    public List<Tags> UnitsToHit;
+    public LayerMask UnitsToHit;
 
     [Header("Floats")]
     public float Damage;
@@ -91,7 +99,7 @@ public static class DamageCalculator {
         // Vendo se critou
         bool isCrit;
         if (atributes.ExtraAtributes.ContainsKey(ExtraDamageContextAtributes.CritRate))
-            isCrit = UnityEngine.Random.value <= atributes.ExtraAtributes[ExtraDamageContextAtributes.CritRate];
+            isCrit = UnityEngine.Random.value <= atributes.ExtraAtributes[ExtraDamageContextAtributes.CritRate]/100;
         else isCrit = UnityEngine.Random.value <= statusDealer.ReturnStatusValue(StatusType.CritRate) / 100;
 
         // Vendo dano crítico

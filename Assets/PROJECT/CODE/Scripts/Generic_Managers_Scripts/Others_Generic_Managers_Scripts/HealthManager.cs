@@ -55,6 +55,17 @@ public class HealthManager : MonoBehaviour {
         ChangeHealth(_maxHealth);
         ChangeShield(0);
     }
+
+    private void OnDestroy() {
+        OnDeath = null;
+        OnRevive = null;
+        OnHit = null;
+        OnShieldBreak = null;
+        OnDamageTaken = null;
+        OnHealthChanged = null;
+        OnShieldChanged = null;
+    }
+
     #endregion
 
     #region Health
@@ -152,7 +163,6 @@ public class HealthManager : MonoBehaviour {
     void ChangeShield(float newShield) {
         _currentShield = Mathf.Clamp(newShield, 0, _maxHealth * _maxShield);
         OnShieldChanged?.Invoke(_currentShield, _maxHealth * _maxShield);
-
         if (_currentShield == 0) OnShieldBreak?.Invoke();
     }
 
