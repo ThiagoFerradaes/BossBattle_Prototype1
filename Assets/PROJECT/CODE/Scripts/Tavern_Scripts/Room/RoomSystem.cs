@@ -102,15 +102,15 @@ public class RoomSystem : MonoBehaviour
     /// </summary>
     private void OnEnable()
     {
-        for (byte i = 0; i < numberOfFurniture; i++)
-        {
-            slotFurnitureRooms[i].gameObject.SetActive(true);
-        }
-
         InitializeConfiguration();
         
         if (listOfFurniture.Count != 0) return;
 
+        for (byte i = 0; i < numberOfFurniture; i++)
+        {
+            slotFurnitureRooms[i].gameObject.SetActive(true);
+        }
+        
         for (byte i = 0; i < slotFurnitureRooms.Length; i++)
         {
             listOfFurniture.Add(new Furniture());
@@ -316,7 +316,7 @@ public class RoomSystem : MonoBehaviour
     /// Gets the room's furniture data for saving
     /// </summary>
     /// <returns>Tuple containing furniture dictionary, room ID, and character happiness</returns>
-    public (Dictionary<byte, Furniture> , byte, CharacterValue) GetFurniture()
+    public (Dictionary<byte, Furniture> furnitureDictionary , byte id, CharacterValue characterHappiness, byte slotAmount) GetFurniture()
     {
         Dictionary<byte,Furniture> furniture = new Dictionary<byte, Furniture>();
         
@@ -325,7 +325,17 @@ public class RoomSystem : MonoBehaviour
             furniture.Add(i, listOfFurniture[i]);
         }
 
-        return (furniture, id, characterHappiness);
+        byte slotAmount = 0;
+
+        foreach (var furnitureEntry in slotFurnitureRooms)
+        {
+            if (furnitureEntry.gameObject.activeInHierarchy)
+            {
+                slotAmount++;
+            }
+        }
+        
+        return (furniture, id, characterHappiness, slotAmount);
     }
 
     /// <summary>
@@ -341,8 +351,14 @@ public class RoomSystem : MonoBehaviour
     /// </summary>
     /// <param name="furniture">Dictionary of saved furniture data</param>
     /// <param name="characteristic">Saved character happiness data</param>
-    public void LoadFurniture(Dictionary<byte, Furniture> furniture, CharacterValue characteristic)
+    /// <param name="slotAmount"></param>
+    public void LoadFurniture(Dictionary<byte, Furniture> furniture, CharacterValue characteristic, byte slotAmount)
     {
+        for (byte i = 0; i < slotAmount; i++)
+        {
+            slotFurnitureRooms[i].gameObject.SetActive(true);
+        }
+        
         for (byte i = 0; i < slotFurnitureRooms.Length; i++)
         {
             listOfFurniture.Add(new Furniture());

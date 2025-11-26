@@ -83,12 +83,13 @@ public class RoomCanvasStatic : MonoBehaviour
 
             foreach (var data in furnitureData)
             {
-                byte roomKey = data.Item2;
-                CharacterValue characterValue = data.Item3;
-                Dictionary<byte, Furniture> furnitureDict = data.Item1;
-
+                byte roomKey = data.id;
+                CharacterValue characterValue = data.characterHappiness;
+                Dictionary<byte, Furniture> furnitureDict = data.furnitureDictionary;
+                byte slotAmount = data.slotAmount;
+                
                 // Converter para estrutura serializável
-                FurnitureData roomFurniture = new FurnitureData(characterValue, furnitureDict);
+                FurnitureData roomFurniture = new FurnitureData(characterValue, furnitureDict, slotAmount);
                 saveFurnitureData.furnitureRooms.Add(new RoomFurnitureEntry(roomKey, roomFurniture));
             }
 
@@ -137,16 +138,17 @@ public class RoomCanvasStatic : MonoBehaviour
             }
 
             // Converter de volta para Dictionary
-            Dictionary<byte, (CharacterValue, Dictionary<byte, Furniture>)> furnitureDictionary =
-                new Dictionary<byte, (CharacterValue, Dictionary<byte, Furniture>)>();
+            Dictionary<byte, (CharacterValue, Dictionary<byte, Furniture>, byte)> furnitureDictionary =
+                new Dictionary<byte, (CharacterValue, Dictionary<byte, Furniture>, byte)>();
 
             foreach (var roomEntry in loadedData.saveFurniture.furnitureRooms)
             {
                 byte roomKey = roomEntry.roomKey;
+                byte slotAmount = roomEntry.furnitureData.slotAmount;
                 CharacterValue characterValue = roomEntry.furnitureData.characterValue;
                 Dictionary<byte, Furniture> furnitureDict = roomEntry.furnitureData.ToDictionary();
 
-                furnitureDictionary[roomKey] = (characterValue, furnitureDict);
+                furnitureDictionary[roomKey] = (characterValue, furnitureDict, slotAmount);
             }
 
             // Aplicar dados carregados aos room systems
@@ -158,7 +160,7 @@ public class RoomCanvasStatic : MonoBehaviour
                 // Verificar se existe dados salvos para este room
                 if (furnitureDictionary.TryGetValue(id, out var furnitureData))
                 {
-                    roomSystem.LoadFurniture(furnitureData.Item2, furnitureData.Item1);
+                    roomSystem.LoadFurniture(furnitureData.Item2, furnitureData.Item1, furnitureData.Item3);
                     loadedCount++;
                 }
                 else
@@ -364,13 +366,15 @@ public class RoomCanvasStatic : MonoBehaviour
 [Serializable]
 public class FurnitureData
 {
+    public byte slotAmount;
     public CharacterValue characterValue;
     public List<FurnitureEntry> furnitureList;
 
-    public FurnitureData(CharacterValue charValue, Dictionary<byte, Furniture> furnitureDict)
+    public FurnitureData(CharacterValue charValue, Dictionary<byte, Furniture> furnitureDict, byte slotAmount = 0)
     {
         characterValue = charValue;
         furnitureList = new List<FurnitureEntry>();
+        this.slotAmount = slotAmount;
         
         foreach (var kvp in furnitureDict)
         {
