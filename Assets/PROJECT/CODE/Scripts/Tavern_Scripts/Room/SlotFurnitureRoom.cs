@@ -67,7 +67,6 @@ public class SlotFurnitureRoom : MonoBehaviour, IPointerClickHandler
     /// <param name="eventData">Event data from the pointer click</param>
     public void OnPointerClick(PointerEventData eventData)
     {
-        Debug.Log("Furniture slot clicked");
         PopulateFurnitureList();
         uiListFurniture.SetActive(true);
     }
@@ -176,7 +175,7 @@ public class SlotFurnitureRoom : MonoBehaviour, IPointerClickHandler
         // Remove new furniture from the unlocked list
         roomCanvasSington.RemoveUnlockedFurniture(slotType, newFurniture);
         
-        // Return old furniture to unlocked list
+        // Return old furniture to the unlocked list
         roomCanvasSington.AddUnlockedFurniture(slotType, _currentFurniture);
 
         // Update room system
@@ -191,6 +190,14 @@ public class SlotFurnitureRoom : MonoBehaviour, IPointerClickHandler
             Destroy(_currentFurnitureInstance);
         }
     }
+
+    public void LoadFurniture(FurnitureFeaturesSo newFurniture)
+    {
+        // Instantiate 3D furniture model in the scene
+        _currentFurnitureInstance = Instantiate(newFurniture.Prefab, furnitureInstanceSpawn.transform);
+        _currentFurniture = newFurniture;
+    }
+    
     
     #endregion
     

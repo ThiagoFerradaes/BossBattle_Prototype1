@@ -351,6 +351,8 @@ public class RoomSystem : MonoBehaviour
             if(!furniture.TryGetValue(i, out var value)) continue;
             
             listOfFurniture[i].AddFurniture(value.furniture);
+            
+            slotFurnitureRooms[i].LoadFurniture(value.furniture);
         }
         
         characterHappiness = characteristic;
