@@ -57,7 +57,7 @@ public class DamageAtributes {
     [ShowIf("TypeOfPrefab", TypeOfCollider.Boomerang), AllowNesting]
     public float MinDistanceBack = 0.1f;
 
-    [Header("Extra atributes"), Tooltip("Penetration 0 - 0.75")]
+    [Header("Extra atributes"), Tooltip("Penetration 0 - 75, Crit Rate 0 - 100, Crit Damage 100 - Infinity")]
     [SerializedDictionary("Extra atribute", "Value")]
     public SerializedDictionary<ExtraDamageContextAtributes, float> ExtraAtributes;
 
@@ -119,7 +119,7 @@ public static class DamageCalculator {
         float penetration = 0;
         
         if (atributes.ExtraAtributes.ContainsKey(ExtraDamageContextAtributes.Penetration))
-            penetration = Mathf.Min(0.75f, atributes.ExtraAtributes[ExtraDamageContextAtributes.Penetration]);
+            penetration = Mathf.Min(0.75f, atributes.ExtraAtributes[ExtraDamageContextAtributes.Penetration]/100);
 
         targetDefense *= (1 - penetration);
 
