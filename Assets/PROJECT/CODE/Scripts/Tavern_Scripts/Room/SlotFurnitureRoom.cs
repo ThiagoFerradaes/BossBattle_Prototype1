@@ -118,7 +118,7 @@ public class SlotFurnitureRoom : MonoBehaviour, IPointerClickHandler
         prefabComponent.slot = this;
         
         // Cache the prefab for reuse
-        roomCanvasSington.AddPrefabsFurnitute(furniture, prefabComponent);
+        roomCanvasSington.AddPrefabsFurniture(furniture, prefabComponent);
     }
     
     #endregion

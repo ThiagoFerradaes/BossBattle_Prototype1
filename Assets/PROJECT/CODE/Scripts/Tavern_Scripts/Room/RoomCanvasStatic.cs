@@ -1,10 +1,11 @@
+using System;
 using UnityEngine;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 public class RoomCanvasStatic : MonoBehaviour
 {
-
     #region Variables
     public static RoomCanvasStatic Instance { get; private set; }
         
@@ -12,16 +13,22 @@ public class RoomCanvasStatic : MonoBehaviour
     private readonly Dictionary<SizeOfFurnitureEnum, Dictionary<FurnitureFeaturesSo, uint>> listOfFurnitureUnlocked = new();
     
     /// <summary>Dictionary mapping furniture features to their UI prefab instances</summary>
-    private Dictionary<FurnitureFeaturesSo, PrefabUiFurniture> prefabsFurniture = new();
+    private readonly Dictionary<FurnitureFeaturesSo, PrefabUiFurniture> prefabsFurniture = new();
     
     [SerializeField]
     [Tooltip("Content container where furniture UI prefabs will be instantiated")]
     private GameObject content;
     
     [SerializeField]
+    [Tooltip("room System")]
+    private RoomSystem[]  roomSystems;
+    
+    [SerializeField]
     [Tooltip("Prefab template for furniture UI list items")]
     private GameObject prefabFurniture;
-
+    
+    private static string SavePath => Path.Combine(Application.persistentDataPath, "FurnitureSave.json");
+    
     #endregion
 
     #region Unity Methods
@@ -30,20 +37,80 @@ public class RoomCanvasStatic : MonoBehaviour
     {
         if (Instance != null && Instance != this)
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
             return;
         }
         Instance = this;
 
+        //Load Save
+        LoadFurnitureByJson();
+        
         // Initialize the furniture dictionary for each size category
-        foreach (SizeOfFurnitureEnum size in System.Enum.GetValues(typeof(SizeOfFurnitureEnum)))
+        foreach (SizeOfFurnitureEnum size in Enum.GetValues(typeof(SizeOfFurnitureEnum)))
         {
             listOfFurnitureUnlocked[size] = new Dictionary<FurnitureFeaturesSo, uint>();
         }
     }
 
+    private void OnDestroy()
+    {
+        SaveFurnitureByJson();
+    }
+    
     #endregion
 
+    #region Save
+
+    private void SaveFurnitureByJson()
+    {
+        try
+        {
+            Dictionary<byte, (CharacterValue, Dictionary<byte, Furniture>)> furnitureDictionary2 =
+                roomSystems.Select(roomSystem => roomSystem.GetFurniture())
+                    .ToDictionary(a => a.Item2, a => (a.Item3, a.Item1));
+
+            SaveFurnitureByJson saveFurniture = new SaveFurnitureByJson
+            {
+                saveFurniture = new SaveFurniture
+                {
+                    furniture = furnitureDictionary2
+                }
+            };
+
+            var json = JsonUtility.ToJson(saveFurniture, false);
+            File.WriteAllText(SavePath, json);
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"Error saving configuration: {e.Message}");
+        }
+    }
+
+    private void LoadFurnitureByJson()
+    {
+        try
+        {
+            if (!File.Exists(SavePath))
+            {
+                return;
+            }
+
+            var json = File.ReadAllText(SavePath);
+            var data = JsonUtility.FromJson<SaveFurnitureByJson>(json);
+
+            foreach (var roomSystem in roomSystems)
+            {
+                byte id = roomSystem.ID();
+                roomSystem.LoadFurniture(data.saveFurniture.furniture[id].Item2, data.saveFurniture.furniture[id].Item1);
+            }
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"Error loading configuration: {e.Message}");
+        }
+    }
+
+    #endregion
 
     #region Get Var
 
@@ -58,8 +125,8 @@ public class RoomCanvasStatic : MonoBehaviour
     #endregion
 
     #region Set Var
-
-    public void AddPrefabsFurnitute(FurnitureFeaturesSo furnitureFeaturesSo, PrefabUiFurniture prefabUiFurniture) 
+    
+    public void AddPrefabsFurniture(FurnitureFeaturesSo furnitureFeaturesSo, PrefabUiFurniture prefabUiFurniture) 
     {
         prefabsFurniture.Add(furnitureFeaturesSo, prefabUiFurniture);
     }
@@ -204,4 +271,16 @@ public class RoomCanvasStatic : MonoBehaviour
     }
     
     #endregion
+}
+
+[Serializable]
+public class SaveFurniture
+{
+    public Dictionary<byte, (CharacterValue,Dictionary<byte, Furniture>)> furniture;
+}
+
+[Serializable]
+public class SaveFurnitureByJson
+{
+    public SaveFurniture saveFurniture;
 }

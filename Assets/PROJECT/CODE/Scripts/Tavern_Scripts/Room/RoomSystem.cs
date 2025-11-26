@@ -14,7 +14,11 @@ using UnityEngine.Serialization;
 public class RoomSystem : MonoBehaviour
 {
     #region Inspector Fields
-
+    
+    [Header("ID")]
+    [Tooltip("ID dor Room")]
+    private byte id;
+    
     [Header("Furniture Configuration")]
     [SerializeField]
     [Tooltip("List of furniture currently placed in the room")]
@@ -96,19 +100,22 @@ public class RoomSystem : MonoBehaviour
     /// </summary>
     private void OnEnable()
     {
-        for (byte i = 0; i < slotFurnitureRooms.Length; i++)
-        {
-            listOfFurniture.Add(new Furniture());
-        }
-
         for (byte i = 0; i < numberOfFurniture; i++)
         {
             slotFurnitureRooms[i].gameObject.SetActive(true);
         }
 
         InitializeConfiguration();
+        
+        if (listOfFurniture.Count != 0) return;
+
+        for (byte i = 0; i < slotFurnitureRooms.Length; i++)
+        {
+            listOfFurniture.Add(new Furniture());
+        }
 
         AddPreferenceToCharacter();
+
     }
 
     /// <summary>
@@ -117,6 +124,11 @@ public class RoomSystem : MonoBehaviour
     private void OnDisable()
     {
         UnsubscribeFromEvents();
+    }
+
+    private void OnDestroy()
+    {
+        SaveHappinessCharacter();
     }
 
     #endregion
@@ -282,7 +294,46 @@ public class RoomSystem : MonoBehaviour
     /// <returns>Reference to the description text component</returns>
     public TMP_Text GetDescriptionFurniture() => descriptionFurniture;
 
+    public byte ID() => id;
+    
     #endregion
+
+    #region Save And Load
+
+    public (Dictionary<byte, Furniture> , byte, CharacterValue) GetFurniture()
+    {
+        Dictionary<byte,Furniture>  furniture = new Dictionary<byte, Furniture>();
+        
+        for (byte i = 0; i < listOfFurniture.Count; i++)
+        {
+            furniture.Add(i, listOfFurniture[i]);
+        }
+
+        return (furniture, id, characterHappiness);
+    }
+
+    private void SaveHappinessCharacter()
+    {
+        PlayerPrefs.SetFloat(""+characterHappiness.character,characterHappiness.value); //save satisfactory by PlayerPrefer
+    }
+
+    public void LoadFurniture(Dictionary<byte, Furniture> furniture, CharacterValue  characteristic)
+    {
+        for (byte i = 0; i < slotFurnitureRooms.Length; i++)
+        {
+            listOfFurniture.Add(new Furniture());
+            
+            if(furniture.Count == 0) continue;
+            if(!furniture.TryGetValue(i, out var value)) continue;
+            
+            listOfFurniture[i].AddFurniture(value.furniture);
+        }
+        
+        characterHappiness = characteristic;
+    }
+    
+    #endregion
+    
 }
 
 /// <summary>
@@ -297,7 +348,7 @@ public class Furniture
 
     /// <summary>Current furniture features assigned to this slot</summary>
     public FurnitureFeaturesSo furniture;
-
+    
     /// <summary>Event triggered when furniture is added to this slot</summary>
     public event Action<FurnitureFeaturesSo> OnFurnitureAdded;
 
