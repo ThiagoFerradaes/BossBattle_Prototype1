@@ -2377,6 +2377,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomCanvasSington
   content: {fileID: 404037913}
+  roomSystems:
+  - {fileID: 382362009}
   prefabFurniture: {fileID: 1423275076}
 --- !u!1 &382362005
 GameObject:
@@ -2468,6 +2470,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 233496d666d97fe4e959278ba7070202, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomSystem
+  id: 0
   listOfFurniture: []
   character: {fileID: 11400000, guid: ffddb0a46009fca45a30715353d1e566, type: 2}
   slotFurnitureRooms:
@@ -2478,7 +2481,7 @@ MonoBehaviour:
   numberOfFurniture: 3
   nameFurniture: {fileID: 490141781}
   descriptionFurniture: {fileID: 176857238}
-  RoomAtributes: {fileID: 11400000, guid: 4901180aeb08c3d44ac414ccc194fecc, type: 2}
+  roomAttributes: {fileID: 11400000, guid: 4901180aeb08c3d44ac414ccc194fecc, type: 2}
   furnitureFeaturesSos:
   - {fileID: 11400000, guid: 4901180aeb08c3d44ac414ccc194fecc, type: 2}
   - {fileID: 11400000, guid: 42aee4911bff5c942b3a39814a9d37a0, type: 2}
@@ -2487,10 +2490,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2a2f3bf30afd25b7f80c9cd7029d8b44, type: 2}
   - {fileID: 11400000, guid: 551f4c1a50a0c6f879cf6cb4e46af9c2, type: 2}
   - {fileID: 11400000, guid: 25928ec06eb74caf9a4cb77a8bd5de01, type: 2}
-  _lockedFurnitureBySize:
+  lockedFurnitureBySize:
     _serializedList: []
-  characterhappiness:
-    character: 0
+  characterHappiness:
+    character: 7
     value: 0
 --- !u!1 &404037913
 GameObject:
@@ -6203,6 +6206,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 233496d666d97fe4e959278ba7070202, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomSystem
+  id: 0
   listOfFurniture:
   - sizeOfFurniture: 0
     furniture: {fileID: 0}
@@ -6211,11 +6215,11 @@ MonoBehaviour:
   numberOfFurniture: 0
   nameFurniture: {fileID: 0}
   descriptionFurniture: {fileID: 0}
-  RoomAtributes: {fileID: 0}
+  roomAttributes: {fileID: 0}
   furnitureFeaturesSos: []
-  _lockedFurnitureBySize:
+  lockedFurnitureBySize:
     _serializedList: []
-  characterhappiness:
+  characterHappiness:
     character: 0
     value: 0
 --- !u!4 &1729058747

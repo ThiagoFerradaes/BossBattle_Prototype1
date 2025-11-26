@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
+/// <summary>
+/// Manages the room canvas functionality including furniture unlocking, saving/loading and UI prefab management
+/// </summary>
 public class RoomCanvasStatic : MonoBehaviour
 {
     #region Variables
@@ -20,13 +23,14 @@ public class RoomCanvasStatic : MonoBehaviour
     private GameObject content;
     
     [SerializeField]
-    [Tooltip("room System")]
-    private RoomSystem[]  roomSystems;
+    [Tooltip("Array of room systems to manage")]
+    private RoomSystem[] roomSystems;
     
     [SerializeField]
     [Tooltip("Prefab template for furniture UI list items")]
     private GameObject prefabFurniture;
     
+    /// <summary>Path where furniture save data is stored</summary>
     private static string SavePath => Path.Combine(Application.persistentDataPath, "FurnitureSave.json");
     
     #endregion
@@ -42,10 +46,8 @@ public class RoomCanvasStatic : MonoBehaviour
         }
         Instance = this;
 
-        //Load Save
         LoadFurnitureByJson();
         
-        // Initialize the furniture dictionary for each size category
         foreach (SizeOfFurnitureEnum size in Enum.GetValues(typeof(SizeOfFurnitureEnum)))
         {
             listOfFurnitureUnlocked[size] = new Dictionary<FurnitureFeaturesSo, uint>();
@@ -59,8 +61,11 @@ public class RoomCanvasStatic : MonoBehaviour
     
     #endregion
 
-    #region Save
+    #region Save/Load
 
+    /// <summary>
+    /// Saves the current furniture configuration to JSON
+    /// </summary>
     private void SaveFurnitureByJson()
     {
         try
@@ -86,6 +91,9 @@ public class RoomCanvasStatic : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Loads furniture configuration from JSON 
+    /// </summary>
     private void LoadFurnitureByJson()
     {
         try
@@ -112,20 +120,37 @@ public class RoomCanvasStatic : MonoBehaviour
 
     #endregion
 
-    #region Get Var
+    #region Properties
 
+    /// <summary>
+    /// Gets read-only access to unlocked furniture list
+    /// </summary>
     public IReadOnlyDictionary<SizeOfFurnitureEnum, Dictionary<FurnitureFeaturesSo, uint>> ListOfFurnitureUnlocked => listOfFurnitureUnlocked;
 
+    /// <summary>
+    /// Gets read-only access to furniture prefabs dictionary
+    /// </summary> 
     public IReadOnlyDictionary<FurnitureFeaturesSo, PrefabUiFurniture> PrefabsFurniture => prefabsFurniture;
 
+    /// <summary>
+    /// Gets the content container GameObject
+    /// </summary>
     public GameObject Content => content;
 
+    /// <summary>
+    /// Gets the furniture prefab template
+    /// </summary>
     public GameObject PrefabFurniture => prefabFurniture;
 
     #endregion
 
-    #region Set Var
+    #region Public Methods
     
+    /// <summary>
+    /// Adds a furniture prefab to the UI prefabs dictionary
+    /// </summary>
+    /// <param name="furnitureFeaturesSo">The furniture features</param>
+    /// <param name="prefabUiFurniture">The UI prefab instance</param>
     public void AddPrefabsFurniture(FurnitureFeaturesSo furnitureFeaturesSo, PrefabUiFurniture prefabUiFurniture) 
     {
         prefabsFurniture.Add(furnitureFeaturesSo, prefabUiFurniture);
@@ -138,7 +163,7 @@ public class RoomCanvasStatic : MonoBehaviour
     /// <summary>
     /// Adds a single furniture piece to the unlocked inventory
     /// Increments count if furniture already exists
-    /// </summary>        Debug.Log("Furniture slot clicked");
+    /// </summary>
     /// <param name="sizeOfFurniture">Size category of the furniture</param>
     /// <param name="furniture">The furniture features to unlock</param>
     public void AddUnlockedFurniture(SizeOfFurnitureEnum sizeOfFurniture, FurnitureFeaturesSo furniture)
@@ -273,13 +298,19 @@ public class RoomCanvasStatic : MonoBehaviour
     #endregion
 }
 
+/// <summary>
+/// Data structure for saving furniture configuration
+/// </summary>
 [Serializable]
 public class SaveFurniture
 {
     public Dictionary<byte, (CharacterValue,Dictionary<byte, Furniture>)> furniture;
 }
 
-[Serializable]
+/// <summary>
+/// Container class for serializing furniture save data to JSON
+/// </summary>
+[Serializable] 
 public class SaveFurnitureByJson
 {
     public SaveFurniture saveFurniture;

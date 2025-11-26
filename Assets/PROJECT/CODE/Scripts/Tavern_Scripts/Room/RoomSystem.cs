@@ -16,7 +16,8 @@ public class RoomSystem : MonoBehaviour
     #region Inspector Fields
     
     [Header("ID")]
-    [Tooltip("ID dor Room")]
+    [SerializeField]
+    [Tooltip("Room Identifier"), Range(0, byte.MaxValue)] 
     private byte id;
     
     [Header("Furniture Configuration")]
@@ -62,12 +63,13 @@ public class RoomSystem : MonoBehaviour
     private SerializedDictionary<TypeOfEnvironmentCharacteristicEnum, int> lockedFurnitureBySize = new SerializedDictionary<TypeOfEnvironmentCharacteristicEnum, int>();
 
     [Space(10)]
-    [SerializeField] private CharacterValue characterHappiness;
+    [SerializeField] 
+    [Tooltip("Character happiness value tracking")]
+    private CharacterValue characterHappiness;
     
     #endregion
 
     #region Private Fields
-
 
     /// <summary>Reference to the game configuration for language settings</summary>
     private ConfigurationSo _config;
@@ -126,6 +128,9 @@ public class RoomSystem : MonoBehaviour
         UnsubscribeFromEvents();
     }
 
+    /// <summary>
+    /// Saves character happiness when the object is destroyed
+    /// </summary>
     private void OnDestroy()
     {
         SaveHappinessCharacter();
@@ -135,6 +140,9 @@ public class RoomSystem : MonoBehaviour
 
     #region Functionality
 
+    /// <summary>
+    /// Calculates and adds character preference based on room attributes
+    /// </summary>
     private void AddPreferenceToCharacter()
     {
         if (character is null)
@@ -294,15 +302,23 @@ public class RoomSystem : MonoBehaviour
     /// <returns>Reference to the description text component</returns>
     public TMP_Text GetDescriptionFurniture() => descriptionFurniture;
 
+    /// <summary>
+    /// Gets the room identifier
+    /// </summary>
+    /// <returns>The room ID</returns>
     public byte ID() => id;
     
     #endregion
 
     #region Save And Load
 
+    /// <summary>
+    /// Gets the room's furniture data for saving
+    /// </summary>
+    /// <returns>Tuple containing furniture dictionary, room ID, and character happiness</returns>
     public (Dictionary<byte, Furniture> , byte, CharacterValue) GetFurniture()
     {
-        Dictionary<byte,Furniture>  furniture = new Dictionary<byte, Furniture>();
+        Dictionary<byte,Furniture> furniture = new Dictionary<byte, Furniture>();
         
         for (byte i = 0; i < listOfFurniture.Count; i++)
         {
@@ -312,12 +328,20 @@ public class RoomSystem : MonoBehaviour
         return (furniture, id, characterHappiness);
     }
 
+    /// <summary>
+    /// Saves the character's happiness value to PlayerPrefs
+    /// </summary>
     private void SaveHappinessCharacter()
     {
-        PlayerPrefs.SetFloat(""+characterHappiness.character,characterHappiness.value); //save satisfactory by PlayerPrefer
+        PlayerPrefs.SetFloat(""+characterHappiness.character,characterHappiness.value);
     }
 
-    public void LoadFurniture(Dictionary<byte, Furniture> furniture, CharacterValue  characteristic)
+    /// <summary>
+    /// Loads furniture and character data from the saved state
+    /// </summary>
+    /// <param name="furniture">Dictionary of saved furniture data</param>
+    /// <param name="characteristic">Saved character happiness data</param>
+    public void LoadFurniture(Dictionary<byte, Furniture> furniture, CharacterValue characteristic)
     {
         for (byte i = 0; i < slotFurnitureRooms.Length; i++)
         {
@@ -376,13 +400,23 @@ public class Furniture
     }
 }
 
-
+/// <summary>
+/// Stores character happiness data including character reference and happiness value
+/// </summary>
 [Serializable]
 public class CharacterValue
 {
+    /// <summary>Reference to the character</summary>
     public Character character;
+    
+    /// <summary>Current happiness value</summary>
     public float value;
 
+    /// <summary>
+    /// Creates a new character value entry
+    /// </summary>
+    /// <param name="c">Character reference</param>
+    /// <param name="v">Initial happiness value</param>
     public CharacterValue(Character c, float v)
     {
         character = c;
