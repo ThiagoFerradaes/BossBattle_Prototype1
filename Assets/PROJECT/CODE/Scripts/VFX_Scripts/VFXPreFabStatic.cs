@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class VFXPreFab : MonoBehaviour
+public class VFXPreFabStatic : MonoBehaviour
 {
     public void Initialize(float preFabDuration) {
         gameObject.SetActive(true);

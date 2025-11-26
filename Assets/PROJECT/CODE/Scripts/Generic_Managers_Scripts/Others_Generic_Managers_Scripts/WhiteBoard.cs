@@ -1,24 +1,18 @@
+using AYellowpaper.SerializedCollections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum Phases { 
-    KrakenOne, KrakenTwo, KrakenThree, KrakenFour, KrakenFive, 
-    CrabOne, CrabTwo, CrabThree, CrabFour, CrabFive,
-    ThirdOne, ThirdTwo, ThirdThree, ThirdFour, ThirdFive,
-    FourthOne, FourthTwo, FourthThree, FourthFour, FourthFive,
-    FifthOne, FifthTwo, FifthThree, FifthFour, FifthFive,
-    FinalBossOne, FinalBossTwo, Null
-}
+public enum Bosses { Kraken, Crab, Thalassia, Voodoo, Birds, Ecdna}
 public class WhiteBoard : MonoBehaviour
 {
     public static WhiteBoard Instance;
 
     [SerializeField] List<Character> listOfInitialCharactersUnlocked = new();
-    [SerializeField] List<Phases> listOfInitialPhasesUnlocked = new();
+    [SerializedDictionary("Boss", "Amount Of Phases"), SerializeField]
+    SerializedDictionary<Bosses, int> dictionaryOfPhasesByBoss = new();
 
     List<Character> _listOfUnlockedCharacter = new();
-    List<Phases> _listOfUnlockedPhases = new();
-
+    Dictionary<Bosses, int> _dictionaryOfUnlockedPhasesByBosses = new();
     Dictionary<BossRewardItem, int> _bossItensInventory = new();
 
 
@@ -29,8 +23,8 @@ public class WhiteBoard : MonoBehaviour
             foreach (var character in listOfInitialCharactersUnlocked) {
                 UnlockCharacter(character);
             }
-            foreach (var phase in listOfInitialPhasesUnlocked) {
-                UnlockPhase(phase);
+            foreach (var bossPhase in dictionaryOfPhasesByBoss) {
+                UnlockPhase(bossPhase.Key, bossPhase.Value);
             }
 
             DontDestroyOnLoad(this);
@@ -44,8 +38,7 @@ public class WhiteBoard : MonoBehaviour
     #region Getters
 
     public List<Character> ReturnListOfUnlockedCharecters() => _listOfUnlockedCharacter;
-    public List<Phases> ReturnListOfUnlockedPhases() => _listOfUnlockedPhases;
-
+    public Dictionary<Bosses, int> ReturnListOfUnlockedPhasesByBoss () => _dictionaryOfUnlockedPhasesByBosses;
     #endregion
 
     #region Setters
@@ -63,10 +56,8 @@ public class WhiteBoard : MonoBehaviour
     /// Add the phase to the list of unlocked phases
     /// </summary>
     /// <param name="phase"></param>
-    public void UnlockPhase(Phases phase) {
-        if (!_listOfUnlockedPhases.Contains(phase)) {
-            _listOfUnlockedPhases.Add(phase);
-        }
+    public void UnlockPhase(Bosses boss, int amountOfPhasesUnlocked) {
+        _dictionaryOfUnlockedPhasesByBosses[boss] = amountOfPhasesUnlocked;
     }
     /// <summary>
     /// Add the amount of the item to the inventory

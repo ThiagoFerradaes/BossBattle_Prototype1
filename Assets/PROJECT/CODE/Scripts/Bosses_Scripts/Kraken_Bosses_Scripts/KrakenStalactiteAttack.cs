@@ -87,7 +87,7 @@ public class KrakenStalactiteAttack : EnemyBehaviourSO {
             Vector3 warningPos = new(pos.x, floorHeight + warningHeight, pos.z);
 
             warningVFX.transform.position = warningPos;
-            warningVFX.GetComponent<VFXPreFab>().Initialize(warningDuration);
+            warningVFX.GetComponent<VFXPreFabStatic>().Initialize(warningDuration);
             _krakenManager.StartCoroutine(StalactiteFall(stalactite));
 
             yield return new WaitForSeconds(cooldownBetweenEachStalactite);

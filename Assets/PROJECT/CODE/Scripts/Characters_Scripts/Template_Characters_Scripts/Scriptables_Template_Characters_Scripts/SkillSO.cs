@@ -9,7 +9,9 @@ public class SkillAnimationEvent {
     public float TimeToSpawnPreFab;
     public TypeOfSkillPrefab PrefabType;
     [ShowIf("PrefabType", TypeOfSkillPrefab.VFX), AllowNesting]
-    public float PrefabDuration;
+    public float VFXDuration;
+    [ShowIf("PrefabType", TypeOfSkillPrefab.VFX), AllowNesting]
+    public TypeOfCollider TypeOfVFX = TypeOfCollider.Instant;
     public GameObject PreFab;
     public Vector3 PreFabPosition;
 }

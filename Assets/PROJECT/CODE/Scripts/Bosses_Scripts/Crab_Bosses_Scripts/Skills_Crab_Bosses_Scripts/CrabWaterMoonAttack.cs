@@ -178,6 +178,6 @@ public class CrabWaterMoonAttack : EnemyBehaviourSO
         GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefab.PreFab, TypeOfSkillPrefab.VFX);
         preFab.transform.SetPositionAndRotation(prefab.PreFabPosition, Quaternion.identity);
 
-        preFab.GetComponent<VFXPreFab>().Initialize(prefab.PrefabDuration);
+        preFab.GetComponent<VFXPreFabStatic>().Initialize(prefab.VFXDuration);
     }
 }

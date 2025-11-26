@@ -45,7 +45,7 @@ public class CrabSeaUrchinSO : CrabMarineAnimalSO {
         hitbox.transform.position = _parent.transform.position;
         hitbox.transform.localScale = explosionRadius * Vector3.one;
 
-        VFXPreFab damage = hitbox.GetComponent<VFXPreFab>();
-        damage.Initialize(prefab.PrefabDuration);
+        VFXPreFabStatic damage = hitbox.GetComponent<VFXPreFabStatic>();
+        damage.Initialize(prefab.VFXDuration);
     }
 }
