@@ -2,6 +2,7 @@ using DG.Tweening;
 using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -66,7 +67,10 @@ public class LoadingScreenManager : MonoBehaviour {
         tipCoroutine ??= StartCoroutine(HandleTipChanging(loadScreenInformation));
 
         loadingScreen.SetActive(true);
-
+        
+        if(RoomCanvasStatic.Instance is not null)
+            yield return RoomCanvasStatic.Instance.SaveFurnitureByJson().AsIEnumerator();
+        
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
         operation.allowSceneActivation = false;
 
@@ -160,4 +164,20 @@ public class LoadingScreenManager : MonoBehaviour {
         bossSavingIcon.sprite = loadingScriptable.SavingIcon;
     }
 
+}
+
+public static class TaskExtensions
+{
+    public static IEnumerator AsIEnumerator(this Task task)
+    {
+        while (!task.IsCompleted)
+        {
+            yield return null;
+        }
+        
+        if (task.IsFaulted)
+        {
+            throw task.Exception;
+        }
+    }
 }
