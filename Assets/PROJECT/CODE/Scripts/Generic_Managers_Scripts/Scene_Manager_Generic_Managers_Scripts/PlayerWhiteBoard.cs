@@ -1,4 +1,5 @@
 using AYellowpaper.SerializedCollections;
+using System;
 using UnityEngine;
 
 public class PlayerWhiteBoard : MonoBehaviour {
@@ -12,6 +13,8 @@ public class PlayerWhiteBoard : MonoBehaviour {
     SerializedDictionary<Character, CharacterKit> charactersCurrentSkills = new();
     [SerializedDictionary("Character", "SO"), SerializeField] 
     SerializedDictionary<Character, CharacterSO> charactersInfo = new();
+
+    public event Action<CharacterSO> OnSelectedCharacterChanged;
 
     private void Awake() {
         if (Instance == null) {
@@ -83,6 +86,8 @@ public class PlayerWhiteBoard : MonoBehaviour {
         if (!charactersCurrentSkills.ContainsKey(newSelectedCharacter.Character)) {
             charactersCurrentSkills[newSelectedCharacter.Character] = newSelectedCharacter.InitialKit;
         }
+
+        OnSelectedCharacterChanged?.Invoke(newSelectedCharacter);
     }
 
     /// <summary>

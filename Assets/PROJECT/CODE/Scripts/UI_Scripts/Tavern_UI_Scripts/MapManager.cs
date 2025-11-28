@@ -20,25 +20,38 @@ public class MapManager : MonoBehaviour {
 
     [Foldout("Second Map"), SerializeField] GameObject SecondMap;
     [Foldout("Second Map"), SerializeField] Image BossImage;
+    [Foldout("Second Map"), SerializeField] Image SelectedCharacterIcon;
     [Foldout("Second Map"), SerializeField] TextMeshProUGUI BossName;
     [Foldout("Second Map"), SerializeField] TextMeshProUGUI IsleName;
     [Foldout("Second Map"), SerializeField] TextMeshProUGUI BossDescription;
     [Foldout("Second Map"), SerializeField] Button CloseSecondMapButton;
     [Foldout("Second Map"), SerializeField] Button SailButton;
+    [Foldout("Second Map"), SerializeField] Button ChangeCharacterButton;
     [Foldout("Second Map"), SerializeField] List<Button> ListOfDifficultyButtons;
     [Foldout("Second Map"), SerializeField] List<Image> ListOfDifficultyBackgrounds;
     [Foldout("Second Map"), SerializeField] List<Image> ListOfDifficultyLocks;
     [Foldout("Second Map"), SerializeField] Color difficultySelectedColor;
     [Foldout("Second Map"), SerializeField] Color difficultyDeselectedColor;
-    [Foldout("Second Map"), SerializeField] CharacterSO CyrusSO;
 
     int _currentDifficulty = 0;
 
+    CharacterSelectionManager _characterSelectionManager;
+
     public event Action OnCloseMap;
-    
-    
+
+    Action<CharacterSO> _onChangeSelectedCharacter;
+
+    #region StartRegion
     private void Awake() {
+        _characterSelectionManager = GetComponent<CharacterSelectionManager>();
+        _onChangeSelectedCharacter = OnChangeSelectedCharacter;
         SetButtons();
+    }
+    private void Start() {
+        PlayerWhiteBoard.Instance.OnSelectedCharacterChanged += _onChangeSelectedCharacter;
+    }
+    private void OnDestroy() {
+        PlayerWhiteBoard.Instance.OnSelectedCharacterChanged -= _onChangeSelectedCharacter;
     }
     private void OnEnable() {
         WhiteBoard board = WhiteBoard.Instance;
@@ -57,7 +70,9 @@ public class MapManager : MonoBehaviour {
 
         }
     }
+    #endregion
 
+    void OnChangeSelectedCharacter(CharacterSO newCharacter) { SelectedCharacterIcon.sprite = newCharacter.CharacterIcon; }
     void SetButtons() {
         foreach (var pair in DictionaryOfButtons) {  // ILHAS
             if (!DictinaryOfDescritions.TryGetValue(pair.Key, out var description)) continue;
@@ -82,6 +97,8 @@ public class MapManager : MonoBehaviour {
         CloseSecondMapButton.onClick.AddListener(() => SecondMap.SetActive(false));
 
         TestIslandButton.onClick.AddListener(() => TurnScreenOn(TestIslandDescription));
+
+        ChangeCharacterButton.onClick.AddListener(() => _characterSelectionManager.Initialize());
     }
 
     void SelectDifficulty(int difficulty) {
@@ -119,7 +136,6 @@ public class MapManager : MonoBehaviour {
         }
 
         SelectDifficulty(0);
-        PlayerWhiteBoard.Instance.SetSelectedCharacter(CyrusSO);
 
     }
     void Sail(BossDescription description) {
