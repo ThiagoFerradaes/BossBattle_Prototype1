@@ -7,8 +7,6 @@ public class PlayerWhiteBoard : MonoBehaviour {
 
     Character _selectedCharacter = Character.Cyrus;
 
-    [SerializeField] CharacterSO cyrusSO;
-
     [SerializedDictionary("Character", "Kit"), SerializeField] 
     SerializedDictionary<Character, CharacterKit> charactersCurrentSkills = new();
     [SerializedDictionary("Character", "SO"), SerializeField] 
@@ -25,12 +23,13 @@ public class PlayerWhiteBoard : MonoBehaviour {
             Destroy(this);
         }
 
-        SetSelectedCharacter(cyrusSO);
+        SetSelectedCharacter(charactersInfo[Character.Cyrus]);
     }
 
 
     #region Getters
 
+    public SerializedDictionary<Character, CharacterSO> ReturnCharactersInfo() => charactersInfo;
     /// <summary>
     /// Return the current Selected Playable Character
     /// </summary>

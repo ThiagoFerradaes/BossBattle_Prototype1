@@ -14,7 +14,7 @@ public class WhiteBoard : MonoBehaviour
     List<Character> _listOfUnlockedCharacter = new();
     Dictionary<Bosses, int> _dictionaryOfUnlockedPhasesByBosses = new();
     Dictionary<BossRewardItem, int> _bossItensInventory = new();
-
+    Dictionary<Character, List<SkillSO>> _dictionaryOfUnlockedSkills = new();
 
     private void Awake() {
         if (Instance == null) {
@@ -22,6 +22,7 @@ public class WhiteBoard : MonoBehaviour
 
             foreach (var character in listOfInitialCharactersUnlocked) {
                 UnlockCharacter(character);
+                
             }
             foreach (var bossPhase in dictionaryOfPhasesByBoss) {
                 UnlockPhase(bossPhase.Key, bossPhase.Value);
@@ -42,7 +43,11 @@ public class WhiteBoard : MonoBehaviour
     #endregion
 
     #region Setters
-
+    public void UnlockSkill(Character character, SkillSO skillToUnlock) {
+        if (!_dictionaryOfUnlockedSkills[character].Contains(skillToUnlock)) {
+            _dictionaryOfUnlockedSkills[character].Add(skillToUnlock);
+        }
+    }
     /// <summary>
     /// Add the character to the list of unlocked characters
     /// </summary>
