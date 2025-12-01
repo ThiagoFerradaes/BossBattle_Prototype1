@@ -185,7 +185,7 @@ public class CyrusAxeAttackManager : SkillObjectManager {
         preFab.transform.SetParent(parent.transform, false);
         Vector3 rotation = new(-90, -180, 90);
         preFab.transform.SetLocalPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.Euler(rotation));
-        preFab.GetComponent<VFXPreFabStatic>().Initialize(prefabInfo.VFXDuration);
+        preFab.GetComponent<VFXPreFabStatic>().Initialize(prefabInfo.VFXAtribute);
     }
     void InstantiateBrokenRocks() {
         GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(_info.BrokenRocksPrefab, TypeOfSkillPrefab.Hitbox);

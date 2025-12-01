@@ -128,6 +128,6 @@ public class CrabWalkToLowTide : EnemyBehaviourSO {
         GameObject hitbox = PoolingManager.Instance.ReturnPrefabFromPool(prefab.PreFab, TypeOfSkillPrefab.VFX);
         hitbox.transform.position = prefab.PreFabPosition;
 
-        hitbox.GetComponent<VFXPreFabStatic>().Initialize(prefab.VFXDuration);
+        hitbox.GetComponent<VFXPreFabStatic>().Initialize(prefab.VFXAtribute);
     }
 }

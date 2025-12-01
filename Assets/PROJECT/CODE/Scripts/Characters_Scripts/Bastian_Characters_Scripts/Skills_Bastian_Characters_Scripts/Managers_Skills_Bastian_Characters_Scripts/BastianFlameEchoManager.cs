@@ -112,12 +112,4 @@ public class BastianFlameEchoManager : SkillObjectManager
         ProjectileDamageHitBox hitbox = preFab.GetComponent<ProjectileDamageHitBox>();
         hitbox.Initialize(newContext);
     }
-
-    public override void InstantiateVFX(SkillAnimationEvent prefab) {
-        GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefab.PreFab, TypeOfSkillPrefab.VFX);
-        preFab.transform.SetParent(parent.transform, false);
-        preFab.transform.SetLocalPositionAndRotation(prefab.PreFabPosition, Quaternion.identity);
-
-        preFab.GetComponent<VFXPreFabStatic>().Initialize(prefab.VFXDuration);
-    }
 }

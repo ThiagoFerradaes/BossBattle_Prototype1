@@ -123,7 +123,7 @@ public class CyrusBaseAttackManager : SkillObjectManager {
         preFab.transform.SetParent(parent.transform, false);
         preFab.transform.SetLocalPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.identity);
 
-        preFab.GetComponent<VFXPreFabStatic>().Initialize(prefabInfo.VFXDuration);
+        preFab.GetComponent<VFXPreFabStatic>().Initialize(prefabInfo.VFXAtribute);
     }
     #endregion
 }

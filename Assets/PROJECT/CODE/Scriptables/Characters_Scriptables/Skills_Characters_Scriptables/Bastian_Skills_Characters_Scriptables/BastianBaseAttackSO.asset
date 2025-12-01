@@ -12,29 +12,81 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aebd344eefd21004c880e3e7a9bbbd06, type: 3}
   m_Name: BastianBaseAttackSO
   m_EditorClassIdentifier: Assembly-CSharp::BastianBaseAttackSO
-  SkillManagerObject: {fileID: 7423082187053757486, guid: 847e527322c9b4a4685bbcceebc6b21c, type: 3}
+  SkillName: 
+  SkillShortDescription: 
+  SkillLongDescription: 
   SkillSpriteIcon: {fileID: 0}
+  SkillManagerObject: {fileID: 7423082187053757486, guid: 847e527322c9b4a4685bbcceebc6b21c, type: 3}
   Prefabs:
     _serializedList:
     - Key: 1
       Value:
       - TimeToSpawnPreFab: 0.6
         PrefabType: 0
-        PrefabDuration: 1
+        VFXAtribute:
+          VFXType: 0
+          VFXDuration: 0
+          UnitsToHit:
+            serializedVersion: 2
+            m_Bits: 0
+          VFXPosCollisionDuration: 0
+          CrossEnemy: 0
+          TimeStopped: 0
+          MinDistanceBack: 0.1
+          VFXSpeed: 0
+          Distance: 0
         PreFab: {fileID: 5556882484380889040, guid: 73183662ed7be604f90dff0cc2f277ff, type: 3}
+        PreFabPosition: {x: 0, y: 1, z: 0}
+      - TimeToSpawnPreFab: 0.6
+        PrefabType: 1
+        VFXAtribute:
+          VFXType: 2
+          VFXDuration: 0
+          UnitsToHit:
+            serializedVersion: 2
+            m_Bits: 192
+          VFXPosCollisionDuration: 1
+          CrossEnemy: 0
+          TimeStopped: 0
+          MinDistanceBack: 0.1
+          VFXSpeed: 7
+          Distance: 20
+        PreFab: {fileID: 1738423153783524531, guid: 7170965cf706c93418501087963bf435, type: 3}
         PreFabPosition: {x: 0, y: 1, z: 0}
     - Key: 2
       Value:
       - TimeToSpawnPreFab: 0.6
         PrefabType: 0
-        PrefabDuration: 1
+        VFXAtribute:
+          VFXType: 0
+          VFXDuration: 0
+          UnitsToHit:
+            serializedVersion: 2
+            m_Bits: 0
+          VFXPosCollisionDuration: 0
+          CrossEnemy: 0
+          TimeStopped: 0
+          MinDistanceBack: 0.1
+          VFXSpeed: 0
+          Distance: 0
         PreFab: {fileID: 5556882484380889040, guid: 73183662ed7be604f90dff0cc2f277ff, type: 3}
         PreFabPosition: {x: 0, y: 1, z: 0}
     - Key: 3
       Value:
       - TimeToSpawnPreFab: 0.55
         PrefabType: 0
-        PrefabDuration: 1
+        VFXAtribute:
+          VFXType: 0
+          VFXDuration: 0
+          UnitsToHit:
+            serializedVersion: 2
+            m_Bits: 0
+          VFXPosCollisionDuration: 0
+          CrossEnemy: 0
+          TimeStopped: 0
+          MinDistanceBack: 0.1
+          VFXSpeed: 0
+          Distance: 0
         PreFab: {fileID: 5556882484380889040, guid: 73183662ed7be604f90dff0cc2f277ff, type: 3}
         PreFabPosition: {x: 0, y: 1, z: 0}
   SkillObjectRangeObject: {fileID: 5203434260948203345, guid: ade6d2bcd504d27418184cc1070b8f59, type: 3}

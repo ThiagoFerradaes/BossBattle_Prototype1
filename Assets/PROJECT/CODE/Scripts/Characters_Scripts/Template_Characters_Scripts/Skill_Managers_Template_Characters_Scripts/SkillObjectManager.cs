@@ -230,15 +230,15 @@ public abstract class SkillObjectManager : MonoBehaviour {
         preFab.transform.SetParent(null);
 
 
-        switch (prefab.TypeOfVFX) {
+        switch (prefab.VFXAtribute.VFXType) {
             case TypeOfCollider.Instant:
-                preFab.GetComponent<VFXPreFabStatic>().Initialize(prefab.VFXDuration);
+                preFab.GetComponent<VFXPreFabStatic>().Initialize(prefab.VFXAtribute);
                 break;
             case TypeOfCollider.Continuos:
-                preFab.GetComponent<VFXPreFabStatic>().Initialize(prefab.VFXDuration);
+                preFab.GetComponent<VFXPreFabStatic>().Initialize(prefab.VFXAtribute);
                 break;
             case TypeOfCollider.Projectile:
-
+                preFab.GetComponent<VFXPreFabProjectile>().Initialize(prefab.VFXAtribute);
                 break;
             case TypeOfCollider.Boomerang:
 

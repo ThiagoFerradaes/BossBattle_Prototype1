@@ -146,6 +146,7 @@ public class BastianBaseAttackManager : SkillObjectManager {
         newAtributes.ExtraAtributes[ExtraDamageContextAtributes.Penetration] = pen;
         newAtributes.ExtraAtributes[ExtraDamageContextAtributes.CritRate] = critChance;
         newAtributes.ExtraAtributes[ExtraDamageContextAtributes.CritDamage] = critDamage;
+        newAtributes.Speed *= _attackSpeedMultiplier;
 
         DamageContext newContext = new(
             newAtributes,
@@ -163,11 +164,9 @@ public class BastianBaseAttackManager : SkillObjectManager {
 
         OnShoot?.Invoke(_attackIndex);
     }
-    public override void InstantiateVFX(SkillAnimationEvent prefabInfo) {
-        GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFab, TypeOfSkillPrefab.VFX);
-        preFab.transform.SetParent(parent.transform, false);
-        preFab.transform.SetLocalPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.identity);
 
-        preFab.GetComponent<VFXPreFabStatic>().Initialize(prefabInfo.VFXDuration);
+    public override void InstantiateVFX(SkillAnimationEvent prefab)
+    {
+        
     }
 }

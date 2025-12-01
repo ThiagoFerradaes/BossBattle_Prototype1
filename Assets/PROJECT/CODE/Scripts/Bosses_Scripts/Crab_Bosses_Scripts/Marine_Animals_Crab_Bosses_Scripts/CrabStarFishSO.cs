@@ -25,6 +25,6 @@ public class CrabStarFishSO : CrabMarineAnimalSO {
         hitbox.transform.localScale = explosionRadius * Vector3.one;
 
         VFXPreFabStatic damage = hitbox.GetComponent<VFXPreFabStatic>();
-        damage.Initialize(prefab.VFXDuration);
+        damage.Initialize(prefab.VFXAtribute);
     }
 }

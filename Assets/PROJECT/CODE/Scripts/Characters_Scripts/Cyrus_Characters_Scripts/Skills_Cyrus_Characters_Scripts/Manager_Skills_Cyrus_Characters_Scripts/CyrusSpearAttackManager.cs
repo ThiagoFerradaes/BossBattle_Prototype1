@@ -89,7 +89,7 @@ public class CyrusSpearAttackManager : SkillObjectManager {
         preFab.transform.SetParent(parent.transform, false);
         preFab.transform.SetLocalPositionAndRotation(prefab.PreFabPosition, Quaternion.identity);
         preFab.transform.SetParent(null);
-        preFab.GetComponent<VFXPreFabStatic>().Initialize(prefab.VFXDuration);
+        preFab.GetComponent<VFXPreFabStatic>().Initialize(prefab.VFXAtribute);
     }
 
     #endregion
