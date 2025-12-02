@@ -20,8 +20,8 @@ public class CharacterSelectionManager : MonoBehaviour {
     [SerializeField] Button closeScreenButton;
     [SerializeField] Color unselectedCharacterColor;
     [SerializeField] Color selectedCharacterColor;
-    [SerializedDictionary("Button", "Character"), SerializeField]
-    SerializedDictionary<Button, CharacterSO> dictionaryOfCharactersButton = new();
+    [SerializedDictionary("Character", "Button"), SerializeField]
+    SerializedDictionary<CharacterSO, Button> dictionaryOfCharactersButton = new();
     [SerializedDictionary("Character", "Image"), SerializeField]
     SerializedDictionary<Character, Image> dictionaryOfLocks = new();
     [SerializedDictionary("Character", "Image"), SerializeField]
@@ -33,9 +33,8 @@ public class CharacterSelectionManager : MonoBehaviour {
     }
 
     void SetButtons() {
-        foreach (var button in dictionaryOfCharactersButton.Keys) {
-            var charater = dictionaryOfCharactersButton[button];
-            button.onClick.AddListener(() => SelectCharacter(charater));
+        foreach (var character in dictionaryOfCharactersButton.Keys) {
+            dictionaryOfCharactersButton[character].onClick.AddListener(() => SelectCharacter(character));
         }
 
         closeScreenButton.onClick.AddListener(() => characterSelectionScreen.SetActive(false));
@@ -55,23 +54,18 @@ public class CharacterSelectionManager : MonoBehaviour {
     }
 
     void LockIcons() {
-        List<Character> listOfUnlockedCharacters = WhiteBoard.Instance.ReturnListOfUnlockedCharecters();
+        List<CharacterUnlockedInfo> listOfUnlockedCharactersInfo = WhiteBoard.Instance.ReturnListOfUnlockedCharecters();
 
-        foreach (Character character in dictionaryOfLocks.Keys) {
-            bool isUnlocked = listOfUnlockedCharacters.Contains(character);
-            dictionaryOfLocks[character].gameObject.SetActive(!isUnlocked);
+        foreach (CharacterUnlockedInfo character in listOfUnlockedCharactersInfo) {
+            dictionaryOfLocks[character.Character.Character].gameObject.SetActive(!character.IsUnlocked);
         }
 
-        ActivateCharacterSelectionButtons(listOfUnlockedCharacters);
+        ActivateCharacterSelectionButtons(listOfUnlockedCharactersInfo);
     }
 
-    void ActivateCharacterSelectionButtons(List<Character> listOfUnlockedCharacters) {
-        foreach (Button button in dictionaryOfCharactersButton.Keys) {
-            CharacterSO character = dictionaryOfCharactersButton[button];
-
-            bool characterIsUnlocked = listOfUnlockedCharacters.Contains(character.Character);
-            button.interactable = characterIsUnlocked;
-
+    void ActivateCharacterSelectionButtons(List<CharacterUnlockedInfo> listOfUnlockedCharacters) {
+        foreach (var info in listOfUnlockedCharacters) {
+            dictionaryOfCharactersButton[info.Character].interactable = info.IsUnlocked;
         }
     }
 

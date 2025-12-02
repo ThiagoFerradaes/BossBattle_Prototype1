@@ -3,22 +3,44 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum Bosses { Kraken, Crab, Thalassia, Voodoo, Birds, Ecdna}
+
+public class CharacterUnlockedInfo {
+    public CharacterSO Character;
+    public bool IsUnlocked;
+
+    public Dictionary<SkillSlot, List<(SkillSO, bool)>> DictionaryOfUnlockedSkills = new();
+
+    public CharacterUnlockedInfo(CharacterSO character) {
+        this.Character = character;
+        this.IsUnlocked = false;
+        
+        foreach(var skill in character.CharacterListOfSkills) {
+
+            if (!DictionaryOfUnlockedSkills.ContainsKey(skill.Slot)) DictionaryOfUnlockedSkills[skill.Slot] = new();
+
+            DictionaryOfUnlockedSkills[skill.Slot].Add((skill, false));
+        }
+    }
+}
 public class WhiteBoard : MonoBehaviour
 {
     public static WhiteBoard Instance;
 
+    [SerializeField] List<CharacterSO> listOfAllCharacters = new();
     [SerializeField] List<Character> listOfInitialCharactersUnlocked = new();
     [SerializedDictionary("Boss", "Amount Of Phases"), SerializeField]
     SerializedDictionary<Bosses, int> dictionaryOfPhasesByBoss = new();
 
-    List<Character> _listOfUnlockedCharacter = new();
+    List<CharacterUnlockedInfo> _listOfCharactersUnlockedInfo = new();
+
     Dictionary<Bosses, int> _dictionaryOfUnlockedPhasesByBosses = new();
     Dictionary<BossRewardItem, int> _bossItensInventory = new();
-    Dictionary<Character, List<SkillSO>> _dictionaryOfUnlockedSkills = new();
 
     private void Awake() {
         if (Instance == null) {
             Instance = this;
+
+            CreateListOfCharacter();
 
             foreach (var character in listOfInitialCharactersUnlocked) {
                 UnlockCharacter(character);
@@ -35,17 +57,32 @@ public class WhiteBoard : MonoBehaviour
         }
     }
 
+    void CreateListOfCharacter() {
+        foreach (var character in listOfAllCharacters) {
+            CharacterUnlockedInfo newInfo = new(character);
+            _listOfCharactersUnlockedInfo.Add(newInfo);
+        }
+    }
 
     #region Getters
 
-    public List<Character> ReturnListOfUnlockedCharecters() => _listOfUnlockedCharacter;
+    public List<CharacterUnlockedInfo> ReturnListOfUnlockedCharecters() => _listOfCharactersUnlockedInfo;
     public Dictionary<Bosses, int> ReturnListOfUnlockedPhasesByBoss () => _dictionaryOfUnlockedPhasesByBosses;
     #endregion
 
     #region Setters
     public void UnlockSkill(Character character, SkillSO skillToUnlock) {
-        if (!_dictionaryOfUnlockedSkills[character].Contains(skillToUnlock)) {
-            _dictionaryOfUnlockedSkills[character].Add(skillToUnlock);
+        
+        foreach(var characterInfo in _listOfCharactersUnlockedInfo) {
+            if (characterInfo.Character.Character != character) continue;
+
+            var list = characterInfo.DictionaryOfUnlockedSkills[skillToUnlock.Slot];
+
+            for (int i = 0; i < list.Count; i++) {
+                if (list[i].Item1 != skillToUnlock) continue;
+
+                list[i] = (list[i].Item1, true);
+            }
         }
     }
     /// <summary>
@@ -53,8 +90,11 @@ public class WhiteBoard : MonoBehaviour
     /// </summary>
     /// <param name="character"></param>
     public void UnlockCharacter(Character character) {
-        if (!_listOfUnlockedCharacter.Contains(character)) {
-            _listOfUnlockedCharacter.Add(character);
+
+        foreach(var characterInfo in _listOfCharactersUnlockedInfo) {
+            if (characterInfo.Character.Character == character) {
+                characterInfo.IsUnlocked = true;
+            }
         }
     }
     /// <summary>
