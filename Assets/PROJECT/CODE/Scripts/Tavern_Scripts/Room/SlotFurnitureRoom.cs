@@ -17,7 +17,7 @@ public class SlotFurnitureRoom : MonoBehaviour, IPointerClickHandler
     
     [SerializeField]
     [Tooltip("Size category of this furniture slot (Small, Large, Well, Roof)")]
-    private SizeOfFurnitureEnum slotType;
+    public SizeOfFurnitureEnum slotType;
     
     [Header("UI References")]
     [SerializeField]

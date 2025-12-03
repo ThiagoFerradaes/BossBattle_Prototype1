@@ -4,6 +4,11 @@ using System.Linq;
 using AYellowpaper.SerializedCollections;
 using MyEnum;
 using TMPro;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -19,6 +24,11 @@ public class RoomSystem : MonoBehaviour
     [SerializeField]
     [Tooltip("Room Identifier"), Range(0, byte.MaxValue)] 
     private byte id;
+
+    [Header("Level for room")]
+    [SerializeField]
+    [Tooltip("Dictionary for level and Array of available furniture slots in the room")]
+    private RoomLevelDictionary levelRoom;
     
     [Header("Furniture Configuration")]
     [SerializeField]
@@ -29,9 +39,9 @@ public class RoomSystem : MonoBehaviour
     [Tooltip("Character associated with this room")]
     private CharactersSo character;
 
-    [SerializeField]
-    [Tooltip("Array of available furniture slots in the room")]
-    private SlotFurnitureRoom[] slotFurnitureRooms;
+    //[SerializeField]
+    //[Tooltip("Array of available furniture slots in the room")]
+    //private SlotFurnitureRoom[] slotFurnitureRooms;
 
     [SerializeField]
     [Tooltip("Current number of active furniture slots")]
@@ -74,6 +84,7 @@ public class RoomSystem : MonoBehaviour
     /// <summary>Reference to the game configuration for language settings</summary>
     private ConfigurationSo _config;
 
+    private byte _currentLevel;
     #endregion
 
     #region Unity Lifecycle Methods
@@ -106,18 +117,19 @@ public class RoomSystem : MonoBehaviour
         
         if (listOfFurniture.Count != 0) return;
 
-        for (byte i = 0; i < numberOfFurniture; i++)
+        if (!levelRoom.inheritedData.TryGetValue(_currentLevel, out SlotFurnitureRoom[] slot))
         {
-            slotFurnitureRooms[i].gameObject.SetActive(true);
+            Debug.LogError("No room found for level " + _currentLevel);
+            return;
         }
         
-        for (byte i = 0; i < slotFurnitureRooms.Length; i++)
+        for (byte i = 0; i < slot.Length; i++)
         {
+            slot[i].gameObject.SetActive(true);
             listOfFurniture.Add(new Furniture());
         }
 
         AddPreferenceToCharacter();
-
     }
 
     /// <summary>
@@ -280,9 +292,15 @@ public class RoomSystem : MonoBehaviour
     {
         numberOfFurniture += addSizeRoom;
 
+        if (!levelRoom.inheritedData.TryGetValue(_currentLevel, out SlotFurnitureRoom[] slot))
+        {
+            Debug.LogError("No room found for level " + _currentLevel);
+            return;
+        }
+        
         for (byte i = 0; i < numberOfFurniture; i++)
         {
-            slotFurnitureRooms[i].gameObject.SetActive(true);
+            slot[i].gameObject.SetActive(true);
         }
     }
 
@@ -324,18 +342,8 @@ public class RoomSystem : MonoBehaviour
         {
             furniture.Add(i, listOfFurniture[i]);
         }
-
-        byte slotAmount = 0;
-
-        foreach (var furnitureEntry in slotFurnitureRooms)
-        {
-            if (furnitureEntry.gameObject.activeInHierarchy)
-            {
-                slotAmount++;
-            }
-        }
         
-        return (furniture, id, characterHappiness, slotAmount);
+        return (furniture, id, characterHappiness, _currentLevel);
     }
 
     /// <summary>
@@ -354,12 +362,19 @@ public class RoomSystem : MonoBehaviour
     /// <param name="slotAmount"></param>
     public void LoadFurniture(Dictionary<byte, Furniture> furniture, CharacterValue characteristic, byte slotAmount)
     {
-        for (byte i = 0; i < slotAmount; i++)
+        _currentLevel = slotAmount;
+        if (!levelRoom.inheritedData.TryGetValue(_currentLevel, out SlotFurnitureRoom[] slot))
         {
-            slotFurnitureRooms[i].gameObject.SetActive(true);
+            Debug.LogError("No room found for level " + _currentLevel);
+            return;
         }
         
-        for (byte i = 0; i < slotFurnitureRooms.Length; i++)
+        for (byte i = 0; i < slotAmount; i++)
+        {
+            slot[i].gameObject.SetActive(true);
+        }
+        
+        for (byte i = 0; i < slot.Length; i++)
         {
             listOfFurniture.Add(new Furniture());
             
@@ -368,7 +383,7 @@ public class RoomSystem : MonoBehaviour
             
             listOfFurniture[i].AddFurniture(value.furniture);
             
-            slotFurnitureRooms[i].LoadFurniture(value.furniture);
+            slot[i].LoadFurniture(value.furniture);
         }
         
         characterHappiness = characteristic;
@@ -441,3 +456,177 @@ public class CharacterValue
         value = v;
     }
 }
+
+[Serializable]
+public class RoomLevelDictionary
+{
+    [SerializedDictionary("Level", "Slot")][HideInInspector]
+    public SerializedDictionary<byte, SlotFurnitureRoom[]> inheritedData = new();
+
+
+#if UNITY_EDITOR
+    [SerializedDictionary("Level", "Inherited")]
+    public SerializedDictionary<byte, SlotFurnitureRoom[]> levelRoom = new();
+    
+#endif
+  
+}
+
+#if UNITY_EDITOR
+
+[CustomPropertyDrawer(typeof(SlotFurnitureRoom))]
+public class SlotFurnitureRoomDrawer : PropertyDrawer
+{
+    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+    {
+        EditorGUI.BeginProperty(position, label, property);
+        
+        if (!string.IsNullOrEmpty(label.text))
+        {
+            position = EditorGUI.PrefixLabel(position, GUIUtility.GetControlID(FocusType.Passive), label);
+        }
+        
+        int indent = EditorGUI.indentLevel;
+        EditorGUI.indentLevel = 0;
+
+        // Pega a referência do objeto (o property inteiro é a referência ao MonoBehaviour)
+        UnityEngine.Object targetObject = property.objectReferenceValue;
+
+        if (targetObject != null && targetObject is SlotFurnitureRoom)
+        {
+            float spacing = 5f;
+            float halfWidth = (position.width - spacing) / 2f;
+            
+            Rect objectRect = new Rect(position.x, position.y, halfWidth, position.height);
+            Rect enumRect = new Rect(position.x + halfWidth + spacing, position.y, halfWidth, position.height);
+            
+            EditorGUI.PropertyField(objectRect, property, GUIContent.none);
+            
+            SerializedObject serializedTarget = new SerializedObject(targetObject as UnityEngine.Object);
+            SerializedProperty slotTypeProp = serializedTarget.FindProperty("slotType");
+
+            if (slotTypeProp != null)
+            {
+                EditorGUI.BeginChangeCheck();
+                EditorGUI.PropertyField(enumRect, slotTypeProp, GUIContent.none);
+                if (EditorGUI.EndChangeCheck())
+                {
+                    serializedTarget.ApplyModifiedProperties();
+                }
+            }
+            else
+            {
+                EditorGUI.LabelField(enumRect, "slotType não encontrado");
+            }
+        }
+        else
+        {
+
+            EditorGUI.PropertyField(position, property, GUIContent.none);
+        }
+
+        EditorGUI.indentLevel = indent;
+
+        EditorGUI.EndProperty();
+    }
+
+    public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
+    {
+        return EditorGUIUtility.singleLineHeight;
+    }
+}
+
+[CustomPropertyDrawer(typeof(RoomLevelDictionary))]
+public class RoomLevelDictionaryDrawer : PropertyDrawer
+{
+    private const float ButtonHeight = 20f;
+    private const float ButtonSpacing = 4f;
+
+    public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
+    {
+        float height = EditorGUI.GetPropertyHeight(property, label, true);
+        
+        // Espaço para os botões (aplicar / limpar / esconder)
+        height += (ButtonHeight + ButtonSpacing) * 2;
+
+        // Último botão (toggle herdados)
+        height += ButtonHeight + ButtonSpacing;
+
+        return height;
+    }
+
+
+    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+    {
+        EditorGUI.BeginProperty(position, label, property);
+
+        // Campo principal
+        Rect mainRect = new Rect(position.x, position.y, position.width,
+            EditorGUI.GetPropertyHeight(property, label, true));
+
+        EditorGUI.PropertyField(mainRect, property, label, true);
+
+        DrawButtons(position, property, mainRect);
+
+        EditorGUI.EndProperty();
+    }
+
+
+    private void DrawButtons(Rect position, SerializedProperty property, Rect mainRect)
+    {
+        float y = mainRect.y + mainRect.height + ButtonSpacing;
+
+        float buttonWidth = (position.width) - 4;
+
+        Rect leftBtn = new Rect(position.x, y, buttonWidth, ButtonHeight);
+
+        if (GUI.Button(leftBtn, "Aplicar Herança"))
+            ApplyInheritance(property);
+        
+    }
+
+
+    private void ApplyInheritance(SerializedProperty root)
+    {
+        root.serializedObject.ApplyModifiedProperties();
+
+        var targetObj = root.serializedObject.targetObject;
+        RoomLevelDictionary obj = fieldInfo.GetValue(targetObj) as RoomLevelDictionary;
+
+        if (obj == null)
+        {
+            Debug.LogError("Falha ao acessar RoomLevelDictionary.");
+            return;
+        }
+
+        var dict = obj.levelRoom;
+        obj.inheritedData.Clear();
+
+        if (dict == null || dict.Count == 0)
+        {
+            Debug.LogWarning("Dictionary está vazio.");
+            return;
+        }
+
+        var sortedKeys = dict.Keys.OrderBy(k => k).ToList();
+        var processed = new Dictionary<byte, List<SlotFurnitureRoom>>();
+
+        foreach (byte key in sortedKeys)
+        {
+            var accumulated = new List<SlotFurnitureRoom>();
+
+            foreach (SlotFurnitureRoom item in from k in sortedKeys.TakeWhile(k => k <= key) from item in dict[k] where item != null && !accumulated.Contains(item) select item)
+            {
+                accumulated.Add(item);
+            }
+
+            processed[key] = accumulated;
+            obj.inheritedData[key] = accumulated.ToArray();
+        }
+
+        EditorUtility.SetDirty(targetObj);
+        Debug.Log("Herança aplicada!");
+    }
+}
+
+#endif
