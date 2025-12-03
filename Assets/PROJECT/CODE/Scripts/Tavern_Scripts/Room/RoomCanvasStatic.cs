@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 /// <summary>
-/// Manages the room canvas functionality including furniture unlocking, saving/loading and UI prefab management
+/// Manages the room canvas functionality including furniture unlocking, saving/loading, and UI prefab management
 /// </summary>
 public class RoomCanvasStatic : MonoBehaviour
 {
@@ -14,7 +14,9 @@ public class RoomCanvasStatic : MonoBehaviour
     public static RoomCanvasStatic Instance { get; private set; }
         
     /// <summary>Dictionary storing unlocked furniture organized by size and features</summary>
-    private readonly Dictionary<SizeOfFurnitureEnum, Dictionary<FurnitureFeaturesSo, uint>> listOfFurnitureUnlocked = new();
+    //private Dictionary<SizeOfFurnitureEnum, Dictionary<FurnitureFeaturesSo, uint>> listOfFurnitureUnlocked = new();
+    
+    private Dictionary<SizeOfFurnitureEnum, Dictionary<FurnitureFeaturesSo, uint>> listOfFurnitureUnlocked = new();
     
     /// <summary>Dictionary mapping furniture features to their UI prefab instances</summary>
     private readonly Dictionary<FurnitureFeaturesSo, PrefabUiFurniture> prefabsFurniture = new();
@@ -31,8 +33,14 @@ public class RoomCanvasStatic : MonoBehaviour
     [Tooltip("Prefab template for furniture UI list items")]
     private GameObject prefabFurniture;
     
+    [SerializeField]
+    [Tooltip("Furniture inventory component")]
+    private FurnitureInventory furnitureInventory;
+    
     /// <summary>Path where furniture save data is stored</summary>
     private static string SavePath => Path.Combine(Application.persistentDataPath, "FurnitureSave.json");
+    private static string SavePathForInventory => Path.Combine(Application.persistentDataPath, "FurnitureSaveInventory.json");
+    
     
     #endregion
 
@@ -69,16 +77,16 @@ public class RoomCanvasStatic : MonoBehaviour
     /// <summary>
     /// Saves the current furniture configuration to JSON
     /// </summary>
-    public Task SaveFurnitureByJson()
+    public async Task SaveFurnitureByJson()
     {
         try
         {
-            // Obter dados dos room systems
+            // Outer dado's dos room systems
             var furnitureData = roomSystems
                 .Select(roomSystem => roomSystem.GetFurniture())
                 .ToList();
 
-            // Criar estrutura serializável
+            // creat save data
             SaveFurniture saveFurnitureData = new SaveFurniture();
 
             foreach (var data in furnitureData)
@@ -100,41 +108,43 @@ public class RoomCanvasStatic : MonoBehaviour
 
             // Serializar para JSON
             var json = JsonUtility.ToJson(saveFurniture, true); // true = formatado
-            File.WriteAllText(SavePath, json);
+            await File.WriteAllTextAsync(SavePath, json);
 
             Debug.Log("Furniture save data saved successfully!");
-            Debug.Log(json);
 
-            return Task.CompletedTask;
+            await SaveInventoryByJson();
+            
         }
         catch (Exception e)
         {
             Debug.LogError($"Error saving furniture configuration: {e.Message}");
             Debug.LogError($"Stack trace: {e.StackTrace}");
-            return Task.CompletedTask;
+            await SaveInventoryByJson();
         }
     }
 
     /// <summary>
     /// Loads furniture configuration from JSON 
     /// </summary>
-    private Task LoadFurnitureByJson()
+    private async Task LoadFurnitureByJson()
     {
         try
         {
             if (!File.Exists(SavePath))
             {
                 Debug.LogWarning("Furniture save data not found.");
-                return Task.CompletedTask;
+                await LoadInventoryByJson();
+                return;
             }
 
-            string json = File.ReadAllText(SavePath);
+            string json = await File.ReadAllTextAsync(SavePath);
             SaveFurnitureByJson loadedData = JsonUtility.FromJson<SaveFurnitureByJson>(json);
 
             if (loadedData?.saveFurniture?.furnitureRooms == null)
             {
                 Debug.LogError("Invalid save data structure.");
-                return Task.CompletedTask;
+                await LoadInventoryByJson();
+                return;
             }
 
             // Converter de volta para Dictionary
@@ -170,16 +180,65 @@ public class RoomCanvasStatic : MonoBehaviour
             }
 
             Debug.Log($"Furniture data loaded successfully! Loaded {loadedCount}/{roomSystems.Length} rooms.");
-            return Task.CompletedTask;
+            await LoadInventoryByJson();
         }
         catch (Exception e)
         {
             Debug.LogError($"Error loading furniture configuration: {e.Message}");
             Debug.LogError($"Stack trace: {e.StackTrace}");
-            return Task.CompletedTask;
+            await LoadInventoryByJson();
         }
     }
 
+    // ReSharper disable Unity.PerformanceAnalysis
+    private async Task SaveInventoryByJson()
+    {
+        try
+        {
+            var inventorySaveByJson = new InventorySaveByJson
+            {
+                saveInventory = new InventoryData(listOfFurnitureUnlocked)
+            };
+            
+            var json = JsonUtility.ToJson(inventorySaveByJson, true); // true = formatado
+            await File.WriteAllTextAsync(SavePathForInventory, json);
+            
+            Debug.Log("inventary save data saved successfully!");
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"Error saving furniture configuration: {e.Message}");
+            Debug.LogError($"Stack trace: {e.StackTrace}");
+        }
+    }
+
+    private async Task LoadInventoryByJson()
+    {
+        try
+        {
+            if (!File.Exists(SavePathForInventory))
+            {
+                Debug.LogWarning("Furniture save data not found.");
+                return;
+            }
+
+            string json = await File.ReadAllTextAsync(SavePathForInventory);
+            InventorySaveByJson loadedData = JsonUtility.FromJson<InventorySaveByJson>(json);
+
+            if (loadedData?.saveInventory.inventoryList == null)
+            {
+                Debug.LogError("Invalid save data structure.");
+                return;
+            }
+            listOfFurnitureUnlocked = loadedData.saveInventory.ToDictionary();
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"Error loading furniture configuration: {e.Message}");
+            Debug.LogError($"Stack trace: {e.StackTrace}");
+        }
+    }
+    
     #endregion
 
     #region Properties
@@ -217,7 +276,20 @@ public class RoomCanvasStatic : MonoBehaviour
     {
         prefabsFurniture.Add(furnitureFeaturesSo, prefabUiFurniture);
     }
+    
+    public Dictionary<CostOfTheFurnitureEnum, uint> GetCostFurnitureUnlocked => furnitureInventory.FurnitureQuantity;
 
+    public void AddRawMaterial(CostOfTheFurnitureEnum cost , uint amount)
+    {
+        furnitureInventory.AddAmountRawMaterial(cost, amount);
+    }
+    
+    public void RemoveRawMaterial(CostOfTheFurnitureEnum cost , uint amount)
+    {
+        furnitureInventory.RemoveAmountRawMaterial(cost, amount);
+    }
+    
+    
     #endregion
 
     #region Dictionary Management
@@ -360,6 +432,8 @@ public class RoomCanvasStatic : MonoBehaviour
     #endregion
 }
 
+#region SaveRoomData
+
 /// <summary>
 /// Wrapper for tuple replacement - serializable version
 /// </summary>
@@ -443,3 +517,77 @@ public class SaveFurnitureByJson
 {
     public SaveFurniture saveFurniture;
 }
+
+
+#endregion
+
+#region SaveInventoryData
+
+[Serializable]
+public class InventoryData
+{
+    public List<InventoryEntity> inventoryList = new();
+
+    public InventoryData(Dictionary<SizeOfFurnitureEnum, Dictionary<FurnitureFeaturesSo, uint>> listOfFurnitureUnlocked)
+    {
+        foreach (var kvp in listOfFurnitureUnlocked)
+        {
+            inventoryList.Add(new InventoryEntity(kvp.Key, kvp.Value));
+        }
+    }
+    
+    public Dictionary<SizeOfFurnitureEnum, Dictionary<FurnitureFeaturesSo, uint>> ToDictionary()
+    {
+        var dict = new Dictionary<SizeOfFurnitureEnum, Dictionary<FurnitureFeaturesSo, uint>>();
+        foreach (var entry in inventoryList)
+        {
+            dict[entry.key] = entry.ToDictionary();
+        }
+        return dict;
+    }
+    
+    private Dictionary<SizeOfFurnitureEnum, Dictionary<FurnitureFeaturesSo, uint>> listOfFurnitureUnlocked;
+}
+
+[Serializable]
+public class InventoryEntity
+{
+    public SizeOfFurnitureEnum key;
+    public List<InventoryDataEntity> data = new();
+
+    public InventoryEntity(SizeOfFurnitureEnum size, Dictionary<FurnitureFeaturesSo, uint> dict)
+    {
+        key = size;
+        foreach (var kvp in dict)
+        {
+            data.Add(new InventoryDataEntity {key = kvp.Key, value = kvp.Value});
+        }
+    }
+    
+    public Dictionary<FurnitureFeaturesSo, uint> ToDictionary()
+    {
+        var dict = new Dictionary<FurnitureFeaturesSo, uint>();
+        foreach (var entry in data)
+        {
+            dict[entry.key] = entry.value;
+        }
+        return dict;
+    }
+    
+}
+
+[Serializable]
+public class InventoryDataEntity
+{
+    public FurnitureFeaturesSo key;
+    public uint value;
+}
+
+
+[Serializable]
+public class InventorySaveByJson
+{
+    public InventoryData saveInventory;
+}
+
+#endregion
