@@ -48,10 +48,10 @@ public class MapManager : MonoBehaviour {
         SetButtons();
     }
     private void Start() {
-        PlayerWhiteBoard.Instance.OnSelectedCharacterChanged += _onChangeSelectedCharacter;
+        CurrentSelectedCharacterWhiteBoard.Instance.OnSelectedCharacterChanged += _onChangeSelectedCharacter;
     }
     private void OnDestroy() {
-        PlayerWhiteBoard.Instance.OnSelectedCharacterChanged -= _onChangeSelectedCharacter;
+        CurrentSelectedCharacterWhiteBoard.Instance.OnSelectedCharacterChanged -= _onChangeSelectedCharacter;
     }
     private void OnEnable() {
         WhiteBoard board = WhiteBoard.Instance;

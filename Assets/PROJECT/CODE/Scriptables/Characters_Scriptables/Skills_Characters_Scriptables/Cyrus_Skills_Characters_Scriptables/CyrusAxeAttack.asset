@@ -23,14 +23,34 @@ MonoBehaviour:
       Value:
       - TimeToSpawnPreFab: 0.1
         PrefabType: 1
-        VFXDuration: 0
-        TypeOfVFX: 0
+        VFXAtribute:
+          VFXType: 0
+          VFXDuration: 0
+          UnitsToHit:
+            serializedVersion: 2
+            m_Bits: 0
+          VFXPosCollisionDuration: 0
+          CrossEnemy: 0
+          TimeStopped: 0
+          MinDistanceBack: 0
+          VFXSpeed: 0
+          Distance: 0
         PreFab: {fileID: 455172127242433270, guid: 2b1e4b0a3559eaf46b3c7be66c61300a, type: 3}
         PreFabPosition: {x: 0, y: 0, z: -1.15}
       - TimeToSpawnPreFab: 0.65
         PrefabType: 0
-        VFXDuration: 0
-        TypeOfVFX: 0
+        VFXAtribute:
+          VFXType: 0
+          VFXDuration: 0
+          UnitsToHit:
+            serializedVersion: 2
+            m_Bits: 0
+          VFXPosCollisionDuration: 0
+          CrossEnemy: 0
+          TimeStopped: 0
+          MinDistanceBack: 0
+          VFXSpeed: 0
+          Distance: 0
         PreFab: {fileID: 8271028322271159555, guid: 02de40013cebfe2448edca155583a4c1, type: 3}
         PreFabPosition: {x: 0, y: 1, z: 1.5}
   SkillObjectRangeObject: {fileID: 7295537954416935036, guid: 2cd15af29a69803439873d8a1751fec9, type: 3}
@@ -39,6 +59,8 @@ MonoBehaviour:
   PreCastOn: 1
   SkillCharacter: 0
   Cancelable: 1
+  Slot: 1
+  SkillType: 0
   FlatEnergyGainPerHit: 15
   Cooldown: 10
   HasCharges: 0

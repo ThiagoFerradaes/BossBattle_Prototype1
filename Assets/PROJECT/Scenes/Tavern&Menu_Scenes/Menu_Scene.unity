@@ -2897,9 +2897,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1296963264}
-  - component: {fileID: 1296963265}
   - component: {fileID: 1296963266}
   - component: {fileID: 1296963267}
+  - component: {fileID: 1296963268}
   m_Layer: 0
   m_Name: WhiteBoard
   m_TagString: Untagged
@@ -2922,34 +2922,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1296963265
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1296963263}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a96499c02b09b94aa63e749713870cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  charactersCurrentSkills:
-    _serializedList: []
-  charactersInfo:
-    _serializedList:
-    - Key: 0
-      Value: {fileID: 11400000, guid: 441e7a36ad33fc24b9b1d8eb3358cfc4, type: 2}
-    - Key: 1
-      Value: {fileID: 11400000, guid: 5bd52de6337304b4e8d600eec07a6268, type: 2}
-    - Key: 2
-      Value: {fileID: 11400000, guid: 4518ce4d23950f8459b0f9b1846754dc, type: 2}
-    - Key: 3
-      Value: {fileID: 11400000, guid: 65f401daba0dc5a4084fddbd47571eea, type: 2}
-    - Key: 4
-      Value: {fileID: 11400000, guid: 27b3cde34ea59f4479d73a09b5a0d9fa, type: 2}
-    - Key: 5
-      Value: {fileID: 11400000, guid: 27b3cde34ea59f4479d73a09b5a0d9fa, type: 2}
 --- !u!114 &1296963266
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2963,12 +2935,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   listOfAllCharacters:
-  - {fileID: 11400000, guid: 441e7a36ad33fc24b9b1d8eb3358cfc4, type: 2}
-  - {fileID: 11400000, guid: 5bd52de6337304b4e8d600eec07a6268, type: 2}
-  - {fileID: 11400000, guid: 4518ce4d23950f8459b0f9b1846754dc, type: 2}
-  - {fileID: 11400000, guid: 65f401daba0dc5a4084fddbd47571eea, type: 2}
-  - {fileID: 11400000, guid: 27b3cde34ea59f4479d73a09b5a0d9fa, type: 2}
-  - {fileID: 11400000, guid: a87c57f4ef3da2c4b909cc6c9343c47c, type: 2}
+    _serializedList:
+    - Key: 0
+      Value: {fileID: 11400000, guid: 441e7a36ad33fc24b9b1d8eb3358cfc4, type: 2}
+    - Key: 1
+      Value: {fileID: 11400000, guid: 5bd52de6337304b4e8d600eec07a6268, type: 2}
+    - Key: 2
+      Value: {fileID: 11400000, guid: 4518ce4d23950f8459b0f9b1846754dc, type: 2}
+    - Key: 3
+      Value: {fileID: 11400000, guid: 65f401daba0dc5a4084fddbd47571eea, type: 2}
+    - Key: 4
+      Value: {fileID: 11400000, guid: 27b3cde34ea59f4479d73a09b5a0d9fa, type: 2}
+    - Key: 5
+      Value: {fileID: 11400000, guid: a87c57f4ef3da2c4b909cc6c9343c47c, type: 2}
   listOfInitialCharactersUnlocked: 000000000100000002000000
   dictionaryOfPhasesByBoss:
     _serializedList:
@@ -2990,6 +2969,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ConfigurationWhiteBoard
   PreCastOn: 0
   DashToMouse: 1
+--- !u!114 &1296963268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1296963263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4a0dec29369f2942999fa4a70c6ea4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CurrentSelectedCharacterWhiteBoard
+  charactersCurrentSkills:
+    _serializedList: []
 --- !u!1 &1320600136 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2741475529450692156, guid: d969ce68f206afc41a330bcae9d9f7e4, type: 3}

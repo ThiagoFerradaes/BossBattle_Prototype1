@@ -41,5 +41,6 @@ public class SkillSO : ScriptableObject {
     [Foldout("Generic")] public Character SkillCharacter;
     [Foldout("Generic")] public bool Cancelable;
     [Foldout("Generic")] public SkillSlot Slot;
+    [Foldout("Generic")] public SkillType SkillType;
 
 }

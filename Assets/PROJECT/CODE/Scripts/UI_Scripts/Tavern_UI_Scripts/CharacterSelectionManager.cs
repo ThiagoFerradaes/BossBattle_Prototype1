@@ -27,7 +27,14 @@ public class CharacterSelectionManager : MonoBehaviour {
     [SerializedDictionary("Character", "Image"), SerializeField]
     SerializedDictionary<Character, Image> dictionaryOfBackgrounds = new();
 
+    [Header("Description")]
+    [SerializedDictionary("Slot", "Button"), SerializeField] SerializedDictionary<SkillSlot, Button> dictionaryOfSkillSelectionButton;
+    SkillSelectionManager _skillSelectionManager;
+
     #region StartRegion
+    private void Awake() {
+        _skillSelectionManager = GetComponent<SkillSelectionManager>();
+    }
     private void Start() {
         SetButtons();
     }
@@ -38,7 +45,12 @@ public class CharacterSelectionManager : MonoBehaviour {
         }
 
         closeScreenButton.onClick.AddListener(() => characterSelectionScreen.SetActive(false));
+        foreach (var slot in dictionaryOfSkillSelectionButton.Keys) {
+            var tempSlot = slot;
+            dictionaryOfSkillSelectionButton[tempSlot].onClick.AddListener(() => _skillSelectionManager.Initialize(tempSlot));
+        }
     }
+
 
     #endregion
 
@@ -70,7 +82,7 @@ public class CharacterSelectionManager : MonoBehaviour {
     }
 
     void ChangeSelectedImageAndSignature() {
-        CharacterSO currentCharater = PlayerWhiteBoard.Instance.ReturnSelectedCharacterSO();
+        CharacterSO currentCharater = CurrentSelectedCharacterWhiteBoard.Instance.ReturnSelectedCharacterSO();
 
         selectedCharacterImage.sprite = currentCharater.CharacterSelectionImage;
         selectedCharacterSignature.sprite = currentCharater.CharacterSignature;
@@ -82,11 +94,11 @@ public class CharacterSelectionManager : MonoBehaviour {
     }
 
     void ChangeSkillsIcon() {
-        Character currentCharacter = PlayerWhiteBoard.Instance.ReturnSelectedCharacter();
-        CommonSkillSO skillOne = PlayerWhiteBoard.Instance.ReturnSkillOne(currentCharacter);
-        CommonSkillSO skillTwo = PlayerWhiteBoard.Instance.ReturnSkillTwo(currentCharacter);
-        UltimateSkillSO ultimate = PlayerWhiteBoard.Instance.ReturnUltimate(currentCharacter);
-        PassiveSO passive = PlayerWhiteBoard.Instance.ReturnPassive(currentCharacter);
+        Character currentCharacter = CurrentSelectedCharacterWhiteBoard.Instance.ReturnSelectedCharacter();
+        CommonSkillSO skillOne = CurrentSelectedCharacterWhiteBoard.Instance.ReturnSkillOne(currentCharacter);
+        CommonSkillSO skillTwo = CurrentSelectedCharacterWhiteBoard.Instance.ReturnSkillTwo(currentCharacter);
+        UltimateSkillSO ultimate = CurrentSelectedCharacterWhiteBoard.Instance.ReturnUltimate(currentCharacter);
+        PassiveSO passive = CurrentSelectedCharacterWhiteBoard.Instance.ReturnPassive(currentCharacter);
 
         // Setando os icones
         passiveIcon.sprite = passive.PassiveIcon;
@@ -105,7 +117,7 @@ public class CharacterSelectionManager : MonoBehaviour {
     #region InsideScreenMethods
 
     void SelectCharacter(CharacterSO character) {
-        PlayerWhiteBoard.Instance.SetSelectedCharacter(character);
+        CurrentSelectedCharacterWhiteBoard.Instance.SetSelectedCharacter(character);
         ChangeSelectedImageAndSignature();
         ChangeSkillsIcon();
     }

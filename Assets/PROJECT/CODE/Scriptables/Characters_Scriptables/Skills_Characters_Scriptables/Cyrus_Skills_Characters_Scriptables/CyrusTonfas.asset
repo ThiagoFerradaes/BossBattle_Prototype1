@@ -12,15 +12,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bfc7037eacabc142a7aee22e10ed5d3, type: 3}
   m_Name: CyrusTonfas
   m_EditorClassIdentifier: Assembly-CSharp::CyrusTonfasSkillSO
-  SkillManagerObject: {fileID: 4664583147525992776, guid: 2fdf383091fc6814dbe43478d5fc5285, type: 3}
+  SkillName: 
+  SkillShortDescription: 
+  SkillLongDescription: 
   SkillSpriteIcon: {fileID: 21300000, guid: b73cbcbac8e51294b8219e435356e164, type: 3}
+  SkillManagerObject: {fileID: 4664583147525992776, guid: 2fdf383091fc6814dbe43478d5fc5285, type: 3}
   Prefabs:
     _serializedList:
     - Key: 0
       Value:
       - TimeToSpawnPreFab: 0.5
         PrefabType: 0
-        PrefabDuration: 0
+        VFXAtribute:
+          VFXType: 0
+          VFXDuration: 0
+          UnitsToHit:
+            serializedVersion: 2
+            m_Bits: 0
+          VFXPosCollisionDuration: 0
+          CrossEnemy: 0
+          TimeStopped: 0
+          MinDistanceBack: 0
+          VFXSpeed: 0
+          Distance: 0
         PreFab: {fileID: 8998219623033830514, guid: 690c34d54c88e12448b7561adfe65ab9, type: 3}
         PreFabPosition: {x: 0, y: 0, z: 0}
   SkillObjectRangeObject: {fileID: 0}
@@ -29,6 +43,8 @@ MonoBehaviour:
   PreCastOn: 0
   SkillCharacter: 0
   Cancelable: 0
+  Slot: 3
+  SkillType: 0
   EnergyCost: 10
   Atributes:
     DamageType: 0

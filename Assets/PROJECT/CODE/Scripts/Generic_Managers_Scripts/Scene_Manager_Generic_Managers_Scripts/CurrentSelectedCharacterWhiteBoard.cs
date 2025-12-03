@@ -2,15 +2,15 @@ using AYellowpaper.SerializedCollections;
 using System;
 using UnityEngine;
 
-public class PlayerWhiteBoard : MonoBehaviour {
-    public static PlayerWhiteBoard Instance;
+public class CurrentSelectedCharacterWhiteBoard : MonoBehaviour {
+    public static CurrentSelectedCharacterWhiteBoard Instance;
 
     Character _selectedCharacter = Character.Cyrus;
+    CharacterSO _selectedCharacterSO;
 
     [SerializedDictionary("Character", "Kit"), SerializeField] 
     SerializedDictionary<Character, CharacterKit> charactersCurrentSkills = new();
-    [SerializedDictionary("Character", "SO"), SerializeField] 
-    SerializedDictionary<Character, CharacterSO> charactersInfo = new();
+
 
     public event Action<CharacterSO> OnSelectedCharacterChanged;
 
@@ -23,13 +23,11 @@ public class PlayerWhiteBoard : MonoBehaviour {
             Destroy(this);
         }
 
-        SetSelectedCharacter(charactersInfo[Character.Cyrus]);
     }
-
 
     #region Getters
 
-    public SerializedDictionary<Character, CharacterSO> ReturnCharactersInfo() => charactersInfo;
+
     /// <summary>
     /// Return the current Selected Playable Character
     /// </summary>
@@ -39,7 +37,7 @@ public class PlayerWhiteBoard : MonoBehaviour {
     /// Return the Selected Playable Character Info
     /// </summary>
     /// <returns></returns>
-    public CharacterSO ReturnSelectedCharacterSO() => charactersInfo[_selectedCharacter];
+    public CharacterSO ReturnSelectedCharacterSO() => _selectedCharacterSO;
     /// <summary>
     /// Return the first skill from the current Selected Playable Character
     /// </summary>
@@ -80,7 +78,8 @@ public class PlayerWhiteBoard : MonoBehaviour {
     /// </summary>
     /// <param name="newSelectedCharacter"></param>
     public void SetSelectedCharacter(CharacterSO newSelectedCharacter) { 
-        _selectedCharacter = newSelectedCharacter.Character; 
+        _selectedCharacter = newSelectedCharacter.Character;
+        _selectedCharacterSO = newSelectedCharacter;
 
         if (!charactersCurrentSkills.ContainsKey(newSelectedCharacter.Character)) {
             charactersCurrentSkills[newSelectedCharacter.Character] = newSelectedCharacter.InitialKit;

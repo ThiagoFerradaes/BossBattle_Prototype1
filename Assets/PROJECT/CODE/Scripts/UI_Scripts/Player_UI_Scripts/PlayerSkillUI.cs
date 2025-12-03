@@ -119,7 +119,7 @@ public class PlayerSkillUI : MonoBehaviour {
     private void SetSkillsImage() {
         Debug.Log("Skills have image");
 
-        PlayerWhiteBoard whiteboard = PlayerWhiteBoard.Instance;
+        CurrentSelectedCharacterWhiteBoard whiteboard = CurrentSelectedCharacterWhiteBoard.Instance;
         Character selectedCharacter = whiteboard.ReturnSelectedCharacter();
 
         if (whiteboard.ReturnSkillOne(selectedCharacter).SkillSpriteIcon)
