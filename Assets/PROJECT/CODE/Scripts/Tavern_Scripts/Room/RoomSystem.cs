@@ -363,19 +363,15 @@ public class RoomSystem : MonoBehaviour
     public void LoadFurniture(Dictionary<byte, Furniture> furniture, CharacterValue characteristic, byte slotAmount)
     {
         _currentLevel = slotAmount;
-        if (!levelRoom.inheritedData.TryGetValue(_currentLevel, out SlotFurnitureRoom[] slot))
+        if (!levelRoom.inheritedData.TryGetValue(slotAmount, out SlotFurnitureRoom[] slot))
         {
-            Debug.LogError("No room found for level " + _currentLevel);
+            Debug.LogError("No room found for level " + slotAmount);
             return;
-        }
-        
-        for (byte i = 0; i < slotAmount; i++)
-        {
-            slot[i].gameObject.SetActive(true);
         }
         
         for (byte i = 0; i < slot.Length; i++)
         {
+            slot[i].gameObject.SetActive(true);
             listOfFurniture.Add(new Furniture());
             
             if(furniture.Count == 0) continue;
