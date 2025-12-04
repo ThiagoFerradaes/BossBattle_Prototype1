@@ -9,10 +9,6 @@ public class CharacterSelectionManager : MonoBehaviour {
     [SerializeField] GameObject characterSelectionScreen;
     [SerializeField] Image selectedCharacterImage;
     [SerializeField] Image selectedCharacterSignature;
-    [SerializeField] Image passiveIcon;
-    [SerializeField] Image skillOneIcon;
-    [SerializeField] Image skillTwoIcon;
-    [SerializeField] Image ultimateIcon;
     [SerializeField] TextMeshProUGUI passiveShortDescription;
     [SerializeField] TextMeshProUGUI skillOneShortDescription;
     [SerializeField] TextMeshProUGUI skillTwoShortDescription;
@@ -27,7 +23,14 @@ public class CharacterSelectionManager : MonoBehaviour {
     [SerializedDictionary("Character", "Image"), SerializeField]
     SerializedDictionary<Character, Image> dictionaryOfBackgrounds = new();
 
-    [Header("Description")]
+    [Header("Skills Icons")]
+    [SerializeField] Image passiveIcon;
+    [SerializeField] Image skillOneIcon;
+    [SerializeField] Image skillTwoIcon;
+    [SerializeField] Image ultimateIcon;
+    [SerializeField] Color unselectedSkillColor;
+    [SerializeField] Color selectedSkillColor;
+    [SerializedDictionary("Slot", "Button"), SerializeField] SerializedDictionary<SkillSlot, Image> dictionaryOfSkillsIconBackground;
     [SerializedDictionary("Slot", "Button"), SerializeField] SerializedDictionary<SkillSlot, Button> dictionaryOfSkillSelectionButton;
     SkillSelectionManager _skillSelectionManager;
 
@@ -54,7 +57,10 @@ public class CharacterSelectionManager : MonoBehaviour {
         // Botão que abre a UI de seleção de skill
         foreach (var slot in dictionaryOfSkillSelectionButton.Keys) {
             var tempSlot = slot;
-            dictionaryOfSkillSelectionButton[tempSlot].onClick.AddListener(() => _skillSelectionManager.Initialize(tempSlot));
+            dictionaryOfSkillSelectionButton[tempSlot].onClick.AddListener(() => {
+                _skillSelectionManager.Initialize(tempSlot);
+                ChangeSkillIconBackground(tempSlot);
+                });
         }
     }
 
@@ -148,5 +154,17 @@ public class CharacterSelectionManager : MonoBehaviour {
         _skillSelectionManager.TurnScreenOff();
     }
 
+    void ChangeSkillIconBackground(SkillSlot activeSlot) {
+        foreach (var skillIcon in dictionaryOfSkillsIconBackground) {
+            if (skillIcon.Key == activeSlot) skillIcon.Value.color = selectedSkillColor;
+            else skillIcon.Value.color = unselectedSkillColor;
+        }
+    }
+
+    public void EraseSkillIconBackgroundSelection() {
+        foreach (var skillIcon in dictionaryOfSkillsIconBackground) {
+            skillIcon.Value.color = unselectedSkillColor;
+        }
+    }
     #endregion
 }

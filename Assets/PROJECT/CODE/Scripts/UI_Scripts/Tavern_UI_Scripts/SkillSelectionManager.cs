@@ -125,8 +125,8 @@ public class SkillSelectionManager : MonoBehaviour {
             dictionaryOfSkillButtons[SkillType.Alternative].interactable = false;
         }
 
-            // Descrição
-            Character currentCharacter = CurrentSelectedCharacterWhiteBoard.Instance.ReturnSelectedCharacter();
+        // Descrição
+        Character currentCharacter = CurrentSelectedCharacterWhiteBoard.Instance.ReturnSelectedCharacter();
         SkillSO skill = _currentSlot switch {
             SkillSlot.SkillOne => CurrentSelectedCharacterWhiteBoard.Instance.ReturnSkillOne(currentCharacter),
             SkillSlot.SkillTwo => CurrentSelectedCharacterWhiteBoard.Instance.ReturnSkillTwo(currentCharacter),
@@ -147,7 +147,7 @@ public class SkillSelectionManager : MonoBehaviour {
         List<SkillUnlockedInfo> skilslInfo = WhiteBoard.Instance.ReturnCurrentCharacterSkillsBySlot(_currentSlot);
 
         SkillUnlockedInfo newSkill = skilslInfo.Where(p => p.Type == typeOfSkill).FirstOrDefault();
-        
+
         if (currentSkill == newSkill.Skill || newSkill == null) return;
 
         CurrentSelectedCharacterWhiteBoard.Instance.SetCurrentCharacterSkillBySlot(_currentSlot, newSkill.Skill);
@@ -180,5 +180,7 @@ public class SkillSelectionManager : MonoBehaviour {
         passiveIconObject.SetActive(false);
         skillsIconObject.SetActive(false);
         skillSelectionScreen.SetActive(false);
+
+        _characterSelectionManager.EraseSkillIconBackgroundSelection();
     }
 }
