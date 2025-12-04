@@ -40,11 +40,18 @@ public class CharacterSelectionManager : MonoBehaviour {
     }
 
     void SetButtons() {
+        // Botões de personagem para troca do personagem selecionado
         foreach (var character in dictionaryOfCharactersButton.Keys) {
             dictionaryOfCharactersButton[character].onClick.AddListener(() => SelectCharacter(character));
         }
 
-        closeScreenButton.onClick.AddListener(() => characterSelectionScreen.SetActive(false));
+        // Botão que fecha a UI;
+        closeScreenButton.onClick.AddListener(() => {
+            characterSelectionScreen.SetActive(false);
+            _skillSelectionManager.TurnScreenOff();
+            });
+
+        // Botão que abre a UI de seleção de skill
         foreach (var slot in dictionaryOfSkillSelectionButton.Keys) {
             var tempSlot = slot;
             dictionaryOfSkillSelectionButton[tempSlot].onClick.AddListener(() => _skillSelectionManager.Initialize(tempSlot));
@@ -112,6 +119,24 @@ public class CharacterSelectionManager : MonoBehaviour {
         skillTwoShortDescription.text = skillTwo.SkillShortDescription;
         ultimateShortDescription.text = ultimate.SkillShortDescription;
     }
+
+    public void ChangeSkillIcon(SkillSlot slot) {
+        SkillSO currentSkill = CurrentSelectedCharacterWhiteBoard.Instance.ReturnCurrentSkillBySlot(slot);
+        switch (slot) {
+            case SkillSlot.SkillOne:
+                skillOneIcon.sprite = currentSkill.SkillSpriteIcon;
+                skillOneShortDescription.text = currentSkill.SkillShortDescription;
+                break;
+            case SkillSlot.SkillTwo:
+                skillTwoIcon.sprite = currentSkill.SkillSpriteIcon;
+                skillTwoShortDescription.text = currentSkill.SkillShortDescription;
+                break;
+            case SkillSlot.Ultimate:
+                ultimateIcon.sprite = currentSkill.SkillSpriteIcon;
+                ultimateShortDescription.text = currentSkill.SkillShortDescription;
+                break;
+        }
+    }
     #endregion
 
     #region InsideScreenMethods
@@ -120,6 +145,7 @@ public class CharacterSelectionManager : MonoBehaviour {
         CurrentSelectedCharacterWhiteBoard.Instance.SetSelectedCharacter(character);
         ChangeSelectedImageAndSignature();
         ChangeSkillsIcon();
+        _skillSelectionManager.TurnScreenOff();
     }
 
     #endregion

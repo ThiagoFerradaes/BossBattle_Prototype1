@@ -12,6 +12,14 @@ public class CharacterKit {
     public CommonSkillSO BaseAttack, SkillOne, SkillTwo, Dash;
     public UltimateSkillSO Ultimate;
     public PassiveSO Passive;
+
+    public CharacterKit(CharacterKit source) {
+        this.BaseAttack = source.BaseAttack;
+        this.SkillOne = source.SkillOne;
+        this.SkillTwo = source.SkillTwo;
+        this.Ultimate = source.Ultimate;
+        this.Passive = source.Passive;
+    }
 }
 
 [CreateAssetMenu(menuName = "Characters/ CharactersDescriptions")]

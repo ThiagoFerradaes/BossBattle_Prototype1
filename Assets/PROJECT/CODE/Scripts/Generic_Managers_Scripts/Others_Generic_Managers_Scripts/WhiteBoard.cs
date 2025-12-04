@@ -43,6 +43,7 @@ public class WhiteBoard : MonoBehaviour {
     public static WhiteBoard Instance;
 
     [SerializedDictionary("Character", "Info"), SerializeField] SerializedDictionary<Character, CharacterSO> listOfAllCharacters = new();
+    [SerializedDictionary("Character", "Info"), SerializeField] SerializedDictionary<Character, List<SkillSO>> listOfSkillsToUnlock = new();
     [SerializeField] List<Character> listOfInitialCharactersUnlocked = new();
     [SerializedDictionary("Boss", "Amount Of Phases"), SerializeField]
     SerializedDictionary<Bosses, int> dictionaryOfPhasesByBoss = new();
@@ -64,6 +65,11 @@ public class WhiteBoard : MonoBehaviour {
             }
             foreach (var bossPhase in dictionaryOfPhasesByBoss) {
                 UnlockPhase(bossPhase.Key, bossPhase.Value);
+            }
+            foreach (var skillToUnlock in listOfSkillsToUnlock) {
+                foreach (var skill in skillToUnlock.Value) {
+                    UnlockSkill(skillToUnlock.Key, skill);
+                }
             }
 
             DontDestroyOnLoad(this);

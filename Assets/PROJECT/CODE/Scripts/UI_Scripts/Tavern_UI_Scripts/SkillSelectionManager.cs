@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,27 +23,45 @@ public class SkillSelectionManager : MonoBehaviour {
 
     [Header("Skill")]
     [SerializeField] GameObject skillsIconObject;
-    [SerializedDictionary("Type", "LockImage"), SerializeField] SerializedDictionary<SkillType, Image> dictionaryOfLocks = new(); 
+    [SerializedDictionary("Type", "LockImage"), SerializeField] SerializedDictionary<SkillType, Image> dictionaryOfLocks = new();
     [SerializedDictionary("Type", "SkillIcon"), SerializeField] SerializedDictionary<SkillType, Image> dictionaryOfSkillIcons = new();
+    [SerializedDictionary("Type", "Button"), SerializeField] SerializedDictionary<SkillType, Button> dictionaryOfSkillButtons = new();
+
+    SkillSlot _currentSlot;
+    CharacterSelectionManager _characterSelectionManager;
 
     public void Awake() {
+        _characterSelectionManager = GetComponent<CharacterSelectionManager>();
         SetButtons();
     }
     public void Initialize(SkillSlot slotInitialized) {
 
-        switch (slotInitialized) {
-            case SkillSlot.Passive:
-                SetPassive(); break;
-            default:
-                SetSkill(slotInitialized); break;
-        }
+        ChangeCurrentSlot(slotInitialized);
+
+        ChangeIconsAndInformations();
 
         SetConexions(slotInitialized);
         skillSelectionScreen.SetActive(true);
     }
 
+    public void ChangeCurrentSlot(SkillSlot slot) {
+        _currentSlot = slot;
+    }
+    public void ChangeIconsAndInformations() {
+        switch (_currentSlot) {
+            case SkillSlot.Passive:
+                SetPassive(); break;
+            default:
+                SetSkill(); break;
+        }
+    }
     void SetButtons() {
         closeSelectionScreen.onClick.AddListener(TurnScreenOff);
+
+        foreach (var button in dictionaryOfSkillButtons) {
+            var slot = button.Key;
+            button.Value.onClick.AddListener(() => ChangeSelectedSkill(slot));
+        }
     }
     #region Passive
     void SetPassive() {
@@ -59,26 +78,46 @@ public class SkillSelectionManager : MonoBehaviour {
     #endregion
 
     #region Skills
-    void SetSkill(SkillSlot slot) {
+    void SetSkill() {
 
         passiveIconObject.SetActive(false);
 
-        List<SkillUnlockedInfo> skilslInfo = WhiteBoard.Instance.ReturnCurrentCharacterSkillsBySlot(slot);
+        List<SkillUnlockedInfo> skilslInfo = WhiteBoard.Instance.ReturnCurrentCharacterSkillsBySlot(_currentSlot);
 
-        SkillUnlockedInfo classicSkill = skilslInfo.Where(p => p.Type == SkillType.Classic).First();
-        SkillUnlockedInfo alternativeSkill = skilslInfo.Where(p => p.Type == SkillType.Alternative).First();
+        SkillUnlockedInfo classicSkill = skilslInfo.Where(p => p.Type == SkillType.Classic).FirstOrDefault();
+        SkillUnlockedInfo alternativeSkill = skilslInfo.Where(p => p.Type == SkillType.Alternative).FirstOrDefault();
 
-        // Locks
-        dictionaryOfLocks[SkillType.Classic].gameObject.SetActive(!classicSkill.IsUnlocked); 
-        dictionaryOfLocks[SkillType.Alternative].gameObject.SetActive(!alternativeSkill.IsUnlocked);
+        // Classic skill
+        if (classicSkill != null) {
 
-        // Icons
-        dictionaryOfSkillIcons[SkillType.Classic].sprite = classicSkill.Skill.SkillSpriteIcon;
-        dictionaryOfSkillIcons[SkillType.Alternative].sprite = alternativeSkill.Skill.SkillSpriteIcon;
+            // Locks
+            dictionaryOfLocks[SkillType.Classic].gameObject.SetActive(!classicSkill.IsUnlocked);
+
+            // Button
+            dictionaryOfSkillButtons[SkillType.Classic].interactable = classicSkill.IsUnlocked;
+
+            // Icons
+            dictionaryOfSkillIcons[SkillType.Classic].sprite = classicSkill.Skill.SkillSpriteIcon;
+
+        }
+
+        // Alternative skill
+        if (alternativeSkill != null) {
+
+            // Lockas
+            dictionaryOfLocks[SkillType.Alternative].gameObject.SetActive(!alternativeSkill.IsUnlocked);
+
+            // Button
+            dictionaryOfSkillButtons[SkillType.Alternative].interactable = alternativeSkill.IsUnlocked;
+
+            // Icons
+            dictionaryOfSkillIcons[SkillType.Alternative].sprite = alternativeSkill.Skill.SkillSpriteIcon;
+
+        }
 
         // Descrição
         Character currentCharacter = CurrentSelectedCharacterWhiteBoard.Instance.ReturnSelectedCharacter();
-        SkillSO skill = slot switch {
+        SkillSO skill = _currentSlot switch {
             SkillSlot.SkillOne => CurrentSelectedCharacterWhiteBoard.Instance.ReturnSkillOne(currentCharacter),
             SkillSlot.SkillTwo => CurrentSelectedCharacterWhiteBoard.Instance.ReturnSkillTwo(currentCharacter),
             SkillSlot.Ultimate => CurrentSelectedCharacterWhiteBoard.Instance.ReturnUltimate(currentCharacter),
@@ -90,19 +129,35 @@ public class SkillSelectionManager : MonoBehaviour {
         // Object
         skillsIconObject.SetActive(true);
     }
+
+    void ChangeSelectedSkill(SkillType typeOfSkill) {
+
+        SkillSO currentSkill = CurrentSelectedCharacterWhiteBoard.Instance.ReturnCurrentSkillBySlot(_currentSlot);
+        List<SkillUnlockedInfo> skilslInfo = WhiteBoard.Instance.ReturnCurrentCharacterSkillsBySlot(_currentSlot);
+
+        SkillUnlockedInfo newSkill = skilslInfo.Where(p => p.Type == typeOfSkill).FirstOrDefault();
+        
+        if (currentSkill == newSkill.Skill || newSkill == null) return;
+
+        CurrentSelectedCharacterWhiteBoard.Instance.SetCurrentCharacterSkillBySlot(_currentSlot, newSkill.Skill);
+
+        ChangeDescriptionText(newSkill.Skill.SkillLongDescription, newSkill.Skill.SkillName);
+
+        _characterSelectionManager.ChangeSkillIcon(_currentSlot);
+    }
     #endregion
 
     void SetConexions(SkillSlot slot) {
         foreach (var conexion in dictionaryOfConexions)
             conexion.Value.gameObject.SetActive(conexion.Key == slot);
     }
-    
+
     void ChangeDescriptionText(string text, string name) {
         skillLongDescription.text = text;
         skillName.text = name;
     }
 
-    void TurnScreenOff() {
+    public void TurnScreenOff() {
         passiveIconObject.SetActive(false);
         skillsIconObject.SetActive(false);
         skillSelectionScreen.SetActive(false);

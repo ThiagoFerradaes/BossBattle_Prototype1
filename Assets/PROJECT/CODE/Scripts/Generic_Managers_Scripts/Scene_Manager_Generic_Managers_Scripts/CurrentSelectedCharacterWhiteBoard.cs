@@ -1,6 +1,7 @@
 using AYellowpaper.SerializedCollections;
 using System;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 public class CurrentSelectedCharacterWhiteBoard : MonoBehaviour {
     public static CurrentSelectedCharacterWhiteBoard Instance;
@@ -69,6 +70,16 @@ public class CurrentSelectedCharacterWhiteBoard : MonoBehaviour {
     /// <returns></returns>
     public PassiveSO ReturnPassive(Character character) => charactersCurrentSkills[character].Passive;
 
+    public SkillSO ReturnCurrentSkillBySlot(SkillSlot slot) {
+        switch (slot) {
+            case SkillSlot.SkillOne: return charactersCurrentSkills[_selectedCharacter].SkillOne;
+            case SkillSlot.SkillTwo: return charactersCurrentSkills[_selectedCharacter].SkillTwo;
+            case SkillSlot.Ultimate: return charactersCurrentSkills[_selectedCharacter].Ultimate;
+        }
+
+        return null;
+    }
+
     #endregion
 
     #region Setter
@@ -82,7 +93,7 @@ public class CurrentSelectedCharacterWhiteBoard : MonoBehaviour {
         _selectedCharacterSO = newSelectedCharacter;
 
         if (!charactersCurrentSkills.ContainsKey(newSelectedCharacter.Character)) {
-            charactersCurrentSkills[newSelectedCharacter.Character] = newSelectedCharacter.InitialKit;
+            charactersCurrentSkills[newSelectedCharacter.Character] = new(newSelectedCharacter.InitialKit);
         }
 
         OnSelectedCharacterChanged?.Invoke(newSelectedCharacter);
@@ -114,6 +125,19 @@ public class CurrentSelectedCharacterWhiteBoard : MonoBehaviour {
         if (!charactersCurrentSkills.ContainsKey(character) || charactersCurrentSkills[character].Ultimate == newSkill) return;
 
         charactersCurrentSkills[character].Ultimate = newSkill;
+    }
+
+    /// <summary>
+    /// Change the current ability by slot of the current selected character
+    /// </summary>
+    /// <param name="slot"></param>
+    /// <param name="skill"></param>
+    public void SetCurrentCharacterSkillBySlot(SkillSlot slot, SkillSO skill) {
+        switch (slot) {
+            case SkillSlot.SkillOne: SetFirstSkill(skill as CommonSkillSO, _selectedCharacter); break;
+            case SkillSlot.SkillTwo: SetSecondSkill(skill as CommonSkillSO, _selectedCharacter); break;
+            case SkillSlot.Ultimate: SetUltimateSkill(skill as UltimateSkillSO, _selectedCharacter); break;
+        }
     }
     #endregion
 }
