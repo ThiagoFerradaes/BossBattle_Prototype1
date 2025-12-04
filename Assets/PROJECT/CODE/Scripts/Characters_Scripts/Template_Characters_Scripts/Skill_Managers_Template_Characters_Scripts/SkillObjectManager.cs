@@ -1,7 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -224,7 +222,29 @@ public abstract class SkillObjectManager : MonoBehaviour {
     }
 
     public virtual void InstantiateHitBox(SkillAnimationEvent prefab) { }
-    public virtual void InstantiateVFX(SkillAnimationEvent prefab) { }
+    public virtual void InstantiateVFX(SkillAnimationEvent prefab) {
+        GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefab.PreFab, TypeOfSkillPrefab.VFX);
+
+        preFab.transform.SetParent(parent.transform, false);
+        preFab.transform.SetLocalPositionAndRotation(prefab.PreFabPosition, Quaternion.identity);
+        preFab.transform.SetParent(null);
+
+
+        switch (prefab.VFXAtribute.VFXType) {
+            case TypeOfCollider.Instant:
+                preFab.GetComponent<VFXPreFabStatic>().Initialize(prefab.VFXAtribute);
+                break;
+            case TypeOfCollider.Continuos:
+                preFab.GetComponent<VFXPreFabStatic>().Initialize(prefab.VFXAtribute);
+                break;
+            case TypeOfCollider.Projectile:
+                preFab.GetComponent<VFXPreFabProjectile>().Initialize(prefab.VFXAtribute);
+                break;
+            case TypeOfCollider.Boomerang:
+
+                break;
+    }
+}
 
     #endregion
     #endregion

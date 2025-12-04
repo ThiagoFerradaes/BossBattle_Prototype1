@@ -9,15 +9,21 @@ public class SkillAnimationEvent {
     public float TimeToSpawnPreFab;
     public TypeOfSkillPrefab PrefabType;
     [ShowIf("PrefabType", TypeOfSkillPrefab.VFX), AllowNesting]
-    public float PrefabDuration;
+    public VFXAtributes VFXAtribute;
+    [ShowIf("PrefabType", TypeOfSkillPrefab.VFX), AllowNesting]
     public GameObject PreFab;
     public Vector3 PreFabPosition;
 }
 
 public class SkillSO : ScriptableObject {
+    [Header("Skill Description")]
+    [Foldout("Generic")] public string SkillName;
+    [Foldout("Generic"), TextArea(3, 10)] public string SkillShortDescription;
+    [Foldout("Generic"), TextArea(3, 10)] public string SkillLongDescription;
+    [Foldout("Generic")] public Sprite SkillSpriteIcon;
+
     [Header("Skill Manager")]
     [Foldout("Generic")] public SkillObjectManager SkillManagerObject;
-    [Foldout("Generic")] public Sprite SkillSpriteIcon;
 
     [Header("Skill Prefabs")]
     [Foldout("Generic"), SerializedDictionary("Combo", "Event")]
@@ -34,5 +40,7 @@ public class SkillSO : ScriptableObject {
     [Header("Skill Parameters")]
     [Foldout("Generic")] public Character SkillCharacter;
     [Foldout("Generic")] public bool Cancelable;
+    [Foldout("Generic")] public SkillSlot Slot;
+    [Foldout("Generic")] public SkillType SkillType;
 
 }

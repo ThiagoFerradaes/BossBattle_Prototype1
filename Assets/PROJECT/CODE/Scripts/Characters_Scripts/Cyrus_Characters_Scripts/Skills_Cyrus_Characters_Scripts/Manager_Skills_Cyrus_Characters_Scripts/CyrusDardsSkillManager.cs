@@ -69,10 +69,6 @@ public class CyrusDardsSkillManager : SkillObjectManager {
                     if (collision.TryGetComponent<StatusManager>(out StatusManager status)) {
                         status.ChangeStatus(StatusType.Defense, _info.AmountOfDefenseDrop/100, false, _info.DefenseDropDuration);
                     }
-                    //else {
-                    //    collision.GetComponentInParent<StatusManager>().
-                    //    ChangeStatus(StatusType.Defense, _info.AmountOfDefenseDrop / 100, false, _info.DefenseDropDuration);
-                    //}
                 }
             };
 

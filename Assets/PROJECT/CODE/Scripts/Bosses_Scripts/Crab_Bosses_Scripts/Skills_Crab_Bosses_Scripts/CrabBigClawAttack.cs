@@ -161,6 +161,6 @@ public class CrabBigClawAttack : EnemyBehaviourSO
         GameObject hitbox = PoolingManager.Instance.ReturnPrefabFromPool(prefab.PreFab, TypeOfSkillPrefab.VFX);
         hitbox.transform.position = prefab.PreFabPosition;
 
-        hitbox.GetComponent<VFXPreFab>().Initialize(prefab.PrefabDuration);
+        hitbox.GetComponent<VFXPreFabStatic>().Initialize(prefab.VFXAtribute);
     }
 }
