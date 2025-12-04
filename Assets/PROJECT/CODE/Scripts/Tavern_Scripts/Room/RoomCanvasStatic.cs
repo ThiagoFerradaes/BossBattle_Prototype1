@@ -110,7 +110,7 @@ public class RoomCanvasStatic : MonoBehaviour
             };
 
             // Serialize to JSON
-            var json = JsonUtility.ToJson(saveFurniture, true);
+            var json = JsonUtility.ToJson(saveFurniture, false);
             await File.WriteAllTextAsync(SavePath, json);
 
             Debug.Log("Furniture save data saved successfully!");
@@ -205,7 +205,7 @@ public class RoomCanvasStatic : MonoBehaviour
                 saveInventory = new InventoryData(listOfFurnitureUnlocked)
             };
             
-            var json = JsonUtility.ToJson(inventorySaveByJson, true);
+            var json = JsonUtility.ToJson(inventorySaveByJson, false);
             await File.WriteAllTextAsync(SavePathForInventory, json);
             
             Debug.Log("Inventory save data saved successfully!");
@@ -238,6 +238,7 @@ public class RoomCanvasStatic : MonoBehaviour
                 Debug.LogError("Invalid save data structure.");
                 return;
             }
+            
             listOfFurnitureUnlocked = loadedData.saveInventory.ToDictionary();
         }
         catch (Exception e)
@@ -589,12 +590,7 @@ public class InventoryData
     /// <returns>Dictionary of unlocked furniture organized by size</returns>
     public Dictionary<SizeOfFurnitureEnum, Dictionary<FurnitureFeaturesSo, uint>> ToDictionary()
     {
-        var dict = new Dictionary<SizeOfFurnitureEnum, Dictionary<FurnitureFeaturesSo, uint>>();
-        foreach (var entry in inventoryList)
-        {
-            dict[entry.key] = entry.ToDictionary();
-        }
-        return dict;
+        return inventoryList.ToDictionary(entry => entry.key, entry => entry.ToDictionary());
     }
 }
 
@@ -627,12 +623,7 @@ public class InventoryEntity
     /// <returns>Dictionary mapping furniture to quantities</returns>
     public Dictionary<FurnitureFeaturesSo, uint> ToDictionary()
     {
-        var dict = new Dictionary<FurnitureFeaturesSo, uint>();
-        foreach (var entry in data)
-        {
-            dict[entry.key] = entry.value;
-        }
-        return dict;
+        return data.Where(entry => entry != null).Where(entry => entry.key != null).ToDictionary(entry => entry.key, entry => entry.value);
     }
 }
 

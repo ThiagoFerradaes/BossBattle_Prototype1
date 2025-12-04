@@ -357,11 +357,13 @@ public class RoomSystem : MonoBehaviour
         for (byte i = 0; i < slot.Length; i++)
         {
             slot[i].gameObject.SetActive(true);
-            listOfFurniture.Add(new Furniture());
             
             if(furniture.Count == 0) continue;
             if(!furniture.TryGetValue(i, out var value)) continue;
+            if(value == null) continue;
+            if(value.furniture == null) continue;
             
+            listOfFurniture.Add(new Furniture());
             listOfFurniture[i].AddFurniture(value.furniture);
             
             slot[i].LoadFurniture(value.furniture);
