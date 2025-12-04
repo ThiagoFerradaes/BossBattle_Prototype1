@@ -19,6 +19,7 @@ public class CharacterKit {
         this.SkillTwo = source.SkillTwo;
         this.Ultimate = source.Ultimate;
         this.Passive = source.Passive;
+        this.Dash = source.Dash;
     }
 }
 

@@ -25,7 +25,10 @@ public class SkillSelectionManager : MonoBehaviour {
     [SerializeField] GameObject skillsIconObject;
     [SerializedDictionary("Type", "LockImage"), SerializeField] SerializedDictionary<SkillType, Image> dictionaryOfLocks = new();
     [SerializedDictionary("Type", "SkillIcon"), SerializeField] SerializedDictionary<SkillType, Image> dictionaryOfSkillIcons = new();
+    [SerializedDictionary("Type", "SkillBackground"), SerializeField] SerializedDictionary<SkillType, Image> dictionaryOfSkillBackgrounds = new();
     [SerializedDictionary("Type", "Button"), SerializeField] SerializedDictionary<SkillType, Button> dictionaryOfSkillButtons = new();
+    [SerializeField] Color selectedSkillColor;
+    [SerializeField] Color unselectedSkillColor;
 
     SkillSlot _currentSlot;
     CharacterSelectionManager _characterSelectionManager;
@@ -114,9 +117,16 @@ public class SkillSelectionManager : MonoBehaviour {
             dictionaryOfSkillIcons[SkillType.Alternative].sprite = alternativeSkill.Skill.SkillSpriteIcon;
 
         }
+        else {
+            // Lockas
+            dictionaryOfLocks[SkillType.Alternative].gameObject.SetActive(true);
 
-        // Descrição
-        Character currentCharacter = CurrentSelectedCharacterWhiteBoard.Instance.ReturnSelectedCharacter();
+            // Button
+            dictionaryOfSkillButtons[SkillType.Alternative].interactable = false;
+        }
+
+            // Descrição
+            Character currentCharacter = CurrentSelectedCharacterWhiteBoard.Instance.ReturnSelectedCharacter();
         SkillSO skill = _currentSlot switch {
             SkillSlot.SkillOne => CurrentSelectedCharacterWhiteBoard.Instance.ReturnSkillOne(currentCharacter),
             SkillSlot.SkillTwo => CurrentSelectedCharacterWhiteBoard.Instance.ReturnSkillTwo(currentCharacter),
@@ -125,6 +135,7 @@ public class SkillSelectionManager : MonoBehaviour {
         };
 
         ChangeDescriptionText(skill.SkillLongDescription, skill.SkillName);
+        ChangeSkillBackground(skill.SkillType);
 
         // Object
         skillsIconObject.SetActive(true);
@@ -143,6 +154,8 @@ public class SkillSelectionManager : MonoBehaviour {
 
         ChangeDescriptionText(newSkill.Skill.SkillLongDescription, newSkill.Skill.SkillName);
 
+        ChangeSkillBackground(typeOfSkill);
+
         _characterSelectionManager.ChangeSkillIcon(_currentSlot);
     }
     #endregion
@@ -152,6 +165,12 @@ public class SkillSelectionManager : MonoBehaviour {
             conexion.Value.gameObject.SetActive(conexion.Key == slot);
     }
 
+    void ChangeSkillBackground(SkillType type) {
+        foreach (var background in dictionaryOfSkillBackgrounds) {
+            if (background.Key == type) background.Value.color = selectedSkillColor;
+            else background.Value.color = unselectedSkillColor;
+        }
+    }
     void ChangeDescriptionText(string text, string name) {
         skillLongDescription.text = text;
         skillName.text = name;
