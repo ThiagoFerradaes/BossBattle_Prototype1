@@ -3,13 +3,13 @@ using UnityEngine;
 
 public class VFXPreFabProjectile : MonoBehaviour
 {
-    VFXAtributes _damageAtributes;
+    VFXAtributes _vfxAtributes;
     Coroutine _moveRoutine, _collisionRoutine;
 
     bool _hasCollided;
     public void Initialize(VFXAtributes atributes)
     {
-        _damageAtributes = atributes;
+        _vfxAtributes = atributes;
         gameObject.SetActive(true);
         _moveRoutine ??= StartCoroutine(ProjectileMoveRoutine());
     }
@@ -24,29 +24,39 @@ public class VFXPreFabProjectile : MonoBehaviour
     IEnumerator ColisionTimer()
     {
         _hasCollided = true;
-        yield return new WaitForSeconds(_damageAtributes.VFXPosCollisionDuration);
+        yield return new WaitForSeconds(_vfxAtributes.VFXPosCollisionDuration);
         TurnOff();
     }
 
     IEnumerator ProjectileMoveRoutine()
     {
         float duration =
-            _damageAtributes.Distance / _damageAtributes.VFXSpeed;
+            _vfxAtributes.Distance / _vfxAtributes.VFXSpeed;
         float timer = 0;
 
         while (timer < duration && !_hasCollided)
         {
-            transform.position += _damageAtributes.VFXSpeed * Time.deltaTime * transform.forward;
+            transform.position += _vfxAtributes.VFXSpeed * Time.deltaTime * transform.forward;
             timer += Time.deltaTime;
             yield return null;
         }
 
         TurnOff();
     }
+
+    // NÃO SEI O QUE FAZER SOBRE ISSO AQUI
     private void OnTriggerEnter(Collider other)
     {
-        if (!_damageAtributes.UnitsToHit.ContainsLayer(other.gameObject.layer)) return;
+        if (!_vfxAtributes.UnitsToHit.ContainsLayer(other.gameObject.layer)) return;
 
-        if (!_damageAtributes.CrossEnemy) _collisionRoutine ??= StartCoroutine(ColisionTimer());
+        if (!_vfxAtributes.CrossEnemy) _collisionRoutine ??= StartCoroutine(ColisionTimer());
+    }
+
+    // Não funcionou
+    private void OnParticleCollision(GameObject other) {
+        Debug.Log("Collision");
+        if (!_vfxAtributes.UnitsToHit.ContainsLayer(other.layer)) return;
+
+        if (!_vfxAtributes.CrossEnemy) _collisionRoutine ??= StartCoroutine(ColisionTimer());
     }
 }

@@ -241,7 +241,7 @@ public abstract class SkillObjectManager : MonoBehaviour {
                 preFab.GetComponent<VFXPreFabProjectile>().Initialize(prefab.VFXAtribute);
                 break;
             case TypeOfCollider.Boomerang:
-
+                preFab.GetComponent<VFXPreFabBoomerang>().Initialize(prefab.VFXAtribute, this.gameObject);
                 break;
     }
 }
