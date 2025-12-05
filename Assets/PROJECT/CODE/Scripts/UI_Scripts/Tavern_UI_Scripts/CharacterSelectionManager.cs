@@ -7,6 +7,8 @@ using System.Collections.Generic;
 public class CharacterSelectionManager : MonoBehaviour {
     [Header("Componentes")]
     [SerializeField] GameObject characterSelectionScreen;
+    [SerializeField] Button characterSelectionBackground;
+    [SerializeField] Button characterSelectionMask;
     [SerializeField] Image selectedCharacterImage;
     [SerializeField] Image selectedCharacterSignature;
     [SerializeField] TextMeshProUGUI passiveShortDescription;
@@ -52,7 +54,7 @@ public class CharacterSelectionManager : MonoBehaviour {
         closeScreenButton.onClick.AddListener(() => {
             characterSelectionScreen.SetActive(false);
             _skillSelectionManager.TurnScreenOff();
-            });
+        });
 
         // Botão que abre a UI de seleção de skill
         foreach (var slot in dictionaryOfSkillSelectionButton.Keys) {
@@ -60,8 +62,15 @@ public class CharacterSelectionManager : MonoBehaviour {
             dictionaryOfSkillSelectionButton[tempSlot].onClick.AddListener(() => {
                 _skillSelectionManager.Initialize(tempSlot);
                 ChangeSkillIconBackground(tempSlot);
-                });
+            });
         }
+
+        characterSelectionBackground.onClick.AddListener(() => { _skillSelectionManager.TurnScreenOff(); });
+
+        characterSelectionMask.onClick.AddListener(() => {
+            _skillSelectionManager.TurnScreenOff();
+            characterSelectionScreen.SetActive(false);
+        });
     }
 
 
