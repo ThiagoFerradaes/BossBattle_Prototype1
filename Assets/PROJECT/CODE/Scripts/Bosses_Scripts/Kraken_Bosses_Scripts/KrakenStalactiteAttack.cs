@@ -21,7 +21,7 @@ public class KrakenStalactiteAttack : EnemyBehaviourSO {
     [Foldout("HitBox"), SerializeField] GameObject stalactitePrefab;
 
     [Foldout("Warning"), SerializeField] string warningPrefabName;
-    [Foldout("Warning"), SerializeField] float warningDuration;
+    [Foldout("Warning"), SerializeField] VFXAtributes warningVFXAtributes;
     [Foldout("Warning"), SerializeField] float warningHeight;
     [Foldout("Warning"), SerializeField] GameObject stalactiteWarning;
 
@@ -87,7 +87,7 @@ public class KrakenStalactiteAttack : EnemyBehaviourSO {
             Vector3 warningPos = new(pos.x, floorHeight + warningHeight, pos.z);
 
             warningVFX.transform.position = warningPos;
-            warningVFX.GetComponent<VFXPreFab>().Initialize(warningDuration);
+            warningVFX.GetComponent<VFXPreFabStatic>().Initialize(warningVFXAtributes);
             _krakenManager.StartCoroutine(StalactiteFall(stalactite));
 
             yield return new WaitForSeconds(cooldownBetweenEachStalactite);

@@ -122,7 +122,7 @@ public class CrabWaterMeteorAttack : EnemyBehaviourSO {
         pos.y += prefab.PreFabPosition.y;
         preFab.transform.SetPositionAndRotation(pos, Quaternion.identity);
 
-        preFab.GetComponent<VFXPreFab>().Initialize(prefab.PrefabDuration);
+        preFab.GetComponent<VFXPreFabStatic>().Initialize(prefab.VFXAtribute);
     }
 
     IEnumerator WarningRoutine(Vector3 pos)

@@ -133,8 +133,7 @@ public class BastianBaseAttackManager : SkillObjectManager {
         float additionalCriDmg = BastianPassiveManager.Instance.ReturnMinHeat(HeatArea.LastOverHeatArea) ? _info.LastOverHeatCritDamage : 0;
         float critDamage = statusManager.ReturnStatusValue(StatusType.CritDamage) + additionalCriDmg;
 
-        DamageAtributes atributes = _attackIndex switch
-        {
+        DamageAtributes atributes = _attackIndex switch {
             1 => _info.FirstAttackAtributes,
             2 => _info.SecondAttackAtributes,
             3 => _info.ThirdAttackAtributes,
@@ -146,6 +145,7 @@ public class BastianBaseAttackManager : SkillObjectManager {
         newAtributes.ExtraAtributes[ExtraDamageContextAtributes.Penetration] = pen;
         newAtributes.ExtraAtributes[ExtraDamageContextAtributes.CritRate] = critChance;
         newAtributes.ExtraAtributes[ExtraDamageContextAtributes.CritDamage] = critDamage;
+        newAtributes.Speed *= _attackSpeedMultiplier;
 
         DamageContext newContext = new(
             newAtributes,
@@ -163,11 +163,17 @@ public class BastianBaseAttackManager : SkillObjectManager {
 
         OnShoot?.Invoke(_attackIndex);
     }
-    public override void InstantiateVFX(SkillAnimationEvent prefabInfo) {
-        GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFab, TypeOfSkillPrefab.VFX);
-        preFab.transform.SetParent(parent.transform, false);
-        preFab.transform.SetLocalPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.identity);
 
-        preFab.GetComponent<VFXPreFab>().Initialize(prefabInfo.PrefabDuration);
+    public override void InstantiateVFX(SkillAnimationEvent prefab) {
+        GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefab.PreFab, TypeOfSkillPrefab.VFX);
+
+        preFab.transform.SetParent(parent.transform, false);
+        preFab.transform.SetLocalPositionAndRotation(prefab.PreFabPosition, Quaternion.identity);
+        preFab.transform.SetParent(null);
+
+        VFXAtributes newAtribute = new(prefab.VFXAtribute);
+        newAtribute.VFXSpeed *= _attackSpeedMultiplier;
+
+        preFab.GetComponent<VFXPreFabProjectile>().Initialize(newAtribute);
     }
 }

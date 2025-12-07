@@ -16,7 +16,7 @@ public class PlayerManager : MonoBehaviour {
     [HideInInspector] public GameObject Player;
     [SerializeField] bool isTavernScene = false;
 
-    PlayerWhiteBoard _playerWhiteBoard;
+    CurrentSelectedCharacterWhiteBoard _playerWhiteBoard;
 
     Action _onDefeat;
 
@@ -24,7 +24,7 @@ public class PlayerManager : MonoBehaviour {
         if (Instance == null) Instance = this;
         else Destroy(this);
 
-        _playerWhiteBoard = PlayerWhiteBoard.Instance;
+        _playerWhiteBoard = CurrentSelectedCharacterWhiteBoard.Instance;
 
         _onDefeat = Defeat;
 

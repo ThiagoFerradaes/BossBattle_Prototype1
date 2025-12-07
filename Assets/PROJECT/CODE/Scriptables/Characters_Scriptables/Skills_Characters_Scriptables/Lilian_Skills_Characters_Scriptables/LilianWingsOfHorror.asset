@@ -12,22 +12,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2320c717811ee67458e2ef3df8f57595, type: 3}
   m_Name: LilianWingsOfHorror
   m_EditorClassIdentifier: Assembly-CSharp::LilianWingsOfHorrorSO
+  SkillName: Wings of Horror
+  SkillShortDescription: Lillian summons a creature that will attack the closest
+    enemy, by doing so, it will drain a percentage of Lillian's health.
+  SkillLongDescription: Lillian summons a creature that will attack the closest enemy,
+    by doing so, it will drain a percentage of Lillian's health. This skill has tree
+    charges. Each summon lasts a few seconds.
+  SkillSpriteIcon: {fileID: 21300000, guid: a4f578b5886c2764f9d41b0d3904588f, type: 3}
   SkillManagerObject: {fileID: -2912945388451382330, guid: 63dd808355eee4541ac3314272e3eca8, type: 3}
-  SkillSpriteIcon: {fileID: 0}
   Prefabs:
     _serializedList:
     - Key: 0
       Value:
       - TimeToSpawnPreFab: 0.5
         PrefabType: 0
-        PrefabDuration: 0.1
+        VFXAtribute:
+          VFXType: 0
+          VFXDuration: 0
+          UnitsToHit:
+            serializedVersion: 2
+            m_Bits: 0
+          VFXPosCollisionDuration: 0
+          CrossEnemy: 0
+          TimeStopped: 0
+          MinDistanceBack: 0
+          VFXSpeed: 0
+          Distance: 0
         PreFab: {fileID: 8264813264520993978, guid: 6dda3e24c1de5a34e9fecdc1776bcc59, type: 3}
         PreFabPosition: {x: 0, y: 1.5, z: 2}
     - Key: 1
       Value:
       - TimeToSpawnPreFab: 0.5
         PrefabType: 0
-        PrefabDuration: 0.1
+        VFXAtribute:
+          VFXType: 0
+          VFXDuration: 0
+          UnitsToHit:
+            serializedVersion: 2
+            m_Bits: 0
+          VFXPosCollisionDuration: 0
+          CrossEnemy: 0
+          TimeStopped: 0
+          MinDistanceBack: 0
+          VFXSpeed: 0
+          Distance: 0
         PreFab: {fileID: 5556882484380889040, guid: 73183662ed7be604f90dff0cc2f277ff, type: 3}
         PreFabPosition: {x: 0, y: 0, z: 0}
   SkillObjectRangeObject: {fileID: 1479167575052944571, guid: c7a5ab9fc1363e7449ec66128e7e8586, type: 3}
@@ -36,6 +64,8 @@ MonoBehaviour:
   PreCastOn: 1
   SkillCharacter: 2
   Cancelable: 0
+  Slot: 2
+  SkillType: 0
   FlatEnergyGainPerHit: 1
   Cooldown: 6
   HasCharges: 1

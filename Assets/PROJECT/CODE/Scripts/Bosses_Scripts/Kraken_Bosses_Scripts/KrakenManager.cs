@@ -153,7 +153,7 @@ public class KrakenManager : EnemyBehaviourManager {
                 var main = ps.main;
                 main.simulationSpeed = preparingSpeed;
 
-                attackHitBox.GetComponent<VFXPreFab>().Initialize(prefabInfo.PrefabDuration);
+                attackHitBox.GetComponent<VFXPreFabStatic>().Initialize(prefabInfo.VFXAtribute);
             }
 
         }
@@ -207,7 +207,7 @@ public class KrakenManager : EnemyBehaviourManager {
                 ParticleSystem ps = attackHitBox.GetComponent<ParticleSystem>();
                 var main = ps.main;
                 main.simulationSpeed = preparingSpeed;
-                attackHitBox.GetComponent<VFXPreFab>().Initialize(prefabInfo.PrefabDuration);
+                attackHitBox.GetComponent<VFXPreFabStatic>().Initialize(prefabInfo.VFXAtribute);
             }
 
         }

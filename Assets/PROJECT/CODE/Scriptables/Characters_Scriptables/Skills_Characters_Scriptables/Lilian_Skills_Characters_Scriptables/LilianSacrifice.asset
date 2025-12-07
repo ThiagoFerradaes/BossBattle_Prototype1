@@ -12,6 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df98d0a6e1d28d84b9efde9bb533cfa9, type: 3}
   m_Name: LilianSacrifice
   m_EditorClassIdentifier: Assembly-CSharp::LilianSacrificeSO
+  SkillName: Sacrifice
+  SkillShortDescription: Lillian sacrifices a percentage of her current health to
+    gain a shield.
+  SkillLongDescription: Lillian sacrifices a percentage of her current health to
+    gain a shield. The lower her health the less health she looses and bigger the
+    shield.
+  SkillSpriteIcon: {fileID: 21300000, guid: bb473ace262ff7c4ab22e6b3993d8182, type: 3}
   SkillManagerObject: {fileID: 2826128453249546946, guid: 0ed1a087ebe8f3c4d8bfd09d824c23b9, type: 3}
   Prefabs:
     _serializedList:
@@ -23,6 +30,8 @@ MonoBehaviour:
   PreCastOn: 0
   SkillCharacter: 2
   Cancelable: 0
+  Slot: 1
+  SkillType: 0
   FlatEnergyGainPerHit: 0
   Cooldown: 6
   HasCharges: 0
@@ -30,7 +39,9 @@ MonoBehaviour:
   ChargeCooldown: 0
   SkillDamageAtributes:
     DamageType: 0
-    UnitsToHit: 
+    UnitsToHit:
+      serializedVersion: 2
+      m_Bits: 0
     Damage: 0
     HitShield: 1
     BreakShield: 0
@@ -41,6 +52,8 @@ MonoBehaviour:
     Distance: 5
     Speed: 10
     CrossEnemy: 0
+    TimeStopped: 0
+    MinDistanceBack: 0
     ExtraAtributes:
       _serializedList: []
   AnimationParameter: Sacrifice

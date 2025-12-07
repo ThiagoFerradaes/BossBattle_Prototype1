@@ -90,12 +90,4 @@ public class BastianIgnisManager : SkillObjectManager {
             BastianPassiveManager.Instance.GainHeat(_info.HeatGain);
         else BastianPassiveManager.Instance.GainHeat(1);
     }
-
-    public override void InstantiateVFX(SkillAnimationEvent prefabInfo) {
-        GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFab, TypeOfSkillPrefab.VFX);
-        preFab.transform.SetParent(parent.transform, false);
-        preFab.transform.SetLocalPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.identity);
-
-        preFab.GetComponent<VFXPreFab>().Initialize(prefabInfo.PrefabDuration);
-    }
 }

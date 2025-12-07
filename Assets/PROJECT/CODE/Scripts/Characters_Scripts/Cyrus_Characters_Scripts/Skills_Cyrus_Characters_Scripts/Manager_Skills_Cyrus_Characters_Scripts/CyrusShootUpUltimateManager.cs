@@ -143,7 +143,7 @@ public class CyrusShootUpUltimateManager : SkillObjectManager {
 
         float duration = _skillLevel > 0 ? _info.Level1Duration : _info.Duration;
 
-        preFab.GetComponent<VFXPreFab>().Initialize(duration);
+        preFab.GetComponent<VFXPreFabStatic>().Initialize(duration);
     }
     #endregion
 

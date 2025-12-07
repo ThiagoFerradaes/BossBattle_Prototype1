@@ -4,6 +4,11 @@ using System.Linq;
 using AYellowpaper.SerializedCollections;
 using MyEnum;
 using TMPro;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -19,6 +24,11 @@ public class RoomSystem : MonoBehaviour
     [SerializeField]
     [Tooltip("Room Identifier"), Range(0, byte.MaxValue)] 
     private byte id;
+
+    [Header("Level for room")]
+    [SerializeField]
+    [Tooltip("Dictionary for level and Array of available furniture slots in the room")]
+    private RoomLevelDictionary levelRoom;
     
     [Header("Furniture Configuration")]
     [SerializeField]
@@ -28,10 +38,6 @@ public class RoomSystem : MonoBehaviour
     [SerializeField]
     [Tooltip("Character associated with this room")]
     private CharactersSo character;
-
-    [SerializeField]
-    [Tooltip("Array of available furniture slots in the room")]
-    private SlotFurnitureRoom[] slotFurnitureRooms;
 
     [SerializeField]
     [Tooltip("Current number of active furniture slots")]
@@ -52,12 +58,6 @@ public class RoomSystem : MonoBehaviour
     [SerializeField]
     [Tooltip("Attributes of the room affecting character preferences")]
     private FurnitureFeaturesSo roomAttributes;
-    
-    [Space(50)]
-    [Header("Debug")]
-    [SerializeField]
-    [Tooltip("Debug array of furniture features for testing")]
-    private FurnitureFeaturesSo[] furnitureFeaturesSos;
 
     [FormerlySerializedAs("_lockedFurnitureBySize")] [Space(5), SerializedDictionary("Type", "Value"), SerializeField]
     private SerializedDictionary<TypeOfEnvironmentCharacteristicEnum, int> lockedFurnitureBySize = new SerializedDictionary<TypeOfEnvironmentCharacteristicEnum, int>();
@@ -74,6 +74,7 @@ public class RoomSystem : MonoBehaviour
     /// <summary>Reference to the game configuration for language settings</summary>
     private ConfigurationSo _config;
 
+    private byte _currentLevel;
     #endregion
 
     #region Unity Lifecycle Methods
@@ -83,18 +84,10 @@ public class RoomSystem : MonoBehaviour
     /// </summary>
     private void Awake()
     {
-        if (furnitureFeaturesSos.Length == 0) return;
-
-        foreach (var furnitureFeature in furnitureFeaturesSos)
-        {
-            RoomCanvasStatic.Instance.AddUnlockedFurniture(furnitureFeature.Size, furnitureFeature);
-        }
-
         foreach (var slot in Enum.GetValues(typeof(TypeOfEnvironmentCharacteristicEnum)))
         {
             lockedFurnitureBySize.Add((TypeOfEnvironmentCharacteristicEnum)slot, 0);
         }
-
     }
 
     /// <summary>
@@ -106,18 +99,19 @@ public class RoomSystem : MonoBehaviour
         
         if (listOfFurniture.Count != 0) return;
 
-        for (byte i = 0; i < numberOfFurniture; i++)
+        if (!levelRoom.inheritedData.TryGetValue(_currentLevel, out SlotFurnitureRoom[] slot))
         {
-            slotFurnitureRooms[i].gameObject.SetActive(true);
+            Debug.LogError("No room found for level " + _currentLevel);
+            return;
         }
         
-        for (byte i = 0; i < slotFurnitureRooms.Length; i++)
+        for (byte i = 0; i < slot.Length; i++)
         {
+            slot[i].gameObject.SetActive(true);
             listOfFurniture.Add(new Furniture());
         }
 
         AddPreferenceToCharacter();
-
     }
 
     /// <summary>
@@ -152,7 +146,10 @@ public class RoomSystem : MonoBehaviour
 
         List<FurnitureFeaturesSo> list = new List<FurnitureFeaturesSo> { roomAttributes };
 
-        list.AddRange(furnitureFeaturesSos);
+        var prefabsFurniture = RoomCanvasStatic.Instance.PrefabsFurniture;
+
+        list.AddRange(prefabsFurniture.Select(prefab => prefab.Key));
+        //list.AddRange(RoomCanvasStatic.Instance.GetListOfFurnitureUnlocked);
 
         float preference = character.CalculateAllPreferences(list);
 
@@ -280,9 +277,15 @@ public class RoomSystem : MonoBehaviour
     {
         numberOfFurniture += addSizeRoom;
 
+        if (!levelRoom.inheritedData.TryGetValue(_currentLevel, out SlotFurnitureRoom[] slot))
+        {
+            Debug.LogError("No room found for level " + _currentLevel);
+            return;
+        }
+        
         for (byte i = 0; i < numberOfFurniture; i++)
         {
-            slotFurnitureRooms[i].gameObject.SetActive(true);
+            slot[i].gameObject.SetActive(true);
         }
     }
 
@@ -324,18 +327,8 @@ public class RoomSystem : MonoBehaviour
         {
             furniture.Add(i, listOfFurniture[i]);
         }
-
-        byte slotAmount = 0;
-
-        foreach (var furnitureEntry in slotFurnitureRooms)
-        {
-            if (furnitureEntry.gameObject.activeInHierarchy)
-            {
-                slotAmount++;
-            }
-        }
         
-        return (furniture, id, characterHappiness, slotAmount);
+        return (furniture, id, characterHappiness, _currentLevel);
     }
 
     /// <summary>
@@ -354,21 +347,26 @@ public class RoomSystem : MonoBehaviour
     /// <param name="slotAmount"></param>
     public void LoadFurniture(Dictionary<byte, Furniture> furniture, CharacterValue characteristic, byte slotAmount)
     {
-        for (byte i = 0; i < slotAmount; i++)
+        _currentLevel = slotAmount;
+        if (!levelRoom.inheritedData.TryGetValue(slotAmount, out SlotFurnitureRoom[] slot))
         {
-            slotFurnitureRooms[i].gameObject.SetActive(true);
+            Debug.LogError("No room found for level " + slotAmount);
+            return;
         }
         
-        for (byte i = 0; i < slotFurnitureRooms.Length; i++)
+        for (byte i = 0; i < slot.Length; i++)
         {
-            listOfFurniture.Add(new Furniture());
+            slot[i].gameObject.SetActive(true);
             
             if(furniture.Count == 0) continue;
             if(!furniture.TryGetValue(i, out var value)) continue;
+            if(value == null) continue;
+            if(value.furniture == null) continue;
             
+            listOfFurniture.Add(new Furniture());
             listOfFurniture[i].AddFurniture(value.furniture);
             
-            slotFurnitureRooms[i].LoadFurniture(value.furniture);
+            slot[i].LoadFurniture(value.furniture);
         }
         
         characterHappiness = characteristic;
@@ -441,3 +439,221 @@ public class CharacterValue
         value = v;
     }
 }
+/// <summary>
+/// Serializable dictionary that maps room levels to furniture slot arrays.
+/// Supports inheritance of slots from previous levels in the Unity Editor.
+/// </summary>
+[Serializable]
+public class RoomLevelDictionary
+{
+    /// <summary>
+    /// Runtime dictionary containing inherited slot data accumulated from all previous levels.
+    /// Key: Room level (byte), Value: Array of furniture slots available at that level and below.
+    /// </summary>
+    [SerializedDictionary("Level", "Slot")]
+    [HideInInspector]
+    public SerializedDictionary<byte, SlotFurnitureRoom[]> inheritedData = new();
+
+#if UNITY_EDITOR
+    /// <summary>
+    /// Editor-only dictionary for defining slots per level before inheritance is applied.
+    /// Key: Room level (byte), Value: Array of furniture slots specific to that level.
+    /// </summary>
+    [SerializedDictionary("Level", "Inherited")]
+    public SerializedDictionary<byte, SlotFurnitureRoom[]> levelRoom = new();
+#endif
+}
+
+#if UNITY_EDITOR
+
+/// <summary>
+/// Custom property drawer for SlotFurnitureRoom that displays both the object reference
+/// and its slotType enum value side-by-side in the inspector.
+/// </summary>
+[CustomPropertyDrawer(typeof(SlotFurnitureRoom))]
+public class SlotFurnitureRoomDrawer : PropertyDrawer
+{
+    /// <summary>
+    /// Renders the custom GUI for SlotFurnitureRoom properties in the inspector.
+    /// Displays the object reference on the left and the slotType enum on the right.
+    /// </summary>
+    /// <param name="position">Rectangle position for the property</param>
+    /// <param name="property">SerializedProperty being drawn</param>
+    /// <param name="label">Label to display for the property</param>
+    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+    {
+        EditorGUI.BeginProperty(position, label, property);
+        
+        // Apply prefix label if text exists
+        if (!string.IsNullOrEmpty(label.text))
+        {
+            position = EditorGUI.PrefixLabel(position, GUIUtility.GetControlID(FocusType.Passive), label);
+        }
+        
+        int indent = EditorGUI.indentLevel;
+        EditorGUI.indentLevel = 0;
+
+        // Get the target object reference
+        UnityEngine.Object targetObject = property.objectReferenceValue;
+
+        if (targetObject != null && targetObject is SlotFurnitureRoom)
+        {
+            float spacing = 5f;
+            float halfWidth = (position.width - spacing) / 2f;
+            
+            // Split position into two rectangles: object field and enum field
+            Rect objectRect = new Rect(position.x, position.y, halfWidth, position.height);
+            Rect enumRect = new Rect(position.x + halfWidth + spacing, position.y, halfWidth, position.height);
+            
+            // Draw the object reference field
+            EditorGUI.PropertyField(objectRect, property, GUIContent.none);
+            
+            // Access and draw the slotType enum property
+            SerializedObject serializedTarget = new SerializedObject(targetObject);
+            SerializedProperty slotTypeProp = serializedTarget.FindProperty("slotType");
+
+            if (slotTypeProp != null)
+            {
+                EditorGUI.BeginChangeCheck();
+                EditorGUI.PropertyField(enumRect, slotTypeProp, GUIContent.none);
+                if (EditorGUI.EndChangeCheck())
+                {
+                    serializedTarget.ApplyModifiedProperties();
+                }
+            }
+            else
+            {
+                EditorGUI.LabelField(enumRect, "slotType not found");
+            }
+        }
+        else
+        {
+            // Draw the default property field if the object is null or wrong type
+            EditorGUI.PropertyField(position, property, GUIContent.none);
+        }
+
+        EditorGUI.indentLevel = indent;
+        EditorGUI.EndProperty();
+    }
+
+    /// <summary>
+    /// Returns the height required to display this property
+    /// </summary>
+    public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
+    {
+        return EditorGUIUtility.singleLineHeight;
+    }
+}
+
+/// <summary>
+/// Custom property drawer for RoomLevelDictionary that adds an "Apply Inheritance" button
+/// to process level-based slot inheritance in the Unity inspector.
+/// </summary>
+[CustomPropertyDrawer(typeof(RoomLevelDictionary))]
+public class RoomLevelDictionaryDrawer : PropertyDrawer
+{
+    private const float ButtonHeight = 20f;
+    private const float ButtonSpacing = 4f;
+
+    /// <summary>
+    /// Calculates the total height required for the property including buttons
+    /// </summary>
+    public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
+    {
+        float height = EditorGUI.GetPropertyHeight(property, label, true);
+        
+        // Add space for buttons
+        height += (ButtonHeight + ButtonSpacing) * 2;
+        height += ButtonHeight + ButtonSpacing;
+
+        return height;
+    }
+
+    /// <summary>
+    /// Renders the custom GUI for RoomLevelDictionary in the inspector
+    /// </summary>
+    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+    {
+        EditorGUI.BeginProperty(position, label, property);
+
+        // Draw the main property field
+        Rect mainRect = new Rect(position.x, position.y, position.width,
+            EditorGUI.GetPropertyHeight(property, label, true));
+
+        EditorGUI.PropertyField(mainRect, property, label, true);
+
+        DrawButtons(position, property, mainRect);
+
+        EditorGUI.EndProperty();
+    }
+
+    /// <summary>
+    /// Draws the "Apply Inheritance" button below the property field
+    /// </summary>
+    private void DrawButtons(Rect position, SerializedProperty property, Rect mainRect)
+    {
+        float y = mainRect.y + mainRect.height + ButtonSpacing;
+        float buttonWidth = position.width - 4;
+
+        Rect leftBtn = new Rect(position.x, y, buttonWidth, ButtonHeight);
+
+        if (GUI.Button(leftBtn, "Apply Inheritance"))
+            ApplyInheritance(property);
+    }
+
+    /// <summary>
+    /// Applies inheritance logic by accumulating slots from all previous levels
+    /// for each level in the levelRoom dictionary. Results are stored in inheritedData.
+    /// </summary>
+    /// <param name="root">The serialized property for the RoomLevelDictionary</param>
+    private void ApplyInheritance(SerializedProperty root)
+    {
+        root.serializedObject.ApplyModifiedProperties();
+
+        var targetObj = root.serializedObject.targetObject;
+        RoomLevelDictionary obj = fieldInfo.GetValue(targetObj) as RoomLevelDictionary;
+
+        if (obj == null)
+        {
+            Debug.LogError("Failed to access RoomLevelDictionary.");
+            return;
+        }
+
+        var dict = obj.levelRoom;
+        obj.inheritedData.Clear();
+
+        if (dict == null || dict.Count == 0)
+        {
+            Debug.LogWarning("Dictionary is empty.");
+            return;
+        }
+
+        // Sort levels in ascending order
+        var sortedKeys = dict.Keys.OrderBy(k => k).ToList();
+        var processed = new Dictionary<byte, List<SlotFurnitureRoom>>();
+        if (processed == null) throw new ArgumentNullException(nameof(processed));
+
+        // For each level, accumulate all slots from current and previous levels
+        foreach (byte key in sortedKeys)
+        {
+            var accumulated = new List<SlotFurnitureRoom>();
+
+            // Accumulate unique slots from all levels up to and including the current level
+            foreach (SlotFurnitureRoom item in from k in sortedKeys.TakeWhile(k => k <= key) 
+                     from item in dict[k] 
+                     where item != null && !accumulated.Contains(item) 
+                     select item)
+            {
+                accumulated.Add(item);
+            }
+
+            processed[key] = accumulated;
+            obj.inheritedData[key] = accumulated.ToArray();
+        }
+
+        EditorUtility.SetDirty(targetObj);
+        Debug.Log("Inheritance applied successfully!");
+    }
+}
+
+#endif
