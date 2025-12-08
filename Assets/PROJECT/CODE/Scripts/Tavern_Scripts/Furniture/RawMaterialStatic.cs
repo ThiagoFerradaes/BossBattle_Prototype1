@@ -129,7 +129,7 @@ public class RawMaterialStatic : MonoBehaviour
         }
     }
     
-    private async Task LoadInventoryByJson()
+    public async Task LoadInventoryByJson()
     {
         try
         {

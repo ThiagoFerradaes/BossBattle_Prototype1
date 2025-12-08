@@ -47,8 +47,8 @@ public class LoadingScreenManager : MonoBehaviour {
         }
     }
 
-    public void ReturnToTavern() {
-        loadSceneCoroutine ??= StartCoroutine(LoadingScreen(tavernLoadingScreen, tavernSceneIndex));
+    public void ReturnToTavern(bool load = false) {
+        loadSceneCoroutine ??= StartCoroutine(LoadingScreen(tavernLoadingScreen, tavernSceneIndex, load));
     }
 
     public void ReturnToMenu() {
@@ -70,11 +70,18 @@ public class LoadingScreenManager : MonoBehaviour {
         
         if(RoomCanvasStatic.Instance is not null)
             yield return RoomCanvasStatic.Instance.SaveFurnitureByJson().AsIEnumerator();
-        
-        if(!load)
-            if(RawMaterialStatic.Instance is not null)
+
+        if (!load)
+        {
+            if (RawMaterialStatic.Instance is not null)
                 yield return RawMaterialStatic.Instance.SaveInventory().AsIEnumerator();
-        
+        }
+        else
+        {
+            yield return RawMaterialStatic.Instance.LoadInventoryByJson().AsIEnumerator();
+        }
+
+
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
         operation.allowSceneActivation = false;
 
