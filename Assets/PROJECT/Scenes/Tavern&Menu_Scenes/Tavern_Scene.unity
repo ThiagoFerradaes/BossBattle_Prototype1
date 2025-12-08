@@ -2254,6 +2254,7 @@ GameObject:
   - component: {fileID: 354367378}
   - component: {fileID: 354367382}
   - component: {fileID: 354367383}
+  - component: {fileID: 354367384}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -2380,6 +2381,23 @@ MonoBehaviour:
   roomSystems:
   - {fileID: 382362009}
   prefabFurniture: {fileID: 1423275076}
+  furnitureInventory: {fileID: 354367384}
+--- !u!114 &354367384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 354367377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a8b0ada97944ff1282b11cbad1dfe06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FurnitureInventory
+  debugFurnitureList:
+  - {fileID: 11400000, guid: 4901180aeb08c3d44ac414ccc194fecc, type: 2}
+  - {fileID: 11400000, guid: 42aee4911bff5c942b3a39814a9d37a0, type: 2}
+  - {fileID: 11400000, guid: e9d056df5f843d8b68fed86fae7879df, type: 2}
 --- !u!1 &382362005
 GameObject:
   m_ObjectHideFlags: 0
@@ -2471,25 +2489,47 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomSystem
   id: 0
+  levelRoom:
+    inheritedData:
+      _serializedList:
+      - Key: 0
+        Value:
+        - {fileID: 1565321823}
+      - Key: 1
+        Value:
+        - {fileID: 1565321823}
+        - {fileID: 993271687}
+      - Key: 2
+        Value:
+        - {fileID: 1565321823}
+        - {fileID: 993271687}
+        - {fileID: 1542971688}
+      - Key: 3
+        Value:
+        - {fileID: 1565321823}
+        - {fileID: 993271687}
+        - {fileID: 1542971688}
+        - {fileID: 1961920330}
+    levelRoom:
+      _serializedList:
+      - Key: 0
+        Value:
+        - {fileID: 1565321823}
+      - Key: 1
+        Value:
+        - {fileID: 993271687}
+      - Key: 2
+        Value:
+        - {fileID: 1542971688}
+      - Key: 3
+        Value:
+        - {fileID: 1961920330}
   listOfFurniture: []
   character: {fileID: 11400000, guid: ffddb0a46009fca45a30715353d1e566, type: 2}
-  slotFurnitureRooms:
-  - {fileID: 1565321823}
-  - {fileID: 993271687}
-  - {fileID: 1542971688}
-  - {fileID: 1961920330}
   numberOfFurniture: 3
   nameFurniture: {fileID: 490141781}
   descriptionFurniture: {fileID: 176857238}
   roomAttributes: {fileID: 11400000, guid: 4901180aeb08c3d44ac414ccc194fecc, type: 2}
-  furnitureFeaturesSos:
-  - {fileID: 11400000, guid: 4901180aeb08c3d44ac414ccc194fecc, type: 2}
-  - {fileID: 11400000, guid: 42aee4911bff5c942b3a39814a9d37a0, type: 2}
-  - {fileID: 11400000, guid: e9d056df5f843d8b68fed86fae7879df, type: 2}
-  - {fileID: 11400000, guid: 14cb2c3af9c76481d957f102b53e7ee5, type: 2}
-  - {fileID: 11400000, guid: 2a2f3bf30afd25b7f80c9cd7029d8b44, type: 2}
-  - {fileID: 11400000, guid: 551f4c1a50a0c6f879cf6cb4e46af9c2, type: 2}
-  - {fileID: 11400000, guid: 25928ec06eb74caf9a4cb77a8bd5de01, type: 2}
   lockedFurnitureBySize:
     _serializedList: []
   characterHappiness:
@@ -6207,16 +6247,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomSystem
   id: 0
+  levelRoom:
+    inheritedData:
+      _serializedList: []
+    levelRoom:
+      _serializedList: []
   listOfFurniture:
   - sizeOfFurniture: 0
     furniture: {fileID: 0}
   character: {fileID: 0}
-  slotFurnitureRooms: []
   numberOfFurniture: 0
   nameFurniture: {fileID: 0}
   descriptionFurniture: {fileID: 0}
   roomAttributes: {fileID: 0}
-  furnitureFeaturesSos: []
   lockedFurnitureBySize:
     _serializedList: []
   characterHappiness:

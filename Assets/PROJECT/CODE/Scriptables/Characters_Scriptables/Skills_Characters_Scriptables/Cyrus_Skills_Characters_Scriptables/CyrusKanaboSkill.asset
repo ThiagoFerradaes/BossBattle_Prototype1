@@ -12,15 +12,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11dcb6a7e59988b459fee6bad5f30bed, type: 3}
   m_Name: CyrusKanaboSkill
   m_EditorClassIdentifier: Assembly-CSharp::CyrusKanaboSkillSO
-  SkillManagerObject: {fileID: 5377058787476192221, guid: bc1b6aa1b76ae0b41ab263b371a3b5ae, type: 3}
+  SkillName: Kanabo
+  SkillShortDescription: Cyrus hit an enemy with KANABO
+  SkillLongDescription: 'Level 0: Cyrus hit an enemy with his kanabo
+
+    Level 1:
+    After the hit the floor explodes dealing Abyssal damage
+
+    Level 2: The floor
+    explode twice. Increase crit rate
+
+    Level 3: The floor explode tree times.
+    Increase explosion damage and crit damage of the explosion. Creates a continuos
+    ancestral damage field in the area.'
   SkillSpriteIcon: {fileID: 21300000, guid: 21f64324e6888e5439f03726b1ccd273, type: 3}
+  SkillManagerObject: {fileID: 5377058787476192221, guid: bc1b6aa1b76ae0b41ab263b371a3b5ae, type: 3}
   Prefabs:
     _serializedList:
     - Key: 0
       Value:
       - TimeToSpawnPreFab: 0.5
         PrefabType: 0
-        PrefabDuration: 0
+        VFXAtribute:
+          VFXType: 0
+          VFXDuration: 0
+          UnitsToHit:
+            serializedVersion: 2
+            m_Bits: 0
+          VFXPosCollisionDuration: 0
+          CrossEnemy: 0
+          TimeStopped: 0
+          MinDistanceBack: 0
+          VFXSpeed: 0
+          Distance: 0
         PreFab: {fileID: 8271028322271159555, guid: 02de40013cebfe2448edca155583a4c1, type: 3}
         PreFabPosition: {x: 0, y: 1, z: 1.5}
   SkillObjectRangeObject: {fileID: 0}
@@ -29,6 +53,8 @@ MonoBehaviour:
   PreCastOn: 0
   SkillCharacter: 0
   Cancelable: 0
+  Slot: 1
+  SkillType: 1
   FlatEnergyGainPerHit: 15
   Cooldown: 5
   HasCharges: 0

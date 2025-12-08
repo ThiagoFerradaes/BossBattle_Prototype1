@@ -1,3 +1,5 @@
+using AYellowpaper.SerializedCollections;
+using NaughtyAttributes;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,12 +16,14 @@ public class Reward {
 public class BossRewardSO : ScriptableObject
 {
     public List<Reward> ListOfRewards = new();
-    public List<Phases> PhasesToUnlock;
+    [SerializedDictionary("Boss", " Phase to Unlock"), SerializeField]
+    SerializedDictionary<Bosses, int> DictionaryOfPhasesToUnlock = new();
     public Character CharacterToUnlock;
     public virtual void WinRewards() {
-        if (PhasesToUnlock.Count > 0) {
-            foreach (var phase in PhasesToUnlock) {
-                WhiteBoard.Instance.UnlockPhase(phase);
+        if (DictionaryOfPhasesToUnlock.Count > 0) {
+            foreach (var phase in DictionaryOfPhasesToUnlock.Keys) {
+                var value = DictionaryOfPhasesToUnlock[phase];
+                WhiteBoard.Instance.UnlockPhase(phase, value);
             }
         }
 

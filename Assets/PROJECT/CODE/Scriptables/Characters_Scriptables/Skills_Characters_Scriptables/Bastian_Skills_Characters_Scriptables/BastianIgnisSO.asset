@@ -12,15 +12,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54b8ba90945568c4aa18eb4e05bdbcc9, type: 3}
   m_Name: BastianIgnisSO
   m_EditorClassIdentifier: Assembly-CSharp::BastianIgnisSO
+  SkillName: Ignis
+  SkillShortDescription: Bastian will shoot a flame orb in a straight line
+  SkillLongDescription: Bastian will shoot a flame orb in a straight line. Skill
+    has 3 charges. Skill damage, crit rate, crit damage and penetration scales with
+    his passive.
+  SkillSpriteIcon: {fileID: 21300000, guid: a5d1d30f531705a46af3a97622870ead, type: 3}
   SkillManagerObject: {fileID: 7445460037325849934, guid: 22280efc82182854198cab135883fe26, type: 3}
-  SkillSpriteIcon: {fileID: 0}
   Prefabs:
     _serializedList:
     - Key: 0
       Value:
       - TimeToSpawnPreFab: 0.4
         PrefabType: 0
-        PrefabDuration: 0
+        VFXAtribute:
+          VFXType: 0
+          VFXDuration: 0
+          UnitsToHit:
+            serializedVersion: 2
+            m_Bits: 0
+          VFXPosCollisionDuration: 0
+          CrossEnemy: 0
+          TimeStopped: 0
+          MinDistanceBack: 0
+          VFXSpeed: 0
+          Distance: 0
         PreFab: {fileID: 5556882484380889040, guid: 73183662ed7be604f90dff0cc2f277ff, type: 3}
         PreFabPosition: {x: 0, y: 1, z: 0}
   SkillObjectRangeObject: {fileID: 5203434260948203345, guid: 33b85ce993cf5ac42bc2d8a1f986e21e, type: 3}
@@ -29,6 +45,8 @@ MonoBehaviour:
   PreCastOn: 1
   SkillCharacter: 1
   Cancelable: 0
+  Slot: 2
+  SkillType: 0
   FlatEnergyGainPerHit: 5
   Cooldown: 5
   HasCharges: 1
@@ -58,6 +76,6 @@ MonoBehaviour:
   AttackSpeedAnimationParameter: AttackSpeed
   Size: {x: 1, y: 1, z: 1}
   HeatGain: 16
-  PenetrationOnSuperHeat: 10
+  PenetrationOnSuperHeat: 30
   CritChanceOverHeat: 100
   LastOverHeatCritDamage: 300

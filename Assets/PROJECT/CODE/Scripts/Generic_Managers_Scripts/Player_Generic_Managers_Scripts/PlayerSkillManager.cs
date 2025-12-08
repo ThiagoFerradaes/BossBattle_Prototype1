@@ -8,7 +8,8 @@ public enum SkillSlot {
     SkillOne = 1,
     SkillTwo = 2,
     Ultimate = 3,
-    Dash = 4
+    Dash = 4,
+    Passive = 5
 }
 public class PlayerSkillManager : MonoBehaviour {
     #region Parameters
@@ -72,7 +73,7 @@ public class PlayerSkillManager : MonoBehaviour {
         OnStopSkills = null;
     }
     void SetSkills() {
-        PlayerWhiteBoard whiteboard = PlayerWhiteBoard.Instance;
+        CurrentSelectedCharacterWhiteBoard whiteboard = CurrentSelectedCharacterWhiteBoard.Instance;
         Character selectedCharacter = whiteboard.ReturnSelectedCharacter();
 
         _skills[SkillSlot.SkillOne] = SafeGetSkill(() => whiteboard.ReturnSkillOne(selectedCharacter), "SkillOne");

@@ -1,21 +1,18 @@
-using System;
 using AYellowpaper.SerializedCollections;
 using NaughtyAttributes;
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MapManager : MonoBehaviour {
-    [Foldout("Dictionary"), SerializedDictionary("Fog phase", " Fog object"), SerializeField]
-    SerializedDictionary<Phases, GameObject> DictionaryOfFogs = new();
+    [Foldout("Dictionary"), SerializedDictionary("Boss Fog", " Fog object"), SerializeField]
+    SerializedDictionary<Bosses, GameObject> DictionaryOfFogs = new();
     [Foldout("Dictionary"), SerializedDictionary("Button phase", " Button object"), SerializeField]
-    SerializedDictionary<Phases, GameObject> DictionaryOfButtons = new();
+    SerializedDictionary<Bosses, GameObject> DictionaryOfButtons = new();
     [Foldout("Dictionary"), SerializedDictionary("Boss phase", " Boss Description"), SerializeField]
-    SerializedDictionary<Phases, BossDescription> DictinaryOfDescritions = new();
-    [Foldout("Dictionary"), SerializedDictionary("Character phase", " Character Object"), SerializeField]
-    SerializedDictionary<CharacterSO, GameObject> DictionaryOfCharacterButtons = new();
+    SerializedDictionary<Bosses, BossDescription> DictinaryOfDescritions = new();
 
     [Foldout("First Map"), SerializeField] Button CloseMapButton;
     [Foldout("First Map"), SerializeField] Button TestIslandButton;
@@ -23,52 +20,59 @@ public class MapManager : MonoBehaviour {
 
     [Foldout("Second Map"), SerializeField] GameObject SecondMap;
     [Foldout("Second Map"), SerializeField] Image BossImage;
-    [Foldout("Second Map"), SerializeField] Image DifficultyIcon;
+    [Foldout("Second Map"), SerializeField] Image SelectedCharacterIcon;
     [Foldout("Second Map"), SerializeField] TextMeshProUGUI BossName;
+    [Foldout("Second Map"), SerializeField] TextMeshProUGUI IsleName;
     [Foldout("Second Map"), SerializeField] TextMeshProUGUI BossDescription;
     [Foldout("Second Map"), SerializeField] Button CloseSecondMapButton;
     [Foldout("Second Map"), SerializeField] Button SailButton;
-    [Foldout("Second Map"), SerializeField] Color characterSelectedColor;
-    [Foldout("Second Map"), SerializeField] Color characterDeselectedColor;
+    [Foldout("Second Map"), SerializeField] Button ChangeCharacterButton;
+    [Foldout("Second Map"), SerializeField] List<Button> ListOfDifficultyButtons;
+    [Foldout("Second Map"), SerializeField] List<Image> ListOfDifficultyBackgrounds;
+    [Foldout("Second Map"), SerializeField] List<Image> ListOfDifficultyLocks;
+    [Foldout("Second Map"), SerializeField] Color difficultySelectedColor;
+    [Foldout("Second Map"), SerializeField] Color difficultyDeselectedColor;
 
-    int _nextSceneIndex;
+    int _currentDifficulty = 0;
+
+    CharacterSelectionManager _characterSelectionManager;
+
     public event Action OnCloseMap;
-    
-    
+
+    Action<CharacterSO> _onChangeSelectedCharacter;
+
+    #region StartRegion
     private void Awake() {
+        _characterSelectionManager = GetComponent<CharacterSelectionManager>();
+        _onChangeSelectedCharacter = OnChangeSelectedCharacter;
         SetButtons();
+    }
+    private void Start() {
+        CurrentSelectedCharacterWhiteBoard.Instance.OnSelectedCharacterChanged += _onChangeSelectedCharacter;
+    }
+    private void OnDestroy() {
+        CurrentSelectedCharacterWhiteBoard.Instance.OnSelectedCharacterChanged -= _onChangeSelectedCharacter;
     }
     private void OnEnable() {
         WhiteBoard board = WhiteBoard.Instance;
 
-        List<Phases> listOfPhases = board.ReturnListOfUnlockedPhases();
-        List<Character> listOfCharacters = board.ReturnListOfUnlockedCharecters();
-
-        foreach (var phase in listOfPhases) { // FOGS
-            if (DictionaryOfFogs.ContainsKey(phase)) {
-                DictionaryOfFogs[phase].SetActive(false);
+        foreach (var boss in board.ReturnListOfUnlockedPhasesByBoss().Keys) { // FOGS
+            if (DictionaryOfFogs.ContainsKey(boss)) {
+                DictionaryOfFogs[boss].SetActive(false);
             }
         }
 
         foreach (var phase in DictionaryOfButtons.Keys) { // ILHAS
 
             Button button = DictionaryOfButtons[phase].GetComponent<Button>();
-            button.interactable = listOfPhases.Contains(phase);
-
-        }
-
-        foreach (var cha in DictionaryOfCharacterButtons) { // PERSONAGENS
-
-            GameObject charObj = DictionaryOfCharacterButtons[cha.Key];
-            charObj.GetComponentInChildren<Button>().interactable = listOfCharacters.Contains(cha.Key.Character); // BOTAO
-
-            foreach (Transform child in charObj.transform) { // ICONE DE CADEADO
-                if (child.CompareTag("LockIcon")) child.gameObject.SetActive(!listOfCharacters.Contains(cha.Key.Character)); 
-            }
+            button.interactable = board.ReturnListOfUnlockedPhasesByBoss().ContainsKey(phase);
+            ;
 
         }
     }
+    #endregion
 
+    void OnChangeSelectedCharacter(CharacterSO newCharacter) { SelectedCharacterIcon.sprite = newCharacter.CharacterIcon; }
     void SetButtons() {
         foreach (var pair in DictionaryOfButtons) {  // ILHAS
             if (!DictinaryOfDescritions.TryGetValue(pair.Key, out var description)) continue;
@@ -79,53 +83,63 @@ public class MapManager : MonoBehaviour {
             button.onClick.AddListener(() => TurnScreenOn(localDescription));
         }
 
-        foreach (var charButton in DictionaryOfCharacterButtons) {
-            Button button = charButton.Value.GetComponentInChildren<Button>();
-            button.onClick.AddListener(() => SelectACharacter(charButton.Key));
+        for (int i = 0; i < ListOfDifficultyButtons.Count; i++) {
+            int index = i;
+            ListOfDifficultyButtons[i].onClick.AddListener(() => SelectDifficulty(index));
         }
 
-        CloseMapButton.onClick.AddListener(() => gameObject.SetActive(false));
-        CloseMapButton.onClick.AddListener(() => OnCloseMap?.Invoke());
+        CloseMapButton.onClick.AddListener(() => {
+            gameObject.SetActive(false);
+            OnCloseMap?.Invoke();
+            SecondMap.SetActive(false);
+            });
         
         CloseSecondMapButton.onClick.AddListener(() => SecondMap.SetActive(false));
 
         TestIslandButton.onClick.AddListener(() => TurnScreenOn(TestIslandDescription));
+
+        ChangeCharacterButton.onClick.AddListener(() => _characterSelectionManager.Initialize());
     }
 
-    void SelectACharacter(CharacterSO character) {
-        PlayerWhiteBoard.Instance.SetSelectedCharacter(character);
+    void SelectDifficulty(int difficulty) {
+        _currentDifficulty = difficulty;
 
-        foreach (var obj in DictionaryOfCharacterButtons) {
-            if (obj.Key.Character == character.Character) {
-                obj.Value.transform.GetChild(0).GetComponent<Image>().color = characterSelectedColor;
+        foreach (var obj in ListOfDifficultyBackgrounds) {
+            if (obj == ListOfDifficultyBackgrounds[difficulty]) {
+                obj.color = difficultySelectedColor;
             }
-            else obj.Value.transform.GetChild(0).GetComponent<Image>().color = characterDeselectedColor;
+            else obj.color = difficultyDeselectedColor;
         }
-
-
     }
 
     void TurnScreenOn(BossDescription description) {
         SecondMap.SetActive(true);
         BossImage.sprite = description.BossSprite;
-        BossName.text = description.Name;
+        BossName.text = description.BossName;
+        IsleName.text = description.IsleName;
         BossDescription.text = description.Description;
-        DifficultyIcon.sprite = description.DifficultyIcon;
-        _nextSceneIndex = description.SceneIndex;
 
         SailButton.onClick.RemoveAllListeners();
         SailButton.onClick.AddListener(() => Sail(description));
 
-        foreach (var character in DictionaryOfCharacterButtons.Keys) {
-            if (character.Character == PlayerWhiteBoard.Instance.ReturnSelectedCharacter()) {
-                SelectACharacter(character);
+        int amountOfPhasesUnlocked = WhiteBoard.Instance.ReturnListOfUnlockedPhasesByBoss()[description.Boss];
+
+        for (int i = 0; i < ListOfDifficultyLocks.Count; i++) {
+            if (i <= amountOfPhasesUnlocked) {
+                ListOfDifficultyLocks[i].gameObject.SetActive(false);
+                ListOfDifficultyButtons[i].interactable = true;
+            }
+            else {
+                ListOfDifficultyLocks[i].gameObject.SetActive(true);
+                ListOfDifficultyButtons[i].interactable = false;
             }
         }
-        
+
+        SelectDifficulty(0);
 
     }
     void Sail(BossDescription description) {
-        LoadingScreenManager.Instance.LoadFightScene(description.LoadingScreen, _nextSceneIndex);
+        LoadingScreenManager.Instance.LoadFightScene(description.LoadingScreen[_currentDifficulty], description.ListOfScenes[_currentDifficulty]);
         OnCloseMap?.Invoke();
     }
 }
