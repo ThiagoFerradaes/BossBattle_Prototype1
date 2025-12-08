@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using UnityEngine.Serialization;
 
 /// <summary>
 /// Manages the room canvas functionality including furniture unlocking, saving/loading, and UI prefab management
@@ -31,9 +32,7 @@ public class RoomCanvasStatic : MonoBehaviour
     [Tooltip("Prefab template for furniture UI list items")]
     private GameObject prefabFurniture;
     
-    [SerializeField]
-    [Tooltip("Furniture inventory component")]
-    private FurnitureInventory furnitureInventory;
+    private RawMaterialStatic rawMaterialStatic;
     
     /// <summary>Path where furniture save data is stored</summary>
     private static string SavePath => Path.Combine(Application.persistentDataPath, "FurnitureSave.json");
@@ -59,7 +58,9 @@ public class RoomCanvasStatic : MonoBehaviour
                 return;
             }
             Instance = this;
-        
+            
+            rawMaterialStatic = RawMaterialStatic.Instance;
+            
             await LoadFurnitureByJson();
         
             foreach (SizeOfFurnitureEnum size in Enum.GetValues(typeof(SizeOfFurnitureEnum)))
@@ -289,7 +290,7 @@ public class RoomCanvasStatic : MonoBehaviour
     /// <summary>
     /// Gets the dictionary of furniture costs and quantities
     /// </summary>
-    public Dictionary<CostOfTheFurnitureEnum, uint> GetCostFurnitureUnlocked => furnitureInventory.FurnitureQuantity;
+    public Dictionary<CostOfTheFurnitureEnum, uint> GetCostFurnitureUnlocked => rawMaterialStatic.FurnitureQuantity;
 
     /// <summary>
     /// Adds raw material to the inventory
@@ -298,7 +299,7 @@ public class RoomCanvasStatic : MonoBehaviour
     /// <param name="amount">Quantity to add</param>
     public void AddRawMaterial(CostOfTheFurnitureEnum cost, uint amount)
     {
-        furnitureInventory.AddMaterialAmount(cost, amount);
+        rawMaterialStatic.AddMaterialAmount(cost, amount);
     }
     
     /// <summary>
@@ -308,7 +309,7 @@ public class RoomCanvasStatic : MonoBehaviour
     /// <param name="amount">Quantity to remove</param>
     public void RemoveRawMaterial(CostOfTheFurnitureEnum cost, uint amount)
     {
-        furnitureInventory.RemoveMaterialAmount(cost, amount);
+        rawMaterialStatic.RemoveMaterialAmount(cost, amount);
     }
     
     

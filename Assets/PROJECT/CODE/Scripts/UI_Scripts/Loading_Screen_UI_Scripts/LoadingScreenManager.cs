@@ -59,7 +59,7 @@ public class LoadingScreenManager : MonoBehaviour {
         loadSceneCoroutine ??= StartCoroutine(LoadingScreen(loadScreenInformation, sceneIndex));
     }
 
-    IEnumerator LoadingScreen(LoadingScreenSO loadScreenInformation, int sceneIndex) {
+    IEnumerator LoadingScreen(LoadingScreenSO loadScreenInformation, int sceneIndex, bool load = false) {
 
         ChooseRandomBackground(loadScreenInformation);
 
@@ -70,6 +70,10 @@ public class LoadingScreenManager : MonoBehaviour {
         
         if(RoomCanvasStatic.Instance is not null)
             yield return RoomCanvasStatic.Instance.SaveFurnitureByJson().AsIEnumerator();
+        
+        if(!load)
+            if(RawMaterialStatic.Instance is not null)
+                yield return RawMaterialStatic.Instance.SaveInventory().AsIEnumerator();
         
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
         operation.allowSceneActivation = false;
