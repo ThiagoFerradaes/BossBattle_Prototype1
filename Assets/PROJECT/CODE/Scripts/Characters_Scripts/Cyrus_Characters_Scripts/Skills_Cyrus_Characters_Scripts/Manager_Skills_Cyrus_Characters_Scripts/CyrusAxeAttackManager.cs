@@ -185,6 +185,7 @@ public class CyrusAxeAttackManager : SkillObjectManager {
         preFab.transform.SetParent(parent.transform, false);
         Vector3 rotation = new(-90, -180, 90);
         preFab.transform.SetLocalPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.Euler(rotation));
+        preFab.transform.SetParent(null);
         preFab.GetComponent<VFXPreFabStatic>().Initialize(prefabInfo.VFXAtribute);
     }
     void InstantiateBrokenRocks() {
