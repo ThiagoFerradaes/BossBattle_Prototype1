@@ -1,3 +1,4 @@
+using System;
 using DG.Tweening;
 using NaughtyAttributes;
 using System.Collections;
@@ -7,6 +8,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class LoadingScreenManager : MonoBehaviour {
     // Components
@@ -47,8 +49,18 @@ public class LoadingScreenManager : MonoBehaviour {
         }
     }
 
-    public void ReturnToTavern(bool load = false) {
-        loadSceneCoroutine ??= StartCoroutine(LoadingScreen(tavernLoadingScreen, tavernSceneIndex, load));
+    public async void ReturnToTavern(bool load = false, string saveSlot = "")
+    {
+        try
+        {
+            if(saveSlot != "")
+                await RawMaterialStatic.Instance.SetSlotSave(saveSlot);
+            loadSceneCoroutine ??= StartCoroutine(LoadingScreen(tavernLoadingScreen, tavernSceneIndex, load));
+        }
+        catch (Exception e)
+        {
+            Debug.LogError(e);
+        }
     }
 
     public void ReturnToMenu() {

@@ -18,7 +18,7 @@ public class MenuButtons : MonoBehaviour
     [SerializeField] GameObject configCanvas;
 
     private void Start() {
-        tavernButton.onClick.AddListener(() => LoadingScreenManager.Instance.ReturnToTavern(true));
+        tavernButton.onClick.AddListener(() => LoadingScreenManager.Instance.ReturnToTavern(true, "1"));
         startButton.onClick.AddListener(OpenMap);
         exitButton.onClick.AddListener(ExitGame);
         configButton.onClick.AddListener(() => HandleConfigUI(true));

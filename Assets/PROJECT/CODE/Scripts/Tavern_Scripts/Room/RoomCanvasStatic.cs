@@ -35,10 +35,10 @@ public class RoomCanvasStatic : MonoBehaviour
     private RawMaterialStatic rawMaterialStatic;
     
     /// <summary>Path where furniture save data is stored</summary>
-    private static string SavePath => Path.Combine(Application.persistentDataPath, "FurnitureSave.json");
+    private static string SavePath => Path.Combine(Application.persistentDataPath, RawMaterialStatic.Instance.GetSlotSave() + "FurnitureSave.json");
     
     /// <summary>Path where inventory save data is stored</summary>
-    private static string SavePathForInventory => Path.Combine(Application.persistentDataPath, "FurnitureSaveInventory.json");
+    private static string SavePathForInventory => Path.Combine(Application.persistentDataPath, RawMaterialStatic.Instance.GetSlotSave() + "FurnitureSaveInventory.json");
     
     
     #endregion
@@ -85,6 +85,8 @@ public class RoomCanvasStatic : MonoBehaviour
     {
         try
         {
+            
+            
             // Extract data from room systems
             var furnitureData = roomSystems
                 .Select(roomSystem => roomSystem.GetFurniture())

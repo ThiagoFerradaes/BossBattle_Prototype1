@@ -15,14 +15,16 @@ public class RawMaterialStatic : MonoBehaviour
     
     public static RawMaterialStatic Instance { get; private set; }
     
+    public string slotSave;
+    
     /// <summary>
     /// Dictionary containing the quantity of each furniture material type.
     /// Key: Material type enum
     /// Value: Quantity available
     /// </summary>
     public Dictionary<CostOfTheFurnitureEnum, uint> FurnitureQuantity { get; } = new();
-    
-    private static string SavePath => Path.Combine(Application.persistentDataPath, "SaveRawMaterial.json");
+
+    private string _savePath;
     
     #endregion
 
@@ -43,6 +45,20 @@ public class RawMaterialStatic : MonoBehaviour
     #endregion
     
     #region Public Methods
+
+    public Task SetSlotSave(string nameSlot)
+    {
+        slotSave = nameSlot;
+        
+        _savePath = Path.Combine(Application.persistentDataPath, slotSave + "RawMaterial.json");
+        
+        return SaveInventory();
+    }
+
+    public string GetSlotSave()
+    {
+        return slotSave;
+    }
     
     /// <summary>
     /// Adds a specified quantity of material types to the inventory.
@@ -118,7 +134,7 @@ public class RawMaterialStatic : MonoBehaviour
             var inventorySaveByJson = new RawMaterialData(FurnitureQuantity);
             
             var json = JsonUtility.ToJson(inventorySaveByJson, false);
-            await File.WriteAllTextAsync(SavePath, json);
+            await File.WriteAllTextAsync(_savePath, json);
             
             Debug.Log("Inventory save data saved successfully!");
         }
@@ -133,13 +149,13 @@ public class RawMaterialStatic : MonoBehaviour
     {
         try
         {
-            if (!File.Exists(SavePath))
+            if (!File.Exists(_savePath))
             {
                 Debug.LogWarning("Inventory save data not found.");
                 return;
             }
 
-            string json = await File.ReadAllTextAsync(SavePath);
+            string json = await File.ReadAllTextAsync(_savePath);
             RawMaterialData loadedData = JsonUtility.FromJson<RawMaterialData>(json);
 
             if (loadedData?.furnitureList == null)
