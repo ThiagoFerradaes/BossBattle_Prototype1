@@ -49,11 +49,11 @@ public class LoadingScreenManager : MonoBehaviour {
         }
     }
 
-    public async void ReturnToTavern(bool load = false, string saveSlot = "")
+    public async void ReturnToTavern(bool load = false, byte saveSlot = byte.MaxValue)
     {
         try
         {
-            if(saveSlot != "")
+            if(saveSlot != byte.MaxValue)
                 await RawMaterialStatic.Instance.SetSlotSave(saveSlot);
             loadSceneCoroutine ??= StartCoroutine(LoadingScreen(tavernLoadingScreen, tavernSceneIndex, load));
         }

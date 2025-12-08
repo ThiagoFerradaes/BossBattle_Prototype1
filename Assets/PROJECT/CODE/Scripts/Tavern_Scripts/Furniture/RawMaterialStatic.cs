@@ -15,7 +15,7 @@ public class RawMaterialStatic : MonoBehaviour
     
     public static RawMaterialStatic Instance { get; private set; }
     
-    public string slotSave;
+    public byte slotSave;
     
     /// <summary>
     /// Dictionary containing the quantity of each furniture material type.
@@ -46,7 +46,7 @@ public class RawMaterialStatic : MonoBehaviour
     
     #region Public Methods
 
-    public Task SetSlotSave(string nameSlot)
+    public Task SetSlotSave(byte nameSlot)
     {
         slotSave = nameSlot;
         
@@ -55,7 +55,7 @@ public class RawMaterialStatic : MonoBehaviour
         return SaveInventory();
     }
 
-    public string GetSlotSave()
+    public byte GetSlotSave()
     {
         return slotSave;
     }
