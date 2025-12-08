@@ -8,13 +8,13 @@ public class VFXAtributes
     public TypeOfCollider VFXType;
 
     [ShowIf("VFXType", TypeOfCollider.Instant), AllowNesting] public float VFXDuration;
-    public LayerMask UnitsToHit;
 
     bool isProjectileOrBoomerang => VFXType == TypeOfCollider.Projectile || VFXType == TypeOfCollider.Boomerang;
     [ShowIf("VFXType", TypeOfCollider.Projectile), AllowNesting] public float VFXPosCollisionDuration;
     [ShowIf("VFXType", TypeOfCollider.Projectile), AllowNesting] public bool CrossEnemy;
     [ShowIf("VFXType", TypeOfCollider.Boomerang), AllowNesting] public float TimeStopped;
     [ShowIf("VFXType", TypeOfCollider.Boomerang), AllowNesting] public float MinDistanceBack = 0.1f;
+    [ShowIf("isProjectileOrBoomerang"), AllowNesting] public LayerMask UnitsToHit;
     [ShowIf("isProjectileOrBoomerang"), AllowNesting] public float VFXSpeed;
     [ShowIf("isProjectileOrBoomerang"), AllowNesting] public float Distance;
 
