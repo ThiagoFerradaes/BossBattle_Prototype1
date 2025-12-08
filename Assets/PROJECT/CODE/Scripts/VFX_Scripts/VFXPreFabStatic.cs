@@ -7,7 +7,7 @@ public class VFXAtributes
 {
     public TypeOfCollider VFXType;
 
-    public float VFXDuration;
+    [ShowIf("VFXType", TypeOfCollider.Instant), AllowNesting] public float VFXDuration;
     public LayerMask UnitsToHit;
 
     bool isProjectileOrBoomerang => VFXType == TypeOfCollider.Projectile || VFXType == TypeOfCollider.Boomerang;
