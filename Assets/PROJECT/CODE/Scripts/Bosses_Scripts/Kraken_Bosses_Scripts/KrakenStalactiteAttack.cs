@@ -17,10 +17,8 @@ public class KrakenStalactiteAttack : EnemyBehaviourSO {
 
     [Foldout("Condition"), Range(0, 100)][SerializeField] float healthLimit;
 
-    [Foldout("HitBox"), SerializeField] string stalactitePrefabName;
     [Foldout("HitBox"), SerializeField] GameObject stalactitePrefab;
 
-    [Foldout("Warning"), SerializeField] string warningPrefabName;
     [Foldout("Warning"), SerializeField] VFXAtributes warningVFXAtributes;
     [Foldout("Warning"), SerializeField] float warningHeight;
     [Foldout("Warning"), SerializeField] GameObject stalactiteWarning;
