@@ -22,9 +22,14 @@ public class CanvasTavernaManager : MonoBehaviour
     [SerializeField]
     private Button editorRoomButton;
     
+    [SerializeField]
+    private StoreSystem storeSystem;
+    
     public MapManager MapManager => mapManager;
 
     public DialogueSystem DialogueSystem => dialogueSystem;
     
     public Button EditorRoomButton => editorRoomButton;
+    
+    public StoreSystem StoreSystem => storeSystem;
 }

@@ -59,6 +59,8 @@ public class PlayerInteractionManager : MonoBehaviour
     /// <summary>Tracks the current camera state (persona camera active/inactive)</summary>
     private bool _isPersonaCameraActive;
     
+    private StoreSystem _store;
+    
     #endregion
     
     #region Unity Lifecycle Methods
@@ -115,6 +117,7 @@ public class PlayerInteractionManager : MonoBehaviour
         _dialogueSystem = CanvasTavernaManager.Instance.DialogueSystem;
         _mapManager = CanvasTavernaManager.Instance.MapManager;
         _editorRoomButton = CanvasTavernaManager.Instance.EditorRoomButton;
+        _store = CanvasTavernaManager.Instance.StoreSystem;
         
         if (TavernCameraController.Instance != null)
         {
@@ -242,6 +245,11 @@ public class PlayerInteractionManager : MonoBehaviour
         _mapManager.gameObject.SetActive(true);
     }
 
+    public void StoreOpen()
+    {
+        _store.OpenStore(this);
+    }
+    
     /// <summary>
     /// Handles map closing event
     /// </summary>
@@ -261,7 +269,7 @@ public class PlayerInteractionManager : MonoBehaviour
     /// <summary>
     /// Ends the current interaction and re-enables player movement
     /// </summary>
-    private void EndInteraction()
+    public void EndInteraction()
     {
         _isPaused = false;
         SetPlayerMovementState(false);
