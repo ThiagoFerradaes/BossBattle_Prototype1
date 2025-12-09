@@ -30,6 +30,9 @@ public class ItemSlotBuy : MonoBehaviour, IPointerClickHandler
     
     private bool isBuyButtonActive;
     
+    [SerializeField] Color colorActive = Color.white;
+    [SerializeField] Color colorInactive = Color.red;
+    
     public void SetItem(FurnitureFeaturesSo getFurniture, UITextLocalizer description, UITextLocalizer nameItem, Image image, List<(TypeOfEnvironmentCharacteristicEnum, GameObject)> gettype, List<CostAndAmount> getCost, Button buy, StoreSystem system)
     {
         furnitureFeaturesSo = getFurniture;
@@ -105,6 +108,10 @@ public class ItemSlotBuy : MonoBehaviour, IPointerClickHandler
         }
         
         isBuyButtonActive = noCost;
+        
+        buyButton.interactable = noCost;
+        
+        buyButton.image.color = isBuyButtonActive ? colorActive : colorInactive;
         
         return Task.CompletedTask;
     }
