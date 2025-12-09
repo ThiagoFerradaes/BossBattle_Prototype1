@@ -30,8 +30,8 @@ public class ItemSlotBuy : MonoBehaviour, IPointerClickHandler
     
     private bool isBuyButtonActive;
     
-    [SerializeField] Color colorActive = Color.white;
-    [SerializeField] Color colorInactive = Color.red;
+    [SerializeField] private Color colorActive = Color.white;
+    [SerializeField] private Color colorInactive = Color.red;
     
     public void SetItem(FurnitureFeaturesSo getFurniture, UITextLocalizer description, UITextLocalizer nameItem, Image image, List<(TypeOfEnvironmentCharacteristicEnum, GameObject)> gettype, List<CostAndAmount> getCost, Button buy, StoreSystem system)
     {
@@ -70,13 +70,11 @@ public class ItemSlotBuy : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    private Task ConfigUI()
+    private async Task ConfigUI()
     {
         imageItemForBay.sprite = furnitureFeaturesSo.Art;
         itemNameForBuy.SetTexBox(furnitureFeaturesSo.Name);
         itemDescriptionForBuy.SetTexBox(furnitureFeaturesSo.Description);
-        
-        var allCosts = furnitureFeaturesSo.GetAllCosts();
         var allCharacteristics = furnitureFeaturesSo.GetAllCharacteristics();
         
         foreach (var (typeOfEnvironmentCharacteristicEnum, image) in type)
@@ -88,6 +86,26 @@ public class ItemSlotBuy : MonoBehaviour, IPointerClickHandler
         {
             variable.gameObject.SetActive(false);
         }
+
+        await UpdateCount();
+    }
+    
+    private async void OnBuyButtonClicked()
+    {
+        try
+        {
+            await UpdateCount();
+            await storeSystem.BuyFurniture(furnitureFeaturesSo);
+        }
+        catch (Exception e)
+        {
+            Debug.LogError(e);
+        }
+    }
+
+    private Task UpdateCount()
+    {
+        var allCosts = furnitureFeaturesSo.GetAllCosts();
         
         var noCost = true;
         byte index = 0;
@@ -114,17 +132,5 @@ public class ItemSlotBuy : MonoBehaviour, IPointerClickHandler
         buyButton.image.color = isBuyButtonActive ? colorActive : colorInactive;
         
         return Task.CompletedTask;
-    }
-    
-    private async void OnBuyButtonClicked()
-    {
-        try
-        {
-            await storeSystem.BuyFurniture(furnitureFeaturesSo);
-        }
-        catch (Exception e)
-        {
-            Debug.LogError(e);
-        }
     }
 }
