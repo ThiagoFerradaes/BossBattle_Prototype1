@@ -71,9 +71,9 @@ public class FurnitureAutoCollector : IPreprocessBuildWithReport
         // Remove duplicate entries
         allSO = allSO.Distinct().ToList();
 
-        // Update the StoreSystem with the collected furniture list
-        Undo.RecordObject(storeSystem, "Update Furniture List");
-        storeSystem.allFurnitureFormProject = allSO;
+        // Update the StoreSystem with the collected furniture Array
+        Undo.RecordObject(storeSystem, "Update Furniture Array");
+        storeSystem.allFurnitureFormProject = allSO.ToArray();
 
         // Save changes to the scene
         EditorUtility.SetDirty(storeSystem);
