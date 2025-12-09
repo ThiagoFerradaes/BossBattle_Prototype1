@@ -60,6 +60,8 @@ public class RawMaterialStatic : MonoBehaviour
         return slotSave;
     }
     
+    public IReadOnlyDictionary<CostOfTheFurnitureEnum, uint> GetFurnitureQuantity() => FurnitureQuantity;
+    
     /// <summary>
     /// Adds a specified quantity of material types to the inventory.
     /// If the material doesn't exist in the inventory, it creates a new entry.
