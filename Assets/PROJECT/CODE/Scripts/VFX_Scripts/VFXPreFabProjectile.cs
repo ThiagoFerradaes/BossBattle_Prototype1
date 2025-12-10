@@ -44,7 +44,7 @@ public class VFXPreFabProjectile : MonoBehaviour
         TurnOff();
     }
 
-    // NÃO SEI O QUE FAZER SOBRE ISSO AQUI
+    // Nï¿½O SEI O QUE FAZER SOBRE ISSO AQUI
     private void OnTriggerEnter(Collider other)
     {
         if (!_vfxAtributes.UnitsToHit.ContainsLayer(other.gameObject.layer)) return;
@@ -52,7 +52,7 @@ public class VFXPreFabProjectile : MonoBehaviour
         if (!_vfxAtributes.CrossEnemy) _collisionRoutine ??= StartCoroutine(ColisionTimer());
     }
 
-    // Não funcionou
+    // Nï¿½o funcionou
     private void OnParticleCollision(GameObject other) {
         Debug.Log("Collision");
         if (!_vfxAtributes.UnitsToHit.ContainsLayer(other.layer)) return;
