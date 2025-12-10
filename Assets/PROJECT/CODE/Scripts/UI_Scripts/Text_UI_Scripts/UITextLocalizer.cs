@@ -50,6 +50,14 @@ public class UITextLocalizer : MonoBehaviour
             _config.OnLanguageChanged -= UpdateLanguage;
     }
 
+    public void SetTexBox(TextBoxesSo textBoxesSo)
+    {
+        if(textBoxesSo is null) return;
+        textBox.textBoxes = textBoxesSo;
+        if(_config is null) return;
+        UpdateLanguage(_config.GetLanguage());
+    }
+    
     /// <summary>
     /// Updates the UI text content based on the selected language.
     /// Handles both single text box and list mode configurations.
