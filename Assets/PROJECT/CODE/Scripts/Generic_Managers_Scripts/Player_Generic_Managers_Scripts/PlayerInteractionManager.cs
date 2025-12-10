@@ -70,7 +70,7 @@ public class PlayerInteractionManager : MonoBehaviour
     /// </summary>
     private void OnEnable()
     {
-        CanvasTavernaManager.OnTavernaLoaded += InitializeTavernReferences;
+        CanvasTavernaManagerStatic.OnTavernaLoaded += InitializeTavernReferences;
     }
 
     /// <summary>
@@ -112,12 +112,12 @@ public class PlayerInteractionManager : MonoBehaviour
     /// </summary>
     private void InitializeTavernReferences()
     {
-        if (CanvasTavernaManager.Instance == null) return;
+        if (CanvasTavernaManagerStatic.Instance == null) return;
 
-        _dialogueSystem = CanvasTavernaManager.Instance.DialogueSystem;
-        _mapManager = CanvasTavernaManager.Instance.MapManager;
-        _editorRoomButton = CanvasTavernaManager.Instance.EditorRoomButton;
-        _store = CanvasTavernaManager.Instance.StoreSystem;
+        _dialogueSystem = CanvasTavernaManagerStatic.Instance.DialogueSystem;
+        _mapManager = CanvasTavernaManagerStatic.Instance.MapManager;
+        _editorRoomButton = CanvasTavernaManagerStatic.Instance.EditorRoomButton;
+        _store = CanvasTavernaManagerStatic.Instance.StoreSystem;
         
         if (TavernCameraController.Instance != null)
         {
@@ -130,7 +130,7 @@ public class PlayerInteractionManager : MonoBehaviour
             _editorRoomButton.onClick.AddListener(OnEditorInteractionEvent);
         }
         
-        CanvasTavernaManager.OnTavernaLoaded -= InitializeTavernReferences;
+        CanvasTavernaManagerStatic.OnTavernaLoaded -= InitializeTavernReferences;
     }
     
     #endregion

@@ -32,11 +32,39 @@ public class CharactersSo : ScriptableObject
     [Tooltip("Specific dialogues triggered by game events")]
     private SerializedDictionary<DialogueEventEnum, DialogueSystemSo> eventDialogues = new();
     
+    [SerializedDictionary("Time", "activities"), SerializeField]
+    [Tooltip("Specific activities by time")]
+    private SerializedDictionary<TimeEnum, Activities[]> activities = new();
+    
     /// <summary>
     /// Gets the character associated with this personality profile.
     /// </summary>
     public Character Character => character;
 
+    public IReadOnlyDictionary<TimeEnum, Activities[]> Activities => activities;
+    
+    private ActivitiesEnum GetRandomActivityIgnoreProbability(TimeEnum time) => activities[time].OrderBy(a => UnityEngine.Random.Range(0, 100)).First().activity;
+
+    public ActivitiesEnum GetRandomActivity(TimeEnum time)
+    {
+        var list = activities[time];
+        var total = list.Sum(a => a.probability);
+
+        if (total <= 0)
+            return GetRandomActivityIgnoreProbability(time);
+        
+        float randomNumber = UnityEngine.Random.Range(0f, total);
+
+        float probability = 0;
+        foreach (var activityProbability in activities[time])
+        {
+            probability+=activityProbability.probability;
+            if (randomNumber <= probability) return activityProbability.activity;
+        }
+        
+        return list.Last().activity;
+    }
+    
     /// <summary>
     /// Retrieves the dialogue associated with a specific event.
     /// </summary>
@@ -172,4 +200,11 @@ public class CharacterDialogue
     [Tooltip("Required friendship level to unlock this dialogue")]
     public float minimumFriendshipLevel;
     [HideInInspector] public bool hasOccurred;
+}
+
+[Serializable]
+public class Activities
+{
+    public ActivitiesEnum activity;
+    [Range(0,100),MaxValue(100),MinValue(0)]public float probability;
 }

@@ -22,7 +22,7 @@ public class RoomSystem : MonoBehaviour
     
     [Header("ID")]
     [SerializeField]
-    [Tooltip("Room Identifier"), Range(0, byte.MaxValue)] 
+    [Tooltip("Room Identifier"), Range(0, 6)] 
     private byte id;
 
     [Header("Level for room")]
@@ -319,7 +319,7 @@ public class RoomSystem : MonoBehaviour
     /// Gets the room's furniture data for saving
     /// </summary>
     /// <returns>Tuple containing furniture dictionary, room ID, and character happiness</returns>
-    public (Dictionary<byte, Furniture> furnitureDictionary , byte id, CharacterValue characterHappiness, byte slotAmount) GetFurniture()
+    public (Dictionary<byte, Furniture> furnitureDictionary , byte id, CharacterValue characterHappiness, byte slotAmount, CharactersSo characterSo) GetFurniture()
     {
         Dictionary<byte,Furniture> furniture = new Dictionary<byte, Furniture>();
         
@@ -328,7 +328,7 @@ public class RoomSystem : MonoBehaviour
             furniture.Add(i, listOfFurniture[i]);
         }
         
-        return (furniture, id, characterHappiness, _currentLevel);
+        return (furniture, id, characterHappiness, _currentLevel, character);
     }
 
     /// <summary>
@@ -345,7 +345,8 @@ public class RoomSystem : MonoBehaviour
     /// <param name="furniture">Dictionary of saved furniture data</param>
     /// <param name="characteristic">Saved character happiness data</param>
     /// <param name="slotAmount"></param>
-    public void LoadFurniture(Dictionary<byte, Furniture> furniture, CharacterValue characteristic, byte slotAmount)
+    /// <param name="charactersSo"></param>
+    public void LoadFurniture(Dictionary<byte, Furniture> furniture, CharacterValue characteristic, byte slotAmount, CharactersSo charactersSo)
     {
         _currentLevel = slotAmount;
         if (!levelRoom.inheritedData.TryGetValue(slotAmount, out SlotFurnitureRoom[] slot))
@@ -368,6 +369,8 @@ public class RoomSystem : MonoBehaviour
             
             slot[i].LoadFurniture(value.furniture);
         }
+
+        character = charactersSo;
         
         characterHappiness = characteristic;
     }

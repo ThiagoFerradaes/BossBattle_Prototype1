@@ -76,10 +76,9 @@ public class RawMaterialStatic : MonoBehaviour
     public Task SetSlotSave(byte nameSlot)
     {
         slotSave = nameSlot;
-        
         _savePath = Path.Combine(Application.persistentDataPath, slotSave + "RawMaterial.json");
         
-        return SaveInventory();
+        return Task.CompletedTask;
     }
 
     public byte GetSlotSave()
@@ -162,6 +161,7 @@ public class RawMaterialStatic : MonoBehaviour
     {
         try
         {
+            Debug.Log("time " + Time.time);
             var inventorySaveByJson = new RawMaterialByJson
             {
                 saveFurniture = new RawMaterialData(FurnitureQuantity),

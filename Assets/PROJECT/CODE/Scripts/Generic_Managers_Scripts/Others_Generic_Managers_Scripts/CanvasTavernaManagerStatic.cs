@@ -1,10 +1,12 @@
 using System;
+using System.Collections.Generic;
+using AYellowpaper.SerializedCollections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CanvasTavernaManager : MonoBehaviour
+public class CanvasTavernaManagerStatic : MonoBehaviour
 {
-    public static CanvasTavernaManager Instance;
+    public static CanvasTavernaManagerStatic Instance;
     public static event Action OnTavernaLoaded;
     
     private void Awake()
@@ -24,6 +26,13 @@ public class CanvasTavernaManager : MonoBehaviour
     
     [SerializeField]
     private StoreSystem storeSystem;
+    
+    [SerializedDictionary("Character", "Prefab")]
+    [SerializeField] private SerializedDictionary<Character, GameObject> characterPrefabs;
+    
+    public GameObject GetCharacterPrefab(Character character) => characterPrefabs[character];
+    
+    public IReadOnlyDictionary<Character, GameObject> CharacterPrefabs => characterPrefabs;
     
     public MapManager MapManager => mapManager;
 
