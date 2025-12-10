@@ -33,11 +33,15 @@ public class RoomCanvasStatic : MonoBehaviour
     [Tooltip("Prefab template for furniture UI list items")]
     private GameObject prefabFurniture;
     
-    [SerializedDictionary("type of spawner", "List of spawners of this type")]
-    [SerializeField] private SerializedDictionary<SpawnerCharacterEnum, SpawnerNpc[]> spawners;
+    [SerializedDictionary("Spawner Type", "List of Spawners")]
+    [SerializeField]
+    [Tooltip("Dictionary mapping character spawner types to their corresponding spawner transform arrays")]
+    private SerializedDictionary<SpawnerCharacterEnum, SpawnerNpc[]> spawners;
     
-    [SerializedDictionary("type of spawner", "List of spawners of this type")]
-    [SerializeField] private SerializedDictionary<ActivitiesEnum, SerializedDictionary<byte,SpawnerCharacterEnum>> codedSpawner;
+    [SerializedDictionary("Activity Type", "Spawner Mapping")]
+    [SerializeField]
+    [Tooltip("Dictionary mapping activity types to coded spawner configurations, where each activity links to room-specific spawner types")]
+    private SerializedDictionary<ActivitiesEnum, SerializedDictionary<byte,SpawnerCharacterEnum>> codedSpawner;
     
     private RawMaterialStatic rawMaterialStatic;
     
@@ -265,34 +269,91 @@ public class RoomCanvasStatic : MonoBehaviour
     #endregion
 
     #region private Methods
-
-
+    
+    /// <summary>
+    /// Instantiates a character in the appropriate location based on their activity and time of day
+    /// </summary>
+    /// <param name="characterSo">Character data containing personality and activity preferences</param>
+    /// <param name="timeEnum">Current time of day</param>
+    /// <param name="roomKey">Room identifier for spawning</param>
+    /// <returns>Task representing the asynchronous spawn operation</returns>
     private Task InstantiateCharacter(CharactersSo characterSo, TimeEnum timeEnum, byte roomKey)
     {
-        ActivitiesEnum a = characterSo.GetRandomActivity(timeEnum);
-        
-        var b = a switch
+        ActivitiesEnum activity = characterSo.GetRandomActivity(timeEnum);
+    
+        var spawnerCharacterEnum = activity switch
         {
-            ActivitiesEnum.Room => codedSpawner[a][roomKey],
-            _ => codedSpawner[a][0],
+            ActivitiesEnum.Room => codedSpawner[activity][roomKey],
+            _ => codedSpawner[activity][0],
         };
-
-        var random = UnityEngine.Random.Range(0, spawners[b].Length);
-        
-        while (true)
-        {
-            if (!spawners[b][random].isSpawned)
-            {
-                spawners[b][random].isSpawned = true;
-                Instantiate(spawners[b][random].spawner.gameObject, spawners[b][random].spawner.position, spawners[b][random].spawner.rotation);
-                break;
-            }
-            random = UnityEngine.Random.Range(0, spawners[b].Length);
-        }
-        
-        return Task.CompletedTask;
+    
+        var prefab = CanvasTavernaManagerStatic.Instance.GetCharacterPrefab(characterSo.Character);
+        return prefab is null ? Task.CompletedTask : TrySpawn(activity, spawnerCharacterEnum, roomKey, prefab);
     }
-
+    
+    /// <summary>
+    /// Attempts to spawn a character at the specified location with fallback logic.
+    /// If spawning fails, try alternative locations in a predefined order.
+    /// </summary>
+    /// <param name="activity">Initial activity location to attempt spawn</param>
+    /// <param name="spawnerCharacterEnum">Type of spawner to use</param>
+    /// <param name="roomKey">Room identifier for fallback spawning</param>
+    /// <param name="prefab">Character prefab to instantiate</param>
+    /// <returns>Task representing the asynchronous spawn operation</returns>
+    private async Task TrySpawn(ActivitiesEnum activity, SpawnerCharacterEnum spawnerCharacterEnum, byte roomKey, GameObject prefab)
+    {
+        const byte maxAttempts = 25;
+        const byte maxFallbacks = 5;
+    
+        byte fallbackCount = 0;
+    
+        while (fallbackCount < maxFallbacks)
+        {
+            if (await TrySpawnInList(spawnerCharacterEnum, maxAttempts, prefab)) 
+                return;
+    
+            // Fallback to alternative spawn locations in order:
+            // Room -> CommonRoom -> Bathroom -> ArtifactRoom -> back to Room
+            spawnerCharacterEnum = activity switch
+            {
+                ActivitiesEnum.Room => codedSpawner[ActivitiesEnum.CommonRoom][0],
+                ActivitiesEnum.CommonRoom => codedSpawner[ActivitiesEnum.Bathroom][0],
+                ActivitiesEnum.Bathroom => codedSpawner[ActivitiesEnum.ArtifactRoom][0],
+                ActivitiesEnum.ArtifactRoom => codedSpawner[ActivitiesEnum.Room][roomKey],
+                _ => codedSpawner[ActivitiesEnum.CommonRoom][0],
+            };
+    
+            fallbackCount++;
+        }
+    
+        Debug.LogWarning("No available spawners found after all fallback attempts.");
+    }
+    
+    /// <summary>
+    /// Attempts to spawn a character at a random unoccupied spawner from the specified list
+    /// </summary>
+    /// <param name="spawnerCharacterEnum">Type of spawner list to search</param>
+    /// <param name="attempts">Maximum number of random spawner selections to try</param>
+    /// <param name="prefab">Character prefab to instantiate</param>
+    /// <returns>True if spawn was successful; false if all attempts failed</returns>
+    private async Task<bool> TrySpawnInList(SpawnerCharacterEnum spawnerCharacterEnum, int attempts, GameObject prefab)
+    {
+        var list = spawners[spawnerCharacterEnum];
+    
+        for (var i = 0; i < attempts; i++)
+        {
+            var random = UnityEngine.Random.Range(0, list.Length);
+    
+            if (list[random].isSpawned) continue;
+        
+            list[random].isSpawned = true;
+            await InstantiateAsync(prefab, list[random].spawner.position, list[random].spawner.rotation);
+            return true;
+        }
+    
+        return false;
+    }
+    
     #endregion
     
     #region Properties
@@ -509,7 +570,6 @@ public class SpawnerNpc
 }
 
 #endregion
-
 
 #region SaveRoomData
 
