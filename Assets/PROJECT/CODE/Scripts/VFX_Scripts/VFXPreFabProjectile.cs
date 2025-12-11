@@ -42,7 +42,7 @@ public class VFXPreFabProjectile : MonoBehaviour
     IEnumerator ColisionTimer()
     {
         _hasCollided = true;
-
+        
         //disable collider, wait for "x" seconds, turn collider on for next obj in pool, then turn off obj
         myCollider.enabled = false;
         yield return new WaitForSeconds(_vfxAtributes.VFXPosCollisionDuration);
@@ -86,6 +86,7 @@ public class VFXPreFabProjectile : MonoBehaviour
         if (!_vfxAtributes.CrossEnemy) /*_collisionRoutine ??= */StartCoroutine(ColisionTimer());
 
         //--effects logic--
+        Debug.Log("Collision Entered");
         if(isVFX) {
             myVFX.SendEvent("MyTriggerEnterEvent");
         }

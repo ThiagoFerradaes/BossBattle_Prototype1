@@ -67,8 +67,8 @@ MonoBehaviour:
   - {fileID: 114350483966675509}
   - {fileID: 114350483966676047}
   - {fileID: 114350483966676049}
-  - {fileID: 114350483966676051}
   - {fileID: 114350483966676053}
+  - {fileID: 114350483966676070}
   m_UIPosition: {x: 0, y: 0}
   m_UICollapsed: 1
   m_UISuperCollapsed: 0
@@ -128,10 +128,10 @@ MonoBehaviour:
   - title: Minimal
     position:
       serializedVersion: 2
-      x: 777
+      x: 776
       y: 407
-      width: 474
-      height: 922
+      width: 475
+      height: 1542
     contents:
     - model: {fileID: 114350483966674978}
       id: 0
@@ -164,9 +164,9 @@ MonoBehaviour:
   uiBounds:
     serializedVersion: 2
     x: -607
-    y: -83
-    width: 4020
-    height: 2801
+    y: -227
+    width: 3912
+    height: 2945
 --- !u!114 &114350483966674978
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -183,7 +183,7 @@ MonoBehaviour:
   m_Parent: {fileID: 114350483966674976}
   m_Children:
   - {fileID: 114350483966675224}
-  m_UIPosition: {x: 802, y: 466}
+  m_UIPosition: {x: 801, y: 466}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots: []
@@ -193,8 +193,6 @@ MonoBehaviour:
   m_InputFlowSlot:
   - link:
     - context: {fileID: 114350483966676047}
-      slotIndex: 0
-    - context: {fileID: 114350483966676049}
       slotIndex: 0
   - link: []
   m_OutputFlowSlot:
@@ -5430,9 +5428,7 @@ MonoBehaviour:
   m_Data: {fileID: 114350483966675320}
   m_InputFlowSlot:
   - link:
-    - context: {fileID: 114350483966676049}
-      slotIndex: 0
-    - context: {fileID: 114350483966676051}
+    - context: {fileID: 114350483966676070}
       slotIndex: 0
   - link:
     - context: {fileID: 114350483966676047}
@@ -8420,7 +8416,9 @@ MonoBehaviour:
   m_Tooltip: 
   m_Nodes:
   - m_Id: 0
-    linkedSlots: []
+    linkedSlots:
+    - outputSlot: {fileID: 114350483966675477}
+      inputSlot: {fileID: 114350483966675510}
     position: {x: 1651, y: 1881}
     expandedSlots: []
     expanded: 1
@@ -8458,7 +8456,8 @@ MonoBehaviour:
       m_SerializableType: UnityEngine.Gradient, UnityEngine.CoreModule, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
   m_Direction: 1
-  m_LinkedSlots: []
+  m_LinkedSlots:
+  - {fileID: 114350483966675510}
 --- !u!114 &114350483966675509
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8507,7 +8506,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Gradient, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"colorKeys":[{"color":{"r":5.34031343460083,"g":0.40914177894592287,"b":0.0,"a":1.0},"time":0.0},{"color":{"r":1.844302773475647,"g":0.01903591677546501,"b":0.0,"a":1.0},"time":0.35588616132736208},{"color":{"r":0.25471699237823489,"g":0.0012014980893582106,"b":0.0012014980893582106,"a":1.0},"time":0.6117647290229797},{"color":{"r":0.018867909908294679,"g":0.018867909908294679,"b":0.018867909908294679,"a":1.0},"time":0.9000076055526733}],"alphaKeys":[{"alpha":1.0,"time":0.0},{"alpha":1.0,"time":1.0}],"gradientMode":0}'
+      m_SerializableObject: '{"colorKeys":[{"color":{"r":8.979964256286621,"g":2.600036859512329,"b":0.0,"a":1.0},"time":0.00881971511989832},{"color":{"r":2.7954399585723879,"g":0.6438727378845215,"b":0.0,"a":1.0},"time":0.1441214680671692},{"color":{"r":1.699301838874817,"g":0.1693004071712494,"b":0.0,"a":1.0},"time":0.41765469312667849},{"color":{"r":0.24528300762176515,"g":0.0,"b":0.0,"a":1.0},"time":0.6323491334915161},{"color":{"r":0.0,"g":0.0,"b":0.0,"a":1.0},"time":0.852948784828186},{"color":{"r":0.20754718780517579,"g":0.20754718780517579,"b":0.20754718780517579,"a":1.0},"time":1.0}],"alphaKeys":[{"alpha":1.0,"time":0.0},{"alpha":1.0,"time":1.0}],"gradientMode":0}'
     m_Space: -1
   m_Property:
     name: gradient
@@ -8515,7 +8514,8 @@ MonoBehaviour:
       m_SerializableType: UnityEngine.Gradient, UnityEngine.CoreModule, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
   m_Direction: 0
-  m_LinkedSlots: []
+  m_LinkedSlots:
+  - {fileID: 114350483966675477}
 --- !u!114 &114350483966675511
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9515,7 +9515,7 @@ MonoBehaviour:
   m_UIIgnoredErrors: []
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: 1888, y: -83}
+  m_UIPosition: {x: 2388, y: -227}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots: []
@@ -9525,11 +9525,7 @@ MonoBehaviour:
   m_InputFlowSlot:
   - link: []
   m_OutputFlowSlot:
-  - link:
-    - context: {fileID: 114350483966675319}
-      slotIndex: 0
-    - context: {fileID: 114350483966674978}
-      slotIndex: 0
+  - link: []
   eventName: MyTriggerExitEvent
 --- !u!114 &114350483966676050
 MonoBehaviour:
@@ -9552,56 +9548,6 @@ MonoBehaviour:
   title: 
   m_Owners:
   - {fileID: 114350483966676049}
---- !u!114 &114350483966676051
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2461f61b3c026d54db1951a4e17ab20e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.VisualEffectGraph.Editor::UnityEditor.VFX.VFXBasicEvent
-  m_UIIgnoredErrors: []
-  m_Parent: {fileID: 114350483966674976}
-  m_Children: []
-  m_UIPosition: {x: 2029, y: 268}
-  m_UICollapsed: 0
-  m_UISuperCollapsed: 0
-  m_InputSlots: []
-  m_OutputSlots: []
-  m_Label: 
-  m_Data: {fileID: 114350483966676052}
-  m_InputFlowSlot:
-  - link: []
-  m_OutputFlowSlot:
-  - link:
-    - context: {fileID: 114350483966675319}
-      slotIndex: 0
-  eventName: OnPlay
---- !u!114 &114350483966676052
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f68759077adc0b143b6e1c101e82065e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.VisualEffectGraph.Editor::UnityEditor.VFX.VFXDataSpawner
-  m_UIIgnoredErrors: []
-  m_Parent: {fileID: 0}
-  m_Children: []
-  m_UIPosition: {x: 0, y: 0}
-  m_UICollapsed: 1
-  m_UISuperCollapsed: 0
-  title: 
-  m_Owners:
-  - {fileID: 114350483966676051}
 --- !u!114 &114350483966676053
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9617,7 +9563,7 @@ MonoBehaviour:
   m_UIIgnoredErrors: []
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: 2989, y: 135}
+  m_UIPosition: {x: 2881, y: 136}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots: []
@@ -9652,3 +9598,53 @@ MonoBehaviour:
   title: 
   m_Owners:
   - {fileID: 114350483966676053}
+--- !u!114 &114350483966676070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2461f61b3c026d54db1951a4e17ab20e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.VisualEffectGraph.Editor::UnityEditor.VFX.VFXBasicEvent
+  m_UIIgnoredErrors: []
+  m_Parent: {fileID: 114350483966674976}
+  m_Children: []
+  m_UIPosition: {x: 2348, y: 250}
+  m_UICollapsed: 0
+  m_UISuperCollapsed: 0
+  m_InputSlots: []
+  m_OutputSlots: []
+  m_Label: 
+  m_Data: {fileID: 114350483966676071}
+  m_InputFlowSlot:
+  - link: []
+  m_OutputFlowSlot:
+  - link:
+    - context: {fileID: 114350483966675319}
+      slotIndex: 0
+  eventName: MyPlayOnAwake
+--- !u!114 &114350483966676071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f68759077adc0b143b6e1c101e82065e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.VisualEffectGraph.Editor::UnityEditor.VFX.VFXDataSpawner
+  m_UIIgnoredErrors: []
+  m_Parent: {fileID: 0}
+  m_Children: []
+  m_UIPosition: {x: 0, y: 0}
+  m_UICollapsed: 1
+  m_UISuperCollapsed: 0
+  title: 
+  m_Owners:
+  - {fileID: 114350483966676070}
