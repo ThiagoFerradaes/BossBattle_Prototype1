@@ -86,7 +86,6 @@ public class VFXPreFabProjectile : MonoBehaviour
         if (!_vfxAtributes.CrossEnemy) /*_collisionRoutine ??= */StartCoroutine(ColisionTimer());
 
         //--effects logic--
-        Debug.Log("Collision Entered");
         if(isVFX) {
             myVFX.SendEvent("MyTriggerEnterEvent");
         }
