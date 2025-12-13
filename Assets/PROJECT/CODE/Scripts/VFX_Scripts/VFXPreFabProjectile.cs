@@ -79,6 +79,8 @@ public class VFXPreFabProjectile : MonoBehaviour
         TurnOff();
     }
 
+
+    //FOR THE FOLLOWING 2 FUNCTIONS: NEED TO ADD A CHECK ON WHAT TYPE OF LAYER THE THE OBJECT BEING COLLIDED WITH HAS!!
     private void OnTriggerEnter(Collider other)
     {
         if (!_vfxAtributes.UnitsToHit.ContainsLayer(other.gameObject.layer)) return;
@@ -87,6 +89,7 @@ public class VFXPreFabProjectile : MonoBehaviour
 
         //--effects logic--
         if(isVFX) {
+            Debug.Log("Trigger Enter with: " + other.gameObject.name);
             myVFX.SendEvent("MyTriggerEnterEvent");
         }
         if(isParticle)
@@ -100,6 +103,7 @@ public class VFXPreFabProjectile : MonoBehaviour
         //--effects logic--
         if(isVFX) {
             myVFX.SendEvent("MyTriggerExitEvent");
+            Debug.Log("Trigger Exit from: " + other.gameObject.name);
         }
         if (isParticle)
         {
