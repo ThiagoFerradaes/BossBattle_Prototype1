@@ -1,0 +1,79 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a58971d2c9aa9fd478f31632bc18af65, type: 3}
+  m_Name: BastianSteamPunch
+  m_EditorClassIdentifier: Assembly-CSharp::BastianSteamPunchSO
+  SkillName: Steam Punch
+  SkillShortDescription: "Bastian shoots a steam jet.\t"
+  SkillLongDescription: Bastian shoots a steam jet. The projectile is very fast and
+    don't cross the enemy.
+  SkillSpriteIcon: {fileID: -1644640289, guid: c4227a59479ed82448432f2e85809ec1, type: 3}
+  SkillManagerObject: {fileID: 5887852433352420081, guid: 486dbcb2acbd4504fa3e12a636f17904, type: 3}
+  Prefabs:
+    _serializedList:
+    - Key: 0
+      Value:
+      - TimeToSpawnPreFab: 0.5
+        PrefabType: 0
+        VFXAtribute:
+          VFXType: 0
+          VFXDuration: 0
+          VFXPosCollisionDuration: 0
+          CrossEnemy: 0
+          TimeStopped: 0
+          MinDistanceBack: 0
+          UnitsToHit:
+            serializedVersion: 2
+            m_Bits: 0
+          VFXSpeed: 0
+          Distance: 0
+        PreFab: {fileID: 0}
+        PreFabPosition: {x: 0, y: 1, z: 1}
+  SkillObjectRangeObject: {fileID: 0}
+  BlockWalkWhilePreCasting: 1
+  BlockDashWhilePreCasting: 1
+  PreCastOn: 0
+  SkillCharacter: 1
+  Cancelable: 0
+  Slot: 1
+  SkillType: 1
+  FlatEnergyGainPerHit: 5
+  Cooldown: 5
+  HasCharges: 0
+  Charges: 1
+  ChargeCooldown: 0
+  SkillDamageAtributes:
+    DamageType: 0
+    UnitsToHit:
+      serializedVersion: 2
+      m_Bits: 128
+    Damage: 20
+    HitShield: 1
+    BreakShield: 0
+    Size: {x: 2, y: 1, z: 2}
+    TypeOfPrefab: 2
+    HitBoxDuration: 0
+    DamageCooldown: 0
+    Distance: 5
+    Speed: 20
+    CrossEnemy: 0
+    TimeStopped: 0
+    MinDistanceBack: 0
+    ExtraAtributes:
+      _serializedList: []
+  AnimationParameter: HeatUp
+  AnimationName: HeatUp
+  AttackSpeedAnimationParameter: 
+  HeatLoss: 0
+  PenetrationOnSuperHeat: 0
+  CritChanceOverHeat: 0
+  LastOverHeatCritDamage: 0
