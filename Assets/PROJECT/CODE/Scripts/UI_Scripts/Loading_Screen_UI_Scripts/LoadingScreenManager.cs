@@ -80,9 +80,6 @@ public class LoadingScreenManager : MonoBehaviour {
 
         loadingScreen.SetActive(true);
         
-        if(RoomCanvasStatic.Instance is not null)
-            yield return RoomCanvasStatic.Instance.SaveFurnitureByJson().AsIEnumerator();
-
         if (!load)
         {
             if (RawMaterialStatic.Instance is not null)
@@ -92,8 +89,11 @@ public class LoadingScreenManager : MonoBehaviour {
         {
             yield return RawMaterialStatic.Instance.LoadInventoryByJson().AsIEnumerator();
         }
-
-
+        
+        if(RoomCanvasStatic.Instance is not null)
+            yield return RoomCanvasStatic.Instance.SaveFurnitureByJson().AsIEnumerator();
+        
+        
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
         operation.allowSceneActivation = false;
 
