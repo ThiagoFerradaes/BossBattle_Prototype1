@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using MyEnum;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -24,6 +25,8 @@ public class RawMaterialStatic : MonoBehaviour
     /// </summary>
     public Dictionary<CostOfTheFurnitureEnum, uint> FurnitureQuantity { get; } = new();
 
+    [SerializeField]private TimeEnum timeGame;
+    
     private string _savePath;
     
     #endregion
@@ -46,13 +49,36 @@ public class RawMaterialStatic : MonoBehaviour
     
     #region Public Methods
 
+    #region Time
+
+    public void SetTimeGame(TimeEnum time) => timeGame = time;
+    
+    public TimeEnum GetTimeGame() => timeGame;
+
+    public byte GetTimeGameByte() => (byte) timeGame;
+    
+    public void SetTimeGameByte(byte time) => timeGame = (TimeEnum)time;
+    
+    public void ChangeTimeGame()
+    {
+        timeGame = timeGame switch
+        {
+            TimeEnum.morning => TimeEnum.afternoon,
+            TimeEnum.afternoon => TimeEnum.night,
+            _ => TimeEnum.morning
+        };
+    }
+    
+    #endregion
+    
+    #region Inventory
+    
     public Task SetSlotSave(byte nameSlot)
     {
         slotSave = nameSlot;
-        
         _savePath = Path.Combine(Application.persistentDataPath, slotSave + "RawMaterial.json");
         
-        return SaveInventory();
+        return Task.CompletedTask;
     }
 
     public byte GetSlotSave()
@@ -101,6 +127,8 @@ public class RawMaterialStatic : MonoBehaviour
         
         FurnitureQuantity[materialType] -= quantity;
     }
+
+    #endregion
     
     #endregion
 
@@ -133,7 +161,12 @@ public class RawMaterialStatic : MonoBehaviour
     {
         try
         {
-            var inventorySaveByJson = new RawMaterialData(FurnitureQuantity);
+            Debug.Log("time " + Time.time);
+            var inventorySaveByJson = new RawMaterialByJson
+            {
+                saveFurniture = new RawMaterialData(FurnitureQuantity),
+                timeGame = timeGame,
+            };
             
             var json = JsonUtility.ToJson(inventorySaveByJson, false);
             await File.WriteAllTextAsync(_savePath, json);
@@ -158,15 +191,16 @@ public class RawMaterialStatic : MonoBehaviour
             }
 
             string json = await File.ReadAllTextAsync(_savePath);
-            RawMaterialData loadedData = JsonUtility.FromJson<RawMaterialData>(json);
+            RawMaterialByJson loadedData = JsonUtility.FromJson<RawMaterialByJson>(json);
 
-            if (loadedData?.furnitureList == null)
+            if (loadedData?.saveFurniture.furnitureList == null)
             {
                 Debug.LogError("Invalid save data structure.");
                 return;
             }
             FurnitureQuantity.Clear();
-            FurnitureQuantity.AddRange(loadedData.ToDictionary());
+            FurnitureQuantity.AddRange(loadedData.saveFurniture.ToDictionary());
+            timeGame = loadedData.timeGame;
         }
         catch (Exception e)
         {
@@ -246,6 +280,7 @@ public class RawMaterialEntry
 public class RawMaterialByJson
 {
     public RawMaterialData saveFurniture;
+    public TimeEnum timeGame;
 }
 
 

@@ -26,6 +26,11 @@ public static class ItemDB
         return DB.GeString(type);
     }
     
+    public static TextBoxesSo GetDescription(SizeOfFurnitureEnum type)
+    {
+        return DB.GeString(type);
+    }
+    
     public static Sprite GetIcon(RarityEnum type)
     {
         return DB.GetImage(type);
@@ -36,12 +41,22 @@ public static class ItemDB
         return DB.GeString(type);
     }
     
+    public static TextBoxesSo GetDescription(RarityEnum type)
+    {
+        return DB.GeString(type);
+    }
+    
     public static Sprite GetIcon(CostOfTheFurnitureEnum type)
     {
         return DB.GetImage(type);
     }
 
     public static TextBoxesSo GetName(CostOfTheFurnitureEnum type)
+    {
+        return DB.GeString(type);
+    }
+    
+    public static TextBoxesSo GetDescription(CostOfTheFurnitureEnum type)
     {
         return DB.GeString(type);
     }

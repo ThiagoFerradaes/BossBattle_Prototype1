@@ -14,6 +14,7 @@ public class ItemDatabase : ScriptableObject
     {
         public Sprite icon;
         public TextBoxesSo displayName;
+        public TextBoxesSo displayDescription;
     }
 
     [SerializedDictionary("Size", "Info")]
@@ -33,6 +34,11 @@ public class ItemDatabase : ScriptableObject
     {
         return !itemsBySize.ContainsKey(type) ? null : itemsBySize[type].displayName;
     }
+
+    public TextBoxesSo GetDescription(SizeOfFurnitureEnum type)
+    {
+        return !itemsBySize.ContainsKey(type) ? null : itemsBySize[type].displayDescription; 
+    }
     
     public Sprite GetImage(RarityEnum type)
     {
@@ -43,6 +49,12 @@ public class ItemDatabase : ScriptableObject
     {
         return !itemsByRarity.ContainsKey(type) ? null : itemsByRarity[type].displayName;
     }
+
+    public TextBoxesSo GetDescription(RarityEnum type)
+    {
+        return !itemsByRarity.ContainsKey(type) ? null : itemsByRarity[type].displayDescription;
+    }
+    
     
     public Sprite GetImage(CostOfTheFurnitureEnum type)
     {
@@ -54,4 +66,8 @@ public class ItemDatabase : ScriptableObject
         return !itemsByCost.ContainsKey(type) ? null : itemsByCost[type].displayName;
     }
     
+    public TextBoxesSo GetDescription(CostOfTheFurnitureEnum type)
+    {
+        return !itemsByCost.ContainsKey(type) ? null : itemsByCost[type].displayDescription;
+    }
 }
