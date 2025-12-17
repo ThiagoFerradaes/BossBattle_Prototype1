@@ -56,7 +56,7 @@ public class KrakenCamera : MonoBehaviour {
         float elapsedTime = 0f;
         while (elapsedTime < shakeDuration)
         {
-            float damageMultiplier = damage / 400f;
+            float damageMultiplier = 0f;//damage / 400f;
             Vector3 startPosition = transform.position;
             elapsedTime += Time.deltaTime;
             float shakeStrength = shakeCurve.Evaluate(elapsedTime / shakeDuration) * shakeIntensity + damageMultiplier;
