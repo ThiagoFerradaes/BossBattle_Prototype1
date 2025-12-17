@@ -1,16 +1,16 @@
+using NaughtyAttributes;
 using UnityEngine;
 
-public class BastianLastWhisperSO : MonoBehaviour
+[CreateAssetMenu(menuName = "Characters/ Skills/ Bastian/ Last Whisper")]
+public class BastianLastWhisperSO : UltimateSkillSO
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    [Header("Animation Parameter")]
+    [Foldout("Specific")] public string AnimationParameter;
+    [Foldout("Specific")] public string AnimationName;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [Header("Heat")]
+    [Foldout("Specific")] public float HeatDamageMultiplier;
+    [Foldout("Specific")] public float PenetrationOnSuperHeat;
+    [Foldout("Specific")] public float CritChanceOverHeat;
+    [Foldout("Specific")] public float LastOverHeatCritDamage;
 }

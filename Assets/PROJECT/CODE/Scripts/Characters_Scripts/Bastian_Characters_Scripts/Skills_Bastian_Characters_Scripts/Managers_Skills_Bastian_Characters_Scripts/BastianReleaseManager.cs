@@ -5,6 +5,9 @@ using UnityEngine.InputSystem;
 public class BastianReleaseManager : SkillObjectManager {
     // Components
     BastianReleaseSO _info;
+
+    float _attackSpeedMultiplier;
+
     public override void HandleInput(SkillSO skill, InputAction.CallbackContext ctx)
     {
         if (!BastianPassiveManager.Instance.CanShoot)
@@ -26,23 +29,31 @@ public class BastianReleaseManager : SkillObjectManager {
     }
 
     public override void FirstFunc() {
+        base.FirstFunc();
+
         cooldownManager.SetCooldownWithCharges(slot, _info);
 
-        skillManager.SkillIsInAnimation(true);
+        _attackSpeedMultiplier = GetAttackSpeedMultiplier();
+        anim.SetFloat(_info.AttackSpeedAnimationParameter, _attackSpeedMultiplier);
     }
-
+    float GetAttackSpeedMultiplier()
+    {
+        float baseSpeed = statusManager.ReturnStatusValue(StatusType.AttackSpeed);
+        return Mathf.Max(0.1f, baseSpeed);
+    }
     public override void ThirdFunc() {
         BastianPassiveManager.Instance.LooseHeat(_info.HeatLost);
     }
 
     public override void FourthFunc() {
+        base.FourthFunc();
+
         statusManager.ChangeStatus(StatusType.AttackSpeed, _info.AttackSpeedGain, true, _info.AttackSpeedDuration);
 
-        animationCoroutine = null;
-
-        skillManager.SkillIsInAnimation(false);
-
         EndWithUnblockSkills();
+
+        // Resetando a velocidade da animação
+        anim.SetFloat(_info.AttackSpeedAnimationParameter, 1);
     }
 
     public override void InstantiateVFX(SkillAnimationEvent prefab) {

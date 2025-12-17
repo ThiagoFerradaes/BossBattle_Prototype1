@@ -53,10 +53,12 @@ public class BastianSteamPunchManager : SkillObjectManager
     }
 
     public override void InstantiateHitBox(SkillAnimationEvent prefab) {
-        GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefab.PreFab, TypeOfSkillPrefab.Hitbox);
+        GameObject newPreFab = PoolingManager.Instance.ReturnPrefabFromPool(prefab.PreFab, TypeOfSkillPrefab.Hitbox);
 
-        preFab.transform.localScale = _info.SkillDamageAtributes.Size;
-        preFab.transform.SetPositionAndRotation(parent.transform.position + prefab.PreFabPosition, parent.transform.rotation);
+        newPreFab.transform.localScale = _info.SkillDamageAtributes.Size;
+        newPreFab.transform.SetParent(parent.transform);
+        newPreFab.transform.SetLocalPositionAndRotation(prefab.PreFabPosition, Quaternion.identity);
+        newPreFab.transform.SetParent(null);
 
         float pen = BastianPassiveManager.Instance.ReturnMinHeat(HeatArea.SuperHeatArea) ? _info.PenetrationOnSuperHeat : 0;
         float critChance = BastianPassiveManager.Instance.ReturnMinHeat(HeatArea.OverHeatArea) ? _info.CritChanceOverHeat : 0;
@@ -74,7 +76,7 @@ public class BastianSteamPunchManager : SkillObjectManager
             parent.GetComponent<StatusManager>()
             );
 
-        ProjectileDamageHitBox hitbox = preFab.GetComponent<ProjectileDamageHitBox>();
+        ProjectileDamageHitBox hitbox = newPreFab.GetComponent<ProjectileDamageHitBox>();
         hitbox.Initialize(newContext);
 
         hitbox.OnHit += () => {

@@ -13,6 +13,8 @@ public class BastianFlameEchoManager : SkillObjectManager
 
     // Actions
     Action<int> _onShootAction;
+
+    float _attackSpeedMultiplier;
     public override void HandleInput(SkillSO skill, InputAction.CallbackContext ctx)
     {
         if (!BastianPassiveManager.Instance.CanShoot)
@@ -42,14 +44,25 @@ public class BastianFlameEchoManager : SkillObjectManager
     }
 
     public override void FirstFunc() {
-        skillManager.SkillIsInAnimation(true);
+        base.FirstFunc();
+        _attackSpeedMultiplier = GetAttackSpeedMultiplier();
+        anim.SetFloat(_info.AttackSpeedAnimationParameter, _attackSpeedMultiplier);
         _energyManager.LooseAllEnergy();
+    }
+
+    float GetAttackSpeedMultiplier()
+    {
+        float baseSpeed = statusManager.ReturnStatusValue(StatusType.AttackSpeed);
+        return Mathf.Max(0.1f, baseSpeed);
     }
     public override void FourthFunc() {
         animationCoroutine = null;
 
         // Avisando que não ta mais em animação
         skillManager.SkillIsInAnimation(false);
+
+        // Resetando a velocidade da animação
+        anim.SetFloat(_info.AttackSpeedAnimationParameter, 1);
 
         // Desbloqueando inputs
         UnblockInputs();

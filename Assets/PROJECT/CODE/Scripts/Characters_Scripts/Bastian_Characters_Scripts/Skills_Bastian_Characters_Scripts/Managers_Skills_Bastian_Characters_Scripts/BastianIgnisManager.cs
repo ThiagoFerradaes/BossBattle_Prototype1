@@ -31,10 +31,10 @@ public class BastianIgnisManager : SkillObjectManager {
 
     public override void FirstFunc() {
         cooldownManager.SetCooldownWithCharges(slot, _info);
-        _attackSpeedMultiplier = GetAttackSpeedMultiplier();
 
         skillManager.SkillIsInAnimation(true);
 
+        _attackSpeedMultiplier = GetAttackSpeedMultiplier();
         anim.SetFloat(_info.AttackSpeedAnimationParameter, _attackSpeedMultiplier);
     }
 
