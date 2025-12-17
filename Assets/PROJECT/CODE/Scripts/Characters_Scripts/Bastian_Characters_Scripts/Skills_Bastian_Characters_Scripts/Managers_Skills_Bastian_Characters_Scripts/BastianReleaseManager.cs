@@ -1,9 +1,19 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class BastianReleaseManager : SkillObjectManager {
     // Components
     BastianReleaseSO _info;
+    public override void HandleInput(SkillSO skill, InputAction.CallbackContext ctx)
+    {
+        if (!BastianPassiveManager.Instance.CanShoot)
+        {
+            return;
+        }
+
+        base.HandleInput(skill, ctx);
+    }
 
     public override void UseSkill(SkillSO skill) {
         base.UseSkill(skill);

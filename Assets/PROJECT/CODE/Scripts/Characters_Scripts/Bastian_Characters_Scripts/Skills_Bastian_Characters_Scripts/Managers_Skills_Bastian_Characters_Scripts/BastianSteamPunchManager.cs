@@ -1,9 +1,19 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class BastianSteamPunchManager : SkillObjectManager
 {
     BastianSteamPunchSO _info;
     float _attackSpeedMultiplier;
+    public override void HandleInput(SkillSO skill, InputAction.CallbackContext ctx)
+    {
+        if (!BastianPassiveManager.Instance.CanShoot)
+        {
+            return;
+        }
+
+        base.HandleInput(skill, ctx);
+    }
     public override void UseSkill(SkillSO skill) {
         Initialize(skill);
 
@@ -17,10 +27,14 @@ public class BastianSteamPunchManager : SkillObjectManager
     }
 
     public override void FirstFunc() {
-        cooldownManager.SetCooldownSingleCharge(slot, _info.Cooldown);
-        _attackSpeedMultiplier = GetAttackSpeedMultiplier();
 
-        skillManager.SkillIsInAnimation(true);
+        base.FirstFunc();
+
+        // Cooldown
+        cooldownManager.SetCooldownSingleCharge(slot, _info.Cooldown);
+
+        // Pegando velocidade de ataque
+        _attackSpeedMultiplier = GetAttackSpeedMultiplier();
 
         anim.SetFloat(_info.AttackSpeedAnimationParameter, _attackSpeedMultiplier);
     }
@@ -53,6 +67,7 @@ public class BastianSteamPunchManager : SkillObjectManager
         atributes.ExtraAtributes[ExtraDamageContextAtributes.Penetration] = pen;
         atributes.ExtraAtributes[ExtraDamageContextAtributes.CritRate] = critChance;
         atributes.ExtraAtributes[ExtraDamageContextAtributes.CritDamage] = critDamage;
+        atributes.Speed *= _attackSpeedMultiplier;
 
         DamageContext newContext = new(
             atributes,
@@ -65,5 +80,8 @@ public class BastianSteamPunchManager : SkillObjectManager
         hitbox.OnHit += () => {
             energyManager.GainEnergy(_info.FlatEnergyGainPerHit);
         };
+
+        // Diminuindo vapor
+        BastianPassiveManager.Instance.LooseHeat(_info.HeatLoss);
     }
 }

@@ -26,6 +26,7 @@ public class BastianPassiveManager : PassiveSkillManager {
     // Actions
     public event Action<float, float> OnHeatGain;
 
+    #region Initialize
     private void Awake() {
         if (Instance == null) {
             Instance = this;
@@ -50,7 +51,16 @@ public class BastianPassiveManager : PassiveSkillManager {
 
         CanShoot = true;
     }
+    #endregion
 
+    #region SetHeat
+
+    public void SetHeatToAmount(float newHeatAmount, bool ignoreMin = false)
+    {
+        if (_currentHeat >= newHeatAmount && !ignoreMin) return;
+
+        _currentHeat = newHeatAmount;
+    }
     public void GainHeat(float amountOfHeat) {
         if (_currentHeat + amountOfHeat <= _info.HeatToHitOverHeatArea)
             _currentHeat += amountOfHeat;
@@ -91,8 +101,17 @@ public class BastianPassiveManager : PassiveSkillManager {
         float damage = Mathf.Min(healthToLoose, Mathf.Max(0, currentHealth - 1));
         if (damage > 0) _healthManager.TakeDamage(damage, false);
     }
+    #endregion
 
     #region CheckHeat
+    public bool ReturnMinHeat(HeatArea minHeatArea)
+    {
+        return _heatArea >= minHeatArea;
+    }
+    public bool ReturnMaxHeat(HeatArea minHeatArea)
+    {
+        return _heatArea <= minHeatArea;
+    }
     void CheckHeat() {
         if (_currentHeat >= _info.HeatToHitLastOverHeatArea) {
             LastOverHeatHit();
@@ -164,6 +183,8 @@ public class BastianPassiveManager : PassiveSkillManager {
         _heatArea = HeatArea.LastOverHeatArea;
     }
     #endregion
+
+    #region HeatCoroutines
     IEnumerator HeatLostPerTime() {
         while (true) {
             yield return new WaitForSeconds(_info.TimeToLooseHeat);
@@ -198,12 +219,6 @@ public class BastianPassiveManager : PassiveSkillManager {
         _looseHealthCoroutine = null;
     }
 
-    public bool ReturnMinHeat(HeatArea minHeatArea) {
-        return _heatArea >= minHeatArea;
-    }
-    public bool ReturnMaxHeat(HeatArea minHeatArea)
-    {
-        return _heatArea <= minHeatArea;
-    }
+    #endregion
 
 }

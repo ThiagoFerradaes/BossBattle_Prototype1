@@ -22,8 +22,10 @@ MonoBehaviour:
     _serializedList:
     - Key: 0
       Value:
-      - TimeToSpawnPreFab: 0.5
+      - TimeToSpawnPreFab: 0.4
         PrefabType: 0
+        PreFab: {fileID: 5556882484380889040, guid: 73183662ed7be604f90dff0cc2f277ff, type: 3}
+        PreFabPosition: {x: 0, y: 1, z: 1}
         VFXAtribute:
           VFXType: 0
           VFXDuration: 0
@@ -36,8 +38,6 @@ MonoBehaviour:
             m_Bits: 0
           VFXSpeed: 0
           Distance: 0
-        PreFab: {fileID: 0}
-        PreFabPosition: {x: 0, y: 1, z: 1}
   SkillObjectRangeObject: {fileID: 0}
   BlockWalkWhilePreCasting: 1
   BlockDashWhilePreCasting: 1
@@ -47,7 +47,7 @@ MonoBehaviour:
   Slot: 1
   SkillType: 1
   FlatEnergyGainPerHit: 5
-  Cooldown: 5
+  Cooldown: 2
   HasCharges: 0
   Charges: 1
   ChargeCooldown: 0
@@ -56,24 +56,24 @@ MonoBehaviour:
     UnitsToHit:
       serializedVersion: 2
       m_Bits: 128
-    Damage: 20
+    Damage: 30
     HitShield: 1
     BreakShield: 0
-    Size: {x: 2, y: 1, z: 2}
+    Size: {x: 1.5, y: 1, z: 1.5}
     TypeOfPrefab: 2
     HitBoxDuration: 0
     DamageCooldown: 0
-    Distance: 5
-    Speed: 20
+    Distance: 4
+    Speed: 25
     CrossEnemy: 0
     TimeStopped: 0
     MinDistanceBack: 0
     ExtraAtributes:
       _serializedList: []
-  AnimationParameter: HeatUp
-  AnimationName: HeatUp
-  AttackSpeedAnimationParameter: 
-  HeatLoss: 0
-  PenetrationOnSuperHeat: 0
-  CritChanceOverHeat: 0
-  LastOverHeatCritDamage: 0
+  AnimationParameter: SteamPunch
+  AnimationName: SteamPunch
+  AttackSpeedAnimationParameter: AttackSpeed
+  HeatLoss: 10
+  PenetrationOnSuperHeat: 75
+  CritChanceOverHeat: 100
+  LastOverHeatCritDamage: 500

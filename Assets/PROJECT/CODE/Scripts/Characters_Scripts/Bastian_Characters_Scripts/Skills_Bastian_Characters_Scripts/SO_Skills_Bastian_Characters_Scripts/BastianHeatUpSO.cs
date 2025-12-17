@@ -1,16 +1,13 @@
+using NaughtyAttributes;
 using UnityEngine;
 
-public class BastianHeatUpSO : MonoBehaviour
+[CreateAssetMenu(menuName = "Characters/ Skills/ Bastian/ HeatUp")]
+public class BastianHeatUpSO : CommonSkillSO
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    [Header("Animation Parameter")]
+    [Foldout("Specific")] public string AnimationParameter;
+    [Foldout("Specific")] public string AnimationName;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [Header("Heat")]
+    [Foldout("Specific")] public float AmountOfHeatToSetUp;
 }

@@ -14,5 +14,6 @@ public abstract class CommonSkillSO : SkillSO {
     [Foldout("Common SKill Atributes"), ShowIf("HasCharges")] public float ChargeCooldown;
 
     [Header("Damage Atributes")]
-    [Foldout("Common SKill Atributes")] public DamageAtributes SkillDamageAtributes;
+    [Foldout("Common SKill Atributes"), SerializeField] bool dealDamage = true;
+    [ShowIf("dealDamage"), Foldout("Common SKill Atributes")] public DamageAtributes SkillDamageAtributes;
 }

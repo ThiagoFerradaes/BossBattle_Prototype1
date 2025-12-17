@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class BastianFlameEchoManager : SkillObjectManager
 {
@@ -12,6 +13,15 @@ public class BastianFlameEchoManager : SkillObjectManager
 
     // Actions
     Action<int> _onShootAction;
+    public override void HandleInput(SkillSO skill, InputAction.CallbackContext ctx)
+    {
+        if (!BastianPassiveManager.Instance.CanShoot)
+        {
+            return;
+        }
+
+        base.HandleInput(skill, ctx);
+    }
     public override void UseSkill(SkillSO skill)
     {
         base.UseSkill(skill);
