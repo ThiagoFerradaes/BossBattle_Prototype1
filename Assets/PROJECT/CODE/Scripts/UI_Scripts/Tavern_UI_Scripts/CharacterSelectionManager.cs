@@ -1,8 +1,10 @@
+using System;
 using UnityEngine;
 using AYellowpaper.SerializedCollections;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 public class CharacterSelectionManager : MonoBehaviour {
     [Header("Componentes")]
@@ -36,6 +38,8 @@ public class CharacterSelectionManager : MonoBehaviour {
     [SerializedDictionary("Slot", "Button"), SerializeField] SerializedDictionary<SkillSlot, Button> dictionaryOfSkillSelectionButton;
     SkillSelectionManager _skillSelectionManager;
 
+    private bool isInitialized;
+    
     #region StartRegion
     private void Awake() {
         _skillSelectionManager = GetComponent<SkillSelectionManager>();
@@ -45,18 +49,18 @@ public class CharacterSelectionManager : MonoBehaviour {
     }
 
     void SetButtons() {
-        // Botões de personagem para troca do personagem selecionado
+        // Botï¿½es de personagem para troca do personagem selecionado
         foreach (var character in dictionaryOfCharactersButton.Keys) {
             dictionaryOfCharactersButton[character].onClick.AddListener(() => SelectCharacter(character));
         }
 
-        // Botão que fecha a UI;
+        // Botï¿½o que fecha a UI;
         closeScreenButton.onClick.AddListener(() => {
             characterSelectionScreen.SetActive(false);
             _skillSelectionManager.TurnScreenOff();
         });
 
-        // Botão que abre a UI de seleção de skill
+        // Botï¿½o que abre a UI de seleï¿½ï¿½o de skill
         foreach (var slot in dictionaryOfSkillSelectionButton.Keys) {
             var tempSlot = slot;
             dictionaryOfSkillSelectionButton[tempSlot].onClick.AddListener(() => {
@@ -67,24 +71,41 @@ public class CharacterSelectionManager : MonoBehaviour {
 
         characterSelectionBackground.onClick.AddListener(() => { _skillSelectionManager.TurnScreenOff(); });
 
-        characterSelectionMask.onClick.AddListener(() => {
-            _skillSelectionManager.TurnScreenOff();
-            characterSelectionScreen.SetActive(false);
-        });
+        characterSelectionMask.onClick.AddListener(ClosedSkillsUi);
+        
+        isInitialized = true;
     }
-
-
+    
     #endregion
 
     #region InitializeRegion
 
-    public void Initialize() {
+    public async void Initialize()
+    {
+        try
+        {
+            bool set = false; 
+            while(!isInitialized)
+            {
+                if (set)
+                {
+                    await Task.Yield();
+                    continue;
+                }
+                SetButtons();
+                set = true;
+            }
+        
+            ChangeSelectedImageAndSignature();
+            ChangeSkillsIcon();
+            LockIcons();
 
-        ChangeSelectedImageAndSignature();
-        ChangeSkillsIcon();
-        LockIcons();
-
-        characterSelectionScreen.SetActive(true);
+            characterSelectionScreen.SetActive(true);
+        }
+        catch
+        {
+            // ignore
+        }
     }
 
     void LockIcons() {
@@ -128,13 +149,19 @@ public class CharacterSelectionManager : MonoBehaviour {
         skillTwoIcon.sprite = skillTwo.SkillSpriteIcon;
         ultimateIcon.sprite = ultimate.SkillSpriteIcon;
 
-        // Setando as descrições
+        // Setando as descriï¿½ï¿½es
         passiveShortDescription.text = passive.ShortDescription;
         skillOneShortDescription.text = skillOne.SkillShortDescription;
         skillTwoShortDescription.text = skillTwo.SkillShortDescription;
         ultimateShortDescription.text = ultimate.SkillShortDescription;
     }
 
+    public void ClosedSkillsUi()
+    {
+        _skillSelectionManager.TurnScreenOff();
+        characterSelectionScreen.SetActive(false);
+    }
+    
     public void ChangeSkillIcon(SkillSlot slot) {
         SkillSO currentSkill = CurrentSelectedCharacterWhiteBoard.Instance.ReturnCurrentSkillBySlot(slot);
         switch (slot) {

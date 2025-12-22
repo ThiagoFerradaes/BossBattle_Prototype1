@@ -61,6 +61,7 @@ public class PlayerInteractionManager : MonoBehaviour
     
     private StoreSystem _store;
     
+    private TrainingFieldSystem _trainingFieldSystem;
     #endregion
     
     #region Unity Lifecycle Methods
@@ -118,6 +119,7 @@ public class PlayerInteractionManager : MonoBehaviour
         _mapManager = CanvasTavernaManagerStatic.Instance.MapManager;
         _editorRoomButton = CanvasTavernaManagerStatic.Instance.EditorRoomButton;
         _store = CanvasTavernaManagerStatic.Instance.StoreSystem;
+        _trainingFieldSystem = CanvasTavernaManagerStatic.Instance.TrainingSystem;
         
         if (TavernCameraController.Instance != null)
         {
@@ -248,6 +250,11 @@ public class PlayerInteractionManager : MonoBehaviour
     public void StoreOpen()
     {
         _store.OpenStore(this);
+    }
+
+    public void TrainingFieldOpen()
+    {
+        _trainingFieldSystem.SetPlayerInteractionManager(this);
     }
     
     /// <summary>

@@ -152,23 +152,18 @@ public class RoomCanvasStatic : MonoBehaviour
                 await LoadInventoryByJson();
                 return;
             }
-
             string json = await File.ReadAllTextAsync(SavePath);
             SaveFurnitureByJson loadedData = JsonUtility.FromJson<SaveFurnitureByJson>(json);
-
             if (loadedData?.saveFurniture?.furnitureRooms == null)
             {
                 Debug.LogError("Invalid save data structure.");
                 await LoadInventoryByJson();
                 return;
             }
-
             // Convert back to Dictionary
             Dictionary<byte, (CharacterValue, Dictionary<byte, Furniture>, byte, CharactersSo)> furnitureDictionary =
                 new Dictionary<byte, (CharacterValue, Dictionary<byte, Furniture>, byte, CharactersSo)>();
-
             TimeEnum timeEnum = RawMaterialStatic.Instance.GetTimeGame();
-            
             foreach (var roomEntry in loadedData.saveFurniture.furnitureRooms)
             {
                 byte roomKey = roomEntry.roomKey;
@@ -181,7 +176,6 @@ public class RoomCanvasStatic : MonoBehaviour
                 
                 furnitureDictionary[roomKey] = (characterValue, furnitureDict, slotAmount, characterSo);
             }
-
             // Apply loaded data to room systems
             int loadedCount = 0;
             foreach (var roomSystem in roomSystems)
@@ -199,7 +193,6 @@ public class RoomCanvasStatic : MonoBehaviour
                     Debug.LogWarning($"No saved furniture data found for room ID: {id}");
                 }
             }
-
             Debug.Log($"Furniture data loaded successfully! Loaded {loadedCount}/{roomSystems.Length} rooms.");
             await LoadInventoryByJson();
         }
