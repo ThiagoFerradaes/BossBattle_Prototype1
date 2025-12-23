@@ -64,4 +64,9 @@ public class PlayerManager : MonoBehaviour {
     void Defeat() {
         ScreensInGameUI.Instance.TurnScreenOn(TypeOfScreen.Defeat);
     }
+
+    public void SetPlayer(GameObject newPlayer)
+    {
+        Player = newPlayer;
+    }
 }

@@ -17,16 +17,21 @@ public class TrainingFieldSystem : MonoBehaviour
 
     [SerializeField] private Transform spawnTransform;
     
-    [HideInInspector] public GameObject Player;
+    [HideInInspector] public GameObject player;
     
-    CurrentSelectedCharacterWhiteBoard _playerWhiteBoard;
+    private CurrentSelectedCharacterWhiteBoard _playerWhiteBoard;
     
+    [SerializeField] private TavernCameraController cameraController;
     [SerializeField] private GameObject cancelTrainingButton;
     [SerializeField] private GameObject canvasSkill;
+
+    private Transform _oldPlayer;
+    
     private void Awake() 
     {
         _playerWhiteBoard = CurrentSelectedCharacterWhiteBoard.Instance;
         closedInteraction.onClick.AddListener(CloseTrainingField);
+        changeCharacterButton.onClick.AddListener(() => characterSelectionManager.Initialize());
     }
 
     public void SetPlayerInteractionManager(PlayerInteractionManager playerInteractionManager)
@@ -36,14 +41,16 @@ public class TrainingFieldSystem : MonoBehaviour
         foreach (var canvas in canvasActive) canvas.SetActive(true);
         foreach (var canvas in canvasDisabled) canvas.SetActive(false);
         
-        characterSelectionManager.Initialize();
+        //characterSelectionManager.Initialize();
     }
 
     public void CloseTrainingField()
     {
-        if (Player is not null)
+        if (player is not null)
         {
-            Destroy(Player);    
+            cameraController.SetPlayerTransform(_oldPlayer);
+            PlayerManager.Instance.SetPlayer(_oldPlayer.gameObject);
+            Destroy(player);    
             cancelTrainingButton.SetActive(false);
             canvasSkill.SetActive(false);
         }
@@ -64,13 +71,16 @@ public class TrainingFieldSystem : MonoBehaviour
     
     public void Spawn()
     {
+        _oldPlayer = cameraController.GetPlayerTransform();
         cancelTrainingButton.SetActive(true);
         canvasSkill.SetActive(true);
         Character currentCharacter = _playerWhiteBoard.ReturnSelectedCharacter();
 
         if (characterPrefabDictionary.ContainsKey(currentCharacter)) {
-            GameObject player = Instantiate(characterPrefabDictionary[currentCharacter], spawnTransform.position, Quaternion.identity);
-            Player = player;
+            GameObject instantiate = Instantiate(characterPrefabDictionary[currentCharacter], spawnTransform.position, Quaternion.identity);
+            player = instantiate;
+            PlayerManager.Instance.SetPlayer(player);
+            cameraController.SetPlayerTransform(instantiate.transform);
         }
         NoCanvas();
     }
