@@ -60,4 +60,6 @@ public static class ItemDB
     {
         return DB.GeString(type);
     }
+    
+    public static CharactersSo GetCharacter(Character type) => DB.GetCharacter(type);
 }

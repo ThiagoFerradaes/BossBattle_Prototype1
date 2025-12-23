@@ -100,7 +100,7 @@ public class RoomCanvasStatic : MonoBehaviour
             var furnitureData = roomSystems
                 .Select(roomSystem => roomSystem.GetFurniture())
                 .ToList();
-
+            
             // Create a save data structure
             SaveFurniture saveFurnitureData = new SaveFurniture();
 
@@ -113,7 +113,7 @@ public class RoomCanvasStatic : MonoBehaviour
                 CharactersSo characterSo = data.characterSo;
                 
                 // Convert to serializable structure
-                FurnitureData roomFurniture = new FurnitureData(characterValue, furnitureDict,characterSo ,slotAmount);
+                FurnitureData roomFurniture = new FurnitureData(characterValue, furnitureDict,characterSo.Character ,slotAmount);
                 saveFurnitureData.furnitureRooms.Add(new RoomFurnitureEntry(roomKey, roomFurniture));
             }
 
@@ -164,16 +164,16 @@ public class RoomCanvasStatic : MonoBehaviour
             Dictionary<byte, (CharacterValue, Dictionary<byte, Furniture>, byte, CharactersSo)> furnitureDictionary =
                 new Dictionary<byte, (CharacterValue, Dictionary<byte, Furniture>, byte, CharactersSo)>();
             TimeEnum timeEnum = RawMaterialStatic.Instance.GetTimeGame();
+            
             foreach (var roomEntry in loadedData.saveFurniture.furnitureRooms)
             {
                 byte roomKey = roomEntry.roomKey;
                 byte slotAmount = roomEntry.furnitureData.slotAmount;
                 CharacterValue characterValue = roomEntry.furnitureData.characterValue;
                 Dictionary<byte, Furniture> furnitureDict = roomEntry.furnitureData.ToDictionary();
-                CharactersSo characterSo = roomEntry.furnitureData.character;
-
-                _ = InstantiateCharacter(characterSo,timeEnum, roomKey);
+                CharactersSo characterSo = ItemDB.GetCharacter(roomEntry.furnitureData.character);
                 
+                _ = InstantiateCharacter(characterSo,timeEnum, roomKey);
                 furnitureDictionary[roomKey] = (characterValue, furnitureDict, slotAmount, characterSo);
             }
             // Apply loaded data to room systems
@@ -272,6 +272,8 @@ public class RoomCanvasStatic : MonoBehaviour
     /// <returns>Task representing the asynchronous spawn operation</returns>
     private Task InstantiateCharacter(CharactersSo characterSo, TimeEnum timeEnum, byte roomKey)
     {
+        if(characterSo is null) return Task.CompletedTask;
+        
         ActivitiesEnum activity = characterSo.GetRandomActivity(timeEnum);
     
         var spawnerCharacterEnum = activity switch
@@ -573,7 +575,7 @@ public class SpawnerNpc
 public class FurnitureData
 {
     public byte slotAmount;
-    public CharactersSo character;
+    public Character character;
     public CharacterValue characterValue;
     public List<FurnitureEntry> furnitureList;
 
@@ -584,7 +586,7 @@ public class FurnitureData
     /// <param name="furnitureDict">Dictionary mapping furniture slots to furniture</param>
     /// <param name="characterSo">ScriptObj For character</param>
     /// <param name="slotAmount">Number of furniture slots</param>
-    public FurnitureData(CharacterValue charValue, Dictionary<byte, Furniture> furnitureDict,CharactersSo characterSo = null ,byte slotAmount = 0)
+    public FurnitureData(CharacterValue charValue, Dictionary<byte, Furniture> furnitureDict,Character characterSo = Character.Null ,byte slotAmount = 0)
     {
         character = characterSo;
         characterValue = charValue;
