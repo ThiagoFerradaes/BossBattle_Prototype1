@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using AYellowpaper.SerializedCollections;
 using MyEnum;
@@ -25,6 +26,10 @@ public class ItemDatabase : ScriptableObject
     
     [SerializedDictionary("cost", "Info")]
     [SerializeField] private SerializedDictionary<CostOfTheFurnitureEnum, ItemInfoForSize> itemsByCost = new();
+    
+    [SerializedDictionary("characters", "Info")]
+    [SerializeField] private SerializedDictionary<Character, CharactersSo> characters = new();
+    
     public Sprite GetImage(SizeOfFurnitureEnum type)
     {
         return !itemsBySize.ContainsKey(type) ? null : itemsBySize[type].icon;
@@ -70,4 +75,6 @@ public class ItemDatabase : ScriptableObject
     {
         return !itemsByCost.ContainsKey(type) ? null : itemsByCost[type].displayDescription;
     }
+    
+    public CharactersSo GetCharacter(Character type) => characters.GetValueOrDefault(type);
 }

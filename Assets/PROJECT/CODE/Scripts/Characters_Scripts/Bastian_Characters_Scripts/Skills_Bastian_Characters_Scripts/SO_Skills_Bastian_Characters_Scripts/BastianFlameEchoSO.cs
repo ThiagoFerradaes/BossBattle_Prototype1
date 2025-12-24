@@ -20,6 +20,7 @@ public class BastianFlameEchoSO : UltimateSkillSO
     [Header("Animation")]
     [Foldout("Specific")] public string AnimationParameter;
     [Foldout("Specific")] public string AnimationName;
+    [Foldout("Specific")] public string AttackSpeedAnimationParameter;
 
     [Header("Ultimate Atributes")]
     [Foldout("Specific")] public float UltimateDuration;

@@ -59,7 +59,7 @@ public class CyrusTonfasSkillManager : SkillObjectManager
 
         if (_skillLevel >= 3) {
             newAtributes.ExtraAtributes[ExtraDamageContextAtributes.CritRate] = _info.CritRateLevelThree;
-            newAtributes.ExtraAtributes[ExtraDamageContextAtributes.CritDamage] = _info.CritDamageLevelThree/100;
+            newAtributes.ExtraAtributes[ExtraDamageContextAtributes.CritDamage] = _info.CritDamageLevelThree;
         }
 
 

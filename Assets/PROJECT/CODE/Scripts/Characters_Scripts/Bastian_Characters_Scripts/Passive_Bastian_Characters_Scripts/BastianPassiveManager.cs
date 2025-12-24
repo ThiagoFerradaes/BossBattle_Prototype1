@@ -11,7 +11,7 @@ public class BastianPassiveManager : PassiveSkillManager {
 
     // Atributes
     float _currentHeat;
-    bool _looseAllHeat;
+    bool _looseAllHeat, _canLooseHeat;
     HeatArea _heatArea = HeatArea.CoolArea;
     [HideInInspector] public bool CanShoot = true;
 
@@ -26,6 +26,7 @@ public class BastianPassiveManager : PassiveSkillManager {
     // Actions
     public event Action<float, float> OnHeatGain;
 
+    #region Initialize
     private void Awake() {
         if (Instance == null) {
             Instance = this;
@@ -44,13 +45,22 @@ public class BastianPassiveManager : PassiveSkillManager {
 
         gameObject.SetActive(true);
 
+        SetCanLooseHeat(true);
+
         _heatLostCoroutine ??= StartCoroutine(HeatLostPerTime());
 
         AditionalUIManager.Instance.InstantiateUI(_info.HeatCanvas);
 
         CanShoot = true;
     }
+    #endregion
 
+    #region SetHeat
+    public void SetCanLooseHeat(bool canLooseHeat) => _canLooseHeat = canLooseHeat;
+    public void SetHeatToAmount(float newHeatAmount)
+    {
+        _currentHeat = newHeatAmount;
+    }
     public void GainHeat(float amountOfHeat) {
         if (_currentHeat + amountOfHeat <= _info.HeatToHitOverHeatArea)
             _currentHeat += amountOfHeat;
@@ -91,8 +101,19 @@ public class BastianPassiveManager : PassiveSkillManager {
         float damage = Mathf.Min(healthToLoose, Mathf.Max(0, currentHealth - 1));
         if (damage > 0) _healthManager.TakeDamage(damage, false);
     }
+    #endregion
 
     #region CheckHeat
+    public void LooseAllHeat() => _currentHeat = 0;
+    public float ReturnCurrentHeat() => _currentHeat;
+    public bool ReturnMinHeat(HeatArea minHeatArea)
+    {
+        return _heatArea >= minHeatArea;
+    }
+    public bool ReturnMaxHeat(HeatArea minHeatArea)
+    {
+        return _heatArea <= minHeatArea;
+    }
     void CheckHeat() {
         if (_currentHeat >= _info.HeatToHitLastOverHeatArea) {
             LastOverHeatHit();
@@ -164,10 +185,12 @@ public class BastianPassiveManager : PassiveSkillManager {
         _heatArea = HeatArea.LastOverHeatArea;
     }
     #endregion
+
+    #region HeatCoroutines
     IEnumerator HeatLostPerTime() {
         while (true) {
             yield return new WaitForSeconds(_info.TimeToLooseHeat);
-            if (_currentHeat < _info.HeatToHitOverHeatArea || _looseAllHeat) LooseHeat(_info.HeatLostPerTime);
+            if ((_currentHeat < _info.HeatToHitOverHeatArea || _looseAllHeat) && _canLooseHeat) LooseHeat(_info.HeatLostPerTime);
         }
     }
 
@@ -198,12 +221,6 @@ public class BastianPassiveManager : PassiveSkillManager {
         _looseHealthCoroutine = null;
     }
 
-    public bool ReturnMinHeat(HeatArea minHeatArea) {
-        return _heatArea >= minHeatArea;
-    }
-    public bool ReturnMaxHeat(HeatArea minHeatArea)
-    {
-        return _heatArea <= minHeatArea;
-    }
+    #endregion
 
 }

@@ -7,18 +7,14 @@ public class BastianIgnisManager : SkillObjectManager {
     BastianIgnisSO _info;
 
     float _attackSpeedMultiplier;
-    public override void HandleInput(SkillSO skill, InputAction.CallbackContext ctx) {
-        if (!BastianPassiveManager.Instance.CanShoot) {
+    public override void HandleInput(SkillSO skill, InputAction.CallbackContext ctx)
+    {
+        if (!BastianPassiveManager.Instance.CanShoot)
+        {
             return;
         }
 
-        if (ctx.phase == InputActionPhase.Started) {
-            _preCasted = true;
-            PreCast(skill);
-        }
-        if (ctx.phase == InputActionPhase.Canceled && _preCasted) {
-            ReleaseInput(skill);
-        }
+        base.HandleInput(skill, ctx);
     }
 
     public override void UseSkill(SkillSO skill) {
@@ -35,10 +31,10 @@ public class BastianIgnisManager : SkillObjectManager {
 
     public override void FirstFunc() {
         cooldownManager.SetCooldownWithCharges(slot, _info);
-        _attackSpeedMultiplier = GetAttackSpeedMultiplier();
 
         skillManager.SkillIsInAnimation(true);
 
+        _attackSpeedMultiplier = GetAttackSpeedMultiplier();
         anim.SetFloat(_info.AttackSpeedAnimationParameter, _attackSpeedMultiplier);
     }
 
@@ -61,7 +57,7 @@ public class BastianIgnisManager : SkillObjectManager {
     public override void InstantiateHitBox(SkillAnimationEvent prefabInfo) {
         GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFab, TypeOfSkillPrefab.Hitbox);
 
-        preFab.transform.localScale = _info.Size;
+        preFab.transform.localScale = _info.SkillDamageAtributes.Size;
         preFab.transform.SetPositionAndRotation(parent.transform.position + prefabInfo.PreFabPosition, parent.transform.rotation);
 
         float pen = BastianPassiveManager.Instance.ReturnMinHeat(HeatArea.SuperHeatArea) ? _info.PenetrationOnSuperHeat : 0;

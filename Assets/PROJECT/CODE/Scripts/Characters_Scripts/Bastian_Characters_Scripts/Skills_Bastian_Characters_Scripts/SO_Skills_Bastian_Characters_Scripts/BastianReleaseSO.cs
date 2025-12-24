@@ -12,4 +12,5 @@ public class BastianReleaseSO : CommonSkillSO {
     [Header("Animation")]
     [Foldout("Specific")] public string AnimationParameter;
     [Foldout("Specific")] public string AnimationName;
+    [Foldout("Specific")] public string AttackSpeedAnimationParameter;
 }

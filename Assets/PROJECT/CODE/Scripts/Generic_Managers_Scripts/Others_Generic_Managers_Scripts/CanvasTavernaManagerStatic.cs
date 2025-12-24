@@ -27,6 +27,9 @@ public class CanvasTavernaManagerStatic : MonoBehaviour
     [SerializeField]
     private StoreSystem storeSystem;
     
+    [SerializeField]
+    private TrainingFieldSystem trainingSystem;
+    
     [SerializedDictionary("Character", "Prefab")]
     [SerializeField] private SerializedDictionary<Character, GameObject> characterPrefabs;
     
@@ -41,4 +44,6 @@ public class CanvasTavernaManagerStatic : MonoBehaviour
     public Button EditorRoomButton => editorRoomButton;
     
     public StoreSystem StoreSystem => storeSystem;
+    
+    public TrainingFieldSystem TrainingSystem => trainingSystem;
 }
