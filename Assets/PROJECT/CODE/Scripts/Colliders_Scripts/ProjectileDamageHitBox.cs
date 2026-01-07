@@ -11,6 +11,7 @@ public class ProjectileDamageHitBox : MonoBehaviour {
 
     public event Action OnHit;
     public event Action<Collider> OnCollision;
+    public event Action<Vector3> OnFinalDestination;
 
     public void Initialize(DamageContext context) {
         _damageAtributes = context.Atributes;
@@ -81,6 +82,10 @@ public class ProjectileDamageHitBox : MonoBehaviour {
         StopCoroutine(_moveRoutine);
 
         _moveRoutine = null;
+
+        OnFinalDestination?.Invoke(this.transform.position);
+
+        OnFinalDestination = null;
 
         PoolingManager.Instance.ReturnObjectToPool(this.gameObject, TypeOfSkillPrefab.Hitbox);
     }

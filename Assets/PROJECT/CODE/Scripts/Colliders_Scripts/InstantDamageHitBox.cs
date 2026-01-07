@@ -23,6 +23,7 @@ public class InstantDamageHitBox : MonoBehaviour {
         _statusManager = context.StatusManager;
 
         gameObject.SetActive(true);
+
         if (hasTimer) StartCoroutine(AttackDuration());
     }
     public void ForceEnd() => End();

@@ -26,38 +26,38 @@ MonoBehaviour:
       Value:
       - TimeToSpawnPreFab: 0.5
         PrefabType: 0
+        PreFab: {fileID: 8264813264520993978, guid: 6dda3e24c1de5a34e9fecdc1776bcc59, type: 3}
+        PreFabPosition: {x: 0, y: 1.5, z: 2}
         VFXAtribute:
           VFXType: 0
           VFXDuration: 0
-          UnitsToHit:
-            serializedVersion: 2
-            m_Bits: 0
           VFXPosCollisionDuration: 0
           CrossEnemy: 0
           TimeStopped: 0
           MinDistanceBack: 0
+          UnitsToHit:
+            serializedVersion: 2
+            m_Bits: 0
           VFXSpeed: 0
           Distance: 0
-        PreFab: {fileID: 8264813264520993978, guid: 6dda3e24c1de5a34e9fecdc1776bcc59, type: 3}
-        PreFabPosition: {x: 0, y: 1.5, z: 2}
     - Key: 1
       Value:
       - TimeToSpawnPreFab: 0.5
         PrefabType: 0
+        PreFab: {fileID: 5556882484380889040, guid: 73183662ed7be604f90dff0cc2f277ff, type: 3}
+        PreFabPosition: {x: 0, y: 0, z: 0}
         VFXAtribute:
           VFXType: 0
           VFXDuration: 0
-          UnitsToHit:
-            serializedVersion: 2
-            m_Bits: 0
           VFXPosCollisionDuration: 0
           CrossEnemy: 0
           TimeStopped: 0
           MinDistanceBack: 0
+          UnitsToHit:
+            serializedVersion: 2
+            m_Bits: 0
           VFXSpeed: 0
           Distance: 0
-        PreFab: {fileID: 5556882484380889040, guid: 73183662ed7be604f90dff0cc2f277ff, type: 3}
-        PreFabPosition: {x: 0, y: 0, z: 0}
   SkillObjectRangeObject: {fileID: 1479167575052944571, guid: c7a5ab9fc1363e7449ec66128e7e8586, type: 3}
   BlockWalkWhilePreCasting: 1
   BlockDashWhilePreCasting: 1
@@ -71,6 +71,7 @@ MonoBehaviour:
   HasCharges: 1
   Charges: 3
   ChargeCooldown: 1
+  DealDamage: 1
   SkillDamageAtributes:
     DamageType: 1
     UnitsToHit:
@@ -90,8 +91,8 @@ MonoBehaviour:
     MinDistanceBack: 0
     ExtraAtributes:
       _serializedList: []
-  AnimationParameter: SkullSummon
-  AnimationName: Lilian_Skill_Summon
+  AnimationParameter: WingsOfHorror
+  AnimationName: Lilian_Skill_WingsOfHorror
   WingsOfHorrorAnimationParameter: Attack
   WingsOfHorrorAnimationName: attack
   RadiusOfAttack: 10
