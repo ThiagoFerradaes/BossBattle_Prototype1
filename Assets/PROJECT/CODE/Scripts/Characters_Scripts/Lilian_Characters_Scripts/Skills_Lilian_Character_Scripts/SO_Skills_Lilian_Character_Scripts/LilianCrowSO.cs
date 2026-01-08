@@ -15,5 +15,6 @@ public class LilianCrowSO : CommonSkillSO {
     [Foldout("Specific")] public float ExplosionMaxDamage;
     [Foldout("Specific")] public float SkillMinCooldown;
     [Foldout("Specific")] public float SkillPercentDamageToLillian;
+    [Foldout("Specific")] public float ExplosionEnergy;
     [Foldout("Specific"), Tooltip("Value between 0 - 100")] public float SkillMinCooldownHealthPercent;
 }

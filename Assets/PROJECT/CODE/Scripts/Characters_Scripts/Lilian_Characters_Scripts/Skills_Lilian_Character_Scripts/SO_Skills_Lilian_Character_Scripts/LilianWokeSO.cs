@@ -7,4 +7,7 @@ public class LilianWokeSO : CommonSkillSO {
     [Foldout("Specific")] public string AnimationParameter;
     [Foldout("Specific")] public string AnimationName;
 
+    [Header("Buff")]
+    [Foldout("Specific"), Tooltip("Value between 0-1")] public float AncestralDamageBuffPercent;
+
 }

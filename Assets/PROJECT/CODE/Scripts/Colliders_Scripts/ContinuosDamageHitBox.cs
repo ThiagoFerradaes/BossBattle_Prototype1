@@ -18,7 +18,8 @@ public class ContinuosDamageHitBox : MonoBehaviour {
     Coroutine _durationCoroutine, _attackCooldownCoroutine;
 
     // Event
-    public event Action OnHit;
+    public event Action OnHit, OnEnd;
+    public event Action OnEnter, OnExit;
 
     public void Initialize(DamageContext context) {
         _damageAtributes = context.Atributes;
@@ -103,16 +104,20 @@ public class ContinuosDamageHitBox : MonoBehaviour {
         if (!_damageAtributes.UnitsToHit.ContainsLayer(other.gameObject.layer)) return;
 
         _listOfHealths.Add(other.gameObject);
+        OnEnter?.Invoke();
     }
 
     private void OnTriggerExit(Collider other) {
         if (!_damageAtributes.UnitsToHit.ContainsLayer(other.gameObject.layer)) return;
 
         _listOfHealths.Remove(other.gameObject);
+        OnExit?.Invoke();
     }
 
     public void End() {
         OnHit = null;
+        OnEnter = null;
+        OnExit = null;
 
         if (_durationCoroutine != null) {
             StopCoroutine(_durationCoroutine);
@@ -125,6 +130,10 @@ public class ContinuosDamageHitBox : MonoBehaviour {
         }
 
         _listOfHealths.Clear();
+
+        OnEnd?.Invoke();
+
+        OnEnd = null;
 
         PoolingManager.Instance.ReturnObjectToPool(this.gameObject, TypeOfSkillPrefab.Hitbox);
     }

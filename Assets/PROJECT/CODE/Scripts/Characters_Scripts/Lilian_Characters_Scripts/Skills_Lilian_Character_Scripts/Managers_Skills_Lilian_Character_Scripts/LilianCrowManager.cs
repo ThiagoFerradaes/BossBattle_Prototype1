@@ -3,7 +3,7 @@ using UnityEngine;
 public class LilianCrowManager : SkillObjectManager {
     LilianCrowSO _info;
 
-    bool _hasExploded, _hasFinishedAnimation;
+    bool _hasExploded, _hasFinishedAnimation, _hasGainedEnergyInExplosion;
     float _skillDamage;
 
     #region Initialize
@@ -50,6 +50,7 @@ public class LilianCrowManager : SkillObjectManager {
 
         _hasExploded = false;
         _hasFinishedAnimation = false;
+        _hasGainedEnergyInExplosion = false;
         _skillDamage = 0;
 
         EndWithUnblockSkills();
@@ -116,7 +117,16 @@ public class LilianCrowManager : SkillObjectManager {
             parent.GetComponent<StatusManager>()
         );
 
-        preFab.GetComponent<InstantDamageHitBox>().Initialize(newContext);
+        InstantDamageHitBox hitbox = preFab.GetComponent<InstantDamageHitBox>();
+        hitbox.Initialize(newContext);
+
+        hitbox.OnHit += () =>
+        {
+            if (_hasGainedEnergyInExplosion) return;
+            _hasGainedEnergyInExplosion = true;
+
+            energyManager.GainEnergy(_info.ExplosionEnergy);
+        };
 
         _hasExploded = true;
 

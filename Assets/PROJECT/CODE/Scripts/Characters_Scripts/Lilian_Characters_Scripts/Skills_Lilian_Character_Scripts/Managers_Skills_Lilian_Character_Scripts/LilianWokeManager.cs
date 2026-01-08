@@ -1,8 +1,13 @@
+using System.Collections;
 using UnityEngine;
 
 public class LilianWokeManager : SkillObjectManager
 {
     LilianWokeSO _info;
+
+    bool _isBuffed;
+
+    Coroutine _buffRoutine;
 
     public override void UseSkill(SkillSO skill) {
         base.UseSkill(skill);
@@ -27,7 +32,7 @@ public class LilianWokeManager : SkillObjectManager
     public override void FourthFunc() {
         base.FourthFunc();
 
-        EndWithUnblockSkills();
+        UnblockInputs();
     }
 
     public override void InstantiateHitBox(SkillAnimationEvent prefabinfo) {
@@ -43,5 +48,38 @@ public class LilianWokeManager : SkillObjectManager
 
         ContinuosDamageHitBox hitbox = prefab.GetComponent<ContinuosDamageHitBox>();
         hitbox.Initialize(newContext);
+
+        hitbox.OnEnter += Buff;
+        hitbox.OnExit += Debuff;
+        hitbox.OnEnd += BuffEnd;
     }
+
+    #region BuffArea
+    void Buff()
+    {
+        if (_isBuffed) return;
+
+        statusManager.ChangeStatus(StatusType.SkillAttack, _info.AncestralDamageBuffPercent, true);
+
+        _isBuffed = true;
+    }
+
+    void Debuff()
+    {
+
+        if (!_isBuffed) return;
+
+        statusManager.ChangeStatus(StatusType.SkillAttack, _info.AncestralDamageBuffPercent, false);
+
+        _isBuffed = false;
+    }
+
+    void BuffEnd()
+    {
+        if (_isBuffed) Debuff();
+
+        End();
+    }
+
+    #endregion
 }
