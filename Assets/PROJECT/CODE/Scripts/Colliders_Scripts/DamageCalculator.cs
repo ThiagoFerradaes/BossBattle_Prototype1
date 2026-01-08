@@ -50,6 +50,12 @@ public class DamageAtributes {
     public float Speed = 10f;
     [ShowIf("TypeOfPrefab", TypeOfCollider.Projectile), AllowNesting]
     public bool CrossEnemy = false;
+    //[ShowIf("TypeOfPrefab", TypeOfCollider.Projectile), AllowNesting]
+    //public bool ExplodeInTheEnd = false;
+    //[ShowIf("ExplodeInTheEnd"), AllowNesting, Tooltip("Leave TypeOfProjectile in Instant")]
+    //public DamageAtributes ExplosionAtribute;
+    //[ShowIf("ExplodeInTheEnd"), AllowNesting]
+    //public GameObject ExplosionHitBox;
 
     // Boomerang
     [ShowIf("TypeOfPrefab", TypeOfCollider.Boomerang), AllowNesting]
