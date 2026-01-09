@@ -85,6 +85,7 @@ public abstract class SkillObjectManager : MonoBehaviour {
 
         UseSkill(skill);
     }
+
     public virtual void UnblockInputs() {
         
         skillManager.MoveManager.BlockWalk(false);

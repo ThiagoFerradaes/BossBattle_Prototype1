@@ -1,7 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class LilianLightGodManager : SkillObjectManager
 {
@@ -9,9 +12,11 @@ public class LilianLightGodManager : SkillObjectManager
     LilianLightGodSO _info;
 
     [SerializeField] List<GameObject> listOfGodsObjects = new();
-    int godIndex;
+    int _godIndex;
+    bool _isShooting;
+    float _skillTimer;
 
-    Coroutine _selfDamageRoutine;
+    Coroutine _selfDamageRoutine, _skillDurationRoutine;
     Action<float> _onHeal;
     #endregion
 
@@ -20,14 +25,22 @@ public class LilianLightGodManager : SkillObjectManager
     {
         base.UseSkill(skill);
 
-        Initialize(skill);
+        if (!gameObject.activeInHierarchy)
+        {
+            Initialize(skill);
 
-        animationCoroutine ??= StartCoroutine(AttackCoroutine(0, _info.AnimationParameter, _info.AnimationName, 0));
+            animationCoroutine ??= StartCoroutine(AttackCoroutine(0, _info.AnimationParameter, _info.AnimationName, 0));
+        }
+
+        else
+        {
+            ShootBeam();
+        }
     }
 
     void Initialize(SkillSO skill)
     {
-        if (_info == null) _info =  skill as LilianLightGodSO;
+        if (_info == null) _info = skill as LilianLightGodSO;
 
         transform.SetParent(parent.transform, false);
         transform.SetLocalPositionAndRotation(_info.ManagerLocalPosition, Quaternion.identity);
@@ -43,17 +56,21 @@ public class LilianLightGodManager : SkillObjectManager
     {
         base.FirstFunc();
 
+        if (_isShooting) return;
+
         energyManager.SetCanGainEnergy(false);
-        energyManager.LooseAllEnergy();
     }
 
     public override void ThirdFunc()
     {
+        if (_isShooting) return;
+
         healthManager.Heal(_info.HealthToHealBeforeUlt);
 
         TurnGodOn();
 
         _selfDamageRoutine ??= StartCoroutine(SelfDamageCooldownRoutine());
+        _skillDurationRoutine ??= StartCoroutine(DurationTimer());
 
         healthManager.OnHeal += _onHeal;
     }
@@ -62,44 +79,126 @@ public class LilianLightGodManager : SkillObjectManager
     {
         base.FourthFunc();
 
-        UnblockInputs();
+        if (!_isShooting) UnblockInputs();
+        else
+        {
+            UnblockInputs();
+            End();
+        }
     }
     #endregion
 
     void TurnGodOn()
     {
+        if (_godIndex >= listOfGodsObjects.Count - 1) return;
 
-        if (godIndex < listOfGodsObjects.Count - 1)
-        {
-            listOfGodsObjects[godIndex].SetActive(true);
+        listOfGodsObjects[_godIndex].SetActive(true);
 
-            godIndex++;
-        }
-        else
-        {
-            Debug.Log("Atirar");
-            End();
-        }
+        _godIndex++;
+
     }
-    
     IEnumerator SelfDamageCooldownRoutine()
     {
         float currentHealthPercent = healthManager.ReturnCurrentHealth() / healthManager.ReturnMaxHealth();
 
-        while (currentHealthPercent > _info.PercentOfMinHealth/100)
+        while (currentHealthPercent > _info.PercentOfMinHealth / 100)
         {
             healthManager.TakeDamage(_info.SelfDamageLostOverTime);
             currentHealthPercent = healthManager.ReturnCurrentHealth() / healthManager.ReturnMaxHealth();
             yield return new WaitForSeconds(_info.CooldownBetweenSelfDamage);
         }
 
+        ShootBeam();
+    }
+    IEnumerator DurationTimer()
+    {
+        while (true)
+        {
+            _skillTimer += Time.deltaTime;
+            yield return null;
+        }
+    }
+    void ShootBeam()
+    {
+        if (_isShooting) return;
+
+        _isShooting = true;
+
+        energyManager.LooseAllEnergy();
+
+        if (_skillDurationRoutine != null)
+        {
+            StopCoroutine(_skillDurationRoutine);
+            _skillDurationRoutine = null;
+        }
+
+        animationCoroutine ??= StartCoroutine(AttackCoroutine(0, _info.BeamAnimationParameter, _info.BeamAnimationName, 0));
+
+        movementManager.BlockWalk(true);
+        skillManager.BlockAllSkills(true);
     }
 
+    #region Instantiate
+    public override void InstantiateHitBox(SkillAnimationEvent prefabInfo)
+    {
+        if (!_isShooting) return;
+
+        GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFab, TypeOfSkillPrefab.Hitbox);
+
+        // SIZE
+        Vector3 size = DecideBeamLocalScale();
+        preFab.transform.localScale = size;
+
+        // POSITION
+        preFab.transform.SetParent(parent.transform, false);
+        Vector3 pos = new(prefabInfo.PreFabPosition.x, prefabInfo.PreFabPosition.y, size.z / 2);
+        preFab.transform.SetLocalPositionAndRotation(pos, Quaternion.identity);
+        preFab.transform.SetParent(null);
+
+        // ATRIBUTES
+
+        DamageAtributes newAtribute = new(_info.Atributes)
+        {
+            Damage = DecideDamage(),
+            DamageCooldown = DecideDamageCooldown()
+        };
+
+        DamageContext newContext = new(newAtribute, statusManager);
+
+        ContinuosDamageHitBox hitbox = preFab.GetComponent<ContinuosDamageHitBox>();
+        hitbox.Initialize(newContext);
+    }
+    Vector3 DecideBeamLocalScale()
+    {
+        Vector3 finalSize;
+
+        finalSize.y = _info.Atributes.Size.y;
+        finalSize.x = _info.Atributes.Size.x + (_info.BeamSizeMultiplierByAmountOfGods * _godIndex);
+        finalSize.z = _info.Atributes.Size.z;
+
+        return finalSize;
+    }
+
+    float DecideDamageCooldown()
+    {
+        return _info.Atributes.DamageCooldown - (_info.BeamDamageCooldownByAmountOfGods * _godIndex);
+    }
+
+    float DecideDamage()
+    {
+        return _info.Atributes.Damage + (_info.BeamDamageMultiplierByAmountOfGods * _skillTimer);
+    }
+
+    #endregion
     public override void End()
     {
         healthManager.OnHeal -= _onHeal;
 
-        godIndex = 0;
+        _godIndex = 0;
+
+        _skillTimer = 0;
+
+        _isShooting = false;
 
         if (_selfDamageRoutine != null)
         {
@@ -107,7 +206,7 @@ public class LilianLightGodManager : SkillObjectManager
             _selfDamageRoutine = null;
         }
 
-        foreach(var god in listOfGodsObjects)
+        foreach (var god in listOfGodsObjects)
         {
             god.SetActive(false);
         }
