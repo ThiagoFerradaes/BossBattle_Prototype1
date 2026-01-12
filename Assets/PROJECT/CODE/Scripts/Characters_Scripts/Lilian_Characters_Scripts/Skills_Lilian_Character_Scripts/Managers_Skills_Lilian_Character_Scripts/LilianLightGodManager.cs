@@ -6,8 +6,7 @@ using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class LilianLightGodManager : SkillObjectManager
-{
+public class LilianLightGodManager : SkillObjectManager {
     #region Variables
     LilianLightGodSO _info;
 
@@ -21,25 +20,21 @@ public class LilianLightGodManager : SkillObjectManager
     #endregion
 
     #region Initialize
-    public override void UseSkill(SkillSO skill)
-    {
+    public override void UseSkill(SkillSO skill) {
         base.UseSkill(skill);
 
-        if (!gameObject.activeInHierarchy)
-        {
+        if (!gameObject.activeInHierarchy) {
             Initialize(skill);
 
             animationCoroutine ??= StartCoroutine(AttackCoroutine(0, _info.AnimationParameter, _info.AnimationName, 0));
         }
 
-        else
-        {
+        else {
             ShootBeam();
         }
     }
 
-    void Initialize(SkillSO skill)
-    {
+    void Initialize(SkillSO skill) {
         if (_info == null) _info = skill as LilianLightGodSO;
 
         transform.SetParent(parent.transform, false);
@@ -52,8 +47,7 @@ public class LilianLightGodManager : SkillObjectManager
     #endregion
 
     #region Override
-    public override void FirstFunc()
-    {
+    public override void FirstFunc() {
         base.FirstFunc();
 
         if (_isShooting) return;
@@ -61,8 +55,7 @@ public class LilianLightGodManager : SkillObjectManager
         energyManager.SetCanGainEnergy(false);
     }
 
-    public override void ThirdFunc()
-    {
+    public override void ThirdFunc() {
         if (_isShooting) return;
 
         healthManager.Heal(_info.HealthToHealBeforeUlt);
@@ -75,34 +68,35 @@ public class LilianLightGodManager : SkillObjectManager
         healthManager.OnHeal += _onHeal;
     }
 
-    public override void FourthFunc()
-    {
+    public override void FourthFunc() {
         base.FourthFunc();
 
         if (!_isShooting) UnblockInputs();
-        else
-        {
+        else {
             UnblockInputs();
             End();
         }
     }
     #endregion
 
-    void TurnGodOn()
-    {
-        if (_godIndex >= listOfGodsObjects.Count - 1) return;
+    void TurnGodOn() {
+        if (_godIndex > listOfGodsObjects.Count - 1) {
+            return;
+        }
 
         listOfGodsObjects[_godIndex].SetActive(true);
 
         _godIndex++;
 
+        if (_godIndex > listOfGodsObjects.Count - 1) {
+            ShootBeam();
+        }
+
     }
-    IEnumerator SelfDamageCooldownRoutine()
-    {
+    IEnumerator SelfDamageCooldownRoutine() {
         float currentHealthPercent = healthManager.ReturnCurrentHealth() / healthManager.ReturnMaxHealth();
 
-        while (currentHealthPercent > _info.PercentOfMinHealth / 100)
-        {
+        while (currentHealthPercent > _info.PercentOfMinHealth / 100) {
             healthManager.TakeDamage(_info.SelfDamageLostOverTime);
             currentHealthPercent = healthManager.ReturnCurrentHealth() / healthManager.ReturnMaxHealth();
             yield return new WaitForSeconds(_info.CooldownBetweenSelfDamage);
@@ -110,24 +104,25 @@ public class LilianLightGodManager : SkillObjectManager
 
         ShootBeam();
     }
-    IEnumerator DurationTimer()
-    {
-        while (true)
-        {
+    IEnumerator DurationTimer() {
+        while (true) {
             _skillTimer += Time.deltaTime;
             yield return null;
         }
     }
-    void ShootBeam()
-    {
+    void ShootBeam() {
         if (_isShooting) return;
 
         _isShooting = true;
 
         energyManager.LooseAllEnergy();
 
-        if (_skillDurationRoutine != null)
-        {
+        if (_selfDamageRoutine != null) {
+            StopCoroutine(_selfDamageRoutine);
+            _selfDamageRoutine = null;
+        }
+
+        if (_skillDurationRoutine != null) {
             StopCoroutine(_skillDurationRoutine);
             _skillDurationRoutine = null;
         }
@@ -139,8 +134,7 @@ public class LilianLightGodManager : SkillObjectManager
     }
 
     #region Instantiate
-    public override void InstantiateHitBox(SkillAnimationEvent prefabInfo)
-    {
+    public override void InstantiateHitBox(SkillAnimationEvent prefabInfo) {
         if (!_isShooting) return;
 
         GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFab, TypeOfSkillPrefab.Hitbox);
@@ -157,8 +151,7 @@ public class LilianLightGodManager : SkillObjectManager
 
         // ATRIBUTES
 
-        DamageAtributes newAtribute = new(_info.Atributes)
-        {
+        DamageAtributes newAtribute = new(_info.Atributes) {
             Damage = DecideDamage(),
             DamageCooldown = DecideDamageCooldown()
         };
@@ -168,8 +161,7 @@ public class LilianLightGodManager : SkillObjectManager
         ContinuosDamageHitBox hitbox = preFab.GetComponent<ContinuosDamageHitBox>();
         hitbox.Initialize(newContext);
     }
-    Vector3 DecideBeamLocalScale()
-    {
+    Vector3 DecideBeamLocalScale() {
         Vector3 finalSize;
 
         finalSize.y = _info.Atributes.Size.y;
@@ -179,19 +171,16 @@ public class LilianLightGodManager : SkillObjectManager
         return finalSize;
     }
 
-    float DecideDamageCooldown()
-    {
+    float DecideDamageCooldown() {
         return _info.Atributes.DamageCooldown - (_info.BeamDamageCooldownByAmountOfGods * _godIndex);
     }
 
-    float DecideDamage()
-    {
+    float DecideDamage() {
         return _info.Atributes.Damage + (_info.BeamDamageMultiplierByAmountOfGods * _skillTimer);
     }
 
     #endregion
-    public override void End()
-    {
+    public override void End() {
         healthManager.OnHeal -= _onHeal;
 
         _godIndex = 0;
@@ -200,14 +189,12 @@ public class LilianLightGodManager : SkillObjectManager
 
         _isShooting = false;
 
-        if (_selfDamageRoutine != null)
-        {
+        if (_selfDamageRoutine != null) {
             StopCoroutine(_selfDamageRoutine);
             _selfDamageRoutine = null;
         }
 
-        foreach (var god in listOfGodsObjects)
-        {
+        foreach (var god in listOfGodsObjects) {
             god.SetActive(false);
         }
 

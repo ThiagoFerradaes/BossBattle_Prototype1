@@ -8,6 +8,6 @@ public class LilianWokeSO : CommonSkillSO {
     [Foldout("Specific")] public string AnimationName;
 
     [Header("Buff")]
-    [Foldout("Specific"), Tooltip("Value between 0-1")] public float AncestralDamageBuffPercent;
+    [Foldout("Specific"), Range(0,1)] public float AncestralDamageBuffPercent;
 
 }

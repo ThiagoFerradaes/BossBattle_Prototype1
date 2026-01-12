@@ -84,7 +84,7 @@ public class ContinuosDamageHitBox : MonoBehaviour {
                     );
                 }
 
-                if (unit.gameObject.layer == LayerMask.NameToLayer("Enemy")) PopUpManager.Instance.DamageDone(
+                if (unit.layer == LayerMask.NameToLayer("Enemy")) PopUpManager.Instance.DamageDone(
                     (int)newDamage.Item1, health.transform.position, newDamage.Item2, _damageAtributes.DamageType);
                 health.TakeDamage(newDamage.Item1, _damageAtributes.HitShield);
 

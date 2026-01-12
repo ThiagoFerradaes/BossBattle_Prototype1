@@ -7,8 +7,6 @@ public class LilianWokeManager : SkillObjectManager
 
     bool _isBuffed;
 
-    Coroutine _buffRoutine;
-
     public override void UseSkill(SkillSO skill) {
         base.UseSkill(skill);
 

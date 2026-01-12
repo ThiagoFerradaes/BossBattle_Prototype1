@@ -60,6 +60,7 @@ public class LilianJudgmentDayManager : SkillObjectManager
         hitbox.transform.SetParent(parent.transform);
         hitbox.transform.localScale = _info.Atributes.Size;
         hitbox.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+        hitbox.transform.SetParent(null);
 
         DamageContext context = new(_info.Atributes, statusManager);
 
@@ -106,7 +107,7 @@ public class LilianJudgmentDayManager : SkillObjectManager
     {
         while (true)
         {
-            yield return new WaitForSeconds(_info.Atributes.DamageCooldown);
+            yield return new WaitForSeconds(_info.DamageCooldownToLilian);
 
             float damageToLilian = _info.DamageToLilian;
             float currentHealth = healthManager.ReturnCurrentHealth();

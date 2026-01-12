@@ -13,7 +13,7 @@ public class LilianLightGodSO : UltimateSkillSO {
     [Foldout("Specific")] public Vector3 ManagerLocalPosition;
     [Foldout("Specific")] public float SelfDamageLostOverTime;
     [Foldout("Specific")] public float CooldownBetweenSelfDamage;
-    [Foldout("Specific"), Tooltip("Value between 0-100")] public float PercentOfMinHealth;
+    [Foldout("Specific"), Range(0,100)] public float PercentOfMinHealth;
     [Foldout("Specific")] public float HealthToHealBeforeUlt;
 
     [Header("Beam Values")]
