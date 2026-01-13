@@ -30,7 +30,7 @@ public class ScreensInGameUI : MonoBehaviour {
 
     public void TurnScreenOn(TypeOfScreen type) {
         if (!dictionaryOfScreens.ContainsKey(type)) return;
-
+        if (dictionaryOfScreens[type] is null) return;
         Time.timeScale = 0;
 
         dictionaryOfScreens[type].SetActive(true);
@@ -38,7 +38,8 @@ public class ScreensInGameUI : MonoBehaviour {
 
     public void TurnScreenOff(TypeOfScreen type) {
         if (!dictionaryOfScreens.ContainsKey(type)) return;
-
+        if (dictionaryOfScreens[type] is null) return;
+        
         Time.timeScale = 1;
 
         dictionaryOfScreens[type].SetActive(false);
