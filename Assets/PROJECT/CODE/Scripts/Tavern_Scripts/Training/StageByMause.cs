@@ -3,10 +3,10 @@ using UnityEngine.InputSystem;
 
 public class StageByMause : TutorialClassBehaviour
 {
-    public override event Action OnCompleteTutorialEvent;
+    public override event Action<bool> OnCompleteTutorialEvent;
 
     public void Move(InputAction.CallbackContext context)
     {
-        if (context.started) OnCompleteTutorialEvent?.Invoke();
+        if (context.started) OnCompleteTutorialEvent?.Invoke(true);
     }
 }

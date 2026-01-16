@@ -4,6 +4,6 @@ using UnityEngine;
 
 public abstract class TutorialClassBehaviour : MonoBehaviour
 {
-    public abstract event Action OnCompleteTutorialEvent;
+    public abstract event Action<bool> OnCompleteTutorialEvent;
 }
 

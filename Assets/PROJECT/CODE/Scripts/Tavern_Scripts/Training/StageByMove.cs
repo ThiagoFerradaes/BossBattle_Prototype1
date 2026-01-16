@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 public class StageByMove : TutorialClassBehaviour
 {
-    public override event Action OnCompleteTutorialEvent;
+    public override event Action<bool> OnCompleteTutorialEvent;
     
     private byte moveInput; 
 
@@ -67,6 +67,6 @@ public class StageByMove : TutorialClassBehaviour
         }
         
         
-        if (moveInput == 15) OnCompleteTutorialEvent?.Invoke();
+        if (moveInput == 15) OnCompleteTutorialEvent?.Invoke(true);
     }
 }

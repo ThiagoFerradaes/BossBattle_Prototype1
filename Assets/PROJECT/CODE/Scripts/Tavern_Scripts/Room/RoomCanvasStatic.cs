@@ -280,18 +280,21 @@ public class RoomCanvasStatic : MonoBehaviour
 
     #region private Methods
 
-    private void NexStage()
+    private void NexStage(bool isStart = false)
     {
+        Debug.Log("tutorial stage completed");
         if (tutorial.Count == 0)
         {
             Debug.LogWarning("No tutorial stages found.");
             return;
         }
-        
-        tutorial[indexStage].classForTutorial.OnCompleteTutorialEvent -= NexStage;
-        
-        tutorial[indexStage].unityEventForCompleteThisTutorial.Invoke();
-        indexStage++;
+
+        if (isStart)
+        {
+            tutorial[indexStage].classForTutorial.OnCompleteTutorialEvent -= NexStage;
+            tutorial[indexStage].unityEventForCompleteThisTutorial.Invoke();
+            indexStage++;
+        }
 
         if (indexStage >= tutorial.Count)
         {
@@ -304,6 +307,7 @@ public class RoomCanvasStatic : MonoBehaviour
 
     private Task LoadTutorial()
     {
+        Debug.Log("Loading tutorial...");
         if (tutorial.Count == 0)
         {
             Debug.LogWarning("No tutorial stages found.");
