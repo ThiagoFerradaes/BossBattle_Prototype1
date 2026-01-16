@@ -27,5 +27,5 @@ public class CyrusAxeSkillSO : CommonSkillSO
 
     [Header("Level 3 Buff")]
     [Foldout("Specific")] public DamageAtributes RocksAtributes;
-    [Foldout("Specific")] public GameObject BrokenRocksPrefab;
+    //[Foldout("Specific")] public GameObject BrokenRocksPrefab;
 }

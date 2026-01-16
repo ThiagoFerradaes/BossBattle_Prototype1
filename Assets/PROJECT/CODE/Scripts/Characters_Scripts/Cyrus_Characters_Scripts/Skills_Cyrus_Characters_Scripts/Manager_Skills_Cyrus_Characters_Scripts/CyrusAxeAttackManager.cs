@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using System.Resources;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -23,8 +24,6 @@ public class CyrusAxeAttackManager : SkillObjectManager {
 
     #region Override & Initialize
     public override void HandleInput(SkillSO skill, InputAction.CallbackContext ctx) {
-
-        if (Keyboard.current.ctrlKey.isPressed) return;
 
         Initialize(skill);
 
@@ -57,8 +56,11 @@ public class CyrusAxeAttackManager : SkillObjectManager {
         movementManager.ChangeRotationType(RotationType.MouseRotation);
         skillManager.BlockAllSkills(true);
 
-        // Ligar animação
+        // Ligar animação de subir
         anim.SetTrigger(_info.FirstAnimationParameterName);
+
+        // VFX de subir 
+        InstantiateUpAxeVFX();
 
         // Começar o timer
         _chargeTimeCoroutine ??= StartCoroutine(ChargeTimer());
@@ -74,7 +76,18 @@ public class CyrusAxeAttackManager : SkillObjectManager {
         else if (_skillLevel > 1) healthManager.RecieveShield(_info.Level2AmountOfShield, _info.ShieldDuration);
     }
 
+    void InstantiateUpAxeVFX() {
+
+        if (_info.Prefabs[0].Count == 0) { Debug.Log("Nenhum VFX de subida do machado"); return; }
+
+        SkillAnimationEvent rocksVFXEvent = _info.Prefabs[0][0];
+
+        if (rocksVFXEvent.PrefabType == TypeOfSkillPrefab.VFX) InstantiateVFX(rocksVFXEvent);
+
+    }
     public override void UseSkill(SkillSO skill) {
+
+        // Só é chamado quando o machado ta descendo
         animationCoroutine ??= StartCoroutine(Attack());
     }
 
@@ -104,8 +117,8 @@ public class CyrusAxeAttackManager : SkillObjectManager {
     IEnumerator Attack() {
         while (_chargeTimer < _info.MinimalChargeTime) yield return null;
 
-        StartCoroutine(AttackCoroutine(0, _info.SecondAnimationParameterName, _info.SecondAnimationName, 0));
-       
+        StartCoroutine(AttackCoroutine(0, _info.SecondAnimationParameterName, _info.SecondAnimationName, 1));
+
     }
 
     public override void FourthFunc() {
@@ -181,15 +194,22 @@ public class CyrusAxeAttackManager : SkillObjectManager {
     }
 
     public override void InstantiateVFX(SkillAnimationEvent prefabInfo) {
+
+        // Esse vfx é só do machado descendo
+
         GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFab, TypeOfSkillPrefab.VFX);
         preFab.transform.SetParent(parent.transform, false);
         Vector3 rotation = new(-90, -180, 90);
         preFab.transform.SetLocalPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.Euler(rotation));
         preFab.transform.SetParent(null);
         preFab.GetComponent<VFXPreFabStatic>().Initialize(prefabInfo.VFXAtribute);
+
     }
     void InstantiateBrokenRocks() {
-        GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(_info.BrokenRocksPrefab, TypeOfSkillPrefab.Hitbox);
+
+        // Instanciando as pedrinhas - hit box
+
+        GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(_info.Prefabs[2][0].PreFab, TypeOfSkillPrefab.Hitbox);
         preFab.transform.localScale = _info.RocksAtributes.Size;
         preFab.transform.SetParent(parent.transform, false);
         preFab.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
@@ -201,6 +221,12 @@ public class CyrusAxeAttackManager : SkillObjectManager {
 
         ContinuosDamageHitBox hitbox = preFab.GetComponent<ContinuosDamageHitBox>();
         hitbox.Initialize(newContext);
+
+        if (_info.Prefabs[2].Count <= 1 || _info.Prefabs[2][1].PrefabType != TypeOfSkillPrefab.VFX) { Debug.Log("Nenhum VFX de pedrinhas do machado"); return; }
+
+        SkillAnimationEvent rocksVFXEvent = _info.Prefabs[2][1];
+
+        InstantiateVFX(rocksVFXEvent);
     }
     #endregion
 

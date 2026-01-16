@@ -117,13 +117,5 @@ public class CyrusBaseAttackManager : SkillObjectManager {
             energyManager.GainEnergy(_info.FlatEnergyGainPerHit);
         };
     }
-
-    public override void InstantiateVFX(SkillAnimationEvent prefabInfo) {
-        GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFab, TypeOfSkillPrefab.VFX);
-        preFab.transform.SetParent(parent.transform, false);
-        preFab.transform.SetLocalPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.identity);
-
-        preFab.GetComponent<VFXPreFabStatic>().Initialize(prefabInfo.VFXAtribute);
-    }
     #endregion
 }
