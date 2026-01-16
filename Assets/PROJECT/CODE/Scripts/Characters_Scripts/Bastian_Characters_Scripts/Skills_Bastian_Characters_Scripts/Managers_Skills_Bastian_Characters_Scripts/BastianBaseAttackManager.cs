@@ -164,7 +164,7 @@ public class BastianBaseAttackManager : SkillObjectManager {
         OnShoot?.Invoke(_attackIndex);
     }
 
-    public override void InstantiateVFX(SkillAnimationEvent prefab) {
+    public override void InstantiateVFX(SkillAnimationEvent prefab, Vector3? finalPosition = null) {
         GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefab.PreFab, TypeOfSkillPrefab.VFX);
 
         preFab.transform.SetParent(parent.transform, false);

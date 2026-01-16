@@ -193,7 +193,7 @@ public class CyrusAxeAttackManager : SkillObjectManager {
         };
     }
 
-    public override void InstantiateVFX(SkillAnimationEvent prefabInfo) {
+    public override void InstantiateVFX(SkillAnimationEvent prefabInfo, Vector3? finalPosition = null) {
 
         // Esse vfx é só do machado descendo
 

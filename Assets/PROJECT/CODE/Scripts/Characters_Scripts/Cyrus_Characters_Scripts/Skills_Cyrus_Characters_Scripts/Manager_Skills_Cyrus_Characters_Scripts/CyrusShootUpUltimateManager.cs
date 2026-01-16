@@ -137,7 +137,7 @@ public class CyrusShootUpUltimateManager : SkillObjectManager {
 
     }
 
-    public override void InstantiateVFX(SkillAnimationEvent prefabInfo) {
+    public override void InstantiateVFX(SkillAnimationEvent prefabInfo, Vector3? finalPosition = null) {
         GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFab, TypeOfSkillPrefab.VFX);
         preFab.transform.SetPositionAndRotation(prefabInfo.PreFabPosition, Quaternion.identity);
 

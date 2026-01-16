@@ -1,8 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class CyrusKanaboSkillManager : SkillObjectManager
-{
+public class CyrusKanaboSkillManager : SkillObjectManager {
 
     CyrusKanaboSkillSO _info;
 
@@ -63,7 +62,7 @@ public class CyrusKanaboSkillManager : SkillObjectManager
 
 
         if (_skillLevel > 0) _explosionCoroutine ??= StartCoroutine(ExplosionCoroutine(hitboxPos));
-        
+
     }
 
     IEnumerator ExplosionCoroutine(Vector3 position) {
@@ -80,49 +79,73 @@ public class CyrusKanaboSkillManager : SkillObjectManager
         };
 
         for (int i = 0; i < amountOfExplosions; i++) {
+            for (int j = 0; j < _info.Prefabs[1].Count; j++) {
 
-            InstantiateExplosion(position);
+                if (_info.Prefabs[1][j].PrefabType == TypeOfSkillPrefab.Hitbox) {
 
-            if (i < amountOfExplosions - 1) yield return new WaitForSeconds(_info.TimeBetweenExplosions);
+                    InstantiateExplosion(position, _info.Prefabs[1][j].PreFab);
+
+                }
+                else if (_info.Prefabs[1][j].PrefabType == TypeOfSkillPrefab.VFX) {
+
+                    InstantiateVFX(_info.Prefabs[1][j], position);
+
+                }
+
+                if (i < amountOfExplosions - 1) yield return new WaitForSeconds(_info.TimeBetweenExplosions);
+            }
+
+            _explosionCoroutine = null;
+
+            End();
         }
 
-        _explosionCoroutine = null;
+        void InstantiateContinuosArea(Vector3 position) {
 
-        End();
-    }
+            if (_info.Prefabs[2].Count == 0) return; // Verificando se a lista aqui existe
 
-    void InstantiateContinuosArea(Vector3 position) {
+            for (int i = 0; i < _info.Prefabs[2].Count; i++) {
 
-        GameObject hitbox = PoolingManager.Instance.ReturnPrefabFromPool(_info.ContinuosDamagePrefab, TypeOfSkillPrefab.Hitbox);
+                if (_info.Prefabs[2][i].PrefabType == TypeOfSkillPrefab.Hitbox) {
 
-        Vector3 size = _skillLevel < 3 ? _info.ContinuosDamageAreaAtributes.Size : _info.ExplosionRadiusLevelThree * Vector3.one;
-        hitbox.transform.localScale = size;
-        hitbox.transform.SetPositionAndRotation(position, Quaternion.identity);
+                    GameObject hitbox = PoolingManager.Instance.ReturnPrefabFromPool(_info.Prefabs[2][i].PreFab, TypeOfSkillPrefab.Hitbox);
 
-        DamageContext newContext = new(_info.ContinuosDamageAreaAtributes, statusManager);
+                    Vector3 size = _skillLevel < 3 ? _info.ContinuosDamageAreaAtributes.Size : _info.ExplosionRadiusLevelThree * Vector3.one;
+                    hitbox.transform.localScale = size;
+                    hitbox.transform.SetPositionAndRotation(position, Quaternion.identity);
 
-        ContinuosDamageHitBox collider = hitbox.GetComponent<ContinuosDamageHitBox>();
-        collider.Initialize(newContext);
-    }
+                    DamageContext newContext = new(_info.ContinuosDamageAreaAtributes, statusManager);
 
-    void InstantiateExplosion(Vector3 position) {
-        GameObject hitbox = PoolingManager.Instance.ReturnPrefabFromPool(_info.ExplosionPrefab, TypeOfSkillPrefab.Hitbox);
+                    ContinuosDamageHitBox collider = hitbox.GetComponent<ContinuosDamageHitBox>();
+                    collider.Initialize(newContext);
+                }
+                else if (_info.Prefabs[2][i].PrefabType == TypeOfSkillPrefab.VFX) {
 
-        Vector3 size = _skillLevel < 3 ? _info.ExplosionAtributes.Size : _info.ExplosionRadiusLevelThree * Vector3.one;
-        hitbox.transform.localScale = size;
-        hitbox.transform.SetPositionAndRotation(position, Quaternion.identity);
+                    InstantiateVFX(_info.Prefabs[2][i]);
 
-        DamageAtributes newAtributes = new(_info.ExplosionAtributes);
+                }
+            }
+        }
 
-        if (_skillLevel > 1) 
-            newAtributes.ExtraAtributes[ExtraDamageContextAtributes.CritRate] = _info.ExplosionCritRateLevelTwo;
+        void InstantiateExplosion(Vector3 position, GameObject explosionPrefab) {
+            GameObject hitbox = PoolingManager.Instance.ReturnPrefabFromPool(explosionPrefab, TypeOfSkillPrefab.Hitbox);
 
-        if (_skillLevel > 2)
-            newAtributes.ExtraAtributes[ExtraDamageContextAtributes.CritDamage] = _info.ExplosionCritDamageLevelThree;
+            Vector3 size = _skillLevel < 3 ? _info.ExplosionAtributes.Size : _info.ExplosionRadiusLevelThree * Vector3.one;
+            hitbox.transform.localScale = size;
+            hitbox.transform.SetPositionAndRotation(position, Quaternion.identity);
 
-        DamageContext newContext = new(newAtributes, statusManager);
+            DamageAtributes newAtributes = new(_info.ExplosionAtributes);
 
-        InstantDamageHitBox collider = hitbox.GetComponent<InstantDamageHitBox>();
-        collider.Initialize(newContext);
+            if (_skillLevel > 1)
+                newAtributes.ExtraAtributes[ExtraDamageContextAtributes.CritRate] = _info.ExplosionCritRateLevelTwo;
+
+            if (_skillLevel > 2)
+                newAtributes.ExtraAtributes[ExtraDamageContextAtributes.CritDamage] = _info.ExplosionCritDamageLevelThree;
+
+            DamageContext newContext = new(newAtributes, statusManager);
+
+            InstantDamageHitBox collider = hitbox.GetComponent<InstantDamageHitBox>();
+            collider.Initialize(newContext);
+        }
     }
 }
