@@ -102,8 +102,8 @@ public class VFXPreFabProjectile : MonoBehaviour
     {
         //--effects logic--
         if(isVFX) {
-            myVFX.SendEvent("MyTriggerExitEvent");
             Debug.Log("Trigger Exit from: " + other.gameObject.name);
+            myVFX.SendEvent("MyTriggerExitEvent");
         }
         if (isParticle)
         {
