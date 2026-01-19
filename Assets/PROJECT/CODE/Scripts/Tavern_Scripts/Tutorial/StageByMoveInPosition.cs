@@ -9,6 +9,6 @@ public class StageByMoveInPosition : TutorialClassBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.layer == playerLayer) OnCompleteTutorialEvent?.Invoke(true);
+        if(playerLayer.ContainsLayer(other.gameObject.layer)) OnCompleteTutorialEvent?.Invoke(true);
     }
 }

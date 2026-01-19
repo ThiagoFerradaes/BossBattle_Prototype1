@@ -9,15 +9,30 @@ public class StageByInteraction : TutorialClassBehaviour
     [SerializeField]private LayerMask playerLayer;
 
     [SerializeField]private float interactionRange = 1f;
+
+    private PlayerActionMap playerActionMap;
+
+    private Transform player;
     
+    private void OnEnable()
+    {
+        playerActionMap = new PlayerActionMap();
+        playerActionMap.Player.Interaction.started += Interaction;
+        playerActionMap.Enable();
+        player = PlayerManager.Instance.Player.transform;
+    }
+
+    private void OnDisable()
+    {
+        playerActionMap.Player.Interaction.started -= Interaction;
+        playerActionMap.Disable();
+    }
+
+
     public void Interaction(InputAction.CallbackContext context)
     {
-        if (!context.started) return;
+        if (Vector3.Distance(player.position, transform.position) > interactionRange) return;
         
-        if(Physics.SphereCast(transform.position, interactionRange, Vector3.down, out RaycastHit hit, interactionRange, playerLayer))
-        {
-            OnCompleteTutorialEvent ?.Invoke(true);
-        }
-
+        OnCompleteTutorialEvent ?.Invoke(true);
     }
 }
