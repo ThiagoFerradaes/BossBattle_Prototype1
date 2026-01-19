@@ -226,13 +226,13 @@ public abstract class SkillObjectManager : MonoBehaviour {
     public virtual void InstantiateVFX(SkillAnimationEvent prefab, Vector3? finalPosition = null) {
         GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefab.PreFab, TypeOfSkillPrefab.VFX);
 
-        if (!finalPosition.HasValue) {
+        if (finalPosition.HasValue) {
+            preFab.transform.SetPositionAndRotation(finalPosition.Value, Quaternion.identity);
+        }
+        else {
             preFab.transform.SetParent(parent.transform, false);
             preFab.transform.SetLocalPositionAndRotation(prefab.PreFabPosition, Quaternion.identity);
             preFab.transform.SetParent(null);
-        }
-        else {
-            preFab.transform.SetPositionAndRotation(finalPosition.Value, Quaternion.identity);
         }
 
         switch (prefab.VFXAtribute.VFXType) {

@@ -19,13 +19,18 @@ public class ProjectileDamageHitBox : MonoBehaviour {
 
         gameObject.SetActive(true);
 
+        if (_moveRoutine != null) {
+            StopCoroutine(_moveRoutine);
+            _moveRoutine = null;
+        }
+        
         _moveRoutine ??= StartCoroutine(ProjectileMoveRoutine());
     }
     IEnumerator ProjectileMoveRoutine() {
         float duration = 
             _damageAtributes.Distance / _damageAtributes.Speed;
         float timer = 0;
-
+        
         while (timer < duration) {
             transform.position += _damageAtributes.Speed * Time.deltaTime * transform.forward;
             timer += Time.deltaTime;
@@ -37,7 +42,6 @@ public class ProjectileDamageHitBox : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other) {
         if (!_damageAtributes.UnitsToHit.ContainsLayer(other.gameObject.layer)) return;
-
 
         if (!other.TryGetComponent<HealthManager>(out HealthManager health)) {
             health = other.GetComponentInParent<HealthManager>();

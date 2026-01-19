@@ -13,7 +13,7 @@ public class CyrusSpearAttackManager : SkillObjectManager {
 
     #endregion
 
-    #region Methodss
+    #region Methods
     public override void UseSkill(SkillSO skill) {
         Initialize(skill);
         if (!gameObject.activeInHierarchy) {
@@ -81,15 +81,6 @@ public class CyrusSpearAttackManager : SkillObjectManager {
             if (_skillLevel < 3) CyrusPassiveManager.Instance.AddUseSkill(slot, _info.AmountOfUsesPerLevel[_skillLevel]);
             if (_skillLevel > 0) cooldownManager.ResetCooldown(SkillSlot.Dash);
         };
-    }
-
-    public override void InstantiateVFX(SkillAnimationEvent prefab, Vector3? finalPosition = null) {
-        GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefab.PreFab, TypeOfSkillPrefab.VFX);
-
-        preFab.transform.SetParent(parent.transform, false);
-        preFab.transform.SetLocalPositionAndRotation(prefab.PreFabPosition, Quaternion.identity);
-        preFab.transform.SetParent(null);
-        preFab.GetComponent<VFXPreFabStatic>().Initialize(prefab.VFXAtribute);
     }
 
     #endregion
