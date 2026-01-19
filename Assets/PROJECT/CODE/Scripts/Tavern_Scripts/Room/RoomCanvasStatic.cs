@@ -6,6 +6,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using AYellowpaper.SerializedCollections;
 using MyEnum;
+using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 /// <summary>
 /// Manages the room canvas functionality including furniture unlocking, saving/loading, and UI prefab management
@@ -14,13 +16,22 @@ public class RoomCanvasStatic : MonoBehaviour
 {
     #region Variables
     public static RoomCanvasStatic Instance { get; private set; }
-        
-    /// <summary>Dictionary storing unlocked furniture organized by size and features</summary>
+    
+    [SerializeField]
+    [Tooltip("Content Events and consequence for tutorial")]
+    private List<Tutorial> tutorial;
+    
+    private byte indexStage;
+
+    private bool TutorialIsDone => indexStage >= tutorial.Count;
+
     private Dictionary<SizeOfFurnitureEnum, Dictionary<FurnitureFeaturesSo, uint>> listOfFurnitureUnlocked = new();
     
     /// <summary>Dictionary mapping furniture features to their UI prefab instances</summary>
     private readonly Dictionary<FurnitureFeaturesSo, PrefabUiFurniture> prefabsFurniture = new();
     
+    [Space(30)]
+    [Header("features")]
     [SerializeField]
     [Tooltip("Content container where furniture UI prefabs will be instantiated")]
     private GameObject content;
@@ -55,7 +66,7 @@ public class RoomCanvasStatic : MonoBehaviour
     #endregion
 
     #region Unity Methods
-
+    
     /// <summary>
     /// Initializes the singleton instance and loads saved data
     /// </summary>
@@ -96,6 +107,8 @@ public class RoomCanvasStatic : MonoBehaviour
     {
         try
         {
+            if(!TutorialIsDone) return;
+            
             // Extract data from room systems
             var furnitureData = roomSystems
                 .Select(roomSystem => roomSystem.GetFurniture())
@@ -150,8 +163,12 @@ public class RoomCanvasStatic : MonoBehaviour
             {
                 Debug.LogWarning("Furniture save data not found.");
                 await LoadInventoryByJson();
+                NexStage();
                 return;
             }
+            
+            await LoadTutorial();
+            
             string json = await File.ReadAllTextAsync(SavePath);
             SaveFurnitureByJson loadedData = JsonUtility.FromJson<SaveFurnitureByJson>(json);
             if (loadedData?.saveFurniture?.furnitureRooms == null)
@@ -262,6 +279,48 @@ public class RoomCanvasStatic : MonoBehaviour
     #endregion
 
     #region private Methods
+
+    private void NexStage(bool isStart = false)
+    {
+        Debug.Log("tutorial stage completed");
+        if (tutorial.Count == 0)
+        {
+            Debug.LogWarning("No tutorial stages found.");
+            return;
+        }
+
+        if (isStart)
+        {
+            tutorial[indexStage].classForTutorial.OnCompleteTutorialEvent -= NexStage;
+            tutorial[indexStage].unityEventForCompleteThisTutorial.Invoke();
+            indexStage++;
+        }
+
+        if (indexStage >= tutorial.Count)
+        {
+            Debug.Log("Tutorial completed.");
+            return;
+        }
+        
+        tutorial[indexStage].classForTutorial.OnCompleteTutorialEvent += NexStage;
+    }
+
+    private Task LoadTutorial()
+    {
+        Debug.Log("Loading tutorial...");
+        if (tutorial.Count == 0)
+        {
+            Debug.LogWarning("No tutorial stages found.");
+            return Task.CompletedTask;;
+        }
+
+        foreach (var tutorial1 in tutorial)
+        {
+            tutorial1.unityEventForCompleteThisTutorial.Invoke();
+        }
+        
+        return Task.CompletedTask;
+    }
     
     /// <summary>
     /// Instantiates a character in the appropriate location based on their activity and time of day
@@ -564,6 +623,14 @@ public class SpawnerNpc
     public bool isSpawned;
 }
 
+[Serializable]
+public class Tutorial
+{
+    public TutorialClassBehaviour classForTutorial;
+    
+    public UnityEvent unityEventForCompleteThisTutorial;
+}
+
 #endregion
 
 #region SaveRoomData
@@ -762,3 +829,4 @@ public class InventorySaveByJson
 }
 
 #endregion
+
