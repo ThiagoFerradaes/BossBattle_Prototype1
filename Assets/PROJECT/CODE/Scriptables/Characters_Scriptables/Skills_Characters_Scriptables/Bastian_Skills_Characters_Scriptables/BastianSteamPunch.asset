@@ -22,6 +22,22 @@ MonoBehaviour:
     _serializedList:
     - Key: 0
       Value:
+      - TimeToSpawnPreFab: 0
+        PrefabType: 1
+        PreFab: {fileID: 1203872980522715328, guid: 89158d61e8a3115459649876071e9bf6, type: 3}
+        PreFabPosition: {x: 0, y: 1, z: 1}
+        VFXAtribute:
+          VFXType: 2
+          VFXDuration: 1
+          VFXPosCollisionDuration: 1.5
+          CrossEnemy: 0
+          TimeStopped: 0
+          MinDistanceBack: 0
+          UnitsToHit:
+            serializedVersion: 2
+            m_Bits: 192
+          VFXSpeed: 25
+          Distance: 4
       - TimeToSpawnPreFab: 0.4
         PrefabType: 0
         PreFab: {fileID: 5556882484380889040, guid: 73183662ed7be604f90dff0cc2f277ff, type: 3}
@@ -47,10 +63,11 @@ MonoBehaviour:
   Slot: 1
   SkillType: 1
   FlatEnergyGainPerHit: 5
-  Cooldown: 2
+  Cooldown: 0
   HasCharges: 0
   Charges: 1
   ChargeCooldown: 0
+  DealDamage: 1
   SkillDamageAtributes:
     DamageType: 0
     UnitsToHit:

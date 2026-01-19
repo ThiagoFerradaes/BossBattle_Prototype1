@@ -30,7 +30,7 @@ public class HealthManager : MonoBehaviour {
     /// <summary>
     /// damage
     /// </summary>
-    public event Action<float> OnDamageTaken;
+    public event Action<float> OnDamageTaken, OnHeal;
 
     public event Action OnDeath, OnRevive, OnHit, OnShieldBreak;
 
@@ -135,6 +135,7 @@ public class HealthManager : MonoBehaviour {
     /// <param name="amount"></param>
     public void Heal(float amount) {
         ChangeHealth(_currentHealth + amount);
+        OnHeal?.Invoke(amount);
     }
 
     /// <summary>
