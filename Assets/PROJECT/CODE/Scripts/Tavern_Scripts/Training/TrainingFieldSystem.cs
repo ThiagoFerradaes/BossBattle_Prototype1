@@ -48,9 +48,13 @@ public class TrainingFieldSystem : MonoBehaviour
     {
         if (player is not null)
         {
-            cameraController.SetPlayerTransform(_oldPlayer);
-            PlayerManager.Instance.SetPlayer(_oldPlayer.gameObject);
-            Destroy(player);    
+            if (_oldPlayer is not null)
+            {
+                cameraController.SetPlayerTransform(_oldPlayer);
+                PlayerManager.Instance.SetPlayer(_oldPlayer.gameObject);
+                Destroy(player);
+            }
+
             cancelTrainingButton.SetActive(false);
             canvasSkill.SetActive(false);
         }
@@ -58,7 +62,11 @@ public class TrainingFieldSystem : MonoBehaviour
         {
             NoCanvas(); 
         }
-        
+
+        if (_oldPlayer is null)
+        {
+            NoCanvas();  
+        }
         _playerInteractionManager.EndInteraction();
         _playerInteractionManager = null;
     }
