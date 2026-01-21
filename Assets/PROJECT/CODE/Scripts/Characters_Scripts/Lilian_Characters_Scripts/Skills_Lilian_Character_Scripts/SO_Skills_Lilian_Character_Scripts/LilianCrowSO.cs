@@ -11,7 +11,6 @@ public class LilianCrowSO : CommonSkillSO {
 
     [Header("Explosion's Values")]
     [Foldout("Specific")] public DamageAtributes ExplosionAtributes;
-    [Foldout("Specific")] public GameObject ExplosionPrefab;
     [Foldout("Specific")] public float ExplosionMaxDamage;
     [Foldout("Specific")] public float SkillMinCooldown;
     [Foldout("Specific"), Range(0,100)] public float SkillPercentDamageToLillian;
