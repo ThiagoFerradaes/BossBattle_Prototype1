@@ -1,13 +1,16 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Utilities;
 
 public class StageByMove : TutorialClassBehaviour
 {
     public override event Action<bool> OnCompleteTutorialEvent;
     
-    private byte moveInput; 
+    private byte moveInput;
 
+    [SerializeField] private UITextLocalizer uiTextLocalizer;
+    
     [SerializeField] private GameObject canvasSImage, canvasWImage,canvasAImage,canvasDImage;
     
     public void Move(InputAction.CallbackContext context)
@@ -69,4 +72,29 @@ public class StageByMove : TutorialClassBehaviour
         
         if (moveInput == 15) OnCompleteTutorialEvent?.Invoke(true);
     }
+    
+    private PlayerActionMap playerActionMap;
+    
+    private void OnEnable()
+    {
+        playerActionMap = new PlayerActionMap();
+        uiTextLocalizer.OnTextUpdated += OnAnyButtonPress;
+
+        OnAnyButtonPress(uiTextLocalizer.GetTextString());
+    }
+
+    private void OnDisable()
+    {
+        playerActionMap.Disable();
+        uiTextLocalizer.OnTextUpdated -= OnAnyButtonPress;
+    }
+    
+    private void OnAnyButtonPress(string text)
+    {
+        Debug.Log(text);
+        var replace = text.Replace("<><>", InputActionUtils.GetCompositeKeys(playerActionMap.Player.Move));
+        Debug.Log(replace);
+        uiTextLocalizer.SetTextString(replace);
+    }
+
 }

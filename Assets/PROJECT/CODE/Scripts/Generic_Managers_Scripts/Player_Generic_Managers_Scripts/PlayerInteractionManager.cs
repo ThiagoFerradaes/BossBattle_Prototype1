@@ -15,6 +15,8 @@ public class PlayerInteractionManager : MonoBehaviour
     
     /// <summary>Event triggered when the player activates the editor interaction</summary>
     public event Action OnEditorInteraction;
+
+    public static event Action<float> OnInteractionDistanceForPublic;
     
     #endregion
 
@@ -72,6 +74,9 @@ public class PlayerInteractionManager : MonoBehaviour
     private void OnEnable()
     {
         CanvasTavernaManagerStatic.OnTavernaLoaded += InitializeTavernReferences;
+        OnInteractionDistanceForPublic?.Invoke(interactionRange);
+        InteractiveObject.OnChangeInteractionRange += ChangeInteractionRange;
+        StageByInteraction.OnChangeInteractionRange += ChangeInteractionRange;
     }
 
     /// <summary>
@@ -88,8 +93,12 @@ public class PlayerInteractionManager : MonoBehaviour
         {
             _editorRoomButton.onClick.RemoveListener(OnEditorInteractionEvent);
         }
+        InteractiveObject.OnChangeInteractionRange -= ChangeInteractionRange;
+        StageByInteraction.OnChangeInteractionRange -= ChangeInteractionRange;
     }
 
+    private void ChangeInteractionRange() => OnInteractionDistanceForPublic?.Invoke(interactionRange);
+    
     /// <summary>
     /// Performs interaction detection using sphere casting.
     /// Called in FixedUpdate for consistent physics checks.
