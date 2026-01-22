@@ -56,7 +56,7 @@ public class BastianReleaseManager : SkillObjectManager {
         anim.SetFloat(_info.AttackSpeedAnimationParameter, 1);
     }
 
-    public override void InstantiateVFX(SkillAnimationEvent prefab) {
+    public override void InstantiateVFX(SkillAnimationEvent prefab, Vector3? finalPosition = null) {
         GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefab.PreFab, TypeOfSkillPrefab.VFX);
         preFab.transform.SetParent(parent.transform, false);
         preFab.transform.SetLocalPositionAndRotation(prefab.PreFabPosition, Quaternion.identity);

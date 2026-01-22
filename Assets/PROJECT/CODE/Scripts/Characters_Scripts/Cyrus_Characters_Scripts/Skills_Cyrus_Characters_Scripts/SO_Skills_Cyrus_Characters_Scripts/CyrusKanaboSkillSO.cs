@@ -15,7 +15,7 @@ public class CyrusKanaboSkillSO : CommonSkillSO
     [Header("Level One Atributes")]
     [Foldout("Specific")] public float AmountOfExplosionLevelOne;
     [Foldout("Specific")] public float TimeBetweenHitAndExplosion;
-    [Foldout("Specific")] public GameObject ExplosionPrefab;
+    //[Foldout("Specific")] public GameObject ExplosionPrefab;
     [Foldout("Specific")] public DamageAtributes ExplosionAtributes;
 
     [Header("Level Two Atributes")]
@@ -27,6 +27,6 @@ public class CyrusKanaboSkillSO : CommonSkillSO
     [Foldout("Specific")] public float AmountOfExplosionLevelThree;
     [Foldout("Specific")] public float ExplosionCritDamageLevelThree;
     [Foldout("Specific")] public float ExplosionRadiusLevelThree;
-    [Foldout("Specific")] public GameObject ContinuosDamagePrefab;
+    //[Foldout("Specific")] public GameObject ContinuosDamagePrefab;
     [Foldout("Specific")] public DamageAtributes ContinuosDamageAreaAtributes;
 }

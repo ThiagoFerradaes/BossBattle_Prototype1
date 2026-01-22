@@ -1,5 +1,4 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class CyrusDardsSkillManager : SkillObjectManager {
@@ -17,7 +16,6 @@ public class CyrusDardsSkillManager : SkillObjectManager {
 
         animationCoroutine ??= StartCoroutine(AttackCoroutine(0, _info.AnimationParameter, _info.AnimationName, 0));
     }
-
 
     void Initialize(SkillSO skill) {
         if (_info == null) _info = skill as CyrusDardsSkillSO;
@@ -67,15 +65,23 @@ public class CyrusDardsSkillManager : SkillObjectManager {
 
                 if (_skillLevel > 0) {
                     if (collision.TryGetComponent<StatusManager>(out StatusManager status)) {
-                        status.ChangeStatus(StatusType.Defense, _info.AmountOfDefenseDrop/100, false, _info.DefenseDropDuration);
+                        status.ChangeStatus(StatusType.Defense, _info.AmountOfDefenseDrop / 100, false, _info.DefenseDropDuration);
                     }
                 }
             };
 
-            if (i < amountOfHitboxes - 1) yield return new WaitForSeconds(_info.TimeBetweenDards);
-        }
+            if (_info.Prefabs[1].Count > 0) {
+                foreach (var VFX in _info.Prefabs[1]) {
+                    if (VFX.PrefabType != TypeOfSkillPrefab.VFX) continue;
 
-        _dardsRoutine = null;
+                    InstantiateVFX(VFX);
+                }
+            }
+
+            if (i < amountOfHitboxes - 1) yield return new WaitForSeconds(_info.TimeBetweenDards);
+
+            _dardsRoutine = null;
+        }
     }
 
 }

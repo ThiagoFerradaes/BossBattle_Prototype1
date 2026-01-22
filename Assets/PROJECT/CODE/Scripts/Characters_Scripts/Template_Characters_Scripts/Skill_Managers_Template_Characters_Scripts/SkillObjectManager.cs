@@ -87,7 +87,7 @@ public abstract class SkillObjectManager : MonoBehaviour {
     }
 
     public virtual void UnblockInputs() {
-        
+
         skillManager.MoveManager.BlockWalk(false);
         skillManager.BlockAllButOneSkill(slot, false);
         skillManager.BlockAllSkills(false);
@@ -223,13 +223,17 @@ public abstract class SkillObjectManager : MonoBehaviour {
     }
 
     public virtual void InstantiateHitBox(SkillAnimationEvent prefab) { }
-    public virtual void InstantiateVFX(SkillAnimationEvent prefab) {
+    public virtual void InstantiateVFX(SkillAnimationEvent prefab, Vector3? finalPosition = null) {
         GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefab.PreFab, TypeOfSkillPrefab.VFX);
 
-        preFab.transform.SetParent(parent.transform, false);
-        preFab.transform.SetLocalPositionAndRotation(prefab.PreFabPosition, Quaternion.identity);
-        preFab.transform.SetParent(null);
-
+        if (finalPosition.HasValue) {
+            preFab.transform.SetPositionAndRotation(finalPosition.Value, Quaternion.identity);
+        }
+        else {
+            preFab.transform.SetParent(parent.transform, false);
+            preFab.transform.SetLocalPositionAndRotation(prefab.PreFabPosition, Quaternion.identity);
+            preFab.transform.SetParent(null);
+        }
 
         switch (prefab.VFXAtribute.VFXType) {
             case TypeOfCollider.Instant:
@@ -244,8 +248,8 @@ public abstract class SkillObjectManager : MonoBehaviour {
             case TypeOfCollider.Boomerang:
                 preFab.GetComponent<VFXPreFabBoomerang>().Initialize(prefab.VFXAtribute, this.gameObject);
                 break;
+        }
     }
-}
 
     #endregion
     #endregion

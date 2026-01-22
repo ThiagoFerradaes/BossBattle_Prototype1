@@ -33,6 +33,8 @@ MonoBehaviour:
       Value:
       - TimeToSpawnPreFab: 0.5
         PrefabType: 0
+        PreFab: {fileID: 8271028322271159555, guid: 02de40013cebfe2448edca155583a4c1, type: 3}
+        PreFabPosition: {x: 0, y: 1, z: 1.5}
         VFXAtribute:
           VFXType: 0
           VFXDuration: 0
@@ -45,8 +47,42 @@ MonoBehaviour:
             m_Bits: 0
           VFXSpeed: 0
           Distance: 0
-        PreFab: {fileID: 8271028322271159555, guid: 02de40013cebfe2448edca155583a4c1, type: 3}
-        PreFabPosition: {x: 0, y: 1, z: 1.5}
+    - Key: 1
+      Value:
+      - TimeToSpawnPreFab: 0.1
+        PrefabType: 0
+        PreFab: {fileID: 8998219623033830514, guid: 690c34d54c88e12448b7561adfe65ab9, type: 3}
+        PreFabPosition: {x: 0, y: 0, z: 0}
+        VFXAtribute:
+          VFXType: 0
+          VFXDuration: 0
+          VFXPosCollisionDuration: 0
+          CrossEnemy: 0
+          TimeStopped: 0
+          MinDistanceBack: 0
+          UnitsToHit:
+            serializedVersion: 2
+            m_Bits: 0
+          VFXSpeed: 0
+          Distance: 0
+    - Key: 2
+      Value:
+      - TimeToSpawnPreFab: 0.1
+        PrefabType: 0
+        PreFab: {fileID: 8998219623033830514, guid: f2cad2093c1cc8042a97d053a88618a0, type: 3}
+        PreFabPosition: {x: 0, y: 0, z: 0}
+        VFXAtribute:
+          VFXType: 0
+          VFXDuration: 0
+          VFXPosCollisionDuration: 0
+          CrossEnemy: 0
+          TimeStopped: 0
+          MinDistanceBack: 0
+          UnitsToHit:
+            serializedVersion: 2
+            m_Bits: 0
+          VFXSpeed: 0
+          Distance: 0
   SkillObjectRangeObject: {fileID: 0}
   BlockWalkWhilePreCasting: 1
   BlockDashWhilePreCasting: 1
@@ -60,6 +96,7 @@ MonoBehaviour:
   HasCharges: 0
   Charges: 1
   ChargeCooldown: 0
+  DealDamage: 1
   SkillDamageAtributes:
     DamageType: 0
     UnitsToHit:
