@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 
-[CreateAssetMenu(menuName = "Characters/ Passives/ WaponMasterPassive")]
+[CreateAssetMenu(menuName = "Characters/ Passives/ Cyrus")]
 public class CyrusPassiveSO : PassiveSO {
 
     [Header("UI")]

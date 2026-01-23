@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class LilianCrowManager : SkillObjectManager {
     LilianCrowSO _info;
@@ -94,7 +95,7 @@ public class LilianCrowManager : SkillObjectManager {
         ProjectileDamageHitBox hitbox = preFab.GetComponent<ProjectileDamageHitBox>();
         hitbox.Initialize(newContext);
 
-        hitbox.OnFinalDestination += InstantiateExplosion;
+        hitbox.OnFinalDestination += Explode;
 
         hitbox.OnHit += () => {
             energyManager.GainEnergy(_info.FlatEnergyGainPerHit);
@@ -102,8 +103,24 @@ public class LilianCrowManager : SkillObjectManager {
 
     }
 
-    void InstantiateExplosion(Vector3 position) {
-        GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(_info.ExplosionPrefab, TypeOfSkillPrefab.Hitbox);
+    void Explode(Vector3 position) {
+        for (int j = 0; j < _info.Prefabs[1].Count; j++) {
+
+            if (_info.Prefabs[1][j].PrefabType == TypeOfSkillPrefab.Hitbox) {
+
+                InstantiateExplosion(position, _info.Prefabs[1][j].PreFab);
+
+            }
+            else if (_info.Prefabs[1][j].PrefabType == TypeOfSkillPrefab.VFX) {
+
+                InstantiateVFX(_info.Prefabs[1][j], position);
+
+            }
+        }
+    }
+
+    void InstantiateExplosion(Vector3 position, GameObject explosionHitbox) {
+        GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(explosionHitbox, TypeOfSkillPrefab.Hitbox);
 
         preFab.transform.localScale = _info.ExplosionAtributes.Size;
         preFab.transform.SetPositionAndRotation(position, Quaternion.identity);

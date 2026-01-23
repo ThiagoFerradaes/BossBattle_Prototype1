@@ -93,6 +93,7 @@ public class BastianFlameEchoManager : SkillObjectManager
             SkillAnimationEvent prefabInfo = prefabList[i];
 
             if (prefabInfo.PrefabType == TypeOfSkillPrefab.Hitbox) InstantiateSecondShoot(prefabInfo, attackIndex);
+            else if (prefabInfo.PrefabType == TypeOfSkillPrefab.VFX) InstantiateVFX(prefabInfo);
         }
     }
 
@@ -119,13 +120,6 @@ public class BastianFlameEchoManager : SkillObjectManager
 
         preFab.transform.localScale = _info.ProjectileSize * Vector3.one;
         preFab.transform.SetPositionAndRotation(parent.transform.position + prefabInfo.PreFabPosition, parent.transform.rotation);
-
-        float pen = BastianPassiveManager.Instance.ReturnMinHeat(HeatArea.SuperHeatArea) ? _info.SPenetrationOnSuperHeat : 0;
-        //float critChance = BastianPassiveManager.Instance.ReturnMinHeat(HeatArea.OverHeatArea) ? _info.SCritChanceOverHeat : 0;
-        //float additionalCriDmg = BastianPassiveManager.Instance.ReturnMinHeat(HeatArea.LastOverHeatArea) ? _info.SLastOverHeatCritDamage : 0;
-        //float critDamage = statusManager.ReturnStatusValue(StatusType.CritDamage) + additionalCriDmg;
-
-        newAtributes.ExtraAtributes[ExtraDamageContextAtributes.Penetration] = pen;
 
         DamageContext newContext = new(
             newAtributes,
