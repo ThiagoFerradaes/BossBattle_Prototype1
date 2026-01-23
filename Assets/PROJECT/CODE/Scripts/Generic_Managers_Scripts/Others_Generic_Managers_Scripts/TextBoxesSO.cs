@@ -31,6 +31,16 @@ public class TextBoxesSo : ScriptableObject
         Debug.LogWarning($"No text found for language {language} and {text.Count} languages available.");
         return string.Empty;
     }
+
+    public void SetText(EnumLanguage language, string newText)
+    {
+        if (text.ContainsKey(language))
+        {
+            text[language] = newText;
+            return;
+        }
+        Debug.LogWarning($"No text found for language {language} and {text.Count} languages available.");
+    }
  
     #if UNITY_EDITOR
     /// <summary>
