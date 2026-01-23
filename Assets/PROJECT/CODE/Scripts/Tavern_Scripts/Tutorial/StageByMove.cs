@@ -1,7 +1,6 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Utilities;
 
 public class StageByMove : TutorialClassBehaviour
 {
@@ -9,15 +8,22 @@ public class StageByMove : TutorialClassBehaviour
     
     private byte moveInput;
 
-    [SerializeField] private UITextLocalizer uiTextLocalizer;
+    [SerializeField] protected UITextLocalizer uiTextLocalizer;
     
     [SerializeField] private GameObject canvasSImage, canvasWImage,canvasAImage,canvasDImage;
+    
+    private PlayerActionMap playerActionMap;
+    
+    Vector2 lastValue;
     
     public void Move(InputAction.CallbackContext context)
     {
         var cont = context.ReadValue<Vector2>();
-
-        switch (cont.x)
+        
+        Vector2 delta = cont - lastValue;
+        lastValue = cont;
+        
+        switch (delta.x)
         {
             case > 0:
             {
@@ -43,7 +49,7 @@ public class StageByMove : TutorialClassBehaviour
             }
         }
 
-        switch (cont.y)
+        switch (delta.y)
         {
             case > 0:
             {
@@ -69,13 +75,10 @@ public class StageByMove : TutorialClassBehaviour
             }
         }
         
-        
         if (moveInput == 15) OnCompleteTutorialEvent?.Invoke(true);
     }
     
-    private PlayerActionMap playerActionMap;
-    
-    private void OnEnable()
+    protected void OnEnable()
     {
         playerActionMap = new PlayerActionMap();
         uiTextLocalizer.OnTextUpdated += OnAnyButtonPress;
@@ -83,18 +86,13 @@ public class StageByMove : TutorialClassBehaviour
         OnAnyButtonPress(uiTextLocalizer.GetTextString());
     }
 
-    private void OnDisable()
+    protected void OnDisable()
     {
         playerActionMap.Disable();
         uiTextLocalizer.OnTextUpdated -= OnAnyButtonPress;
     }
     
-    private void OnAnyButtonPress(string text)
-    {
-        Debug.Log(text);
-        var replace = text.Replace("<><>", InputActionUtils.GetCompositeKeys(playerActionMap.Player.Move));
-        Debug.Log(replace);
-        uiTextLocalizer.SetTextString(replace);
-    }
-
+    private void OnAnyButtonPress(string text) => uiTextLocalizer.SetTextString(InputActionUtils.ChangeTextForButton(text, playerActionMap.Player.Move));
+    
+    
 }

@@ -11,25 +11,31 @@ public class StageByInteraction : TutorialClassBehaviour
 
     private float interactionRange;
 
+    [SerializeField] private UITextLocalizer uiTextLocalizer;
+    
     private PlayerActionMap playerActionMap;
 
     private Transform player;
     
-    private void OnEnable()
+    protected void OnEnable()
     {
         PlayerInteractionManager.OnInteractionDistanceForPublic += UpdateInteraction;
         playerActionMap = new PlayerActionMap();
         playerActionMap.Player.Interaction.started += Interaction;
         playerActionMap.Enable();
         player = PlayerManager.Instance.Player.transform;
+        
+        uiTextLocalizer.OnTextUpdated += OnAnyButtonPress;
+        OnAnyButtonPress(uiTextLocalizer.GetTextString());
         Time();
     }
 
-    private void OnDisable()
+    protected void OnDisable()
     {
         PlayerInteractionManager.OnInteractionDistanceForPublic -= UpdateInteraction;
         playerActionMap.Player.Interaction.started -= Interaction;
         playerActionMap.Disable();
+        uiTextLocalizer.OnTextUpdated -= OnAnyButtonPress;
     }
 
     private async void Time()
@@ -54,6 +60,8 @@ public class StageByInteraction : TutorialClassBehaviour
     {
         if (Vector3.Distance(player.position, transform.position) > interactionRange) return;
         
-        OnCompleteTutorialEvent ?.Invoke(true);
+        OnCompleteTutorialEvent?.Invoke(true);
     }
+    
+    private void OnAnyButtonPress(string text) => uiTextLocalizer.SetTextString(InputActionUtils.ChangeTextForButton(text, playerActionMap.Player.Interaction));
 }

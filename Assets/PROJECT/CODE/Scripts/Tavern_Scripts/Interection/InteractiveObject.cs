@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TMPro;
@@ -98,11 +99,25 @@ public static class InputActionUtils
 
         return "N/A";
     }
-    
-    public static string GetCompositeKeys(InputAction action)
+
+    private static string GetCompositeKeys(InputAction action)
     {
         var keys = (from binding in action.bindings where binding.isPartOfComposite select InputControlPath.ToHumanReadableString(binding.effectivePath, InputControlPath.HumanReadableStringOptions.OmitDevice)).ToList();
 
         return string.Join("/", keys); // W/A/S/D
+    }
+    
+    public static string ChangeTextForButton(string text = "", InputAction action = null)
+    {
+        if (text == "") return "";
+        if (action == null) return text;
+        
+        foreach (var variable in action.bindings)
+        {
+            return text.Replace("<><>", variable.name is null ? GetBestBindingString(action) : GetCompositeKeys(action));
+        }
+        
+        Debug.LogError("Dont have a input");
+        return text;
     }
 }
