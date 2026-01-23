@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TMPro;
@@ -8,20 +7,38 @@ using UnityEngine.InputSystem;
 
 public class InteractiveObject : MonoBehaviour
 {
+    #region Events
+    
     public static event Action OnChangeInteractionRange; 
     
+    #endregion
+
+    #region public Variables
+
     public InteractionSO interaction;
+
+    #endregion
+
+    #region Serializable Variables
+
+    [SerializeField] private TMP_Text uiInteraction;
+
+    #endregion
     
+    #region private Variables
+
     private Transform playerTransform;
 
     private float distance;
 
     private bool activeCanva;
 
-    [SerializeField] private TMP_Text uiInteraction;
-
     private PlayerActionMap playerActionMap;
     
+    #endregion
+
+    #region Unity Callbacks
+
     private void OnEnable()
     {
         playerTransform = PlayerManager.Instance.Player.transform;
@@ -35,6 +52,10 @@ public class InteractiveObject : MonoBehaviour
         PlayerInteractionManager.OnInteractionDistanceForPublic -= UpdateInteraction;
         playerActionMap.Disable();
     }
+
+    #endregion
+
+    #region private Methods
 
     private async void Time()
     {
@@ -75,6 +96,9 @@ public class InteractiveObject : MonoBehaviour
         uiInteraction.transform.parent.gameObject.SetActive(activeCanva);
         
     }
+
+    #endregion
+    
 }
 
 public static class InputActionUtils
