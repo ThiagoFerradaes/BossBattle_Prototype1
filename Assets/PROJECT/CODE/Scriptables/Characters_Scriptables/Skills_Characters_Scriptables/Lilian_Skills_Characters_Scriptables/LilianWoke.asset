@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53050286f9d02d24a9c00c23f29fa81d, type: 3}
+  m_Name: LilianWoke
+  m_EditorClassIdentifier: Assembly-CSharp::LilianWokeSO
+  SkillName: Woke
+  SkillShortDescription: She woke it up
+  SkillLongDescription: Lillian can kill herself with this skill
+  SkillSpriteIcon: {fileID: 988453282, guid: c4227a59479ed82448432f2e85809ec1, type: 3}
+  SkillManagerObject: {fileID: -7704890483775893137, guid: d9fcb1ab50b792a43b4033a1a4e5361d, type: 3}
+  Prefabs:
+    _serializedList:
+    - Key: 0
+      Value:
+      - TimeToSpawnPreFab: 0.5
+        PrefabType: 0
+        PreFab: {fileID: 8998219623033830514, guid: f2cad2093c1cc8042a97d053a88618a0, type: 3}
+        PreFabPosition: {x: 0, y: -1, z: 0}
+        VFXAtribute:
+          VFXType: 0
+          VFXDuration: 0
+          VFXPosCollisionDuration: 0
+          CrossEnemy: 0
+          TimeStopped: 0
+          MinDistanceBack: 0
+          UnitsToHit:
+            serializedVersion: 2
+            m_Bits: 0
+          VFXSpeed: 0
+          Distance: 0
+  SkillObjectRangeObject: {fileID: 0}
+  BlockWalkWhilePreCasting: 1
+  BlockDashWhilePreCasting: 1
+  PreCastOn: 0
+  SkillCharacter: 2
+  Cancelable: 0
+  Slot: 2
+  SkillType: 1
+  FlatEnergyGainPerHit: 0
+  Cooldown: 8
+  HasCharges: 0
+  Charges: 1
+  ChargeCooldown: 0
+  DealDamage: 1
+  SkillDamageAtributes:
+    DamageType: 1
+    UnitsToHit:
+      serializedVersion: 2
+      m_Bits: 256
+    Damage: 1
+    HitShield: 1
+    BreakShield: 0
+    Size: {x: 6, y: 6, z: 6}
+    TypeOfPrefab: 1
+    HitBoxDuration: 5
+    DamageCooldown: 0.05
+    Distance: 0
+    Speed: 0
+    CrossEnemy: 0
+    TimeStopped: 0
+    MinDistanceBack: 0
+    ExtraAtributes:
+      _serializedList: []
+  AnimationParameter: Woke
+  AnimationName: Lilian_Skill_Woke
+  AncestralDamageBuffPercent: 0.5

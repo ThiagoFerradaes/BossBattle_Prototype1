@@ -27,6 +27,7 @@ public class UITextLocalizer : MonoBehaviour
     [Tooltip("Collection of text boxes for handling multiple UI elements")]
     [SerializeField] private List<Text> textBoxesList = new();
     
+    public event Action<string> OnTextUpdated;
     /// <summary>
     /// Initializes the component and sets up language change handling when enabled.
     /// Subscribes to language change events and performs initial text update.
@@ -50,6 +51,25 @@ public class UITextLocalizer : MonoBehaviour
             _config.OnLanguageChanged -= UpdateLanguage;
     }
 
+    public void SetTexBox(TextBoxesSo textBoxesSo)
+    {
+        if(textBoxesSo is null) return;
+        textBox.textBoxes = textBoxesSo;
+        if(_config is null) return;
+        UpdateLanguage(_config.GetLanguage());
+    }
+    
+    public void SetTextString(string text)
+    {
+        if (useListMode) return;
+        if (textBox.uiText == null || textBox.textBoxes == null)
+            return;
+
+        textBox.uiText.text = text;
+    }
+    
+    public string GetTextString() => textBox.uiText.text;
+    
     /// <summary>
     /// Updates the UI text content based on the selected language.
     /// Handles both single text box and list mode configurations.
@@ -63,6 +83,7 @@ public class UITextLocalizer : MonoBehaviour
                 return;
 
             textBox.uiText.text = textBox.textBoxes.GetText(lang);
+            OnTextUpdated?.Invoke(textBox.uiText.text);
         }
         else
         {
@@ -71,6 +92,7 @@ public class UITextLocalizer : MonoBehaviour
                 t.uiText.text = t.textBoxes.GetText(lang);
             }
         }
+        
     }
 }
 

@@ -22,10 +22,8 @@ public class PlayerSkillUI : MonoBehaviour {
     [SerializeField] private Image dashCooldown;
     [SerializeField] private Image skillOneCooldown;
     [SerializeField] private Image skillTwoCooldown;
-    [SerializeField] private Image ultimateEnergy;
 
     [Header("Charges")]
-    [SerializeField] private TextMeshProUGUI baseAttackCharge;
     [SerializeField] private TextMeshProUGUI dashCharge;
     [SerializeField] private TextMeshProUGUI skillOneCharge;
     [SerializeField] private TextMeshProUGUI skillTwoCharge;
@@ -49,7 +47,7 @@ public class PlayerSkillUI : MonoBehaviour {
 
         _setChargeNumber = (SkillSlot slot, int charge) => SetInitialChargeNumbers(slot, charge);
         _changeChargeNumber = (SkillSlot slot, int currentCharge) => ChangeCharge(slot, currentCharge);
-        _energyGainAction = (currentEnergy, maxEnergy) => UpdateUltimateEnergyCost(currentEnergy, maxEnergy);
+        //_energyGainAction = (currentEnergy, maxEnergy) => UpdateUltimateEnergyCost(currentEnergy, maxEnergy);
 
         SubscribeEvents();
     }
@@ -68,7 +66,6 @@ public class PlayerSkillUI : MonoBehaviour {
             { SkillSlot.Dash, dashCooldown },
             { SkillSlot.SkillOne, skillOneCooldown },
             { SkillSlot.SkillTwo, skillTwoCooldown },
-            { SkillSlot.Ultimate, ultimateEnergy }
         };
     }
     private void SubscribeEvents() {
@@ -97,22 +94,23 @@ public class PlayerSkillUI : MonoBehaviour {
         cooldownCoroutines[slot] = newRoutine;
     }
 
-    void UpdateUltimateEnergyCost(float currentEnergy, float maxEnergy) {
-        cooldownImages[SkillSlot.Ultimate].fillAmount = 1 - (currentEnergy / maxEnergy);
-    }
+    //void UpdateUltimateEnergyCost(float currentEnergy, float maxEnergy) {
+    //    cooldownImages[SkillSlot.Ultimate].fillAmount = 1 - (currentEnergy / maxEnergy);
+    //}
 
     private IEnumerator CooldownRoutine(SkillSlot slot, float cooldown) {
         Image cooldownImage = cooldownImages[slot];
         float timer = cooldown;
-        cooldownImage.fillAmount = 1f;
+        cooldownImage.fillAmount = slot == SkillSlot.Dash? 0 : 1;
 
         while (timer > 0) {
             timer -= Time.deltaTime;
-            cooldownImage.fillAmount = timer / cooldown;
+            if (slot != SkillSlot.Dash) cooldownImage.fillAmount = timer / cooldown;
+            else cooldownImage.fillAmount = 1 - (timer / cooldown);
             yield return null;
         }
 
-        cooldownImage.fillAmount = 0f;
+        cooldownImage.fillAmount = slot == SkillSlot.Dash ? 1 : 0;
         cooldownCoroutines[slot] = null;
     }
 
@@ -132,11 +130,12 @@ public class PlayerSkillUI : MonoBehaviour {
     }
 
     private void SetCooldownImagesOff() {
-        foreach (var image in cooldownImages.Values) {
-            image.fillAmount = 0f;
+        foreach (var image in cooldownImages) {
+            if (image.Key == SkillSlot.Dash || image.Key == SkillSlot.Ultimate) {
+                image.Value.fillAmount = 1f;
+            }
+            else image.Value.fillAmount = 0f;
         }
-
-        cooldownImages[SkillSlot.Ultimate].fillAmount = 1;
     }
 
     private void OnDisable() {

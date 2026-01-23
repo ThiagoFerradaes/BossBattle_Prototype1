@@ -1,0 +1,96 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a58971d2c9aa9fd478f31632bc18af65, type: 3}
+  m_Name: BastianSteamPunch
+  m_EditorClassIdentifier: Assembly-CSharp::BastianSteamPunchSO
+  SkillName: Steam Punch
+  SkillShortDescription: "Bastian shoots a steam jet.\t"
+  SkillLongDescription: Bastian shoots a steam jet. The projectile is very fast and
+    don't cross the enemy.
+  SkillSpriteIcon: {fileID: -1644640289, guid: c4227a59479ed82448432f2e85809ec1, type: 3}
+  SkillManagerObject: {fileID: 5887852433352420081, guid: 486dbcb2acbd4504fa3e12a636f17904, type: 3}
+  Prefabs:
+    _serializedList:
+    - Key: 0
+      Value:
+      - TimeToSpawnPreFab: 0
+        PrefabType: 1
+        PreFab: {fileID: 1203872980522715328, guid: 89158d61e8a3115459649876071e9bf6, type: 3}
+        PreFabPosition: {x: 0, y: 1, z: 1}
+        VFXAtribute:
+          VFXType: 2
+          VFXDuration: 1
+          VFXPosCollisionDuration: 1.5
+          CrossEnemy: 0
+          TimeStopped: 0
+          MinDistanceBack: 0
+          UnitsToHit:
+            serializedVersion: 2
+            m_Bits: 192
+          VFXSpeed: 25
+          Distance: 4
+      - TimeToSpawnPreFab: 0.4
+        PrefabType: 0
+        PreFab: {fileID: 5556882484380889040, guid: 73183662ed7be604f90dff0cc2f277ff, type: 3}
+        PreFabPosition: {x: 0, y: 1, z: 1}
+        VFXAtribute:
+          VFXType: 0
+          VFXDuration: 0
+          VFXPosCollisionDuration: 0
+          CrossEnemy: 0
+          TimeStopped: 0
+          MinDistanceBack: 0
+          UnitsToHit:
+            serializedVersion: 2
+            m_Bits: 0
+          VFXSpeed: 0
+          Distance: 0
+  SkillObjectRangeObject: {fileID: 0}
+  BlockWalkWhilePreCasting: 1
+  BlockDashWhilePreCasting: 1
+  PreCastOn: 0
+  SkillCharacter: 1
+  Cancelable: 0
+  Slot: 1
+  SkillType: 1
+  FlatEnergyGainPerHit: 5
+  Cooldown: 0
+  HasCharges: 0
+  Charges: 1
+  ChargeCooldown: 0
+  DealDamage: 1
+  SkillDamageAtributes:
+    DamageType: 0
+    UnitsToHit:
+      serializedVersion: 2
+      m_Bits: 128
+    Damage: 30
+    HitShield: 1
+    BreakShield: 0
+    Size: {x: 1.5, y: 1, z: 1.5}
+    TypeOfPrefab: 2
+    HitBoxDuration: 0
+    DamageCooldown: 0
+    Distance: 4
+    Speed: 25
+    CrossEnemy: 0
+    TimeStopped: 0
+    MinDistanceBack: 0
+    ExtraAtributes:
+      _serializedList: []
+  AnimationParameter: SteamPunch
+  AnimationName: SteamPunch
+  AttackSpeedAnimationParameter: AttackSpeed
+  HeatLoss: 10
+  PenetrationOnSuperHeat: 75
+  CritChanceOverHeat: 100
+  LastOverHeatCritDamage: 500

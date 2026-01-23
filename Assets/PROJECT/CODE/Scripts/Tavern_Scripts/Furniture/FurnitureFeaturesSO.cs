@@ -29,6 +29,12 @@ public class FurnitureFeaturesSo : ScriptableObject
     private SizeOfFurnitureEnum size;
 
     [Space(20)]
+    [Header("Rarity")]
+    [Tooltip("Specifies the furniture's rarity category (Common, Unusual, Legendary)")]
+    [SerializeField]
+    private RarityEnum rarity;
+    
+    [Space(20)]
     [Header("Visual Assets")]
     [Tooltip("Reference to the furniture's 3D model prefab")]
     [SerializeField]
@@ -57,6 +63,8 @@ public class FurnitureFeaturesSo : ScriptableObject
     /// </summary>
     public SizeOfFurnitureEnum Size => size;
 
+    public RarityEnum Rarity => rarity;
+    
     /// <summary>
     /// Gets the localized name of the furniture item.
     /// </summary>

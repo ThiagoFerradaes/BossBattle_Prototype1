@@ -1,3 +1,4 @@
+using System;
 using DG.Tweening;
 using NaughtyAttributes;
 using System.Collections;
@@ -7,6 +8,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class LoadingScreenManager : MonoBehaviour {
     // Components
@@ -47,8 +49,18 @@ public class LoadingScreenManager : MonoBehaviour {
         }
     }
 
-    public void ReturnToTavern() {
-        loadSceneCoroutine ??= StartCoroutine(LoadingScreen(tavernLoadingScreen, tavernSceneIndex));
+    public async void ReturnToTavern(bool load = false, byte saveSlot = byte.MaxValue)
+    {
+        try
+        {
+            if(saveSlot != byte.MaxValue)
+                await RawMaterialStatic.Instance.SetSlotSave(saveSlot);
+            loadSceneCoroutine ??= StartCoroutine(LoadingScreen(tavernLoadingScreen, tavernSceneIndex, load));
+        }
+        catch (Exception e)
+        {
+            Debug.LogError(e);
+        }
     }
 
     public void ReturnToMenu() {
@@ -59,7 +71,7 @@ public class LoadingScreenManager : MonoBehaviour {
         loadSceneCoroutine ??= StartCoroutine(LoadingScreen(loadScreenInformation, sceneIndex));
     }
 
-    IEnumerator LoadingScreen(LoadingScreenSO loadScreenInformation, int sceneIndex) {
+    IEnumerator LoadingScreen(LoadingScreenSO loadScreenInformation, int sceneIndex, bool load = false) {
 
         ChooseRandomBackground(loadScreenInformation);
 
@@ -68,8 +80,19 @@ public class LoadingScreenManager : MonoBehaviour {
 
         loadingScreen.SetActive(true);
         
+        if (!load)
+        {
+            if (RawMaterialStatic.Instance is not null)
+                yield return RawMaterialStatic.Instance.SaveInventory().AsIEnumerator();
+        }
+        else
+        {
+            yield return RawMaterialStatic.Instance.LoadInventoryByJson().AsIEnumerator();
+        }
+        
         if(RoomCanvasStatic.Instance is not null)
             yield return RoomCanvasStatic.Instance.SaveFurnitureByJson().AsIEnumerator();
+        
         
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
         operation.allowSceneActivation = false;

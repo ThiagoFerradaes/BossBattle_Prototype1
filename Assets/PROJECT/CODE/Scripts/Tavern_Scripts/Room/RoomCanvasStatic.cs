@@ -4,6 +4,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using AYellowpaper.SerializedCollections;
+using MyEnum;
+using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 /// <summary>
 /// Manages the room canvas functionality including furniture unlocking, saving/loading, and UI prefab management
@@ -12,13 +16,22 @@ public class RoomCanvasStatic : MonoBehaviour
 {
     #region Variables
     public static RoomCanvasStatic Instance { get; private set; }
-        
-    /// <summary>Dictionary storing unlocked furniture organized by size and features</summary>
+    
+    [SerializeField]
+    [Tooltip("Content Events and consequence for tutorial")]
+    private List<Tutorial> tutorial;
+    
+    private byte indexStage;
+
+    private bool TutorialIsDone => indexStage >= tutorial.Count;
+
     private Dictionary<SizeOfFurnitureEnum, Dictionary<FurnitureFeaturesSo, uint>> listOfFurnitureUnlocked = new();
     
     /// <summary>Dictionary mapping furniture features to their UI prefab instances</summary>
     private readonly Dictionary<FurnitureFeaturesSo, PrefabUiFurniture> prefabsFurniture = new();
     
+    [Space(30)]
+    [Header("features")]
     [SerializeField]
     [Tooltip("Content container where furniture UI prefabs will be instantiated")]
     private GameObject content;
@@ -31,21 +44,29 @@ public class RoomCanvasStatic : MonoBehaviour
     [Tooltip("Prefab template for furniture UI list items")]
     private GameObject prefabFurniture;
     
+    [SerializedDictionary("Spawner Type", "List of Spawners")]
     [SerializeField]
-    [Tooltip("Furniture inventory component")]
-    private FurnitureInventory furnitureInventory;
+    [Tooltip("Dictionary mapping character spawner types to their corresponding spawner transform arrays")]
+    private SerializedDictionary<SpawnerCharacterEnum, SpawnerNpc[]> spawners;
+    
+    [SerializedDictionary("Activity Type", "Spawner Mapping")]
+    [SerializeField]
+    [Tooltip("Dictionary mapping activity types to coded spawner configurations, where each activity links to room-specific spawner types")]
+    private SerializedDictionary<ActivitiesEnum, SerializedDictionary<byte,SpawnerCharacterEnum>> codedSpawner;
+    
+    private RawMaterialStatic rawMaterialStatic;
     
     /// <summary>Path where furniture save data is stored</summary>
-    private static string SavePath => Path.Combine(Application.persistentDataPath, "FurnitureSave.json");
+    private static string SavePath => Path.Combine(Application.persistentDataPath, RawMaterialStatic.Instance.GetSlotSave() + "FurnitureSave.json");
     
     /// <summary>Path where inventory save data is stored</summary>
-    private static string SavePathForInventory => Path.Combine(Application.persistentDataPath, "FurnitureSaveInventory.json");
+    private static string SavePathForInventory => Path.Combine(Application.persistentDataPath, RawMaterialStatic.Instance.GetSlotSave() + "FurnitureSaveInventory.json");
     
     
     #endregion
 
     #region Unity Methods
-
+    
     /// <summary>
     /// Initializes the singleton instance and loads saved data
     /// </summary>
@@ -59,7 +80,9 @@ public class RoomCanvasStatic : MonoBehaviour
                 return;
             }
             Instance = this;
-        
+            
+            rawMaterialStatic = RawMaterialStatic.Instance;
+            
             await LoadFurnitureByJson();
         
             foreach (SizeOfFurnitureEnum size in Enum.GetValues(typeof(SizeOfFurnitureEnum)))
@@ -84,11 +107,13 @@ public class RoomCanvasStatic : MonoBehaviour
     {
         try
         {
+            if(!TutorialIsDone) return;
+            
             // Extract data from room systems
             var furnitureData = roomSystems
                 .Select(roomSystem => roomSystem.GetFurniture())
                 .ToList();
-
+            
             // Create a save data structure
             SaveFurniture saveFurnitureData = new SaveFurniture();
 
@@ -98,9 +123,10 @@ public class RoomCanvasStatic : MonoBehaviour
                 CharacterValue characterValue = data.characterHappiness;
                 Dictionary<byte, Furniture> furnitureDict = data.furnitureDictionary;
                 byte slotAmount = data.slotAmount;
+                CharactersSo characterSo = data.characterSo;
                 
                 // Convert to serializable structure
-                FurnitureData roomFurniture = new FurnitureData(characterValue, furnitureDict, slotAmount);
+                FurnitureData roomFurniture = new FurnitureData(characterValue, furnitureDict,characterSo.Character ,slotAmount);
                 saveFurnitureData.furnitureRooms.Add(new RoomFurnitureEntry(roomKey, roomFurniture));
             }
 
@@ -137,33 +163,36 @@ public class RoomCanvasStatic : MonoBehaviour
             {
                 Debug.LogWarning("Furniture save data not found.");
                 await LoadInventoryByJson();
+                NexStage();
                 return;
             }
-
+            
+            await LoadTutorial();
+            
             string json = await File.ReadAllTextAsync(SavePath);
             SaveFurnitureByJson loadedData = JsonUtility.FromJson<SaveFurnitureByJson>(json);
-
             if (loadedData?.saveFurniture?.furnitureRooms == null)
             {
                 Debug.LogError("Invalid save data structure.");
                 await LoadInventoryByJson();
                 return;
             }
-
             // Convert back to Dictionary
-            Dictionary<byte, (CharacterValue, Dictionary<byte, Furniture>, byte)> furnitureDictionary =
-                new Dictionary<byte, (CharacterValue, Dictionary<byte, Furniture>, byte)>();
-
+            Dictionary<byte, (CharacterValue, Dictionary<byte, Furniture>, byte, CharactersSo)> furnitureDictionary =
+                new Dictionary<byte, (CharacterValue, Dictionary<byte, Furniture>, byte, CharactersSo)>();
+            TimeEnum timeEnum = RawMaterialStatic.Instance.GetTimeGame();
+            
             foreach (var roomEntry in loadedData.saveFurniture.furnitureRooms)
             {
                 byte roomKey = roomEntry.roomKey;
                 byte slotAmount = roomEntry.furnitureData.slotAmount;
                 CharacterValue characterValue = roomEntry.furnitureData.characterValue;
                 Dictionary<byte, Furniture> furnitureDict = roomEntry.furnitureData.ToDictionary();
-
-                furnitureDictionary[roomKey] = (characterValue, furnitureDict, slotAmount);
+                CharactersSo characterSo = ItemDB.GetCharacter(roomEntry.furnitureData.character);
+                
+                _ = InstantiateCharacter(characterSo,timeEnum, roomKey);
+                furnitureDictionary[roomKey] = (characterValue, furnitureDict, slotAmount, characterSo);
             }
-
             // Apply loaded data to room systems
             int loadedCount = 0;
             foreach (var roomSystem in roomSystems)
@@ -173,7 +202,7 @@ public class RoomCanvasStatic : MonoBehaviour
                 // Check if saved data exists for this room
                 if (furnitureDictionary.TryGetValue(id, out var furnitureData))
                 {
-                    roomSystem.LoadFurniture(furnitureData.Item2, furnitureData.Item1, furnitureData.Item3);
+                    roomSystem.LoadFurniture(furnitureData.Item2, furnitureData.Item1, furnitureData.Item3,furnitureData.Item4);
                     loadedCount++;
                 }
                 else
@@ -181,7 +210,6 @@ public class RoomCanvasStatic : MonoBehaviour
                     Debug.LogWarning($"No saved furniture data found for room ID: {id}");
                 }
             }
-
             Debug.Log($"Furniture data loaded successfully! Loaded {loadedCount}/{roomSystems.Length} rooms.");
             await LoadInventoryByJson();
         }
@@ -250,6 +278,138 @@ public class RoomCanvasStatic : MonoBehaviour
     
     #endregion
 
+    #region private Methods
+
+    private void NexStage(bool isStart = false)
+    {
+        Debug.Log("tutorial stage completed");
+        if (tutorial.Count == 0)
+        {
+            Debug.LogWarning("No tutorial stages found.");
+            return;
+        }
+
+        if (isStart)
+        {
+            tutorial[indexStage].classForTutorial.OnCompleteTutorialEvent -= NexStage;
+            tutorial[indexStage].unityEventForCompleteThisTutorial.Invoke();
+            indexStage++;
+        }
+
+        if (indexStage >= tutorial.Count)
+        {
+            Debug.Log("Tutorial completed.");
+            return;
+        }
+        
+        tutorial[indexStage].classForTutorial.OnCompleteTutorialEvent += NexStage;
+    }
+
+    private Task LoadTutorial()
+    {
+        Debug.Log("Loading tutorial...");
+        if (tutorial.Count == 0)
+        {
+            Debug.LogWarning("No tutorial stages found.");
+            return Task.CompletedTask;;
+        }
+
+        foreach (var tutorial1 in tutorial)
+        {
+            tutorial1.unityEventForCompleteThisTutorial.Invoke();
+        }
+        
+        return Task.CompletedTask;
+    }
+    
+    /// <summary>
+    /// Instantiates a character in the appropriate location based on their activity and time of day
+    /// </summary>
+    /// <param name="characterSo">Character data containing personality and activity preferences</param>
+    /// <param name="timeEnum">Current time of day</param>
+    /// <param name="roomKey">Room identifier for spawning</param>
+    /// <returns>Task representing the asynchronous spawn operation</returns>
+    private Task InstantiateCharacter(CharactersSo characterSo, TimeEnum timeEnum, byte roomKey)
+    {
+        if(characterSo is null) return Task.CompletedTask;
+        
+        ActivitiesEnum activity = characterSo.GetRandomActivity(timeEnum);
+    
+        var spawnerCharacterEnum = activity switch
+        {
+            ActivitiesEnum.Room => codedSpawner[activity][roomKey],
+            _ => codedSpawner[activity][0],
+        };
+    
+        var prefab = CanvasTavernaManagerStatic.Instance.GetCharacterPrefab(characterSo.Character);
+        return prefab is null ? Task.CompletedTask : TrySpawn(activity, spawnerCharacterEnum, roomKey, prefab);
+    }
+    
+    /// <summary>
+    /// Attempts to spawn a character at the specified location with fallback logic.
+    /// If spawning fails, try alternative locations in a predefined order.
+    /// </summary>
+    /// <param name="activity">Initial activity location to attempt spawn</param>
+    /// <param name="spawnerCharacterEnum">Type of spawner to use</param>
+    /// <param name="roomKey">Room identifier for fallback spawning</param>
+    /// <param name="prefab">Character prefab to instantiate</param>
+    /// <returns>Task representing the asynchronous spawn operation</returns>
+    private async Task TrySpawn(ActivitiesEnum activity, SpawnerCharacterEnum spawnerCharacterEnum, byte roomKey, GameObject prefab)
+    {
+        const byte maxAttempts = 25;
+        const byte maxFallbacks = 5;
+    
+        byte fallbackCount = 0;
+    
+        while (fallbackCount < maxFallbacks)
+        {
+            if (await TrySpawnInList(spawnerCharacterEnum, maxAttempts, prefab)) 
+                return;
+    
+            // Fallback to alternative spawn locations in order:
+            // Room -> CommonRoom -> Bathroom -> ArtifactRoom -> back to Room
+            spawnerCharacterEnum = activity switch
+            {
+                ActivitiesEnum.Room => codedSpawner[ActivitiesEnum.CommonRoom][0],
+                ActivitiesEnum.CommonRoom => codedSpawner[ActivitiesEnum.Bathroom][0],
+                ActivitiesEnum.Bathroom => codedSpawner[ActivitiesEnum.ArtifactRoom][0],
+                ActivitiesEnum.ArtifactRoom => codedSpawner[ActivitiesEnum.Room][roomKey],
+                _ => codedSpawner[ActivitiesEnum.CommonRoom][0],
+            };
+    
+            fallbackCount++;
+        }
+    
+        Debug.LogWarning("No available spawners found after all fallback attempts.");
+    }
+    
+    /// <summary>
+    /// Attempts to spawn a character at a random unoccupied spawner from the specified list
+    /// </summary>
+    /// <param name="spawnerCharacterEnum">Type of spawner list to search</param>
+    /// <param name="attempts">Maximum number of random spawner selections to try</param>
+    /// <param name="prefab">Character prefab to instantiate</param>
+    /// <returns>True if spawn was successful; false if all attempts failed</returns>
+    private async Task<bool> TrySpawnInList(SpawnerCharacterEnum spawnerCharacterEnum, int attempts, GameObject prefab)
+    {
+        var list = spawners[spawnerCharacterEnum];
+    
+        for (var i = 0; i < attempts; i++)
+        {
+            var random = UnityEngine.Random.Range(0, list.Length);
+    
+            if (list[random].isSpawned) continue;
+        
+            list[random].isSpawned = true;
+            await InstantiateAsync(prefab, list[random].spawner.position, list[random].spawner.rotation);
+            return true;
+        }
+    
+        return false;
+    }
+    
+    #endregion
+    
     #region Properties
 
     /// <summary>
@@ -289,7 +449,7 @@ public class RoomCanvasStatic : MonoBehaviour
     /// <summary>
     /// Gets the dictionary of furniture costs and quantities
     /// </summary>
-    public Dictionary<CostOfTheFurnitureEnum, uint> GetCostFurnitureUnlocked => furnitureInventory.FurnitureQuantity;
+    public Dictionary<CostOfTheFurnitureEnum, uint> GetCostFurnitureUnlocked => rawMaterialStatic.FurnitureQuantity;
 
     /// <summary>
     /// Adds raw material to the inventory
@@ -298,7 +458,7 @@ public class RoomCanvasStatic : MonoBehaviour
     /// <param name="amount">Quantity to add</param>
     public void AddRawMaterial(CostOfTheFurnitureEnum cost, uint amount)
     {
-        furnitureInventory.AddMaterialAmount(cost, amount);
+        rawMaterialStatic.AddMaterialAmount(cost, amount);
     }
     
     /// <summary>
@@ -308,7 +468,7 @@ public class RoomCanvasStatic : MonoBehaviour
     /// <param name="amount">Quantity to remove</param>
     public void RemoveRawMaterial(CostOfTheFurnitureEnum cost, uint amount)
     {
-        furnitureInventory.RemoveMaterialAmount(cost, amount);
+        rawMaterialStatic.RemoveMaterialAmount(cost, amount);
     }
     
     
@@ -454,6 +614,25 @@ public class RoomCanvasStatic : MonoBehaviour
     #endregion
 }
 
+#region Class
+
+[Serializable]
+public class SpawnerNpc
+{
+    public Transform spawner;
+    public bool isSpawned;
+}
+
+[Serializable]
+public class Tutorial
+{
+    public TutorialClassBehaviour classForTutorial;
+    
+    public UnityEvent unityEventForCompleteThisTutorial;
+}
+
+#endregion
+
 #region SaveRoomData
 
 /// <summary>
@@ -463,6 +642,7 @@ public class RoomCanvasStatic : MonoBehaviour
 public class FurnitureData
 {
     public byte slotAmount;
+    public Character character;
     public CharacterValue characterValue;
     public List<FurnitureEntry> furnitureList;
 
@@ -471,9 +651,11 @@ public class FurnitureData
     /// </summary>
     /// <param name="charValue">Character happiness value</param>
     /// <param name="furnitureDict">Dictionary mapping furniture slots to furniture</param>
+    /// <param name="characterSo">ScriptObj For character</param>
     /// <param name="slotAmount">Number of furniture slots</param>
-    public FurnitureData(CharacterValue charValue, Dictionary<byte, Furniture> furnitureDict, byte slotAmount = 0)
+    public FurnitureData(CharacterValue charValue, Dictionary<byte, Furniture> furnitureDict,Character characterSo = Character.Null ,byte slotAmount = 0)
     {
+        character = characterSo;
         characterValue = charValue;
         furnitureList = new List<FurnitureEntry>();
         this.slotAmount = slotAmount;
@@ -647,3 +829,4 @@ public class InventorySaveByJson
 }
 
 #endregion
+

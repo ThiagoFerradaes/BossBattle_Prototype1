@@ -191,6 +191,9 @@ public class TavernCameraController : MonoBehaviour
     {
         _playerTransform = playerTransform;
     }
+
+    public Transform GetPlayerTransform() => _playerTransform;
+    
     
     #endregion
 

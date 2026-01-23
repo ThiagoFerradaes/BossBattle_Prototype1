@@ -23,7 +23,7 @@ MonoBehaviour:
     animation speed
 
     Level 3: Increase crit rate and crit damage.'
-  SkillSpriteIcon: {fileID: 21300000, guid: b73cbcbac8e51294b8219e435356e164, type: 3}
+  SkillSpriteIcon: {fileID: -1382586963, guid: c4227a59479ed82448432f2e85809ec1, type: 3}
   SkillManagerObject: {fileID: 4664583147525992776, guid: 2fdf383091fc6814dbe43478d5fc5285, type: 3}
   Prefabs:
     _serializedList:
@@ -34,13 +34,13 @@ MonoBehaviour:
         VFXAtribute:
           VFXType: 0
           VFXDuration: 0
-          UnitsToHit:
-            serializedVersion: 2
-            m_Bits: 0
           VFXPosCollisionDuration: 0
           CrossEnemy: 0
           TimeStopped: 0
           MinDistanceBack: 0
+          UnitsToHit:
+            serializedVersion: 2
+            m_Bits: 0
           VFXSpeed: 0
           Distance: 0
         PreFab: {fileID: 8998219623033830514, guid: 690c34d54c88e12448b7561adfe65ab9, type: 3}
@@ -53,13 +53,13 @@ MonoBehaviour:
   Cancelable: 0
   Slot: 3
   SkillType: 0
-  EnergyCost: 10
+  EnergyCost: 20
   Atributes:
     DamageType: 0
     UnitsToHit:
       serializedVersion: 2
       m_Bits: 128
-    Damage: 60
+    Damage: 50
     HitShield: 1
     BreakShield: 0
     Size: {x: 5, y: 5, z: 5}
@@ -84,8 +84,8 @@ MonoBehaviour:
       Value: 1
     - Key: 2
       Value: 1
-  EnergyCostLevelOne: 5
+  EnergyCostLevelOne: 10
   SizeLevelTwo: 10
   AnimationSpeedLevelTwo: 2
   CritRateLevelThree: 100
-  CritDamageLevelThree: 300
+  CritDamageLevelThree: 250

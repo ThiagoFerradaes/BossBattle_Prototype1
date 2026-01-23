@@ -15,6 +15,8 @@ public class PlayerInteractionManager : MonoBehaviour
     
     /// <summary>Event triggered when the player activates the editor interaction</summary>
     public event Action OnEditorInteraction;
+
+    public static event Action<float> OnInteractionDistanceForPublic;
     
     #endregion
 
@@ -59,6 +61,9 @@ public class PlayerInteractionManager : MonoBehaviour
     /// <summary>Tracks the current camera state (persona camera active/inactive)</summary>
     private bool _isPersonaCameraActive;
     
+    private StoreSystem _store;
+    
+    private TrainingFieldSystem _trainingFieldSystem;
     #endregion
     
     #region Unity Lifecycle Methods
@@ -68,7 +73,10 @@ public class PlayerInteractionManager : MonoBehaviour
     /// </summary>
     private void OnEnable()
     {
-        CanvasTavernaManager.OnTavernaLoaded += InitializeTavernReferences;
+        CanvasTavernaManagerStatic.OnTavernaLoaded += InitializeTavernReferences;
+        OnInteractionDistanceForPublic?.Invoke(interactionRange);
+        InteractiveObject.OnChangeInteractionRange += ChangeInteractionRange;
+        StageByInteraction.OnChangeInteractionRange += ChangeInteractionRange;
     }
 
     /// <summary>
@@ -85,8 +93,12 @@ public class PlayerInteractionManager : MonoBehaviour
         {
             _editorRoomButton.onClick.RemoveListener(OnEditorInteractionEvent);
         }
+        InteractiveObject.OnChangeInteractionRange -= ChangeInteractionRange;
+        StageByInteraction.OnChangeInteractionRange -= ChangeInteractionRange;
     }
 
+    private void ChangeInteractionRange() => OnInteractionDistanceForPublic?.Invoke(interactionRange);
+    
     /// <summary>
     /// Performs interaction detection using sphere casting.
     /// Called in FixedUpdate for consistent physics checks.
@@ -110,11 +122,13 @@ public class PlayerInteractionManager : MonoBehaviour
     /// </summary>
     private void InitializeTavernReferences()
     {
-        if (CanvasTavernaManager.Instance == null) return;
+        if (CanvasTavernaManagerStatic.Instance == null) return;
 
-        _dialogueSystem = CanvasTavernaManager.Instance.DialogueSystem;
-        _mapManager = CanvasTavernaManager.Instance.MapManager;
-        _editorRoomButton = CanvasTavernaManager.Instance.EditorRoomButton;
+        _dialogueSystem = CanvasTavernaManagerStatic.Instance.DialogueSystem;
+        _mapManager = CanvasTavernaManagerStatic.Instance.MapManager;
+        _editorRoomButton = CanvasTavernaManagerStatic.Instance.EditorRoomButton;
+        _store = CanvasTavernaManagerStatic.Instance.StoreSystem;
+        _trainingFieldSystem = CanvasTavernaManagerStatic.Instance.TrainingSystem;
         
         if (TavernCameraController.Instance != null)
         {
@@ -127,7 +141,7 @@ public class PlayerInteractionManager : MonoBehaviour
             _editorRoomButton.onClick.AddListener(OnEditorInteractionEvent);
         }
         
-        CanvasTavernaManager.OnTavernaLoaded -= InitializeTavernReferences;
+        CanvasTavernaManagerStatic.OnTavernaLoaded -= InitializeTavernReferences;
     }
     
     #endregion
@@ -242,6 +256,16 @@ public class PlayerInteractionManager : MonoBehaviour
         _mapManager.gameObject.SetActive(true);
     }
 
+    public void StoreOpen()
+    {
+        _store.OpenStore(this);
+    }
+
+    public void TrainingFieldOpen()
+    {
+        _trainingFieldSystem.SetPlayerInteractionManager(this);
+    }
+    
     /// <summary>
     /// Handles map closing event
     /// </summary>
@@ -261,7 +285,7 @@ public class PlayerInteractionManager : MonoBehaviour
     /// <summary>
     /// Ends the current interaction and re-enables player movement
     /// </summary>
-    private void EndInteraction()
+    public void EndInteraction()
     {
         _isPaused = false;
         SetPlayerMovementState(false);

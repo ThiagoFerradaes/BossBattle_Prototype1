@@ -12,32 +12,79 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da4e1d2f76499374bbc52d220de7bb4d, type: 3}
   m_Name: CyrusBaseAttack
   m_EditorClassIdentifier: Assembly-CSharp::CyrusBaseAttackSO
-  SkillManagerObject: {fileID: 915159781484785722, guid: de3c47dc503a52546be7e01c6b93c28b, type: 3}
+  SkillName: 
+  SkillShortDescription: 
+  SkillLongDescription: 
   SkillSpriteIcon: {fileID: 0}
+  SkillManagerObject: {fileID: 915159781484785722, guid: de3c47dc503a52546be7e01c6b93c28b, type: 3}
   Prefabs:
     _serializedList:
     - Key: 1
       Value:
       - TimeToSpawnPreFab: 0.5
         PrefabType: 1
-        PrefabDuration: 0.8
+        VFXAtribute:
+          VFXType: 0
+          VFXDuration: 1
+          VFXPosCollisionDuration: 0
+          CrossEnemy: 0
+          TimeStopped: 0
+          MinDistanceBack: 0
+          UnitsToHit:
+            serializedVersion: 2
+            m_Bits: 0
+          VFXSpeed: 0
+          Distance: 0
         PreFab: {fileID: 5817764269134444336, guid: 46db7471ceefaf346a408063a7977400, type: 3}
         PreFabPosition: {x: 0, y: 0, z: 1}
       - TimeToSpawnPreFab: 0.6
         PrefabType: 0
-        PrefabDuration: 0.1
+        VFXAtribute:
+          VFXType: 0
+          VFXDuration: 0
+          VFXPosCollisionDuration: 0
+          CrossEnemy: 0
+          TimeStopped: 0
+          MinDistanceBack: 0
+          UnitsToHit:
+            serializedVersion: 2
+            m_Bits: 0
+          VFXSpeed: 0
+          Distance: 0
         PreFab: {fileID: 8271028322271159555, guid: 02de40013cebfe2448edca155583a4c1, type: 3}
         PreFabPosition: {x: 0, y: 1, z: 1}
     - Key: 2
       Value:
       - TimeToSpawnPreFab: 0.5
         PrefabType: 0
-        PrefabDuration: 0.1
+        VFXAtribute:
+          VFXType: 0
+          VFXDuration: 0
+          VFXPosCollisionDuration: 0
+          CrossEnemy: 0
+          TimeStopped: 0
+          MinDistanceBack: 0
+          UnitsToHit:
+            serializedVersion: 2
+            m_Bits: 0
+          VFXSpeed: 0
+          Distance: 0
         PreFab: {fileID: 8271028322271159555, guid: 02de40013cebfe2448edca155583a4c1, type: 3}
         PreFabPosition: {x: 0, y: 1, z: 1}
       - TimeToSpawnPreFab: 0.5
         PrefabType: 1
-        PrefabDuration: 0.8
+        VFXAtribute:
+          VFXType: 0
+          VFXDuration: 1
+          VFXPosCollisionDuration: 0
+          CrossEnemy: 0
+          TimeStopped: 0
+          MinDistanceBack: 0
+          UnitsToHit:
+            serializedVersion: 2
+            m_Bits: 0
+          VFXSpeed: 0
+          Distance: 0
         PreFab: {fileID: 9067519135874036081, guid: 386870ab5af5faa429eafc69f7b3b4e3, type: 3}
         PreFabPosition: {x: 0, y: 0, z: 1}
   SkillObjectRangeObject: {fileID: 261372437491194248, guid: c83d144d01a675b458028fc94a087be4, type: 3}
@@ -46,7 +93,9 @@ MonoBehaviour:
   PreCastOn: 1
   SkillCharacter: 0
   Cancelable: 0
-  FlatEnergyGainPerHit: 1
+  Slot: 0
+  SkillType: 0
+  FlatEnergyGainPerHit: 2
   Cooldown: 0.25
   HasCharges: 0
   Charges: 1
@@ -80,7 +129,7 @@ MonoBehaviour:
     UnitsToHit:
       serializedVersion: 2
       m_Bits: 128
-    Damage: 16
+    Damage: 28
     HitShield: 1
     BreakShield: 0
     Size: {x: 0, y: 0, z: 0}
@@ -99,7 +148,7 @@ MonoBehaviour:
     UnitsToHit:
       serializedVersion: 2
       m_Bits: 128
-    Damage: 18
+    Damage: 30
     HitShield: 1
     BreakShield: 0
     Size: {x: 0, y: 0, z: 0}

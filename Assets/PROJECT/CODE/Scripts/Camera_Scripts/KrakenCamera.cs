@@ -14,6 +14,8 @@ public class KrakenCamera : MonoBehaviour {
     [SerializeField] AnimationCurve shakeCurve;
     [SerializeField, Range(0, 1)] float shakeDuration = 1f;
 
+    bool isShaking = false;
+
     // Components
     Transform _player;
 
@@ -48,22 +50,24 @@ public class KrakenCamera : MonoBehaviour {
 
     private void ShakeCamera(float damage)
     {
-        StartCoroutine(CameraShaking(damage));
+        if(isShaking == false) StartCoroutine(CameraShaking(damage));
     }
 
     IEnumerator CameraShaking(float damage)
     {
         float elapsedTime = 0f;
+        isShaking = true;
         while (elapsedTime < shakeDuration)
         {
-            float damageMultiplier = damage / 400f;
+            float damageMultiplier = 0f;//damage / 400f;
             Vector3 startPosition = transform.position;
             elapsedTime += Time.deltaTime;
             float shakeStrength = shakeCurve.Evaluate(elapsedTime / shakeDuration) * shakeIntensity + damageMultiplier;
             transform.position = startPosition + UnityEngine.Random.insideUnitSphere * shakeStrength;
-            yield return null;
+            yield return null; //Wait for the next frame before continuing
             transform.position = startPosition;
         }
+        isShaking = false;
     }
 
     #endregion

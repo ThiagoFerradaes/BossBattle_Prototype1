@@ -22,6 +22,16 @@ public class LilianWingsOfHorrorObject : MonoBehaviour {
 
         gameObject.SetActive(true);
 
+        if (_attackRountine != null) {
+            StopCoroutine(_attackRountine);
+            _attackRountine = null;
+        }
+
+        if (_durationRoutine != null) {
+            StopCoroutine(_durationRoutine);
+            _durationRoutine = null;
+        }
+
         _durationRoutine ??= StartCoroutine(Duration());
         _attackRountine ??= StartCoroutine(AttackRoutine());
     }
@@ -41,12 +51,14 @@ public class LilianWingsOfHorrorObject : MonoBehaviour {
     }
 
     IEnumerator AttackRoutine() {
+
         while (true) {
-            yield return new WaitForSeconds(_info.SkillDamageAtributes.DamageCooldown);
+           
             Collider[] enemiesInRange = new Collider[100];
             int amountOfEnemies = Physics.OverlapSphereNonAlloc(transform.position, _info.RadiusOfAttack, enemiesInRange, _info.SkillDamageAtributes.UnitsToHit);
 
-            if (amountOfEnemies <= 0) continue;
+            if (amountOfEnemies <= 0) { yield return null; continue; }
+            ;
 
             Transform closestEnemy = null;
             float closestDistance = Mathf.Infinity;
@@ -85,6 +97,8 @@ public class LilianWingsOfHorrorObject : MonoBehaviour {
             yield return transform.DOLookAt(closestEnemy.position, rotationDuration).WaitForCompletion();
 
             yield return StartCoroutine(Attack());
+
+            yield return new WaitForSeconds(_info.SkillDamageAtributes.DamageCooldown);
         }
     }
 
@@ -95,9 +109,14 @@ public class LilianWingsOfHorrorObject : MonoBehaviour {
 
         AnimatorStateInfo stateInfo = _anim.GetCurrentAnimatorStateInfo(0);
 
-        while (!stateInfo.IsName(_info.WingsOfHorrorAnimationName) && stateInfo.normalizedTime < skillEvent.TimeToSpawnPreFab) {
+        while (!_anim.GetCurrentAnimatorStateInfo(0)
+             .IsName(_info.WingsOfHorrorAnimationName)) {
             yield return null;
-            stateInfo = _anim.GetCurrentAnimatorStateInfo(0);
+        }
+
+        while (_anim.GetCurrentAnimatorStateInfo(0).normalizedTime
+               < skillEvent.TimeToSpawnPreFab) {
+            yield return null;
         }
 
         int attackStateHash = stateInfo.fullPathHash;

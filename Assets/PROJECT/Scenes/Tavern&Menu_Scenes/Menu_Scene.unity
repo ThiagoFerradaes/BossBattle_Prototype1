@@ -2901,7 +2901,7 @@ GameObject:
   - component: {fileID: 1296963267}
   - component: {fileID: 1296963268}
   m_Layer: 0
-  m_Name: WhiteBoard
+  m_Name: Singletons (dontDestroy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2955,6 +2955,16 @@ MonoBehaviour:
       - {fileID: 11400000, guid: eb04523942c801b4d99996b79dd94abf, type: 2}
       - {fileID: 11400000, guid: 21668b093f8788a46836dfabcfc92072, type: 2}
       - {fileID: 11400000, guid: 9727e648cdf104c4b86487129fb1e049, type: 2}
+    - Key: 1
+      Value:
+      - {fileID: 11400000, guid: 28e017144c87abf4fbc3387e8e82e657, type: 2}
+      - {fileID: 11400000, guid: 8d181de9ad16a8a4bb85f9534ed7a2e7, type: 2}
+      - {fileID: 11400000, guid: d12dcfae8e42cb64a89b0297e139c60e, type: 2}
+    - Key: 2
+      Value:
+      - {fileID: 11400000, guid: e68739094affbf64eb5c042594d6c916, type: 2}
+      - {fileID: 11400000, guid: 7f2dea4caa54d464eb24b4c7d035dc45, type: 2}
+      - {fileID: 11400000, guid: 8322623198af1c245bcda4f459170ee1, type: 2}
   listOfInitialCharactersUnlocked: 000000000100000002000000
   dictionaryOfPhasesByBoss:
     _serializedList:
@@ -3760,6 +3770,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1583639105}
   m_CullTransparentMesh: 1
+--- !u!1 &1621763356
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1621763358}
+  - component: {fileID: 1621763357}
+  m_Layer: 0
+  m_Name: RawMaterial
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1621763357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1621763356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a8b0ada97944ff1282b11cbad1dfe06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RawMaterialStatic
+  slotSave: 0
+  timeGame: 0
+--- !u!4 &1621763358
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1621763356}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 13.50763, y: -42.1538, z: 21.57144}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1628694452
 GameObject:
   m_ObjectHideFlags: 0
@@ -6442,5 +6498,6 @@ SceneRoots:
   - {fileID: 1811804558}
   - {fileID: 1711062848}
   - {fileID: 386798064}
-  - {fileID: 1296963264}
   - {fileID: 14089102}
+  - {fileID: 1621763358}
+  - {fileID: 1296963264}

@@ -17,7 +17,7 @@ MonoBehaviour:
   SkillLongDescription: Bastian will shoot a flame orb in a straight line. Skill
     has 3 charges. Skill damage, crit rate, crit damage and penetration scales with
     his passive.
-  SkillSpriteIcon: {fileID: 21300000, guid: a5d1d30f531705a46af3a97622870ead, type: 3}
+  SkillSpriteIcon: {fileID: 2037362650, guid: c4227a59479ed82448432f2e85809ec1, type: 3}
   SkillManagerObject: {fileID: 7445460037325849934, guid: 22280efc82182854198cab135883fe26, type: 3}
   Prefabs:
     _serializedList:
@@ -25,20 +25,36 @@ MonoBehaviour:
       Value:
       - TimeToSpawnPreFab: 0.4
         PrefabType: 0
+        PreFab: {fileID: 5556882484380889040, guid: 73183662ed7be604f90dff0cc2f277ff, type: 3}
+        PreFabPosition: {x: 0, y: 1, z: 0}
         VFXAtribute:
           VFXType: 0
           VFXDuration: 0
-          UnitsToHit:
-            serializedVersion: 2
-            m_Bits: 0
           VFXPosCollisionDuration: 0
           CrossEnemy: 0
           TimeStopped: 0
           MinDistanceBack: 0
+          UnitsToHit:
+            serializedVersion: 2
+            m_Bits: 0
           VFXSpeed: 0
           Distance: 0
-        PreFab: {fileID: 5556882484380889040, guid: 73183662ed7be604f90dff0cc2f277ff, type: 3}
+      - TimeToSpawnPreFab: 0.6
+        PrefabType: 1
+        PreFab: {fileID: 4924003528972884429, guid: 60cf0431affc69a46b58c0760a74c28c, type: 3}
         PreFabPosition: {x: 0, y: 1, z: 0}
+        VFXAtribute:
+          VFXType: 2
+          VFXDuration: 0
+          VFXPosCollisionDuration: 1
+          CrossEnemy: 1
+          TimeStopped: 0
+          MinDistanceBack: 0
+          UnitsToHit:
+            serializedVersion: 2
+            m_Bits: 192
+          VFXSpeed: 30
+          Distance: 20
   SkillObjectRangeObject: {fileID: 5203434260948203345, guid: 33b85ce993cf5ac42bc2d8a1f986e21e, type: 3}
   BlockWalkWhilePreCasting: 1
   BlockDashWhilePreCasting: 1
@@ -52,6 +68,7 @@ MonoBehaviour:
   HasCharges: 1
   Charges: 3
   ChargeCooldown: 0.5
+  dealDamage: 1
   SkillDamageAtributes:
     DamageType: 1
     UnitsToHit:
@@ -74,8 +91,7 @@ MonoBehaviour:
   AnimationParameter: Ignis
   AnimationName: Ignis
   AttackSpeedAnimationParameter: AttackSpeed
-  Size: {x: 1, y: 1, z: 1}
   HeatGain: 16
   PenetrationOnSuperHeat: 30
   CritChanceOverHeat: 100
-  LastOverHeatCritDamage: 300
+  LastOverHeatCritDamage: 250

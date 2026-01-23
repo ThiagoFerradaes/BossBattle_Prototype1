@@ -15,28 +15,28 @@ MonoBehaviour:
   SkillName: Release
   SkillShortDescription: Bastian looses heat and gain a short burst of attack speed.
   SkillLongDescription: Bastian looses heat and gain a short burst of attack speed.
-  SkillSpriteIcon: {fileID: 21300000, guid: 112bff4eb978d5941a7507a8d10cb59d, type: 3}
+  SkillSpriteIcon: {fileID: -829048898, guid: c4227a59479ed82448432f2e85809ec1, type: 3}
   SkillManagerObject: {fileID: 3212365048391209683, guid: f0242a8c5f79e0b48a251adfd3e87601, type: 3}
   Prefabs:
     _serializedList:
     - Key: 0
       Value:
-      - TimeToSpawnPreFab: 0.1
+      - TimeToSpawnPreFab: 0
         PrefabType: 1
+        PreFab: {fileID: 8724765764936042932, guid: e8cbc1a4ce783324c9d7ba14ed85de21, type: 3}
+        PreFabPosition: {x: 0, y: 0, z: 0}
         VFXAtribute:
           VFXType: 0
-          VFXDuration: 1.5
-          UnitsToHit:
-            serializedVersion: 2
-            m_Bits: 0
+          VFXDuration: 1
           VFXPosCollisionDuration: 0
           CrossEnemy: 0
           TimeStopped: 0
           MinDistanceBack: 0
+          UnitsToHit:
+            serializedVersion: 2
+            m_Bits: 0
           VFXSpeed: 0
           Distance: 0
-        PreFab: {fileID: 8895113990518697312, guid: 8b1153cb4ea96cc4fbdb170b96e6b406, type: 3}
-        PreFabPosition: {x: 0, y: 0, z: 0}
   SkillObjectRangeObject: {fileID: 2117515422088552443, guid: 2cdc6a14d50d4ce42bd29d6400fc19e9, type: 3}
   BlockWalkWhilePreCasting: 1
   BlockDashWhilePreCasting: 1
@@ -50,6 +50,7 @@ MonoBehaviour:
   HasCharges: 0
   Charges: 1
   ChargeCooldown: 0
+  DealDamage: 1
   SkillDamageAtributes:
     DamageType: 0
     UnitsToHit:
@@ -69,8 +70,9 @@ MonoBehaviour:
     MinDistanceBack: 0
     ExtraAtributes:
       _serializedList: []
-  HeatLost: 20
+  HeatLost: 25
   AttackSpeedGain: 0.8
   AttackSpeedDuration: 2
   AnimationParameter: Release
   AnimationName: Release
+  AttackSpeedAnimationParameter: AttackSpeed

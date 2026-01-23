@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cefc3b4bc273514f8b31db23115fe2f, type: 3}
+  m_Name: BastianLastWhisper
+  m_EditorClassIdentifier: Assembly-CSharp::BastianLastWhisperSO
+  SkillName: Last Whisper
+  SkillShortDescription: Bastian deals damage in a straight line! More heat more
+    damage!
+  SkillLongDescription: Bastian deals increasing damage in a straight line according
+    to he's heat. More heat more damage.
+  SkillSpriteIcon: {fileID: 8005720, guid: c4227a59479ed82448432f2e85809ec1, type: 3}
+  SkillManagerObject: {fileID: 7206962735212398245, guid: 679223b4ed62746409f472019207b5ae, type: 3}
+  Prefabs:
+    _serializedList:
+    - Key: 0
+      Value:
+      - TimeToSpawnPreFab: 0.6
+        PrefabType: 0
+        PreFab: {fileID: 8271028322271159555, guid: 02de40013cebfe2448edca155583a4c1, type: 3}
+        PreFabPosition: {x: 0, y: 1, z: 0}
+        VFXAtribute:
+          VFXType: 0
+          VFXDuration: 0
+          VFXPosCollisionDuration: 0
+          CrossEnemy: 0
+          TimeStopped: 0
+          MinDistanceBack: 0
+          UnitsToHit:
+            serializedVersion: 2
+            m_Bits: 0
+          VFXSpeed: 0
+          Distance: 0
+  SkillObjectRangeObject: {fileID: 0}
+  BlockWalkWhilePreCasting: 1
+  BlockDashWhilePreCasting: 1
+  PreCastOn: 0
+  SkillCharacter: 1
+  Cancelable: 0
+  Slot: 3
+  SkillType: 1
+  EnergyCost: 10
+  Atributes:
+    DamageType: 2
+    UnitsToHit:
+      serializedVersion: 2
+      m_Bits: 128
+    Damage: 10
+    HitShield: 1
+    BreakShield: 0
+    Size: {x: 0.5, y: 0.5, z: 30}
+    TypeOfPrefab: 0
+    HitBoxDuration: 0.1
+    DamageCooldown: 0
+    Distance: 0
+    Speed: 0
+    CrossEnemy: 0
+    TimeStopped: 0
+    MinDistanceBack: 0
+    ExtraAtributes:
+      _serializedList: []
+  AnimationParameter: LastWhisper
+  AnimationName: OldLastWhisperAnim
+  HeatDamageMultiplier: 1.4
+  PenetrationOnSuperHeat: 70
+  CritChanceOverHeat: 100
+  LastOverHeatCritDamage: 50

@@ -8,11 +8,9 @@ using UnityEngine;
 public class SkillAnimationEvent {
     public float TimeToSpawnPreFab;
     public TypeOfSkillPrefab PrefabType;
-    [ShowIf("PrefabType", TypeOfSkillPrefab.VFX), AllowNesting]
-    public VFXAtributes VFXAtribute;
-    [ShowIf("PrefabType", TypeOfSkillPrefab.VFX), AllowNesting]
     public GameObject PreFab;
     public Vector3 PreFabPosition;
+    [ShowIf("PrefabType", TypeOfSkillPrefab.VFX), AllowNesting] public VFXAtributes VFXAtribute;
 }
 
 public class SkillSO : ScriptableObject {

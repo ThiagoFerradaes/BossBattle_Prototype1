@@ -26,20 +26,20 @@ MonoBehaviour:
       Value:
       - TimeToSpawnPreFab: 0.5
         PrefabType: 0
+        PreFab: {fileID: 8998219623033830514, guid: f2cad2093c1cc8042a97d053a88618a0, type: 3}
+        PreFabPosition: {x: 0, y: 0, z: 0}
         VFXAtribute:
           VFXType: 0
           VFXDuration: 0
-          UnitsToHit:
-            serializedVersion: 2
-            m_Bits: 0
           VFXPosCollisionDuration: 0
           CrossEnemy: 0
           TimeStopped: 0
           MinDistanceBack: 0
+          UnitsToHit:
+            serializedVersion: 2
+            m_Bits: 0
           VFXSpeed: 0
           Distance: 0
-        PreFab: {fileID: 8998219623033830514, guid: f2cad2093c1cc8042a97d053a88618a0, type: 3}
-        PreFabPosition: {x: 0, y: 0, z: 0}
   SkillObjectRangeObject: {fileID: 0}
   BlockWalkWhilePreCasting: 1
   BlockDashWhilePreCasting: 1
@@ -57,7 +57,7 @@ MonoBehaviour:
     Damage: 5
     HitShield: 1
     BreakShield: 0
-    Size: {x: 20, y: 20, z: 20}
+    Size: {x: 15, y: 15, z: 15}
     TypeOfPrefab: 1
     HitBoxDuration: 1e+17
     DamageCooldown: 0.5
@@ -69,7 +69,8 @@ MonoBehaviour:
     ExtraAtributes:
       _serializedList: []
   AnimationParameter: Judgment
-  AnimationName: Lilian_Skill_BurstPart1
-  DamageToLilian: 10
+  AnimationName: Lilian_Burst_JudgmentDay
+  DamageToLilian: 6
+  DamageCooldownToLilian: 0.05
   HealthLimit: 10
-  InitialHeal: 10
+  InitialHeal: 30

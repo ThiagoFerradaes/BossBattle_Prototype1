@@ -23,7 +23,7 @@ MonoBehaviour:
 
     Level
     3: Cyrus throws thow dards.'
-  SkillSpriteIcon: {fileID: 21300000, guid: abb3ba7866a0bb047936ae8572dcd72d, type: 3}
+  SkillSpriteIcon: {fileID: 1771577141, guid: c4227a59479ed82448432f2e85809ec1, type: 3}
   SkillManagerObject: {fileID: 2708456213846731736, guid: ff299287f953f2041a4951a7f69b1a10, type: 3}
   Prefabs:
     _serializedList:
@@ -31,20 +31,22 @@ MonoBehaviour:
       Value:
       - TimeToSpawnPreFab: 0.35
         PrefabType: 0
+        PreFab: {fileID: 5556882484380889040, guid: 73183662ed7be604f90dff0cc2f277ff, type: 3}
+        PreFabPosition: {x: 0, y: 1, z: 0}
         VFXAtribute:
           VFXType: 0
           VFXDuration: 0
-          UnitsToHit:
-            serializedVersion: 2
-            m_Bits: 0
           VFXPosCollisionDuration: 0
           CrossEnemy: 0
           TimeStopped: 0
           MinDistanceBack: 0
+          UnitsToHit:
+            serializedVersion: 2
+            m_Bits: 0
           VFXSpeed: 0
           Distance: 0
-        PreFab: {fileID: 5556882484380889040, guid: 73183662ed7be604f90dff0cc2f277ff, type: 3}
-        PreFabPosition: {x: 0, y: 1, z: 0}
+    - Key: 1
+      Value: []
   SkillObjectRangeObject: {fileID: 0}
   BlockWalkWhilePreCasting: 1
   BlockDashWhilePreCasting: 1
@@ -58,12 +60,13 @@ MonoBehaviour:
   HasCharges: 1
   Charges: 3
   ChargeCooldown: 0.5
+  DealDamage: 1
   SkillDamageAtributes:
     DamageType: 1
     UnitsToHit:
       serializedVersion: 2
       m_Bits: 128
-    Damage: 10
+    Damage: 20
     HitShield: 1
     BreakShield: 0
     Size: {x: 0.5, y: 0.5, z: 0.5}
@@ -88,7 +91,7 @@ MonoBehaviour:
       Value: 1
     - Key: 2
       Value: 1
-  AmountOfDefenseDrop: 100
+  AmountOfDefenseDrop: 80
   DefenseDropDuration: 1.5
   CooldownLevelTwo: 3
   AmountOfDardsLevelThree: 2
