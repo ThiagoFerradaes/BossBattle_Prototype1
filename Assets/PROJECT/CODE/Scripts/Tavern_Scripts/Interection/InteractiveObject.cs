@@ -23,6 +23,8 @@ public class InteractiveObject : MonoBehaviour
 
     [SerializeField] private TMP_Text uiInteraction;
 
+    [SerializeField] private float radius = 0.5f;
+    
     #endregion
     
     #region private Variables
@@ -82,7 +84,7 @@ public class InteractiveObject : MonoBehaviour
         
         if(distance == 0) return;
 
-        bool distanceByPlayer = Vector3.Distance(playerTransform.position, transform.position) > distance;
+        bool distanceByPlayer = Vector3.Distance(playerTransform.position, transform.position) > distance + radius;
         
         if (distanceByPlayer && !activeCanva || !distanceByPlayer && activeCanva)
         {

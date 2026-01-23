@@ -64,6 +64,9 @@ public class PlayerInteractionManager : MonoBehaviour
     private StoreSystem _store;
     
     private TrainingFieldSystem _trainingFieldSystem;
+    
+    private readonly Collider[] hits = new Collider[3];
+    
     #endregion
     
     #region Unity Lifecycle Methods
@@ -166,20 +169,42 @@ public class PlayerInteractionManager : MonoBehaviour
     {
         interactiveObject = null;
         
-        const float sphereRadius = 0.1f;
-        if (!Physics.SphereCast(transform.position, sphereRadius, transform.forward, 
-            out RaycastHit hit, interactionRange, interactionLayer))
+        var size = Physics.OverlapSphereNonAlloc(transform.position, interactionRange, hits, interactionLayer);
+
+        if(size == 0)
         {
             return false;
         }
+        
+        Collider nearest = null;
+        float minDist = float.MaxValue;
 
-        if (!hit.collider.gameObject.TryGetComponent(out interactiveObject))
+        for (int i = 0; i < size; i++)
+        {
+            Collider col = hits[i];
+            if (col == null) continue;
+            
+            float dist = Vector3.SqrMagnitude(
+                col.bounds.center - transform.position
+            );
+
+            if (dist < minDist)
+            {
+                minDist = dist;
+                nearest = col;
+            }
+        }
+
+        if (nearest is null)
         {
             Debug.LogWarning("Hit object does not contain an InteractiveObject component");
             return false;
         }
-
-        return true;
+        
+        if (nearest.gameObject.TryGetComponent(out interactiveObject)) return true;
+        
+        Debug.LogWarning("Hit object does not contain an InteractiveObject component");
+        return false;
     }
     
     /// <summary>
@@ -328,7 +353,7 @@ public class PlayerInteractionManager : MonoBehaviour
     /// <summary>
     /// Triggers the editor interaction event
     /// </summary>
-    public void OnEditorInteractionEvent()
+    private void OnEditorInteractionEvent()
     {
         OnEditorInteraction?.Invoke();
     }

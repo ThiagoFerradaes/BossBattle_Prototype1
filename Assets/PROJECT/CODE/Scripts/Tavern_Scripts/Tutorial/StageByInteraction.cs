@@ -13,6 +13,8 @@ public class StageByInteraction : TutorialClassBehaviour
 
     [SerializeField] private UITextLocalizer uiTextLocalizer;
     
+    [SerializeField] private float radius = 0.5f;
+    
     private PlayerActionMap playerActionMap;
 
     private Transform player;
@@ -58,7 +60,7 @@ public class StageByInteraction : TutorialClassBehaviour
 
     private void Interaction(InputAction.CallbackContext context)
     {
-        if (Vector3.Distance(player.position, transform.position) > interactionRange) return;
+        if (Vector3.Distance(player.position, transform.position) > interactionRange + radius) return;
         
         OnCompleteTutorialEvent?.Invoke(true);
     }
