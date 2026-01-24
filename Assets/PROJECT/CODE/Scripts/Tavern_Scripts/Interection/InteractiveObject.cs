@@ -7,20 +7,40 @@ using UnityEngine.InputSystem;
 
 public class InteractiveObject : MonoBehaviour
 {
+    #region Events
+    
     public static event Action OnChangeInteractionRange; 
     
+    #endregion
+
+    #region public Variables
+
     public InteractionSO interaction;
+
+    #endregion
+
+    #region Serializable Variables
+
+    [SerializeField] private TMP_Text uiInteraction;
+
+    [SerializeField] private float radius = 0.5f;
     
+    #endregion
+    
+    #region private Variables
+
     private Transform playerTransform;
 
     private float distance;
 
     private bool activeCanva;
 
-    [SerializeField] private TMP_Text uiInteraction;
-
     private PlayerActionMap playerActionMap;
     
+    #endregion
+
+    #region Unity Callbacks
+
     private void OnEnable()
     {
         playerTransform = PlayerManager.Instance.Player.transform;
@@ -34,6 +54,10 @@ public class InteractiveObject : MonoBehaviour
         PlayerInteractionManager.OnInteractionDistanceForPublic -= UpdateInteraction;
         playerActionMap.Disable();
     }
+
+    #endregion
+
+    #region private Methods
 
     private async void Time()
     {
@@ -60,7 +84,7 @@ public class InteractiveObject : MonoBehaviour
         
         if(distance == 0) return;
 
-        bool distanceByPlayer = Vector3.Distance(playerTransform.position, transform.position) > distance;
+        bool distanceByPlayer = Vector3.Distance(playerTransform.position, transform.position) > distance + radius;
         
         if (distanceByPlayer && !activeCanva || !distanceByPlayer && activeCanva)
         {
@@ -74,6 +98,9 @@ public class InteractiveObject : MonoBehaviour
         uiInteraction.transform.parent.gameObject.SetActive(activeCanva);
         
     }
+
+    #endregion
+    
 }
 
 public static class InputActionUtils
@@ -98,11 +125,25 @@ public static class InputActionUtils
 
         return "N/A";
     }
-    
-    public static string GetCompositeKeys(InputAction action)
+
+    private static string GetCompositeKeys(InputAction action)
     {
         var keys = (from binding in action.bindings where binding.isPartOfComposite select InputControlPath.ToHumanReadableString(binding.effectivePath, InputControlPath.HumanReadableStringOptions.OmitDevice)).ToList();
 
         return string.Join("/", keys); // W/A/S/D
+    }
+    
+    public static string ChangeTextForButton(string text = "", InputAction action = null)
+    {
+        if (text == "") return "";
+        if (action == null) return text;
+        
+        foreach (var variable in action.bindings)
+        {
+            return text.Replace("<><>", variable.name is null ? GetBestBindingString(action) : GetCompositeKeys(action));
+        }
+        
+        Debug.LogError("Dont have a input");
+        return text;
     }
 }

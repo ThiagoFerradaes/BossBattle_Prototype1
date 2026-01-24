@@ -1,81 +1,87 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Utilities;
 
 public class StageByMove : TutorialClassBehaviour
 {
-    public override event Action<bool> OnCompleteTutorialEvent;
-    
-    private byte moveInput;
+    #region Event
 
-    [SerializeField] private UITextLocalizer uiTextLocalizer;
+    public override event Action<bool> OnCompleteTutorialEvent;
+
+    #endregion
+
+    #region SerializeField
+
+    [SerializeField] protected UITextLocalizer uiTextLocalizer;
     
     [SerializeField] private GameObject canvasSImage, canvasWImage,canvasAImage,canvasDImage;
-    
-    public void Move(InputAction.CallbackContext context)
-    {
-        var cont = context.ReadValue<Vector2>();
 
-        switch (cont.x)
-        {
-            case > 0:
-            {
-                if (moveInput != 1 && moveInput != 3 && moveInput != 5 && moveInput != 7 && moveInput != 9 &&
-                    moveInput != 11 && moveInput != 13 && moveInput != 15)
-                {
-                    moveInput += 1;
-                    canvasAImage.SetActive(true);
-                }
+    #endregion
 
-                break;
-            }
-            case < 0:
-            {
-                if (moveInput != 2 && moveInput != 3 && moveInput != 6 && moveInput != 7 && moveInput != 11 &&
-                    moveInput != 14 && moveInput != 10 && moveInput != 15)
-                {
-                    moveInput += 2;
-                    canvasDImage.SetActive(true);
-                }
+    #region private Fields
 
-                break;
-            }
-        }
-
-        switch (cont.y)
-        {
-            case > 0:
-            {
-                if (moveInput != 4 && moveInput != 5 && moveInput != 6 && moveInput != 7 && moveInput != 12 &&
-                    moveInput != 13 && moveInput != 14 && moveInput != 15)
-                {
-                    moveInput += 4;
-                    canvasWImage.SetActive(true);
-                }
-
-                break;
-            }
-            case < 0:
-            {
-                if (moveInput != 8 && moveInput != 9 && moveInput != 10 && moveInput != 12 && moveInput != 14 &&
-                    moveInput != 15 && moveInput != 13 && moveInput != 11)
-                {
-                    moveInput += 8;
-                    canvasSImage.SetActive(true);
-                }
-
-                break;
-            }
-        }
-        
-        
-        if (moveInput == 15) OnCompleteTutorialEvent?.Invoke(true);
-    }
-    
     private PlayerActionMap playerActionMap;
     
-    private void OnEnable()
+    MoveFlags moveInput;
+
+    #endregion
+
+    #region Flags
+
+    [Flags]
+    enum MoveFlags : byte
+    {
+        Up    = 1 << 0, // 1
+        Down  = 1 << 1, // 2
+        Left  = 1 << 2, // 4
+        Right = 1 << 3  // 8
+    }
+
+    private void AddFlag(MoveFlags flag, GameObject canvasImage)
+    {
+        if ((moveInput & flag) != 0)
+            return;
+
+        moveInput |= flag;
+        canvasImage.SetActive(true);
+    }
+    
+    #endregion
+
+    #region Input
+
+    public void Move(InputAction.CallbackContext context)
+    {
+        var inputBinding = context.action.GetBindingForControl(context.control);
+
+        if (inputBinding != null)
+            switch (inputBinding.Value.name)
+            {
+                case "up":
+                    AddFlag(MoveFlags.Up, canvasWImage);
+                    break;
+                case "down":
+                    AddFlag(MoveFlags.Down, canvasSImage);
+                    break;
+                case "left":
+                    AddFlag(MoveFlags.Left, canvasDImage);
+                    break;
+                case "right":
+                    AddFlag(MoveFlags.Right, canvasAImage);
+                    break;
+            }
+
+        if (moveInput == (MoveFlags.Up | MoveFlags.Down | MoveFlags.Left | MoveFlags.Right))
+        {
+            OnCompleteTutorialEvent?.Invoke(true);
+        }
+    }
+
+    #endregion
+    
+    #region Unity Callbacks
+    
+    protected void OnEnable()
     {
         playerActionMap = new PlayerActionMap();
         uiTextLocalizer.OnTextUpdated += OnAnyButtonPress;
@@ -83,18 +89,17 @@ public class StageByMove : TutorialClassBehaviour
         OnAnyButtonPress(uiTextLocalizer.GetTextString());
     }
 
-    private void OnDisable()
+    protected void OnDisable()
     {
         playerActionMap.Disable();
         uiTextLocalizer.OnTextUpdated -= OnAnyButtonPress;
     }
     
-    private void OnAnyButtonPress(string text)
-    {
-        Debug.Log(text);
-        var replace = text.Replace("<><>", InputActionUtils.GetCompositeKeys(playerActionMap.Player.Move));
-        Debug.Log(replace);
-        uiTextLocalizer.SetTextString(replace);
-    }
-
+    #endregion
+    
+    #region Private Methods
+    
+    private void OnAnyButtonPress(string text) => uiTextLocalizer.SetTextString(InputActionUtils.ChangeTextForButton(text, playerActionMap.Player.Move));
+    
+    #endregion
 }
