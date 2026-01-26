@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using AYellowpaper.SerializedCollections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -24,6 +25,8 @@ public class TrainingFieldSystem : MonoBehaviour
     [SerializeField] private TavernCameraController cameraController;
     [SerializeField] private GameObject cancelTrainingButton;
     [SerializeField] private GameObject canvasSkill;
+
+    private Dictionary<GameObject,GameObject> _playerDictionary = new();
 
     private Transform _oldPlayer;
     
@@ -52,7 +55,9 @@ public class TrainingFieldSystem : MonoBehaviour
             {
                 cameraController.SetPlayerTransform(_oldPlayer);
                 PlayerManager.Instance.SetPlayer(_oldPlayer.gameObject);
-                Destroy(player);
+                
+                player.SetActive(false);
+                //Destroy(player);
             }
 
             cancelTrainingButton.SetActive(false);
@@ -84,11 +89,25 @@ public class TrainingFieldSystem : MonoBehaviour
         canvasSkill.SetActive(true);
         Character currentCharacter = _playerWhiteBoard.ReturnSelectedCharacter();
 
-        if (characterPrefabDictionary.ContainsKey(currentCharacter)) {
-            GameObject instantiate = Instantiate(characterPrefabDictionary[currentCharacter], spawnTransform.position, Quaternion.identity);
+        if (characterPrefabDictionary.ContainsKey(currentCharacter)) 
+        {
+            GameObject instantiate;
+            
+            if (!_playerDictionary.ContainsKey(characterPrefabDictionary[currentCharacter]))
+            {
+                instantiate = Instantiate(characterPrefabDictionary[currentCharacter], spawnTransform.position, Quaternion.identity);
+                _playerDictionary.Add(characterPrefabDictionary[currentCharacter], instantiate);
+            }
+            else
+            {
+                instantiate = _playerDictionary[characterPrefabDictionary[currentCharacter]];
+                instantiate.SetActive(true);
+            }
+            
             player = instantiate;
             PlayerManager.Instance.SetPlayer(player);
             cameraController.SetPlayerTransform(instantiate.transform);
+            
         }
         NoCanvas();
     }
