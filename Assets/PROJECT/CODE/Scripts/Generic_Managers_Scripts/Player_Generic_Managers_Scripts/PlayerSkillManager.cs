@@ -1,3 +1,4 @@
+using AYellowpaper.SerializedCollections;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -27,10 +28,10 @@ public class PlayerSkillManager : MonoBehaviour {
 
     // Dictionarys
     Dictionary<SkillSlot, bool> _skillAvailable = new();
-    Dictionary<SkillSlot, SkillSO> _skills = new();
+    [SerializedDictionary("Slot", "Skill"), SerializeField] SerializedDictionary<SkillSlot, SkillSO> _skills = new();
 
     // Events
-    public static event Action<Dictionary<SkillSlot, SkillSO>> OnSkillsSet;
+    public event Action<Dictionary<SkillSlot, SkillSO>> OnSkillsSet;
     public event Action OnStopSkills;
 
     // Actions
@@ -41,7 +42,7 @@ public class PlayerSkillManager : MonoBehaviour {
     #endregion
 
     #region Initialize
-    private void Awake() {
+    private void SetParamethers() {
         Anim = GetComponentInChildren<Animator>();
         MoveManager = GetComponent<PlayerMovementManager>();
         CooldownManager = GetComponent<PlayerSkillCooldownManager>();
@@ -60,14 +61,20 @@ public class PlayerSkillManager : MonoBehaviour {
 
     }
 
-    private void Start() {
+    public void Initialize() {
+
+        SetParamethers();
+
         SetSkills();
+
         StartPassive();
 
+        StunManager.OnStun -= _onStun;
         StunManager.OnStun += _onStun;
+
     }
 
-    private void OnDestroy() {
+    private void OnDisable() {
         StunManager.OnStun -= _onStun;
         OnSkillsSet = null;
         OnStopSkills = null;
@@ -84,7 +91,6 @@ public class PlayerSkillManager : MonoBehaviour {
         _passive = SafeGetSkill(() => whiteboard.ReturnPassive(selectedCharacter), "Passive");
 
         OnSkillsSet?.Invoke(_skills);
-
     }
 
 
@@ -136,8 +142,9 @@ public class PlayerSkillManager : MonoBehaviour {
             return;
         }
 
-        if (!canUseCondition() || !IsSkillReady(slot) || Time.timeScale == 0)
+        if (!canUseCondition() || !IsSkillReady(slot) || Time.timeScale == 0) {
             return;
+        }
 
         if (skill != null) {
             _currentSkill = skill;
