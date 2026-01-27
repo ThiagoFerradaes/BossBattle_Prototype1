@@ -57,7 +57,7 @@ public class PlayerMovementManager : MonoBehaviour {
 
     #region Initialize
 
-    private void PreInitialize() {
+    private void Awake() {
         _anim = GetComponentInChildren<Animator>();
         _rb = GetComponent<Rigidbody>();
         _statusManager = GetComponent<StatusManager>();
@@ -68,15 +68,13 @@ public class PlayerMovementManager : MonoBehaviour {
         };
     }
     
-    public void Initialize() {
-        PreInitialize();
-
+    private void Start() {
         _cameraCenter = PlayerManager.Instance.CameraCenter;
 
         _stunManager.OnStun += _onStun;
     }
 
-    private void OnDisable() {
+    private void OnDestroy() {
         _stunManager.OnStun -= _onStun;
     }
     #endregion

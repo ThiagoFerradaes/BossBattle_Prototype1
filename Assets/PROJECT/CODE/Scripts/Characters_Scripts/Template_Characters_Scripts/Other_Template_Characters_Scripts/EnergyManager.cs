@@ -19,22 +19,21 @@ public class EnergyManager : MonoBehaviour
     public static event Action<float, float> OnEnergyValueChanged;
 
     #region Initialize
-    public void Initialize(GameObject player) {
+    private void Awake() {
         _statusManager = GetComponent<StatusManager>();
 
-        _setMaxEnergy = (Dictionary<SkillSlot, SkillSO> skills) => SetMaxEnergy(skills, player);
+        _setMaxEnergy = (Dictionary<SkillSlot, SkillSO> skills) => SetMaxEnergy(skills);
 
-        player.GetComponent<PlayerSkillManager>().OnSkillsSet -= _setMaxEnergy;
-        player.GetComponent<PlayerSkillManager>().OnSkillsSet += _setMaxEnergy;
+        PlayerSkillManager.OnSkillsSet += _setMaxEnergy;
     }
 
-    private void OnDisable() {
+    private void OnDestroy() {
         OnEnergyValueChanged = null;
     }
     #endregion
 
     #region Energy
-    void SetMaxEnergy(Dictionary<SkillSlot, SkillSO> skills, GameObject player) {
+    void SetMaxEnergy(Dictionary<SkillSlot, SkillSO> skills) {
         if (!skills.ContainsKey(SkillSlot.Ultimate)) return;
 
         if (skills[SkillSlot.Ultimate] == null) return;
@@ -42,7 +41,7 @@ public class EnergyManager : MonoBehaviour
         UltimateSkillSO ultimate = skills[SkillSlot.Ultimate] as UltimateSkillSO;
         _maxEnergy = ultimate.EnergyCost;
 
-        player.GetComponent<PlayerSkillManager>().OnSkillsSet -= _setMaxEnergy;
+        PlayerSkillManager.OnSkillsSet -= _setMaxEnergy;
     }
 
     public void ChangeMaxEnergy(float newMaxEnergyValue) {
