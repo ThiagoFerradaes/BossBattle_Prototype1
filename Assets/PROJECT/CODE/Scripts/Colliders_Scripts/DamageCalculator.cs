@@ -3,7 +3,7 @@ using NaughtyAttributes;
 using System;
 using UnityEngine;
 
-public enum TypeOfSkillPrefab { Hitbox, VFX, PreCastRange, Manager }
+public enum TypeOfSkillPrefab { Hitbox, VFX, PreCastRange, Manager, Character }
 public enum TypeOfCollider { Instant, Continuos, Projectile, Boomerang}
 public enum DamageType { Abyssal, Ancestral, Pure }
 public enum ExtraDamageContextAtributes { Penetration, CritRate, CritDamage }

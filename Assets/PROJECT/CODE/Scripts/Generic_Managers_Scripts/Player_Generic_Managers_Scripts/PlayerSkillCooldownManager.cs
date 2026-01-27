@@ -3,8 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerSkillCooldownManager : MonoBehaviour
-{
+public class PlayerSkillCooldownManager : MonoBehaviour {
     #region Parameter
 
     // Dictionaries
@@ -26,28 +25,26 @@ public class PlayerSkillCooldownManager : MonoBehaviour
 
     #region Methods
     #region Initialize
-    private void Awake()
-    {
+    public void Initialize() {
         _setCharges = SetCharges;
-        PlayerSkillManager.OnSkillsSet += _setCharges;
+
+        GetComponent<PlayerSkillManager>().OnSkillsSet -= _setCharges;
+        GetComponent<PlayerSkillManager>().OnSkillsSet += _setCharges;
+
     }
 
-    private void OnDestroy()
-    {
+    private void OnDisable() {
         OnCooldownSet = null;
         OnChargesSet = null;
         OnChargesChange = null;
-        PlayerSkillManager.OnSkillsSet -= _setCharges;
+        GetComponent<PlayerSkillManager>().OnSkillsSet -= _setCharges;
     }
 
     #endregion
 
-    void SetCharges(Dictionary<SkillSlot, SkillSO> skills)
-    {
-        foreach (var skill in skills)
-        {
-            if (skill.Value is CommonSkillSO commonSkill)
-            {
+    void SetCharges(Dictionary<SkillSlot, SkillSO> skills) {
+        foreach (var skill in skills) {
+            if (skill.Value is CommonSkillSO commonSkill) {
                 _chargesDictionary[skill.Key] = commonSkill.Charges;
                 _cooldownChargeDictionary[skill.Key] = false;
                 _cooldowns[skill.Key] = 0f;
@@ -59,8 +56,7 @@ public class PlayerSkillCooldownManager : MonoBehaviour
     }
 
     #region CooldownLogic
-    public void SetCooldownWithCharges(SkillSlot slot, CommonSkillSO skill)
-    {
+    public void SetCooldownWithCharges(SkillSlot slot, CommonSkillSO skill) {
         _MaxCooldowns[slot] = skill.Cooldown;
 
         _chargesDictionary[slot] = Mathf.Max(0, _chargesDictionary[slot] - 1);
@@ -84,14 +80,12 @@ public class PlayerSkillCooldownManager : MonoBehaviour
         _runningCoroutines[slot] ??= StartCoroutine(CooldownCoroutine(slot, skill.Charges));
 
     }
-    IEnumerator CooldownBetweenChargesRoutine(SkillSlot slot, float cooldown)
-    {
+    IEnumerator CooldownBetweenChargesRoutine(SkillSlot slot, float cooldown) {
         yield return new WaitForSeconds(cooldown);
         _cooldownChargeDictionary[slot] = false;
     }
 
-    public void SetCooldownSingleCharge(SkillSlot slot, float cooldown)
-    {
+    public void SetCooldownSingleCharge(SkillSlot slot, float cooldown) {
 
         _chargesDictionary[slot] = Mathf.Max(0, _chargesDictionary[slot] - 1);
         OnChargesChange?.Invoke(slot, _chargesDictionary[slot]);
@@ -101,13 +95,11 @@ public class PlayerSkillCooldownManager : MonoBehaviour
 
     }
 
-    private IEnumerator CooldownCoroutine(SkillSlot slot, int maxCharges)
-    {
+    private IEnumerator CooldownCoroutine(SkillSlot slot, int maxCharges) {
         OnCooldownSet?.Invoke(slot, _MaxCooldowns[slot]);
         _cooldowns[slot] = _MaxCooldowns[slot];
 
-        while (_cooldowns[slot] > 0f)
-        {
+        while (_cooldowns[slot] > 0f) {
             _cooldowns[slot] -= Time.deltaTime;
             yield return null;
         }
@@ -117,17 +109,14 @@ public class PlayerSkillCooldownManager : MonoBehaviour
         OnChargesChange?.Invoke(slot, _chargesDictionary[slot]);
         _runningCoroutines[slot] = null;
 
-        if (_chargesDictionary[slot] < maxCharges)
-        {
+        if (_chargesDictionary[slot] < maxCharges) {
             _cooldowns[slot] = _MaxCooldowns[slot];
             _runningCoroutines[slot] = StartCoroutine(CooldownCoroutine(slot, maxCharges));
         }
     }
 
-    public void ResetCooldown(SkillSlot slot)
-    {
-        if (_runningCoroutines.TryGetValue(slot, out Coroutine running) && running != null)
-        {
+    public void ResetCooldown(SkillSlot slot) {
+        if (_runningCoroutines.TryGetValue(slot, out Coroutine running) && running != null) {
             StopCoroutine(running);
             _runningCoroutines[slot] = null;
         }
@@ -139,8 +128,7 @@ public class PlayerSkillCooldownManager : MonoBehaviour
     }
 
 
-    public bool ReturnIfCanUseSkill(SkillSlot slot)
-    {
+    public bool ReturnIfCanUseSkill(SkillSlot slot) {
         if (!_chargesDictionary.TryGetValue(slot, out int charges))
             return false;
         bool canUse = charges > 0f && _cooldownChargeDictionary[slot] == false;
