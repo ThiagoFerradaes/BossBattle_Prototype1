@@ -1,16 +1,7 @@
 using UnityEngine;
 
-public class GraciaYellowAuraSO : MonoBehaviour
+[CreateAssetMenu(menuName = "Characters/ Skills/ Gracia/ YellowAura")]
+public class GraciaYellowAuraSO : CommonSkillSO
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 }
