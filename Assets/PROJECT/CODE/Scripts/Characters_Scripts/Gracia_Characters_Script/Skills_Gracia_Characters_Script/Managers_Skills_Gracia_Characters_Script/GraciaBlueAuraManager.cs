@@ -10,6 +10,9 @@ public class GraciaBlueAuraManager : SkillObjectManager
     // Components
     GraciaBlueAuraSO _info;
 
+    // int
+    int _skillLevel;
+
     // Actions
     Action _onHit;
 
@@ -31,6 +34,7 @@ public class GraciaBlueAuraManager : SkillObjectManager
         if (!gameObject.activeInHierarchy) gameObject.SetActive(true);
 
         _onHit = CallInstantiateHit;
+        _skillLevel = GraciaPassiveManager.Instance.ReturnCurrentSkillArea(_info.typeOfSkill);
     }
 
 
@@ -50,6 +54,8 @@ public class GraciaBlueAuraManager : SkillObjectManager
         GraciaAttackManager.OnAttackHitAnOponnent -= _onHit;
         GraciaAttackManager.OnAttackHitAnOponnent += _onHit;
 
+        GraciaPassiveManager.Instance.ChangeBarValue(_info.amountOfValueGainedWhenUsed, _info.typeOfSkill, _info.typeOfAura);
+
         UnblockInputs();
 
         _skillDurationRoutine ??= StartCoroutine(SkillDuration());
@@ -64,6 +70,12 @@ public class GraciaBlueAuraManager : SkillObjectManager
         }
 
         _skillDurationRoutine = null;
+
+        if (_waitToSpawnHitRoutine != null) {
+            StopCoroutine(_waitToSpawnHitRoutine);
+            _waitToSpawnHitRoutine = null;
+        }
+
         GraciaAttackManager.OnAttackHitAnOponnent -= _onHit;
         End();
     }
@@ -82,10 +94,9 @@ public class GraciaBlueAuraManager : SkillObjectManager
 
         yield return new WaitForSeconds(timeToSpawnHit);
 
-        InstantiateHit();
-
         _waitToSpawnHitRoutine = null;
 
+        InstantiateHit();
     }
 
     void InstantiateHit() {
@@ -94,8 +105,7 @@ public class GraciaBlueAuraManager : SkillObjectManager
         GameObject prefab = PoolingManager.Instance.ReturnPrefabFromPool(_info.Prefabs[0][0].PreFab, TypeOfSkillPrefab.Hitbox);
 
         // Buscando o atributo de acordo com o nível
-        int skillLevel = GraciaPassiveManager.Instance.ReturnCurrentSkillArea(_info.typeOfSkill);
-        DamageAtributes atributes = _info.attackAtributesList[skillLevel];
+        DamageAtributes atributes = _info.attackAtributesList[_skillLevel];
 
         // Settando o tamanho e a posição do ataque
         prefab.transform.localScale = atributes.Size;
