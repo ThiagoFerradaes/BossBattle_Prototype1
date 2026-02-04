@@ -20,7 +20,23 @@ MonoBehaviour:
   Prefabs:
     _serializedList:
     - Key: 0
-      Value: []
+      Value:
+      - TimeToSpawnPreFab: 0.5
+        PrefabType: 0
+        PreFab: {fileID: 8998219623033830514, guid: 690c34d54c88e12448b7561adfe65ab9, type: 3}
+        PreFabPosition: {x: 0, y: 1, z: 0}
+        VFXAtribute:
+          VFXType: 0
+          VFXDuration: 0
+          VFXPosCollisionDuration: 0
+          CrossEnemy: 0
+          TimeStopped: 0
+          MinDistanceBack: 0
+          UnitsToHit:
+            serializedVersion: 2
+            m_Bits: 0
+          VFXSpeed: 0
+          Distance: 0
   SkillObjectRangeObject: {fileID: 0}
   BlockWalkWhilePreCasting: 1
   BlockDashWhilePreCasting: 1
@@ -30,7 +46,7 @@ MonoBehaviour:
   Slot: 0
   SkillType: 0
   FlatEnergyGainPerHit: 5
-  Cooldown: 0.5
+  Cooldown: 0.3
   HasCharges: 0
   Charges: 1
   ChargeCooldown: 0
@@ -65,13 +81,13 @@ MonoBehaviour:
     DamageType: 0
     UnitsToHit:
       serializedVersion: 2
-      m_Bits: 0
-    Damage: 0
-    HitShield: 0
+      m_Bits: 128
+    Damage: 20
+    HitShield: 1
     BreakShield: 0
-    Size: {x: 0, y: 0, z: 0}
+    Size: {x: 5, y: 5, z: 5}
     TypeOfPrefab: 0
-    HitBoxDuration: 0
+    HitBoxDuration: 0.1
     DamageCooldown: 0
     Distance: 0
     Speed: 0
@@ -84,13 +100,13 @@ MonoBehaviour:
     DamageType: 0
     UnitsToHit:
       serializedVersion: 2
-      m_Bits: 0
-    Damage: 0
-    HitShield: 0
+      m_Bits: 128
+    Damage: 30
+    HitShield: 1
     BreakShield: 0
-    Size: {x: 0, y: 0, z: 0}
+    Size: {x: 5, y: 5, z: 5}
     TypeOfPrefab: 0
-    HitBoxDuration: 0
+    HitBoxDuration: 0.1
     DamageCooldown: 0
     Distance: 0
     Speed: 0
@@ -103,13 +119,13 @@ MonoBehaviour:
     DamageType: 0
     UnitsToHit:
       serializedVersion: 2
-      m_Bits: 0
-    Damage: 0
+      m_Bits: 128
+    Damage: 40
     HitShield: 0
     BreakShield: 0
-    Size: {x: 0, y: 0, z: 0}
+    Size: {x: 6, y: 6, z: 6}
     TypeOfPrefab: 0
-    HitBoxDuration: 0
+    HitBoxDuration: 0.1
     DamageCooldown: 0
     Distance: 0
     Speed: 0
@@ -118,5 +134,5 @@ MonoBehaviour:
     MinDistanceBack: 0
     ExtraAtributes:
       _serializedList: []
-  CooldownBetweenAttacks: 0.2
+  CooldownBetweenAttacks: 0.1
   MaxTimeBetweenAttacks: 0.5

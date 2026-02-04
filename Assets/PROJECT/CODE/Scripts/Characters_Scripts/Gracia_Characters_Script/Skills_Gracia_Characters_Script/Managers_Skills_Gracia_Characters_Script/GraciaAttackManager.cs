@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -11,10 +12,20 @@ public class GraciaAttackManager : SkillObjectManager
     // Ints e floats
     int _attackIndex = 1;
     float _attackSpeedMultiplier = 1;
+    float _firstAttackCritRateMultiplier = 1;
+    float _secondtAttackCritRateMultiplier = 1;
+    float _thirdAttackCritRateMultiplier = 1;
+    float _attackCritDamageMultiplier = 1;
 
     // Corrotinas
     Coroutine _timerBetweenAttacksCoroutine;
 
+    // Eventos
+    public static event Action OnAttackHitAnOponnent;
+
+    // Actions
+    Action<float, float, float> _onCritRateIncrease;
+    Action<float> _onCritDamageIncrease;
     #endregion
 
     #region Initialize
@@ -35,6 +46,9 @@ public class GraciaAttackManager : SkillObjectManager
             StopCoroutine(_timerBetweenAttacksCoroutine);
             _timerBetweenAttacksCoroutine = null;
         }
+
+        _onCritRateIncrease = SetCritRateMultiplier;
+        _onCritDamageIncrease = SetCritDamageMultiplier;
     }
 
     void StartAnimation() {
@@ -58,7 +72,6 @@ public class GraciaAttackManager : SkillObjectManager
     #endregion
 
     #region Animation Methodes Override
-
 
     public override void FirstFunc() {
         base.FirstFunc();
@@ -111,8 +124,64 @@ public class GraciaAttackManager : SkillObjectManager
 
     #region Instantiate
 
+    public override void InstantiateHitBox(SkillAnimationEvent prefab) {
 
+        // Buscando a hitbox na pool
+        GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefab.PreFab, TypeOfSkillPrefab.Hitbox);
 
+        // Buscando o atributo de acordo com o ataque
+        DamageAtributes atributes = _attackIndex switch {
+            1 => _info.FirstAttackAtributes,
+            2 => _info.SecondAttackAtributes,
+            3 => _info.ThirdAttackAtributes,
+            _ => _info.FirstAttackAtributes
+        };
+
+        // Settando o tamanho e a posição do ataque
+        preFab.transform.localScale = atributes.Size;
+        preFab.transform.SetParent(parent.transform, false);
+        preFab.transform.SetLocalPositionAndRotation(prefab.PreFabPosition, Quaternion.identity);
+        preFab.transform.SetParent(null);
+
+        // Calculando o dano do ataque
+        DamageAtributes newAtribues = new(atributes);
+        newAtribues.ExtraAtributes[ExtraDamageContextAtributes.CritRate] = CalculateCritRate();
+        newAtribues.ExtraAtributes[ExtraDamageContextAtributes.CritDamage] = CalculateCritDamage();
+        DamageContext newContext = new(newAtribues, statusManager);
+        
+
+        // Ativando a hitbox
+        InstantDamageHitBox hitbox = preFab.GetComponent<InstantDamageHitBox>();
+        hitbox.Initialize(newContext);
+
+        // Efeitos ao contato da hitbox
+        hitbox.OnHit += () => {
+            energyManager.GainEnergy(_info.FlatEnergyGainPerHit);
+            OnAttackHitAnOponnent?.Invoke();
+        };
+    }
+
+    float CalculateCritRate() {
+        float attackCritRateMultiplier = _attackIndex switch {
+            1 => _firstAttackCritRateMultiplier,
+            2 => _secondtAttackCritRateMultiplier,
+            3 => _thirdAttackCritRateMultiplier,
+            _ => _firstAttackCritRateMultiplier
+        };
+        return statusManager.ReturnStatusValue(StatusType.CritRate) * attackCritRateMultiplier;
+    }
+
+    float CalculateCritDamage() {
+        return statusManager.ReturnStatusValue(StatusType.CritDamage) * _attackCritDamageMultiplier;
+    }
+
+    void SetCritRateMultiplier(float newFirstValue, float newSecondValue, float newThirdValue) {
+        _firstAttackCritRateMultiplier = newFirstValue;
+        _secondtAttackCritRateMultiplier = newSecondValue;
+        _thirdAttackCritRateMultiplier = newThirdValue;
+    }
+
+    void SetCritDamageMultiplier(float newValue) => _attackCritDamageMultiplier = newValue;
 
     #endregion
 }
