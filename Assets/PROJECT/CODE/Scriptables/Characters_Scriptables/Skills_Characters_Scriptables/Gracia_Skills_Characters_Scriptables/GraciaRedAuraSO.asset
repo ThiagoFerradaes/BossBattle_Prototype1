@@ -9,17 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 288ebb4a7a461b14ea50430bbcfac007, type: 3}
-  m_Name: GraciaGreenAuraSO
-  m_EditorClassIdentifier: Assembly-CSharp::GraciaGreenAuraSO
-  SkillName: Green Aura
-  SkillShortDescription: For a short period of time, whenever Gracia hits an enemy,
-    she gains a shield.
-  SkillLongDescription: For a short period of time, whenever Gracia hits an enemy,
-    she gains a shield. The shield duration is X. The amount of shield increases
-    with level.
+  m_Script: {fileID: 11500000, guid: 31c7249aa7864ad4897ffc71f062f506, type: 3}
+  m_Name: GraciaRedAuraSO
+  m_EditorClassIdentifier: Assembly-CSharp::GraciaRedAuraSO
+  SkillName: Gracia Red Aura
+  SkillShortDescription: Red aura
+  SkillLongDescription: Lil red aura
   SkillSpriteIcon: {fileID: -1382586963, guid: c4227a59479ed82448432f2e85809ec1, type: 3}
-  SkillManagerObject: {fileID: 2918457149912237300, guid: 99ca2bb7216eeea4d882fe494c723604, type: 3}
+  SkillManagerObject: {fileID: 5555136077052000244, guid: f6220f1f7b411254b86b132e8e253355, type: 3}
   Prefabs:
     _serializedList:
     - Key: 0
@@ -30,14 +27,14 @@ MonoBehaviour:
   PreCastOn: 0
   SkillCharacter: 3
   Cancelable: 0
-  Slot: 2
+  Slot: 1
   SkillType: 1
   FlatEnergyGainPerHit: 0
   Cooldown: 0
   HasCharges: 0
   Charges: 1
   ChargeCooldown: 0
-  DealDamage: 1
+  DealDamage: 0
   SkillDamageAtributes:
     DamageType: 0
     UnitsToHit:
