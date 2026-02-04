@@ -12,10 +12,6 @@ public class GraciaAttackManager : SkillObjectManager
     // Ints e floats
     int _attackIndex = 1;
     float _attackSpeedMultiplier = 1;
-    float _firstAttackCritRateMultiplier = 1;
-    float _secondtAttackCritRateMultiplier = 1;
-    float _thirdAttackCritRateMultiplier = 1;
-    float _attackCritDamageMultiplier = 1;
 
     // Corrotinas
     Coroutine _timerBetweenAttacksCoroutine;
@@ -23,9 +19,6 @@ public class GraciaAttackManager : SkillObjectManager
     // Eventos
     public static event Action OnAttackHitAnOponnent;
 
-    // Actions
-    Action<float, float, float> _onCritRateIncrease;
-    Action<float> _onCritDamageIncrease;
     #endregion
 
     #region Initialize
@@ -46,9 +39,6 @@ public class GraciaAttackManager : SkillObjectManager
             StopCoroutine(_timerBetweenAttacksCoroutine);
             _timerBetweenAttacksCoroutine = null;
         }
-
-        _onCritRateIncrease = SetCritRateMultiplier;
-        _onCritDamageIncrease = SetCritDamageMultiplier;
     }
 
     void StartAnimation() {
@@ -118,6 +108,7 @@ public class GraciaAttackManager : SkillObjectManager
 
         _attackIndex = 1;
         _timerBetweenAttacksCoroutine = null;
+
         End();
     }
     #endregion
@@ -163,25 +154,19 @@ public class GraciaAttackManager : SkillObjectManager
 
     float CalculateCritRate() {
         float attackCritRateMultiplier = _attackIndex switch {
-            1 => _firstAttackCritRateMultiplier,
-            2 => _secondtAttackCritRateMultiplier,
-            3 => _thirdAttackCritRateMultiplier,
-            _ => _firstAttackCritRateMultiplier
+            1 => GraciaPassiveManager.Instance.ReturnCriValues().FirstAttackCritRateValue,
+            2 => GraciaPassiveManager.Instance.ReturnCriValues().SecondAttackCritRateValue,
+            3 => GraciaPassiveManager.Instance.ReturnCriValues().ThirdAttackCritRateValue,
+            _ => GraciaPassiveManager.Instance.ReturnCriValues().FirstAttackCritRateValue
         };
-        return statusManager.ReturnStatusValue(StatusType.CritRate) * attackCritRateMultiplier;
+        return statusManager.ReturnStatusValue(StatusType.CritRate) + attackCritRateMultiplier;
     }
 
     float CalculateCritDamage() {
-        return statusManager.ReturnStatusValue(StatusType.CritDamage) * _attackCritDamageMultiplier;
+        float critDamage = GraciaPassiveManager.Instance.ReturnCritDamage();
+        if (_attackIndex == 3) return statusManager.ReturnStatusValue(StatusType.CritDamage) + critDamage;
+        else return statusManager.ReturnStatusValue(StatusType.CritDamage);
     }
-
-    void SetCritRateMultiplier(float newFirstValue, float newSecondValue, float newThirdValue) {
-        _firstAttackCritRateMultiplier = newFirstValue;
-        _secondtAttackCritRateMultiplier = newSecondValue;
-        _thirdAttackCritRateMultiplier = newThirdValue;
-    }
-
-    void SetCritDamageMultiplier(float newValue) => _attackCritDamageMultiplier = newValue;
 
     #endregion
 }

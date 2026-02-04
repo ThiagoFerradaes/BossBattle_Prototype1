@@ -115,4 +115,15 @@ public class GraciaPassiveManager : PassiveSkillManager {
     }
 
     #endregion
+
+    #region Red Aura 
+
+    CritRatePerAttackIndex _critValues;
+    float _critDamage;
+    public void SetCritRate(CritRatePerAttackIndex critValues) => _critValues = critValues;
+    public void SetCritDamage(float critDamage) => _critDamage = critDamage;
+    public CritRatePerAttackIndex ReturnCriValues() => _critValues;
+    public float ReturnCritDamage() => _critDamage;
+
+    #endregion
 }

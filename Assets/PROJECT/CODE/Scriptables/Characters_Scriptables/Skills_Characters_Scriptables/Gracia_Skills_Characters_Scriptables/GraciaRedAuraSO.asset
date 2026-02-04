@@ -30,7 +30,7 @@ MonoBehaviour:
   Slot: 1
   SkillType: 1
   FlatEnergyGainPerHit: 0
-  Cooldown: 0
+  Cooldown: 10
   HasCharges: 0
   Charges: 1
   ChargeCooldown: 0
@@ -54,3 +54,23 @@ MonoBehaviour:
     MinDistanceBack: 0
     ExtraAtributes:
       _serializedList: []
+  AttackAnimationParameter: Red
+  AttackAnimationName: RedAnimation
+  TypeOfSkill: 0
+  TypeOfAura: 2
+  AmountOfValueGainedWhenUsed: 20
+  SkillDuration: 8
+  CritDamageIncreaseList:
+  - 300
+  - 400
+  - 600
+  AditionalCriRateList:
+  - FirstAttackCritRateValue: 25
+    SecondAttackCritRateValue: 35
+    ThirdAttackCritRateValue: 45
+  - FirstAttackCritRateValue: 35
+    SecondAttackCritRateValue: 45
+    ThirdAttackCritRateValue: 55
+  - FirstAttackCritRateValue: 65
+    SecondAttackCritRateValue: 75
+    ThirdAttackCritRateValue: 95
