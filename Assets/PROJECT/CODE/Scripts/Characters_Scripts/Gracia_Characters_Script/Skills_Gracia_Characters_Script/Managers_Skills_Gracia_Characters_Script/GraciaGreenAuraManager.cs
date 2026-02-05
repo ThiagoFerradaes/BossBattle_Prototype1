@@ -52,7 +52,7 @@ public class GraciaGreenAuraManager : SkillObjectManager
         GraciaAttackManager.OnAttackHitAnOponnent -= _onHit;
         GraciaAttackManager.OnAttackHitAnOponnent += _onHit;
 
-        GraciaPassiveManager.Instance.ChangeBarValue(_info.amountOfValueGainedWhenUsed, _info.typeOfSkill, _info.typeOfAura);
+        GraciaPassiveManager.Instance.ChangeBarValue(_info.amountOfValueGainedWhenUsed, _info.typeOfSkill, _info.TypeOfAura);
 
         UnblockInputs();
 
@@ -77,4 +77,6 @@ public class GraciaGreenAuraManager : SkillObjectManager
         healthManager.RecieveShield(amountOfShield, _info.shieldDuration);
     }
     #endregion
+
+
 }
