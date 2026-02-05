@@ -30,6 +30,8 @@ public class CharacterUnlockedInfo {
         this.Character = character;
         this.IsUnlocked = false;
 
+        if (character.CharacterListOfSkills == null) return;
+
         foreach (var skill in character.CharacterListOfSkills) {
 
             if (!DictionaryOfUnlockedSkills.ContainsKey(skill.Slot)) DictionaryOfUnlockedSkills[skill.Slot] = new();
