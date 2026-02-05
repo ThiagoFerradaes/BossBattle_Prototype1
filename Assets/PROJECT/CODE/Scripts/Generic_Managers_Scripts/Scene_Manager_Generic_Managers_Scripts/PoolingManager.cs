@@ -5,15 +5,14 @@ public class PoolingManager : MonoBehaviour {
     #region Parameters
     public static PoolingManager Instance;
 
-    // Dicionários
+    // Dicionï¿½rios
     Dictionary<GameObject, List<GameObject>> listOfHitboxes = new();
     Dictionary<GameObject, List<GameObject>> listOfPreCastingRange = new();
     Dictionary<GameObject, List<GameObject>> listOfVFX = new();
     Dictionary<GameObject, GameObject> listOfManagers = new();
-    Dictionary<GameObject, GameObject> listOfCharacters = new();
 
     // Transforms
-    public Transform HitboxContainer, ManagerContainer, VFXContainer, PreCastingContainer, CharactersContainer;
+    public Transform HitboxContainer, ManagerContainer, VFXContainer, PreCastingContainer;
 
     #endregion
 
@@ -24,28 +23,34 @@ public class PoolingManager : MonoBehaviour {
     }
 
     public GameObject ReturnPrefabFromPool(GameObject prefab, TypeOfSkillPrefab type) {
-
+        
         Dictionary<GameObject, List<GameObject>> pool = type switch {
             TypeOfSkillPrefab.Hitbox => listOfHitboxes,
             TypeOfSkillPrefab.VFX => listOfVFX,
             _ => listOfPreCastingRange
         };
-
+        
         if (!pool.ContainsKey(prefab)) {
             pool[prefab] = new List<GameObject>();
         }
-
+        
         var list = pool[prefab];
-
+        
         for (int i = 0; i < list.Count; i++) {
-            if (!list[i].activeInHierarchy) return list[i];
+            if(list[i] is null) continue;
+            
+            if (!list[i].activeInHierarchy)
+            {
+                return list[i];
+            }
         }
-
+        
         Transform container = type switch {
             TypeOfSkillPrefab.Hitbox => HitboxContainer,
             TypeOfSkillPrefab.VFX => VFXContainer,
             _ => PreCastingContainer
         };
+
 
         GameObject newObject = Instantiate(prefab, container);
         newObject.SetActive(false);
@@ -55,32 +60,19 @@ public class PoolingManager : MonoBehaviour {
 
 
     public GameObject ReturnManagerFromPool(GameObject prefab) {
-
-        if (listOfManagers.TryGetValue(prefab, out GameObject manager)) {
-            return manager;
-        }
-
-        else {
-            GameObject newManager = Instantiate(prefab, ManagerContainer);
-            newManager.transform.SetParent(ManagerContainer.transform);
-            newManager.SetActive(false);
-            listOfManagers[prefab] = newManager;
-            return listOfManagers[prefab];
-        }
+        if (!listOfManagers.TryGetValue(prefab, out GameObject manager) || manager == null) return Instantiate(prefab);
+        return manager;
     }
 
-    public GameObject ReturnCharacterObjectFromPool(GameObject prefab) {
-        if (listOfCharacters.TryGetValue(prefab, out GameObject character)) {
-            return character;
-        }
-
-        else {
-            GameObject newCharacter = Instantiate(prefab, CharactersContainer);
-            newCharacter.transform.SetParent(CharactersContainer.transform);
-            listOfCharacters[prefab] = newCharacter;
-            return listOfCharacters[prefab];
-        }
+    private GameObject Instantiate(GameObject prefab)
+    {
+        GameObject newManager = Instantiate(prefab, ManagerContainer);
+        newManager.transform.SetParent(ManagerContainer.transform);
+        newManager.SetActive(false);
+        listOfManagers[prefab] = newManager;
+        return listOfManagers[prefab];
     }
+    
     public void ReturnObjectToPool(GameObject prefab, TypeOfSkillPrefab type) {
         if(prefab.TryGetComponent<ParticleSystem>(out ParticleSystem ps)) {
             ps.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
@@ -92,7 +84,6 @@ public class PoolingManager : MonoBehaviour {
             TypeOfSkillPrefab.Hitbox => HitboxContainer,
             TypeOfSkillPrefab.VFX => VFXContainer,
             TypeOfSkillPrefab.Manager => ManagerContainer,
-            TypeOfSkillPrefab.Character => CharactersContainer,
             _ => PreCastingContainer
         };
 

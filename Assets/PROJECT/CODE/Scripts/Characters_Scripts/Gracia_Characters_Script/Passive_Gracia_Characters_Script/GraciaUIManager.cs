@@ -58,10 +58,10 @@ public class GraciaUIManager : MonoBehaviour
     void UpdateBarArea(int newValue, GraciaTypeOfSkill bar) {
         switch (bar) {
             case GraciaTypeOfSkill.Left:
-                leftBarAreaNumber.text = newValue.ToString("F0");
+                leftBarAreaNumber.text = (newValue + 1 ).ToString("F0");
                 break;
             case GraciaTypeOfSkill.Right:
-                rightBarAreaNumber.text = newValue.ToString("F0");
+                rightBarAreaNumber.text = (newValue + 1).ToString("F0");
                 break;
         }
     }

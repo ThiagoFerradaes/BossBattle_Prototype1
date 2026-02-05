@@ -54,9 +54,9 @@ public class GraciaPassiveManager : PassiveSkillManager {
                 _currentLeftBarValue = Mathf.Clamp(_currentLeftBarValue + amountToChange, 0f, 100f);
 
                 // Alterando a area atual da area
-                if (_currentLeftBarValue >= _info.ValueToEnterArea3) _currentLeftBarArea = 3;
-                else if (_currentLeftBarValue >= _info.ValueToEnterArea2) _currentLeftBarArea = 2;
-                else _currentLeftBarArea = 1;
+                if (_currentLeftBarValue >= _info.ValueToEnterArea3) _currentLeftBarArea = 2;
+                else if (_currentLeftBarValue >= _info.ValueToEnterArea2) _currentLeftBarArea = 1;
+                else _currentLeftBarArea = 0;
 
                 // Alterando a aura atual
                 if (_currentLeftBarValue > _currentRightBarValue) _currentAura = _leftAura;
@@ -70,9 +70,9 @@ public class GraciaPassiveManager : PassiveSkillManager {
                 _currentRightBarValue = Mathf.Clamp(_currentRightBarValue + amountToChange, 0f, 100f);
 
                 // Alterando a area atual da area
-                if (_currentRightBarValue >= _info.ValueToEnterArea3) _currentRightBarArea = 3;
-                else if (_currentRightBarValue >= _info.ValueToEnterArea2) _currentRightBarArea = 2;
-                else _currentRightBarArea = 1;
+                if (_currentRightBarValue >= _info.ValueToEnterArea3) _currentRightBarArea = 2;
+                else if (_currentRightBarValue >= _info.ValueToEnterArea2) _currentRightBarArea = 1;
+                else _currentRightBarArea = 0;
 
                 // Alterando a aura atual
                 if (_currentRightBarValue > _currentLeftBarValue) _currentAura = _rightAura;
@@ -113,6 +113,17 @@ public class GraciaPassiveManager : PassiveSkillManager {
                 break;
         }
     }
+
+    #endregion
+
+    #region Red Aura 
+
+    CritRatePerAttackIndex _critValues;
+    float _critDamage;
+    public void SetCritRate(CritRatePerAttackIndex critValues) => _critValues = critValues;
+    public void SetCritDamage(float critDamage) => _critDamage = critDamage;
+    public CritRatePerAttackIndex ReturnCriValues() => _critValues;
+    public float ReturnCritDamage() => _critDamage;
 
     #endregion
 }

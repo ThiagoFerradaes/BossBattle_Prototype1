@@ -19,14 +19,17 @@ public class StageByInteraction : TutorialClassBehaviour
 
     private Transform player;
     
+    private bool isInteracting;
+    
     protected void OnEnable()
     {
         PlayerInteractionManager.OnInteractionDistanceForPublic += UpdateInteraction;
         playerActionMap = new PlayerActionMap();
         playerActionMap.Player.Interaction.started += Interaction;
+        playerActionMap.Player.Interaction.canceled += EndInteraction;
         playerActionMap.Enable();
-        player = PlayerManager.Instance.Player.transform;
         
+        player = PlayerManager.Instance.Player.transform;
         uiTextLocalizer.OnTextUpdated += OnAnyButtonPress;
         OnAnyButtonPress(uiTextLocalizer.GetTextString());
         Time();
@@ -36,6 +39,7 @@ public class StageByInteraction : TutorialClassBehaviour
     {
         PlayerInteractionManager.OnInteractionDistanceForPublic -= UpdateInteraction;
         playerActionMap.Player.Interaction.started -= Interaction;
+        playerActionMap.Player.Interaction.canceled -= EndInteraction;
         playerActionMap.Disable();
         uiTextLocalizer.OnTextUpdated -= OnAnyButtonPress;
     }
@@ -60,6 +64,19 @@ public class StageByInteraction : TutorialClassBehaviour
 
     private void Interaction(InputAction.CallbackContext context)
     {
+        isInteracting = true;
+
+    }
+
+    private void EndInteraction(InputAction.CallbackContext context)
+    {
+        isInteracting = false;
+    }
+
+    private void FixedUpdate()
+    {
+        if(!isInteracting) return;
+        
         if (Vector3.Distance(player.position, transform.position) > interactionRange + radius) return;
         
         OnCompleteTutorialEvent?.Invoke(true);

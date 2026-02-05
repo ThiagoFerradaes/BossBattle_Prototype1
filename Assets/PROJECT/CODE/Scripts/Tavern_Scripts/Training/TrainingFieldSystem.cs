@@ -11,6 +11,7 @@ public class TrainingFieldSystem : MonoBehaviour
     [SerializeField] private GameObject[] canvasDisabled;
     [SerializeField] private CharacterSelectionManager characterSelectionManager;
     [SerializeField] private Button closedInteraction;
+    [SerializeField] private Transform managerContainer;
     
     [SerializedDictionary("Character", "PraFab"), SerializeField]
     SerializedDictionary<Character, GameObject> characterPrefabDictionary = new();
@@ -52,7 +53,13 @@ public class TrainingFieldSystem : MonoBehaviour
             {
                 cameraController.SetPlayerTransform(_oldPlayer);
                 PlayerManager.Instance.SetPlayer(_oldPlayer.gameObject);
+                
                 Destroy(player);
+
+                for (byte i = 0; i < managerContainer.childCount; i++)
+                {
+                    Destroy(managerContainer.GetChild(i).gameObject,0.1f);
+                }
             }
 
             cancelTrainingButton.SetActive(false);

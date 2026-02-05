@@ -4,7 +4,7 @@ using System;
 using Unity.Cinemachine;
 using UnityEngine;
 
-public enum Character { Cyrus, Bastian, Lilian, Shapeshifter, SamuraiFrog, Sequencer, TavernKeeper, Null }
+public enum Character { Cyrus, Bastian, Lilian, Gracia, TavernKeeper, Null }
 public class PlayerManager : MonoBehaviour {
     // Singleton
     public static PlayerManager Instance;
@@ -17,7 +17,6 @@ public class PlayerManager : MonoBehaviour {
     [SerializeField] bool isTavernScene = false;
 
     CurrentSelectedCharacterWhiteBoard _playerWhiteBoard;
-    PoolingManager _pooling;
 
     Action _onDefeat;
 
@@ -26,22 +25,17 @@ public class PlayerManager : MonoBehaviour {
         else Destroy(this);
 
         _playerWhiteBoard = CurrentSelectedCharacterWhiteBoard.Instance;
-        _pooling = GetComponent<PoolingManager>();
 
         _onDefeat = Defeat;
 
         SpawnPlayer();
     }
 
-    public void SpawnPlayer(Vector3? playerPosition = null, bool initialize = false) {
-        if (_playerWhiteBoard == null ) return;
-
-        if (_pooling == null) Debug.Log("No pooling");
-
-        Vector3 position = playerPosition.HasValue ? playerPosition.Value : PlayerSpawnPoint.position;
+    void SpawnPlayer() {
+        if (_playerWhiteBoard == null) return;
 
         if (isTavernScene) {
-            GameObject player = Instantiate(characterPrefabDictionary[Character.TavernKeeper], position, Quaternion.identity);
+            GameObject player = Instantiate(characterPrefabDictionary[Character.TavernKeeper], PlayerSpawnPoint.position, Quaternion.identity);
             Player = player;
             return;
         }
@@ -49,26 +43,12 @@ public class PlayerManager : MonoBehaviour {
         Character currentCharacter = _playerWhiteBoard.ReturnSelectedCharacter();
 
         if (characterPrefabDictionary.ContainsKey(currentCharacter)) {
-            GameObject player = _pooling.ReturnCharacterObjectFromPool(characterPrefabDictionary[currentCharacter]);
-            player.transform.SetPositionAndRotation(position, Quaternion.identity);
-            player.SetActive(true);
-            Player = player;         
+            GameObject player = Instantiate(characterPrefabDictionary[currentCharacter], PlayerSpawnPoint.position, Quaternion.identity);
+            Player = player;
         }
 
-        if (initialize) InitializeCurrentPlayer();
-    }
-
-    public void InitializeCurrentPlayer() {
-
-        Player.GetComponent<PlayerSkillCooldownManager>().Initialize();
-        Player.GetComponent<EnergyManager>().Initialize(Player);
-        Player.GetComponent<PlayerMovementManager>().Initialize();
-        Player.GetComponent<PlayerSkillManager>().Initialize();
     }
     private void Start() {
-
-        if (!isTavernScene) InitializeCurrentPlayer();
-
         if (Player != null && Player.TryGetComponent<HealthManager>(out HealthManager healthManager)) {
             healthManager.OnDeath += _onDefeat;
         }

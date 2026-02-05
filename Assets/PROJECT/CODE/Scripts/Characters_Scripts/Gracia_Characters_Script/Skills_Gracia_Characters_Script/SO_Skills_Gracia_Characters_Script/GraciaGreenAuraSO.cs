@@ -1,16 +1,19 @@
+using NaughtyAttributes;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class GraciaGreenAuraSO : MonoBehaviour
+[CreateAssetMenu(menuName = "Characters/ Skills/ Gracia/ GreenAura")]
+public class GraciaGreenAuraSO : CommonSkillSO
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    [Header("Animations")]
+    [Foldout("Specific")] public string attackAnimationParameter;
+    [Foldout("Specific")] public string attackAnimationName;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [Header("Skil lAtributes")]
+    [Foldout("Specific")] public GraciaTypeOfSkill typeOfSkill;
+    [Foldout("Specific")] public GraciaAura typeOfAura;
+    [Foldout("Specific")] public float amountOfValueGainedWhenUsed;
+    [Foldout("Specific")] public float skillDuration;
+    [Foldout("Specific")] public float shieldDuration;
+    [Foldout("Specific")] public List<float> shieldAmountPerLevel;
 }
