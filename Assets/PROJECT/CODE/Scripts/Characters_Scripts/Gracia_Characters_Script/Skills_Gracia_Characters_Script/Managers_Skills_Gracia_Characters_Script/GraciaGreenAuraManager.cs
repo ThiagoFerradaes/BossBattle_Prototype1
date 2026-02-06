@@ -49,8 +49,8 @@ public class GraciaGreenAuraManager : SkillObjectManager
     public override void FourthFunc() {
         base.FourthFunc();
 
-        GraciaAttackManager.OnAttackHitAnOponnent -= _onHit;
-        GraciaAttackManager.OnAttackHitAnOponnent += _onHit;
+        GraciaAttackManager.OnAttackHit -= _onHit;
+        GraciaAttackManager.OnAttackHit += _onHit;
 
         GraciaPassiveManager.Instance.ChangeBarValue(_info.amountOfValueGainedWhenUsed, _info.typeOfSkill, _info.TypeOfAura);
 
@@ -68,7 +68,7 @@ public class GraciaGreenAuraManager : SkillObjectManager
         }
 
         _durationRoutine = null;
-        GraciaAttackManager.OnAttackHitAnOponnent -= _onHit;
+        GraciaAttackManager.OnAttackHit -= _onHit;
         End();
     }
 

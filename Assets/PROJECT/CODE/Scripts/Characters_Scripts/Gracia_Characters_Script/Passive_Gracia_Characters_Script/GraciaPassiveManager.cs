@@ -4,8 +4,7 @@ using Random = UnityEngine.Random;
 
 public enum GraciaTypeOfSkill { Left, Right };
 public enum GraciaAura { Blue, Yellow, Red, Green, Null };
-public class GraciaPassiveManager : PassiveSkillManager
-{
+public class GraciaPassiveManager : PassiveSkillManager {
     #region Paramethers
 
     public static GraciaPassiveManager Instance;
@@ -24,14 +23,12 @@ public class GraciaPassiveManager : PassiveSkillManager
 
     #region Initialize 
 
-    private void Awake()
-    {
+    private void Awake() {
         if (Instance == null) Instance = this;
         else Destroy(this);
     }
 
-    public override void OnStart(PassiveSO passive, GameObject parent)
-    {
+    public override void OnStart(PassiveSO passive, GameObject parent) {
 
         Initialize(passive);
 
@@ -40,15 +37,13 @@ public class GraciaPassiveManager : PassiveSkillManager
         AditionalUIManager.Instance.InstantiateUI(_info.UI);
     }
 
-    void Initialize(PassiveSO passive)
-    {
+    void Initialize(PassiveSO passive) {
         _info = passive as GraciaPassiveSO;
 
         SetInitialAuras();
     }
 
-    void SetInitialAuras()
-    {
+    void SetInitialAuras() {
         // Pegando a aura esquerda
         SkillSO leftSkill = CurrentSelectedCharacterWhiteBoard.Instance.ReturnCurrentSkillBySlot(SkillSlot.SkillOne);
         if (leftSkill is IGraciaSkill leftGraciaSkill) _leftAura = leftGraciaSkill.ReturnSkillAura();
@@ -70,10 +65,8 @@ public class GraciaPassiveManager : PassiveSkillManager
     /// </summary>
     /// <param name="amountToChange"></param>
     /// <param name="type"></param>
-    public void ChangeBarValue(float amountToChange, GraciaTypeOfSkill type, GraciaAura aura)
-    {
-        switch (type)
-        {
+    public void ChangeBarValue(float amountToChange, GraciaTypeOfSkill type, GraciaAura aura) {
+        switch (type) {
             case GraciaTypeOfSkill.Left:
                 // Alterando o valor da barra
                 _currentLeftBarValue = Mathf.Clamp(_currentLeftBarValue + amountToChange, 0f, 100f);
@@ -84,9 +77,12 @@ public class GraciaPassiveManager : PassiveSkillManager
                 else _currentLeftBarArea = 0;
 
                 // Alterando a aura atual
-                if (_currentLeftBarValue > _currentRightBarValue)
-                {
+                if (_currentLeftBarValue > _currentRightBarValue) {
                     _currentAura = _leftAura;
+                    OnCurrentAuraChanged?.Invoke(_currentAura);
+                }
+                else if (_currentLeftBarValue < _currentRightBarValue) {
+                    _currentAura = _rightAura;
                     OnCurrentAuraChanged?.Invoke(_currentAura);
                 }
 
@@ -105,9 +101,12 @@ public class GraciaPassiveManager : PassiveSkillManager
                 else _currentRightBarArea = 0;
 
                 // Alterando a aura atual
-                if (_currentRightBarValue > _currentLeftBarValue)
-                {
+                if (_currentRightBarValue > _currentLeftBarValue) {
                     _currentAura = _rightAura;
+                    OnCurrentAuraChanged?.Invoke(_currentAura);
+                }
+                else if (_currentRightBarValue < _currentLeftBarValue) {
+                    _currentAura = _leftAura;
                     OnCurrentAuraChanged?.Invoke(_currentAura);
                 }
 
@@ -124,10 +123,8 @@ public class GraciaPassiveManager : PassiveSkillManager
     #endregion
 
     #region Getters
-    public int ReturnCurrentSkillArea(GraciaTypeOfSkill type)
-    {
-        switch (type)
-        {
+    public int ReturnCurrentSkillArea(GraciaTypeOfSkill type) {
+        switch (type) {
             case GraciaTypeOfSkill.Left: return _currentLeftBarArea;
             case GraciaTypeOfSkill.Right: return _currentRightBarArea;
             default: break;
@@ -153,7 +150,6 @@ public class GraciaPassiveManager : PassiveSkillManager
     #endregion
 }
 
-public interface IGraciaSkill
-{
+public interface IGraciaSkill {
     public GraciaAura ReturnSkillAura() { return GraciaAura.Null; }
 }

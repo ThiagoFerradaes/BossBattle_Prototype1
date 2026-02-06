@@ -51,8 +51,8 @@ public class GraciaBlueAuraManager : SkillObjectManager
     public override void FourthFunc() {
         base.FourthFunc();
 
-        GraciaAttackManager.OnAttackHitAnOponnent -= _onHit;
-        GraciaAttackManager.OnAttackHitAnOponnent += _onHit;
+        GraciaAttackManager.OnAttackHit -= _onHit;
+        GraciaAttackManager.OnAttackHit += _onHit;
 
         GraciaPassiveManager.Instance.ChangeBarValue(_info.AmountOfValueGainedWhenUsed, _info.TypeOfSkill, _info.TypeOfAura);
 
@@ -76,7 +76,7 @@ public class GraciaBlueAuraManager : SkillObjectManager
             _waitToSpawnHitRoutine = null;
         }
 
-        GraciaAttackManager.OnAttackHitAnOponnent -= _onHit;
+        GraciaAttackManager.OnAttackHit -= _onHit;
         End();
     }
 
