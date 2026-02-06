@@ -175,8 +175,8 @@ public class RawMaterialStatic : MonoBehaviour
         }
         catch (Exception e)
         {
-            Debug.LogError($"Error saving inventory configuration: {e.Message}");
-            Debug.LogError($"Stack trace: {e.StackTrace}");
+            //Debug.LogError($"Error saving inventory configuration: {e.Message}");
+            //Debug.LogError($"Stack trace: {e.StackTrace}");
         }
     }
     
@@ -204,8 +204,8 @@ public class RawMaterialStatic : MonoBehaviour
         }
         catch (Exception e)
         {
-            Debug.LogError($"Error loading inventory configuration: {e.Message}");
-            Debug.LogError($"Stack trace: {e.StackTrace}");
+            //Debug.LogError($"Error loading inventory configuration: {e.Message}");
+            //Debug.LogError($"Stack trace: {e.StackTrace}");
         }
     }
     
