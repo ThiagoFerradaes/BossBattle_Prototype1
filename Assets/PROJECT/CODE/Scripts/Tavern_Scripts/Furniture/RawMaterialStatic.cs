@@ -173,7 +173,7 @@ public class RawMaterialStatic : MonoBehaviour
             
             Debug.Log("Inventory save data saved successfully!");
         }
-        catch (Exception e)
+        catch (Exception)
         {
             //Debug.LogError($"Error saving inventory configuration: {e.Message}");
             //Debug.LogError($"Stack trace: {e.StackTrace}");
@@ -202,7 +202,7 @@ public class RawMaterialStatic : MonoBehaviour
             FurnitureQuantity.AddRange(loadedData.saveFurniture.ToDictionary());
             timeGame = loadedData.timeGame;
         }
-        catch (Exception e)
+        catch (Exception)
         {
             //Debug.LogError($"Error loading inventory configuration: {e.Message}");
             //Debug.LogError($"Stack trace: {e.StackTrace}");
