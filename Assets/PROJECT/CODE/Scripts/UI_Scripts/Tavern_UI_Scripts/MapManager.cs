@@ -92,9 +92,13 @@ public class MapManager : MonoBehaviour {
             gameObject.SetActive(false);
             OnCloseMap?.Invoke();
             SecondMap.SetActive(false);
+            SailButton.gameObject.SetActive(false);
             });
         
-        CloseSecondMapButton.onClick.AddListener(() => SecondMap.SetActive(false));
+        CloseSecondMapButton.onClick.AddListener(() => {
+            SecondMap.SetActive(false);
+            SailButton.gameObject.SetActive(false);
+        });
 
         TestIslandButton.onClick.AddListener(() => TurnScreenOn(TestIslandDescription));
 
@@ -121,6 +125,7 @@ public class MapManager : MonoBehaviour {
 
         SailButton.onClick.RemoveAllListeners();
         SailButton.onClick.AddListener(() => Sail(description));
+        SailButton.gameObject.SetActive(true);
 
         int amountOfPhasesUnlocked = WhiteBoard.Instance.ReturnListOfUnlockedPhasesByBoss()[description.Boss];
 
