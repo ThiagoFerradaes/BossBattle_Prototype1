@@ -69,6 +69,8 @@ public class MapManager : MonoBehaviour {
             ;
 
         }
+
+        OnChangeSelectedCharacter(CurrentSelectedCharacterWhiteBoard.Instance.ReturnSelectedCharacterSO());
     }
     #endregion
 
