@@ -64,7 +64,9 @@ public class GraciaDashUltimateManager : SkillObjectManager
     }
 
     IEnumerator DashRoutine() {
-        yield return null;
+        while (true) {
+            Debug.Log("Dashing");
+        }
     }
 
     #endregion
@@ -72,7 +74,7 @@ public class GraciaDashUltimateManager : SkillObjectManager
     #region Behaviours
 
     void DecideBehaviour() {
-
+        Debug.Log("Decide Behaviour");
     }
 
     #endregion

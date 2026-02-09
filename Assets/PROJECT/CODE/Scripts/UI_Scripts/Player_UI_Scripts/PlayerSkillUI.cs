@@ -120,12 +120,12 @@ public class PlayerSkillUI : MonoBehaviour {
         CurrentSelectedCharacterWhiteBoard whiteboard = CurrentSelectedCharacterWhiteBoard.Instance;
         Character selectedCharacter = whiteboard.ReturnSelectedCharacter();
 
-        if (whiteboard.ReturnSkillOne(selectedCharacter).SkillSpriteIcon)
-            skillOneImage.sprite = whiteboard.ReturnSkillOne(selectedCharacter).SkillSpriteIcon;
-        if (whiteboard.ReturnSkillTwo(selectedCharacter).SkillSpriteIcon)
-            skillTwoImage.sprite = whiteboard.ReturnSkillTwo(selectedCharacter).SkillSpriteIcon;
-        if (whiteboard.ReturnUltimate(selectedCharacter).SkillSpriteIcon)
-            ultimateImage.sprite = whiteboard.ReturnUltimate(selectedCharacter).SkillSpriteIcon;
+        if (whiteboard.ReturnSkillOne(selectedCharacter).UISkillSpriteIcon)
+            skillOneImage.sprite = whiteboard.ReturnSkillOne(selectedCharacter).UISkillSpriteIcon;
+        if (whiteboard.ReturnSkillTwo(selectedCharacter).UISkillSpriteIcon)
+            skillTwoImage.sprite = whiteboard.ReturnSkillTwo(selectedCharacter).UISkillSpriteIcon;
+        if (whiteboard.ReturnUltimate(selectedCharacter).UISkillSpriteIcon)
+            ultimateImage.sprite = whiteboard.ReturnUltimate(selectedCharacter).UISkillSpriteIcon;
 
     }
 

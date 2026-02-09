@@ -30,6 +30,10 @@ public class CharacterSO : ScriptableObject {
     [Foldout("Character Selection")] public Sprite CharacterSignature;
     [Foldout("Character Selection")] public Sprite CharacterSelectionImage;
     [Foldout("Character Selection")] public Sprite CharacterIcon;
+    [Foldout("Character Selection")] public Sprite CharacterSelectedBackground;
+    [Foldout("Character Selection")] public Sprite CharacterLockedMapSprite;
+    [Foldout("Character Selection")] public Sprite SelectedCharacterMapSprite;
+    [Foldout("Character Selection")] public Sprite UnselectedCharacterMapSprite;
     [Foldout("Character Selection")] public List<SkillSO> CharacterListOfSkills;
 
     public Character Character;
