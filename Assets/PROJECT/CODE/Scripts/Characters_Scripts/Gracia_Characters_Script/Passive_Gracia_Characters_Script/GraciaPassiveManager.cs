@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public enum GraciaTypeOfSkill { Left, Right };
 public enum GraciaAura { Blue, Yellow, Red, Green, Null };
@@ -15,6 +16,9 @@ public class GraciaPassiveManager : PassiveSkillManager {
 
     public Action<float, GraciaTypeOfSkill> OnGraciaBarValueChanged;
     public Action<int, GraciaTypeOfSkill> OnGraciaBarAreaChanged;
+
+    public event Action<GraciaAura> OnCurrentAuraChanged;
+
     #endregion
 
     #region Initialize 
@@ -31,11 +35,25 @@ public class GraciaPassiveManager : PassiveSkillManager {
         gameObject.SetActive(true);
 
         AditionalUIManager.Instance.InstantiateUI(_info.UI);
-
     }
 
     void Initialize(PassiveSO passive) {
         _info = passive as GraciaPassiveSO;
+
+        SetInitialAuras();
+    }
+
+    void SetInitialAuras() {
+        // Pegando a aura esquerda
+        SkillSO leftSkill = CurrentSelectedCharacterWhiteBoard.Instance.ReturnCurrentSkillBySlot(SkillSlot.SkillOne);
+        if (leftSkill is IGraciaSkill leftGraciaSkill) _leftAura = leftGraciaSkill.ReturnSkillAura();
+
+        // Pegando a aura direita
+        SkillSO rightSkill = CurrentSelectedCharacterWhiteBoard.Instance.ReturnCurrentSkillBySlot(SkillSlot.SkillTwo);
+        if (rightSkill is IGraciaSkill rightGraciaSkill) _rightAura = rightGraciaSkill.ReturnSkillAura();
+
+        _currentAura = Random.value > 0.5f ? _leftAura : _rightAura;
+
     }
 
     #endregion
@@ -59,12 +77,20 @@ public class GraciaPassiveManager : PassiveSkillManager {
                 else _currentLeftBarArea = 0;
 
                 // Alterando a aura atual
-                if (_currentLeftBarValue > _currentRightBarValue) _currentAura = _leftAura;
+                if (_currentLeftBarValue > _currentRightBarValue) {
+                    _currentAura = _leftAura;
+                    OnCurrentAuraChanged?.Invoke(_currentAura);
+                }
+                else if (_currentLeftBarValue < _currentRightBarValue) {
+                    _currentAura = _rightAura;
+                    OnCurrentAuraChanged?.Invoke(_currentAura);
+                }
 
                 // Avisando que o valor da barra alterou
                 OnGraciaBarValueChanged?.Invoke(_currentLeftBarValue, GraciaTypeOfSkill.Left);
                 OnGraciaBarAreaChanged?.Invoke(_currentLeftBarArea, GraciaTypeOfSkill.Left);
                 break;
+
             case GraciaTypeOfSkill.Right:
                 // Alterando o valor da barra
                 _currentRightBarValue = Mathf.Clamp(_currentRightBarValue + amountToChange, 0f, 100f);
@@ -75,15 +101,23 @@ public class GraciaPassiveManager : PassiveSkillManager {
                 else _currentRightBarArea = 0;
 
                 // Alterando a aura atual
-                if (_currentRightBarValue > _currentLeftBarValue) _currentAura = _rightAura;
+                if (_currentRightBarValue > _currentLeftBarValue) {
+                    _currentAura = _rightAura;
+                    OnCurrentAuraChanged?.Invoke(_currentAura);
+                }
+                else if (_currentRightBarValue < _currentLeftBarValue) {
+                    _currentAura = _leftAura;
+                    OnCurrentAuraChanged?.Invoke(_currentAura);
+                }
 
                 // Avisando que o valor da barra alterou
                 OnGraciaBarValueChanged?.Invoke(_currentRightBarValue, GraciaTypeOfSkill.Right);
                 OnGraciaBarAreaChanged?.Invoke(_currentRightBarArea, GraciaTypeOfSkill.Right);
                 break;
+
             default: break;
         }
-       
+
     }
 
     #endregion
@@ -99,21 +133,9 @@ public class GraciaPassiveManager : PassiveSkillManager {
     }
 
     public GraciaAura ReturnCurrentAura() => _currentAura;
-    #endregion
 
-    #region Setters
-
-    public void SetAura(GraciaTypeOfSkill type, GraciaAura aura) {
-        switch (type) {
-            case GraciaTypeOfSkill.Left:
-                _leftAura = aura;
-                break;
-            case GraciaTypeOfSkill.Right:
-                _rightAura = aura;
-                break;
-        }
-    }
-
+    public GraciaAura ReturnLeftAura() => _leftAura;
+    public GraciaAura ReturnRighttAura() => _rightAura;
     #endregion
 
     #region Red Aura 
@@ -126,4 +148,8 @@ public class GraciaPassiveManager : PassiveSkillManager {
     public float ReturnCritDamage() => _critDamage;
 
     #endregion
+}
+
+public interface IGraciaSkill {
+    public GraciaAura ReturnSkillAura() { return GraciaAura.Null; }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Characters/ Skills/ Gracia/ RedAura")]
-public class GraciaRedAuraSO : CommonSkillSO
+public class GraciaRedAuraSO : CommonSkillSO, IGraciaSkill
 {
     [Header("Animations")]
     [Foldout("Specific")] public string AttackAnimationParameter;
@@ -16,6 +16,11 @@ public class GraciaRedAuraSO : CommonSkillSO
     [Foldout("Specific")] public float SkillDuration;
     [Foldout("Specific")] public List<float> CritDamageIncreaseList;
     [Foldout("Specific"), Tooltip("Values In Percent (0% - 100%)")] public List<CritRatePerAttackIndex> AditionalCriRateList;
+
+    public GraciaAura ReturnSkillAura()
+    {
+        return TypeOfAura;
+    }
 }
 [System.Serializable]
 public struct CritRatePerAttackIndex {

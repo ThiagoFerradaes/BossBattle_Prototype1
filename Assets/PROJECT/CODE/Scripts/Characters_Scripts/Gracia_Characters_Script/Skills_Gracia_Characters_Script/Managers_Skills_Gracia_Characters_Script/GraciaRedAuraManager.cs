@@ -85,4 +85,5 @@ public class GraciaRedAuraManager : SkillObjectManager
 
 
     #endregion
+
 }

@@ -100,7 +100,7 @@ public class SkillSelectionManager : MonoBehaviour {
             dictionaryOfSkillButtons[SkillType.Classic].interactable = classicSkill.IsUnlocked;
 
             // Icons
-            dictionaryOfSkillIcons[SkillType.Classic].sprite = classicSkill.Skill.SkillSpriteIcon;
+            dictionaryOfSkillIcons[SkillType.Classic].sprite = classicSkill.Skill.UISkillSpriteIcon;
 
         }
 
@@ -114,7 +114,7 @@ public class SkillSelectionManager : MonoBehaviour {
             dictionaryOfSkillButtons[SkillType.Alternative].interactable = alternativeSkill.IsUnlocked;
 
             // Icons
-            dictionaryOfSkillIcons[SkillType.Alternative].sprite = alternativeSkill.Skill.SkillSpriteIcon;
+            dictionaryOfSkillIcons[SkillType.Alternative].sprite = alternativeSkill.Skill.UISkillSpriteIcon;
 
         }
         else {
