@@ -10,12 +10,13 @@ public class GraciaDashUltimateManager : SkillObjectManager
     InstantDamageHitBox _principalDashDamageHitbox;
 
     // Int
-    int _skillLevel;
+    int _skillLevel, _playerLayer, _enemyLayer;
+
+    // Bool
+    bool _collisionForcedOn;
 
     // Coroutines
     Coroutine _dashRoutine;
-
-    
 
     #endregion
 
@@ -30,6 +31,9 @@ public class GraciaDashUltimateManager : SkillObjectManager
     void Initialize(SkillSO skill) {
         if (_info == null) _info = skill as GraciaDashUltimateSO;
         if (!gameObject.activeInHierarchy) gameObject.SetActive(true);
+
+        _playerLayer = parent.layer;
+        _enemyLayer = LayerMask.NameToLayer("Enemy");
     }
 
     #endregion
@@ -45,6 +49,11 @@ public class GraciaDashUltimateManager : SkillObjectManager
 
     public override void SecondFunc() {
         DecideBehaviour();
+
+        movementManager.ChangeIsDashing(true);
+
+        healthManager.SetCantTakeDamage();
+
         _dashRoutine ??= StartCoroutine(DashRoutine());
     }
 
@@ -56,6 +65,11 @@ public class GraciaDashUltimateManager : SkillObjectManager
             _dashRoutine = null;
         }
 
+        // Se não foi forçado a ligar antes, religa no final do dash
+        if (!_collisionForcedOn) {
+            Physics.IgnoreLayerCollision(_playerLayer, _enemyLayer, false);
+        }
+
         energyManager.SetCanGainEnergy(true);
 
         if (_principalDashDamageHitbox != null) _principalDashDamageHitbox.ForceEnd();
@@ -64,9 +78,56 @@ public class GraciaDashUltimateManager : SkillObjectManager
     }
 
     IEnumerator DashRoutine() {
-        while (true) {
-            Debug.Log("Dashing");
+
+        AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
+        float dashDuration = (stateInfo.length * _info.DashDuration) - (stateInfo.length * _info.TimeToStartDash);
+        float remainingTime = dashDuration;
+
+        Vector3 startPos = parent.transform.position;
+        Vector3 dashDir = parent.transform.forward.normalized;
+        float dashDistance = _info.DashForce * dashDuration;
+
+        Vector3 finalPos = startPos + dashDir * dashDistance;
+
+        Physics.IgnoreLayerCollision(_playerLayer, _enemyLayer, true);
+        _collisionForcedOn = false;
+
+        int dashStateHash = stateInfo.fullPathHash;
+
+        while (stateInfo.normalizedTime < _info.TimeToStartDash) {
+            stateInfo = anim.GetCurrentAnimatorStateInfo(0);
+            yield return null;
         }
+
+        while (stateInfo.fullPathHash == dashStateHash && stateInfo.normalizedTime < _info.DashDuration) {
+
+            rb.linearVelocity = dashDir * _info.DashForce;
+
+            // Checa continuamente se a posição final está dentro de um inimigo
+            Collider[] hits = Physics.OverlapSphere(finalPos, 0.2f, 1 << _enemyLayer);
+            if (hits.Length > 0 && !_collisionForcedOn) {
+
+                // Liga colisão de volta para parar no inimigo
+                Physics.IgnoreLayerCollision(_playerLayer, _enemyLayer, false);
+                _collisionForcedOn = true;
+            }
+
+            remainingTime -= Time.deltaTime;
+            if (remainingTime <= 0f) break;
+
+            stateInfo = anim.GetCurrentAnimatorStateInfo(0);
+
+            yield return null;
+        }
+
+        // Se não foi forçado a ligar antes, religa no final do dash
+        if (!_collisionForcedOn) {
+            Physics.IgnoreLayerCollision(_playerLayer, _enemyLayer, false);
+        }
+
+        movementManager.ChangeIsDashing(false);
+
+        healthManager.SetCanTakeDamage();
     }
 
     #endregion

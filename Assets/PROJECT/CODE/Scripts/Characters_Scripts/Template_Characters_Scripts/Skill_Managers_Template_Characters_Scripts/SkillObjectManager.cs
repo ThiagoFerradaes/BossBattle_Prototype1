@@ -19,6 +19,7 @@ public abstract class SkillObjectManager : MonoBehaviour {
     protected EnergyManager energyManager;
     protected Coroutine animationCoroutine;
     protected HealthManager healthManager;
+    protected Rigidbody rb;
     protected SkillSO info;
     Action _stopSkill;
 
@@ -36,6 +37,7 @@ public abstract class SkillObjectManager : MonoBehaviour {
             statusManager = parent.GetComponent<StatusManager>();
             energyManager = parent.GetComponent<EnergyManager>();
             healthManager = parent.GetComponent<HealthManager>();
+            rb = parent.GetComponent<Rigidbody>();
             info = skill;
         }
         this.slot = slot;

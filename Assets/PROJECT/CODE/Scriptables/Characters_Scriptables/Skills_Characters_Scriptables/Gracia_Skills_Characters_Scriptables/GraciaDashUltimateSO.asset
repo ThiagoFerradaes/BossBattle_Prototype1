@@ -15,7 +15,8 @@ MonoBehaviour:
   SkillName: Gracia Dash Ultimate
   SkillShortDescription: Dash
   SkillLongDescription: Lil dash
-  SkillSpriteIcon: {fileID: 1081662790, guid: 3bd66792082ea9042a60054da7e52502, type: 3}
+  UISkillSpriteIcon: {fileID: 0}
+  MapSkillSpriteIcon: {fileID: 0}
   SkillManagerObject: {fileID: 8103886338029536240, guid: b65a0dec7ba9b3a4e9400dfa56b6c70f, type: 3}
   Prefabs:
     _serializedList:
@@ -29,7 +30,7 @@ MonoBehaviour:
   Cancelable: 0
   Slot: 3
   SkillType: 1
-  EnergyCost: 0
+  EnergyCost: 5
   Atributes:
     DamageType: 0
     UnitsToHit:
@@ -49,3 +50,8 @@ MonoBehaviour:
     MinDistanceBack: 0
     ExtraAtributes:
       _serializedList: []
+  AttackAnimationParameter: Dash
+  AttackAnimationName: Dash
+  DashForce: 7
+  DashDuration: 0.8
+  TimeToStartDash: 0.15

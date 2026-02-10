@@ -9,5 +9,7 @@ public class GraciaDashUltimateSO : UltimateSkillSO
     [Foldout("Specific")] public string AttackAnimationName;
 
     [Header("Dash Atributes")]
-    [Foldout("Specific")] public float dashForce;
+    [Foldout("Specific")] public float DashForce;
+    [Foldout("Specific")] public float DashDuration;
+    [Foldout("Specific")] public float TimeToStartDash;
 }
