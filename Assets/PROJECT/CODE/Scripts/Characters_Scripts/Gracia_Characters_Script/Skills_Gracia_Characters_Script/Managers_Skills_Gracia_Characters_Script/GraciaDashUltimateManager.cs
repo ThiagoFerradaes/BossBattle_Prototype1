@@ -1,8 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class GraciaDashUltimateManager : SkillObjectManager
-{
+public class GraciaDashUltimateManager : SkillObjectManager {
     #region Paramethers
 
     // Components
@@ -11,6 +10,15 @@ public class GraciaDashUltimateManager : SkillObjectManager
 
     // Int
     int _skillLevel, _playerLayer, _enemyLayer;
+
+    // Float
+    float _shieldAmount;
+
+    // Vector3
+    Vector3 _startPosition;
+
+    // Aura
+    GraciaAura _currentAura;
 
     // Bool
     bool _collisionForcedOn;
@@ -43,18 +51,51 @@ public class GraciaDashUltimateManager : SkillObjectManager
     public override void FirstFunc() {
         base.FirstFunc();
 
+        SetParameters();
+
+        LooseBarPoints();
+
+        HandleEnergyManager();
+    }
+
+    void SetParameters() {
+        _currentAura = GraciaPassiveManager.Instance.ReturnCurrentAura();
+
+        _shieldAmount = healthManager.ReturnCurrentShield();
+
+        _skillLevel = GraciaPassiveManager.Instance.ReturnCurrentSkillArea(_currentAura);
+
+        _startPosition = parent.transform.position;
+    }
+
+    void LooseBarPoints() {
+        float percentOfBarToLoose = _currentAura switch {
+            GraciaAura.Blue => _info.PercentOfPassiveBarBlue,
+            GraciaAura.Yellow => _info.PercentOfPassiveBarYellow,
+            GraciaAura.Red => _info.PercentOfPassiveBarRed,
+            GraciaAura.Green => _info.PercentOfPassiveBarGreen,
+            _ => 0
+        };
+        float currentBarValue = GraciaPassiveManager.Instance.ReturnBarAmount(_currentAura);
+        float amountToLoose = currentBarValue * percentOfBarToLoose;
+        GraciaPassiveManager.Instance.ChangeBarValue(-amountToLoose, _currentAura);
+    }
+
+    void HandleEnergyManager() {
         energyManager.SetCanGainEnergy(false);
+
         energyManager.LooseAllEnergy();
     }
 
     public override void SecondFunc() {
-        DecideBehaviour();
 
         movementManager.ChangeIsDashing(true);
 
         healthManager.SetCantTakeDamage();
 
         _dashRoutine ??= StartCoroutine(DashRoutine());
+
+        if(_currentAura == GraciaAura.Blue) BlueBehaviour();
     }
 
     public override void FourthFunc() {
@@ -72,9 +113,9 @@ public class GraciaDashUltimateManager : SkillObjectManager
 
         energyManager.SetCanGainEnergy(true);
 
-        if (_principalDashDamageHitbox != null) _principalDashDamageHitbox.ForceEnd();
+        DecideBehaviour();
 
-        UnblockInputs();
+        EndWithUnblockSkills();
     }
 
     IEnumerator DashRoutine() {
@@ -128,6 +169,8 @@ public class GraciaDashUltimateManager : SkillObjectManager
         movementManager.ChangeIsDashing(false);
 
         healthManager.SetCanTakeDamage();
+
+        if (_principalDashDamageHitbox != null) _principalDashDamageHitbox.ForceEnd();
     }
 
     #endregion
@@ -135,7 +178,24 @@ public class GraciaDashUltimateManager : SkillObjectManager
     #region Behaviours
 
     void DecideBehaviour() {
-        Debug.Log("Decide Behaviour");
+        switch (_currentAura) {
+            case GraciaAura.Yellow: YellowBehaviour(); break;
+            case GraciaAura.Green: GreenBehaviour(); break;
+        }
+    }
+    void BlueBehaviour() {
+        GameObject blueShadow = PoolingManager.Instance.ReturnPrefabFromPool(_info.BlueShadowPrefab, TypeOfSkillPrefab.Hitbox);
+
+        blueShadow.transform.localScale = _info.BlueAtributes.Size;
+        blueShadow.transform.SetPositionAndRotation(_startPosition, Quaternion.identity);
+
+        blueShadow.GetComponent<GraciaBlueDashUltimateManager>().Initialize(_info, parent.transform, statusManager);
+    }
+    void YellowBehaviour() {
+        energyManager.GainEnergy(_info.EnergyCost * _info.EnergyPercentToReturn);
+    }
+    void GreenBehaviour() {
+        healthManager.Heal(_shieldAmount * _info.ShieldPercentToHeal);
     }
 
     #endregion
@@ -152,7 +212,14 @@ public class GraciaDashUltimateManager : SkillObjectManager
         hitbox.transform.SetParent(parent.transform, false);
         hitbox.transform.SetLocalPositionAndRotation(prefab.PreFabPosition, Quaternion.identity);
 
-        DamageContext newContext = new(_info.Atributes, statusManager);
+        // Decidindo atributos
+        DamageAtributes newAtributes = new(_info.Atributes);
+        if (_currentAura == GraciaAura.Red) {
+            newAtributes.ExtraAtributes[ExtraDamageContextAtributes.CritRate] = _info.RedCritRate;
+            newAtributes.ExtraAtributes[ExtraDamageContextAtributes.CritDamage] = _info.RedCritDamage;
+        }
+        newAtributes.Damage *= (1 + _info.DamageIncreasePerLevel[_skillLevel]);
+        DamageContext newContext = new(newAtributes, statusManager);
 
         _principalDashDamageHitbox = hitbox.GetComponent<InstantDamageHitBox>();
         _principalDashDamageHitbox.Initialize(newContext);

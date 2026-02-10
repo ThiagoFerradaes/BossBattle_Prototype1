@@ -217,6 +217,7 @@ public class HealthManager : MonoBehaviour {
     public float ReturnCurrentHealth() => _currentHealth;
 
     public bool ReturnIfIsDead() => _isDead;
+    public float ReturnCurrentShield() => _currentShield;
     #endregion
 
     #endregion

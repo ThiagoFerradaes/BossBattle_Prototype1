@@ -54,7 +54,7 @@ public class GraciaBlueAuraManager : SkillObjectManager
         GraciaAttackManager.OnAttackHit -= _onHit;
         GraciaAttackManager.OnAttackHit += _onHit;
 
-        GraciaPassiveManager.Instance.ChangeBarValue(_info.AmountOfValueGainedWhenUsed, _info.TypeOfSkill, _info.TypeOfAura);
+        GraciaPassiveManager.Instance.ChangeBarValue(_info.AmountOfValueGainedWhenUsed, _info.TypeOfAura);
 
         UnblockInputs();
 

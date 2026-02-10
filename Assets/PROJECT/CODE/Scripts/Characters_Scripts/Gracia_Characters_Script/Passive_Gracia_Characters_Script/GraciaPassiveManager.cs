@@ -1,3 +1,4 @@
+using AYellowpaper.SerializedCollections.Editor.Data;
 using System;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -65,60 +66,59 @@ public class GraciaPassiveManager : PassiveSkillManager {
     /// </summary>
     /// <param name="amountToChange"></param>
     /// <param name="type"></param>
-    public void ChangeBarValue(float amountToChange, GraciaTypeOfSkill type, GraciaAura aura) {
-        switch (type) {
-            case GraciaTypeOfSkill.Left:
-                // Alterando o valor da barra
-                _currentLeftBarValue = Mathf.Clamp(_currentLeftBarValue + amountToChange, 0f, 100f);
+    public void ChangeBarValue(float amountToChange, GraciaAura aura) {
 
-                // Alterando a area atual da area
-                if (_currentLeftBarValue >= _info.ValueToEnterArea3) _currentLeftBarArea = 2;
-                else if (_currentLeftBarValue >= _info.ValueToEnterArea2) _currentLeftBarArea = 1;
-                else _currentLeftBarArea = 0;
+        bool isLeftBar = aura == GraciaAura.Red || aura == GraciaAura.Blue;
 
-                // Alterando a aura atual
-                if (_currentLeftBarValue > _currentRightBarValue) {
-                    _currentAura = _leftAura;
-                    OnCurrentAuraChanged?.Invoke(_currentAura);
-                }
-                else if (_currentLeftBarValue < _currentRightBarValue) {
-                    _currentAura = _rightAura;
-                    OnCurrentAuraChanged?.Invoke(_currentAura);
-                }
+        if (isLeftBar) {
+            // Alterando o valor da barra
+            _currentLeftBarValue = Mathf.Clamp(_currentLeftBarValue + amountToChange, 0f, 100f);
 
-                // Avisando que o valor da barra alterou
-                OnGraciaBarValueChanged?.Invoke(_currentLeftBarValue, GraciaTypeOfSkill.Left);
-                OnGraciaBarAreaChanged?.Invoke(_currentLeftBarArea, GraciaTypeOfSkill.Left);
-                break;
+            // Alterando a area atual da area
+            if (_currentLeftBarValue >= _info.ValueToEnterArea3) _currentLeftBarArea = 2;
+            else if (_currentLeftBarValue >= _info.ValueToEnterArea2) _currentLeftBarArea = 1;
+            else _currentLeftBarArea = 0;
 
-            case GraciaTypeOfSkill.Right:
-                // Alterando o valor da barra
-                _currentRightBarValue = Mathf.Clamp(_currentRightBarValue + amountToChange, 0f, 100f);
+            // Alterando a aura atual
+            if (_currentLeftBarValue > _currentRightBarValue) {
+                _currentAura = _leftAura;
+                OnCurrentAuraChanged?.Invoke(_currentAura);
+            }
+            else if (_currentLeftBarValue < _currentRightBarValue) {
+                _currentAura = _rightAura;
+                OnCurrentAuraChanged?.Invoke(_currentAura);
+            }
 
-                // Alterando a area atual da area
-                if (_currentRightBarValue >= _info.ValueToEnterArea3) _currentRightBarArea = 2;
-                else if (_currentRightBarValue >= _info.ValueToEnterArea2) _currentRightBarArea = 1;
-                else _currentRightBarArea = 0;
-
-                // Alterando a aura atual
-                if (_currentRightBarValue > _currentLeftBarValue) {
-                    _currentAura = _rightAura;
-                    OnCurrentAuraChanged?.Invoke(_currentAura);
-                }
-                else if (_currentRightBarValue < _currentLeftBarValue) {
-                    _currentAura = _leftAura;
-                    OnCurrentAuraChanged?.Invoke(_currentAura);
-                }
-
-                // Avisando que o valor da barra alterou
-                OnGraciaBarValueChanged?.Invoke(_currentRightBarValue, GraciaTypeOfSkill.Right);
-                OnGraciaBarAreaChanged?.Invoke(_currentRightBarArea, GraciaTypeOfSkill.Right);
-                break;
-
-            default: break;
+            // Avisando que o valor da barra alterou
+            OnGraciaBarValueChanged?.Invoke(_currentLeftBarValue, GraciaTypeOfSkill.Left);
+            OnGraciaBarAreaChanged?.Invoke(_currentLeftBarArea, GraciaTypeOfSkill.Left);
         }
+        else {
+            // Alterando o valor da barra
+            _currentRightBarValue = Mathf.Clamp(_currentRightBarValue + amountToChange, 0f, 100f);
 
+            // Alterando a area atual da area
+            if (_currentRightBarValue >= _info.ValueToEnterArea3) _currentRightBarArea = 2;
+            else if (_currentRightBarValue >= _info.ValueToEnterArea2) _currentRightBarArea = 1;
+            else _currentRightBarArea = 0;
+
+            // Alterando a aura atual
+            if (_currentRightBarValue > _currentLeftBarValue) {
+                _currentAura = _rightAura;
+                OnCurrentAuraChanged?.Invoke(_currentAura);
+            }
+            else if (_currentRightBarValue < _currentLeftBarValue) {
+                _currentAura = _leftAura;
+                OnCurrentAuraChanged?.Invoke(_currentAura);
+            }
+
+            // Avisando que o valor da barra alterou
+            OnGraciaBarValueChanged?.Invoke(_currentRightBarValue, GraciaTypeOfSkill.Right);
+            OnGraciaBarAreaChanged?.Invoke(_currentRightBarArea, GraciaTypeOfSkill.Right);
+        }
     }
+
+
 
     #endregion
 
@@ -131,11 +131,23 @@ public class GraciaPassiveManager : PassiveSkillManager {
         }
         return 0;
     }
+    public int ReturnCurrentSkillArea(GraciaAura aura) {
 
+        bool isLeftBar = aura == GraciaAura.Red || aura == GraciaAura.Blue;
+
+        if (isLeftBar) return _currentLeftBarArea;
+        else return _currentRightBarArea;
+    }
     public GraciaAura ReturnCurrentAura() => _currentAura;
 
     public GraciaAura ReturnLeftAura() => _leftAura;
     public GraciaAura ReturnRighttAura() => _rightAura;
+    public float ReturnBarAmount(GraciaAura aura) {
+        bool isLeft = aura == GraciaAura.Blue || aura == GraciaAura.Red;
+
+        if (isLeft) return _currentLeftBarValue;
+        else return _currentRightBarValue;
+    }
     #endregion
 
     #region Red Aura 

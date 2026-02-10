@@ -46,7 +46,7 @@ public class GraciaYellowAuraManager : SkillObjectManager {
 
     public override void ThirdFunc() {
         IncreaseAttackSpeed();
-        _passiveManager.ChangeBarValue(_info.AmountOfValueGainedWhenUsed, _info.TypeOfSkill, _info.TypeOfAura);
+        _passiveManager.ChangeBarValue(_info.AmountOfValueGainedWhenUsed, _info.TypeOfAura);
     }
 
     void IncreaseAttackSpeed() {

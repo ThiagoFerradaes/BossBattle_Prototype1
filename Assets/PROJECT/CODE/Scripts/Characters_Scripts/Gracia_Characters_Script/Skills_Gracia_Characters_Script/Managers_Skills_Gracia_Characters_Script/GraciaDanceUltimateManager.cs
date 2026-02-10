@@ -83,7 +83,7 @@ public class GraciaDanceUltimateManager : SkillObjectManager
         _skillLevel = GraciaPassiveManager.Instance.ReturnCurrentSkillArea(GraciaTypeOfSkill.Left);
 
         // Drenando a barra
-        GraciaPassiveManager.Instance.ChangeBarValue(-_info.BlueAmountOfAuraConsumed, GraciaTypeOfSkill.Left, GraciaAura.Blue);
+        GraciaPassiveManager.Instance.ChangeBarValue(-_info.BlueAmountOfAuraConsumed, GraciaAura.Blue);
 
         // Instanciando Hitbox e VFX
         InstantiateBlueEffects();
@@ -134,7 +134,7 @@ public class GraciaDanceUltimateManager : SkillObjectManager
         _skillLevel = GraciaPassiveManager.Instance.ReturnCurrentSkillArea(GraciaTypeOfSkill.Right);
 
         // Drenando a barra
-        GraciaPassiveManager.Instance.ChangeBarValue(-_info.YellowAmountOfAuraConsumed, GraciaTypeOfSkill.Right, GraciaAura.Yellow);
+        GraciaPassiveManager.Instance.ChangeBarValue(-_info.YellowAmountOfAuraConsumed, GraciaAura.Yellow);
 
         // Gastando energia
         energyManager.LooseAllEnergy();
@@ -200,7 +200,7 @@ public class GraciaDanceUltimateManager : SkillObjectManager
         _skillLevel = GraciaPassiveManager.Instance.ReturnCurrentSkillArea(GraciaTypeOfSkill.Left);
 
         // Drenando a barra
-        GraciaPassiveManager.Instance.ChangeBarValue(-_info.RedAmountOfAuraConsumed, GraciaTypeOfSkill.Left, GraciaAura.Red);
+        GraciaPassiveManager.Instance.ChangeBarValue(-_info.RedAmountOfAuraConsumed, GraciaAura.Red);
 
         // Instanciando Hitbox e VFX
         InstantiateRedHit();
@@ -248,7 +248,7 @@ public class GraciaDanceUltimateManager : SkillObjectManager
         _skillLevel = GraciaPassiveManager.Instance.ReturnCurrentSkillArea(GraciaTypeOfSkill.Right);
 
         // Drenando a barra
-        GraciaPassiveManager.Instance.ChangeBarValue(-_info.GreenAmountOfAuraConsumed, GraciaTypeOfSkill.Right, GraciaAura.Green);
+        GraciaPassiveManager.Instance.ChangeBarValue(-_info.GreenAmountOfAuraConsumed, GraciaAura.Green);
 
         // Gastando energia
         energyManager.LooseAllEnergy();
