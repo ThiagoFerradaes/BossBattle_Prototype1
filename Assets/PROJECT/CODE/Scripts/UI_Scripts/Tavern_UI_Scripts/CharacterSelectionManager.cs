@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq;
 
 public class CharacterSelectionManager : MonoBehaviour {
     [Header("Componentes")]
@@ -107,13 +108,16 @@ public class CharacterSelectionManager : MonoBehaviour {
     }
 
     void SetLockedCharactersSprite() {
-        List<CharacterUnlockedInfo> listOfUnlockedCharactersInfo = WhiteBoard.Instance.ReturnListOfUnlockedCharecters();
+        var unlockedInfos = WhiteBoard.Instance.ReturnListOfUnlockedCharecters();
 
-        foreach (CharacterUnlockedInfo character in listOfUnlockedCharactersInfo) {
-            dictionaryOfCharactersButton[character.Character].GetComponent<Image>().sprite = character.Character.CharacterLockedMapSprite;
+        List<CharacterSO> listOfUnlockedCharacter = unlockedInfos.Select(x => x.Character).ToList();
+        foreach (var pair in dictionaryOfCharactersButton) {
+            if (listOfUnlockedCharacter.Contains(pair.Key)) continue;
+            
+            pair.Value.GetComponent<Image>().sprite = pair.Key.CharacterLockedMapSprite;
         }
 
-        ActivateCharacterSelectionButtons(listOfUnlockedCharactersInfo);
+        ActivateCharacterSelectionButtons(unlockedInfos);
     }
 
     void ActivateCharacterSelectionButtons(List<CharacterUnlockedInfo> listOfUnlockedCharacters) {
@@ -143,6 +147,7 @@ public class CharacterSelectionManager : MonoBehaviour {
             else
                 dictionaryOfCharactersButton[character].GetComponent<Image>().sprite = character.UnselectedCharacterMapSprite;
         }
+
     }
 
     void ChangeSkillsIcon() {
