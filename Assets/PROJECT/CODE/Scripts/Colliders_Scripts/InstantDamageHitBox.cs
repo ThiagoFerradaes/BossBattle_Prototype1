@@ -21,14 +21,16 @@ public class InstantDamageHitBox : MonoBehaviour {
     #region Methods
 
     void Awake() {
-        _collider = GetComponent<Collider>();
-        _collider.enabled = false;
+        if (TryGetComponent<Collider>(out Collider collider)) {
+            _collider = collider;
+            _collider.enabled = false;
+        }
     }
     public void Initialize(DamageContext context, bool hasTimer = true) {
         _damageAtributes = context.Atributes;
         _statusManager = context.StatusManager;
 
-        _collider.enabled = true;
+        if (_collider != null) _collider.enabled = true;
 
         gameObject.SetActive(true);
 

@@ -196,12 +196,12 @@ MonoBehaviour:
       - Key: 1
         Value: 25
       - Key: 2
-        Value: 1000
+        Value: 4000
   RedAmountOfAuraConsumed: 25
-  RedCriRateIncreasePerLevel:
-  - Value: 0
-  - Value: 0.5
-  - Value: 1
+  RedCritRatePerLevel:
+  - 25
+  - 50
+  - 100
   GreenAtributes:
     DamageType: 0
     UnitsToHit:
@@ -212,8 +212,8 @@ MonoBehaviour:
     BreakShield: 0
     Size: {x: 6, y: 6, z: 6}
     TypeOfPrefab: 1
-    HitBoxDuration: 6
-    DamageCooldown: 0.5
+    HitBoxDuration: 7
+    DamageCooldown: 0.4
     Distance: 0
     Speed: 0
     CrossEnemy: 0
@@ -221,10 +221,8 @@ MonoBehaviour:
     MinDistanceBack: 0
     ExtraAtributes:
       _serializedList: []
-  GreenUltimateShieldAmount: 2
-  GreenUltimateShieldDuration: 5
   GreenAmountOfAuraConsumed: 25
-  GreenDamageCooldownDecreasePerLevel:
-  - 0
-  - 1
-  - 3
+  GreenAmountOfDamageIncreasePerLevel:
+  - 5
+  - 10
+  - 15

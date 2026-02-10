@@ -23,12 +23,10 @@ public class GraciaDanceUltimateSO : UltimateSkillSO
     [Header("Red atributes")]
     [Foldout("Specific")] public DamageAtributes RedAtributes;
     [Foldout("Specific")] public float RedAmountOfAuraConsumed;
-    [Foldout("Specific")] public List<RangeFloatOne> RedCriRateIncreasePerLevel;
+    [Foldout("Specific"), Tooltip("0 - 200%")] public List<float> RedCritRatePerLevel;
 
     [Header("Green atributes")]
     [Foldout("Specific")] public DamageAtributes GreenAtributes;
-    [Foldout("Specific")] public float GreenUltimateShieldAmount;
-    [Foldout("Specific")] public float GreenUltimateShieldDuration;
     [Foldout("Specific")] public float GreenAmountOfAuraConsumed;
-    [Foldout("Specific"), Tooltip("Low values, between 0 - 2 (1 == 100%)")] public List<float> GreenDamageCooldownDecreasePerLevel;
+    [Foldout("Specific")] public List<float> GreenAmountOfDamageIncreasePerLevel;
 }

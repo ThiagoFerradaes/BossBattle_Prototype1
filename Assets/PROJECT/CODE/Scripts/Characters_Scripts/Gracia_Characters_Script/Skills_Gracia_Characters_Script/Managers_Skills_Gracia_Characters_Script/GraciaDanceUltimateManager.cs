@@ -11,9 +11,13 @@ public class GraciaDanceUltimateManager : SkillObjectManager
     GraciaDanceUltimateSO _info;
 
     // Int
-    int _skillLevel;
+    int _skillLevel, _amountOfShieldsGained;
 
+    // Bool
     bool _canEnd;
+
+    // Hitbox
+    ContinuosDamageHitBox _greenHitbox;
 
     // Coroutine
     Coroutine _yellowSkillDurationRoutine, _greenSkillDurationRoutine;
@@ -227,7 +231,7 @@ public class GraciaDanceUltimateManager : SkillObjectManager
 
                 // Atributos do dano
                 DamageAtributes newAtributes = new(_info.RedAtributes);
-                newAtributes.ExtraAtributes[ExtraDamageContextAtributes.CritRate] *= (1 + _info.RedCriRateIncreasePerLevel[_skillLevel].Value);
+                newAtributes.ExtraAtributes[ExtraDamageContextAtributes.CritRate] = _info.RedCritRatePerLevel[_skillLevel];
                 DamageContext newContext = new(newAtributes, statusManager);
 
                 // Ligando a hitbox
@@ -242,8 +246,12 @@ public class GraciaDanceUltimateManager : SkillObjectManager
     #endregion
 
     #region Green Region
+
     void GreenBehaviour()
     {
+        // Zerando a quantidade de vezes que ganhou escudo
+        _amountOfShieldsGained = 0;
+
         // Verificando o nível da habilidade
         _skillLevel = GraciaPassiveManager.Instance.ReturnCurrentSkillArea(GraciaTypeOfSkill.Right);
 
@@ -253,8 +261,9 @@ public class GraciaDanceUltimateManager : SkillObjectManager
         // Gastando energia
         energyManager.LooseAllEnergy();
 
-        // Setando a ação de ganhar escudo
-        _onGainShield = GainShield;
+        // Inscrevendo metodo quando jogador ganha escudo
+        healthManager.OnGainSheild -= IncreaseDamageWhenGainedShield;
+        healthManager.OnGainSheild += IncreaseDamageWhenGainedShield;
 
         // Verificando se existe algum prefab na lista
         if (_info.Prefabs[3].Count == 0) return;
@@ -270,14 +279,11 @@ public class GraciaDanceUltimateManager : SkillObjectManager
 
                 // Atributos do dano
                 DamageAtributes newAtributes = new(_info.GreenAtributes);
-                newAtributes.DamageCooldown /= (1 + _info.GreenDamageCooldownDecreasePerLevel[_skillLevel]);
                 DamageContext newContext = new(newAtributes, statusManager);
 
                 // Ligando a hitbox
-                ContinuosDamageHitBox collider = hitbox.GetComponent<ContinuosDamageHitBox>();
-                collider.Initialize(newContext);
-
-                collider.OnHit += _onGainShield;
+                _greenHitbox = hitbox.GetComponent<ContinuosDamageHitBox>();
+                _greenHitbox.Initialize(newContext);
             }
             else if (_info.Prefabs[3][i].PrefabType == TypeOfSkillPrefab.VFX) { // VFX
                 InstantiateVFX(_info.Prefabs[3][i]);
@@ -295,6 +301,8 @@ public class GraciaDanceUltimateManager : SkillObjectManager
             yield return null;
         }
 
+        healthManager.OnGainSheild -= IncreaseDamageWhenGainedShield;
+
         energyManager.SetCanGainEnergy(true);
 
         _greenSkillDurationRoutine = null;
@@ -302,8 +310,14 @@ public class GraciaDanceUltimateManager : SkillObjectManager
         End();
     }
 
-    void GainShield() {
-        healthManager.RecieveShield(_info.GreenUltimateShieldAmount, _info.GreenUltimateShieldDuration);
+    void IncreaseDamageWhenGainedShield(float shieldAmountGained) {
+
+        _amountOfShieldsGained++;
+
+        DamageAtributes newAtributes = new(_info.GreenAtributes);
+        newAtributes.Damage += (_amountOfShieldsGained* _info.GreenAmountOfDamageIncreasePerLevel[_skillLevel]);
+
+        _greenHitbox.ChangeAtributes(newAtributes);
     }
     #endregion
 

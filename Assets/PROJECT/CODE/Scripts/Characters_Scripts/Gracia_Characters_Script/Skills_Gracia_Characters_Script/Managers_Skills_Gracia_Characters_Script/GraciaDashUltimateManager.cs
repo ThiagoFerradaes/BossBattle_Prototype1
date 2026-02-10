@@ -195,6 +195,7 @@ public class GraciaDashUltimateManager : SkillObjectManager {
         energyManager.GainEnergy(_info.EnergyCost * _info.EnergyPercentToReturn);
     }
     void GreenBehaviour() {
+        healthManager.BreakShield();
         healthManager.Heal(_shieldAmount * _info.ShieldPercentToHeal);
     }
 

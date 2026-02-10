@@ -21,7 +21,7 @@ public class GraciaBlueDashUltimateManager : MonoBehaviour {
     IEnumerator WaitToMove() {
         yield return new WaitForSeconds(_info.BlueCooldownToMove);
 
-        DamageContext newContext = new(_info.Atributes, _status);
+        DamageContext newContext = new(_info.BlueAtributes, _status);
         _hitbox.Initialize(newContext);
 
         float timer = 0f;
