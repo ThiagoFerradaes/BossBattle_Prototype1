@@ -49,7 +49,7 @@ public class FurnitureAutoCollector : IPreprocessBuildWithReport
         }
 
         // Find the StoreSystem component in the scene
-        var storeSystem = GameObject.FindObjectOfType<StoreSystem>();
+        var storeSystem = Object.FindAnyObjectByType<StoreSystem>();
         if (storeSystem == null)
         {
             Debug.LogError("StoreSystem not found in the scene.");

@@ -18,7 +18,8 @@ MonoBehaviour:
   SkillLongDescription: For a short period of time, whenever Gracia hits an enemy,
     she gains a shield. The shield duration is X. The amount of shield increases
     with level.
-  SkillSpriteIcon: {fileID: -1382586963, guid: c4227a59479ed82448432f2e85809ec1, type: 3}
+  UISkillSpriteIcon: {fileID: 1813061332, guid: 3bd66792082ea9042a60054da7e52502, type: 3}
+  MapSkillSpriteIcon: {fileID: 1813061332, guid: 3bd66792082ea9042a60054da7e52502, type: 3}
   SkillManagerObject: {fileID: 2918457149912237300, guid: 99ca2bb7216eeea4d882fe494c723604, type: 3}
   Prefabs:
     _serializedList:
@@ -60,10 +61,10 @@ MonoBehaviour:
   attackAnimationParameter: Green
   attackAnimationName: GreenAnimation
   typeOfSkill: 1
-  typeOfAura: 3
-  amountOfValueGainedWhenUsed: 10
+  TypeOfAura: 3
+  amountOfValueGainedWhenUsed: 20
   skillDuration: 6
-  shieldDuration: 2
+  shieldDuration: 5
   shieldAmountPerLevel:
   - 10
   - 15

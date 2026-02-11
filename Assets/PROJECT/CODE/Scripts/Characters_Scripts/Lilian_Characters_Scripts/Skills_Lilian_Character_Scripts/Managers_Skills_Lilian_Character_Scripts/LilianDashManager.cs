@@ -7,7 +7,6 @@ public class LilianDashManager : SkillObjectManager
 
     // Components
     DashSO _info;
-    Rigidbody rb;
     HealthManager _healthManager;
 
     // Atributes
@@ -47,8 +46,6 @@ public class LilianDashManager : SkillObjectManager
         if (_info != null) return;
 
         _info = skill as DashSO;
-
-        rb = parent.GetComponent<Rigidbody>();
 
         _healthManager = parent.GetComponent<HealthManager>();
 

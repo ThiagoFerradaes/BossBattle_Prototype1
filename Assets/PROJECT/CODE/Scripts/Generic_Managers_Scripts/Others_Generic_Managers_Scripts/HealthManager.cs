@@ -30,7 +30,7 @@ public class HealthManager : MonoBehaviour {
     /// <summary>
     /// damage
     /// </summary>
-    public event Action<float> OnDamageTaken, OnHeal;
+    public event Action<float> OnDamageTaken, OnHeal, OnGainSheild;
 
     public event Action OnDeath, OnRevive, OnHit, OnShieldBreak;
 
@@ -179,6 +179,8 @@ public class HealthManager : MonoBehaviour {
             StopCoroutine(_shieldCoroutine);
             _shieldCoroutine = StartCoroutine(ShieldDuration(shieldAmount, shieldDuration));
         }
+
+        OnGainSheild?.Invoke(shieldAmount);
     }
 
     IEnumerator ShieldDuration(float shieldAmount, float shieldDuration) {
@@ -217,6 +219,7 @@ public class HealthManager : MonoBehaviour {
     public float ReturnCurrentHealth() => _currentHealth;
 
     public bool ReturnIfIsDead() => _isDead;
+    public float ReturnCurrentShield() => _currentShield;
     #endregion
 
     #endregion

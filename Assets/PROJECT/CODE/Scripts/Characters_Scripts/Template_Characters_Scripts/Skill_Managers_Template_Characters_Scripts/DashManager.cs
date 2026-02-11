@@ -6,8 +6,6 @@ public class DashManager : SkillObjectManager {
 
     // Components
     DashSO _info;
-    Rigidbody rb;
-    HealthManager _healthManager;
 
     #endregion
 
@@ -44,9 +42,6 @@ public class DashManager : SkillObjectManager {
 
         _info = skill as DashSO;
 
-        rb = parent.GetComponent<Rigidbody>();
-
-        _healthManager = parent.GetComponent<HealthManager>();
     }
 
     IEnumerator DashRoutine() {
@@ -68,7 +63,7 @@ public class DashManager : SkillObjectManager {
 
         movementManager.ChangeIsDashing(true);
 
-        _healthManager.SetCantTakeDamage();
+        healthManager.SetCantTakeDamage();
 
         do {
             yield return null;
@@ -85,7 +80,7 @@ public class DashManager : SkillObjectManager {
         } while (stateInfo.fullPathHash == attackStateHash && stateInfo.normalizedTime < _info.DashDuration);
 
         movementManager.ChangeIsDashing(false);
-        _healthManager.SetCanTakeDamage();
+        healthManager.SetCanTakeDamage();
 
         while (anim.GetCurrentAnimatorStateInfo(0).fullPathHash == attackStateHash &&
        anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f) {
@@ -98,8 +93,8 @@ public class DashManager : SkillObjectManager {
 
     public override void CancelSkill() {
         movementManager.ChangeIsDashing(false);
-        if (_healthManager != null)
-            _healthManager.SetCanTakeDamage();
+        if (healthManager != null)
+            healthManager.SetCanTakeDamage();
 
         base.CancelSkill();
     }

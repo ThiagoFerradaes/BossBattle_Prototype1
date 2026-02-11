@@ -137,4 +137,6 @@ public class ContinuosDamageHitBox : MonoBehaviour {
 
         PoolingManager.Instance.ReturnObjectToPool(this.gameObject, TypeOfSkillPrefab.Hitbox);
     }
+
+    public void ChangeAtributes(DamageAtributes newAtributes) => _damageAtributes = newAtributes;
 }

@@ -6,8 +6,6 @@ public class BastianDashManager : SkillObjectManager {
 
     // Components
     BastianDashSO _info;
-    Rigidbody rb;
-    HealthManager _healthManager;
 
     #endregion
 
@@ -43,10 +41,6 @@ public class BastianDashManager : SkillObjectManager {
         if (_info != null) return;
 
         _info = skill as BastianDashSO;
-
-        rb = parent.GetComponent<Rigidbody>();
-
-        _healthManager = parent.GetComponent<HealthManager>();
     }
 
     IEnumerator DashRoutine() {
@@ -72,7 +66,7 @@ public class BastianDashManager : SkillObjectManager {
 
         movementManager.ChangeIsDashing(true);
 
-        _healthManager.SetCantTakeDamage();
+        healthManager.SetCantTakeDamage();
 
         do {
             yield return null;
@@ -89,7 +83,7 @@ public class BastianDashManager : SkillObjectManager {
         } while (stateInfo.fullPathHash == attackStateHash && stateInfo.normalizedTime < _info.DashDuration);
 
         movementManager.ChangeIsDashing(false);
-        _healthManager.SetCanTakeDamage();
+        healthManager.SetCanTakeDamage();
 
         while (anim.GetCurrentAnimatorStateInfo(0).fullPathHash == attackStateHash &&
        anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f) {
@@ -105,7 +99,7 @@ public class BastianDashManager : SkillObjectManager {
 
     public override void CancelSkill() {
         movementManager.ChangeIsDashing(false);
-        _healthManager.SetCanTakeDamage();
+        healthManager.SetCanTakeDamage();
 
         base.CancelSkill();
     }

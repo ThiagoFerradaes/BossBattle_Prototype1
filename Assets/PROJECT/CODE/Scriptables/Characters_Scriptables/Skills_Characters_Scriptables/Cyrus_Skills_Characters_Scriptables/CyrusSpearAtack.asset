@@ -23,7 +23,8 @@ MonoBehaviour:
     spear range
 
     Level 3: Reduce ability cooldown. Increase penetration.'
-  SkillSpriteIcon: {fileID: -655245277, guid: c4227a59479ed82448432f2e85809ec1, type: 3}
+  UISkillSpriteIcon: {fileID: -2074941056, guid: 3bd66792082ea9042a60054da7e52502, type: 3}
+  MapSkillSpriteIcon: {fileID: -2074941056, guid: 3bd66792082ea9042a60054da7e52502, type: 3}
   SkillManagerObject: {fileID: 8727905917451407449, guid: 60f532cd97f7b204fa02ffa0434e1ac5, type: 3}
   Prefabs:
     _serializedList:
@@ -31,6 +32,8 @@ MonoBehaviour:
       Value:
       - TimeToSpawnPreFab: 0.4
         PrefabType: 1
+        PreFab: {fileID: 5506473260308187096, guid: dd09b869056ae834f9ea207979b51e68, type: 3}
+        PreFabPosition: {x: 0, y: 0.35, z: 0}
         VFXAtribute:
           VFXType: 0
           VFXDuration: 1
@@ -43,10 +46,10 @@ MonoBehaviour:
             m_Bits: 0
           VFXSpeed: 0
           Distance: 0
-        PreFab: {fileID: 5506473260308187096, guid: dd09b869056ae834f9ea207979b51e68, type: 3}
-        PreFabPosition: {x: 0, y: 0.35, z: 0}
       - TimeToSpawnPreFab: 0.5
         PrefabType: 0
+        PreFab: {fileID: 8271028322271159555, guid: 02de40013cebfe2448edca155583a4c1, type: 3}
+        PreFabPosition: {x: 0, y: 1, z: 0}
         VFXAtribute:
           VFXType: 0
           VFXDuration: 0
@@ -59,12 +62,12 @@ MonoBehaviour:
             m_Bits: 0
           VFXSpeed: 0
           Distance: 0
-        PreFab: {fileID: 8271028322271159555, guid: 02de40013cebfe2448edca155583a4c1, type: 3}
-        PreFabPosition: {x: 0, y: 1, z: 0}
     - Key: 1
       Value:
       - TimeToSpawnPreFab: 0.4
         PrefabType: 1
+        PreFab: {fileID: 4337469997810033031, guid: 4e6058edc01bcdb4188f8af92b6c485c, type: 3}
+        PreFabPosition: {x: 0, y: 0.35, z: 0}
         VFXAtribute:
           VFXType: 0
           VFXDuration: 1
@@ -77,10 +80,10 @@ MonoBehaviour:
             m_Bits: 0
           VFXSpeed: 0
           Distance: 0
-        PreFab: {fileID: 4337469997810033031, guid: 4e6058edc01bcdb4188f8af92b6c485c, type: 3}
-        PreFabPosition: {x: 0, y: 0.35, z: 0}
       - TimeToSpawnPreFab: 0.5
         PrefabType: 0
+        PreFab: {fileID: 8271028322271159555, guid: 02de40013cebfe2448edca155583a4c1, type: 3}
+        PreFabPosition: {x: 0, y: 1, z: 0}
         VFXAtribute:
           VFXType: 0
           VFXDuration: 0
@@ -93,8 +96,6 @@ MonoBehaviour:
             m_Bits: 0
           VFXSpeed: 0
           Distance: 0
-        PreFab: {fileID: 8271028322271159555, guid: 02de40013cebfe2448edca155583a4c1, type: 3}
-        PreFabPosition: {x: 0, y: 1, z: 0}
   SkillObjectRangeObject: {fileID: 7722846992070484997, guid: 4813218b9301f9f40b8323d5bccdb721, type: 3}
   BlockWalkWhilePreCasting: 1
   BlockDashWhilePreCasting: 1
@@ -108,6 +109,7 @@ MonoBehaviour:
   HasCharges: 0
   Charges: 1
   ChargeCooldown: 0
+  DealDamage: 1
   SkillDamageAtributes:
     DamageType: 0
     UnitsToHit:

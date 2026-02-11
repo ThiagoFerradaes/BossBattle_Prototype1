@@ -2,8 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-public class GraciaAttackManager : SkillObjectManager
-{
+public class GraciaAttackManager : SkillObjectManager {
     #region Paramethers
 
     // Components
@@ -17,14 +16,14 @@ public class GraciaAttackManager : SkillObjectManager
     Coroutine _timerBetweenAttacksCoroutine;
 
     // Eventos
-    public static event Action OnAttackHitAnOponnent;
+    public static event Action OnAttackHit;
 
     #endregion
 
     #region Initialize
 
     public override void UseSkill(SkillSO skill) {
-        
+
         Initialize(skill);
 
         StartAnimation();
@@ -81,7 +80,7 @@ public class GraciaAttackManager : SkillObjectManager
 
         // DEFININDO COOLDOWN
         // Aqui o cooldown pode ser 2: 1 -> entre os ataques do combo | 2 -> cooldown do final do combo
-        float cooldown = _attackIndex < 3? _info.CooldownBetweenAttacks : _info.Cooldown;
+        float cooldown = _attackIndex < 3 ? _info.CooldownBetweenAttacks : _info.Cooldown;
         float realCooldown = cooldown / _attackSpeedMultiplier; // Se a velocidade de ataque for maior então o cooldown diminui
         cooldownManager.SetCooldownSingleCharge(slot, realCooldown);
 
@@ -139,16 +138,18 @@ public class GraciaAttackManager : SkillObjectManager
         newAtribues.ExtraAtributes[ExtraDamageContextAtributes.CritRate] = CalculateCritRate();
         newAtribues.ExtraAtributes[ExtraDamageContextAtributes.CritDamage] = CalculateCritDamage();
         DamageContext newContext = new(newAtribues, statusManager);
-        
+
 
         // Ativando a hitbox
         InstantDamageHitBox hitbox = preFab.GetComponent<InstantDamageHitBox>();
         hitbox.Initialize(newContext);
 
+        // Chamando evento de uso do ataque base
+        OnAttackHit?.Invoke();
+
         // Efeitos ao contato da hitbox
         hitbox.OnHit += () => {
             energyManager.GainEnergy(_info.FlatEnergyGainPerHit);
-            OnAttackHitAnOponnent?.Invoke();
         };
     }
 

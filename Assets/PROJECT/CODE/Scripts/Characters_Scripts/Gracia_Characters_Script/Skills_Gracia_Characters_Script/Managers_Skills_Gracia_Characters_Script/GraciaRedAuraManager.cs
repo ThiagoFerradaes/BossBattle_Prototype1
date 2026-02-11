@@ -43,7 +43,7 @@ public class GraciaRedAuraManager : SkillObjectManager
     }
 
     public override void ThirdFunc() {
-        GraciaPassiveManager.Instance.ChangeBarValue(_info.AmountOfValueGainedWhenUsed, _info.TypeOfSkill, _info.TypeOfAura);
+        GraciaPassiveManager.Instance.ChangeBarValue(_info.AmountOfValueGainedWhenUsed, _info.TypeOfAura);
 
         IncreaseCritValue();
     }
@@ -85,4 +85,5 @@ public class GraciaRedAuraManager : SkillObjectManager
 
 
     #endregion
+
 }

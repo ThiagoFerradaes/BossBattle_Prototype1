@@ -15,12 +15,83 @@ MonoBehaviour:
   SkillName: Gracia Dance Ultimate
   SkillShortDescription: "Dance\t"
   SkillLongDescription: Lil dance
-  SkillSpriteIcon: {fileID: -1382586963, guid: c4227a59479ed82448432f2e85809ec1, type: 3}
+  UISkillSpriteIcon: {fileID: 1711695554, guid: 3bd66792082ea9042a60054da7e52502, type: 3}
+  MapSkillSpriteIcon: {fileID: 1164063366, guid: ab75e1b1a9aedbc45b40c78d83e17be3, type: 3}
   SkillManagerObject: {fileID: -4393271440466430948, guid: 6edfa8f690b48aa4ab181c66e7195bce, type: 3}
   Prefabs:
     _serializedList:
     - Key: 0
-      Value: []
+      Value:
+      - TimeToSpawnPreFab: 0.5
+        PrefabType: 0
+        PreFab: {fileID: 8998219623033830514, guid: f2cad2093c1cc8042a97d053a88618a0, type: 3}
+        PreFabPosition: {x: 0, y: 1, z: 0}
+        VFXAtribute:
+          VFXType: 0
+          VFXDuration: 0
+          VFXPosCollisionDuration: 0
+          CrossEnemy: 0
+          TimeStopped: 0
+          MinDistanceBack: 0
+          UnitsToHit:
+            serializedVersion: 2
+            m_Bits: 0
+          VFXSpeed: 0
+          Distance: 0
+    - Key: 1
+      Value:
+      - TimeToSpawnPreFab: 0.5
+        PrefabType: 0
+        PreFab: {fileID: 8998219623033830514, guid: 690c34d54c88e12448b7561adfe65ab9, type: 3}
+        PreFabPosition: {x: 0, y: 1, z: 0}
+        VFXAtribute:
+          VFXType: 0
+          VFXDuration: 0
+          VFXPosCollisionDuration: 0
+          CrossEnemy: 0
+          TimeStopped: 0
+          MinDistanceBack: 0
+          UnitsToHit:
+            serializedVersion: 2
+            m_Bits: 0
+          VFXSpeed: 0
+          Distance: 0
+    - Key: 2
+      Value:
+      - TimeToSpawnPreFab: 0.5
+        PrefabType: 0
+        PreFab: {fileID: 8998219623033830514, guid: 690c34d54c88e12448b7561adfe65ab9, type: 3}
+        PreFabPosition: {x: 0, y: 1, z: 0}
+        VFXAtribute:
+          VFXType: 0
+          VFXDuration: 0
+          VFXPosCollisionDuration: 0
+          CrossEnemy: 0
+          TimeStopped: 0
+          MinDistanceBack: 0
+          UnitsToHit:
+            serializedVersion: 2
+            m_Bits: 0
+          VFXSpeed: 0
+          Distance: 0
+    - Key: 3
+      Value:
+      - TimeToSpawnPreFab: 0.5
+        PrefabType: 0
+        PreFab: {fileID: 8998219623033830514, guid: f2cad2093c1cc8042a97d053a88618a0, type: 3}
+        PreFabPosition: {x: 0, y: 1, z: 0}
+        VFXAtribute:
+          VFXType: 0
+          VFXDuration: 0
+          VFXPosCollisionDuration: 0
+          CrossEnemy: 0
+          TimeStopped: 0
+          MinDistanceBack: 0
+          UnitsToHit:
+            serializedVersion: 2
+            m_Bits: 0
+          VFXSpeed: 0
+          Distance: 0
   SkillObjectRangeObject: {fileID: 0}
   BlockWalkWhilePreCasting: 1
   BlockDashWhilePreCasting: 1
@@ -29,7 +100,7 @@ MonoBehaviour:
   Cancelable: 0
   Slot: 3
   SkillType: 0
-  EnergyCost: 40
+  EnergyCost: 10
   Atributes:
     DamageType: 0
     UnitsToHit:
@@ -49,3 +120,109 @@ MonoBehaviour:
     MinDistanceBack: 0
     ExtraAtributes:
       _serializedList: []
+  attackAnimationParameter: DanceUltimate
+  attackAnimationName: DanceUltimate
+  BlueAtributes:
+    DamageType: 1
+    UnitsToHit:
+      serializedVersion: 2
+      m_Bits: 128
+    Damage: 1
+    HitShield: 1
+    BreakShield: 0
+    Size: {x: 6, y: 6, z: 6}
+    TypeOfPrefab: 1
+    HitBoxDuration: 5
+    DamageCooldown: 0.3
+    Distance: 0
+    Speed: 0
+    CrossEnemy: 0
+    TimeStopped: 0
+    MinDistanceBack: 0
+    ExtraAtributes:
+      _serializedList: []
+  BlueAmountOfAuraConsumed: 25
+  BlueSizeIncreasePerLevel:
+  - Value: 0.25
+  - Value: 0.5
+  - Value: 0.75
+  BlueDamageCooldownDecreasePerLevel:
+  - Value: 0.5
+  - Value: 0.75
+  - Value: 1
+  YellowAtributes:
+    DamageType: 0
+    UnitsToHit:
+      serializedVersion: 2
+      m_Bits: 128
+    Damage: 100
+    HitShield: 1
+    BreakShield: 0
+    Size: {x: 7, y: 7, z: 7}
+    TypeOfPrefab: 0
+    HitBoxDuration: 0.1
+    DamageCooldown: 0
+    Distance: 0
+    Speed: 0
+    CrossEnemy: 0
+    TimeStopped: 0
+    MinDistanceBack: 0
+    ExtraAtributes:
+      _serializedList: []
+  YellowAmountOfAuraConsumed: 25
+  YellowDurationPerLevel:
+  - 5
+  - 8
+  - 12
+  RedAtributes:
+    DamageType: 0
+    UnitsToHit:
+      serializedVersion: 2
+      m_Bits: 128
+    Damage: 20
+    HitShield: 1
+    BreakShield: 1
+    Size: {x: 6, y: 6, z: 6}
+    TypeOfPrefab: 0
+    HitBoxDuration: 0.1
+    DamageCooldown: 0
+    Distance: 0
+    Speed: 0
+    CrossEnemy: 0
+    TimeStopped: 0
+    MinDistanceBack: 0
+    ExtraAtributes:
+      _serializedList:
+      - Key: 1
+        Value: 25
+      - Key: 2
+        Value: 4000
+  RedAmountOfAuraConsumed: 25
+  RedCritRatePerLevel:
+  - 25
+  - 50
+  - 100
+  GreenAtributes:
+    DamageType: 0
+    UnitsToHit:
+      serializedVersion: 2
+      m_Bits: 128
+    Damage: 10
+    HitShield: 1
+    BreakShield: 0
+    Size: {x: 6, y: 6, z: 6}
+    TypeOfPrefab: 1
+    HitBoxDuration: 7
+    DamageCooldown: 0.4
+    Distance: 0
+    Speed: 0
+    CrossEnemy: 0
+    TimeStopped: 0
+    MinDistanceBack: 0
+    ExtraAtributes:
+      _serializedList: []
+  GreenAmountOfAuraConsumed: 25
+  GreenAmountOfDamageIncreasePerLevel:
+  - 5
+  - 10
+  - 15

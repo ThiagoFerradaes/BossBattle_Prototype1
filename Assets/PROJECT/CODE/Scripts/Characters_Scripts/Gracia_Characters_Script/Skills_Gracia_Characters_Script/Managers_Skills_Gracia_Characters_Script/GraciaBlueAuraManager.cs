@@ -26,7 +26,7 @@ public class GraciaBlueAuraManager : SkillObjectManager
     public override void UseSkill(SkillSO skill) {
         Initialize(skill);
 
-        animationCoroutine ??= StartCoroutine(AttackCoroutine(0, _info.attackAnimationParameter, _info.attackAnimationName, 0));
+        animationCoroutine ??= StartCoroutine(AttackCoroutine(0, _info.AttackAnimationParameter, _info.AttackAnimationName, 0));
     }
 
     void Initialize(SkillSO skill) {
@@ -34,7 +34,7 @@ public class GraciaBlueAuraManager : SkillObjectManager
         if (!gameObject.activeInHierarchy) gameObject.SetActive(true);
 
         _onHit = CallInstantiateHit;
-        _skillLevel = GraciaPassiveManager.Instance.ReturnCurrentSkillArea(_info.typeOfSkill);
+        _skillLevel = GraciaPassiveManager.Instance.ReturnCurrentSkillArea(_info.TypeOfSkill);
     }
 
 
@@ -51,10 +51,10 @@ public class GraciaBlueAuraManager : SkillObjectManager
     public override void FourthFunc() {
         base.FourthFunc();
 
-        GraciaAttackManager.OnAttackHitAnOponnent -= _onHit;
-        GraciaAttackManager.OnAttackHitAnOponnent += _onHit;
+        GraciaAttackManager.OnAttackHit -= _onHit;
+        GraciaAttackManager.OnAttackHit += _onHit;
 
-        GraciaPassiveManager.Instance.ChangeBarValue(_info.amountOfValueGainedWhenUsed, _info.typeOfSkill, _info.typeOfAura);
+        GraciaPassiveManager.Instance.ChangeBarValue(_info.AmountOfValueGainedWhenUsed, _info.TypeOfAura);
 
         UnblockInputs();
 
@@ -64,7 +64,7 @@ public class GraciaBlueAuraManager : SkillObjectManager
     IEnumerator SkillDuration() {
         float timer = 0f;
 
-        while (timer < _info.skillDuration) {
+        while (timer < _info.SkillDuration) {
             timer += Time.deltaTime;
             yield return null;
         }
@@ -76,7 +76,7 @@ public class GraciaBlueAuraManager : SkillObjectManager
             _waitToSpawnHitRoutine = null;
         }
 
-        GraciaAttackManager.OnAttackHitAnOponnent -= _onHit;
+        GraciaAttackManager.OnAttackHit -= _onHit;
         End();
     }
 
@@ -90,7 +90,7 @@ public class GraciaBlueAuraManager : SkillObjectManager
 
     IEnumerator WaitToInstantiateHit() {
         float attackSpeed = statusManager.ReturnStatusValue(StatusType.AttackSpeed);
-        float timeToSpawnHit = _info.cooldownToHit / attackSpeed;
+        float timeToSpawnHit = _info.CooldownToHit / attackSpeed;
 
         yield return new WaitForSeconds(timeToSpawnHit);
 
@@ -105,7 +105,7 @@ public class GraciaBlueAuraManager : SkillObjectManager
         GameObject prefab = PoolingManager.Instance.ReturnPrefabFromPool(_info.Prefabs[0][0].PreFab, TypeOfSkillPrefab.Hitbox);
 
         // Buscando o atributo de acordo com o nível
-        DamageAtributes atributes = _info.attackAtributesList[_skillLevel];
+        DamageAtributes atributes = _info.AttackAtributesList[_skillLevel];
 
         // Settando o tamanho e a posição do ataque
         prefab.transform.localScale = atributes.Size;
@@ -122,4 +122,5 @@ public class GraciaBlueAuraManager : SkillObjectManager
     }
 
     #endregion
+
 }

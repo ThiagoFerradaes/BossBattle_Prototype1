@@ -20,7 +20,7 @@ public class GraciaYellowAuraManager : SkillObjectManager {
     public override void UseSkill(SkillSO skill) {
         Initialize(skill);
 
-        animationCoroutine ??= StartCoroutine(AttackCoroutine(0, _info.attackAnimationParameter, _info.attackAnimationName, 0));
+        animationCoroutine ??= StartCoroutine(AttackCoroutine(0, _info.AttackAnimationParameter, _info.AttackAnimationName, 0));
     }
 
     void Initialize(SkillSO skill) {
@@ -46,12 +46,12 @@ public class GraciaYellowAuraManager : SkillObjectManager {
 
     public override void ThirdFunc() {
         IncreaseAttackSpeed();
-        _passiveManager.ChangeBarValue(_info.amountOfValueGainedWhenUsed, _info.typeOfSkill, _info.typeOfAura);
+        _passiveManager.ChangeBarValue(_info.AmountOfValueGainedWhenUsed, _info.TypeOfAura);
     }
 
     void IncreaseAttackSpeed() {
-        int skillLevel = _passiveManager.ReturnCurrentSkillArea(_info.typeOfSkill);
-        _attackSpeedMultiplier = _info.attackSpeedBuffList[skillLevel].Value;
+        int skillLevel = _passiveManager.ReturnCurrentSkillArea(_info.TypeOfSkill);
+        _attackSpeedMultiplier = _info.AttackSpeedBuffList[skillLevel].Value;
         statusManager.ChangeStatus(StatusType.AttackSpeed, _attackSpeedMultiplier, true);
 
         _skillDurationRoutine ??= StartCoroutine(SkillDuration());
@@ -60,7 +60,7 @@ public class GraciaYellowAuraManager : SkillObjectManager {
     IEnumerator SkillDuration() {
         float timer = 0;
 
-        while (timer < _info.skillDuration) {
+        while (timer < _info.SkillDuration) {
             timer += Time.deltaTime;
             yield return null;
         }
@@ -87,6 +87,8 @@ public class GraciaYellowAuraManager : SkillObjectManager {
 
 
     #endregion
+
+
 }
 
 

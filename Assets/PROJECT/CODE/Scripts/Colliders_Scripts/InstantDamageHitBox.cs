@@ -11,6 +11,7 @@ public class InstantDamageHitBox : MonoBehaviour {
 
     DamageAtributes _damageAtributes;
     StatusManager _statusManager;
+    Collider _collider;
 
     public event Action OnHit;
     bool _hasHitted;
@@ -18,9 +19,18 @@ public class InstantDamageHitBox : MonoBehaviour {
     #endregion
 
     #region Methods
+
+    void Awake() {
+        if (TryGetComponent<Collider>(out Collider collider)) {
+            _collider = collider;
+            _collider.enabled = false;
+        }
+    }
     public void Initialize(DamageContext context, bool hasTimer = true) {
         _damageAtributes = context.Atributes;
         _statusManager = context.StatusManager;
+
+        if (_collider != null) _collider.enabled = true;
 
         gameObject.SetActive(true);
 
