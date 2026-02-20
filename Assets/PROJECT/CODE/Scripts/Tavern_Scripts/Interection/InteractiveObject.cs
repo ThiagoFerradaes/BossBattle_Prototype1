@@ -81,7 +81,12 @@ public class InteractiveObject : MonoBehaviour
     {
         if(playerTransform is null) return;
         if(!playerTransform.hasChanged) return;
-        
+        if (CanvasTavernaManagerStatic.Instance.UiOpen())
+        {
+            uiInteraction.transform.parent.gameObject.SetActive(false);
+            activeCanva = false;
+            return;
+        }
         if(distance == 0) return;
 
         bool distanceByPlayer = Vector3.Distance(playerTransform.position, transform.position) > distance + radius;

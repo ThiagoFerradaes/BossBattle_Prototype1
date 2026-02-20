@@ -52,11 +52,17 @@ public class PlayerSkillUI : MonoBehaviour {
         SubscribeEvents();
     }
     private void Start() {
-
+        
         StartDictionary();
         SetSkillsImage();
         SetCooldownImagesOff();
 
+    }
+
+    public void SetImage()
+    {
+        SetSkillsImage();
+        SetCooldownImagesOff();
     }
 
     void StartDictionary() {
@@ -69,17 +75,17 @@ public class PlayerSkillUI : MonoBehaviour {
         };
     }
     private void SubscribeEvents() {
-        PlayerSkillCooldownManager.OnCooldownSet -= StartCooldownUI;
-        PlayerSkillCooldownManager.OnCooldownSet += StartCooldownUI;
+        WhiteBoard.OnCooldownSet -= StartCooldownUI;
+        WhiteBoard.OnCooldownSet += StartCooldownUI;
 
         EnergyManager.OnEnergyValueChanged -= _energyGainAction;
         EnergyManager.OnEnergyValueChanged += _energyGainAction;
 
-        PlayerSkillCooldownManager.OnChargesSet -= _setChargeNumber;
-        PlayerSkillCooldownManager.OnChargesSet += _setChargeNumber;
+        WhiteBoard.OnChargesSet -= _setChargeNumber;
+        WhiteBoard.OnChargesSet += _setChargeNumber;
 
-        PlayerSkillCooldownManager.OnChargesChange -= _changeChargeNumber;
-        PlayerSkillCooldownManager.OnChargesChange += _changeChargeNumber;
+        WhiteBoard.OnChargesChange -= _changeChargeNumber;
+        WhiteBoard.OnChargesChange += _changeChargeNumber;
 
     }
 
@@ -99,6 +105,7 @@ public class PlayerSkillUI : MonoBehaviour {
     //}
 
     private IEnumerator CooldownRoutine(SkillSlot slot, float cooldown) {
+        
         Image cooldownImage = cooldownImages[slot];
         float timer = cooldown;
         cooldownImage.fillAmount = slot == SkillSlot.Dash? 0 : 1;
@@ -130,6 +137,11 @@ public class PlayerSkillUI : MonoBehaviour {
     }
 
     private void SetCooldownImagesOff() {
+        if (cooldownImages == null || cooldownImages.Count == 0)
+        {
+            StartDictionary();
+        }
+        
         foreach (var image in cooldownImages) {
             if (image.Key == SkillSlot.Dash || image.Key == SkillSlot.Ultimate) {
                 image.Value.fillAmount = 1f;
@@ -138,11 +150,11 @@ public class PlayerSkillUI : MonoBehaviour {
         }
     }
 
-    private void OnDisable() {
-        PlayerSkillCooldownManager.OnCooldownSet -= StartCooldownUI;
+    private void OnDestroy() {
+        WhiteBoard.OnCooldownSet -= StartCooldownUI;
         EnergyManager.OnEnergyValueChanged -= _energyGainAction;
-        PlayerSkillCooldownManager.OnChargesSet -= _setChargeNumber;
-        PlayerSkillCooldownManager.OnChargesChange -= _changeChargeNumber;
+        WhiteBoard.OnChargesSet -= _setChargeNumber;
+        WhiteBoard.OnChargesChange -= _changeChargeNumber;
 
     }
 

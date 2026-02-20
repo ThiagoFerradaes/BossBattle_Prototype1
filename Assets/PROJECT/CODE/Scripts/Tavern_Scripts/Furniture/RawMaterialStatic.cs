@@ -186,7 +186,6 @@ public class RawMaterialStatic : MonoBehaviour
         {
             if (!File.Exists(_savePath))
             {
-                Debug.LogWarning("Inventory save data not found.");
                 return;
             }
 

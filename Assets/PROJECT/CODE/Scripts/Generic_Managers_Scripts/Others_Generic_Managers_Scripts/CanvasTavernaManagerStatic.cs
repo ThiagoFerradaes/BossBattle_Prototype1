@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using AYellowpaper.SerializedCollections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -32,6 +33,8 @@ public class CanvasTavernaManagerStatic : MonoBehaviour
     
     [SerializedDictionary("Character", "Prefab")]
     [SerializeField] private SerializedDictionary<Character, GameObject> characterPrefabs;
+
+    [SerializeField] private List<GameObject> allUi;
     
     public GameObject GetCharacterPrefab(Character character) => characterPrefabs[character];
     
@@ -46,4 +49,7 @@ public class CanvasTavernaManagerStatic : MonoBehaviour
     public StoreSystem StoreSystem => storeSystem;
     
     public TrainingFieldSystem TrainingSystem => trainingSystem;
+
+    public bool UiOpen() => allUi.Any(ui => ui.activeInHierarchy);
+    
 }

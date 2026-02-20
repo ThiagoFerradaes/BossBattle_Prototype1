@@ -38,6 +38,11 @@ public class PlayerHealthUI : MonoBehaviour
         UpdateEnergyUI(0, 1);
     }
 
+    public void SetUi()
+    {
+        Start();
+    }
+    
     void UpdateHealthUI(float currentHealth, float maxHealth) {
         healthBar.fillAmount = currentHealth / maxHealth;
     }
