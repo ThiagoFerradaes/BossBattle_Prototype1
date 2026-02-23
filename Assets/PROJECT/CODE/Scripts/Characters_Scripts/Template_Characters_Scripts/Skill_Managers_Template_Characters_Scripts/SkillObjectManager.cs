@@ -150,21 +150,26 @@ public abstract class SkillObjectManager : MonoBehaviour {
     #endregion
 
     #region AttackAnimation
-    public virtual IEnumerator AttackCoroutine(int animationLayer, string animationTriggerName, string animationName, int comboIndex, bool isTrigger = true) {
+    public virtual IEnumerator AttackCoroutine(int animationLayer, string animationTriggerName, string animationName, int comboIndex, bool isTrigger = true)
+    {
         FirstFunc();
-
+        
         if (isTrigger) anim.SetTrigger(animationTriggerName);
         else anim.SetBool(animationName, true);
-
+        
         yield return null;
-
+        
         AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(animationLayer);
-
+        
         do {
             yield return null;
+            if (anim == null)
+            {
+                yield break;
+            }
             stateInfo = anim.GetCurrentAnimatorStateInfo(animationLayer);
         } while (!stateInfo.IsName(animationName));
-
+        
         int attackStateHash = stateInfo.fullPathHash;
         SecondFunc();
 
@@ -199,7 +204,7 @@ public abstract class SkillObjectManager : MonoBehaviour {
         // Corrotina
         animationCoroutine = null;
 
-        // Avisando que não está mais em animação
+        // Avisando que nï¿½o estï¿½ mais em animaï¿½ï¿½o
         skillManager.SkillIsInAnimation(false);
     }
 

@@ -55,6 +55,16 @@ public class WhiteBoard : MonoBehaviour {
     Dictionary<Bosses, int> _dictionaryOfUnlockedPhasesByBosses = new();
     Dictionary<BossRewardItem, int> _bossItensInventory = new();
 
+    public static event Action<SkillSlot, float> OnCooldownSet;
+    public static event Action<SkillSlot, int> OnChargesSet;
+    public static event Action<SkillSlot, int> OnChargesChange;
+
+    
+    public void SetCooldown(SkillSlot slot, float cooldown) => OnCooldownSet?.Invoke(slot, cooldown);
+    
+    public void SetCharges(SkillSlot slot, int charges) => OnChargesSet?.Invoke(slot, charges);
+    public void SetChargesChange(SkillSlot slot, int charges) => OnChargesChange?.Invoke(slot, charges);
+    
     private void Awake() {
         if (Instance == null) {
             Instance = this;
