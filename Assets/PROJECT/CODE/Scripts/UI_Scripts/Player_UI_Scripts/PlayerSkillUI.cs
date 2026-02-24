@@ -19,9 +19,9 @@ public class PlayerSkillUI : MonoBehaviour {
     [SerializeField] private Image ultimateImage;
 
     [Header("Cooldown Image")]
-    [SerializeField] private Image dashCooldown;
-    [SerializeField] private Image skillOneCooldown;
-    [SerializeField] private Image skillTwoCooldown;
+    [SerializeField] private List<Image> dashCooldown;
+    [SerializeField] private List<Image> skillOneCooldown;
+    [SerializeField] private List<Image> skillTwoCooldown;
 
     [Header("Charges")]
     [SerializeField] private TextMeshProUGUI dashCharge;
@@ -35,7 +35,7 @@ public class PlayerSkillUI : MonoBehaviour {
 
     // Lists
     private Dictionary<SkillSlot, Coroutine> cooldownCoroutines;
-    private Dictionary<SkillSlot, Image> cooldownImages;
+    private Dictionary<SkillSlot, List<Image>> cooldownImages;
 
     #endregion
 
@@ -52,22 +52,23 @@ public class PlayerSkillUI : MonoBehaviour {
         SubscribeEvents();
     }
     private void Start() {
-        
+
         StartDictionary();
         SetSkillsImage();
+        SetInnerCooldownImage();
         SetCooldownImagesOff();
 
     }
 
-    public void SetImage()
-    {
+    public void SetImage() {
         SetSkillsImage();
+        SetInnerCooldownImage();
         SetCooldownImagesOff();
     }
 
     void StartDictionary() {
         cooldownCoroutines = new Dictionary<SkillSlot, Coroutine>();
-        cooldownImages = new Dictionary<SkillSlot, Image>
+        cooldownImages = new Dictionary<SkillSlot, List<Image>>
         {
             { SkillSlot.Dash, dashCooldown },
             { SkillSlot.SkillOne, skillOneCooldown },
@@ -105,24 +106,35 @@ public class PlayerSkillUI : MonoBehaviour {
     //}
 
     private IEnumerator CooldownRoutine(SkillSlot slot, float cooldown) {
-        
-        Image cooldownImage = cooldownImages[slot];
+
+        List<Image> cooldownImage = cooldownImages[slot];
         float timer = cooldown;
-        cooldownImage.fillAmount = slot == SkillSlot.Dash? 0 : 1;
+        foreach (var image in cooldownImage) {
+            image.fillAmount = slot == SkillSlot.Dash ? 0 : 1;
+        }
 
         while (timer > 0) {
             timer -= Time.deltaTime;
-            if (slot != SkillSlot.Dash) cooldownImage.fillAmount = timer / cooldown;
-            else cooldownImage.fillAmount = 1 - (timer / cooldown);
+            if (slot != SkillSlot.Dash) {
+                foreach (var image in cooldownImage) {
+                    image.fillAmount = timer / cooldown;
+                }
+            }
+            else {
+                foreach (var image in cooldownImage) {
+                    image.fillAmount = 1 - (timer / cooldown);
+                }
+            }
             yield return null;
         }
 
-        cooldownImage.fillAmount = slot == SkillSlot.Dash ? 1 : 0;
+        foreach (var image in cooldownImage) {
+            image.fillAmount = slot == SkillSlot.Dash ? 1 : 0;
+        }
         cooldownCoroutines[slot] = null;
     }
 
     private void SetSkillsImage() {
-        Debug.Log("Skills have image");
 
         CurrentSelectedCharacterWhiteBoard whiteboard = CurrentSelectedCharacterWhiteBoard.Instance;
         Character selectedCharacter = whiteboard.ReturnSelectedCharacter();
@@ -134,7 +146,16 @@ public class PlayerSkillUI : MonoBehaviour {
         if (whiteboard.ReturnUltimate(selectedCharacter).UISkillSpriteIcon)
             ultimateImage.sprite = whiteboard.ReturnUltimate(selectedCharacter).UISkillSpriteIcon;
     }
-    
+
+    void SetInnerCooldownImage() {
+        CurrentSelectedCharacterWhiteBoard whiteboard = CurrentSelectedCharacterWhiteBoard.Instance;
+        Character selectedCharacter = whiteboard.ReturnSelectedCharacter();
+
+        if (whiteboard.ReturnSkillOne(selectedCharacter).UISkillSpriteIcon)
+            skillOneCooldown[0].sprite = whiteboard.ReturnSkillOne(selectedCharacter).UISkillSpriteIcon;
+        if (whiteboard.ReturnSkillTwo(selectedCharacter).UISkillSpriteIcon)
+            skillTwoCooldown[0].sprite = whiteboard.ReturnSkillTwo(selectedCharacter).UISkillSpriteIcon;
+    }
     public void ChangeSkillImage(Sprite newSprite, SkillSlot typeOfSkill) {
         switch (typeOfSkill) {
             case SkillSlot.SkillOne:
@@ -150,16 +171,21 @@ public class PlayerSkillUI : MonoBehaviour {
     }
 
     private void SetCooldownImagesOff() {
-        if (cooldownImages == null || cooldownImages.Count == 0)
-        {
+        if (cooldownImages == null || cooldownImages.Count == 0) {
             StartDictionary();
         }
-        
-        foreach (var image in cooldownImages) {
-            if (image.Key == SkillSlot.Dash || image.Key == SkillSlot.Ultimate) {
-                image.Value.fillAmount = 1f;
+
+        foreach (var pair in cooldownImages) {
+            if (pair.Key == SkillSlot.Dash || pair.Key == SkillSlot.Ultimate) {
+                foreach (var image in pair.Value) {
+                    image.fillAmount = 1f;
+                }
             }
-            else image.Value.fillAmount = 0f;
+            else {
+                foreach (var image in pair.Value) {
+                    image.fillAmount = 0f;
+                }
+            }
         }
     }
 

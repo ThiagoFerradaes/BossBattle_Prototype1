@@ -849,7 +849,7 @@ GameObject:
   - component: {fileID: 1798734862969741654}
   - component: {fileID: 2229021658992719779}
   m_Layer: 5
-  m_Name: SkillTwoCooldownTimerImage
+  m_Name: SkillTwoInnerCooldownTimerImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -872,7 +872,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 88, y: 99}
+  m_SizeDelta: {x: 65, y: 102}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1798734862969741654
 CanvasRenderer:
@@ -889,6 +889,81 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2202454791054831669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.34117648, g: 0.34117648, b: 0.34117648, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: -655245277, guid: c4227a59479ed82448432f2e85809ec1, type: 3}
+  m_Type: 3
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 0
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!1 &2382233514083057588
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7729715814406999103}
+  - component: {fileID: 1045287045032729532}
+  - component: {fileID: 4595776158139046627}
+  m_Layer: 5
+  m_Name: SkillTwoOutCooldownTimerImage
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &7729715814406999103
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2382233514083057588}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3557676416490191464}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 88, y: 99}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &1045287045032729532
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2382233514083057588}
+  m_CullTransparentMesh: 1
+--- !u!114 &4595776158139046627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2382233514083057588}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
@@ -924,12 +999,12 @@ GameObject:
   - component: {fileID: 9031182937016398604}
   - component: {fileID: 2209303391834267471}
   m_Layer: 5
-  m_Name: SkillOneCooldownTimerInnerImage
+  m_Name: SkillOneInnerCooldownTimerImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &3679578331551744425
 RectTransform:
   m_ObjectHideFlags: 0
@@ -982,7 +1057,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
-  m_FillAmount: 0.1
+  m_FillAmount: 0
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -1822,7 +1897,7 @@ GameObject:
   - component: {fileID: 6587560224623714130}
   - component: {fileID: 7416831113650003639}
   m_Layer: 5
-  m_Name: SkillOneCooldownTimerOutImage
+  m_Name: SkillOneOutCooldownTimerImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2469,6 +2544,7 @@ RectTransform:
   m_Children:
   - {fileID: 4454326457086281721}
   - {fileID: 888563611384987595}
+  - {fileID: 7729715814406999103}
   - {fileID: 1653604911785181363}
   - {fileID: 7351251083521888460}
   - {fileID: 5072188837146047761}
@@ -2535,9 +2611,14 @@ MonoBehaviour:
   skillOneImage: {fileID: 9004055749033915285}
   skillTwoImage: {fileID: 3889278004982473752}
   ultimateImage: {fileID: 7784151851750719635}
-  dashCooldown: {fileID: 3462896807002596233}
-  skillOneCooldown: {fileID: 7416831113650003639}
-  skillTwoCooldown: {fileID: 2229021658992719779}
+  dashCooldown:
+  - {fileID: 3462896807002596233}
+  skillOneCooldown:
+  - {fileID: 2209303391834267471}
+  - {fileID: 7416831113650003639}
+  skillTwoCooldown:
+  - {fileID: 2229021658992719779}
+  - {fileID: 4595776158139046627}
   dashCharge: {fileID: 7526434911493297188}
   skillOneCharge: {fileID: 9169078081501438022}
   skillTwoCharge: {fileID: 6917855960648358978}
