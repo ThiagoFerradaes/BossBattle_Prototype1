@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,6 +7,9 @@ public class PlayerHealthUI : MonoBehaviour
 {
     [Header("Health Components")]
     [SerializeField] Image healthBar;
+    [SerializeField] Image damageBar;
+    [SerializeField] float timeToStartDamageBar;
+    [SerializeField] float damageBarDecreaseSpeed;
 
     [Header("Shield Components")]
     [SerializeField] Image shieldBar;
@@ -19,6 +23,9 @@ public class PlayerHealthUI : MonoBehaviour
 
     // Actions
     Action<float, float> _healthChangeAction, _shieldChangeAction, _energyChangeAction;
+
+    // Corrotinas
+    Coroutine damageBarCoroutine;
 
     private void Start() {
         _player = PlayerManager.Instance.Player;
@@ -44,7 +51,26 @@ public class PlayerHealthUI : MonoBehaviour
     }
     
     void UpdateHealthUI(float currentHealth, float maxHealth) {
+        float oldHealth = healthBar.fillAmount;
+
         healthBar.fillAmount = currentHealth / maxHealth;
+
+        if (healthBar.fillAmount < oldHealth) damageBarCoroutine ??= StartCoroutine(UpdateDamageBar());
+        else {
+            if (healthBar.fillAmount > damageBar.fillAmount) damageBar.fillAmount = healthBar.fillAmount;
+        }
+    }
+
+    IEnumerator UpdateDamageBar() {
+        yield return new WaitForSeconds(timeToStartDamageBar);
+
+        while (damageBar.fillAmount > healthBar.fillAmount) {
+            damageBar.fillAmount -= damageBarDecreaseSpeed;
+            yield return null;
+        }
+
+        damageBar.fillAmount = healthBar.fillAmount;
+        damageBarCoroutine = null;
     }
     void UpdateShieldUI(float currentShield, float maxShield) {
         shieldBar.fillAmount = currentShield / maxShield;
