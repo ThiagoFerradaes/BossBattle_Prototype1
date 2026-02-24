@@ -69,7 +69,7 @@ public class CyrusTonfasSkillManager : SkillObjectManager
         collider.Initialize(newContext);
 
         collider.OnHit += () => {
-            if (_skillLevel < 3) CyrusPassiveManager.Instance.AddUseSkill(slot, _info.AmountOfUsesPerLevel[_skillLevel]);
+            if (_skillLevel < 3) CyrusPassiveManager.Instance.AddUseSkill(slot, _info.AmountOfUsesPerLevel[_skillLevel], _info.ListOfSprites);
             int newLevel = CyrusPassiveManager.Instance.ReturnSkillLevel(slot);
             if (newLevel >= 1) energyManager.ChangeMaxEnergy(_info.EnergyCostLevelOne);
         };

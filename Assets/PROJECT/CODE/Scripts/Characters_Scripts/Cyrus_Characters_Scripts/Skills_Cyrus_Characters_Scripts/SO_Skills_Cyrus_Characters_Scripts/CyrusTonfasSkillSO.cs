@@ -1,5 +1,6 @@
 using AYellowpaper.SerializedCollections;
 using NaughtyAttributes;
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Characters/ Skills/ Cyrus/ Tonfas")]
@@ -12,6 +13,7 @@ public class CyrusTonfasSkillSO : UltimateSkillSO
 
     [Header("Atributes")]
     [Foldout("Specific"), SerializedDictionary("Level", "Amount")] public SerializedDictionary<int, int> AmountOfUsesPerLevel;
+    [Foldout("Specific")] public List<Sprite> ListOfSprites;
 
     [Header("Level One Atributes")]
     [Foldout("Specific")] public float EnergyCostLevelOne;

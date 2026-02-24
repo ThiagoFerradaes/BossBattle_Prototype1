@@ -17,6 +17,7 @@ public class CyrusAxeSkillSO : CommonSkillSO
     [Foldout("Specific")] public float MaxChargeTime;
     [Foldout("Specific")] public float MinDamage;
     [Foldout("Specific")] public float MaxDamage;
+    [Foldout("Specific")] public List<Sprite> ListOfSprites;
 
     [Header("Level 1 & 2 Buffs")]
     [Foldout("Specific")] public float Level1AmountOfShield;

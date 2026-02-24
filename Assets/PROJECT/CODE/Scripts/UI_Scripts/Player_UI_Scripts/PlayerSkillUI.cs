@@ -133,7 +133,20 @@ public class PlayerSkillUI : MonoBehaviour {
             skillTwoImage.sprite = whiteboard.ReturnSkillTwo(selectedCharacter).UISkillSpriteIcon;
         if (whiteboard.ReturnUltimate(selectedCharacter).UISkillSpriteIcon)
             ultimateImage.sprite = whiteboard.ReturnUltimate(selectedCharacter).UISkillSpriteIcon;
-
+    }
+    
+    public void ChangeSkillImage(Sprite newSprite, SkillSlot typeOfSkill) {
+        switch (typeOfSkill) {
+            case SkillSlot.SkillOne:
+                skillOneImage.sprite = newSprite;
+                break;
+            case SkillSlot.SkillTwo:
+                skillTwoImage.sprite = newSprite;
+                break;
+            case SkillSlot.Ultimate:
+                ultimateImage.sprite = newSprite;
+                break;
+        }
     }
 
     private void SetCooldownImagesOff() {
@@ -150,13 +163,7 @@ public class PlayerSkillUI : MonoBehaviour {
         }
     }
 
-    private void OnDestroy() {
-        WhiteBoard.OnCooldownSet -= StartCooldownUI;
-        EnergyManager.OnEnergyValueChanged -= _energyGainAction;
-        WhiteBoard.OnChargesSet -= _setChargeNumber;
-        WhiteBoard.OnChargesChange -= _changeChargeNumber;
 
-    }
 
     void SetInitialChargeNumbers(SkillSlot slot, int charges) {
         switch (slot) {
@@ -201,6 +208,12 @@ public class PlayerSkillUI : MonoBehaviour {
         }
     }
 
+    private void OnDestroy() {
+        WhiteBoard.OnCooldownSet -= StartCooldownUI;
+        EnergyManager.OnEnergyValueChanged -= _energyGainAction;
+        WhiteBoard.OnChargesSet -= _setChargeNumber;
+        WhiteBoard.OnChargesChange -= _changeChargeNumber;
+    }
     #endregion
 }
 

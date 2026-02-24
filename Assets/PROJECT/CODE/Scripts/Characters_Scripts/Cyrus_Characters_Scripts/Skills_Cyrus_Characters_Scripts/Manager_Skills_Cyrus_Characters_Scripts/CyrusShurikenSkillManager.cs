@@ -58,7 +58,7 @@ public class CyrusShurikenSkillManager : SkillObjectManager
     {
         base.FourthFunc();
 
-        if (_skillLevel < 3) CyrusPassiveManager.Instance.AddUseSkill(slot, _info.AmountOfUsesPerLevel[_skillLevel]);
+        if (_skillLevel < 3) CyrusPassiveManager.Instance.AddUseSkill(slot, _info.AmountOfUsesPerLevel[_skillLevel], _info.ListOfSprites);
 
         UnblockInputs();
     }
