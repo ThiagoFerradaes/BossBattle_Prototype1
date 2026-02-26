@@ -186,7 +186,7 @@ public class CyrusAxeAttackManager : SkillObjectManager {
         // On Hit
         hitbox.OnHit += () => {
             energyManager.GainEnergy(_info.FlatEnergyGainPerHit);
-            if (_skillLevel < 3) CyrusPassiveManager.Instance.AddUseSkill(slot, _info.AmountOfUsesPerLevel[_skillLevel]);
+            if (_skillLevel < 3) CyrusPassiveManager.Instance.AddUseSkill(slot, _info.AmountOfUsesPerLevel[_skillLevel], _info.ListOfSprites);
             if (_skillLevel == 3) InstantiateBrokenRocks();
         };
     }

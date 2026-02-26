@@ -1,0 +1,137 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40252fba3952a0d4780647eb5b75c3cb, type: 3}
+  m_Name: GraciaBlueAuraSO
+  m_EditorClassIdentifier: Assembly-CSharp::GraciaBlueAuraSO
+  SkillName: Blue Aura
+  SkillShortDescription: Every time Gracia hits an enemy, she creates a wave of damage
+    around her.
+  SkillLongDescription: Every time Gracia hits an enemy, she creates a wave of ancestral
+    damage around her.
+  UISkillSpriteIcon: {fileID: -1112570421, guid: 3bd66792082ea9042a60054da7e52502, type: 3}
+  MapSkillSpriteIcon: {fileID: -1112570421, guid: 3bd66792082ea9042a60054da7e52502, type: 3}
+  SkillManagerObject: {fileID: 4106917612958479300, guid: 88670173d559572478a73e9b14b9afb3, type: 3}
+  Prefabs:
+    _serializedList:
+    - Key: 0
+      Value:
+      - TimeToSpawnPreFab: 0
+        PrefabType: 0
+        PreFab: {fileID: 8998219623033830514, guid: 690c34d54c88e12448b7561adfe65ab9, type: 3}
+        PreFabPosition: {x: 0, y: 1, z: 0}
+        VFXAtribute:
+          VFXType: 0
+          VFXDuration: 0
+          VFXPosCollisionDuration: 0
+          CrossEnemy: 0
+          TimeStopped: 0
+          MinDistanceBack: 0
+          UnitsToHit:
+            serializedVersion: 2
+            m_Bits: 0
+          VFXSpeed: 0
+          Distance: 0
+  SkillObjectRangeObject: {fileID: 0}
+  BlockWalkWhilePreCasting: 1
+  BlockDashWhilePreCasting: 1
+  PreCastOn: 0
+  SkillCharacter: 3
+  Cancelable: 0
+  Slot: 1
+  SkillType: 0
+  FlatEnergyGainPerHit: 0
+  Cooldown: 10
+  HasCharges: 0
+  Charges: 1
+  ChargeCooldown: 0
+  DealDamage: 0
+  SkillDamageAtributes:
+    DamageType: 0
+    UnitsToHit:
+      serializedVersion: 2
+      m_Bits: 0
+    Damage: 0
+    HitShield: 0
+    BreakShield: 0
+    Size: {x: 0, y: 0, z: 0}
+    TypeOfPrefab: 0
+    HitBoxDuration: 0
+    DamageCooldown: 0
+    Distance: 0
+    Speed: 0
+    CrossEnemy: 0
+    TimeStopped: 0
+    MinDistanceBack: 0
+    ExtraAtributes:
+      _serializedList: []
+  AttackAnimationParameter: Blue
+  AttackAnimationName: BlueAnimation
+  TypeOfSkill: 0
+  TypeOfAura: 0
+  AmountOfValueGainedWhenUsed: 25
+  SkillDuration: 6
+  CooldownToHit: 0.2
+  AttackAtributesList:
+  - DamageType: 1
+    UnitsToHit:
+      serializedVersion: 2
+      m_Bits: 128
+    Damage: 50
+    HitShield: 1
+    BreakShield: 0
+    Size: {x: 6, y: 6, z: 6}
+    TypeOfPrefab: 0
+    HitBoxDuration: 0.1
+    DamageCooldown: 0
+    Distance: 0
+    Speed: 0
+    CrossEnemy: 0
+    TimeStopped: 0
+    MinDistanceBack: 0
+    ExtraAtributes:
+      _serializedList: []
+  - DamageType: 1
+    UnitsToHit:
+      serializedVersion: 2
+      m_Bits: 128
+    Damage: 60
+    HitShield: 1
+    BreakShield: 0
+    Size: {x: 7, y: 7, z: 7}
+    TypeOfPrefab: 0
+    HitBoxDuration: 0.1
+    DamageCooldown: 0
+    Distance: 0
+    Speed: 0
+    CrossEnemy: 0
+    TimeStopped: 0
+    MinDistanceBack: 0
+    ExtraAtributes:
+      _serializedList: []
+  - DamageType: 1
+    UnitsToHit:
+      serializedVersion: 2
+      m_Bits: 128
+    Damage: 90
+    HitShield: 1
+    BreakShield: 0
+    Size: {x: 8, y: 8, z: 8}
+    TypeOfPrefab: 0
+    HitBoxDuration: 0.1
+    DamageCooldown: 0
+    Distance: 0
+    Speed: 0
+    CrossEnemy: 0
+    TimeStopped: 0
+    MinDistanceBack: 0
+    ExtraAtributes:
+      _serializedList: []

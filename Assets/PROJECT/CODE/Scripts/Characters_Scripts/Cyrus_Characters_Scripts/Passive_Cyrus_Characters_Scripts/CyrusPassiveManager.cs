@@ -63,7 +63,7 @@ public class CyrusPassiveManager : PassiveSkillManager {
     #region ExpGain
     private bool HasReachedMaxRank => _currentRank >= CyrusRank.SS;
 
-    public void AddUseSkill(SkillSlot slot, int amountOfUsesToUpgrade)
+    public void AddUseSkill(SkillSlot slot, int amountOfUsesToUpgrade, List<Sprite> listOfSprites)
     {
         if (HasReachedMaxRank) return;
         if (!_skillUses.ContainsKey(slot)) return;
@@ -71,11 +71,11 @@ public class CyrusPassiveManager : PassiveSkillManager {
 
         int uses = _skillUses[slot];
 
-        if (uses + 1 >= amountOfUsesToUpgrade) UpgradeSkill(slot);
+        if (uses + 1 >= amountOfUsesToUpgrade) UpgradeSkill(slot, listOfSprites);
         else _skillUses[slot]++;
     }
 
-    void UpgradeSkill(SkillSlot slot) {
+    void UpgradeSkill(SkillSlot slot, List<Sprite> listOfSprites) {
         if (HasReachedMaxRank) return;
 
         if (!_skillLevel.ContainsKey(slot)) return;
@@ -84,6 +84,9 @@ public class CyrusPassiveManager : PassiveSkillManager {
 
         _skillLevel[slot]++;
         _skillUses[slot] = 0;
+
+        Sprite newSkillSprite = listOfSprites[_skillLevel[slot]];
+        PlayerSkillUI.Instance.ChangeSkillImage(newSkillSprite, slot);
 
         _currentRank++;
 

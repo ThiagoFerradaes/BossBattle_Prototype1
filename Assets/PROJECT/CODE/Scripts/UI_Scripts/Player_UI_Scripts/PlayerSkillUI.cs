@@ -19,9 +19,9 @@ public class PlayerSkillUI : MonoBehaviour {
     [SerializeField] private Image ultimateImage;
 
     [Header("Cooldown Image")]
-    [SerializeField] private Image dashCooldown;
-    [SerializeField] private Image skillOneCooldown;
-    [SerializeField] private Image skillTwoCooldown;
+    [SerializeField] private List<Image> dashCooldown;
+    [SerializeField] private List<Image> skillOneCooldown;
+    [SerializeField] private List<Image> skillTwoCooldown;
 
     [Header("Charges")]
     [SerializeField] private TextMeshProUGUI dashCharge;
@@ -35,7 +35,7 @@ public class PlayerSkillUI : MonoBehaviour {
 
     // Lists
     private Dictionary<SkillSlot, Coroutine> cooldownCoroutines;
-    private Dictionary<SkillSlot, Image> cooldownImages;
+    private Dictionary<SkillSlot, List<Image>> cooldownImages;
 
     #endregion
 
@@ -55,13 +55,20 @@ public class PlayerSkillUI : MonoBehaviour {
 
         StartDictionary();
         SetSkillsImage();
+        SetInnerCooldownImage();
         SetCooldownImagesOff();
 
     }
 
+    public void SetImage() {
+        SetSkillsImage();
+        SetInnerCooldownImage();
+        SetCooldownImagesOff();
+    }
+
     void StartDictionary() {
         cooldownCoroutines = new Dictionary<SkillSlot, Coroutine>();
-        cooldownImages = new Dictionary<SkillSlot, Image>
+        cooldownImages = new Dictionary<SkillSlot, List<Image>>
         {
             { SkillSlot.Dash, dashCooldown },
             { SkillSlot.SkillOne, skillOneCooldown },
@@ -69,17 +76,17 @@ public class PlayerSkillUI : MonoBehaviour {
         };
     }
     private void SubscribeEvents() {
-        PlayerSkillCooldownManager.OnCooldownSet -= StartCooldownUI;
-        PlayerSkillCooldownManager.OnCooldownSet += StartCooldownUI;
+        WhiteBoard.OnCooldownSet -= StartCooldownUI;
+        WhiteBoard.OnCooldownSet += StartCooldownUI;
 
         EnergyManager.OnEnergyValueChanged -= _energyGainAction;
         EnergyManager.OnEnergyValueChanged += _energyGainAction;
 
-        PlayerSkillCooldownManager.OnChargesSet -= _setChargeNumber;
-        PlayerSkillCooldownManager.OnChargesSet += _setChargeNumber;
+        WhiteBoard.OnChargesSet -= _setChargeNumber;
+        WhiteBoard.OnChargesSet += _setChargeNumber;
 
-        PlayerSkillCooldownManager.OnChargesChange -= _changeChargeNumber;
-        PlayerSkillCooldownManager.OnChargesChange += _changeChargeNumber;
+        WhiteBoard.OnChargesChange -= _changeChargeNumber;
+        WhiteBoard.OnChargesChange += _changeChargeNumber;
 
     }
 
@@ -99,52 +106,90 @@ public class PlayerSkillUI : MonoBehaviour {
     //}
 
     private IEnumerator CooldownRoutine(SkillSlot slot, float cooldown) {
-        Image cooldownImage = cooldownImages[slot];
+
+        List<Image> cooldownImage = cooldownImages[slot];
         float timer = cooldown;
-        cooldownImage.fillAmount = slot == SkillSlot.Dash? 0 : 1;
+        foreach (var image in cooldownImage) {
+            image.fillAmount = slot == SkillSlot.Dash ? 0 : 1;
+        }
 
         while (timer > 0) {
             timer -= Time.deltaTime;
-            if (slot != SkillSlot.Dash) cooldownImage.fillAmount = timer / cooldown;
-            else cooldownImage.fillAmount = 1 - (timer / cooldown);
+            if (slot != SkillSlot.Dash) {
+                foreach (var image in cooldownImage) {
+                    image.fillAmount = timer / cooldown;
+                }
+            }
+            else {
+                foreach (var image in cooldownImage) {
+                    image.fillAmount = 1 - (timer / cooldown);
+                }
+            }
             yield return null;
         }
 
-        cooldownImage.fillAmount = slot == SkillSlot.Dash ? 1 : 0;
+        foreach (var image in cooldownImage) {
+            image.fillAmount = slot == SkillSlot.Dash ? 1 : 0;
+        }
         cooldownCoroutines[slot] = null;
     }
 
     private void SetSkillsImage() {
-        Debug.Log("Skills have image");
 
         CurrentSelectedCharacterWhiteBoard whiteboard = CurrentSelectedCharacterWhiteBoard.Instance;
         Character selectedCharacter = whiteboard.ReturnSelectedCharacter();
 
-        if (whiteboard.ReturnSkillOne(selectedCharacter).SkillSpriteIcon)
-            skillOneImage.sprite = whiteboard.ReturnSkillOne(selectedCharacter).SkillSpriteIcon;
-        if (whiteboard.ReturnSkillTwo(selectedCharacter).SkillSpriteIcon)
-            skillTwoImage.sprite = whiteboard.ReturnSkillTwo(selectedCharacter).SkillSpriteIcon;
-        if (whiteboard.ReturnUltimate(selectedCharacter).SkillSpriteIcon)
-            ultimateImage.sprite = whiteboard.ReturnUltimate(selectedCharacter).SkillSpriteIcon;
-
+        if (whiteboard.ReturnSkillOne(selectedCharacter).UISkillSpriteIcon)
+            skillOneImage.sprite = whiteboard.ReturnSkillOne(selectedCharacter).UISkillSpriteIcon;
+        if (whiteboard.ReturnSkillTwo(selectedCharacter).UISkillSpriteIcon)
+            skillTwoImage.sprite = whiteboard.ReturnSkillTwo(selectedCharacter).UISkillSpriteIcon;
+        if (whiteboard.ReturnUltimate(selectedCharacter).UISkillSpriteIcon)
+            ultimateImage.sprite = whiteboard.ReturnUltimate(selectedCharacter).UISkillSpriteIcon;
     }
 
-    private void SetCooldownImagesOff() {
-        foreach (var image in cooldownImages) {
-            if (image.Key == SkillSlot.Dash || image.Key == SkillSlot.Ultimate) {
-                image.Value.fillAmount = 1f;
-            }
-            else image.Value.fillAmount = 0f;
+    void SetInnerCooldownImage() {
+        CurrentSelectedCharacterWhiteBoard whiteboard = CurrentSelectedCharacterWhiteBoard.Instance;
+        Character selectedCharacter = whiteboard.ReturnSelectedCharacter();
+
+        if (whiteboard.ReturnSkillOne(selectedCharacter).UISkillSpriteIcon)
+            skillOneCooldown[0].sprite = whiteboard.ReturnSkillOne(selectedCharacter).UISkillSpriteIcon;
+        if (whiteboard.ReturnSkillTwo(selectedCharacter).UISkillSpriteIcon)
+            skillTwoCooldown[0].sprite = whiteboard.ReturnSkillTwo(selectedCharacter).UISkillSpriteIcon;
+    }
+    public void ChangeSkillImage(Sprite newSprite, SkillSlot typeOfSkill) {
+        switch (typeOfSkill) {
+            case SkillSlot.SkillOne:
+                skillOneImage.sprite = newSprite;
+                break;
+            case SkillSlot.SkillTwo:
+                skillTwoImage.sprite = newSprite;
+                break;
+            case SkillSlot.Ultimate:
+                ultimateImage.sprite = newSprite;
+                break;
         }
     }
 
-    private void OnDisable() {
-        PlayerSkillCooldownManager.OnCooldownSet -= StartCooldownUI;
-        EnergyManager.OnEnergyValueChanged -= _energyGainAction;
-        PlayerSkillCooldownManager.OnChargesSet -= _setChargeNumber;
-        PlayerSkillCooldownManager.OnChargesChange -= _changeChargeNumber;
+    private void SetCooldownImagesOff() {
+        if (cooldownImages == null || cooldownImages.Count == 0) {
+            StartDictionary();
+        }
 
+        foreach (var pair in cooldownImages) {
+            if (pair.Key == SkillSlot.Dash || pair.Key == SkillSlot.Ultimate) {
+                foreach (var image in pair.Value) {
+                    image.fillAmount = 1f;
+                }
+            }
+            else {
+                foreach (var image in pair.Value) {
+                    image.fillAmount = 0f;
+                }
+            }
+        }
     }
+
+
 
     void SetInitialChargeNumbers(SkillSlot slot, int charges) {
         switch (slot) {
@@ -189,6 +234,12 @@ public class PlayerSkillUI : MonoBehaviour {
         }
     }
 
+    private void OnDestroy() {
+        WhiteBoard.OnCooldownSet -= StartCooldownUI;
+        EnergyManager.OnEnergyValueChanged -= _energyGainAction;
+        WhiteBoard.OnChargesSet -= _setChargeNumber;
+        WhiteBoard.OnChargesChange -= _changeChargeNumber;
+    }
     #endregion
 }
 

@@ -1,0 +1,77 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31c7249aa7864ad4897ffc71f062f506, type: 3}
+  m_Name: GraciaRedAuraSO
+  m_EditorClassIdentifier: Assembly-CSharp::GraciaRedAuraSO
+  SkillName: Gracia Red Aura
+  SkillShortDescription: Red aura
+  SkillLongDescription: Lil red aura
+  UISkillSpriteIcon: {fileID: -2073305833, guid: 3bd66792082ea9042a60054da7e52502, type: 3}
+  MapSkillSpriteIcon: {fileID: -2073305833, guid: 3bd66792082ea9042a60054da7e52502, type: 3}
+  SkillManagerObject: {fileID: 5555136077052000244, guid: f6220f1f7b411254b86b132e8e253355, type: 3}
+  Prefabs:
+    _serializedList:
+    - Key: 0
+      Value: []
+  SkillObjectRangeObject: {fileID: 0}
+  BlockWalkWhilePreCasting: 1
+  BlockDashWhilePreCasting: 1
+  PreCastOn: 0
+  SkillCharacter: 3
+  Cancelable: 0
+  Slot: 1
+  SkillType: 1
+  FlatEnergyGainPerHit: 0
+  Cooldown: 10
+  HasCharges: 0
+  Charges: 1
+  ChargeCooldown: 0
+  DealDamage: 0
+  SkillDamageAtributes:
+    DamageType: 0
+    UnitsToHit:
+      serializedVersion: 2
+      m_Bits: 0
+    Damage: 0
+    HitShield: 0
+    BreakShield: 0
+    Size: {x: 0, y: 0, z: 0}
+    TypeOfPrefab: 0
+    HitBoxDuration: 0
+    DamageCooldown: 0
+    Distance: 0
+    Speed: 0
+    CrossEnemy: 0
+    TimeStopped: 0
+    MinDistanceBack: 0
+    ExtraAtributes:
+      _serializedList: []
+  AttackAnimationParameter: Red
+  AttackAnimationName: RedAnimation
+  TypeOfSkill: 0
+  TypeOfAura: 2
+  AmountOfValueGainedWhenUsed: 25
+  SkillDuration: 8
+  CritDamageIncreaseList:
+  - 300
+  - 400
+  - 600
+  AditionalCriRateList:
+  - FirstAttackCritRateValue: 25
+    SecondAttackCritRateValue: 35
+    ThirdAttackCritRateValue: 45
+  - FirstAttackCritRateValue: 35
+    SecondAttackCritRateValue: 45
+    ThirdAttackCritRateValue: 55
+  - FirstAttackCritRateValue: 65
+    SecondAttackCritRateValue: 75
+    ThirdAttackCritRateValue: 95

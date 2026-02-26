@@ -18,7 +18,8 @@ public class SkillSO : ScriptableObject {
     [Foldout("Generic")] public string SkillName;
     [Foldout("Generic"), TextArea(3, 10)] public string SkillShortDescription;
     [Foldout("Generic"), TextArea(3, 10)] public string SkillLongDescription;
-    [Foldout("Generic")] public Sprite SkillSpriteIcon;
+    [Foldout("Generic")] public Sprite UISkillSpriteIcon;
+    [Foldout("Generic")] public Sprite MapSkillSpriteIcon;
 
     [Header("Skill Manager")]
     [Foldout("Generic")] public SkillObjectManager SkillManagerObject;

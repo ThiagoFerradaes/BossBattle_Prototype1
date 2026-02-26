@@ -1,5 +1,6 @@
 using AYellowpaper.SerializedCollections;
 using NaughtyAttributes;
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Characters/ Skills/ Cyrus/ Shuriken")]
@@ -15,6 +16,7 @@ public class CyrusShurikenSkillSO : UltimateSkillSO {
     [Foldout("Specific")] public float Radius;
     [Foldout("Specific")] public int AmountOfShurikensLevelZero;
     [Foldout("Specific"), SerializedDictionary("Level", "Amount")] public SerializedDictionary<int, int> AmountOfUsesPerLevel;
+    [Foldout("Specific")] public List<Sprite> ListOfSprites;
 
     [Header("Level One Atributes")]
     [Foldout("Specific")] public int AmountOfShurikensLevelOne;

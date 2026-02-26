@@ -37,6 +37,14 @@ public class SkillSelectionManager : MonoBehaviour {
         _characterSelectionManager = GetComponent<CharacterSelectionManager>();
         SetButtons();
     }
+    void SetButtons() {
+        closeSelectionScreen.onClick.AddListener(TurnScreenOff);
+
+        foreach (var button in dictionaryOfSkillButtons) {
+            var slot = button.Key;
+            button.Value.onClick.AddListener(() => ChangeSelectedSkill(slot));
+        }
+    }
     public void Initialize(SkillSlot slotInitialized) {
 
         ChangeCurrentSlot(slotInitialized);
@@ -58,14 +66,7 @@ public class SkillSelectionManager : MonoBehaviour {
                 SetSkill(); break;
         }
     }
-    void SetButtons() {
-        closeSelectionScreen.onClick.AddListener(TurnScreenOff);
 
-        foreach (var button in dictionaryOfSkillButtons) {
-            var slot = button.Key;
-            button.Value.onClick.AddListener(() => ChangeSelectedSkill(slot));
-        }
-    }
     #region Passive
     void SetPassive() {
         skillsIconObject.SetActive(false);
@@ -100,7 +101,7 @@ public class SkillSelectionManager : MonoBehaviour {
             dictionaryOfSkillButtons[SkillType.Classic].interactable = classicSkill.IsUnlocked;
 
             // Icons
-            dictionaryOfSkillIcons[SkillType.Classic].sprite = classicSkill.Skill.SkillSpriteIcon;
+            dictionaryOfSkillIcons[SkillType.Classic].sprite = classicSkill.Skill.UISkillSpriteIcon;
 
         }
 
@@ -114,7 +115,7 @@ public class SkillSelectionManager : MonoBehaviour {
             dictionaryOfSkillButtons[SkillType.Alternative].interactable = alternativeSkill.IsUnlocked;
 
             // Icons
-            dictionaryOfSkillIcons[SkillType.Alternative].sprite = alternativeSkill.Skill.SkillSpriteIcon;
+            dictionaryOfSkillIcons[SkillType.Alternative].sprite = alternativeSkill.Skill.UISkillSpriteIcon;
 
         }
         else {

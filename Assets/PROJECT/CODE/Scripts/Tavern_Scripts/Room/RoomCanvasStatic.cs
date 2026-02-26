@@ -161,7 +161,7 @@ public class RoomCanvasStatic : MonoBehaviour
         {
             if (!File.Exists(SavePath))
             {
-                Debug.LogWarning("Furniture save data not found.");
+                //Debug.LogWarning("Furniture save data not found.");
                 await LoadInventoryByJson();
                 NexStage();
                 return;
@@ -254,7 +254,7 @@ public class RoomCanvasStatic : MonoBehaviour
         {
             if (!File.Exists(SavePathForInventory))
             {
-                Debug.LogWarning("Inventory save data not found.");
+                //Debug.LogWarning("Inventory save data not found.");
                 return;
             }
 
@@ -282,7 +282,7 @@ public class RoomCanvasStatic : MonoBehaviour
 
     private void NexStage(bool isStart = false)
     {
-        Debug.Log("tutorial stage completed");
+        //Debug.Log("tutorial stage completed");
         if (tutorial.Count == 0)
         {
             Debug.LogWarning("No tutorial stages found.");
@@ -298,7 +298,7 @@ public class RoomCanvasStatic : MonoBehaviour
 
         if (indexStage >= tutorial.Count)
         {
-            Debug.Log("Tutorial completed.");
+            //Debug.Log("Tutorial completed.");
             return;
         }
         

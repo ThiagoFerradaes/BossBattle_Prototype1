@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq;
 
 public class CharacterSelectionManager : MonoBehaviour {
     [Header("Componentes")]
@@ -13,6 +14,7 @@ public class CharacterSelectionManager : MonoBehaviour {
     [SerializeField] Button characterSelectionMask;
     [SerializeField] Image selectedCharacterImage;
     [SerializeField] Image selectedCharacterSignature;
+    [SerializeField] Image selectedCharacterBackgroundImage;
     [SerializeField] TextMeshProUGUI passiveShortDescription;
     [SerializeField] TextMeshProUGUI skillOneShortDescription;
     [SerializeField] TextMeshProUGUI skillTwoShortDescription;
@@ -22,10 +24,6 @@ public class CharacterSelectionManager : MonoBehaviour {
     [SerializeField] Color selectedCharacterColor;
     [SerializedDictionary("Character", "Button"), SerializeField]
     SerializedDictionary<CharacterSO, Button> dictionaryOfCharactersButton = new();
-    [SerializedDictionary("Character", "Image"), SerializeField]
-    SerializedDictionary<Character, Image> dictionaryOfLocks = new();
-    [SerializedDictionary("Character", "Image"), SerializeField]
-    SerializedDictionary<Character, Image> dictionaryOfBackgrounds = new();
 
     [Header("Skills Icons")]
     [SerializeField] Image passiveIcon;
@@ -96,11 +94,12 @@ public class CharacterSelectionManager : MonoBehaviour {
                 set = true;
             }
         
-            ChangeSelectedImageAndSignature();
+            ChangeSelectedCharactersImages();
             ChangeSkillsIcon();
-            LockIcons();
+            SetLockedCharactersSprite();
 
             characterSelectionScreen.SetActive(true);
+
         }
         catch
         {
@@ -108,14 +107,17 @@ public class CharacterSelectionManager : MonoBehaviour {
         }
     }
 
-    void LockIcons() {
-        List<CharacterUnlockedInfo> listOfUnlockedCharactersInfo = WhiteBoard.Instance.ReturnListOfUnlockedCharecters();
+    void SetLockedCharactersSprite() {
+        var unlockedInfos = WhiteBoard.Instance.ReturnListOfUnlockedCharecters();
 
-        foreach (CharacterUnlockedInfo character in listOfUnlockedCharactersInfo) {
-            dictionaryOfLocks[character.Character.Character].gameObject.SetActive(!character.IsUnlocked);
+        List<CharacterSO> listOfUnlockedCharacter = unlockedInfos.Select(x => x.Character).ToList();
+        foreach (var pair in dictionaryOfCharactersButton) {
+            if (listOfUnlockedCharacter.Contains(pair.Key)) continue;
+            
+            pair.Value.GetComponent<Image>().sprite = pair.Key.CharacterLockedMapSprite;
         }
 
-        ActivateCharacterSelectionButtons(listOfUnlockedCharactersInfo);
+        ActivateCharacterSelectionButtons(unlockedInfos);
     }
 
     void ActivateCharacterSelectionButtons(List<CharacterUnlockedInfo> listOfUnlockedCharacters) {
@@ -124,16 +126,28 @@ public class CharacterSelectionManager : MonoBehaviour {
         }
     }
 
-    void ChangeSelectedImageAndSignature() {
+    void ChangeSelectedCharactersImages() {
+
+        // Pegando o personagem atual
         CharacterSO currentCharater = CurrentSelectedCharacterWhiteBoard.Instance.ReturnSelectedCharacterSO();
 
+        // Trocando a splashArt
         selectedCharacterImage.sprite = currentCharater.CharacterSelectionImage;
+
+        // Trocando assinatura
         selectedCharacterSignature.sprite = currentCharater.CharacterSignature;
 
-        foreach (var character in dictionaryOfBackgrounds.Keys) {
-            bool isSelectedCharater = currentCharater.Character == character;
-            dictionaryOfBackgrounds[character].color = isSelectedCharater ? selectedCharacterColor : unselectedCharacterColor;
+        // Trocando o background por trás das habilidades
+        selectedCharacterBackgroundImage.sprite = currentCharater.CharacterSelectedBackground;
+
+        // Trocando a imagem do botão do personagem selecionado
+        foreach (var character in dictionaryOfCharactersButton.Keys) {
+            if (character == currentCharater)
+                dictionaryOfCharactersButton[character].GetComponent<Image>().sprite = character.SelectedCharacterMapSprite;
+            else
+                dictionaryOfCharactersButton[character].GetComponent<Image>().sprite = character.UnselectedCharacterMapSprite;
         }
+
     }
 
     void ChangeSkillsIcon() {
@@ -145,9 +159,9 @@ public class CharacterSelectionManager : MonoBehaviour {
 
         // Setando os icones
         passiveIcon.sprite = passive.PassiveIcon;
-        skillOneIcon.sprite = skillOne.SkillSpriteIcon;
-        skillTwoIcon.sprite = skillTwo.SkillSpriteIcon;
-        ultimateIcon.sprite = ultimate.SkillSpriteIcon;
+        skillOneIcon.sprite = skillOne.MapSkillSpriteIcon;
+        skillTwoIcon.sprite = skillTwo.MapSkillSpriteIcon;
+        ultimateIcon.sprite = ultimate.MapSkillSpriteIcon;
 
         // Setando as descri��es
         passiveShortDescription.text = passive.ShortDescription;
@@ -166,15 +180,15 @@ public class CharacterSelectionManager : MonoBehaviour {
         SkillSO currentSkill = CurrentSelectedCharacterWhiteBoard.Instance.ReturnCurrentSkillBySlot(slot);
         switch (slot) {
             case SkillSlot.SkillOne:
-                skillOneIcon.sprite = currentSkill.SkillSpriteIcon;
+                skillOneIcon.sprite = currentSkill.UISkillSpriteIcon;
                 skillOneShortDescription.text = currentSkill.SkillShortDescription;
                 break;
             case SkillSlot.SkillTwo:
-                skillTwoIcon.sprite = currentSkill.SkillSpriteIcon;
+                skillTwoIcon.sprite = currentSkill.UISkillSpriteIcon;
                 skillTwoShortDescription.text = currentSkill.SkillShortDescription;
                 break;
             case SkillSlot.Ultimate:
-                ultimateIcon.sprite = currentSkill.SkillSpriteIcon;
+                ultimateIcon.sprite = currentSkill.UISkillSpriteIcon;
                 ultimateShortDescription.text = currentSkill.SkillShortDescription;
                 break;
         }
@@ -185,7 +199,7 @@ public class CharacterSelectionManager : MonoBehaviour {
 
     void SelectCharacter(CharacterSO character) {
         CurrentSelectedCharacterWhiteBoard.Instance.SetSelectedCharacter(character);
-        ChangeSelectedImageAndSignature();
+        ChangeSelectedCharactersImages();
         ChangeSkillsIcon();
         _skillSelectionManager.TurnScreenOff();
     }

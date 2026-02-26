@@ -1,16 +1,36 @@
+using NaughtyAttributes;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class GraciaRedAuraSO : MonoBehaviour
+[CreateAssetMenu(menuName = "Characters/ Skills/ Gracia/ RedAura")]
+public class GraciaRedAuraSO : CommonSkillSO, IGraciaSkill
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    [Header("Animations")]
+    [Foldout("Specific")] public string AttackAnimationParameter;
+    [Foldout("Specific")] public string AttackAnimationName;
 
-    // Update is called once per frame
-    void Update()
+    [Header("Skil lAtributes")]
+    [Foldout("Specific")] public GraciaTypeOfSkill TypeOfSkill;
+    [Foldout("Specific")] public GraciaAura TypeOfAura;
+    [Foldout("Specific")] public float AmountOfValueGainedWhenUsed;
+    [Foldout("Specific")] public float SkillDuration;
+    [Foldout("Specific")] public List<float> CritDamageIncreaseList;
+    [Foldout("Specific"), Tooltip("Values In Percent (0% - 100%)")] public List<CritRatePerAttackIndex> AditionalCriRateList;
+
+    public GraciaAura ReturnSkillAura()
     {
-        
+        return TypeOfAura;
+    }
+}
+[System.Serializable]
+public struct CritRatePerAttackIndex {
+    public float FirstAttackCritRateValue;
+    public float SecondAttackCritRateValue;
+    public float ThirdAttackCritRateValue;
+
+    public CritRatePerAttackIndex(float critOne, float critTwo, float critThree) {
+        FirstAttackCritRateValue = critOne;
+        SecondAttackCritRateValue = critTwo;
+        ThirdAttackCritRateValue = critThree;
     }
 }

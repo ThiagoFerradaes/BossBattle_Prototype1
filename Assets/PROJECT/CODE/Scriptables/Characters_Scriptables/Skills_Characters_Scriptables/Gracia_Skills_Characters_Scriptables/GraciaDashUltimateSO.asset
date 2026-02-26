@@ -1,0 +1,108 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ff9eb0d6b98f164382ce910bcbf5248, type: 3}
+  m_Name: GraciaDashUltimateSO
+  m_EditorClassIdentifier: Assembly-CSharp::GraciaDashUltimateSO
+  SkillName: Gracia Dash Ultimate
+  SkillShortDescription: Dash
+  SkillLongDescription: Lil dash
+  UISkillSpriteIcon: {fileID: 1081662790, guid: 3bd66792082ea9042a60054da7e52502, type: 3}
+  MapSkillSpriteIcon: {fileID: -328661650, guid: ab75e1b1a9aedbc45b40c78d83e17be3, type: 3}
+  SkillManagerObject: {fileID: 8103886338029536240, guid: b65a0dec7ba9b3a4e9400dfa56b6c70f, type: 3}
+  Prefabs:
+    _serializedList:
+    - Key: 0
+      Value:
+      - TimeToSpawnPreFab: 0.15
+        PrefabType: 0
+        PreFab: {fileID: 8998219623033830514, guid: 690c34d54c88e12448b7561adfe65ab9, type: 3}
+        PreFabPosition: {x: 0, y: 1, z: 0}
+        VFXAtribute:
+          VFXType: 0
+          VFXDuration: 0
+          VFXPosCollisionDuration: 0
+          CrossEnemy: 0
+          TimeStopped: 0
+          MinDistanceBack: 0
+          UnitsToHit:
+            serializedVersion: 2
+            m_Bits: 0
+          VFXSpeed: 0
+          Distance: 0
+  SkillObjectRangeObject: {fileID: 0}
+  BlockWalkWhilePreCasting: 1
+  BlockDashWhilePreCasting: 1
+  PreCastOn: 0
+  SkillCharacter: 3
+  Cancelable: 0
+  Slot: 3
+  SkillType: 1
+  EnergyCost: 10
+  Atributes:
+    DamageType: 0
+    UnitsToHit:
+      serializedVersion: 2
+      m_Bits: 128
+    Damage: 50
+    HitShield: 1
+    BreakShield: 0
+    Size: {x: 2, y: 2, z: 2}
+    TypeOfPrefab: 0
+    HitBoxDuration: 100000000
+    DamageCooldown: 0
+    Distance: 0
+    Speed: 0
+    CrossEnemy: 0
+    TimeStopped: 0
+    MinDistanceBack: 0
+    ExtraAtributes:
+      _serializedList: []
+  AttackAnimationParameter: Dash
+  AttackAnimationName: Dash
+  DashForce: 14
+  DashDuration: 0.8
+  TimeToStartDash: 0.15
+  DamageIncreasePerLevel:
+  - 0
+  - 0.5
+  - 1
+  BlueCooldownToMove: 2
+  BlueDistanceLimitToPlayer: 0.2
+  BlueShadowDurationToReachPlayer: 0.5
+  BlueShadowPrefab: {fileID: 6803675591349672151, guid: 0654138e88ad06945800ed6a0ed263c5, type: 3}
+  BlueAtributes:
+    DamageType: 1
+    UnitsToHit:
+      serializedVersion: 2
+      m_Bits: 128
+    Damage: 100
+    HitShield: 1
+    BreakShield: 0
+    Size: {x: 1, y: 1, z: 1}
+    TypeOfPrefab: 0
+    HitBoxDuration: 1e+16
+    DamageCooldown: 0
+    Distance: 0
+    Speed: 0
+    CrossEnemy: 0
+    TimeStopped: 0
+    MinDistanceBack: 0
+    ExtraAtributes:
+      _serializedList: []
+  PercentOfPassiveBarBlue: 0.5
+  EnergyPercentToReturn: 0.5
+  PercentOfPassiveBarYellow: 0.5
+  ShieldPercentToHeal: 1
+  PercentOfPassiveBarGreen: 0.5
+  RedCritRate: 100
+  RedCritDamage: 400
+  PercentOfPassiveBarRed: 0.5

@@ -23,7 +23,8 @@ MonoBehaviour:
     animation speed
 
     Level 3: Increase crit rate and crit damage.'
-  SkillSpriteIcon: {fileID: -1382586963, guid: c4227a59479ed82448432f2e85809ec1, type: 3}
+  UISkillSpriteIcon: {fileID: 764472998, guid: 3bd66792082ea9042a60054da7e52502, type: 3}
+  MapSkillSpriteIcon: {fileID: 297706086, guid: ab75e1b1a9aedbc45b40c78d83e17be3, type: 3}
   SkillManagerObject: {fileID: 4664583147525992776, guid: 2fdf383091fc6814dbe43478d5fc5285, type: 3}
   Prefabs:
     _serializedList:
@@ -31,6 +32,8 @@ MonoBehaviour:
       Value:
       - TimeToSpawnPreFab: 0.5
         PrefabType: 0
+        PreFab: {fileID: 8998219623033830514, guid: 690c34d54c88e12448b7561adfe65ab9, type: 3}
+        PreFabPosition: {x: 0, y: 0, z: 0}
         VFXAtribute:
           VFXType: 0
           VFXDuration: 0
@@ -43,8 +46,6 @@ MonoBehaviour:
             m_Bits: 0
           VFXSpeed: 0
           Distance: 0
-        PreFab: {fileID: 8998219623033830514, guid: 690c34d54c88e12448b7561adfe65ab9, type: 3}
-        PreFabPosition: {x: 0, y: 0, z: 0}
   SkillObjectRangeObject: {fileID: 0}
   BlockWalkWhilePreCasting: 1
   BlockDashWhilePreCasting: 1
@@ -84,6 +85,11 @@ MonoBehaviour:
       Value: 1
     - Key: 2
       Value: 1
+  ListOfSprites:
+  - {fileID: 764472998, guid: 3bd66792082ea9042a60054da7e52502, type: 3}
+  - {fileID: 6636470, guid: 5a657fbaeba657f4e9e3e929ee56e0e7, type: 3}
+  - {fileID: -572220791, guid: 5a657fbaeba657f4e9e3e929ee56e0e7, type: 3}
+  - {fileID: 462788040, guid: 5a657fbaeba657f4e9e3e929ee56e0e7, type: 3}
   EnergyCostLevelOne: 10
   SizeLevelTwo: 10
   AnimationSpeedLevelTwo: 2

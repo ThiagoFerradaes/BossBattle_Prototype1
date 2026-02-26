@@ -5,7 +5,8 @@ using UnityEngine.UI;
 public class TrainingFieldSystem : MonoBehaviour
 {
     private PlayerInteractionManager _playerInteractionManager;
-    
+
+    [SerializeField] private Button play;
     [SerializeField]private Button changeCharacterButton;
     [SerializeField] private GameObject[] canvasActive;
     [SerializeField] private GameObject[] canvasDisabled;
@@ -26,13 +27,19 @@ public class TrainingFieldSystem : MonoBehaviour
     [SerializeField] private GameObject cancelTrainingButton;
     [SerializeField] private GameObject canvasSkill;
 
+    [SerializeField] private PlayerSkillUI skillUI;
+    [SerializeField] private PlayerHealthUI healthUI;
     private Transform _oldPlayer;
     
     private void Awake() 
     {
         _playerWhiteBoard = CurrentSelectedCharacterWhiteBoard.Instance;
         closedInteraction.onClick.AddListener(CloseTrainingField);
-        changeCharacterButton.onClick.AddListener(() => characterSelectionManager.Initialize());
+        changeCharacterButton.onClick.AddListener(() =>
+        {
+            characterSelectionManager.Initialize();
+        });
+        play.onClick.AddListener(Spawn);
     }
 
     public void SetPlayerInteractionManager(PlayerInteractionManager playerInteractionManager)
@@ -98,6 +105,9 @@ public class TrainingFieldSystem : MonoBehaviour
             cameraController.SetPlayerTransform(instantiate.transform);
         }
         NoCanvas();
+        
+        skillUI.SetImage();
+        healthUI.SetUi();
     }
     
 }
