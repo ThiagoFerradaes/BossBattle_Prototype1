@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{5274A5F1-8227-4981-A61F-0F3417CB92FE}" SchemaVersion="133">
+	<Containers>
+		<WorkUnit Name="Default Work Unit" ID="{5274A5F1-8227-4981-A61F-0F3417CB92FE}" PersistMode="Standalone">
+			<ChildrenList>
+				<Folder Name="Players" ID="{D8C55A56-63C9-4D6D-AEF2-477B46CCAA3F}" ShortID="881060034">
+					<ChildrenList>
+						<Folder Name="Footsteps" ID="{7358E959-DD97-4C87-9BAC-D87A748A56AC}" ShortID="668264782">
+							<PropertyList>
+								<Property Name="Color" Type="int16" Value="11"/>
+								<Property Name="OverrideColor" Type="bool" Value="True"/>
+							</PropertyList>
+							<ChildrenList>
+								<RandomSequenceContainer Name="Sand" ID="{3C9C0F07-C493-4284-89BE-45CE98A2DC9C}" ShortID="660592843">
+									<PropertyList>
+										<Property Name="Color" Type="int16" Value="19"/>
+										<Property Name="OverrideColor" Type="bool" Value="True"/>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Main Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
+										</Reference>
+									</ReferenceList>
+								</RandomSequenceContainer>
+								<RandomSequenceContainer Name="Tavern" ID="{21A32204-D856-44A2-9DC7-F4C742685083}" ShortID="522882051">
+									<PropertyList>
+										<Property Name="Color" Type="int16" Value="22"/>
+										<Property Name="OverrideColor" Type="bool" Value="True"/>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Main Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
+										</Reference>
+									</ReferenceList>
+								</RandomSequenceContainer>
+								<RandomSequenceContainer Name="Stone" ID="{9DCEB1F4-8475-466A-B2AF-33EAF9C462E0}" ShortID="665370668">
+									<PropertyList>
+										<Property Name="OverrideColor" Type="bool" Value="True"/>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Main Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
+										</Reference>
+									</ReferenceList>
+								</RandomSequenceContainer>
+							</ChildrenList>
+						</Folder>
+						<Folder Name="Bastian" ID="{5C4DAED1-3562-4197-92B9-2441FF0DF362}" ShortID="75442108">
+							<PropertyList>
+								<Property Name="Color" Type="int16" Value="10"/>
+								<Property Name="OverrideColor" Type="bool" Value="True"/>
+							</PropertyList>
+							<ChildrenList>
+								<Sound Name="Dash" ID="{6EE81020-80B2-479E-97E8-553A6044D787}" ShortID="453093834">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Main Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="SFX_bastian_dash_01" ID="{A9522A16-8AEC-455D-A1DC-6E9D1D3F0604}">
+											<Language>SFX</Language>
+											<AudioFile>SFX_bastian_dash_01.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="233593526"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="SFX_bastian_dash_01" ID="{A9522A16-8AEC-455D-A1DC-6E9D1D3F0604}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+							</ChildrenList>
+						</Folder>
+					</ChildrenList>
+				</Folder>
+			</ChildrenList>
+		</WorkUnit>
+	</Containers>
+</WwiseDocument>

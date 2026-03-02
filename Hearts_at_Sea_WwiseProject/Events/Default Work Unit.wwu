@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{42EDCE91-1ADB-41C8-9A70-8294B49EB9BB}" SchemaVersion="133">
+	<Events>
+		<WorkUnit Name="Default Work Unit" ID="{42EDCE91-1ADB-41C8-9A70-8294B49EB9BB}" PersistMode="Standalone">
+			<ChildrenList>
+				<Folder Name="Players" ID="{4E2221CC-DB2F-42FE-9F88-145E75440EB5}" ShortID="680714645">
+					<ChildrenList>
+						<Folder Name="Bastian" ID="{B4B23023-430E-4F36-BA57-5885D7775056}" ShortID="496317345">
+							<PropertyList>
+								<Property Name="Color" Type="int16" Value="10"/>
+								<Property Name="OverrideColor" Type="bool" Value="True"/>
+							</PropertyList>
+							<ChildrenList>
+								<Event Name="Play_Dash" ID="{999910FC-ED04-4DBB-BF49-B5B40AC09BE7}">
+									<ChildrenList>
+										<Action Name="" ID="{33F7993F-7E0C-4488-B4F6-F132DC906939}" ShortID="669757707">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="Dash" ID="{6EE81020-80B2-479E-97E8-553A6044D787}" WorkUnitID="{5274A5F1-8227-4981-A61F-0F3417CB92FE}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
+							</ChildrenList>
+						</Folder>
+					</ChildrenList>
+				</Folder>
+			</ChildrenList>
+		</WorkUnit>
+	</Events>
+</WwiseDocument>
