@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MapManager : MonoBehaviour {
@@ -146,7 +147,9 @@ public class MapManager : MonoBehaviour {
 
     }
     void Sail(BossDescription description) {
-        LoadingScreenManager.Instance.LoadFightScene(description.LoadingScreen[_currentDifficulty], description.ListOfScenes[_currentDifficulty]);
+        LoadingScreenManager.CurrentLoadingScreenInfo = description.LoadingScreen[_currentDifficulty];
         OnCloseMap?.Invoke();
+        SceneManager.LoadScene(1);
+        //LoadingScreenManager.Instance.LoadFightScene(description.LoadingScreen[_currentDifficulty], description.ListOfScenes[_currentDifficulty]);
     }
 }

@@ -11,7 +11,8 @@ public class Tip {
 [CreateAssetMenu(menuName = "LoadingScreenSO")]
 public class LoadingScreenSO : ScriptableObject
 {
-    public List<Sprite> Sprites;
+    public int SceneIndex;
     public Sprite SavingIcon;
-    public List<Tip> TipList;
+    public List<Sprite> ListOfBackgrounds;
+    public List<Tip> ListOfTips;
 }

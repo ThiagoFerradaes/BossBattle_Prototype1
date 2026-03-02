@@ -12,13 +12,18 @@ public class MenuButtons : MonoBehaviour
     [SerializeField] Button tavernButton;
 
     [Header ("Temporario")]
-    [SerializeField] GameObject Map;
+    [SerializeField] GameObject map;
+    [SerializeField] LoadingScreenSO tavernLoadingScreenInfo;
 
     [Header("Canvas")]
     [SerializeField] GameObject configCanvas;
 
     private void Start() {
-        tavernButton.onClick.AddListener(() => LoadingScreenManager.Instance.ReturnToTavern(true, 5));
+        tavernButton.onClick.AddListener(() => {
+            LoadingScreenManager.CurrentLoadingScreenInfo = tavernLoadingScreenInfo;
+            SceneManager.LoadScene(1);
+            //LoadingScreenManager.Instance.ReturnToTavern(true, 5);
+        });
         startButton.onClick.AddListener(OpenMap);
         exitButton.onClick.AddListener(ExitGame);
         configButton.onClick.AddListener(() => HandleConfigUI(true));
@@ -26,7 +31,7 @@ public class MenuButtons : MonoBehaviour
     }
 
     void OpenMap() {
-        Map.SetActive(true);
+        map.SetActive(true);
     }
 
     void HandleConfigUI(bool open) {

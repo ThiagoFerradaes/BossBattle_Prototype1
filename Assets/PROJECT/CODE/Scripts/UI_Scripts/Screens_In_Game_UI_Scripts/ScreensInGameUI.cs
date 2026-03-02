@@ -17,6 +17,8 @@ public class ScreensInGameUI : MonoBehaviour {
     [Foldout("Dictionary"), SerializedDictionary("Type of Screen", "GameObject"), SerializeField]
     SerializedDictionary<Button, TypeOfButton> dictionaryOfButtons = new();
 
+    [SerializeField] LoadingScreenSO menuScreenInfo;
+
     private void Awake() {
 
         if (Instance == null) Instance = this;
@@ -48,7 +50,11 @@ public class ScreensInGameUI : MonoBehaviour {
     void SetButton(TypeOfButton type, Button button) {
         switch (type) {
             case TypeOfButton.Menu:
-                button.onClick.AddListener(() => LoadingScreenManager.Instance.ReturnToMenu());
+                button.onClick.AddListener(() => {
+                    LoadingScreenManager.CurrentLoadingScreenInfo = menuScreenInfo;
+                    SceneManager.LoadScene(1);
+                    //LoadingScreenManager.Instance.ReturnToMenu();
+                    });
                 Time.timeScale = 1;
                 break;
             case TypeOfButton.Continue:
