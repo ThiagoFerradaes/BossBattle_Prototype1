@@ -47,6 +47,8 @@ public class BastianDashManager : SkillObjectManager {
 
         skillManager.SkillIsInAnimation(true);
 
+        _info.DashSFX?.Post(parent);
+
         cooldownManager.SetCooldownWithCharges(slot, _info);
 
         BastianPassiveManager.Instance.LooseHeat(_info.AmountOfHeatLost);
