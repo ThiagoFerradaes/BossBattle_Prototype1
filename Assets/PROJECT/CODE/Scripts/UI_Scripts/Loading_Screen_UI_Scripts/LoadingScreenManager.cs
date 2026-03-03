@@ -72,18 +72,24 @@ public class LoadingScreenManager : MonoBehaviour {
     //}
 
     AsyncOperation loadingOperation;
-    bool isLoadingComplete = false;
-    bool canLoad = false;
-    float loadingScreenTimer;
+    public bool isLoadingComplete = false;
+    public bool canLoad = false;
+    public float loadingScreenTimer;
 
     private void Start() {
         StartLoad();
     }
 
     void StartLoad() {
+
+        Application.runInBackground = true;
+
+        Time.timeScale = 1.0f;
+
         isLoadingComplete = false;
         canLoad = false;
         loadingScreenTimer = 0.0f;
+
         Load();
     }
     void Load() {
@@ -99,7 +105,8 @@ public class LoadingScreenManager : MonoBehaviour {
     }
 
     private void Update() {
-        if (!canLoad) return;
+        if (!canLoad)  return;
+
 
         if (!isLoadingComplete) {
             loadingScreenTimer += Time.deltaTime;
@@ -181,9 +188,11 @@ public class LoadingScreenManager : MonoBehaviour {
 
         DOTween.KillAll();
 
+        Application.runInBackground = true;
+
         isLoadingComplete = true;
         loadingOperation.allowSceneActivation = true;
-        
+        loadingOperation = null;
     }
 
     //IEnumerator LoadingScreen(LoadingScreenSO loadScreenInformation, int sceneIndex, bool load = false) {
