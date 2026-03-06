@@ -11,7 +11,7 @@ public class CyrusTonfasSkillManager : SkillObjectManager
 
         Initialize(skill);
 
-        animationCoroutine ??= StartCoroutine(AttackCoroutine(0, _info.AnimationParameter, _info.AnimationName, 0));
+        animationCoroutine ??= StartCoroutine(AttackCoroutine());
     }
 
     private void Initialize(SkillSO skill) {

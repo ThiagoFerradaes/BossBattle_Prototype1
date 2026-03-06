@@ -5,8 +5,6 @@ using UnityEngine;
 public class BastianIgnisSO : CommonSkillSO
 {
     [Header("Animation Parameter")]
-    [Foldout("Specific")] public string AnimationParameter;
-    [Foldout("Specific")] public string AnimationName;
     [Foldout("Specific")] public string AttackSpeedAnimationParameter;
 
     [Header("Passive")]

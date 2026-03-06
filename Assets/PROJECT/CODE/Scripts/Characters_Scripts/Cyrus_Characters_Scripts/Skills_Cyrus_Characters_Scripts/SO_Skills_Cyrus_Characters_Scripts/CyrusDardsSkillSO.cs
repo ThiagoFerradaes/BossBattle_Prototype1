@@ -6,9 +6,6 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Characters/ Skills/ Cyrus/ Dards")]
 public class CyrusDardsSkillSO : CommonSkillSO
 {
-    [Header("Animation")]
-    [Foldout("Specific")] public string AnimationParameter;
-    [Foldout("Specific")] public string AnimationName;
 
     [Header("Level Zero Atributes")]
     [Foldout("Specific")] public float AmountOfDards;

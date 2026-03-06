@@ -3,6 +3,14 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[Serializable]
+public class AnimationInfo {
+    public string AnimationName;
+    public string AnimationParameter;
+    public int AnimationLayer;
+    [Range(0,1)] public float AnimationExitTime = 1;
+    public bool IsAnimationTrigger = true;
+}
 public abstract class SkillObjectManager : MonoBehaviour {
     #region Parameters
     protected bool _preCasted;
@@ -150,16 +158,18 @@ public abstract class SkillObjectManager : MonoBehaviour {
     #endregion
 
     #region AttackAnimation
-    public virtual IEnumerator AttackCoroutine(int animationLayer, string animationTriggerName, string animationName, int comboIndex, bool isTrigger = true)
+    public virtual IEnumerator AttackCoroutine(int listOfAnimationsIndex = 0 ,int comboIndex = 0)
     {
         FirstFunc();
+
+        AnimationInfo animInfo = info.ListOfAnimationsInfo[listOfAnimationsIndex];
         
-        if (isTrigger) anim.SetTrigger(animationTriggerName);
-        else anim.SetBool(animationName, true);
+        if (animInfo.IsAnimationTrigger) anim.SetTrigger(animInfo.AnimationParameter);
+        else anim.SetBool(animInfo.AnimationParameter, true);
         
         yield return null;
         
-        AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(animationLayer);
+        AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(animInfo.AnimationLayer);
         
         do {
             yield return null;
@@ -167,8 +177,8 @@ public abstract class SkillObjectManager : MonoBehaviour {
             {
                 yield break;
             }
-            stateInfo = anim.GetCurrentAnimatorStateInfo(animationLayer);
-        } while (!stateInfo.IsName(animationName));
+            stateInfo = anim.GetCurrentAnimatorStateInfo(animInfo.AnimationLayer);
+        } while (!stateInfo.IsName(animInfo.AnimationName));
         
         int attackStateHash = stateInfo.fullPathHash;
         SecondFunc();
@@ -179,8 +189,8 @@ public abstract class SkillObjectManager : MonoBehaviour {
 
         do {
             yield return null;
-            stateInfo = anim.GetCurrentAnimatorStateInfo(animationLayer);
-        } while (stateInfo.fullPathHash == attackStateHash);
+            stateInfo = anim.GetCurrentAnimatorStateInfo(animInfo.AnimationLayer);
+        } while (stateInfo.fullPathHash == attackStateHash && stateInfo.normalizedTime < animInfo.AnimationExitTime);
 
         FourthFunc();
     }

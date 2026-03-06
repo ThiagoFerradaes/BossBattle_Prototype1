@@ -8,8 +8,6 @@ public class CyrusAxeSkillSO : CommonSkillSO
 {
     [Header("Animation")]
     [Foldout("Specific")] public string FirstAnimationParameterName;
-    [Foldout("Specific")] public string SecondAnimationParameterName;
-    [Foldout("Specific")] public string SecondAnimationName;
 
     [Header("Atributes")]
     [Header("Floats")]

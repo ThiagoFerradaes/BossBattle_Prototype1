@@ -297,7 +297,7 @@ public partial class AkCommonUserSettings
 		settings.fStreamingLookAheadRatio = m_StreamingLookAheadRatio;
 		m_MainOutputSettings.CopyTo(settings.settingsMainOutput);
 		settings.szPluginDLLPath = GetPluginPath();
-		WwiseLogger.Log("Setting Plugin DLL path to: " + (settings.szPluginDLLPath == null ? "NULL" : settings.szPluginDLLPath));
+		//WwiseLogger.Log("Setting Plugin DLL path to: " + (settings.szPluginDLLPath == null ? "NULL" : settings.szPluginDLLPath));
 	}
 
 	[UnityEngine.Tooltip("Multiplication factor for all streaming look-ahead heuristic values.")]

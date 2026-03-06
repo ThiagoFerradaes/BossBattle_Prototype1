@@ -24,6 +24,9 @@ public class SkillSO : ScriptableObject {
     [Header("Skill Manager")]
     [Foldout("Generic")] public SkillObjectManager SkillManagerObject;
 
+    [Header("Skill Animations")]
+    [Foldout("Generic")] public List<AnimationInfo> ListOfAnimationsInfo;
+
     [Header("Skill Prefabs")]
     [Foldout("Generic"), SerializedDictionary("Combo", "Event")]
     public SerializedDictionary<int, List<SkillAnimationEvent>> Prefabs;

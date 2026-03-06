@@ -14,7 +14,7 @@ public class CyrusKanaboSkillManager : SkillObjectManager {
 
         Initialize(skill);
 
-        StartCoroutine(AttackCoroutine(0, _info.AnimationParameter, _info.AnimationName, 0));
+        StartCoroutine(AttackCoroutine());
     }
 
     void Initialize(SkillSO skill) {

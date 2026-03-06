@@ -5,16 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Characters/ Skills/ Bastian/ BastianBaseAttackSO")]
 public class BastianBaseAttackSO : CommonSkillSO {
 
-    [Header("Animation Parameter")]
-    [Foldout("Specific")] public string AnimationOneParameter;
-    [Foldout("Specific")] public string AnimationTwoParameter;
-    [Foldout("Specific")] public string AnimationThreeParameter;
-
-    [Header("Animation Name")]
-    [Foldout("Specific")] public string AnimationOneName;
-    [Foldout("Specific")] public string AnimationTwoName;
-    [Foldout("Specific")] public string AnimationThreeName;
-
     [Header("Animation Speed")]
     [Foldout("Specific")] public string AttackSpeedAnimationParameter;
 

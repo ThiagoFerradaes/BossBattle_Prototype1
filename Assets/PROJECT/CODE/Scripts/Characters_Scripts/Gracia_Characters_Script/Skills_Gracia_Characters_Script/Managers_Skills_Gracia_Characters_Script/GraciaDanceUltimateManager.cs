@@ -32,7 +32,7 @@ public class GraciaDanceUltimateManager : SkillObjectManager
     {
         Initialize(skill);
 
-        animationCoroutine ??= StartCoroutine(AttackCoroutine(0, _info.attackAnimationParameter, _info.attackAnimationParameter, 0));
+        animationCoroutine ??= StartCoroutine(AttackCoroutine());
     }
 
     void Initialize(SkillSO skill)

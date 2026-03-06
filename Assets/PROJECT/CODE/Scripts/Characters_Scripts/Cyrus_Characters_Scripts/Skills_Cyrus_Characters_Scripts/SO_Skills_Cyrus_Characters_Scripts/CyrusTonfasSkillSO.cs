@@ -7,8 +7,6 @@ using UnityEngine;
 public class CyrusTonfasSkillSO : UltimateSkillSO
 {
     [Header("Animation")]
-    [Foldout("Specific")] public string AnimationParameter;
-    [Foldout("Specific")] public string AnimationName;
     [Foldout("Specific")] public string AnimationSpeedParameter;
 
     [Header("Atributes")]

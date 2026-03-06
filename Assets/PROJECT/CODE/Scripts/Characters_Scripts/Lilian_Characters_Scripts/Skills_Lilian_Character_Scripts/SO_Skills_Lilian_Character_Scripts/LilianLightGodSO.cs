@@ -3,11 +3,11 @@ using UnityEngine;
 
 [CreateAssetMenu(menuName = "Characters/ Skills/ Lilian/ LightGod")]
 public class LilianLightGodSO : UltimateSkillSO {
-    [Header("Animation")]
-    [Foldout("Specific")] public string AnimationParameter;
-    [Foldout("Specific")] public string AnimationName;
-    [Foldout("Specific")] public string BeamAnimationParameter;
-    [Foldout("Specific")] public string BeamAnimationName;
+    //[Header("Animation")]
+    //[Foldout("Specific")] public string AnimationParameter;
+    //[Foldout("Specific")] public string AnimationName;
+    //[Foldout("Specific")] public string BeamAnimationParameter;
+    //[Foldout("Specific")] public string BeamAnimationName;
 
     [Header("Gods infos")]
     [Foldout("Specific")] public Vector3 ManagerLocalPosition;

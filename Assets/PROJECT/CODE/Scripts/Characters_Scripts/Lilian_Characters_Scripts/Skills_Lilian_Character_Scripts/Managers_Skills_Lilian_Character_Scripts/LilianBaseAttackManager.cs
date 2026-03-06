@@ -17,24 +17,7 @@ public class LilianBaseAttackManager : SkillObjectManager
 
         Initialize(skill);
 
-        string animationParameterName, animationName;
-        switch (_attackIndex)
-        {
-            case 1:
-                animationParameterName = _info.AnimationOneParameter;
-                animationName = _info.AnimationOneName;
-                break;
-            case 2:
-                animationParameterName = _info.AnimationTwoParameter;
-                animationName = _info.AnimationTwoName;
-                break;
-            default:
-                animationParameterName = _info.AnimationOneParameter;
-                animationName = _info.AnimationOneName;
-                break;
-        }
-
-        animationCoroutine ??= StartCoroutine(AttackCoroutine(0, animationParameterName, animationName, 0));
+        animationCoroutine ??= StartCoroutine(AttackCoroutine(_attackIndex - 1));
     }
 
     private void Initialize(SkillSO skill)

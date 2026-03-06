@@ -6,9 +6,6 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Characters/ Skills/ Cyrus/ Kanabo")]
 public class CyrusKanaboSkillSO : CommonSkillSO
 {
-    [Header("Animation")]
-    [Foldout("Specific")] public string AnimationParameter;
-    [Foldout("Specific")] public string AnimationName;
 
     [Header("Atributes")]
     [Foldout("Specific"), SerializedDictionary("Level", "Amount")] public SerializedDictionary<int, int> AmountOfUsesPerLevel;

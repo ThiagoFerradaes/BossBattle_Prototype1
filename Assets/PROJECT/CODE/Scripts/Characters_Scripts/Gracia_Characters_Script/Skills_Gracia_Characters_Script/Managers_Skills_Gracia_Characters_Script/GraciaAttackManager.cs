@@ -41,21 +41,8 @@ public class GraciaAttackManager : SkillObjectManager {
     }
 
     void StartAnimation() {
-        string animationParameter = _attackIndex switch {
-            1 => _info.FirstAttackAnimationParameter,
-            2 => _info.SecondAttackAnimationParameter,
-            3 => _info.ThirdAttackAnimationParameter,
-            _ => _info.FirstAttackAnimationParameter
-        };
 
-        string animationName = _attackIndex switch {
-            1 => _info.FirstAttackAnimationName,
-            2 => _info.SecondAttackAnimationName,
-            3 => _info.ThirdAttackAnimationName,
-            _ => _info.FirstAttackAnimationName
-        };
-
-        animationCoroutine ??= StartCoroutine(AttackCoroutine(0, animationParameter, animationName, 0));
+        animationCoroutine ??= StartCoroutine(AttackCoroutine(_attackIndex - 1));
     }
 
     #endregion
