@@ -108,18 +108,19 @@ public class SkillSelectionManager : MonoBehaviour {
         // Alternative skill
         if (alternativeSkill != null) {
 
-            // Lockas
+            // Locks
             dictionaryOfLocks[SkillType.Alternative].gameObject.SetActive(!alternativeSkill.IsUnlocked);
 
             // Button
             dictionaryOfSkillButtons[SkillType.Alternative].interactable = alternativeSkill.IsUnlocked;
 
             // Icons
-            dictionaryOfSkillIcons[SkillType.Alternative].sprite = alternativeSkill.Skill.UISkillSpriteIcon;
+            dictionaryOfSkillIcons[SkillType.Alternative].sprite = alternativeSkill.IsUnlocked ?
+                alternativeSkill.Skill.UISkillSpriteIcon : alternativeSkill.Skill.MapLockSkillSpriteIcon;
 
         }
         else {
-            // Lockas
+            // Locks
             dictionaryOfLocks[SkillType.Alternative].gameObject.SetActive(true);
 
             // Button
@@ -182,6 +183,6 @@ public class SkillSelectionManager : MonoBehaviour {
         skillsIconObject.SetActive(false);
         skillSelectionScreen.SetActive(false);
 
-        _characterSelectionManager.EraseSkillIconBackgroundSelection();
+        _characterSelectionManager.TurnOffSkillSelectionBackground();
     }
 }

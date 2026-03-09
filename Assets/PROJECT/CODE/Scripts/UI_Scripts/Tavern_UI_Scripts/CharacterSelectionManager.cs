@@ -31,8 +31,6 @@ public class CharacterSelectionManager : MonoBehaviour {
     [SerializeField] Image skillOneIcon;
     [SerializeField] Image skillTwoIcon;
     [SerializeField] Image ultimateIcon;
-    [SerializeField] Color unselectedSkillColor;
-    [SerializeField] Color selectedSkillColor;
     [SerializedDictionary("Slot", "Button"), SerializeField] SerializedDictionary<SkillSlot, Image> dictionaryOfSkillsIconBackground;
     [SerializedDictionary("Slot", "Button"), SerializeField] SerializedDictionary<SkillSlot, Button> dictionaryOfSkillSelectionButton;
     SkillSelectionManager _skillSelectionManager;
@@ -97,6 +95,7 @@ public class CharacterSelectionManager : MonoBehaviour {
             ChangeSelectedCharactersImages();
             ChangeSkillsIcon();
             ActivateCharacterSelectionButtons();
+            TurnOffSkillSelectionBackground();
 
             characterSelectionScreen.SetActive(true);
 
@@ -197,14 +196,13 @@ public class CharacterSelectionManager : MonoBehaviour {
 
     void ChangeSkillIconBackground(SkillSlot activeSlot) {
         foreach (var skillIcon in dictionaryOfSkillsIconBackground) {
-            if (skillIcon.Key == activeSlot) skillIcon.Value.color = selectedSkillColor;
-            else skillIcon.Value.color = unselectedSkillColor;
+            skillIcon.Value.gameObject.SetActive(skillIcon.Key == activeSlot);
         }
     }
 
-    public void EraseSkillIconBackgroundSelection() {
+    public void TurnOffSkillSelectionBackground() {
         foreach (var skillIcon in dictionaryOfSkillsIconBackground) {
-            skillIcon.Value.color = unselectedSkillColor;
+            skillIcon.Value.gameObject.SetActive(false);
         }
     }
     #endregion
