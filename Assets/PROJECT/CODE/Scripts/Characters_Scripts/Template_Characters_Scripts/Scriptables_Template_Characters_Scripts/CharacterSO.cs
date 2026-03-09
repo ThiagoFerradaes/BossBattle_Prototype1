@@ -37,6 +37,7 @@ public class CharacterSO : ScriptableObject {
     [Foldout("Character Selection")] public List<SkillSO> CharacterListOfSkills;
 
     public Character Character;
+    public GameObject CharacterPrefab;
     public PassiveSO Passive;
     public CharacterKit InitialKit;
     [SerializedDictionary("Type of Expression", " Sprite")]

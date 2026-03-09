@@ -11,10 +11,9 @@ public class PlayerManager : MonoBehaviour {
 
     public Transform CameraCenter;
     public Transform PlayerSpawnPoint;
-    [Foldout("Dictionary"), SerializedDictionary("Character", "PraFab"), SerializeField]
-    SerializedDictionary<Character, GameObject> characterPrefabDictionary = new();
     [HideInInspector] public GameObject Player;
     [SerializeField] bool isTavernScene = false;
+    [ShowIf("isTavernScene"), AllowNesting, SerializeField] GameObject julianPrefab;
 
     CurrentSelectedCharacterWhiteBoard _playerWhiteBoard;
 
@@ -35,15 +34,14 @@ public class PlayerManager : MonoBehaviour {
         if (_playerWhiteBoard == null) return;
 
         if (isTavernScene) {
-            GameObject player = Instantiate(characterPrefabDictionary[Character.TavernKeeper], PlayerSpawnPoint.position, Quaternion.identity);
+            GameObject player = Instantiate(julianPrefab, PlayerSpawnPoint.position, Quaternion.identity);
             Player = player;
             return;
         }
 
-        Character currentCharacter = _playerWhiteBoard.ReturnSelectedCharacter();
-
-        if (characterPrefabDictionary.ContainsKey(currentCharacter)) {
-            GameObject player = Instantiate(characterPrefabDictionary[currentCharacter], PlayerSpawnPoint.position, Quaternion.identity);
+        else {
+            CharacterSO currentCharacter = _playerWhiteBoard.ReturnSelectedCharacterSO();
+            GameObject player = Instantiate(currentCharacter.CharacterPrefab, PlayerSpawnPoint.position, Quaternion.identity);
             Player = player;
         }
 
@@ -65,8 +63,7 @@ public class PlayerManager : MonoBehaviour {
         ScreensInGameUI.Instance.TurnScreenOn(TypeOfScreen.Defeat);
     }
 
-    public void SetPlayer(GameObject newPlayer)
-    {
+    public void SetPlayer(GameObject newPlayer) {
         Player = newPlayer;
     }
 }
