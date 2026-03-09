@@ -4,9 +4,6 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Characters/ Skills/ Lilian/ WingsOhHorror")]
 public class LilianWingsOfHorrorSO : CommonSkillSO
 {
-    [Header("Lilian Animation")]
-    [Foldout("Specific")] public string AnimationParameter;
-    [Foldout("Specific")] public string AnimationName;
 
     [Header("Wings of Horror Animation")]
     [Foldout("Specific")] public string WingsOfHorrorAnimationParameter;

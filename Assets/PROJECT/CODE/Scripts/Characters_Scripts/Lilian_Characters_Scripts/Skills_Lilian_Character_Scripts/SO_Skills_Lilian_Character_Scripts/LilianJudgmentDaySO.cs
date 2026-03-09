@@ -4,9 +4,6 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Characters/ Skills/ Lilian/ JudgmentDay")]
 public class LilianJudgmentDaySO : UltimateSkillSO
 {
-    [Header("Animation")]
-    [Foldout("Specific")] public string AnimationParameter;
-    [Foldout("Specific")] public string AnimationName;
 
     [Header("Atributes")]
     [Foldout("Specific")] public float DamageToLilian;

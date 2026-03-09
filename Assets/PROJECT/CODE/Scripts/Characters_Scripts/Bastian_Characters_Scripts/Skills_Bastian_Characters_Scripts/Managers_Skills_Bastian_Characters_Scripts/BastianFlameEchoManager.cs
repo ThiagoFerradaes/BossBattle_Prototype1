@@ -34,7 +34,7 @@ public class BastianFlameEchoManager : SkillObjectManager
 
         gameObject.SetActive(true);
 
-        animationCoroutine ??= StartCoroutine(AttackCoroutine(0, _info.AnimationParameter, _info.AnimationName, 1));
+        animationCoroutine ??= StartCoroutine(AttackCoroutine(0, 1));
 
         _onShootAction = (int attackIdex) => StartCoroutine(SecondaryShoot(attackIdex));
     }

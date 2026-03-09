@@ -18,8 +18,6 @@ public class BastianFlameEchoSO : UltimateSkillSO
     [Foldout("Specific")] public float SLastOverHeatCritDamage;
 
     [Header("Animation")]
-    [Foldout("Specific")] public string AnimationParameter;
-    [Foldout("Specific")] public string AnimationName;
     [Foldout("Specific")] public string AttackSpeedAnimationParameter;
 
     [Header("Ultimate Atributes")]

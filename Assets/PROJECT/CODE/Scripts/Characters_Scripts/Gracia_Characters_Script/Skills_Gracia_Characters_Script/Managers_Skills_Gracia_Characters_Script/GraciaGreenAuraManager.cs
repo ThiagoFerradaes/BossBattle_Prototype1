@@ -26,7 +26,7 @@ public class GraciaGreenAuraManager : SkillObjectManager
     public override void UseSkill(SkillSO skill) {
         Initialize(skill);
 
-        animationCoroutine ??= StartCoroutine(AttackCoroutine(0, _info.attackAnimationParameter, _info.attackAnimationName, 0));
+        animationCoroutine ??= StartCoroutine(AttackCoroutine());
     }
 
     void Initialize(SkillSO skill) {

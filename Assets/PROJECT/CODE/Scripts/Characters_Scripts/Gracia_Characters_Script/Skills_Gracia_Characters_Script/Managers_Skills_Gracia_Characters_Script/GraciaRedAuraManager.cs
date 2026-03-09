@@ -22,7 +22,7 @@ public class GraciaRedAuraManager : SkillObjectManager
     public override void UseSkill(SkillSO skill) {
         Initialize(skill);
 
-        animationCoroutine ??= StartCoroutine(AttackCoroutine(0, _info.AttackAnimationParameter, _info.AttackAnimationName, 0));
+        animationCoroutine ??= StartCoroutine(AttackCoroutine());
     }
 
     void Initialize(SkillSO skill) {

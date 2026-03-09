@@ -6,9 +6,6 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Characters/ Skills/ Cyrus/ SpearAttack")]
 public class CyrusSpearSkillSO : CommonSkillSO
 {
-    [Header("Animation")]
-    [Foldout("Specific")] public string SpearAttackTriggerName;
-    [Foldout("Specific")] public string AnimationName;
 
     [Header("Level Up Buffs")]
     [Foldout("Specific")] public float Level2Range;

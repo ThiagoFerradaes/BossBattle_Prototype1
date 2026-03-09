@@ -20,9 +20,13 @@ public class SkillSO : ScriptableObject {
     [Foldout("Generic"), TextArea(3, 10)] public string SkillLongDescription;
     [Foldout("Generic")] public Sprite UISkillSpriteIcon;
     [Foldout("Generic")] public Sprite MapSkillSpriteIcon;
+    [ShowIf("SkillType", SkillType.Alternative), AllowNesting,Foldout("Generic")] public Sprite MapLockSkillSpriteIcon;
 
     [Header("Skill Manager")]
     [Foldout("Generic")] public SkillObjectManager SkillManagerObject;
+
+    [Header("Skill Animations")]
+    [Foldout("Generic")] public List<AnimationInfo> ListOfAnimationsInfo;
 
     [Header("Skill Prefabs")]
     [Foldout("Generic"), SerializedDictionary("Combo", "Event")]

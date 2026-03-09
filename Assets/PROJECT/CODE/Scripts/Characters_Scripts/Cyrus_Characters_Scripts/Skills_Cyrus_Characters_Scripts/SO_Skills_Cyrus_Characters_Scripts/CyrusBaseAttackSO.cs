@@ -6,10 +6,6 @@ using UnityEngine;
 public class CyrusBaseAttackSO : CommonSkillSO {
 
     [Header("Animation")]
-    [Foldout("Specific")] public string FirstBaseAttackParameter;
-    [Foldout("Specific")] public string FirstBaseAttackAnimationName;
-    [Foldout("Specific")] public string SecondBaseAttackParameter;
-    [Foldout("Specific")] public string SecondtBaseAttackAnimationName;
     [Foldout("Specific")] public string AttackSpeedAnimationParameter;
 
     [Header("Atributes")]

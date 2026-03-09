@@ -26,7 +26,7 @@ public class BastianIgnisManager : SkillObjectManager {
             gameObject.SetActive(true);
         }
 
-        animationCoroutine ??= StartCoroutine(AttackCoroutine(0, _info.AnimationParameter, _info.AnimationName, 0));
+        animationCoroutine ??= StartCoroutine(AttackCoroutine());
     }
 
     public override void FirstFunc() {
