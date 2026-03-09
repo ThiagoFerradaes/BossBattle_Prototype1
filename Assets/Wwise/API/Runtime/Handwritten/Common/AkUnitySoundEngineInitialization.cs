@@ -45,7 +45,7 @@ public class AkUnitySoundEngineInitialization
 
 	public bool InitializeSoundEngine()
 	{
-		WwiseLogger.LogFormat("Wwise(R) SDK Version {0}.", AkUnitySoundEngine.WwiseVersion);
+		//WwiseLogger.LogFormat("Wwise(R) SDK Version {0}.", AkUnitySoundEngine.WwiseVersion);
 		
 #if UNITY_ANDROID && ! UNITY_EDITOR
 		//Obtains the Android Java Object "currentActivity" in order to set it for the android io hook initialization
@@ -166,7 +166,7 @@ public class AkUnitySoundEngineInitialization
 		AkUnitySoundEngine.SetCurrentLanguage(activePlatformSettings.InitialLanguage);
 
 		AkCallbackManager.Init(activePlatformSettings.CallbackManagerInitializationSettings);
-		WwiseLogger.Log("Sound engine initialized successfully.");
+		//WwiseLogger.Log("Sound engine initialized successfully.");
 		LoadInitBank();
 		initializationDelegate?.InvokeUnitySafe();
 		return true;
@@ -271,7 +271,7 @@ public class AkUnitySoundEngineInitialization
 		AkCallbackManager.Term();
 		ResetBanks();
 
-		WwiseLogger.Log("Sound engine terminated successfully.");
+		//WwiseLogger.Log("Sound engine terminated successfully.");
 	}
 }
 

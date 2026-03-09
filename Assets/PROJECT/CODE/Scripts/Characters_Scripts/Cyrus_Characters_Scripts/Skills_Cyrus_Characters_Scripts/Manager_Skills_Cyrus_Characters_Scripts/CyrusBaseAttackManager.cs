@@ -30,10 +30,7 @@ public class CyrusBaseAttackManager : SkillObjectManager {
             StopCoroutine(_timerBetweenAttacksCoroutine);
             _timerBetweenAttacksCoroutine = null;
         }
-
-        string animationParameter = _attackIndex == 1 ? _info.FirstBaseAttackParameter : _info.SecondBaseAttackParameter;
-        string animationName = _attackIndex == 1 ? _info.FirstBaseAttackAnimationName : _info.SecondtBaseAttackAnimationName;
-        animationCoroutine ??= StartCoroutine(AttackCoroutine(0, animationParameter, animationName, _attackIndex));
+        animationCoroutine ??= StartCoroutine(AttackCoroutine(_attackIndex - 1, _attackIndex));
     }
 
     private void Initialize(SkillSO skill) {

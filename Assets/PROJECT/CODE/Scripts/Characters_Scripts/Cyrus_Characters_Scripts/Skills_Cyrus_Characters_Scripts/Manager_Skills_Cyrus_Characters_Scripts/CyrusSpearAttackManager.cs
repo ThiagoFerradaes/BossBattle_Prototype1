@@ -20,7 +20,7 @@ public class CyrusSpearAttackManager : SkillObjectManager {
             gameObject.SetActive(true);
 
             int combo = _skillLevel >= 2 ? 1 : 0;
-            animationCoroutine ??= StartCoroutine(AttackCoroutine(0, _info.SpearAttackTriggerName, _info.AnimationName, combo));
+            animationCoroutine ??= StartCoroutine(AttackCoroutine(0, combo));
         }
 
     }

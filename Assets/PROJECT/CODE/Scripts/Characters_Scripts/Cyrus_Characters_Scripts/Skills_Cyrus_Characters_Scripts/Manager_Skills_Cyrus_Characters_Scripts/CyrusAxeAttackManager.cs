@@ -115,7 +115,7 @@ public class CyrusAxeAttackManager : SkillObjectManager {
     IEnumerator Attack() {
         while (_chargeTimer < _info.MinimalChargeTime) yield return null;
 
-        StartCoroutine(AttackCoroutine(0, _info.SecondAnimationParameterName, _info.SecondAnimationName, 1));
+        StartCoroutine(AttackCoroutine(0, 1));
 
     }
 

@@ -3,6 +3,14 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[Serializable]
+public class AnimationInfo {
+    public string AnimationName;
+    public string AnimationParameter;
+    public int AnimationLayer;
+    [Range(0,1)] public float AnimationExitTime = 1;
+    public bool IsAnimationTrigger = true;
+}
 public abstract class SkillObjectManager : MonoBehaviour {
     #region Parameters
     protected bool _preCasted;
@@ -150,37 +158,36 @@ public abstract class SkillObjectManager : MonoBehaviour {
     #endregion
 
     #region AttackAnimation
-    public virtual IEnumerator AttackCoroutine(int animationLayer, string animationTriggerName, string animationName, int comboIndex, bool isTrigger = true)
-    {
+    public virtual IEnumerator AttackCoroutine(int animationIndex = 0, int comboIndex = 0) {
         FirstFunc();
-        
-        if (isTrigger) anim.SetTrigger(animationTriggerName);
-        else anim.SetBool(animationName, true);
-        
-        yield return null;
-        
-        AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(animationLayer);
-        
+
+        AnimationInfo animInfo = info.ListOfAnimationsInfo[animationIndex];
+
+        anim.SetTrigger(animInfo.AnimationParameter);
+
+        int stateHash = Animator.StringToHash(animInfo.AnimationName);
+
+        AnimatorStateInfo stateInfo;
+
+        // Espera entrar no state
         do {
             yield return null;
-            if (anim == null)
-            {
-                yield break;
-            }
-            stateInfo = anim.GetCurrentAnimatorStateInfo(animationLayer);
-        } while (!stateInfo.IsName(animationName));
-        
-        int attackStateHash = stateInfo.fullPathHash;
+            stateInfo = anim.GetCurrentAnimatorStateInfo(animInfo.AnimationLayer);
+
+        } while (stateInfo.shortNameHash != stateHash);
+
         SecondFunc();
 
-        yield return StartCoroutine(InstantiatePrefabs(attackStateHash, stateInfo, comboIndex));
+        yield return StartCoroutine(InstantiatePrefabs(stateHash, stateInfo, comboIndex));
 
         ThirdFunc();
 
-        do {
+        // espera o tempo de cancel
+        while (stateInfo.shortNameHash == stateHash &&
+               stateInfo.normalizedTime < animInfo.AnimationExitTime) {
             yield return null;
-            stateInfo = anim.GetCurrentAnimatorStateInfo(animationLayer);
-        } while (stateInfo.fullPathHash == attackStateHash);
+            stateInfo = anim.GetCurrentAnimatorStateInfo(animInfo.AnimationLayer);
+        }
 
         FourthFunc();
     }

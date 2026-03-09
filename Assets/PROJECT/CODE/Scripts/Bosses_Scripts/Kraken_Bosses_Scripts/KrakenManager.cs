@@ -124,7 +124,6 @@ public class KrakenManager : EnemyBehaviourManager {
         Animator anim = ListOfTentacles[tentacleIndex].Anim;
         anim.SetFloat(tentacleAttack.PreparingAttackSpeed, preparingSpeed);
         anim.SetTrigger(tentacleAttack.AttackAnimationParameter);
-        Debug.Log("Animation");
         AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
 
         do { // PREPARING ANIMATION
@@ -154,7 +153,6 @@ public class KrakenManager : EnemyBehaviourManager {
                 main.simulationSpeed = preparingSpeed;
 
                 attackHitBox.GetComponent<VFXPreFabStatic>().Initialize(prefabInfo.VFXAtribute);
-                Debug.Log("VFX");
             }
 
         }

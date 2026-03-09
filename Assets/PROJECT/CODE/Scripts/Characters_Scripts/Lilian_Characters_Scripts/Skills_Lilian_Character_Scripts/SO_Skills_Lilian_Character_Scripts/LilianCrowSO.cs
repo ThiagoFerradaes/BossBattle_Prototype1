@@ -5,10 +5,6 @@ using UnityEngine;
 
 public class LilianCrowSO : CommonSkillSO {
 
-    [Header("Animation")]
-    [Foldout("Specific")] public string AnimationParameter;
-    [Foldout("Specific")] public string AnimationName;
-
     [Header("Explosion's Values")]
     [Foldout("Specific")] public DamageAtributes ExplosionAtributes;
     [Foldout("Specific")] public float ExplosionMaxDamage;

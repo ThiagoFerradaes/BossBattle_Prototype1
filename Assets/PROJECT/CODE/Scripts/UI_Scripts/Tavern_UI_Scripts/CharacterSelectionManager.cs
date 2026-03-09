@@ -1,11 +1,12 @@
-using System;
-using UnityEngine;
 using AYellowpaper.SerializedCollections;
-using UnityEngine.UI;
-using TMPro;
+using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using System.Linq;
+using System.Threading.Tasks;
+using TMPro;
+using UnityEngine;
+using UnityEngine.TextCore.Text;
+using UnityEngine.UI;
 
 public class CharacterSelectionManager : MonoBehaviour {
     [Header("Componentes")]
@@ -30,14 +31,13 @@ public class CharacterSelectionManager : MonoBehaviour {
     [SerializeField] Image skillOneIcon;
     [SerializeField] Image skillTwoIcon;
     [SerializeField] Image ultimateIcon;
-    [SerializeField] Color unselectedSkillColor;
-    [SerializeField] Color selectedSkillColor;
     [SerializedDictionary("Slot", "Button"), SerializeField] SerializedDictionary<SkillSlot, Image> dictionaryOfSkillsIconBackground;
     [SerializedDictionary("Slot", "Button"), SerializeField] SerializedDictionary<SkillSlot, Button> dictionaryOfSkillSelectionButton;
     SkillSelectionManager _skillSelectionManager;
+    List<CharacterUnlockedInfo> _unlockedInfo = new();
 
     private bool isInitialized;
-    
+
     #region StartRegion
     private void Awake() {
         _skillSelectionManager = GetComponent<SkillSelectionManager>();
@@ -70,61 +70,41 @@ public class CharacterSelectionManager : MonoBehaviour {
         characterSelectionBackground.onClick.AddListener(() => { _skillSelectionManager.TurnScreenOff(); });
 
         characterSelectionMask.onClick.AddListener(ClosedSkillsUi);
-        
+
         isInitialized = true;
     }
-    
+
     #endregion
 
     #region InitializeRegion
 
-    public async void Initialize()
-    {
-        try
-        {
-            bool set = false; 
-            while(!isInitialized)
-            {
-                if (set)
-                {
+    public async void Initialize() {
+        try {
+            bool set = false;
+            while (!isInitialized) {
+                if (set) {
                     await Task.Yield();
                     continue;
                 }
                 SetButtons();
                 set = true;
             }
-        
+
+            _unlockedInfo = WhiteBoard.Instance.ReturnListOfUnlockedCharecters();
+
             ChangeSelectedCharactersImages();
             ChangeSkillsIcon();
-            SetLockedCharactersSprite();
+            ActivateCharacterSelectionButtons();
+            TurnOffSkillSelectionBackground();
 
             characterSelectionScreen.SetActive(true);
 
         }
-        catch
-        {
+        catch {
             // ignore
         }
     }
 
-    void SetLockedCharactersSprite() {
-        var unlockedInfos = WhiteBoard.Instance.ReturnListOfUnlockedCharecters();
-
-        List<CharacterSO> listOfUnlockedCharacter = unlockedInfos.Select(x => x.Character).ToList();
-        foreach (var pair in dictionaryOfCharactersButton) {
-            if (listOfUnlockedCharacter.Contains(pair.Key)) continue;
-            
-            pair.Value.GetComponent<Image>().sprite = pair.Key.CharacterLockedMapSprite;
-        }
-
-        ActivateCharacterSelectionButtons(unlockedInfos);
-    }
-
-    void ActivateCharacterSelectionButtons(List<CharacterUnlockedInfo> listOfUnlockedCharacters) {
-        foreach (var info in listOfUnlockedCharacters) {
-            dictionaryOfCharactersButton[info.Character].interactable = info.IsUnlocked;
-        }
-    }
 
     void ChangeSelectedCharactersImages() {
 
@@ -141,11 +121,14 @@ public class CharacterSelectionManager : MonoBehaviour {
         selectedCharacterBackgroundImage.sprite = currentCharater.CharacterSelectedBackground;
 
         // Trocando a imagem do botão do personagem selecionado
-        foreach (var character in dictionaryOfCharactersButton.Keys) {
-            if (character == currentCharater)
+        foreach(var info in _unlockedInfo) {
+            var character = info.Character;
+            if (info.Character == currentCharater)
                 dictionaryOfCharactersButton[character].GetComponent<Image>().sprite = character.SelectedCharacterMapSprite;
-            else
+            else if (info.IsUnlocked)
                 dictionaryOfCharactersButton[character].GetComponent<Image>().sprite = character.UnselectedCharacterMapSprite;
+            else
+                dictionaryOfCharactersButton[character].GetComponent<Image>().sprite = character.CharacterLockedMapSprite;
         }
 
     }
@@ -170,12 +153,6 @@ public class CharacterSelectionManager : MonoBehaviour {
         ultimateShortDescription.text = ultimate.SkillShortDescription;
     }
 
-    public void ClosedSkillsUi()
-    {
-        _skillSelectionManager.TurnScreenOff();
-        characterSelectionScreen.SetActive(false);
-    }
-    
     public void ChangeSkillIcon(SkillSlot slot) {
         SkillSO currentSkill = CurrentSelectedCharacterWhiteBoard.Instance.ReturnCurrentSkillBySlot(slot);
         switch (slot) {
@@ -193,6 +170,19 @@ public class CharacterSelectionManager : MonoBehaviour {
                 break;
         }
     }
+
+    void ActivateCharacterSelectionButtons() {
+        foreach (var info in _unlockedInfo) {
+            dictionaryOfCharactersButton[info.Character].interactable = info.IsUnlocked;
+        }
+    }
+
+    public void ClosedSkillsUi() {
+        _skillSelectionManager.TurnScreenOff();
+        characterSelectionScreen.SetActive(false);
+    }
+
+
     #endregion
 
     #region InsideScreenMethods
@@ -206,14 +196,13 @@ public class CharacterSelectionManager : MonoBehaviour {
 
     void ChangeSkillIconBackground(SkillSlot activeSlot) {
         foreach (var skillIcon in dictionaryOfSkillsIconBackground) {
-            if (skillIcon.Key == activeSlot) skillIcon.Value.color = selectedSkillColor;
-            else skillIcon.Value.color = unselectedSkillColor;
+            skillIcon.Value.gameObject.SetActive(skillIcon.Key == activeSlot);
         }
     }
 
-    public void EraseSkillIconBackgroundSelection() {
+    public void TurnOffSkillSelectionBackground() {
         foreach (var skillIcon in dictionaryOfSkillsIconBackground) {
-            skillIcon.Value.color = unselectedSkillColor;
+            skillIcon.Value.gameObject.SetActive(false);
         }
     }
     #endregion

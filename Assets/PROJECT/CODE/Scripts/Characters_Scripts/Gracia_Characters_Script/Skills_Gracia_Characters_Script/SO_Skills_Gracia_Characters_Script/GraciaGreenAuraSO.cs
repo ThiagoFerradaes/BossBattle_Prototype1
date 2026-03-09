@@ -5,9 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Characters/ Skills/ Gracia/ GreenAura")]
 public class GraciaGreenAuraSO : CommonSkillSO, IGraciaSkill
 {
-    [Header("Animations")]
-    [Foldout("Specific")] public string attackAnimationParameter;
-    [Foldout("Specific")] public string attackAnimationName;
 
     [Header("Skil lAtributes")]
     [Foldout("Specific")] public GraciaTypeOfSkill typeOfSkill;
