@@ -142,31 +142,31 @@ public class CharacterSelectionManager : MonoBehaviour {
 
         // Setando os icones
         passiveIcon.sprite = passive.PassiveIcon;
-        skillOneIcon.sprite = skillOne.MapSkillSpriteIcon;
-        skillTwoIcon.sprite = skillTwo.MapSkillSpriteIcon;
-        ultimateIcon.sprite = ultimate.MapSkillSpriteIcon;
+        skillOneIcon.sprite = skillOne.MapDescriptionInfo.MapSkillSpriteIcon;
+        skillTwoIcon.sprite = skillTwo.MapDescriptionInfo.MapSkillSpriteIcon;
+        ultimateIcon.sprite = ultimate.MapDescriptionInfo.MapSkillSpriteIcon;
 
         // Setando as descri��es
         passiveShortDescription.text = passive.ShortDescription;
-        skillOneShortDescription.text = skillOne.SkillShortDescription;
-        skillTwoShortDescription.text = skillTwo.SkillShortDescription;
-        ultimateShortDescription.text = ultimate.SkillShortDescription;
+        skillOneShortDescription.text = skillOne.MapDescriptionInfo.SkillShortDescription;
+        skillTwoShortDescription.text = skillTwo.MapDescriptionInfo.SkillShortDescription;
+        ultimateShortDescription.text = ultimate.MapDescriptionInfo .SkillShortDescription;
     }
 
     public void ChangeSkillIcon(SkillSlot slot) {
         SkillSO currentSkill = CurrentSelectedCharacterWhiteBoard.Instance.ReturnCurrentSkillBySlot(slot);
         switch (slot) {
             case SkillSlot.SkillOne:
-                skillOneIcon.sprite = currentSkill.UISkillSpriteIcon;
-                skillOneShortDescription.text = currentSkill.SkillShortDescription;
+                skillOneIcon.sprite = currentSkill.MapDescriptionInfo.MapSkillSpriteIcon;
+                skillOneShortDescription.text = currentSkill.MapDescriptionInfo.SkillShortDescription;
                 break;
             case SkillSlot.SkillTwo:
-                skillTwoIcon.sprite = currentSkill.UISkillSpriteIcon;
-                skillTwoShortDescription.text = currentSkill.SkillShortDescription;
+                skillTwoIcon.sprite = currentSkill.MapDescriptionInfo.MapSkillSpriteIcon;
+                skillTwoShortDescription.text = currentSkill.MapDescriptionInfo.SkillShortDescription;
                 break;
             case SkillSlot.Ultimate:
-                ultimateIcon.sprite = currentSkill.UISkillSpriteIcon;
-                ultimateShortDescription.text = currentSkill.SkillShortDescription;
+                ultimateIcon.sprite = currentSkill.MapDescriptionInfo.MapSkillSpriteIcon;
+                ultimateShortDescription.text = currentSkill.MapDescriptionInfo.SkillShortDescription;
                 break;
         }
     }

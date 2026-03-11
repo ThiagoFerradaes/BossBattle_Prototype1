@@ -12,7 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d9b1e8f26e42fa4a836a97468431878, type: 3}
   m_Name: LilianDash
   m_EditorClassIdentifier: 
+  HasMapDescription: 0
+  MapDescriptionInfo:
+    SkillName: 
+    SkillShortDescription: 
+    SkillLongDescription: 
+    UISkillSpriteIcon: {fileID: 0}
+    MapSkillSpriteIcon: {fileID: 0}
+    MapSkillSelectedSpriteIcon: {fileID: 0}
+    MapLockSkillSpriteIcon: {fileID: 0}
   SkillManagerObject: {fileID: -7806866097841487787, guid: 834ad2b37deb4374abdcbf76d1ec8d09, type: 3}
+  ListOfAnimationsInfo: []
   Prefabs:
     _serializedList: []
   SkillObjectRangeObject: {fileID: 1830691435722458984, guid: 38e053e2505371642bf9f2d656737eac, type: 3}
@@ -21,14 +31,19 @@ MonoBehaviour:
   PreCastOn: 1
   SkillCharacter: 2
   Cancelable: 0
+  Slot: 0
+  SkillType: 0
   FlatEnergyGainPerHit: 0
   Cooldown: 4
   HasCharges: 0
   Charges: 1
   ChargeCooldown: 0
+  DealDamage: 1
   SkillDamageAtributes:
     DamageType: 0
-    UnitsToHit: 
+    UnitsToHit:
+      serializedVersion: 2
+      m_Bits: 0
     Damage: 0
     HitShield: 1
     BreakShield: 0
@@ -39,6 +54,8 @@ MonoBehaviour:
     Distance: 5
     Speed: 10
     CrossEnemy: 0
+    TimeStopped: 0
+    MinDistanceBack: 0
     ExtraAtributes:
       _serializedList: []
   AnimationParameter: Dash

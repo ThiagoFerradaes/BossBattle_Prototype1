@@ -12,15 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2320c717811ee67458e2ef3df8f57595, type: 3}
   m_Name: LilianWingsOfHorror
   m_EditorClassIdentifier: Assembly-CSharp::LilianWingsOfHorrorSO
-  SkillName: Wings of Horror
-  SkillShortDescription: Lillian summons a creature that will attack the closest
-    enemy, by doing so, it will drain a percentage of Lillian's health.
-  SkillLongDescription: Lillian summons a creature that will attack the closest enemy,
-    by doing so, it will drain a percentage of Lillian's health. This skill has tree
-    charges. Each summon lasts a few seconds.
-  UISkillSpriteIcon: {fileID: -759692821, guid: 3bd66792082ea9042a60054da7e52502, type: 3}
-  MapSkillSpriteIcon: {fileID: -759692821, guid: 3bd66792082ea9042a60054da7e52502, type: 3}
+  HasMapDescription: 1
+  MapDescriptionInfo:
+    SkillName: Wings of Horror
+    SkillShortDescription: Lillian summons an ally that drains her life to deal damage
+      to nearby enemies.
+    SkillLongDescription: Lillian summons an ally that drains her life to deal damage
+      to nearby enemies.
+    UISkillSpriteIcon: {fileID: -759692821, guid: 3bd66792082ea9042a60054da7e52502, type: 3}
+    MapSkillSpriteIcon: {fileID: -1257610291, guid: cee67a2d50b177a4a83653c67d610c6c, type: 3}
+    MapSkillSelectedSpriteIcon: {fileID: 393430717, guid: cee67a2d50b177a4a83653c67d610c6c, type: 3}
+    MapLockSkillSpriteIcon: {fileID: 971911841, guid: ab75e1b1a9aedbc45b40c78d83e17be3, type: 3}
   SkillManagerObject: {fileID: -2912945388451382330, guid: 63dd808355eee4541ac3314272e3eca8, type: 3}
+  ListOfAnimationsInfo: []
   Prefabs:
     _serializedList:
     - Key: 0
@@ -92,8 +96,6 @@ MonoBehaviour:
     MinDistanceBack: 0
     ExtraAtributes:
       _serializedList: []
-  AnimationParameter: WingsOfHorror
-  AnimationName: Lilian_Skill_WingsOfHorror
   WingsOfHorrorAnimationParameter: Attack
   WingsOfHorrorAnimationName: attack
   RadiusOfAttack: 10

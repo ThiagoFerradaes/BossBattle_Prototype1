@@ -12,15 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81153a457bdbabe4a886fefff1bf2e82, type: 3}
   m_Name: LilianJudgmentDay
   m_EditorClassIdentifier: Assembly-CSharp::LilianJudgmentDaySO
-  SkillName: Jugdment Day
-  SkillShortDescription: Lillian summons a creature that follow her around dealing
-    damage in an AoE area.
-  SkillLongDescription: Lillian summons a creature that follow her around dealing
-    damage in an AoE area. The creature will drain Lillians health over time and
-    will desapear when Lillian is above 10% max health.
-  UISkillSpriteIcon: {fileID: -1794101629, guid: 3bd66792082ea9042a60054da7e52502, type: 3}
-  MapSkillSpriteIcon: {fileID: 1217229120, guid: ab75e1b1a9aedbc45b40c78d83e17be3, type: 3}
+  HasMapDescription: 1
+  MapDescriptionInfo:
+    SkillName: Judgment Day
+    SkillShortDescription: Lillian summons a storm of continuous damage that drains
+      her life.
+    SkillLongDescription: Lillian summons a storm of continuous damage that drains
+      her life.
+    UISkillSpriteIcon: {fileID: -1794101629, guid: 3bd66792082ea9042a60054da7e52502, type: 3}
+    MapSkillSpriteIcon: {fileID: 794208039, guid: cee67a2d50b177a4a83653c67d610c6c, type: 3}
+    MapSkillSelectedSpriteIcon: {fileID: 1629312302, guid: cee67a2d50b177a4a83653c67d610c6c, type: 3}
+    MapLockSkillSpriteIcon: {fileID: -1672308805, guid: ab75e1b1a9aedbc45b40c78d83e17be3, type: 3}
   SkillManagerObject: {fileID: 8939686091223594809, guid: f1e9f3f5c16d11e47847db26919ba162, type: 3}
+  ListOfAnimationsInfo: []
   Prefabs:
     _serializedList:
     - Key: 0
@@ -69,8 +73,6 @@ MonoBehaviour:
     MinDistanceBack: 0
     ExtraAtributes:
       _serializedList: []
-  AnimationParameter: Judgment
-  AnimationName: Lilian_Burst_JudgmentDay
   DamageToLilian: 6
   DamageCooldownToLilian: 0.05
   HealthLimit: 10

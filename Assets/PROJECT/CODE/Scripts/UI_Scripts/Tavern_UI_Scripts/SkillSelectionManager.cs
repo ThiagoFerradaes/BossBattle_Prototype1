@@ -1,9 +1,7 @@
 using AYellowpaper.SerializedCollections;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,16 +21,17 @@ public class SkillSelectionManager : MonoBehaviour {
 
     [Header("Skill")]
     [SerializeField] GameObject skillsIconObject;
-    [SerializedDictionary("Type", "LockImage"), SerializeField] SerializedDictionary<SkillType, Image> dictionaryOfLocks = new();
+    [SerializeField] Image alternativeLockImage;
     [SerializedDictionary("Type", "SkillIcon"), SerializeField] SerializedDictionary<SkillType, Image> dictionaryOfSkillIcons = new();
     [SerializedDictionary("Type", "SkillBackground"), SerializeField] SerializedDictionary<SkillType, Image> dictionaryOfSkillBackgrounds = new();
     [SerializedDictionary("Type", "Button"), SerializeField] SerializedDictionary<SkillType, Button> dictionaryOfSkillButtons = new();
-    [SerializeField] Color selectedSkillColor;
-    [SerializeField] Color unselectedSkillColor;
 
+
+    SkillUnlockedInfo _classicSkillUnlockedInfo, _alternativeSkillUnlockedInfo;
     SkillSlot _currentSlot;
     CharacterSelectionManager _characterSelectionManager;
 
+    #region Awake Region
     public void Awake() {
         _characterSelectionManager = GetComponent<CharacterSelectionManager>();
         SetButtons();
@@ -41,29 +40,70 @@ public class SkillSelectionManager : MonoBehaviour {
         closeSelectionScreen.onClick.AddListener(TurnScreenOff);
 
         foreach (var button in dictionaryOfSkillButtons) {
-            var slot = button.Key;
-            button.Value.onClick.AddListener(() => ChangeSelectedSkill(slot));
+            var typeOfSkill = button.Key;
+            button.Value.onClick.AddListener(() => ChangeSelectedSkill(typeOfSkill));
         }
     }
+    public void TurnScreenOff() {
+        passiveIconObject.SetActive(false);
+        skillsIconObject.SetActive(false);
+        skillSelectionScreen.SetActive(false);
+
+        _characterSelectionManager.TurnOffSkillSelectionBackground();
+    }
+
+    /// <summary>
+    /// Troca a skill selecionada
+    /// </summary>
+    /// <param name="typeOfSkill"></param>
+    void ChangeSelectedSkill(SkillType typeOfSkill) {
+
+        SkillSO currentSkill = CurrentSelectedCharacterWhiteBoard.Instance.ReturnCurrentSkillBySlot(_currentSlot);
+        List<SkillUnlockedInfo> skilslInfo = WhiteBoard.Instance.ReturnCurrentCharacterSkillsBySlot(_currentSlot);
+
+        SkillUnlockedInfo newSkill = skilslInfo.Where(p => p.Type == typeOfSkill).FirstOrDefault();
+
+        if (currentSkill == newSkill.Skill || newSkill == null) return;
+
+        CurrentSelectedCharacterWhiteBoard.Instance.SetCurrentCharacterSkillBySlot(_currentSlot, newSkill.Skill);
+
+        ChangeDescriptionText(newSkill.Skill.MapDescriptionInfo.SkillLongDescription, newSkill.Skill.MapDescriptionInfo.SkillName);
+
+        ChangeSkillBackground(typeOfSkill);
+
+        ChangeSelectedSkillIcon(typeOfSkill);
+
+        _characterSelectionManager.ChangeSkillIcon(_currentSlot);
+    }
+    #endregion
+
+    #region Initialize Region
     public void Initialize(SkillSlot slotInitialized) {
 
         ChangeCurrentSlot(slotInitialized);
 
+        SetConexions(slotInitialized);
+
         ChangeIconsAndInformations();
 
-        SetConexions(slotInitialized);
         skillSelectionScreen.SetActive(true);
     }
 
     public void ChangeCurrentSlot(SkillSlot slot) {
         _currentSlot = slot;
     }
+
+    void SetConexions(SkillSlot slot) {
+        foreach (var conexion in dictionaryOfConexions)
+            conexion.Value.gameObject.SetActive(conexion.Key == slot);
+    }
+
     public void ChangeIconsAndInformations() {
         switch (_currentSlot) {
             case SkillSlot.Passive:
                 SetPassive(); break;
             default:
-                SetSkill(); break;
+                SetSkillComponentInfo(); break;
         }
     }
 
@@ -82,107 +122,96 @@ public class SkillSelectionManager : MonoBehaviour {
     #endregion
 
     #region Skills
-    void SetSkill() {
+    /// <summary>
+    /// Settando as informações das skills
+    /// </summary>
+    void SetSkillComponentInfo() {
 
         passiveIconObject.SetActive(false);
 
         List<SkillUnlockedInfo> skilslInfo = WhiteBoard.Instance.ReturnCurrentCharacterSkillsBySlot(_currentSlot);
 
-        SkillUnlockedInfo classicSkill = skilslInfo.Where(p => p.Type == SkillType.Classic).FirstOrDefault();
-        SkillUnlockedInfo alternativeSkill = skilslInfo.Where(p => p.Type == SkillType.Alternative).FirstOrDefault();
+        _classicSkillUnlockedInfo = skilslInfo.Where(p => p.Type == SkillType.Classic).FirstOrDefault();
+        _alternativeSkillUnlockedInfo = skilslInfo.Where(p => p.Type == SkillType.Alternative).FirstOrDefault();
 
+        SkillSO skillInfo = _currentSlot switch {
+            SkillSlot.SkillOne => CurrentSelectedCharacterWhiteBoard.Instance.ReturnSkillOne(),
+            SkillSlot.SkillTwo => CurrentSelectedCharacterWhiteBoard.Instance.ReturnSkillTwo(),
+            SkillSlot.Ultimate => CurrentSelectedCharacterWhiteBoard.Instance.ReturnUltimate(),
+            _ => CurrentSelectedCharacterWhiteBoard.Instance.ReturnSkillOne()
+        };
+
+        #region Skill icons
         // Classic skill
-        if (classicSkill != null) {
-
-            // Locks
-            dictionaryOfLocks[SkillType.Classic].gameObject.SetActive(!classicSkill.IsUnlocked);
+        if (_classicSkillUnlockedInfo != null) {
 
             // Button
-            dictionaryOfSkillButtons[SkillType.Classic].interactable = classicSkill.IsUnlocked;
+            dictionaryOfSkillButtons[SkillType.Classic].interactable = _classicSkillUnlockedInfo.IsUnlocked;
 
             // Icons
-            dictionaryOfSkillIcons[SkillType.Classic].sprite = classicSkill.Skill.UISkillSpriteIcon;
-
+            dictionaryOfSkillIcons[SkillType.Classic].sprite = _classicSkillUnlockedInfo.Skill.MapDescriptionInfo.UISkillSpriteIcon;
         }
 
         // Alternative skill
-        if (alternativeSkill != null) {
+        if (_alternativeSkillUnlockedInfo != null) {
 
             // Locks
-            dictionaryOfLocks[SkillType.Alternative].gameObject.SetActive(!alternativeSkill.IsUnlocked);
+            alternativeLockImage.gameObject.SetActive(!_alternativeSkillUnlockedInfo.IsUnlocked);
 
             // Button
-            dictionaryOfSkillButtons[SkillType.Alternative].interactable = alternativeSkill.IsUnlocked;
+            dictionaryOfSkillButtons[SkillType.Alternative].interactable = _alternativeSkillUnlockedInfo.IsUnlocked;
 
             // Icons
-            dictionaryOfSkillIcons[SkillType.Alternative].sprite = alternativeSkill.IsUnlocked ?
-                alternativeSkill.Skill.UISkillSpriteIcon : alternativeSkill.Skill.MapLockSkillSpriteIcon;
-
+            dictionaryOfSkillIcons[SkillType.Alternative].sprite = _alternativeSkillUnlockedInfo.IsUnlocked ?
+                _alternativeSkillUnlockedInfo.Skill.MapDescriptionInfo.UISkillSpriteIcon : _alternativeSkillUnlockedInfo.Skill.MapDescriptionInfo.MapLockSkillSpriteIcon;
         }
-        else {
-            // Locks
-            dictionaryOfLocks[SkillType.Alternative].gameObject.SetActive(true);
 
-            // Button
-            dictionaryOfSkillButtons[SkillType.Alternative].interactable = false;
-        }
+        // Icone da skill selecionada
+        ChangeSelectedSkillIcon(skillInfo.SkillType);
+        #endregion
 
         // Descrição
-        Character currentCharacter = CurrentSelectedCharacterWhiteBoard.Instance.ReturnSelectedCharacter();
-        SkillSO skill = _currentSlot switch {
-            SkillSlot.SkillOne => CurrentSelectedCharacterWhiteBoard.Instance.ReturnSkillOne(currentCharacter),
-            SkillSlot.SkillTwo => CurrentSelectedCharacterWhiteBoard.Instance.ReturnSkillTwo(currentCharacter),
-            SkillSlot.Ultimate => CurrentSelectedCharacterWhiteBoard.Instance.ReturnUltimate(currentCharacter),
-            _ => CurrentSelectedCharacterWhiteBoard.Instance.ReturnSkillOne(currentCharacter)
-        };
+        ChangeDescriptionText(skillInfo.MapDescriptionInfo.SkillLongDescription, skillInfo.MapDescriptionInfo.SkillName);
 
-        ChangeDescriptionText(skill.SkillLongDescription, skill.SkillName);
-        ChangeSkillBackground(skill.SkillType);
+        // Moldura
+        ChangeSkillBackground(skillInfo.SkillType);
 
         // Object
         skillsIconObject.SetActive(true);
     }
 
-    void ChangeSelectedSkill(SkillType typeOfSkill) {
-
-        SkillSO currentSkill = CurrentSelectedCharacterWhiteBoard.Instance.ReturnCurrentSkillBySlot(_currentSlot);
-        List<SkillUnlockedInfo> skilslInfo = WhiteBoard.Instance.ReturnCurrentCharacterSkillsBySlot(_currentSlot);
-
-        SkillUnlockedInfo newSkill = skilslInfo.Where(p => p.Type == typeOfSkill).FirstOrDefault();
-
-        if (currentSkill == newSkill.Skill || newSkill == null) return;
-
-        CurrentSelectedCharacterWhiteBoard.Instance.SetCurrentCharacterSkillBySlot(_currentSlot, newSkill.Skill);
-
-        ChangeDescriptionText(newSkill.Skill.SkillLongDescription, newSkill.Skill.SkillName);
-
-        ChangeSkillBackground(typeOfSkill);
-
-        _characterSelectionManager.ChangeSkillIcon(_currentSlot);
-    }
-    #endregion
-
-    void SetConexions(SkillSlot slot) {
-        foreach (var conexion in dictionaryOfConexions)
-            conexion.Value.gameObject.SetActive(conexion.Key == slot);
+    void ChangeSelectedSkillIcon(SkillType type) {
+        SkillSO skill;
+        foreach (var skillImage in dictionaryOfSkillIcons) {
+            switch (skillImage.Key) {
+                case SkillType.Classic:
+                    skill = _classicSkillUnlockedInfo.Skill;
+                    skillImage.Value.sprite = type == SkillType.Classic ? skill.MapDescriptionInfo.MapSkillSelectedSpriteIcon : skill.MapDescriptionInfo.MapSkillSpriteIcon;
+                    break;
+                case SkillType.Alternative:
+                    skill = _alternativeSkillUnlockedInfo.Skill;
+                    if (!_alternativeSkillUnlockedInfo.IsUnlocked) skillImage.Value.sprite = skill.MapDescriptionInfo.MapLockSkillSpriteIcon;
+                    else if (type == SkillType.Alternative) skillImage.Value.sprite = skill.MapDescriptionInfo.MapSkillSelectedSpriteIcon;
+                    else skillImage.Value.sprite = skill.MapDescriptionInfo.MapSkillSpriteIcon;
+                    break;
+            }
+        }
     }
 
     void ChangeSkillBackground(SkillType type) {
         foreach (var background in dictionaryOfSkillBackgrounds) {
-            if (background.Key == type) background.Value.color = selectedSkillColor;
-            else background.Value.color = unselectedSkillColor;
+            background.Value.gameObject.SetActive(background.Key == type);
         }
     }
+
     void ChangeDescriptionText(string text, string name) {
         skillLongDescription.text = text;
         skillName.text = name;
     }
 
-    public void TurnScreenOff() {
-        passiveIconObject.SetActive(false);
-        skillsIconObject.SetActive(false);
-        skillSelectionScreen.SetActive(false);
+    #endregion
 
-        _characterSelectionManager.TurnOffSkillSelectionBackground();
-    }
+
+    #endregion
+
 }

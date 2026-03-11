@@ -12,14 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 872c04d544a95104292724ef40787a1f, type: 3}
   m_Name: GraciaYellowAuraSO
   m_EditorClassIdentifier: Assembly-CSharp::GraciaYellowAuraSO
-  SkillName: Yellow Aura
-  SkillShortDescription: Gracia creates a yellow aura around her that increases her
-    attack speed.
-  SkillLongDescription: Gracia creates a yellow aura around her that increases her
-    attack speed in X amount level 1, y amount level 2 and z amount in level 3
-  UISkillSpriteIcon: {fileID: 2030789333, guid: 3bd66792082ea9042a60054da7e52502, type: 3}
-  MapSkillSpriteIcon: {fileID: 2030789333, guid: 3bd66792082ea9042a60054da7e52502, type: 3}
+  HasMapDescription: 1
+  MapDescriptionInfo:
+    SkillName: Yellow Aura
+    SkillShortDescription: For a period of time, Gracia receives an increase in attack
+      speed.
+    SkillLongDescription: For a period of time, Gracia receives an increase in attack
+      speed.
+    UISkillSpriteIcon: {fileID: -1112570421, guid: 3bd66792082ea9042a60054da7e52502, type: 3}
+    MapSkillSpriteIcon: {fileID: -2113942823, guid: cee67a2d50b177a4a83653c67d610c6c, type: 3}
+    MapSkillSelectedSpriteIcon: {fileID: -2083925506, guid: cee67a2d50b177a4a83653c67d610c6c, type: 3}
+    MapLockSkillSpriteIcon: {fileID: -1341104943, guid: ab75e1b1a9aedbc45b40c78d83e17be3, type: 3}
   SkillManagerObject: {fileID: 8776449354450349457, guid: 28032593288497f4ea7386fb2b152941, type: 3}
+  ListOfAnimationsInfo: []
   Prefabs:
     _serializedList:
     - Key: 0
@@ -57,8 +62,6 @@ MonoBehaviour:
     MinDistanceBack: 0
     ExtraAtributes:
       _serializedList: []
-  AttackAnimationParameter: Yellow
-  AttackAnimationName: YellowAnimation
   TypeOfSkill: 1
   TypeOfAura: 1
   AmountOfValueGainedWhenUsed: 25

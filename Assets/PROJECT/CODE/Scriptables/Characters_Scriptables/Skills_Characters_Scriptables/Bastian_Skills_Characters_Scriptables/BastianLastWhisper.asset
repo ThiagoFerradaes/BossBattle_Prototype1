@@ -12,14 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cefc3b4bc273514f8b31db23115fe2f, type: 3}
   m_Name: BastianLastWhisper
   m_EditorClassIdentifier: Assembly-CSharp::BastianLastWhisperSO
-  SkillName: Last Whisper
-  SkillShortDescription: Bastian deals damage in a straight line! More heat more
-    damage!
-  SkillLongDescription: Bastian deals increasing damage in a straight line according
-    to he's heat. More heat more damage.
-  UISkillSpriteIcon: {fileID: -380821657, guid: 3bd66792082ea9042a60054da7e52502, type: 3}
-  MapSkillSpriteIcon: {fileID: 825764958, guid: ab75e1b1a9aedbc45b40c78d83e17be3, type: 3}
-  MapLockSkillSpriteIcon: {fileID: 895593874, guid: ab75e1b1a9aedbc45b40c78d83e17be3, type: 3}
+  HasMapDescription: 1
+  MapDescriptionInfo:
+    SkillName: Last Whisper
+    SkillShortDescription: Bastian looses all his heat to deal a massive damage
+    SkillLongDescription: Bastian looses all his heat to deal a massive damage in
+      a straight line. More heat equals more damage.
+    UISkillSpriteIcon: {fileID: 825764958, guid: ab75e1b1a9aedbc45b40c78d83e17be3, type: 3}
+    MapSkillSpriteIcon: {fileID: 1448771482, guid: cee67a2d50b177a4a83653c67d610c6c, type: 3}
+    MapSkillSelectedSpriteIcon: {fileID: -746828527, guid: cee67a2d50b177a4a83653c67d610c6c, type: 3}
+    MapLockSkillSpriteIcon: {fileID: 895593874, guid: ab75e1b1a9aedbc45b40c78d83e17be3, type: 3}
   SkillManagerObject: {fileID: 7206962735212398245, guid: 679223b4ed62746409f472019207b5ae, type: 3}
   ListOfAnimationsInfo: []
   Prefabs:

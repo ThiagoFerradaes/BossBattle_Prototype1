@@ -12,15 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df98d0a6e1d28d84b9efde9bb533cfa9, type: 3}
   m_Name: LilianSacrifice
   m_EditorClassIdentifier: Assembly-CSharp::LilianSacrificeSO
-  SkillName: Sacrifice
-  SkillShortDescription: Lillian sacrifices a percentage of her current health to
-    gain a shield.
-  SkillLongDescription: Lillian sacrifices a percentage of her current health to
-    gain a shield. The lower her health the less health she looses and bigger the
-    shield.
-  UISkillSpriteIcon: {fileID: 87754156, guid: 3bd66792082ea9042a60054da7e52502, type: 3}
-  MapSkillSpriteIcon: {fileID: 87754156, guid: 3bd66792082ea9042a60054da7e52502, type: 3}
+  HasMapDescription: 1
+  MapDescriptionInfo:
+    SkillName: Sacrifice
+    SkillShortDescription: Lillian sacrifices a percentage of her life to gain a
+      shield.
+    SkillLongDescription: Lillian sacrifices a percentage of her life to gain a shield.
+    UISkillSpriteIcon: {fileID: 87754156, guid: 3bd66792082ea9042a60054da7e52502, type: 3}
+    MapSkillSpriteIcon: {fileID: -458888980, guid: cee67a2d50b177a4a83653c67d610c6c, type: 3}
+    MapSkillSelectedSpriteIcon: {fileID: -1276981942, guid: cee67a2d50b177a4a83653c67d610c6c, type: 3}
+    MapLockSkillSpriteIcon: {fileID: 1321233623, guid: ab75e1b1a9aedbc45b40c78d83e17be3, type: 3}
   SkillManagerObject: {fileID: 2826128453249546946, guid: 0ed1a087ebe8f3c4d8bfd09d824c23b9, type: 3}
+  ListOfAnimationsInfo: []
   Prefabs:
     _serializedList:
     - Key: 0
@@ -58,8 +61,6 @@ MonoBehaviour:
     MinDistanceBack: 0
     ExtraAtributes:
       _serializedList: []
-  AnimationParameter: Sacrifice
-  AnimationName: Lilian_Skill_Sacrifice
   PercentOfCurrentHealthToLoose: 30
   AmountOfShieldGainBasedOnHealth:
     x: 30

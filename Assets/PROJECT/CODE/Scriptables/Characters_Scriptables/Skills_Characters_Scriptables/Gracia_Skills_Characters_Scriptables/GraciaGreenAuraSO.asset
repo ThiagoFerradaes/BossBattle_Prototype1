@@ -12,15 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 288ebb4a7a461b14ea50430bbcfac007, type: 3}
   m_Name: GraciaGreenAuraSO
   m_EditorClassIdentifier: Assembly-CSharp::GraciaGreenAuraSO
-  SkillName: Green Aura
-  SkillShortDescription: For a short period of time, whenever Gracia hits an enemy,
-    she gains a shield.
-  SkillLongDescription: For a short period of time, whenever Gracia hits an enemy,
-    she gains a shield. The shield duration is X. The amount of shield increases
-    with level.
-  UISkillSpriteIcon: {fileID: 1813061332, guid: 3bd66792082ea9042a60054da7e52502, type: 3}
-  MapSkillSpriteIcon: {fileID: 1813061332, guid: 3bd66792082ea9042a60054da7e52502, type: 3}
-  MapLockSkillSpriteIcon: {fileID: -1513130480, guid: ab75e1b1a9aedbc45b40c78d83e17be3, type: 3}
+  HasMapDescription: 1
+  MapDescriptionInfo:
+    SkillName: Green Aura
+    SkillShortDescription: For a period of time, every attack from Gracia grants
+      her a shield.
+    SkillLongDescription: For a period of time, every attack from Gracia grants her
+      a shield.
+    UISkillSpriteIcon: {fileID: 1813061332, guid: 3bd66792082ea9042a60054da7e52502, type: 3}
+    MapSkillSpriteIcon: {fileID: -634864332, guid: cee67a2d50b177a4a83653c67d610c6c, type: 3}
+    MapSkillSelectedSpriteIcon: {fileID: 1594482691, guid: cee67a2d50b177a4a83653c67d610c6c, type: 3}
+    MapLockSkillSpriteIcon: {fileID: -1513130480, guid: ab75e1b1a9aedbc45b40c78d83e17be3, type: 3}
   SkillManagerObject: {fileID: 2918457149912237300, guid: 99ca2bb7216eeea4d882fe494c723604, type: 3}
   ListOfAnimationsInfo: []
   Prefabs:

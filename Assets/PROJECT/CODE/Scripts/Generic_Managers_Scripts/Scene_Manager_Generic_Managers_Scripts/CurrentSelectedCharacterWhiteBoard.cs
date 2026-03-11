@@ -43,31 +43,37 @@ public class CurrentSelectedCharacterWhiteBoard : MonoBehaviour {
     /// Return the first skill from the current Selected Playable Character
     /// </summary>
     /// <returns></returns>
+    public CommonSkillSO ReturnSkillOne() => charactersCurrentSkills[_selectedCharacter].SkillOne;
     public CommonSkillSO ReturnSkillOne(Character character) => charactersCurrentSkills[character].SkillOne;
     /// <summary>
     /// Return the second skill from the current Selected Playable Character
     /// </summary>
     /// <returns></returns>
+    public CommonSkillSO ReturnSkillTwo() => charactersCurrentSkills[_selectedCharacter].SkillTwo;
     public CommonSkillSO ReturnSkillTwo(Character character) => charactersCurrentSkills[character].SkillTwo;
     /// <summary>
     /// Return the ultimate skill from the current Selected Playable Character
     /// </summary>
     /// <returns></returns>
+    public UltimateSkillSO ReturnUltimate() => charactersCurrentSkills[_selectedCharacter].Ultimate;
     public UltimateSkillSO ReturnUltimate(Character character) => charactersCurrentSkills[character].Ultimate;
     /// <summary>
     /// Return the dash skill from the current Selected Playable Character
     /// </summary>
     /// <returns></returns>
+    public CommonSkillSO ReturnDash() => charactersCurrentSkills[_selectedCharacter].Dash;
     public CommonSkillSO ReturnDash(Character character) => charactersCurrentSkills[character].Dash;
     /// <summary>
     /// Return the base attack skill from the current Selected Playable Character
     /// </summary>
     /// <returns></returns>
+    public CommonSkillSO ReturnBaseAttack() => charactersCurrentSkills[_selectedCharacter].BaseAttack;
     public CommonSkillSO ReturnBaseAttack(Character character) => charactersCurrentSkills[character].BaseAttack;
     /// <summary>
     /// Return the passive skill from the current Selected Playable Character
     /// </summary>
     /// <returns></returns>
+    public PassiveSO ReturnPassive() => charactersCurrentSkills[_selectedCharacter].Passive;
     public PassiveSO ReturnPassive(Character character) => charactersCurrentSkills[character].Passive;
 
     public SkillSO ReturnCurrentSkillBySlot(SkillSlot slot) {

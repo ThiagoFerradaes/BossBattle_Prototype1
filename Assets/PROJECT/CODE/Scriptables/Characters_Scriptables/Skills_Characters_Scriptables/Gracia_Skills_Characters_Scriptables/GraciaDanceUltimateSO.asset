@@ -12,12 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 624ce1a35654ea44c937d1e57bacf79e, type: 3}
   m_Name: GraciaDanceUltimateSO
   m_EditorClassIdentifier: Assembly-CSharp::GraciaDanceUltimateSO
-  SkillName: Gracia Dance Ultimate
-  SkillShortDescription: "Dance\t"
-  SkillLongDescription: Lil dance
-  UISkillSpriteIcon: {fileID: 1711695554, guid: 3bd66792082ea9042a60054da7e52502, type: 3}
-  MapSkillSpriteIcon: {fileID: 1164063366, guid: ab75e1b1a9aedbc45b40c78d83e17be3, type: 3}
+  HasMapDescription: 1
+  MapDescriptionInfo:
+    SkillName: Dance Burst
+    SkillShortDescription: Gracia summons dancers around her who inflict damage on
+      the enemy.
+    SkillLongDescription: Gracia summons dancers around her who inflict damage on
+      the enemy.
+    UISkillSpriteIcon: {fileID: 1711695554, guid: 3bd66792082ea9042a60054da7e52502, type: 3}
+    MapSkillSpriteIcon: {fileID: -1642730127, guid: cee67a2d50b177a4a83653c67d610c6c, type: 3}
+    MapSkillSelectedSpriteIcon: {fileID: -498523428, guid: cee67a2d50b177a4a83653c67d610c6c, type: 3}
+    MapLockSkillSpriteIcon: {fileID: -1252288120, guid: ab75e1b1a9aedbc45b40c78d83e17be3, type: 3}
   SkillManagerObject: {fileID: -4393271440466430948, guid: 6edfa8f690b48aa4ab181c66e7195bce, type: 3}
+  ListOfAnimationsInfo: []
   Prefabs:
     _serializedList:
     - Key: 0
@@ -120,8 +127,6 @@ MonoBehaviour:
     MinDistanceBack: 0
     ExtraAtributes:
       _serializedList: []
-  attackAnimationParameter: DanceUltimate
-  attackAnimationName: DanceUltimate
   BlueAtributes:
     DamageType: 1
     UnitsToHit:

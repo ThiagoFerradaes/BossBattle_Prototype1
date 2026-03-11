@@ -12,20 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf558871dd138164abaf57e1e7d6e178, type: 3}
   m_Name: CyrusSpearAtack
   m_EditorClassIdentifier: Assembly-CSharp::CyrusSpearSkillSO
-  SkillName: Spear Attack
-  SkillShortDescription: Cyrus attacks with a spear.
-  SkillLongDescription: 'Level 0: Cyrus attacks with a spear that cross enemies
-
-    Level
-    1: If the spear hits an enemy the dash cooldown is reseted
-
-    Level 2: Increase
-    spear range
-
-    Level 3: Reduce ability cooldown. Increase penetration.'
-  UISkillSpriteIcon: {fileID: -2074941056, guid: 3bd66792082ea9042a60054da7e52502, type: 3}
-  MapSkillSpriteIcon: {fileID: -2074941056, guid: 3bd66792082ea9042a60054da7e52502, type: 3}
+  HasMapDescription: 1
+  MapDescriptionInfo:
+    SkillName: Spear Attack
+    SkillShortDescription: Cyrus attacks with his spear
+    SkillLongDescription: Cyrus attacks with his spear
+    UISkillSpriteIcon: {fileID: -2074941056, guid: 3bd66792082ea9042a60054da7e52502, type: 3}
+    MapSkillSpriteIcon: {fileID: -218099809, guid: cee67a2d50b177a4a83653c67d610c6c, type: 3}
+    MapSkillSelectedSpriteIcon: {fileID: -1460559386, guid: cee67a2d50b177a4a83653c67d610c6c, type: 3}
+    MapLockSkillSpriteIcon: {fileID: 1048537242, guid: ab75e1b1a9aedbc45b40c78d83e17be3, type: 3}
   SkillManagerObject: {fileID: 8727905917451407449, guid: 60f532cd97f7b204fa02ffa0434e1ac5, type: 3}
+  ListOfAnimationsInfo: []
   Prefabs:
     _serializedList:
     - Key: 0
@@ -129,8 +126,6 @@ MonoBehaviour:
     MinDistanceBack: 0
     ExtraAtributes:
       _serializedList: []
-  SpearAttackTriggerName: SpearAttack
-  AnimationName: SpearAttack
   Level2Range: 6
   Level3Penetration: 50
   Level3Cooldown: 2

@@ -12,11 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1e310f83b0b537428c6e441a4af4291, type: 3}
   m_Name: GraciaBaseAttackSO
   m_EditorClassIdentifier: Assembly-CSharp::GraciaAttackSO
-  SkillName: Base attack
-  SkillShortDescription: Base attack
-  SkillLongDescription: Base attack
-  SkillSpriteIcon: {fileID: 0}
+  HasMapDescription: 0
+  MapDescriptionInfo:
+    SkillName: 
+    SkillShortDescription: 
+    SkillLongDescription: 
+    UISkillSpriteIcon: {fileID: 0}
+    MapSkillSpriteIcon: {fileID: 0}
+    MapSkillSelectedSpriteIcon: {fileID: 0}
+    MapLockSkillSpriteIcon: {fileID: 0}
   SkillManagerObject: {fileID: 8171182436142907803, guid: 65b29a6185450a740b86394e3e9db0f1, type: 3}
+  ListOfAnimationsInfo: []
   Prefabs:
     _serializedList:
     - Key: 0
@@ -70,13 +76,7 @@ MonoBehaviour:
     MinDistanceBack: 0
     ExtraAtributes:
       _serializedList: []
-  FirstAttackAnimationParameter: FirstAttack
-  SecondAttackAnimationParameter: SecondAttack
-  ThirdAttackAnimationParameter: ThirdAttack
   AttackSpeedAnimationParameter: AttackSpeed
-  FirstAttackAnimationName: FirstAttackGracia
-  SecondAttackAnimationName: SecondAttackGracia
-  ThirdAttackAnimationName: ThirdAttackGracia
   FirstAttackAtributes:
     DamageType: 0
     UnitsToHit:

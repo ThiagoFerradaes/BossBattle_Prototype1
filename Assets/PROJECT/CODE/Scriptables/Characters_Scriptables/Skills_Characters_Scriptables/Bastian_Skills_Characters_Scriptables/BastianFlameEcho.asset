@@ -12,14 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4d95a0477e6ad04a8bd572388410ef9, type: 3}
   m_Name: BastianFlameEcho
   m_EditorClassIdentifier: Assembly-CSharp::BastianFlameEchoSO
-  SkillName: Flame Echoes
-  SkillShortDescription: For a period of time, Bastian, will shoot a second projectile
-    with he's normal attacks.
-  SkillLongDescription: For a period of time, Bastian, will shoot a second projectile
-    with he's normal attacks. The second projectile deals ancestral damage and scale
-    with his passive.
-  UISkillSpriteIcon: {fileID: 2031098651, guid: 3bd66792082ea9042a60054da7e52502, type: 3}
-  MapSkillSpriteIcon: {fileID: -1695284086, guid: ab75e1b1a9aedbc45b40c78d83e17be3, type: 3}
+  HasMapDescription: 1
+  MapDescriptionInfo:
+    SkillName: Flame Echoes
+    SkillShortDescription: For a short period of time, whener bastian uses his normal
+      attack, he will shoot a secondary bullet
+    SkillLongDescription: For a short period of time, whener bastian uses his normal
+      attack, he will shoot a secondary bullet that deals true daamge
+    UISkillSpriteIcon: {fileID: 2031098651, guid: 3bd66792082ea9042a60054da7e52502, type: 3}
+    MapSkillSpriteIcon: {fileID: 255216284, guid: cee67a2d50b177a4a83653c67d610c6c, type: 3}
+    MapSkillSelectedSpriteIcon: {fileID: 1990567753, guid: cee67a2d50b177a4a83653c67d610c6c, type: 3}
+    MapLockSkillSpriteIcon: {fileID: 1651483770, guid: ab75e1b1a9aedbc45b40c78d83e17be3, type: 3}
   SkillManagerObject: {fileID: 7163133310608096753, guid: e8c06cefe6c72b94fa7291e8f3c733bc, type: 3}
   ListOfAnimationsInfo:
   - AnimationName: Burst

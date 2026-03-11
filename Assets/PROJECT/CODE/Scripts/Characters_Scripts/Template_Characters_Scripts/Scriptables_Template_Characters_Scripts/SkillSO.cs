@@ -12,38 +12,48 @@ public class SkillAnimationEvent {
     public Vector3 PreFabPosition;
     [ShowIf("PrefabType", TypeOfSkillPrefab.VFX), AllowNesting] public VFXAtributes VFXAtribute;
 }
+[System.Serializable]
+public class UIDescriptionInfo {
+    public string SkillName;
+    [TextArea(3, 10)] public string SkillShortDescription;
+    [TextArea(3, 10)] public string SkillLongDescription;
+    public Sprite UISkillSpriteIcon;
+    public Sprite MapSkillSpriteIcon;
+    public Sprite MapSkillSelectedSpriteIcon;
+    public Sprite MapLockSkillSpriteIcon;
+}
 
 public class SkillSO : ScriptableObject {
     [Header("Skill Description")]
-    [Foldout("Generic")] public string SkillName;
-    [Foldout("Generic"), TextArea(3, 10)] public string SkillShortDescription;
-    [Foldout("Generic"), TextArea(3, 10)] public string SkillLongDescription;
-    [Foldout("Generic")] public Sprite UISkillSpriteIcon;
-    [Foldout("Generic")] public Sprite MapSkillSpriteIcon;
-    [ShowIf("SkillType", SkillType.Alternative), AllowNesting,Foldout("Generic")] public Sprite MapLockSkillSpriteIcon;
+
+    [Foldout("SkillSO")]
+    public bool HasMapDescription = true;
+
+    [Foldout("SkillSO"), ShowIf(nameof(HasMapDescription)), AllowNesting]
+    public UIDescriptionInfo MapDescriptionInfo;
 
     [Header("Skill Manager")]
-    [Foldout("Generic")] public SkillObjectManager SkillManagerObject;
+    [Foldout("SkillSO")] public SkillObjectManager SkillManagerObject;
 
     [Header("Skill Animations")]
-    [Foldout("Generic")] public List<AnimationInfo> ListOfAnimationsInfo;
+    [Foldout("SkillSO")] public List<AnimationInfo> ListOfAnimationsInfo;
 
     [Header("Skill Prefabs")]
-    [Foldout("Generic"), SerializedDictionary("Combo", "Event")]
+    [Foldout("SkillSO"), SerializedDictionary("Combo", "Event")]
     public SerializedDictionary<int, List<SkillAnimationEvent>> Prefabs;
 
     [Header("Skill Range Object")]
-    [Foldout("Generic"), ShowIf("PreCastOn")] public GameObject SkillObjectRangeObject;
+    [Foldout("SkillSO"), ShowIf("PreCastOn")] public GameObject SkillObjectRangeObject;
 
     [Header("Casting Skill options")]
-    [Foldout("Generic")] public bool BlockWalkWhilePreCasting = true;
-    [Foldout("Generic")] public bool BlockDashWhilePreCasting = true;
-    [Foldout("Generic")] public bool PreCastOn = true;
+    [Foldout("SkillSO")] public bool BlockWalkWhilePreCasting = true;
+    [Foldout("SkillSO")] public bool BlockDashWhilePreCasting = true;
+    [Foldout("SkillSO")] public bool PreCastOn = true;
 
     [Header("Skill Parameters")]
-    [Foldout("Generic")] public Character SkillCharacter;
-    [Foldout("Generic")] public bool Cancelable;
-    [Foldout("Generic")] public SkillSlot Slot;
-    [Foldout("Generic")] public SkillType SkillType;
+    [Foldout("SkillSO")] public Character SkillCharacter;
+    [Foldout("SkillSO")] public bool Cancelable;
+    [Foldout("SkillSO")] public SkillSlot Slot;
+    [Foldout("SkillSO")] public SkillType SkillType;
 
 }

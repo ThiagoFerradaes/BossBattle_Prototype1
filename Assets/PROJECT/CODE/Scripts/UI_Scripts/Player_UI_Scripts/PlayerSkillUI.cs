@@ -139,22 +139,22 @@ public class PlayerSkillUI : MonoBehaviour {
         CurrentSelectedCharacterWhiteBoard whiteboard = CurrentSelectedCharacterWhiteBoard.Instance;
         Character selectedCharacter = whiteboard.ReturnSelectedCharacter();
 
-        if (whiteboard.ReturnSkillOne(selectedCharacter).UISkillSpriteIcon)
-            skillOneImage.sprite = whiteboard.ReturnSkillOne(selectedCharacter).UISkillSpriteIcon;
-        if (whiteboard.ReturnSkillTwo(selectedCharacter).UISkillSpriteIcon)
-            skillTwoImage.sprite = whiteboard.ReturnSkillTwo(selectedCharacter).UISkillSpriteIcon;
-        if (whiteboard.ReturnUltimate(selectedCharacter).UISkillSpriteIcon)
-            ultimateImage.sprite = whiteboard.ReturnUltimate(selectedCharacter).UISkillSpriteIcon;
+        if (whiteboard.ReturnSkillOne(selectedCharacter).MapDescriptionInfo.UISkillSpriteIcon)
+            skillOneImage.sprite = whiteboard.ReturnSkillOne(selectedCharacter).MapDescriptionInfo.UISkillSpriteIcon;
+        if (whiteboard.ReturnSkillTwo(selectedCharacter).MapDescriptionInfo.UISkillSpriteIcon)
+            skillTwoImage.sprite = whiteboard.ReturnSkillTwo(selectedCharacter).MapDescriptionInfo.UISkillSpriteIcon;
+        if (whiteboard.ReturnUltimate(selectedCharacter).MapDescriptionInfo.UISkillSpriteIcon)
+            ultimateImage.sprite = whiteboard.ReturnUltimate(selectedCharacter).MapDescriptionInfo.UISkillSpriteIcon;
     }
 
     void SetInnerCooldownImage() {
         CurrentSelectedCharacterWhiteBoard whiteboard = CurrentSelectedCharacterWhiteBoard.Instance;
         Character selectedCharacter = whiteboard.ReturnSelectedCharacter();
 
-        if (whiteboard.ReturnSkillOne(selectedCharacter).UISkillSpriteIcon)
-            skillOneCooldown[0].sprite = whiteboard.ReturnSkillOne(selectedCharacter).UISkillSpriteIcon;
-        if (whiteboard.ReturnSkillTwo(selectedCharacter).UISkillSpriteIcon)
-            skillTwoCooldown[0].sprite = whiteboard.ReturnSkillTwo(selectedCharacter).UISkillSpriteIcon;
+        if (whiteboard.ReturnSkillOne(selectedCharacter).MapDescriptionInfo.UISkillSpriteIcon)
+            skillOneCooldown[0].sprite = whiteboard.ReturnSkillOne(selectedCharacter).MapDescriptionInfo.UISkillSpriteIcon;
+        if (whiteboard.ReturnSkillTwo(selectedCharacter).MapDescriptionInfo.UISkillSpriteIcon)
+            skillTwoCooldown[0].sprite = whiteboard.ReturnSkillTwo(selectedCharacter).MapDescriptionInfo.UISkillSpriteIcon;
     }
     public void ChangeSkillImage(Sprite newSprite, SkillSlot typeOfSkill) {
         switch (typeOfSkill) {

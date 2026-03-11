@@ -12,14 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40252fba3952a0d4780647eb5b75c3cb, type: 3}
   m_Name: GraciaBlueAuraSO
   m_EditorClassIdentifier: Assembly-CSharp::GraciaBlueAuraSO
-  SkillName: Blue Aura
-  SkillShortDescription: Every time Gracia hits an enemy, she creates a wave of damage
-    around her.
-  SkillLongDescription: Every time Gracia hits an enemy, she creates a wave of ancestral
-    damage around her.
-  UISkillSpriteIcon: {fileID: -1112570421, guid: 3bd66792082ea9042a60054da7e52502, type: 3}
-  MapSkillSpriteIcon: {fileID: -1112570421, guid: 3bd66792082ea9042a60054da7e52502, type: 3}
+  HasMapDescription: 1
+  MapDescriptionInfo:
+    SkillName: Blue Aura
+    SkillShortDescription: For a period of time, Gracia's attacks deal a second wave
+      of damage.
+    SkillLongDescription: For a period of time, Gracia's attacks deal a second wave
+      of damage.
+    UISkillSpriteIcon: {fileID: -1112570421, guid: 3bd66792082ea9042a60054da7e52502, type: 3}
+    MapSkillSpriteIcon: {fileID: -2113942823, guid: cee67a2d50b177a4a83653c67d610c6c, type: 3}
+    MapSkillSelectedSpriteIcon: {fileID: -2083925506, guid: cee67a2d50b177a4a83653c67d610c6c, type: 3}
+    MapLockSkillSpriteIcon: {fileID: -1341104943, guid: ab75e1b1a9aedbc45b40c78d83e17be3, type: 3}
   SkillManagerObject: {fileID: 4106917612958479300, guid: 88670173d559572478a73e9b14b9afb3, type: 3}
+  ListOfAnimationsInfo: []
   Prefabs:
     _serializedList:
     - Key: 0
@@ -73,8 +78,6 @@ MonoBehaviour:
     MinDistanceBack: 0
     ExtraAtributes:
       _serializedList: []
-  AttackAnimationParameter: Blue
-  AttackAnimationName: BlueAnimation
   TypeOfSkill: 0
   TypeOfAura: 0
   AmountOfValueGainedWhenUsed: 25

@@ -12,20 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bfc7037eacabc142a7aee22e10ed5d3, type: 3}
   m_Name: CyrusTonfas
   m_EditorClassIdentifier: Assembly-CSharp::CyrusTonfasSkillSO
-  SkillName: Tonfas
-  SkillShortDescription: Cyrus deals a circular damage around him with his Tonfas
-  SkillLongDescription: 'Level 0: Cyrus deals a circular damage around him with his
-    Tonfas
-
-    Level 1: Reduce energy cost
-
-    Level 2: Increase damage area and
-    animation speed
-
-    Level 3: Increase crit rate and crit damage.'
-  UISkillSpriteIcon: {fileID: 764472998, guid: 3bd66792082ea9042a60054da7e52502, type: 3}
-  MapSkillSpriteIcon: {fileID: 297706086, guid: ab75e1b1a9aedbc45b40c78d83e17be3, type: 3}
+  HasMapDescription: 1
+  MapDescriptionInfo:
+    SkillName: Tonfa Attack
+    SkillShortDescription: Cyrus attacks with his tonfas
+    SkillLongDescription: Cyrus attacks with his tonfas
+    UISkillSpriteIcon: {fileID: 764472998, guid: 3bd66792082ea9042a60054da7e52502, type: 3}
+    MapSkillSpriteIcon: {fileID: 1050796756, guid: cee67a2d50b177a4a83653c67d610c6c, type: 3}
+    MapSkillSelectedSpriteIcon: {fileID: -1634262330, guid: cee67a2d50b177a4a83653c67d610c6c, type: 3}
+    MapLockSkillSpriteIcon: {fileID: -1010059601, guid: ab75e1b1a9aedbc45b40c78d83e17be3, type: 3}
   SkillManagerObject: {fileID: 4664583147525992776, guid: 2fdf383091fc6814dbe43478d5fc5285, type: 3}
+  ListOfAnimationsInfo: []
   Prefabs:
     _serializedList:
     - Key: 0
@@ -74,8 +71,6 @@ MonoBehaviour:
     MinDistanceBack: 0
     ExtraAtributes:
       _serializedList: []
-  AnimationParameter: Tonfas
-  AnimationName: Tonfas
   AnimationSpeedParameter: TonfasSpeed
   AmountOfUsesPerLevel:
     _serializedList:

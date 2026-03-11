@@ -12,21 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba1e37a230649b949b4b4451c6f160eb, type: 3}
   m_Name: CyrusAxeAttack
   m_EditorClassIdentifier: 
-  SkillName: Axe Attack
-  SkillShortDescription: Cyrus attacks with an axe.
-  SkillLongDescription: 'Level 0: Cyrus charges for a while and then attack
-
-    Level
-    1: Cyrus gain a shield
-
-    Level 2: Cyrus takes less time to attack at max power.
-    Increase shield size
-
-    Level 3: Creates a field of rocks around Cyrus for
-    a while.'
-  UISkillSpriteIcon: {fileID: -1464031636, guid: 3bd66792082ea9042a60054da7e52502, type: 3}
-  MapSkillSpriteIcon: {fileID: -1464031636, guid: 3bd66792082ea9042a60054da7e52502, type: 3}
+  HasMapDescription: 1
+  MapDescriptionInfo:
+    SkillName: Axe Attack
+    SkillShortDescription: "Cyrus charges for a while and then attacks with his axe\t"
+    SkillLongDescription: Cyrus charges for a while and then attacks with his axe.
+      The longer he charges the greater the damage
+    UISkillSpriteIcon: {fileID: -1464031636, guid: 3bd66792082ea9042a60054da7e52502, type: 3}
+    MapSkillSpriteIcon: {fileID: 7571764, guid: cee67a2d50b177a4a83653c67d610c6c, type: 3}
+    MapSkillSelectedSpriteIcon: {fileID: -1455463602, guid: cee67a2d50b177a4a83653c67d610c6c, type: 3}
+    MapLockSkillSpriteIcon: {fileID: 1496394917, guid: ab75e1b1a9aedbc45b40c78d83e17be3, type: 3}
   SkillManagerObject: {fileID: 8217681042118647236, guid: e6293f237e32a1a40a1e3d233031b521, type: 3}
+  ListOfAnimationsInfo: []
   Prefabs:
     _serializedList:
     - Key: 0
@@ -117,8 +114,6 @@ MonoBehaviour:
     ExtraAtributes:
       _serializedList: []
   FirstAnimationParameterName: AxeSkillOne
-  SecondAnimationParameterName: AxeSkillTwo
-  SecondAnimationName: AxeSkillTwo
   MinimalChargeTime: 0.5
   MaxChargeTime: 1.8
   MinDamage: 80

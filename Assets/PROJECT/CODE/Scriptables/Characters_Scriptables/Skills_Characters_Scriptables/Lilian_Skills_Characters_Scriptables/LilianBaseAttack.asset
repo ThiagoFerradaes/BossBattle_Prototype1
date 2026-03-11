@@ -12,28 +12,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdc376ee1ae4252469ad7df69b9a95ea, type: 3}
   m_Name: LilianBaseAttack
   m_EditorClassIdentifier: Assembly-CSharp::LilianBaseAttackSO
+  HasMapDescription: 0
+  MapDescriptionInfo:
+    SkillName: 
+    SkillShortDescription: 
+    SkillLongDescription: 
+    UISkillSpriteIcon: {fileID: 0}
+    MapSkillSpriteIcon: {fileID: 0}
+    MapSkillSelectedSpriteIcon: {fileID: 0}
+    MapLockSkillSpriteIcon: {fileID: 0}
   SkillManagerObject: {fileID: -3911848889666694597, guid: bbc0b97b271761d45b99e9f5a4b80efa, type: 3}
-  SkillSpriteIcon: {fileID: 0}
+  ListOfAnimationsInfo: []
   Prefabs:
     _serializedList:
     - Key: 0
       Value:
       - TimeToSpawnPreFab: 0.4
         PrefabType: 0
-        PrefabDuration: 0
         PreFab: {fileID: 5556882484380889040, guid: 73183662ed7be604f90dff0cc2f277ff, type: 3}
         PreFabPosition: {x: 0, y: 1, z: 0.5}
+        VFXAtribute:
+          VFXType: 0
+          VFXDuration: 0
+          VFXPosCollisionDuration: 0
+          CrossEnemy: 0
+          TimeStopped: 0
+          MinDistanceBack: 0
+          UnitsToHit:
+            serializedVersion: 2
+            m_Bits: 0
+          VFXSpeed: 0
+          Distance: 0
   SkillObjectRangeObject: {fileID: 0}
   BlockWalkWhilePreCasting: 1
   BlockDashWhilePreCasting: 1
   PreCastOn: 0
   SkillCharacter: 2
   Cancelable: 0
+  Slot: 0
+  SkillType: 0
   FlatEnergyGainPerHit: 3
   Cooldown: 0.2
   HasCharges: 0
   Charges: 1
   ChargeCooldown: 0
+  DealDamage: 1
   SkillDamageAtributes:
     DamageType: 1
     UnitsToHit:
@@ -53,9 +76,5 @@ MonoBehaviour:
     MinDistanceBack: 0
     ExtraAtributes:
       _serializedList: []
-  AnimationOneParameter: BaseAttackOne
-  AnimationOneName: Lilian_BaseAttackOne
-  AnimationTwoParameter: BaseAttackTwo
-  AnimationTwoName: Lilian_BaseAttackTwo
   AttackSpeedAnimationParameter: AttackSpeed
   DamagePercentToDamageLilian: 2

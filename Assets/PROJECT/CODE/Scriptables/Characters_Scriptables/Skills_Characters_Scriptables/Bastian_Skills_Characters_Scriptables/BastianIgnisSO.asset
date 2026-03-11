@@ -12,13 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54b8ba90945568c4aa18eb4e05bdbcc9, type: 3}
   m_Name: BastianIgnisSO
   m_EditorClassIdentifier: Assembly-CSharp::BastianIgnisSO
-  SkillName: Ignis
-  SkillShortDescription: Bastian will shoot a flame orb in a straight line
-  SkillLongDescription: Bastian will shoot a flame orb in a straight line. Skill
-    has 3 charges. Skill damage, crit rate, crit damage and penetration scales with
-    his passive.
-  UISkillSpriteIcon: {fileID: -1536632686, guid: 3bd66792082ea9042a60054da7e52502, type: 3}
-  MapSkillSpriteIcon: {fileID: -1536632686, guid: 3bd66792082ea9042a60054da7e52502, type: 3}
+  HasMapDescription: 1
+  MapDescriptionInfo:
+    SkillName: Ignis
+    SkillShortDescription: Bastian shoots a fire ball
+    SkillLongDescription: Bastian shoots a fire ball that deals ancestral damage
+    UISkillSpriteIcon: {fileID: -1536632686, guid: 3bd66792082ea9042a60054da7e52502, type: 3}
+    MapSkillSpriteIcon: {fileID: 1371370310, guid: cee67a2d50b177a4a83653c67d610c6c, type: 3}
+    MapSkillSelectedSpriteIcon: {fileID: -310980374, guid: cee67a2d50b177a4a83653c67d610c6c, type: 3}
+    MapLockSkillSpriteIcon: {fileID: 2141064758, guid: ab75e1b1a9aedbc45b40c78d83e17be3, type: 3}
   SkillManagerObject: {fileID: 7445460037325849934, guid: 22280efc82182854198cab135883fe26, type: 3}
   ListOfAnimationsInfo:
   - AnimationName: Ignis
