@@ -1,13 +1,14 @@
 using System;
 using System.Collections;
+using Unity.AppUI.UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 [Serializable]
 public class AnimationInfo {
-    public string AnimationName;
-    public string AnimationParameter;
+    public AnimationClip Animation;
     public int AnimationLayer;
+    public float AnimationSpeed = 1;
     [Range(0,1)] public float AnimationExitTime = 1;
     public bool IsAnimationTrigger = true;
 }
@@ -29,6 +30,8 @@ public abstract class SkillObjectManager : MonoBehaviour {
     protected HealthManager healthManager;
     protected Rigidbody rb;
     protected SkillSO info;
+
+    AnimatorOverrideController overrideController;
     Action _stopSkill;
 
     #endregion
@@ -47,6 +50,9 @@ public abstract class SkillObjectManager : MonoBehaviour {
             healthManager = parent.GetComponent<HealthManager>();
             rb = parent.GetComponent<Rigidbody>();
             info = skill;
+
+            overrideController = new AnimatorOverrideController(anim.runtimeAnimatorController);
+            anim.runtimeAnimatorController = overrideController;
         }
         this.slot = slot;
         HandleInput(skill, ctx);
@@ -158,32 +164,28 @@ public abstract class SkillObjectManager : MonoBehaviour {
     #endregion
 
     #region AttackAnimation
+    static readonly int attackStateHash = Animator.StringToHash("Attack");
     public virtual IEnumerator AttackCoroutine(int animationIndex = 0, int comboIndex = 0) {
         FirstFunc();
 
         AnimationInfo animInfo = info.ListOfAnimationsInfo[animationIndex];
 
-        anim.SetTrigger(animInfo.AnimationParameter);
+        overrideController["Bastian_BasicAttack_1"] = animInfo.Animation;
 
-        int stateHash = Animator.StringToHash(animInfo.AnimationName);
+        anim.CrossFade("Attack", 0.05f, animInfo.AnimationLayer, 0f);
 
-        AnimatorStateInfo stateInfo;
+        yield return null;
 
-        // Espera entrar no state
-        do {
-            yield return null;
-            stateInfo = anim.GetCurrentAnimatorStateInfo(animInfo.AnimationLayer);
-
-        } while (stateInfo.shortNameHash != stateHash);
+        AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(animInfo.AnimationLayer);
 
         SecondFunc();
 
-        yield return StartCoroutine(InstantiatePrefabs(stateHash, stateInfo, comboIndex));
+        yield return StartCoroutine(InstantiatePrefabs(animInfo, stateInfo, comboIndex));
 
         ThirdFunc();
 
         // espera o tempo de cancel
-        while (stateInfo.shortNameHash == stateHash &&
+        while (stateInfo.shortNameHash == attackStateHash &&
                stateInfo.normalizedTime < animInfo.AnimationExitTime) {
             yield return null;
             stateInfo = anim.GetCurrentAnimatorStateInfo(animInfo.AnimationLayer);
@@ -215,7 +217,7 @@ public abstract class SkillObjectManager : MonoBehaviour {
         skillManager.SkillIsInAnimation(false);
     }
 
-    public virtual IEnumerator InstantiatePrefabs(int attackStateHash, AnimatorStateInfo stateInfo, int prefabIndex = 0) {
+    public virtual IEnumerator InstantiatePrefabs(AnimationInfo animInfo, AnimatorStateInfo stateInfo, int prefabIndex = 0) {
 
         if (info.Prefabs != null) {
             var prefabList = info.Prefabs[prefabIndex];
@@ -226,7 +228,7 @@ public abstract class SkillObjectManager : MonoBehaviour {
 
                 do {
                     yield return null;
-                    stateInfo = anim.GetCurrentAnimatorStateInfo(0);
+                    stateInfo = anim.GetCurrentAnimatorStateInfo(animInfo.AnimationLayer);
                 } while (stateInfo.fullPathHash == attackStateHash && stateInfo.normalizedTime < prefab.TimeToSpawnPreFab);
 
                 if (prefab.PrefabType == TypeOfSkillPrefab.Hitbox) InstantiateHitBox(prefab);
