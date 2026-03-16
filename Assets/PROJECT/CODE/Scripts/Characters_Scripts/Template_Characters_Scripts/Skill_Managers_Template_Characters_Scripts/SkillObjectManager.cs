@@ -163,9 +163,11 @@ public abstract class SkillObjectManager : MonoBehaviour {
     #endregion
 
     #region AttackAnimation
-    static readonly int attackStateHash = Animator.StringToHash("Attack");
+    static readonly int attackStateHash = Animator.StringToHash("Base Layer.Attack");
     public virtual IEnumerator AttackCoroutine(int animationIndex = 0, int comboIndex = 0) {
         FirstFunc();
+
+        Debug.Log("Start animation coroutine");
 
         AnimationInfo animInfo = info.ListOfAnimationsInfo[animationIndex];
 
@@ -183,12 +185,17 @@ public abstract class SkillObjectManager : MonoBehaviour {
 
         ThirdFunc();
 
+        Debug.Log(stateInfo.fullPathHash + " " + attackStateHash);
+
         // espera o tempo de cancel
         while (stateInfo.shortNameHash == attackStateHash &&
                stateInfo.normalizedTime < animInfo.AnimationExitTime) {
+            Debug.Log("Waiting animation coroutine");
             yield return null;
             stateInfo = anim.GetCurrentAnimatorStateInfo(animInfo.AnimationLayer);
         }
+
+        Debug.Log("End animation coroutine");
 
         FourthFunc();
     }
