@@ -43,8 +43,9 @@ public class BastianBaseAttackManager : SkillObjectManager {
     }
 
     public override void FirstFunc() {
-        _attackSpeedMultiplier = GetAttackSpeedMultiplier();
-        anim.SetFloat(_info.AttackSpeedAnimationParameter, _attackSpeedMultiplier);
+        _attackSpeedMultiplier = GetAttackSpeedMultiplier(); 
+        float animationSpeed = _attackSpeedMultiplier + _info.ListOfAnimationsInfo[_attackIndex - 1].AnimationSpeed;
+        anim.SetFloat(_info.AttackSpeedAnimationParameter, animationSpeed);
         skillManager.SkillIsInAnimation(true);
     }
     public override void FourthFunc() {
@@ -57,7 +58,7 @@ public class BastianBaseAttackManager : SkillObjectManager {
         cooldownManager.SetCooldownSingleCharge(slot, realCooldown);
 
         // Resetando a velocidade da animação
-        anim.SetFloat(_info.AttackSpeedAnimationParameter, 1);
+        //anim.SetFloat(_info.AttackSpeedAnimationParameter, 1);
 
         // Resetando Index
         _attackIndex = _attackIndex < 3 ? _attackIndex + 1 : 1;
