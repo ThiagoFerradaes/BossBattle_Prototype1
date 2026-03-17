@@ -20,6 +20,9 @@ public class RoomCanvasStatic : MonoBehaviour
     [SerializeField]
     [Tooltip("Content Events and consequence for tutorial")]
     private List<Tutorial> tutorial;
+
+    [SerializeField]
+    [Tooltip("Object tutorial")]private GameObject tutorialOBj;
     
     private byte indexStage;
 
@@ -163,11 +166,10 @@ public class RoomCanvasStatic : MonoBehaviour
             {
                 //Debug.LogWarning("Furniture save data not found.");
                 await LoadInventoryByJson();
+                tutorialOBj.SetActive(true);
                 NexStage();
                 return;
             }
-            
-            await LoadTutorial();
             
             string json = await File.ReadAllTextAsync(SavePath);
             SaveFurnitureByJson loadedData = JsonUtility.FromJson<SaveFurnitureByJson>(json);
@@ -303,23 +305,6 @@ public class RoomCanvasStatic : MonoBehaviour
         }
         
         tutorial[indexStage].classForTutorial.OnCompleteTutorialEvent += NexStage;
-    }
-
-    private Task LoadTutorial()
-    {
-        Debug.Log("Loading tutorial...");
-        if (tutorial.Count == 0)
-        {
-            Debug.LogWarning("No tutorial stages found.");
-            return Task.CompletedTask;;
-        }
-
-        foreach (var tutorial1 in tutorial)
-        {
-            tutorial1.unityEventForCompleteThisTutorial.Invoke();
-        }
-        
-        return Task.CompletedTask;
     }
     
     /// <summary>

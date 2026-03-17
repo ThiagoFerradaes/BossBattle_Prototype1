@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -16,6 +18,11 @@ public class StageByMove : TutorialClassBehaviour
     
     [SerializeField] private GameObject canvasSImage, canvasWImage,canvasAImage,canvasDImage;
 
+    [SerializeField] private Transform playerCanInDisPosition;
+
+    [SerializeField] private String playerAnimation;
+    
+    private PlayerMovementManager playerMovementManager;
     #endregion
 
     #region private Fields
@@ -87,8 +94,40 @@ public class StageByMove : TutorialClassBehaviour
         uiTextLocalizer.OnTextUpdated += OnAnyButtonPress;
 
         OnAnyButtonPress(uiTextLocalizer.GetTextString());
+        
+        //set player Transform
+        var player = PlayerManager.Instance.Player.transform;
+        
+        playerMovementManager = player.GetComponent<PlayerMovementManager>();
+        playerMovementManager.enabled = false;
+        
+        player.position = playerCanInDisPosition.position;
+        player.rotation = playerCanInDisPosition.rotation;
+        
+        //set player animation //and position
+        var animator = player.GetComponentInChildren<Animator>();
+        
+        StartCoroutine(PlayAndWaitForAnim(playerAnimation, animator));
     }
 
+    public IEnumerator PlayAndWaitForAnim(string stateName, Animator animator)
+    {
+        animator.Play(stateName);
+        // Wait until we enter the correct state
+        while (!animator.GetCurrentAnimatorStateInfo(0).IsName(stateName))
+        {
+            yield return null;
+        }
+
+        // Wait until the current state is done playing (normalizedTime >= 1.0f)
+        while (animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
+        {
+            yield return null;
+        }
+        
+        playerMovementManager.enabled = true;
+    }
+    
     protected void OnDisable()
     {
         playerActionMap.Disable();
