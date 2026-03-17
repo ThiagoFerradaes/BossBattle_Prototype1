@@ -171,9 +171,12 @@ public partial class AkBuildPreprocessor : UnityEditor.Build.IPreprocessBuild, U
 			config.OnPostprocessBuild(path);
 		}
 #if !(AK_WWISE_ADDRESSABLES && UNITY_ADDRESSABLES)
-		DeleteSoundbanks(destinationSoundBankFolder);
+        if (!destinationSoundBankFolder.Contains("StreamingAssets"))
+        {
+            DeleteSoundbanks(destinationSoundBankFolder);
+        }
 #endif
-		destinationSoundBankFolder = string.Empty;
+        destinationSoundBankFolder = string.Empty;
 		
 		// Point the ProjectDB back on the current editor platform
 		WwiseProjectDatabase.Init(AkWwiseEditorSettings.GetRootOutputPath(), AkBasePathGetter.GetPlatformName());
