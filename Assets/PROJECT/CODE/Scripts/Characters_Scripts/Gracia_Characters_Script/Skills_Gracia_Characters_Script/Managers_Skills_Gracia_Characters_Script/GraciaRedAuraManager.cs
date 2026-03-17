@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using UnityEditorInternal;
 using UnityEngine;
 
 public class GraciaRedAuraManager : SkillObjectManager

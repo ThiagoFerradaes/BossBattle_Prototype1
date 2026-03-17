@@ -1,0 +1,131 @@
+{
+ "SoundBanksInfo": {
+  "Platform": "Mac",
+  "BasePlatform": "Mac",
+  "SchemaVersion": "16",
+  "SoundBankVersion": "172",
+  "SoundBanks": [
+   {
+    "Id": "2049827036",
+    "Type": "Event",
+    "GUID": "{1C2B4AB1-1CA8-455A-82D1-A71F22169E35}",
+    "Language": "SFX",
+    "Hash": "{3927E66A-835F-E1D0-FA17-8BA514206F0C}",
+    "ObjectPath": "Play_Furniture_On",
+    "ShortName": "Play_Furniture_On",
+    "Path": "Event/Play_Furniture_On.bnk",
+    "Media": [
+     {
+      "Id": "258287235",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Loose",
+      "ShortName": "FLY_light_furniture_on_01.wav",
+      "Path": "Media/258287235.wem",
+      "CachePath": "C7/{C7A83674-56E9-BCCA-064A-4D2C80038BAB}.wem"
+     },
+     {
+      "Id": "656708829",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Loose",
+      "ShortName": "FLY_heavy_furniture_on_01.wav",
+      "Path": "Media/656708829.wem",
+      "CachePath": "CF/{CFFCF93E-0844-8561-5308-FCDD0F4B7950}.wem"
+     },
+     {
+      "Id": "701242602",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Loose",
+      "ShortName": "FLY_medium_furniture_on_01.wav",
+      "Path": "Media/701242602.wem",
+      "CachePath": "80/{808F99AC-DD00-18E1-3834-910183337A6A}.wem"
+     }
+    ],
+    "Events": [
+     {
+      "Id": "2049827036",
+      "Name": "Play_Furniture_On",
+      "ObjectPath": "\\Events\\Default Work Unit\\SFX\\Actions\\Furnitures\\Play_Furniture_On",
+      "GUID": "{1C2B4AB1-1CA8-455A-82D1-A71F22169E35}",
+      "Color": "9",
+      "DurationType": "OneShot",
+      "DurationMin": "0.25235596",
+      "DurationMax": "0.27519616",
+      "SwitchContainers": [
+       {
+        "SwitchValue": {
+         "GroupType": "Switch",
+         "GroupId": "3102223980",
+         "Id": "1935470627",
+         "GUID": "{64C8E826-749D-4B0A-8870-1BB6B2F36653}"
+        },
+        "MediaRefs": [
+         {
+          "Id": "258287235"
+         }
+        ]
+       },
+       {
+        "SwitchValue": {
+         "GroupType": "Switch",
+         "GroupId": "3102223980",
+         "Id": "2732489590",
+         "GUID": "{24B2E253-4B9E-46DC-9F0F-2894726F56A5}"
+        },
+        "MediaRefs": [
+         {
+          "Id": "656708829"
+         }
+        ]
+       },
+       {
+        "SwitchValue": {
+         "GroupType": "Switch",
+         "GroupId": "3102223980",
+         "Id": "2849147824",
+         "GUID": "{27516584-818F-4CDA-934A-4A2162DD05EE}"
+        },
+        "MediaRefs": [
+         {
+          "Id": "701242602"
+         }
+        ]
+       }
+      ]
+     }
+    ],
+    "SwitchGroups": [
+     {
+      "Id": "3102223980",
+      "Name": "Furniture_Weight",
+      "ObjectPath": "\\Switches\\Default Work Unit\\Furniture_Weight",
+      "GUID": "{242286E7-D1C3-4849-84DF-647F64DA02B6}",
+      "Switches": [
+       {
+        "Id": "1935470627",
+        "Name": "Light",
+        "ObjectPath": "\\Switches\\Default Work Unit\\Furniture_Weight\\Light",
+        "GUID": "{64C8E826-749D-4B0A-8870-1BB6B2F36653}"
+       },
+       {
+        "Id": "2732489590",
+        "Name": "Heavy",
+        "ObjectPath": "\\Switches\\Default Work Unit\\Furniture_Weight\\Heavy",
+        "GUID": "{24B2E253-4B9E-46DC-9F0F-2894726F56A5}"
+       },
+       {
+        "Id": "2849147824",
+        "Name": "Medium",
+        "ObjectPath": "\\Switches\\Default Work Unit\\Furniture_Weight\\Medium",
+        "GUID": "{27516584-818F-4CDA-934A-4A2162DD05EE}"
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "FileHash": "{E77A04F0-5096-5C36-A250-F2528F1F4E4B}"
+ }
+}

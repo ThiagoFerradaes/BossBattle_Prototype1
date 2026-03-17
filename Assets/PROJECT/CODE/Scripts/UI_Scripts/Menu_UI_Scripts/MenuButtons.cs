@@ -57,7 +57,7 @@ public class MenuButtons : MonoBehaviour
     }
 
     void HandleExitPopUp(bool on) {
-        exitPopUp.gameObject.SetActive(on);
+        exitPopUp.SetActive(on);
     }
     void ExitGame() {
         Application.Quit();

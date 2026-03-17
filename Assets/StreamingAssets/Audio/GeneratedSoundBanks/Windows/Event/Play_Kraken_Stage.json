@@ -1,0 +1,129 @@
+{
+ "SoundBanksInfo": {
+  "Platform": "Windows",
+  "BasePlatform": "Windows",
+  "SchemaVersion": "16",
+  "SoundBankVersion": "172",
+  "SoundBanks": [
+   {
+    "Id": "3978310627",
+    "Type": "Event",
+    "GUID": "{AF2E962B-4E92-44D3-9AB8-FC72F86BFF62}",
+    "Language": "SFX",
+    "Hash": "{34AAA893-0800-0C03-C1C0-D24DC7C86F38}",
+    "ObjectPath": "Play_Kraken_Stage",
+    "ShortName": "Play_Kraken_Stage",
+    "Path": "Event/Play_Kraken_Stage.bnk",
+    "Media": [
+     {
+      "Id": "603506969",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Loose",
+      "ShortName": "Combat_01_03_313.wav",
+      "Path": "Media/603506969.wem",
+      "CachePath": "1B/{1BAFA363-9FE7-47AE-4971-91A5FAFDCEDF}.wem"
+     },
+     {
+      "Id": "812270397",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Loose",
+      "ShortName": "Combat_01_05_313.wav",
+      "Path": "Media/812270397.wem",
+      "CachePath": "F0/{F0D2CE99-F74B-60FF-ECE3-C0DE2098D296}.wem"
+     },
+     {
+      "Id": "860538471",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Loose",
+      "ShortName": "Combat_01_01_0312.wav",
+      "Path": "Media/860538471.wem",
+      "CachePath": "0C/{0CAEA811-7D42-7178-42DA-63107621214F}.wem"
+     }
+    ],
+    "Events": [
+     {
+      "Id": "3978310627",
+      "Name": "Play_Kraken_Stage",
+      "ObjectPath": "\\Events\\Default Work Unit\\MUS\\Kraken Stage\\Play_Kraken_Stage",
+      "GUID": "{AF2E962B-4E92-44D3-9AB8-FC72F86BFF62}",
+      "Color": "21",
+      "DurationType": "Infinite",
+      "SwitchContainers": [
+       {
+        "SwitchValue": {
+         "GroupType": "Switch",
+         "GroupId": "4042782448",
+         "Id": "987635874",
+         "GUID": "{14FBF406-22E4-4F27-A9A7-D7CDED41E7D1}"
+        },
+        "MediaRefs": [
+         {
+          "Id": "603506969"
+         }
+        ]
+       },
+       {
+        "SwitchValue": {
+         "GroupType": "Switch",
+         "GroupId": "4042782448",
+         "Id": "987635875",
+         "GUID": "{3535566D-7217-480F-856E-76475D23AD18}"
+        },
+        "MediaRefs": [
+         {
+          "Id": "812270397"
+         }
+        ]
+       },
+       {
+        "SwitchValue": {
+         "GroupType": "Switch",
+         "GroupId": "4042782448",
+         "Id": "987635873",
+         "GUID": "{451FB799-D827-445D-A406-540B95960A43}"
+        },
+        "MediaRefs": [
+         {
+          "Id": "860538471"
+         }
+        ]
+       }
+      ]
+     }
+    ],
+    "SwitchGroups": [
+     {
+      "Id": "4042782448",
+      "Name": "Kraken_Stage",
+      "ObjectPath": "\\Switches\\Default Work Unit\\Kraken_Stage",
+      "GUID": "{93C0DA90-BA56-4C55-87D4-E77A834F3BC3}",
+      "Switches": [
+       {
+        "Id": "987635873",
+        "Name": "Level_01",
+        "ObjectPath": "\\Switches\\Default Work Unit\\Kraken_Stage\\Level_01",
+        "GUID": "{451FB799-D827-445D-A406-540B95960A43}"
+       },
+       {
+        "Id": "987635874",
+        "Name": "Level_02",
+        "ObjectPath": "\\Switches\\Default Work Unit\\Kraken_Stage\\Level_02",
+        "GUID": "{14FBF406-22E4-4F27-A9A7-D7CDED41E7D1}"
+       },
+       {
+        "Id": "987635875",
+        "Name": "Level_03",
+        "ObjectPath": "\\Switches\\Default Work Unit\\Kraken_Stage\\Level_03",
+        "GUID": "{3535566D-7217-480F-856E-76475D23AD18}"
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "FileHash": "{D16689AF-91A6-2EA6-E1FD-C99AD47EA386}"
+ }
+}
