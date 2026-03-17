@@ -8,8 +8,13 @@ public class MenuButtons : MonoBehaviour
     [SerializeField] Button startButton;
     [SerializeField] Button exitButton;
     [SerializeField] Button configButton;
-    [SerializeField] Button exitConfigButton;
     [SerializeField] Button tavernButton;
+    [SerializeField] Button exitConfigButton;
+    [SerializeField] Button yesExitPopUp;
+    [SerializeField] Button noExitPopUp;
+    [SerializeField] Button maskExitPopUp;
+    [SerializeField] Image hoverButtonBackGround;
+    [SerializeField] GameObject exitPopUp;
 
     [Header ("Temporario")]
     [SerializeField] GameObject map;
@@ -22,12 +27,16 @@ public class MenuButtons : MonoBehaviour
         tavernButton.onClick.AddListener(() => {
             LoadingScreenManager.CurrentLoadingScreenInfo = tavernLoadingScreenInfo;
             SceneManager.LoadScene(1);
-            //LoadingScreenManager.Instance.ReturnToTavern(true, 5);
         });
         startButton.onClick.AddListener(OpenMap);
-        exitButton.onClick.AddListener(ExitGame);
         configButton.onClick.AddListener(() => HandleConfigUI(true));
         exitConfigButton.onClick.AddListener(() => HandleConfigUI(false));
+
+        // Exit game Buttons
+        exitButton.onClick.AddListener(() => HandleExitPopUp(true));
+        noExitPopUp.onClick.AddListener(() => HandleExitPopUp(false));
+        yesExitPopUp.onClick.AddListener(ExitGame);
+        maskExitPopUp.onClick.AddListener(() => HandleExitPopUp(false));
     }
 
     void OpenMap() {
@@ -38,6 +47,18 @@ public class MenuButtons : MonoBehaviour
         configCanvas.SetActive(open);
     }
 
+    public void HandleButtonBackGroundOn(Button button) {
+        hoverButtonBackGround.transform.position = button.transform.position;
+        hoverButtonBackGround.gameObject.SetActive(true);
+    }
+
+    public void HandleButtonBackGroundOff() {
+        hoverButtonBackGround.gameObject.SetActive(false);
+    }
+
+    void HandleExitPopUp(bool on) {
+        exitPopUp.SetActive(on);
+    }
     void ExitGame() {
         Application.Quit();
     }
