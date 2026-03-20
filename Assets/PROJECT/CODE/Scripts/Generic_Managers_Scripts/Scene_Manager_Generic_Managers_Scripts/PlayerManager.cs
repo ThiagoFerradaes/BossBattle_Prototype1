@@ -33,17 +33,21 @@ public class PlayerManager : MonoBehaviour {
     void SpawnPlayer() {
         if (_playerWhiteBoard == null) return;
 
-        if (isTavernScene) {
-            GameObject player = Instantiate(julianPrefab, PlayerSpawnPoint.position, Quaternion.identity);
-            Player = player;
-            return;
+        GameObject player;
+
+        switch (isTavernScene)
+        {
+            case true:
+                player = Instantiate(julianPrefab, PlayerSpawnPoint.position, Quaternion.identity);
+                break;
+
+            case false:
+                CharacterSO currentCharacter = _playerWhiteBoard.ReturnSelectedCharacterSO();
+                player = Instantiate(currentCharacter.CharacterPrefab, PlayerSpawnPoint.position, Quaternion.identity);
+                break;
         }
 
-        else {
-            CharacterSO currentCharacter = _playerWhiteBoard.ReturnSelectedCharacterSO();
-            GameObject player = Instantiate(currentCharacter.CharacterPrefab, PlayerSpawnPoint.position, Quaternion.identity);
-            Player = player;
-        }
+        Player = player;
 
     }
     private void Start() {
