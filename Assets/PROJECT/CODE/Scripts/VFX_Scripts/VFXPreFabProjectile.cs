@@ -89,7 +89,7 @@ public class VFXPreFabProjectile : MonoBehaviour
 
         //--effects logic--
         if(isVFX) {
-            Debug.Log("Trigger Enter with: " + other.gameObject.name);
+            //Debug.Log("Trigger Enter with: " + other.gameObject.name);
             myVFX.SendEvent("MyTriggerEnterEvent");
         }
         if(isParticle)
@@ -102,7 +102,7 @@ public class VFXPreFabProjectile : MonoBehaviour
     {
         //--effects logic--
         if(isVFX) {
-            Debug.Log("Trigger Exit from: " + other.gameObject.name);
+            //Debug.Log("Trigger Exit from: " + other.gameObject.name);
             myVFX.SendEvent("MyTriggerExitEvent");
         }
         if (isParticle)

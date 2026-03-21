@@ -49,10 +49,11 @@ public abstract class SkillObjectManager : MonoBehaviour {
             healthManager = parent.GetComponent<HealthManager>();
             rb = parent.GetComponent<Rigidbody>();
             info = skill;
-
-            overrideController = new AnimatorOverrideController(anim.runtimeAnimatorController);
-            anim.runtimeAnimatorController = overrideController;
         }
+
+        overrideController = new AnimatorOverrideController(anim.runtimeAnimatorController);
+        anim.runtimeAnimatorController = overrideController;
+
         this.slot = slot;
         HandleInput(skill, ctx);
 
@@ -167,11 +168,9 @@ public abstract class SkillObjectManager : MonoBehaviour {
     public virtual IEnumerator AttackCoroutine(int animationIndex = 0, int comboIndex = 0) {
         FirstFunc();
 
-        Debug.Log("Start animation coroutine");
-
         AnimationInfo animInfo = info.ListOfAnimationsInfo[animationIndex];
 
-        overrideController["Bastian_BasicAttack_1"] = animInfo.Animation;
+        overrideController["Default"] = animInfo.Animation;
 
         anim.CrossFade("Attack", 0.05f, animInfo.AnimationLayer, 0f);
 
@@ -188,14 +187,11 @@ public abstract class SkillObjectManager : MonoBehaviour {
         Debug.Log(stateInfo.fullPathHash + " " + attackStateHash);
 
         // espera o tempo de cancel
-        while (stateInfo.shortNameHash == attackStateHash &&
+        while (stateInfo.fullPathHash == attackStateHash &&
                stateInfo.normalizedTime < animInfo.AnimationExitTime) {
-            Debug.Log("Waiting animation coroutine");
             yield return null;
             stateInfo = anim.GetCurrentAnimatorStateInfo(animInfo.AnimationLayer);
         }
-
-        Debug.Log("End animation coroutine");
 
         FourthFunc();
     }
