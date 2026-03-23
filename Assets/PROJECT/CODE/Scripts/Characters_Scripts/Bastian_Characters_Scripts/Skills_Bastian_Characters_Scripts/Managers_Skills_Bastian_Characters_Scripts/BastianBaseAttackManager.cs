@@ -42,13 +42,14 @@ public class BastianBaseAttackManager : SkillObjectManager {
         animationCoroutine ??= StartCoroutine(AttackCoroutine(_attackIndex - 1, _attackIndex));
     }
 
-    public override void FirstFunc() {
+    protected override void FirstFunc() {
         _attackSpeedMultiplier = GetAttackSpeedMultiplier(); 
         float animationSpeed = _attackSpeedMultiplier + _info.ListOfAnimationsInfo[_attackIndex - 1].AnimationSpeed;
         anim.SetFloat(_info.AttackSpeedAnimationParameter, animationSpeed);
         skillManager.SkillIsInAnimation(true);
     }
-    public override void FourthFunc() {
+
+    protected override void FourthFunc() {
 
         // Definindo Cooldown
         float cooldown = _attackIndex < 3 ? _info.CooldownBetweenAttacks : _info.Cooldown;
@@ -57,7 +58,7 @@ public class BastianBaseAttackManager : SkillObjectManager {
 
         cooldownManager.SetCooldownSingleCharge(slot, realCooldown);
 
-        // Resetando a velocidade da animação
+        // Resetando a velocidade da animaï¿½ï¿½o
         //anim.SetFloat(_info.AttackSpeedAnimationParameter, 1);
 
         // Resetando Index
@@ -71,7 +72,7 @@ public class BastianBaseAttackManager : SkillObjectManager {
         // Desbloqueando inputs
         UnblockInputs();
 
-        // Avisando que não está mais em animação
+        // Avisando que nï¿½o estï¿½ mais em animaï¿½ï¿½o
         skillManager.SkillIsInAnimation(false);
     }
 

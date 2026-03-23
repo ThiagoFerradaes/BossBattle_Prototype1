@@ -34,7 +34,7 @@ public class CyrusShurikenSkillManager : SkillObjectManager
         if (!gameObject.activeInHierarchy) gameObject.SetActive(true);
     }
 
-    public override void FirstFunc()
+    protected override void FirstFunc()
     {
         base.FirstFunc();
 
@@ -42,7 +42,7 @@ public class CyrusShurikenSkillManager : SkillObjectManager
         energyManager.LooseAllEnergy();
     }
 
-    public override void ThirdFunc()
+    protected override void ThirdFunc()
     {
         base.ThirdFunc();
 
@@ -54,7 +54,7 @@ public class CyrusShurikenSkillManager : SkillObjectManager
         }
     }
 
-    public override void FourthFunc()
+    protected override void FourthFunc()
     {
         base.FourthFunc();
 

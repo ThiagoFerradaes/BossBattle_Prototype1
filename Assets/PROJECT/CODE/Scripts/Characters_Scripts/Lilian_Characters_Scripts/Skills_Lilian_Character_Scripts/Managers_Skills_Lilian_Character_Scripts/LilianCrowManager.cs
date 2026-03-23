@@ -26,7 +26,8 @@ public class LilianCrowManager : SkillObjectManager {
     #endregion
 
     #region Overrides
-    public override void FirstFunc() {
+
+    protected override void FirstFunc() {
         base.FirstFunc();
 
         DecideCooldown();
@@ -37,7 +38,7 @@ public class LilianCrowManager : SkillObjectManager {
         healthManager.TakeDamage(healthToLoose);
     }
 
-    public override void FourthFunc() {
+    protected override void FourthFunc() {
         base.FourthFunc();
 
         _hasFinishedAnimation = true;

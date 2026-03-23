@@ -38,13 +38,13 @@ public class GraciaYellowAuraManager : SkillObjectManager {
 
     #region Animation Methodes Override
 
-    public override void FirstFunc() {
+    protected override void FirstFunc() {
         base.FirstFunc();
 
         cooldownManager.SetCooldownSingleCharge(slot, _info.Cooldown);
     }
 
-    public override void ThirdFunc() {
+    protected override void ThirdFunc() {
         IncreaseAttackSpeed();
         _passiveManager.ChangeBarValue(_info.AmountOfValueGainedWhenUsed, _info.TypeOfAura);
     }
@@ -75,7 +75,7 @@ public class GraciaYellowAuraManager : SkillObjectManager {
         statusManager.ChangeStatus(StatusType.AttackSpeed, _attackSpeedMultiplier, false);
     }
 
-    public override void FourthFunc() {
+    protected override void FourthFunc() {
         base.FourthFunc();
 
         UnblockInputs();

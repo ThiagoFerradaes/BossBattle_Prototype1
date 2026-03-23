@@ -17,13 +17,13 @@ public class LilianWingsOfHorrorManager : SkillObjectManager {
         animationCoroutine ??= StartCoroutine(AttackCoroutine());
     }
 
-    public override void FirstFunc() {
+    protected override void FirstFunc() {
         base.FirstFunc();
 
         cooldownManager.SetCooldownWithCharges(slot, _info);
     }
 
-    public override void FourthFunc() {
+    protected override void FourthFunc() {
         base.FourthFunc();
 
         EndWithUnblockSkills();

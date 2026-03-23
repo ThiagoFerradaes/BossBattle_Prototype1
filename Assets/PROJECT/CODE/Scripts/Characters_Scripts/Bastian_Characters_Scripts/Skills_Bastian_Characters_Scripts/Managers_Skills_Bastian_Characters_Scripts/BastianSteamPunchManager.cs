@@ -26,7 +26,7 @@ public class BastianSteamPunchManager : SkillObjectManager
         if (!gameObject.activeInHierarchy) gameObject.SetActive(true);
     }
 
-    public override void FirstFunc() {
+    protected override void FirstFunc() {
 
         base.FirstFunc();
 
@@ -43,8 +43,8 @@ public class BastianSteamPunchManager : SkillObjectManager
         return Mathf.Max(0.1f, baseSpeed);
     }
 
-    public override void FourthFunc() {
-        // Resetando a velocidade da animação
+    protected override void FourthFunc() {
+        // Resetando a velocidade da animaï¿½ï¿½o
         anim.SetFloat(_info.AttackSpeedAnimationParameter, 1);
 
         base.FourthFunc();

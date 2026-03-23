@@ -40,13 +40,13 @@ public class GraciaGreenAuraManager : SkillObjectManager
 
     #region Animation Methods Override
 
-    public override void FirstFunc() {
+    protected override void FirstFunc() {
         base.FirstFunc();
 
         cooldownManager.SetCooldownSingleCharge(slot, _info.Cooldown);
     }
 
-    public override void FourthFunc() {
+    protected override void FourthFunc() {
         base.FourthFunc();
 
         GraciaAttackManager.OnAttackHit -= _onHit;

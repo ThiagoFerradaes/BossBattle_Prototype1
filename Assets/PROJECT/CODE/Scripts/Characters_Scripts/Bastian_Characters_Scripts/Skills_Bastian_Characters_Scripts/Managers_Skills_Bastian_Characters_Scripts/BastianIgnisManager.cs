@@ -29,7 +29,7 @@ public class BastianIgnisManager : SkillObjectManager {
         animationCoroutine ??= StartCoroutine(AttackCoroutine());
     }
 
-    public override void FirstFunc() {
+    protected override void FirstFunc() {
         cooldownManager.SetCooldownWithCharges(slot, _info);
 
         skillManager.SkillIsInAnimation(true);
@@ -38,8 +38,8 @@ public class BastianIgnisManager : SkillObjectManager {
         anim.SetFloat(_info.AttackSpeedAnimationParameter, _attackSpeedMultiplier);
     }
 
-    public override void FourthFunc() {
-        // Resetando a velocidade da animação
+    protected override void FourthFunc() {
+        // Resetando a velocidade da animaï¿½ï¿½o
         anim.SetFloat(_info.AttackSpeedAnimationParameter, 1);
 
         // Corrotina

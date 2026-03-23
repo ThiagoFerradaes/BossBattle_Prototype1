@@ -49,7 +49,7 @@ public class GraciaAttackManager : SkillObjectManager {
 
     #region Animation Methodes Override
 
-    public override void FirstFunc() {
+    protected override void FirstFunc() {
         base.FirstFunc();
 
         _attackSpeedMultiplier = GetAttackSpeedMultiplier();
@@ -62,24 +62,24 @@ public class GraciaAttackManager : SkillObjectManager {
         return Mathf.Max(0.1f, baseSpeed);
     }
 
-    public override void FourthFunc() {
+    protected override void FourthFunc() {
         base.FourthFunc();
 
         // DEFININDO COOLDOWN
         // Aqui o cooldown pode ser 2: 1 -> entre os ataques do combo | 2 -> cooldown do final do combo
         float cooldown = _attackIndex < 3 ? _info.CooldownBetweenAttacks : _info.Cooldown;
-        float realCooldown = cooldown / _attackSpeedMultiplier; // Se a velocidade de ataque for maior então o cooldown diminui
+        float realCooldown = cooldown / _attackSpeedMultiplier; // Se a velocidade de ataque for maior entï¿½o o cooldown diminui
         cooldownManager.SetCooldownSingleCharge(slot, realCooldown);
 
         // SETANDO O INDEX DO PROXIMO ATAQUE
         float oldIndex = _attackIndex;
         if (_attackIndex < 3) _attackIndex++; // Se for menor que 3 ele sobe em um
-        else _attackIndex = 1; // Se chegou no 3 então volta pro 1
+        else _attackIndex = 1; // Se chegou no 3 entï¿½o volta pro 1
 
         // VOLTANDO OS INPUTS
         UnblockInputs();
 
-        // COMEÇANDO O TEMPORIZADOR ENTRE ATAQUES
+        // COMEï¿½ANDO O TEMPORIZADOR ENTRE ATAQUES
         if (oldIndex < 3) _timerBetweenAttacksCoroutine ??= StartCoroutine(CooldownBetweenAttacks());
         else End();
     }
@@ -114,7 +114,7 @@ public class GraciaAttackManager : SkillObjectManager {
             _ => _info.FirstAttackAtributes
         };
 
-        // Settando o tamanho e a posição do ataque
+        // Settando o tamanho e a posiï¿½ï¿½o do ataque
         preFab.transform.localScale = atributes.Size;
         preFab.transform.SetParent(parent.transform, false);
         preFab.transform.SetLocalPositionAndRotation(prefab.PreFabPosition, Quaternion.identity);

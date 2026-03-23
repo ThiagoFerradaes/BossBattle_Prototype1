@@ -49,27 +49,27 @@ public class CyrusAxeAttackManager : SkillObjectManager {
 
     public override void PreCast(SkillSO skill) {
 
-        // Bloqueando movimentação e outros inputs
+        // Bloqueando movimentaï¿½ï¿½o e outros inputs
         movementManager.BlockWalk(skill.BlockWalkWhilePreCasting);
         movementManager.ChangeRotationType(RotationType.MouseRotation);
         skillManager.BlockAllSkills(true);
 
-        // Ligar animação de subir
+        // Ligar animaï¿½ï¿½o de subir
         anim.SetTrigger(_info.FirstAnimationParameterName);
 
         // VFX de subir 
         InstantiateUpAxeVFX();
 
-        // Começar o timer
+        // Comeï¿½ar o timer
         _chargeTimeCoroutine ??= StartCoroutine(ChargeTimer());
 
-        // Começar o cooldown
+        // Comeï¿½ar o cooldown
         cooldownManager.SetCooldownWithCharges(slot, _info);
 
         // Ligando o Range do prefab
         if (_info.PreCastOn && ConfigurationWhiteBoard.Instance.PreCastOn) SetSkillRangeIndicator(skill);
 
-        // Checando nível
+        // Checando nï¿½vel
         if (_skillLevel == 1) healthManager.RecieveShield(_info.Level1AmountOfShield, _info.ShieldDuration);
         else if (_skillLevel > 1) healthManager.RecieveShield(_info.Level2AmountOfShield, _info.ShieldDuration);
     }
@@ -85,7 +85,7 @@ public class CyrusAxeAttackManager : SkillObjectManager {
     }
     public override void UseSkill(SkillSO skill) {
 
-        // Só é chamado quando o machado ta descendo
+        // Sï¿½ ï¿½ chamado quando o machado ta descendo
         animationCoroutine ??= StartCoroutine(Attack());
     }
 
@@ -119,7 +119,7 @@ public class CyrusAxeAttackManager : SkillObjectManager {
 
     }
 
-    public override void FourthFunc() {
+    protected override void FourthFunc() {
         base.FourthFunc();
 
         EndWithUnblockSkills();
@@ -193,7 +193,7 @@ public class CyrusAxeAttackManager : SkillObjectManager {
 
     public override void InstantiateVFX(SkillAnimationEvent prefabInfo, Vector3? finalPosition = null) {
 
-        // Esse vfx é só do machado descendo
+        // Esse vfx ï¿½ sï¿½ do machado descendo
 
         GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFab, TypeOfSkillPrefab.VFX);
         preFab.transform.SetParent(parent.transform, false);
