@@ -25,14 +25,14 @@ public class CyrusDardsSkillManager : SkillObjectManager {
         if (!gameObject.activeInHierarchy) gameObject.SetActive(true);
     }
 
-    public override void FirstFunc() {
+    protected override void FirstFunc() {
         base.FirstFunc();
 
         float cooldown = _skillLevel < 2 ? _info.Cooldown : _info.CooldownLevelTwo;
         cooldownManager.SetCooldownWithCharges(slot, _info, cooldown);
     }
 
-    public override void FourthFunc() {
+    protected override void FourthFunc() {
         base.FourthFunc();
 
         EndWithUnblockSkills();

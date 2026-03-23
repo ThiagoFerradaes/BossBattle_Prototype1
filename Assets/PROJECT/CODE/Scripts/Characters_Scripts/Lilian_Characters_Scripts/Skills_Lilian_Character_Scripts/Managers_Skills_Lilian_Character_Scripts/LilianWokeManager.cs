@@ -21,13 +21,13 @@ public class LilianWokeManager : SkillObjectManager
         if (!gameObject.activeInHierarchy) gameObject.SetActive(true);
     }
 
-    public override void FirstFunc() {
+    protected override void FirstFunc() {
         base.FirstFunc();
 
         cooldownManager.SetCooldownSingleCharge(slot, _info.Cooldown);
     }
 
-    public override void FourthFunc() {
+    protected override void FourthFunc() {
         base.FourthFunc();
 
         UnblockInputs();

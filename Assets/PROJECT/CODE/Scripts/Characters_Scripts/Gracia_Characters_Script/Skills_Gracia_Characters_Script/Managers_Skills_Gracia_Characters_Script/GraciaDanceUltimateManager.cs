@@ -45,17 +45,19 @@ public class GraciaDanceUltimateManager : SkillObjectManager
 
     #region Animation Methods Override
 
-    public override void FirstFunc()
+    protected override void FirstFunc()
     {
         base.FirstFunc();
 
         energyManager.SetCanGainEnergy(false);
     }
-    public override void ThirdFunc()
+
+    protected override void ThirdFunc()
     {
         DecideBehaviour();
     }
-    public override void FourthFunc()
+
+    protected override void FourthFunc()
     {
         base.FourthFunc();
 
@@ -83,7 +85,7 @@ public class GraciaDanceUltimateManager : SkillObjectManager
     #region Blue Region
     void BlueBehaviour()
     {
-        // Verificando o nível da habilidade
+        // Verificando o nï¿½vel da habilidade
         _skillLevel = GraciaPassiveManager.Instance.ReturnCurrentSkillArea(GraciaTypeOfSkill.Left);
 
         // Drenando a barra
@@ -106,12 +108,12 @@ public class GraciaDanceUltimateManager : SkillObjectManager
             if (_info.Prefabs[0][i].PrefabType == TypeOfSkillPrefab.Hitbox) { // HITBOX 
                 GameObject hitbox = PoolingManager.Instance.ReturnPrefabFromPool(_info.Prefabs[0][i].PreFab, TypeOfSkillPrefab.Hitbox);
 
-                // Alterando os atributos pelo nível
+                // Alterando os atributos pelo nï¿½vel
                 DamageAtributes newAtributes = new(_info.BlueAtributes);
                 newAtributes.Size *= ( 1 + _info.BlueSizeIncreasePerLevel[_skillLevel].Value);
                 newAtributes.DamageCooldown /= (1 + _info.BlueDamageCooldownDecreasePerLevel[_skillLevel].Value);
 
-                // Definindo tamnho e posição 
+                // Definindo tamnho e posiï¿½ï¿½o 
                 hitbox.transform.localScale = newAtributes.Size;
                 hitbox.transform.SetParent(parent.transform);
                 hitbox.transform.SetLocalPositionAndRotation(_info.Prefabs[0][i].PreFabPosition, Quaternion.identity);
@@ -134,7 +136,7 @@ public class GraciaDanceUltimateManager : SkillObjectManager
     #region Yellow Region
     void YellowBehaviour()
     {
-        // Verificando o nível da habilidade
+        // Verificando o nï¿½vel da habilidade
         _skillLevel = GraciaPassiveManager.Instance.ReturnCurrentSkillArea(GraciaTypeOfSkill.Right);
 
         // Drenando a barra
@@ -143,14 +145,14 @@ public class GraciaDanceUltimateManager : SkillObjectManager
         // Gastando energia
         energyManager.LooseAllEnergy();
 
-        // Setando ação
+        // Setando aï¿½ï¿½o
         _onBaseAttack = InstantiateYellowHit;
 
         // Inscrevendo evento
         GraciaAttackManager.OnAttackHit -= _onBaseAttack;
         GraciaAttackManager.OnAttackHit += _onBaseAttack;
 
-        // Começando a duração
+        // Comeï¿½ando a duraï¿½ï¿½o
         _yellowSkillDurationRoutine ??= StartCoroutine(YellowSkillDuration());
     }
     void InstantiateYellowHit() {
@@ -161,7 +163,7 @@ public class GraciaDanceUltimateManager : SkillObjectManager
             if (_info.Prefabs[1][i].PrefabType == TypeOfSkillPrefab.Hitbox) { // HITBOX 
                 GameObject hitbox = PoolingManager.Instance.ReturnPrefabFromPool(_info.Prefabs[1][i].PreFab, TypeOfSkillPrefab.Hitbox);
 
-                // Definindo tamnho e posição 
+                // Definindo tamnho e posiï¿½ï¿½o 
                 hitbox.transform.localScale = _info.YellowAtributes.Size;
                 hitbox.transform.SetParent(parent.transform);
                 hitbox.transform.SetLocalPositionAndRotation(_info.Prefabs[1][i].PreFabPosition, Quaternion.identity);
@@ -200,7 +202,7 @@ public class GraciaDanceUltimateManager : SkillObjectManager
     #region Red Region
     void RedBehaviour()
     {
-        // Verificando o nível da habilidade
+        // Verificando o nï¿½vel da habilidade
         _skillLevel = GraciaPassiveManager.Instance.ReturnCurrentSkillArea(GraciaTypeOfSkill.Left);
 
         // Drenando a barra
@@ -223,7 +225,7 @@ public class GraciaDanceUltimateManager : SkillObjectManager
             if (_info.Prefabs[2][i].PrefabType == TypeOfSkillPrefab.Hitbox) { // HITBOX 
                 GameObject hitbox = PoolingManager.Instance.ReturnPrefabFromPool(_info.Prefabs[2][i].PreFab, TypeOfSkillPrefab.Hitbox);
 
-                // Definindo tamnho e posição 
+                // Definindo tamnho e posiï¿½ï¿½o 
                 hitbox.transform.localScale = _info.RedAtributes.Size;
                 hitbox.transform.SetParent(parent.transform);
                 hitbox.transform.SetLocalPositionAndRotation(_info.Prefabs[2][i].PreFabPosition, Quaternion.identity);
@@ -252,7 +254,7 @@ public class GraciaDanceUltimateManager : SkillObjectManager
         // Zerando a quantidade de vezes que ganhou escudo
         _amountOfShieldsGained = 0;
 
-        // Verificando o nível da habilidade
+        // Verificando o nï¿½vel da habilidade
         _skillLevel = GraciaPassiveManager.Instance.ReturnCurrentSkillArea(GraciaTypeOfSkill.Right);
 
         // Drenando a barra
@@ -272,7 +274,7 @@ public class GraciaDanceUltimateManager : SkillObjectManager
             if (_info.Prefabs[3][i].PrefabType == TypeOfSkillPrefab.Hitbox) { // HITBOX 
                 GameObject hitbox = PoolingManager.Instance.ReturnPrefabFromPool(_info.Prefabs[3][i].PreFab, TypeOfSkillPrefab.Hitbox);
 
-                // Definindo tamnho e posição 
+                // Definindo tamnho e posiï¿½ï¿½o 
                 hitbox.transform.localScale = _info.GreenAtributes.Size;
                 hitbox.transform.SetParent(parent.transform);
                 hitbox.transform.SetLocalPositionAndRotation(_info.Prefabs[3][i].PreFabPosition, Quaternion.identity);

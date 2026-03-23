@@ -48,7 +48,7 @@ public class GraciaDashUltimateManager : SkillObjectManager {
 
     #region Animation Methodes Override
 
-    public override void FirstFunc() {
+    protected override void FirstFunc() {
         base.FirstFunc();
 
         SetParameters();
@@ -87,7 +87,7 @@ public class GraciaDashUltimateManager : SkillObjectManager {
         energyManager.LooseAllEnergy();
     }
 
-    public override void SecondFunc() {
+    protected override void SecondFunc() {
 
         movementManager.ChangeIsDashing(true);
 
@@ -98,7 +98,7 @@ public class GraciaDashUltimateManager : SkillObjectManager {
         if(_currentAura == GraciaAura.Blue) BlueBehaviour();
     }
 
-    public override void FourthFunc() {
+    protected override void FourthFunc() {
         base.FourthFunc();
 
         if (_dashRoutine != null) {
@@ -106,7 +106,7 @@ public class GraciaDashUltimateManager : SkillObjectManager {
             _dashRoutine = null;
         }
 
-        // Se não foi forçado a ligar antes, religa no final do dash
+        // Se nï¿½o foi forï¿½ado a ligar antes, religa no final do dash
         if (!_collisionForcedOn) {
             Physics.IgnoreLayerCollision(_playerLayer, _enemyLayer, false);
         }
@@ -144,11 +144,11 @@ public class GraciaDashUltimateManager : SkillObjectManager {
 
             rb.linearVelocity = dashDir * _info.DashForce;
 
-            // Checa continuamente se a posição final está dentro de um inimigo
+            // Checa continuamente se a posiï¿½ï¿½o final estï¿½ dentro de um inimigo
             Collider[] hits = Physics.OverlapSphere(finalPos, 0.2f, 1 << _enemyLayer);
             if (hits.Length > 0 && !_collisionForcedOn) {
 
-                // Liga colisão de volta para parar no inimigo
+                // Liga colisï¿½o de volta para parar no inimigo
                 Physics.IgnoreLayerCollision(_playerLayer, _enemyLayer, false);
                 _collisionForcedOn = true;
             }
@@ -161,7 +161,7 @@ public class GraciaDashUltimateManager : SkillObjectManager {
             yield return null;
         }
 
-        // Se não foi forçado a ligar antes, religa no final do dash
+        // Se nï¿½o foi forï¿½ado a ligar antes, religa no final do dash
         if (!_collisionForcedOn) {
             Physics.IgnoreLayerCollision(_playerLayer, _enemyLayer, false);
         }
@@ -208,7 +208,7 @@ public class GraciaDashUltimateManager : SkillObjectManager {
         // Pegando a hitbox na pool
         GameObject hitbox = PoolingManager.Instance.ReturnPrefabFromPool(prefab.PreFab, TypeOfSkillPrefab.Hitbox);
 
-        // Setando o tamanho e a posição do objeto
+        // Setando o tamanho e a posiï¿½ï¿½o do objeto
         hitbox.transform.localScale = _info.Atributes.Size;
         hitbox.transform.SetParent(parent.transform, false);
         hitbox.transform.SetLocalPositionAndRotation(prefab.PreFabPosition, Quaternion.identity);

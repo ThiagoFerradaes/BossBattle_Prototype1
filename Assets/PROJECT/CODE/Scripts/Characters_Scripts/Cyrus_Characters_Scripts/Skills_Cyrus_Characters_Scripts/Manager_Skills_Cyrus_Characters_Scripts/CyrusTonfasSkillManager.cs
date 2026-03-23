@@ -22,7 +22,7 @@ public class CyrusTonfasSkillManager : SkillObjectManager
         if (!gameObject.activeInHierarchy) gameObject.SetActive(true);
     }
 
-    public override void FirstFunc() {
+    protected override void FirstFunc() {
         base.FirstFunc();
 
         energyManager.SetCanGainEnergy(false);
@@ -32,13 +32,13 @@ public class CyrusTonfasSkillManager : SkillObjectManager
         anim.SetFloat(_info.AnimationSpeedParameter, animationSpeed);
     }
 
-    public override void ThirdFunc() {
+    protected override void ThirdFunc() {
         base.ThirdFunc();
 
         energyManager.SetCanGainEnergy(true);
     }
 
-    public override void FourthFunc() {
+    protected override void FourthFunc() {
         base.FourthFunc();
 
         EndWithUnblockSkills();

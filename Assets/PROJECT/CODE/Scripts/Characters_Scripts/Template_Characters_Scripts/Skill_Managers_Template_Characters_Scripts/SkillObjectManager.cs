@@ -49,10 +49,11 @@ public abstract class SkillObjectManager : MonoBehaviour {
             healthManager = parent.GetComponent<HealthManager>();
             rb = parent.GetComponent<Rigidbody>();
             info = skill;
-
-            overrideController = new AnimatorOverrideController(anim.runtimeAnimatorController);
-            anim.runtimeAnimatorController = overrideController;
         }
+
+        overrideController = new AnimatorOverrideController(anim.runtimeAnimatorController);
+        anim.runtimeAnimatorController = overrideController;
+
         this.slot = slot;
         HandleInput(skill, ctx);
 
@@ -163,19 +164,22 @@ public abstract class SkillObjectManager : MonoBehaviour {
     #endregion
 
     #region AttackAnimation
-    static readonly int attackStateHash = Animator.StringToHash("Attack");
-    public virtual IEnumerator AttackCoroutine(int animationIndex = 0, int comboIndex = 0) {
+
+    int _currentAnimationHash;
+    protected virtual IEnumerator AttackCoroutine(int animationIndex = 0, int comboIndex = 0) {
         FirstFunc();
 
-        AnimationInfo animInfo = info.ListOfAnimationsInfo[animationIndex];
+        var animInfo = info.ListOfAnimationsInfo[animationIndex];
 
-        overrideController["Bastian_BasicAttack_1"] = animInfo.Animation;
+        overrideController["Default"] = animInfo.Animation;
 
         anim.CrossFade("Attack", 0.05f, animInfo.AnimationLayer, 0f);
 
         yield return null;
 
-        AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(animInfo.AnimationLayer);
+        var stateInfo = anim.GetCurrentAnimatorStateInfo(animInfo.AnimationLayer);
+
+        _currentAnimationHash = stateInfo.fullPathHash;
 
         SecondFunc();
 
@@ -184,7 +188,7 @@ public abstract class SkillObjectManager : MonoBehaviour {
         ThirdFunc();
 
         // espera o tempo de cancel
-        while (stateInfo.shortNameHash == attackStateHash &&
+        while (stateInfo.fullPathHash == _currentAnimationHash &&
                stateInfo.normalizedTime < animInfo.AnimationExitTime) {
             yield return null;
             stateInfo = anim.GetCurrentAnimatorStateInfo(animInfo.AnimationLayer);
@@ -196,19 +200,19 @@ public abstract class SkillObjectManager : MonoBehaviour {
     /// <summary>
     /// Called before the animation start
     /// </summary>
-    public virtual void FirstFunc() { skillManager.SkillIsInAnimation(true); }
+    protected virtual void FirstFunc() { skillManager.SkillIsInAnimation(true); }
     /// <summary>
     /// Called after the animation start, before hitbox and vfx inistantiate
     /// </summary>
-    public virtual void SecondFunc() { }
+    protected virtual void SecondFunc() { }
     /// <summary>
     /// Called after hitbox and vfx instantiate
     /// </summary>
-    public virtual void ThirdFunc() { }
+    protected virtual void ThirdFunc() { }
     /// <summary>
     /// Called after the animation ends
     /// </summary>
-    public virtual void FourthFunc() {
+    protected virtual void FourthFunc() {
         // Corrotina
         animationCoroutine = null;
 
@@ -227,8 +231,9 @@ public abstract class SkillObjectManager : MonoBehaviour {
 
                 do {
                     yield return null;
+                    Debug.Log("Esperando spawnar prefab " + prefab.PreFab.name);
                     stateInfo = anim.GetCurrentAnimatorStateInfo(animInfo.AnimationLayer);
-                } while (stateInfo.fullPathHash == attackStateHash && stateInfo.normalizedTime < prefab.TimeToSpawnPreFab);
+                } while (stateInfo.fullPathHash == _currentAnimationHash && stateInfo.normalizedTime < prefab.TimeToSpawnPreFab);
 
                 if (prefab.PrefabType == TypeOfSkillPrefab.Hitbox) InstantiateHitBox(prefab);
                 else InstantiateVFX(prefab);
