@@ -36,8 +36,6 @@ public class CharacterSelectionManager : MonoBehaviour {
     SkillSelectionManager _skillSelectionManager;
     List<CharacterUnlockedInfo> _unlockedInfo = new();
 
-    private bool isInitialized;
-
     #region StartRegion
     private void Awake() {
         _skillSelectionManager = GetComponent<SkillSelectionManager>();
@@ -70,39 +68,23 @@ public class CharacterSelectionManager : MonoBehaviour {
         characterSelectionBackground.onClick.AddListener(() => { _skillSelectionManager.TurnScreenOff(); });
 
         characterSelectionMask.onClick.AddListener(ClosedSkillsUi);
-
-        isInitialized = true;
     }
 
     #endregion
 
     #region InitializeRegion
 
-    public async void Initialize() {
-        try {
-            bool set = false;
-            while (!isInitialized) {
-                if (set) {
-                    await Task.Yield();
-                    continue;
-                }
-                SetButtons();
-                set = true;
-            }
+    public void Initialize() {
 
-            _unlockedInfo = WhiteBoard.Instance.ReturnListOfUnlockedCharecters();
+        _unlockedInfo = WhiteBoard.Instance.ReturnListOfUnlockedCharecters();
 
-            ChangeSelectedCharactersImages();
-            ChangeSkillsIcon();
-            ActivateCharacterSelectionButtons();
-            TurnOffSkillSelectionBackground();
+        ChangeSelectedCharactersImages();
+        ChangeSkillsIcon();
+        ActivateCharacterSelectionButtons();
+        TurnOffSkillSelectionBackground();
 
-            characterSelectionScreen.SetActive(true);
+        characterSelectionScreen.SetActive(true);
 
-        }
-        catch {
-            // ignore
-        }
     }
 
 
@@ -123,7 +105,8 @@ public class CharacterSelectionManager : MonoBehaviour {
         // Trocando a imagem do botão do personagem selecionado
         foreach(var info in _unlockedInfo) {
             var character = info.Character;
-            if (info.Character == currentCharater)
+            if (character.Character == Character.TavernKeeper) continue;
+            else if (info.Character == currentCharater)
                 dictionaryOfCharactersButton[character].GetComponent<Image>().sprite = character.SelectedCharacterMapSprite;
             else if (info.IsUnlocked)
                 dictionaryOfCharactersButton[character].GetComponent<Image>().sprite = character.UnselectedCharacterMapSprite;
@@ -173,6 +156,7 @@ public class CharacterSelectionManager : MonoBehaviour {
 
     void ActivateCharacterSelectionButtons() {
         foreach (var info in _unlockedInfo) {
+            if (info.Character.Character == Character.TavernKeeper) continue;
             dictionaryOfCharactersButton[info.Character].interactable = info.IsUnlocked;
         }
     }

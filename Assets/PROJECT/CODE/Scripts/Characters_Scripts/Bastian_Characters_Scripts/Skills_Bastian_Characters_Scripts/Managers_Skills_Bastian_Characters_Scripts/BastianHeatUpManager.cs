@@ -28,7 +28,7 @@ public class BastianHeatUpManager : SkillObjectManager
         if (!gameObject.activeInHierarchy) gameObject.SetActive(true);
     }
 
-    public override void FirstFunc()
+    protected override void FirstFunc()
     {
         base.FirstFunc();
 
@@ -43,7 +43,8 @@ public class BastianHeatUpManager : SkillObjectManager
         float baseSpeed = statusManager.ReturnStatusValue(StatusType.AttackSpeed);
         return Mathf.Max(0.1f, baseSpeed);
     }
-    public override void ThirdFunc()
+
+    protected override void ThirdFunc()
     {
         base.ThirdFunc();
 
@@ -59,11 +60,11 @@ public class BastianHeatUpManager : SkillObjectManager
         else if (BastianPassiveManager.Instance.ReturnMaxHeat(HeatArea.SuperHeatArea)) BastianPassiveManager.Instance.GainHeat(_info.ExtraAmountOfHeat);
     }
 
-    public override void FourthFunc()
+    protected override void FourthFunc()
     {
         base.FourthFunc();
 
-        // Resetando a velocidade da animação
+        // Resetando a velocidade da animaï¿½ï¿½o
         anim.SetFloat(_info.AttackSpeedAnimationParameter, 1);
 
         EndWithUnblockSkills();

@@ -19,8 +19,6 @@ public class LoadingScreenManager : MonoBehaviour {
     [Foldout("Tip"), SerializeField] float tipChangingDuration;
     [Foldout("Tip"), SerializeField] GameObject tipObject;
 
-    [Foldout("BackGround"), SerializeField] Image backGroundImage;
-
     [Foldout("Save"), SerializeField] Image bossSavingIcon;
     [Foldout("Save"), SerializeField] GameObject savingIcon;
     [Foldout("Save"), SerializeField] float saveIconFadeTime;
@@ -28,54 +26,19 @@ public class LoadingScreenManager : MonoBehaviour {
     [Foldout("Save"), SerializeField] float minSaveIconAlpha;
 
     [Foldout("Loading"), SerializeField] Image loadingBar;
-    [Foldout("Loading"), SerializeField] GameObject loadingScreen;
-
-    [Foldout("Scriptable"), SerializeField] LoadingScreenSO tavernLoadingScreen;
-    [Foldout("Scriptable"), SerializeField] LoadingScreenSO menuLoadingScreen;
-
-    [Foldout("Atributes"), SerializeField] float loadingScreenTime;
-    [Foldout("Atributes"), SerializeField] int tavernSceneIndex;
-    [Foldout("Atributes"), SerializeField] int menuSceneIndex;
+    [Foldout("Loading"), SerializeField] float loadingScreenMinTime;
 
 
     public static LoadingScreenManager Instance;
     public static LoadingScreenSO CurrentLoadingScreenInfo = null;
     Coroutine savingFadeCoroutine, tipCoroutine;
 
-    //public void Awake() {
-    //    if (Instance == null) {
-    //        Instance = this;
-    //        DontDestroyOnLoad(gameObject);
-    //    }
-    //    else {
-    //        Destroy(gameObject);
-    //    }
-    //}
-
-    //public async void ReturnToTavern(bool load = false, byte saveSlot = byte.MaxValue) {
-    //    try {
-    //        if (saveSlot != byte.MaxValue)
-    //            await RawMaterialStatic.Instance.SetSlotSave(saveSlot);
-    //        loadSceneCoroutine ??= StartCoroutine(LoadingScreen(tavernLoadingScreen, tavernSceneIndex, load));
-    //    }
-    //    catch (Exception e) {
-    //        Debug.LogError(e);
-    //    }
-    //}
-
-    //public void ReturnToMenu() {
-    //    loadSceneCoroutine ??= StartCoroutine(LoadingScreen(menuLoadingScreen, menuSceneIndex));
-    //}
-
-    //public void LoadFightScene(LoadingScreenSO loadScreenInformation, int sceneIndex) {
-    //    loadSceneCoroutine ??= StartCoroutine(LoadingScreen(loadScreenInformation, sceneIndex));
-    //}
-
     AsyncOperation loadingOperation;
-    public bool isLoadingComplete = false;
-    public bool canLoad = false;
-    public float loadingScreenTimer;
+    bool isLoadingComplete = false;
+    bool canLoad = false;
+    float loadingScreenTimer;
 
+    #region Start Region
     private void Start() {
         StartLoad();
     }
@@ -93,7 +56,7 @@ public class LoadingScreenManager : MonoBehaviour {
         Load();
     }
     void Load() {
-        ChooseRandomBackground(CurrentLoadingScreenInfo);
+        //ChooseRandomBackground(CurrentLoadingScreenInfo);
         savingFadeCoroutine ??= StartCoroutine(SavingIconFade());
         tipCoroutine ??= StartCoroutine(HandleTipChanging(CurrentLoadingScreenInfo));
 
@@ -104,27 +67,15 @@ public class LoadingScreenManager : MonoBehaviour {
 
     }
 
-    private void Update() {
-        if (!canLoad)  return;
 
-
-        if (!isLoadingComplete) {
-            loadingScreenTimer += Time.deltaTime;
-            float timeProgress = Mathf.Clamp01(loadingScreenTimer / loadingScreenTime);
-            float sceneProgress = Mathf.Clamp01(loadingOperation.progress / 0.9f);
-
-            float progress = Mathf.Min(timeProgress, sceneProgress);
-            loadingBar.fillAmount = progress;
-
-            if (loadingScreenTimer >= loadingScreenTime && loadingOperation.progress >= 0.9f)
-                EndLoad();
-        }
-    }
-    IEnumerator SavingIconFade() {
+    #region Coroutines
+    IEnumerator SavingIconFade()
+    {
 
         CanvasGroup canvasG = savingIcon.GetComponent<CanvasGroup>();
 
-        while (true) {
+        while (true)
+        {
 
             yield return canvasG.DOFade(minSaveIconAlpha, saveIconFadeTime).SetUpdate(true).WaitForCompletion();
 
@@ -133,7 +84,8 @@ public class LoadingScreenManager : MonoBehaviour {
         }
     }
 
-    IEnumerator HandleTipChanging(LoadingScreenSO loadingScriptable) {
+    IEnumerator HandleTipChanging(LoadingScreenSO loadingScriptable)
+    {
 
         List<Tip> list = new(loadingScriptable.ListOfTips);
 
@@ -147,7 +99,8 @@ public class LoadingScreenManager : MonoBehaviour {
 
         list.RemoveAt(rng);
 
-        while (true) {
+        while (true)
+        {
             yield return new WaitForSecondsRealtime(tipDuration);
 
             yield return canvasG.DOFade(minSaveIconAlpha, tipChangingDuration).SetUpdate(true).WaitForCompletion();
@@ -164,24 +117,36 @@ public class LoadingScreenManager : MonoBehaviour {
 
         }
     }
+    #endregion
 
-    void ChooseRandomBackground(LoadingScreenSO loadingScriptable) {
-        List<Sprite> list = new(loadingScriptable.ListOfBackgrounds);
+    #endregion
 
-        int rng = Random.Range(0, list.Count);
+    #region Update Region
+    private void Update() {
+        if (!canLoad)  return;
 
-        Sprite newSprite = list[rng];
 
-        backGroundImage.sprite = newSprite;
+        if (!isLoadingComplete) {
+            loadingScreenTimer += Time.deltaTime;
+            float timeProgress = Mathf.Clamp01(loadingScreenTimer / loadingScreenMinTime);
+            float sceneProgress = Mathf.Clamp01(loadingOperation.progress / 0.9f);
 
-        bossSavingIcon.sprite = loadingScriptable.SavingIcon;
+            float progress = Mathf.Min(timeProgress, sceneProgress);
+            loadingBar.fillAmount = progress;
+
+            if (loadingScreenTimer >= loadingScreenMinTime && loadingOperation.progress >= 0.9f)
+                EndLoad();
+        }
     }
-    void EndLoad() {
-        if (savingFadeCoroutine != null) {
+    void EndLoad()
+    {
+        if (savingFadeCoroutine != null)
+        {
             StopCoroutine(savingFadeCoroutine);
             savingFadeCoroutine = null;
         }
-        if (tipCoroutine != null) {
+        if (tipCoroutine != null)
+        {
             StopCoroutine(tipCoroutine);
             tipCoroutine = null;
         }
@@ -195,75 +160,23 @@ public class LoadingScreenManager : MonoBehaviour {
         loadingOperation = null;
     }
 
-    //IEnumerator LoadingScreen(LoadingScreenSO loadScreenInformation, int sceneIndex, bool load = false) {
+    #endregion
 
-    //    ChooseRandomBackground(loadScreenInformation);
+    #region Canceled
+    //[Foldout("BackGround"), SerializeField] Image backGroundImage;
 
-    //    savingFadeCoroutine ??= StartCoroutine(SavingIconFade());
-    //    tipCoroutine ??= StartCoroutine(HandleTipChanging(loadScreenInformation));
+    //void ChooseRandomBackground(LoadingScreenSO loadingScriptable) {
+    //    List<Sprite> list = new(loadingScriptable.ListOfBackgrounds);
 
-    //    loadingScreen.SetActive(true);
+    //    int rng = Random.Range(0, list.Count);
 
-    //    if (!load) {
-    //        if (RawMaterialStatic.Instance is not null)
-    //            yield return RawMaterialStatic.Instance.SaveInventory().AsIEnumerator();
-    //    }
-    //    else {
-    //        yield return RawMaterialStatic.Instance.LoadInventoryByJson().AsIEnumerator();
-    //    }
+    //    Sprite newSprite = list[rng];
 
-    //    if (RoomCanvasStatic.Instance is not null)
-    //        yield return RoomCanvasStatic.Instance.SaveFurnitureByJson().AsIEnumerator();
+    //    backGroundImage.sprite = newSprite;
 
-
-    //    AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
-    //    operation.allowSceneActivation = false;
-
-    //    float timer = 0;
-
-    //    while (timer < loadingScreenTime || operation.progress < 0.9f) {
-    //        timer += Time.unscaledDeltaTime;
-
-    //        float timeProgress = Mathf.Clamp01(timer / loadingScreenTime);
-    //        float sceneProgress = Mathf.Clamp01(operation.progress / 0.9f);
-
-    //        float progress = Mathf.Min(timeProgress, sceneProgress);
-    //        loadingBar.fillAmount = progress;
-
-    //        yield return null;
-    //    }
-
-    //    operation.allowSceneActivation = true;
-
-    //    yield return null;
-
-    //    loadingScreen.SetActive(false);
-
-    //    loadSceneCoroutine = null;
-
-    //    if (savingFadeCoroutine != null) {
-    //        StopCoroutine(savingFadeCoroutine);
-    //        savingFadeCoroutine = null;
-    //    }
-    //    if (tipCoroutine != null) {
-    //        StopCoroutine(tipCoroutine);
-    //        tipCoroutine = null;
-    //    }
-
+    //    bossSavingIcon.sprite = loadingScriptable.SavingIcon;
     //}
 
-
-
+    #endregion
 }
 
-public static class TaskExtensions {
-    public static IEnumerator AsIEnumerator(this Task task) {
-        while (!task.IsCompleted) {
-            yield return null;
-        }
-
-        if (task.IsFaulted) {
-            throw task.Exception;
-        }
-    }
-}

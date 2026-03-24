@@ -46,7 +46,8 @@ public class LilianLightGodManager : SkillObjectManager {
     #endregion
 
     #region Override
-    public override void FirstFunc() {
+
+    protected override void FirstFunc() {
         base.FirstFunc();
 
         if (_isShooting) return;
@@ -54,7 +55,7 @@ public class LilianLightGodManager : SkillObjectManager {
         energyManager.SetCanGainEnergy(false);
     }
 
-    public override void ThirdFunc() {
+    protected override void ThirdFunc() {
         if (_isShooting) return;
 
         healthManager.Heal(_info.HealthToHealBeforeUlt);
@@ -67,7 +68,7 @@ public class LilianLightGodManager : SkillObjectManager {
         healthManager.OnHeal += _onHeal;
     }
 
-    public override void FourthFunc() {
+    protected override void FourthFunc() {
         base.FourthFunc();
 
         if (!_isShooting) UnblockInputs();

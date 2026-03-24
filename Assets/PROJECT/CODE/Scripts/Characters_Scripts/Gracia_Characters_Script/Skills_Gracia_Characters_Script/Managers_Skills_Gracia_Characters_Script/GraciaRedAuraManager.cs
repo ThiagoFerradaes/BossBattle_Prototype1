@@ -35,13 +35,13 @@ public class GraciaRedAuraManager : SkillObjectManager
 
     #region Animation Methodes Override
 
-    public override void FirstFunc() {
+    protected override void FirstFunc() {
         base.FirstFunc();
 
         cooldownManager.SetCooldownSingleCharge(slot,_info.Cooldown);
     }
 
-    public override void ThirdFunc() {
+    protected override void ThirdFunc() {
         GraciaPassiveManager.Instance.ChangeBarValue(_info.AmountOfValueGainedWhenUsed, _info.TypeOfAura);
 
         IncreaseCritValue();
@@ -53,7 +53,8 @@ public class GraciaRedAuraManager : SkillObjectManager
         float newDamage = _info.CritDamageIncreaseList[_skillLevel];
         GraciaPassiveManager.Instance.SetCritDamage(newDamage);
     }
-    public override void FourthFunc() {
+
+    protected override void FourthFunc() {
         base.FourthFunc();
 
         _skillDurationRoutine ??= StartCoroutine(SkillDuration());

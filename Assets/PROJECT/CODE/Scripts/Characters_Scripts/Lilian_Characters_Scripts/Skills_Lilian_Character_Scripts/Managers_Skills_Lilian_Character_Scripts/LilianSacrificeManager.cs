@@ -14,14 +14,14 @@ public class LilianSacrificeManager : SkillObjectManager {
         animationCoroutine ??= StartCoroutine(AttackCoroutine());
     }
 
-    public override void FirstFunc() {
+    protected override void FirstFunc() {
         base.FirstFunc();
 
         // Definindo Cooldown
         cooldownManager.SetCooldownWithCharges(slot, _info);
     }
 
-    public override void ThirdFunc() {
+    protected override void ThirdFunc() {
         base.ThirdFunc();
 
         healthManager.TakeDamage(_info.PercentOfCurrentHealthToLoose / 100 * healthManager.ReturnCurrentHealth());
@@ -33,7 +33,7 @@ public class LilianSacrificeManager : SkillObjectManager {
         healthManager.RecieveShield(shield, _info.ShieldDuration);
     }
 
-    public override void FourthFunc() {
+    protected override void FourthFunc() {
         base.FourthFunc();
 
 

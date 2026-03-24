@@ -39,7 +39,8 @@ public class CyrusBaseAttackManager : SkillObjectManager {
         }
 
     }
-    public override void FirstFunc() {
+
+    protected override void FirstFunc() {
         _attackSpeedMultiplier = GetAttackSpeedMultiplier();
 
         anim.SetFloat(_info.AttackSpeedAnimationParameter, _attackSpeedMultiplier);
@@ -48,7 +49,7 @@ public class CyrusBaseAttackManager : SkillObjectManager {
     }
 
 
-    public override void FourthFunc() {
+    protected override void FourthFunc() {
         float cooldown = _attackIndex == 1 ? _info.CooldownBetweenAttacks : _info.Cooldown;
         float realCooldown = cooldown / _attackSpeedMultiplier;
 

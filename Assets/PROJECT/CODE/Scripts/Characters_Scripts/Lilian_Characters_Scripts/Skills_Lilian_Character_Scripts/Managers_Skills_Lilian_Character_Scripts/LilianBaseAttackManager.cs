@@ -37,20 +37,20 @@ public class LilianBaseAttackManager : SkillObjectManager
 
     #region Skill
 
-    public override void FirstFunc()
+    protected override void FirstFunc()
     {
         _attackSpeedMultiplier = GetAttackSpeedMultiplier();
         anim.SetFloat(_info.AttackSpeedAnimationParameter, _attackSpeedMultiplier);
         skillManager.SkillIsInAnimation(true);
     }
 
-    public override void ThirdFunc()
+    protected override void ThirdFunc()
     {
         float healthToLoose = _healthManager.ReturnCurrentHealth() * _info.DamagePercentToDamageLilian / 100;
         _healthManager.TakeDamage(healthToLoose);
     }
 
-    public override void FourthFunc()
+    protected override void FourthFunc()
     {
         base.FourthFunc();
 

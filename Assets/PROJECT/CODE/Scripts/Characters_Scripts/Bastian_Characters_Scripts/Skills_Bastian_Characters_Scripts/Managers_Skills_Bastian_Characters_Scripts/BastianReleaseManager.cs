@@ -28,7 +28,7 @@ public class BastianReleaseManager : SkillObjectManager {
         animationCoroutine ??= StartCoroutine(AttackCoroutine());
     }
 
-    public override void FirstFunc() {
+    protected override void FirstFunc() {
         base.FirstFunc();
 
         cooldownManager.SetCooldownWithCharges(slot, _info);
@@ -41,18 +41,19 @@ public class BastianReleaseManager : SkillObjectManager {
         float baseSpeed = statusManager.ReturnStatusValue(StatusType.AttackSpeed);
         return Mathf.Max(0.1f, baseSpeed);
     }
-    public override void ThirdFunc() {
+
+    protected override void ThirdFunc() {
         BastianPassiveManager.Instance.LooseHeat(_info.HeatLost);
     }
 
-    public override void FourthFunc() {
+    protected override void FourthFunc() {
         base.FourthFunc();
 
         statusManager.ChangeStatus(StatusType.AttackSpeed, _info.AttackSpeedGain, true, _info.AttackSpeedDuration);
 
         EndWithUnblockSkills();
 
-        // Resetando a velocidade da animação
+        // Resetando a velocidade da animaï¿½ï¿½o
         anim.SetFloat(_info.AttackSpeedAnimationParameter, 1);
     }
 }

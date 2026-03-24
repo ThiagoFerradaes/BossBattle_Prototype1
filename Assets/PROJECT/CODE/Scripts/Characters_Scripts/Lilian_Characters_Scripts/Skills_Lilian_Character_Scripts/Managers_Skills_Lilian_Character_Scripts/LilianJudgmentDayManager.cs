@@ -32,7 +32,8 @@ public class LilianJudgmentDayManager : SkillObjectManager
     #endregion
 
     #region OverrideRegion
-    public override void FirstFunc()
+
+    protected override void FirstFunc()
     {
         base.FirstFunc();
 
@@ -41,7 +42,7 @@ public class LilianJudgmentDayManager : SkillObjectManager
         energyManager.SetCanGainEnergy(false);
     }
 
-    public override void FourthFunc()
+    protected override void FourthFunc()
     {
         base.FourthFunc();
 

@@ -35,7 +35,8 @@ public class CyrusSpearAttackManager : SkillObjectManager {
     }
 
     #region Attack Animation & Instantiates
-    public override void FirstFunc() {
+
+    protected override void FirstFunc() {
         float cooldown = _skillLevel >= 3 ? _info.Level3Cooldown : _info.Cooldown;
         cooldownManager.SetCooldownSingleCharge(slot, cooldown);
 
@@ -43,7 +44,7 @@ public class CyrusSpearAttackManager : SkillObjectManager {
     }
 
 
-    public override void FourthFunc() {
+    protected override void FourthFunc() {
         base.FourthFunc();
         
         EndWithUnblockSkills();

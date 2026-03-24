@@ -16,6 +16,7 @@ public class ScreensInGameUI : MonoBehaviour {
     SerializedDictionary<TypeOfScreen, GameObject> dictionaryOfScreens = new();
     [Foldout("Dictionary"), SerializedDictionary("Type of Screen", "GameObject"), SerializeField]
     SerializedDictionary<Button, TypeOfButton> dictionaryOfButtons = new();
+    [SerializeField] GameObject backgroundForButtons;
 
     [SerializeField] LoadingScreenSO menuScreenInfo;
 
@@ -45,6 +46,8 @@ public class ScreensInGameUI : MonoBehaviour {
         Time.timeScale = 1;
 
         dictionaryOfScreens[type].SetActive(false);
+
+        TurnButtonBackgroundOff();
     }
 
     void SetButton(TypeOfButton type, Button button) {
@@ -64,5 +67,15 @@ public class ScreensInGameUI : MonoBehaviour {
                 button.onClick.AddListener(() => Application.Quit());
                 break;
         }
+    }
+
+    public void TurnButtonBackgroundOn(Transform target)
+    {
+        backgroundForButtons.transform.position = target.position;
+        backgroundForButtons.SetActive(true);
+    }
+    public void TurnButtonBackgroundOff()
+    {
+        backgroundForButtons.SetActive(false);
     }
 }

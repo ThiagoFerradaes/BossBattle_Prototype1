@@ -42,13 +42,13 @@ public class GraciaBlueAuraManager : SkillObjectManager
 
     #region Animation Methodes Override
 
-    public override void FirstFunc() {
+    protected override void FirstFunc() {
         base.FirstFunc();
 
         cooldownManager.SetCooldownSingleCharge(slot, _info.Cooldown);
     }
 
-    public override void FourthFunc() {
+    protected override void FourthFunc() {
         base.FourthFunc();
 
         GraciaAttackManager.OnAttackHit -= _onHit;
@@ -104,10 +104,10 @@ public class GraciaBlueAuraManager : SkillObjectManager
         // Buscando hitbox na pool
         GameObject prefab = PoolingManager.Instance.ReturnPrefabFromPool(_info.Prefabs[0][0].PreFab, TypeOfSkillPrefab.Hitbox);
 
-        // Buscando o atributo de acordo com o nível
+        // Buscando o atributo de acordo com o nï¿½vel
         DamageAtributes atributes = _info.AttackAtributesList[_skillLevel];
 
-        // Settando o tamanho e a posição do ataque
+        // Settando o tamanho e a posiï¿½ï¿½o do ataque
         prefab.transform.localScale = atributes.Size;
         prefab.transform.SetParent(parent.transform, false);
         prefab.transform.SetLocalPositionAndRotation(_info.Prefabs[0][0].PreFabPosition, Quaternion.identity);

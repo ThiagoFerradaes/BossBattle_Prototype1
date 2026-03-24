@@ -27,14 +27,14 @@ public class BastianLastWhisper : SkillObjectManager
         if (!gameObject.activeInHierarchy) gameObject.SetActive(true);
     }
 
-    public override void FirstFunc()
+    protected override void FirstFunc()
     {
         base.FirstFunc();
         energyManager.LooseAllEnergy();
         BastianPassiveManager.Instance.SetCanLooseHeat(false);
     }
 
-    public override void FourthFunc()
+    protected override void FourthFunc()
     {
 
         base.FourthFunc();
