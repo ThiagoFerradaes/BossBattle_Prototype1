@@ -5,9 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Characters/ Skills/ Cyrus/ BaseAttack")]
 public class CyrusBaseAttackSO : CommonSkillSO {
 
-    [Header("Animation")]
-    [Foldout("Specific")] public string AttackSpeedAnimationParameter;
-
     [Header("Atributes")]
     [Header("Floats")]
     [Foldout("Specific")] public DamageAtributes FirstAttackAtributes;

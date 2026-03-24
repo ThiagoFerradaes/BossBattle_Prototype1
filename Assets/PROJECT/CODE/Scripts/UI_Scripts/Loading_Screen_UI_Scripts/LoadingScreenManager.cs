@@ -58,7 +58,7 @@ public class LoadingScreenManager : MonoBehaviour {
     void Load() {
         //ChooseRandomBackground(CurrentLoadingScreenInfo);
         savingFadeCoroutine ??= StartCoroutine(SavingIconFade());
-        tipCoroutine ??= StartCoroutine(HandleTipChanging(CurrentLoadingScreenInfo));
+        tipCoroutine ??= StartCoroutine(HandleTipChanging());
 
         loadingOperation = SceneManager.LoadSceneAsync(CurrentLoadingScreenInfo.SceneIndex);
         loadingOperation.allowSceneActivation = false;
@@ -71,6 +71,7 @@ public class LoadingScreenManager : MonoBehaviour {
     #region Coroutines
     IEnumerator SavingIconFade()
     {
+        bossSavingIcon.sprite = CurrentLoadingScreenInfo.SavingIcon;
 
         CanvasGroup canvasG = savingIcon.GetComponent<CanvasGroup>();
 
@@ -84,10 +85,10 @@ public class LoadingScreenManager : MonoBehaviour {
         }
     }
 
-    IEnumerator HandleTipChanging(LoadingScreenSO loadingScriptable)
+    IEnumerator HandleTipChanging()
     {
 
-        List<Tip> list = new(loadingScriptable.ListOfTips);
+        List<Tip> list = new(CurrentLoadingScreenInfo.ListOfTips);
 
         CanvasGroup canvasG = tipObject.GetComponent<CanvasGroup>();
 
