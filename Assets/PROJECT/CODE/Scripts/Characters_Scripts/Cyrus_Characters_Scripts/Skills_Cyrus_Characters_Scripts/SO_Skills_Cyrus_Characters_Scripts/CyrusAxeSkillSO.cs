@@ -6,9 +6,6 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Characters/ Skills/ Cyrus/ AxeSkill")]
 public class CyrusAxeSkillSO : CommonSkillSO
 {
-    [Header("Animation")]
-    [Foldout("Specific")] public string FirstAnimationParameterName;
-
     [Header("Atributes")]
     [Header("Floats")]
     [Foldout("Specific")] public float MinimalChargeTime;

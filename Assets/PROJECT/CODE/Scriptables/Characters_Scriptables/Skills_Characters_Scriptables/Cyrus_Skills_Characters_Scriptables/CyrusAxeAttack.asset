@@ -23,7 +23,17 @@ MonoBehaviour:
     MapSkillSelectedSpriteIcon: {fileID: -1455463602, guid: cee67a2d50b177a4a83653c67d610c6c, type: 3}
     MapLockSkillSpriteIcon: {fileID: 1496394917, guid: ab75e1b1a9aedbc45b40c78d83e17be3, type: 3}
   SkillManagerObject: {fileID: 8217681042118647236, guid: e6293f237e32a1a40a1e3d233031b521, type: 3}
-  ListOfAnimationsInfo: []
+  ListOfAnimationsInfo:
+  - Animation: {fileID: 7400000, guid: 65a133bded0d59549b2a5110d41c3a53, type: 2}
+    AnimationLayer: 0
+    AnimationSpeed: 1
+    AnimationExitTime: 0.9
+    IsAnimationTrigger: 1
+  - Animation: {fileID: 7400000, guid: f2bf4e27dc38cca42b1773bbb3e5a392, type: 2}
+    AnimationLayer: 0
+    AnimationSpeed: 1
+    AnimationExitTime: 0.9
+    IsAnimationTrigger: 1
   Prefabs:
     _serializedList:
     - Key: 0
@@ -83,7 +93,7 @@ MonoBehaviour:
   SkillObjectRangeObject: {fileID: 7295537954416935036, guid: 2cd15af29a69803439873d8a1751fec9, type: 3}
   BlockWalkWhilePreCasting: 1
   BlockDashWhilePreCasting: 1
-  PreCastOn: 1
+  PreCastOn: 0
   SkillCharacter: 0
   Cancelable: 1
   Slot: 1
@@ -113,7 +123,6 @@ MonoBehaviour:
     MinDistanceBack: 0
     ExtraAtributes:
       _serializedList: []
-  FirstAnimationParameterName: AxeSkillOne
   MinimalChargeTime: 0.5
   MaxChargeTime: 1.8
   MinDamage: 80

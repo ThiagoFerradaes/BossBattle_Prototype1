@@ -9,7 +9,6 @@ public class AnimationInfo {
     public int AnimationLayer;
     public float AnimationSpeed = 1;
     [Range(0,1)] public float AnimationExitTime = 1;
-    public bool IsAnimationTrigger = true;
 }
 public abstract class SkillObjectManager : MonoBehaviour {
     #region Parameters

@@ -3,13 +3,11 @@ using DG.Tweening;
 using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
-using System.Threading;
 
 public class LoadingScreenManager : MonoBehaviour {
     // Components
