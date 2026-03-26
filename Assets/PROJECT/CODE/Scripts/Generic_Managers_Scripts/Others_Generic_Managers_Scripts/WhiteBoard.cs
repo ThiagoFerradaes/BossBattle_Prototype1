@@ -53,7 +53,6 @@ public class WhiteBoard : MonoBehaviour {
     [SerializeField] List<CharacterUnlockedInfo> _listOfCharactersUnlockedInfo = new();
 
     Dictionary<Bosses, int> _dictionaryOfUnlockedPhasesByBosses = new();
-    Dictionary<BossRewardItem, int> _bossItensInventory = new();
 
     public static event Action<SkillSlot, float> OnCooldownSet;
     public static event Action<SkillSlot, int> OnChargesSet;
@@ -154,19 +153,7 @@ public class WhiteBoard : MonoBehaviour {
     public void UnlockPhase(Bosses boss, int amountOfPhasesUnlocked) {
         _dictionaryOfUnlockedPhasesByBosses[boss] = amountOfPhasesUnlocked;
     }
-    /// <summary>
-    /// Add the amount of the item to the inventory
-    /// </summary>
-    /// <param name="item"></param>
-    /// <param name="amount"></param>
-    public void RecieveBossItem(BossRewardItem item, int amount) {
-        if (_bossItensInventory.ContainsKey(item)) {
-            _bossItensInventory[item] += amount;
-        }
-        else {
-            _bossItensInventory[item] = amount;
-        }
-    }
+
 
     #endregion
 }
