@@ -7,19 +7,17 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: CyrusDissolveShaderMaterial
-  m_Shader: {fileID: -6465566751694194690, guid: 59a5d9b5c228b7c43900983e06fd3dad, type: 3}
+  m_Name: CellShadingOne
+  m_Shader: {fileID: -6465566751694194690, guid: dd79d5c2311849d4c8efb97559acb321, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords:
-  - _ALPHATEST_ON
+  m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2450
-  stringTagMap:
-    RenderType: TransparentCutout
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
   disabledShaderPasses:
   - MOTIONVECTORS
   m_LockedProperties: 
@@ -40,38 +38,13 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _AlphaClip: 1
-    - _AlphaToMask: 1
-    - _Blend: 0
-    - _BlendModePreserveSpecular: 1
-    - _CastShadows: 1
-    - _Cull: 0
-    - _DstBlend: 0
-    - _DstBlendAlpha: 0
-    - _Float: 0.1
-    - _Float_1: -0.022
-    - _Noise: 35
+    - _Float: 1
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _ReceiveShadows: 1
-    - _Smoothness: 0.7
-    - _SrcBlend: 1
-    - _SrcBlendAlpha: 1
-    - _Surface: 0
-    - _WorkflowMode: 1
-    - _ZTest: 4
-    - _ZWrite: 1
-    - _ZWriteControl: 0
-    - _alphaClipFloat: 0
-    - _emission: -0.022
-    - _metalic: 0.7
-    m_Colors:
-    - _Color: {r: 1, g: 0.058490515, b: 0.058490515, a: 0}
-    - _Color_1: {r: 1, g: 0.3226415, b: 0.3226415, a: 0}
-    - _emissionColor: {r: 2.2257268, g: 0.1165302, b: 0, a: 0}
+    m_Colors: []
   m_BuildTextureStacks: []
   m_AllowLocking: 1
---- !u!114 &2938514480867964010
+--- !u!114 &4466084889001244314
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
