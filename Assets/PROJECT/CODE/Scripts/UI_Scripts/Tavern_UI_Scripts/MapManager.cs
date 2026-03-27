@@ -18,18 +18,20 @@ public class MapManager : MonoBehaviour {
     [Foldout("First Map"), SerializeField] Button CloseMapButton;
     [Foldout("First Map"), SerializeField] Button TestIslandButton;
     [Foldout("First Map"), SerializeField] BossDescription TestIslandDescription;
+    [Foldout("First Map"), SerializeField] GameObject selectedIslandIcon;
 
     [Foldout("Second Map"), SerializeField] GameObject SecondMap;
     [Foldout("Second Map"), SerializeField] Image BossImage;
     [Foldout("Second Map"), SerializeField] Image SelectedCharacterIcon;
-    [Foldout("Second Map"), SerializeField] TextMeshProUGUI BossName;
     [Foldout("Second Map"), SerializeField] TextMeshProUGUI IsleName;
     [Foldout("Second Map"), SerializeField] TextMeshProUGUI BossDescription;
     [Foldout("Second Map"), SerializeField] Button CloseSecondMapButton;
     [Foldout("Second Map"), SerializeField] Button SailButton;
     [Foldout("Second Map"), SerializeField] Button ChangeCharacterButton;
+    [Foldout("Second Map"), SerializeField] List<Sprite> listOfDificultySpritesActive;
+    [Foldout("Second Map"), SerializeField] List<Sprite> listOfDificultySpritesDesactive;
+    [Foldout("Second Map"), SerializeField] List<Image> ListOfDifficultyImages;
     [Foldout("Second Map"), SerializeField] List<Button> ListOfDifficultyButtons;
-    [Foldout("Second Map"), SerializeField] List<Image> ListOfDifficultyBackgrounds;
     [Foldout("Second Map"), SerializeField] List<Image> ListOfDifficultyLocks;
     [Foldout("Second Map"), SerializeField] Color difficultySelectedColor;
     [Foldout("Second Map"), SerializeField] Color difficultyDeselectedColor;
@@ -84,6 +86,7 @@ public class MapManager : MonoBehaviour {
             var localDescription = description;
 
             button.onClick.AddListener(() => TurnScreenOn(localDescription));
+            button.onClick.AddListener(() => TurnSelectedIslandIconOn(button.transform));
         }
 
         for (int i = 0; i < ListOfDifficultyButtons.Count; i++) {
@@ -96,11 +99,13 @@ public class MapManager : MonoBehaviour {
             OnCloseMap?.Invoke();
             SecondMap.SetActive(false);
             SailButton.gameObject.SetActive(false);
-            });
+            TurnSelectedIslandIconOff();
+        });
         
         CloseSecondMapButton.onClick.AddListener(() => {
             SecondMap.SetActive(false);
             SailButton.gameObject.SetActive(false);
+            TurnSelectedIslandIconOff();
         });
 
         TestIslandButton.onClick.AddListener(() => TurnScreenOn(TestIslandDescription));
@@ -108,21 +113,34 @@ public class MapManager : MonoBehaviour {
         ChangeCharacterButton.onClick.AddListener(() => _characterSelectionManager.Initialize());
     }
 
+    void TurnSelectedIslandIconOn(Transform islandTransform)
+    {
+        selectedIslandIcon.transform.position = islandTransform.position;
+        selectedIslandIcon.SetActive(true);
+    }
+    void TurnSelectedIslandIconOff()
+    {
+        selectedIslandIcon.SetActive(false);
+    }
+
     void SelectDifficulty(int difficulty) {
         _currentDifficulty = difficulty;
 
-        foreach (var obj in ListOfDifficultyBackgrounds) {
-            if (obj == ListOfDifficultyBackgrounds[difficulty]) {
-                obj.color = difficultySelectedColor;
+        for (int i = 0; i < listOfDificultySpritesActive.Count; i++) {
+            if (i <= difficulty)
+            {
+                ListOfDifficultyImages[i].sprite = listOfDificultySpritesActive[i];
             }
-            else obj.color = difficultyDeselectedColor;
+            else
+            {
+                ListOfDifficultyImages[i].sprite = listOfDificultySpritesDesactive[i];
+            }
         }
     }
 
     void TurnScreenOn(BossDescription description) {
         SecondMap.SetActive(true);
         BossImage.sprite = description.BossSprite;
-        BossName.text = description.BossName;
         IsleName.text = description.IsleName;
         BossDescription.text = description.Description;
 
