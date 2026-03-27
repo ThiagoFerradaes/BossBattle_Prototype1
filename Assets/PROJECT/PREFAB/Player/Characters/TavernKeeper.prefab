@@ -77,7 +77,6 @@ GameObject:
   - component: {fileID: 3160985740282346584}
   - component: {fileID: 7288651015015623778}
   - component: {fileID: 4861411087896609535}
-  - component: {fileID: 835047944421183603}
   m_Layer: 8
   m_Name: TavernKeeper
   m_TagString: Player
@@ -288,7 +287,7 @@ MonoBehaviour:
     m_ActionName: 'Tavern/Drag[/Mouse/rightButton]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 835047944421183603}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PlayerInteractionManager, Assembly-CSharp
         m_MethodName: Interaction
         m_Mode: 0
@@ -405,23 +404,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StunManager
   stunParamenter: Stun
---- !u!114 &835047944421183603
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8221154074876193513}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f894ee33d29901d439e6fbedca42150b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerInteractionManager
-  interactionRange: 1.5
-  interactionLayer:
-    serializedVersion: 2
-    m_Bits: 4096
-  playerMovementManager: {fileID: 1713622384440033257}
 --- !u!1001 &8919010732312894223
 PrefabInstance:
   m_ObjectHideFlags: 0

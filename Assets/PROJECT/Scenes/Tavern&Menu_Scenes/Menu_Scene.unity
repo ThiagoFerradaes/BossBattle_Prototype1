@@ -968,7 +968,6 @@ GameObject:
   m_Component:
   - component: {fileID: 386798064}
   - component: {fileID: 386798066}
-  - component: {fileID: 386798067}
   m_Layer: 0
   m_Name: SceneManager
   m_TagString: Untagged
@@ -1016,22 +1015,6 @@ MonoBehaviour:
   map: {fileID: 1043707979}
   tavernLoadingScreenInfo: {fileID: 11400000, guid: 633171cb9e381e24488eaf7b96eacfd4, type: 2}
   configCanvas: {fileID: 550226077}
---- !u!114 &386798067
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 386798063}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 535811ee203240246aba3cbad7a4a979, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ConfigurationManager
-  preCastOnToggle: {fileID: 1177054172}
-  dashToMouseToggle: {fileID: 1560941313}
-  languageDropdown: {fileID: 21568813}
-  _configurationSo: {fileID: 0}
 --- !u!1 &422710594
 GameObject:
   m_ObjectHideFlags: 0
@@ -1229,7 +1212,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 550226078}
-  - component: {fileID: 550226079}
   m_Layer: 5
   m_Name: Config
   m_TagString: Untagged
@@ -1263,26 +1245,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &550226079
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 550226077}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4672021af09531c43943ee521946d619, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::UITextLocalizer
-  useListMode: 1
-  _config: {fileID: 0}
-  textBox: {uiText: {fileID: 0}, textBoxes: {fileID: 0}}
-  textBoxesList:
-  - {uiText: {fileID: 1707851885}, textBoxes: {fileID: 11400000, guid: 242adf57d223ed445b6ca769269e36a2, type: 2}}
-  - {uiText: {fileID: 265725068}, textBoxes: {fileID: 11400000, guid: edf331e5c6407704cb7f19dd2e8726a7, type: 2}}
-  - {uiText: {fileID: 1635858978}, textBoxes: {fileID: 11400000, guid: a043df9e9032d804784ad235e0ef000a, type: 2}}
-  - {uiText: {fileID: 1166561334}, textBoxes: {fileID: 11400000, guid: 377b142c1931f574fbb9a407c0d0a2ad, type: 2}}
 --- !u!1 &580706985
 GameObject:
   m_ObjectHideFlags: 0
@@ -3756,7 +3718,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1565217586}
-  - component: {fileID: 1565217587}
   m_Layer: 5
   m_Name: Buttons
   m_TagString: Untagged
@@ -3784,25 +3745,6 @@ RectTransform:
   m_AnchoredPosition: {x: 960, y: 0}
   m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 1, y: 0.5}
---- !u!114 &1565217587
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1565217585}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4672021af09531c43943ee521946d619, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::UITextLocalizer
-  useListMode: 1
-  _config: {fileID: 0}
-  textBox: {uiText: {fileID: 0}, textBoxes: {fileID: 0}}
-  textBoxesList:
-  - {uiText: {fileID: 0}, textBoxes: {fileID: 11400000, guid: d8a241d3aa71ce14c8b34b9b0dab42a1, type: 2}}
-  - {uiText: {fileID: 0}, textBoxes: {fileID: 11400000, guid: da36fb2454928ce4cbc5379e842cc22b, type: 2}}
-  - {uiText: {fileID: 0}, textBoxes: {fileID: 11400000, guid: 7037442872dfde64d9280585923e02ed, type: 2}}
 --- !u!1 &1583639105
 GameObject:
   m_ObjectHideFlags: 0
