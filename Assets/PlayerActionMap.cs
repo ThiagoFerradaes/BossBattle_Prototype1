@@ -172,15 +172,6 @@ public partial class @PlayerActionMap: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""EditorRoom"",
-                    ""type"": ""Button"",
-                    ""id"": ""82be45cc-17e1-40ce-8c43-a4b89e41ea18"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -344,30 +335,8 @@ public partial class @PlayerActionMap: IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": "";Gamepad"",
-                    ""action"": ""Interaction"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""22ae5371-0ab7-4a43-8233-d31c76c3fd42"",
-                    ""path"": ""<Gamepad>/buttonNorth"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Gamepad"",
-                    ""action"": ""Interaction"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""4b522dfd-41eb-4fb0-b153-2b4bbeb47ad2"",
-                    ""path"": ""<Keyboard>/p"",
-                    ""interactions"": """",
-                    ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""EditorRoom"",
+                    ""action"": ""Interaction"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -888,34 +857,6 @@ public partial class @PlayerActionMap: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
-        },
-        {
-            ""name"": ""Tavern"",
-            ""id"": ""77dadf14-7751-4253-9ab3-645772ddfffc"",
-            ""actions"": [
-                {
-                    ""name"": ""Drag"",
-                    ""type"": ""Button"",
-                    ""id"": ""0003cf65-0225-4aaa-a88d-8caa51ea290c"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                }
-            ],
-            ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""38e0f7f3-7fc7-4ed1-87ce-78e43bdd7486"",
-                    ""path"": ""<Mouse>/rightButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Drag"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                }
-            ]
         }
     ],
     ""controlSchemes"": [
@@ -992,7 +933,6 @@ public partial class @PlayerActionMap: IInputActionCollection2, IDisposable
         m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
         m_Player_Rotate = m_Player.FindAction("Rotate", throwIfNotFound: true);
         m_Player_Interaction = m_Player.FindAction("Interaction", throwIfNotFound: true);
-        m_Player_EditorRoom = m_Player.FindAction("EditorRoom", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1005,16 +945,12 @@ public partial class @PlayerActionMap: IInputActionCollection2, IDisposable
         m_UI_ScrollWheel = m_UI.FindAction("ScrollWheel", throwIfNotFound: true);
         m_UI_TrackedDevicePosition = m_UI.FindAction("TrackedDevicePosition", throwIfNotFound: true);
         m_UI_TrackedDeviceOrientation = m_UI.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
-        // Tavern
-        m_Tavern = asset.FindActionMap("Tavern", throwIfNotFound: true);
-        m_Tavern_Drag = m_Tavern.FindAction("Drag", throwIfNotFound: true);
     }
 
     ~@PlayerActionMap()
     {
         UnityEngine.Debug.Assert(!m_Player.enabled, "This will cause a leak and performance issues, PlayerActionMap.Player.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_UI.enabled, "This will cause a leak and performance issues, PlayerActionMap.UI.Disable() has not been called.");
-        UnityEngine.Debug.Assert(!m_Tavern.enabled, "This will cause a leak and performance issues, PlayerActionMap.Tavern.Disable() has not been called.");
     }
 
     /// <summary>
@@ -1099,7 +1035,6 @@ public partial class @PlayerActionMap: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Pause;
     private readonly InputAction m_Player_Rotate;
     private readonly InputAction m_Player_Interaction;
-    private readonly InputAction m_Player_EditorRoom;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -1147,10 +1082,6 @@ public partial class @PlayerActionMap: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/Interaction".
         /// </summary>
         public InputAction @Interaction => m_Wrapper.m_Player_Interaction;
-        /// <summary>
-        /// Provides access to the underlying input action "Player/EditorRoom".
-        /// </summary>
-        public InputAction @EditorRoom => m_Wrapper.m_Player_EditorRoom;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1204,9 +1135,6 @@ public partial class @PlayerActionMap: IInputActionCollection2, IDisposable
             @Interaction.started += instance.OnInteraction;
             @Interaction.performed += instance.OnInteraction;
             @Interaction.canceled += instance.OnInteraction;
-            @EditorRoom.started += instance.OnEditorRoom;
-            @EditorRoom.performed += instance.OnEditorRoom;
-            @EditorRoom.canceled += instance.OnEditorRoom;
         }
 
         /// <summary>
@@ -1245,9 +1173,6 @@ public partial class @PlayerActionMap: IInputActionCollection2, IDisposable
             @Interaction.started -= instance.OnInteraction;
             @Interaction.performed -= instance.OnInteraction;
             @Interaction.canceled -= instance.OnInteraction;
-            @EditorRoom.started -= instance.OnEditorRoom;
-            @EditorRoom.performed -= instance.OnEditorRoom;
-            @EditorRoom.canceled -= instance.OnEditorRoom;
         }
 
         /// <summary>
@@ -1476,102 +1401,6 @@ public partial class @PlayerActionMap: IInputActionCollection2, IDisposable
     /// Provides a new <see cref="UIActions" /> instance referencing this action map.
     /// </summary>
     public UIActions @UI => new UIActions(this);
-
-    // Tavern
-    private readonly InputActionMap m_Tavern;
-    private List<ITavernActions> m_TavernActionsCallbackInterfaces = new List<ITavernActions>();
-    private readonly InputAction m_Tavern_Drag;
-    /// <summary>
-    /// Provides access to input actions defined in input action map "Tavern".
-    /// </summary>
-    public struct TavernActions
-    {
-        private @PlayerActionMap m_Wrapper;
-
-        /// <summary>
-        /// Construct a new instance of the input action map wrapper class.
-        /// </summary>
-        public TavernActions(@PlayerActionMap wrapper) { m_Wrapper = wrapper; }
-        /// <summary>
-        /// Provides access to the underlying input action "Tavern/Drag".
-        /// </summary>
-        public InputAction @Drag => m_Wrapper.m_Tavern_Drag;
-        /// <summary>
-        /// Provides access to the underlying input action map instance.
-        /// </summary>
-        public InputActionMap Get() { return m_Wrapper.m_Tavern; }
-        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
-        public void Enable() { Get().Enable(); }
-        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
-        public void Disable() { Get().Disable(); }
-        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
-        public bool enabled => Get().enabled;
-        /// <summary>
-        /// Implicitly converts an <see ref="TavernActions" /> to an <see ref="InputActionMap" /> instance.
-        /// </summary>
-        public static implicit operator InputActionMap(TavernActions set) { return set.Get(); }
-        /// <summary>
-        /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
-        /// </summary>
-        /// <param name="instance">Callback instance.</param>
-        /// <remarks>
-        /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
-        /// </remarks>
-        /// <seealso cref="TavernActions" />
-        public void AddCallbacks(ITavernActions instance)
-        {
-            if (instance == null || m_Wrapper.m_TavernActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_TavernActionsCallbackInterfaces.Add(instance);
-            @Drag.started += instance.OnDrag;
-            @Drag.performed += instance.OnDrag;
-            @Drag.canceled += instance.OnDrag;
-        }
-
-        /// <summary>
-        /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
-        /// </summary>
-        /// <remarks>
-        /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
-        /// </remarks>
-        /// <seealso cref="TavernActions" />
-        private void UnregisterCallbacks(ITavernActions instance)
-        {
-            @Drag.started -= instance.OnDrag;
-            @Drag.performed -= instance.OnDrag;
-            @Drag.canceled -= instance.OnDrag;
-        }
-
-        /// <summary>
-        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="TavernActions.UnregisterCallbacks(ITavernActions)" />.
-        /// </summary>
-        /// <seealso cref="TavernActions.UnregisterCallbacks(ITavernActions)" />
-        public void RemoveCallbacks(ITavernActions instance)
-        {
-            if (m_Wrapper.m_TavernActionsCallbackInterfaces.Remove(instance))
-                UnregisterCallbacks(instance);
-        }
-
-        /// <summary>
-        /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
-        /// </summary>
-        /// <remarks>
-        /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
-        /// </remarks>
-        /// <seealso cref="TavernActions.AddCallbacks(ITavernActions)" />
-        /// <seealso cref="TavernActions.RemoveCallbacks(ITavernActions)" />
-        /// <seealso cref="TavernActions.UnregisterCallbacks(ITavernActions)" />
-        public void SetCallbacks(ITavernActions instance)
-        {
-            foreach (var item in m_Wrapper.m_TavernActionsCallbackInterfaces)
-                UnregisterCallbacks(item);
-            m_Wrapper.m_TavernActionsCallbackInterfaces.Clear();
-            AddCallbacks(instance);
-        }
-    }
-    /// <summary>
-    /// Provides a new <see cref="TavernActions" /> instance referencing this action map.
-    /// </summary>
-    public TavernActions @Tavern => new TavernActions(this);
     private int m_KeyboardMouseSchemeIndex = -1;
     /// <summary>
     /// Provides access to the input control scheme.
@@ -1707,13 +1536,6 @@ public partial class @PlayerActionMap: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnInteraction(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "EditorRoom" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnEditorRoom(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.
@@ -1792,20 +1614,5 @@ public partial class @PlayerActionMap: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnTrackedDeviceOrientation(InputAction.CallbackContext context);
-    }
-    /// <summary>
-    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Tavern" which allows adding and removing callbacks.
-    /// </summary>
-    /// <seealso cref="TavernActions.AddCallbacks(ITavernActions)" />
-    /// <seealso cref="TavernActions.RemoveCallbacks(ITavernActions)" />
-    public interface ITavernActions
-    {
-        /// <summary>
-        /// Method invoked when associated input action "Drag" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnDrag(InputAction.CallbackContext context);
     }
 }
