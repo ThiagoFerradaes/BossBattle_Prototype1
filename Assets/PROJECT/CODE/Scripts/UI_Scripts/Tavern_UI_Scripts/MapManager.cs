@@ -8,6 +8,8 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MapManager : MonoBehaviour {
+    [SerializeField] GameObject mapScreen;
+
     [Foldout("Dictionary"), SerializedDictionary("Boss Fog", " Fog object"), SerializeField]
     SerializedDictionary<Bosses, GameObject> DictionaryOfFogs = new();
     [Foldout("Dictionary"), SerializedDictionary("Button phase", " Button object"), SerializeField]
@@ -44,6 +46,8 @@ public class MapManager : MonoBehaviour {
 
     Action<CharacterSO> _onChangeSelectedCharacter;
 
+    PlayerInputHandlerManager _handler;
+
     #region StartRegion
     private void Awake() {
         _characterSelectionManager = GetComponent<CharacterSelectionManager>();
@@ -56,16 +60,22 @@ public class MapManager : MonoBehaviour {
     private void OnDestroy() {
         CurrentSelectedCharacterWhiteBoard.Instance.OnSelectedCharacterChanged -= _onChangeSelectedCharacter;
     }
-    private void OnEnable() {
+    public void InitializeMap(PlayerInputHandlerManager handler = null)
+    {   
+        _handler = handler;
+
         WhiteBoard board = WhiteBoard.Instance;
 
-        foreach (var boss in board.ReturnListOfUnlockedPhasesByBoss().Keys) { // FOGS
-            if (DictionaryOfFogs.ContainsKey(boss)) {
+        foreach (var boss in board.ReturnListOfUnlockedPhasesByBoss().Keys)
+        { // FOGS
+            if (DictionaryOfFogs.ContainsKey(boss))
+            {
                 DictionaryOfFogs[boss].SetActive(false);
             }
         }
 
-        foreach (var phase in DictionaryOfButtons.Keys) { // ILHAS
+        foreach (var phase in DictionaryOfButtons.Keys)
+        { // ILHAS
 
             Button button = DictionaryOfButtons[phase].GetComponent<Button>();
             button.interactable = board.ReturnListOfUnlockedPhasesByBoss().ContainsKey(phase);
@@ -74,6 +84,8 @@ public class MapManager : MonoBehaviour {
         }
 
         OnChangeSelectedCharacter(CurrentSelectedCharacterWhiteBoard.Instance.ReturnSelectedCharacterSO());
+
+        mapScreen.SetActive(true);
     }
     #endregion
 
@@ -95,7 +107,7 @@ public class MapManager : MonoBehaviour {
         }
 
         CloseMapButton.onClick.AddListener(() => {
-            gameObject.SetActive(false);
+            TurnMapOff();
             OnCloseMap?.Invoke();
             SecondMap.SetActive(false);
             SailButton.gameObject.SetActive(false);
@@ -113,6 +125,11 @@ public class MapManager : MonoBehaviour {
         ChangeCharacterButton.onClick.AddListener(() => _characterSelectionManager.Initialize());
     }
 
+    void TurnMapOff()
+    {
+        if (_handler != null) _handler.SetCanInput(true);
+        mapScreen.SetActive(false);
+    }
     void TurnSelectedIslandIconOn(Transform islandTransform)
     {
         selectedIslandIcon.transform.position = islandTransform.position;

@@ -2,9 +2,10 @@ using UnityEngine;
 
 public class MapObjectTavern : MonoBehaviour, IInteractable
 {
-    [SerializeField] GameObject mapCanvas;
-    public void Interact()
+    [SerializeField] MapManager mapCanvas;
+    public void Interact(PlayerInputHandlerManager handler)
     {
-        mapCanvas.SetActive(true);
+        handler.SetCanInput(false);
+        mapCanvas.InitializeMap(handler);
     }
 }

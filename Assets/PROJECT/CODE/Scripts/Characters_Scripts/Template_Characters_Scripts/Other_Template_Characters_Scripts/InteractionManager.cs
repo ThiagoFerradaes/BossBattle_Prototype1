@@ -3,21 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(Collider))]
 public class InteractionManager : MonoBehaviour
 {
+    [SerializeField] LayerMask _interactableLayer;
     private List<GameObject> _listOfInteractableObjects = new();
     GameObject _closestInteractableObject;
-    [SerializeField] LayerMask _interactableLayer;
-    public void OnInteraction(InputAction.CallbackContext ctx)
-    {
-        if (Time.timeScale == 0) return;
-        if (ctx.performed)
-        {
-            HandleInteraction();
-        }
-    }
 
-    void HandleInteraction()
+    public void HandleInteraction(PlayerInputHandlerManager handler)
     {
         if (_listOfInteractableObjects.Count > 0)
         {
@@ -28,7 +21,7 @@ public class InteractionManager : MonoBehaviour
                 {
                     return;
                 }
-                interactable.Interact();
+                interactable.Interact(handler);
             }
         }
     }
@@ -70,7 +63,7 @@ public class InteractionManager : MonoBehaviour
 
 public interface IInteractable
 {
-    public void Interact()
+    public void Interact(PlayerInputHandlerManager handler)
     {
     }
 }

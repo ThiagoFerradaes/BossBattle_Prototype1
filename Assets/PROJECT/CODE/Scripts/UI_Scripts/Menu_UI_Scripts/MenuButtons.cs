@@ -17,7 +17,7 @@ public class MenuButtons : MonoBehaviour
     [SerializeField] GameObject exitPopUp;
 
     [Header ("Temporario")]
-    [SerializeField] GameObject map;
+    [SerializeField] MapManager map;
     [SerializeField] LoadingScreenSO tavernLoadingScreenInfo;
 
     [Header("Canvas")]
@@ -40,7 +40,7 @@ public class MenuButtons : MonoBehaviour
     }
 
     void OpenMap() {
-        map.SetActive(true);
+        map.InitializeMap();
     }
 
     void HandleConfigUI(bool open) {

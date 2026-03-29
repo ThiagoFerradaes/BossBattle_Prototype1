@@ -10,21 +10,15 @@ public class PlayerMovementManager : MonoBehaviour {
     
     #region Parameters
 
-    // Inputs
-    [Header("Input Action Reference")]
-    [SerializeField] private InputActionReference moveActionReference;
-
     // Movement floats
-    float _zInput;
-    float _xInput;
+    //float _zVelocity,_xVelocity;
+    private float _xInput, _zInput;
 
     // Booleans
     bool _canMove = true;
     bool _canWalk = true;
     bool _canRotate = true;
     bool _isDashing = false;
-    bool _isPaused = false;
-    bool _isRoomEditor = false;
     
     // Animation
     [Header("Animation")]
@@ -80,24 +74,12 @@ public class PlayerMovementManager : MonoBehaviour {
     #endregion
 
     #region Input Events
-    public void OnRotate(InputAction.CallbackContext ctx) {
-        if (!_canRotate || !_canMove || Time.timeScale == 0) return;
+    public void DetectRotation(Vector2 rotationValue) {
+        if (!_canRotate || !_canMove) return;
 
-        _mousePosition = ctx.ReadValue<Vector2>();
+        _mousePosition = rotationValue;
     }
 
-    public void OnPause(InputAction.CallbackContext ctx) {
-        if (ctx.phase == InputActionPhase.Performed) {
-            if (!_isPaused) {
-                _isPaused = true;
-                ScreensInGameUI.Instance.TurnScreenOn(TypeOfScreen.Pause);
-            }
-            else {
-                _isPaused = false;
-                ScreensInGameUI.Instance.TurnScreenOff(TypeOfScreen.Pause);
-            }
-        }
-    }
 
     #endregion
 
@@ -107,24 +89,28 @@ public class PlayerMovementManager : MonoBehaviour {
         Rotate();
     }
 
+    public void SetWalkInputs(Vector2 inputValue)
+    {
+        _xInput = inputValue.x;
+        _zInput = inputValue.y;
+    }
+    public void ResetWalkInputs()
+    {
+        _xInput = 0;
+        _zInput = 0;
+    }
     private void Walk() {
         if (!_canMove || !_canWalk) {
-            _xInput = 0;
-            _zInput = 0;
-        }
-        else {
-            Vector2 value = moveActionReference.action.ReadValue<Vector2>();
-            _xInput = value.x;
-            _zInput = value.y;
+            ResetWalkInputs();
         }
 
         if (!_isDashing) {
             float moveSpeed = _statusManager.ReturnStatusValue(StatusType.MoveSpeed);
             Vector3 movedir = new Vector3(_xInput, 0, _zInput).normalized;
             Vector3 moveDirection = _cameraCenter.transform.TransformDirection(movedir);
-            if(!_isRoomEditor)_rb.linearVelocity = moveDirection * moveSpeed;
-            else return;
+            _rb.linearVelocity = moveDirection * moveSpeed;
         }
+
         UpdateWalkingAnimation();
     }
 
@@ -195,11 +181,6 @@ public class PlayerMovementManager : MonoBehaviour {
     /// <param name="isDashing"></param>
     public void ChangeIsDashing(bool isDashing) => _isDashing = isDashing;
 
-    /// <summary>
-    /// Change the camera center of the player
-    /// </summary>
-    /// <param name="isPlayer"></param>
-    public void RoomEditor( bool isPlayer) => _isRoomEditor = isPlayer;
     #endregion
 
     #region Animation

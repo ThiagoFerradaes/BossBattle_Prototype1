@@ -72,12 +72,14 @@ GameObject:
   m_Component:
   - component: {fileID: 4314299922176041729}
   - component: {fileID: 167430962816229459}
-  - component: {fileID: 1713622384440033257}
   - component: {fileID: 8286436313011281821}
   - component: {fileID: 3160985740282346584}
   - component: {fileID: 7288651015015623778}
   - component: {fileID: 4861411087896609535}
+  - component: {fileID: 4897075270024237032}
   - component: {fileID: 5855090442782285008}
+  - component: {fileID: 1713622384440033257}
+  - component: {fileID: 3553482988163014037}
   m_Layer: 8
   m_Name: TavernKeeper
   m_TagString: Player
@@ -127,7 +129,19 @@ MonoBehaviour:
       m_Calls: []
   m_ActionEvents:
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4897075270024237032}
+        m_TargetAssemblyTypeName: PlayerInputHandlerManager, Assembly-CSharp
+        m_MethodName: OnWalk
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 351f2ccd-1f9f-44bf-9bec-d62ac5c5f408
     m_ActionName: 'Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]'
   - m_PersistentCalls:
@@ -252,8 +266,8 @@ MonoBehaviour:
     m_ActionName: 'Player/Dash[/Keyboard/shift]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1713622384440033257}
-        m_TargetAssemblyTypeName: PlayerMovementManager, Assembly-CSharp
+      - m_Target: {fileID: 4897075270024237032}
+        m_TargetAssemblyTypeName: PlayerInputHandlerManager, Assembly-CSharp
         m_MethodName: OnRotate
         m_Mode: 0
         m_Arguments:
@@ -268,8 +282,8 @@ MonoBehaviour:
     m_ActionName: 'Player/Rotate[/Mouse/position]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1713622384440033257}
-        m_TargetAssemblyTypeName: PlayerMovementManager, Assembly-CSharp
+      - m_Target: {fileID: 4897075270024237032}
+        m_TargetAssemblyTypeName: PlayerInputHandlerManager, Assembly-CSharp
         m_MethodName: OnPause
         m_Mode: 0
         m_Arguments:
@@ -284,8 +298,8 @@ MonoBehaviour:
     m_ActionName: 'Player/Pause[/Keyboard/escape]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5855090442782285008}
-        m_TargetAssemblyTypeName: InteractionManager, Assembly-CSharp
+      - m_Target: {fileID: 4897075270024237032}
+        m_TargetAssemblyTypeName: PlayerInputHandlerManager, Assembly-CSharp
         m_MethodName: OnInteraction
         m_Mode: 0
         m_Arguments:
@@ -298,33 +312,11 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 109f2a2b-b147-447c-8cf3-fd8494470631
     m_ActionName: 'Player/Interaction[/Keyboard/e]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 82be45cc-17e1-40ce-8c43-a4b89e41ea18
-    m_ActionName: 'Player/EditorRoom[/Keyboard/p]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &1713622384440033257
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8221154074876193513}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9690cd017da4554f935b861e03e6b44, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveActionReference: {fileID: -1680190386980627800, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  walkingAnimationParameter: Walking
-  rotationSpeed: 20
-  floorLayer:
-    serializedVersion: 2
-    m_Bits: 8
 --- !u!114 &8286436313011281821
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -401,6 +393,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StunManager
   stunParamenter: Stun
+--- !u!114 &4897075270024237032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8221154074876193513}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4c0b88ccc819c643927ae4ce0db9e99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerInputManager
+  interactionManager: {fileID: 5855090442782285008}
+  moveManager: {fileID: 1713622384440033257}
+  pauseManager: {fileID: 3553482988163014037}
 --- !u!114 &5855090442782285008
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -416,6 +423,35 @@ MonoBehaviour:
   _interactableLayer:
     serializedVersion: 2
     m_Bits: 4096
+--- !u!114 &1713622384440033257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8221154074876193513}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9690cd017da4554f935b861e03e6b44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walkingAnimationParameter: Walking
+  rotationSpeed: 20
+  floorLayer:
+    serializedVersion: 2
+    m_Bits: 8
+--- !u!114 &3553482988163014037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8221154074876193513}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cac3e1b1367f3c248933be5ec8fe388e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerPauseManager
 --- !u!1001 &8919010732312894223
 PrefabInstance:
   m_ObjectHideFlags: 0

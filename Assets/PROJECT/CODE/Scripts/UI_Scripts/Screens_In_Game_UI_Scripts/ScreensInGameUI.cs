@@ -56,7 +56,6 @@ public class ScreensInGameUI : MonoBehaviour {
                 button.onClick.AddListener(() => {
                     LoadingScreenManager.CurrentLoadingScreenInfo = menuScreenInfo;
                     SceneManager.LoadScene(1);
-                    //LoadingScreenManager.Instance.ReturnToMenu();
                     });
                 Time.timeScale = 1;
                 break;
