@@ -1,3 +1,5 @@
+using NaughtyAttributes;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,6 +9,10 @@ public class PlayerInputHandlerManager : MonoBehaviour
     [SerializeField] private InteractionManager interactionManager;
     [SerializeField] private PlayerMovementManager moveManager;
     [SerializeField] private PlayerPauseManager pauseManager;
+#pragma warning disable CS0414
+    [SerializeField] private bool hasSkills = true;
+#pragma warning restore CS0414
+    [SerializeField, ShowIf("hasSkills"), AllowNesting] private PlayerSkillManager skillManager;
 
     bool _canInput = true;
 
@@ -35,8 +41,6 @@ public class PlayerInputHandlerManager : MonoBehaviour
 
     public void OnWalk(InputAction.CallbackContext ctx)
     {
-        if (CheckIfCanInput()) return;
-
         moveManager.SetWalkInputs(ctx.ReadValue<Vector2>());
     }
 
@@ -47,6 +51,38 @@ public class PlayerInputHandlerManager : MonoBehaviour
         pauseManager.Pause();
     }
 
+    public void OnBaseAttack(InputAction.CallbackContext ctx)
+    {
+        if (CheckIfCanInput()) return;
+
+        skillManager.BaseAttack(ctx);
+
+    }
+
+    public void OnSkillOne(InputAction.CallbackContext ctx)
+    {
+        if (CheckIfCanInput()) return;
+
+        skillManager.SkillOne(ctx);
+    }
+    public void OnSkillTwo(InputAction.CallbackContext ctx)
+    {
+        if (CheckIfCanInput()) return;
+
+        skillManager.SkillTwo(ctx);
+    }
+    public void OnUltimate(InputAction.CallbackContext ctx)
+    {
+        if (CheckIfCanInput()) return;
+
+        skillManager.Ultimate(ctx);
+    }
+    public void OnDash(InputAction.CallbackContext ctx)
+    {
+        if (CheckIfCanInput()) return;
+
+        skillManager.Dash(ctx);
+    }
     bool CheckIfCanInput(bool withTime = true)
     {
         if (withTime) return Time.timeScale == 0 || !_canInput;
@@ -54,21 +90,15 @@ public class PlayerInputHandlerManager : MonoBehaviour
     }
 
 
-
-
-
-
     public void SetCanInput(bool canInputValue)
     {
         _canInput = canInputValue;
 
-        ResetValueWhenCantInput();
+        HandleMovePermissions();
     }
 
-    void ResetValueWhenCantInput()
+    void HandleMovePermissions()
     {
-        if (_canInput) return;
-
-        moveManager.ResetWalkInputs();
+        moveManager.BlockMovement(!_canInput);
     }
 }

@@ -10,8 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 299286468610142105}
   - component: {fileID: 478840006575661388}
-  - component: {fileID: 5625784079947553004}
-  - component: {fileID: 5452518475692003026}
   - component: {fileID: 7119189435583811743}
   - component: {fileID: 500991153540020254}
   - component: {fileID: 5491402545043324245}
@@ -22,6 +20,8 @@ GameObject:
   - component: {fileID: 6028357984213268908}
   - component: {fileID: 7933282325481281284}
   - component: {fileID: 4968554122995488538}
+  - component: {fileID: 5625784079947553004}
+  - component: {fileID: 5452518475692003026}
   m_Layer: 8
   m_Name: Bastian_Prefab
   m_TagString: Player
@@ -88,8 +88,8 @@ MonoBehaviour:
     m_ActionName: 'Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5452518475692003026}
-        m_TargetAssemblyTypeName: PlayerSkillManager, Assembly-CSharp
+      - m_Target: {fileID: 6028357984213268908}
+        m_TargetAssemblyTypeName: PlayerInputHandlerManager, Assembly-CSharp
         m_MethodName: OnBaseAttack
         m_Mode: 0
         m_Arguments:
@@ -144,8 +144,8 @@ MonoBehaviour:
     m_ActionName: UI/TrackedDeviceOrientation
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5452518475692003026}
-        m_TargetAssemblyTypeName: PlayerSkillManager, Assembly-CSharp
+      - m_Target: {fileID: 6028357984213268908}
+        m_TargetAssemblyTypeName: PlayerInputHandlerManager, Assembly-CSharp
         m_MethodName: OnSkillOne
         m_Mode: 0
         m_Arguments:
@@ -160,8 +160,8 @@ MonoBehaviour:
     m_ActionName: 'Player/SkillOne[/Mouse/rightButton]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5452518475692003026}
-        m_TargetAssemblyTypeName: PlayerSkillManager, Assembly-CSharp
+      - m_Target: {fileID: 6028357984213268908}
+        m_TargetAssemblyTypeName: PlayerInputHandlerManager, Assembly-CSharp
         m_MethodName: OnSkillTwo
         m_Mode: 0
         m_Arguments:
@@ -176,8 +176,8 @@ MonoBehaviour:
     m_ActionName: 'Player/SkillTwo[/Keyboard/e]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5452518475692003026}
-        m_TargetAssemblyTypeName: PlayerSkillManager, Assembly-CSharp
+      - m_Target: {fileID: 6028357984213268908}
+        m_TargetAssemblyTypeName: PlayerInputHandlerManager, Assembly-CSharp
         m_MethodName: OnUltimate
         m_Mode: 0
         m_Arguments:
@@ -192,8 +192,8 @@ MonoBehaviour:
     m_ActionName: 'Player/Ultimate[/Keyboard/q]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5452518475692003026}
-        m_TargetAssemblyTypeName: PlayerSkillManager, Assembly-CSharp
+      - m_Target: {fileID: 6028357984213268908}
+        m_TargetAssemblyTypeName: PlayerInputHandlerManager, Assembly-CSharp
         m_MethodName: OnDash
         m_Mode: 0
         m_Arguments:
@@ -247,41 +247,6 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &5625784079947553004
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6930794299559206022}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9690cd017da4554f935b861e03e6b44, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  walkingAnimationParameter: Walking
-  rotationSpeed: 20
-  floorLayer:
-    serializedVersion: 2
-    m_Bits: 8
---- !u!114 &5452518475692003026
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6930794299559206022}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 189485e15b089b54e9b6916e10cb59f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Anim: {fileID: 0}
-  MoveManager: {fileID: 0}
-  CooldownManager: {fileID: 0}
-  EnergyManager: {fileID: 0}
-  StunManager: {fileID: 0}
-  _isInSkillAnimation: 0
 --- !u!114 &7119189435583811743
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -410,6 +375,8 @@ MonoBehaviour:
   interactionManager: {fileID: 4968554122995488538}
   moveManager: {fileID: 5625784079947553004}
   pauseManager: {fileID: 7933282325481281284}
+  hasSkills: 1
+  skillManager: {fileID: 5452518475692003026}
 --- !u!114 &7933282325481281284
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -437,6 +404,41 @@ MonoBehaviour:
   _interactableLayer:
     serializedVersion: 2
     m_Bits: 0
+--- !u!114 &5625784079947553004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6930794299559206022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9690cd017da4554f935b861e03e6b44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walkingAnimationParameter: Walking
+  rotationSpeed: 20
+  floorLayer:
+    serializedVersion: 2
+    m_Bits: 8
+--- !u!114 &5452518475692003026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6930794299559206022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 189485e15b089b54e9b6916e10cb59f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Anim: {fileID: 0}
+  MoveManager: {fileID: 0}
+  CooldownManager: {fileID: 0}
+  EnergyManager: {fileID: 0}
+  StunManager: {fileID: 0}
+  _isInSkillAnimation: 0
 --- !u!1001 &5299396182910763203
 PrefabInstance:
   m_ObjectHideFlags: 0

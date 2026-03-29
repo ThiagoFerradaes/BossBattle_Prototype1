@@ -88,8 +88,8 @@ MonoBehaviour:
     m_ActionName: 'Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5235028921305784554}
-        m_TargetAssemblyTypeName: PlayerSkillManager, Assembly-CSharp
+      - m_Target: {fileID: 69789064481334406}
+        m_TargetAssemblyTypeName: PlayerInputHandlerManager, Assembly-CSharp
         m_MethodName: OnBaseAttack
         m_Mode: 0
         m_Arguments:
@@ -144,8 +144,8 @@ MonoBehaviour:
     m_ActionName: UI/TrackedDeviceOrientation
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5235028921305784554}
-        m_TargetAssemblyTypeName: PlayerSkillManager, Assembly-CSharp
+      - m_Target: {fileID: 69789064481334406}
+        m_TargetAssemblyTypeName: PlayerInputHandlerManager, Assembly-CSharp
         m_MethodName: OnSkillOne
         m_Mode: 0
         m_Arguments:
@@ -160,8 +160,8 @@ MonoBehaviour:
     m_ActionName: 'Player/SkillOne[/Mouse/rightButton]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5235028921305784554}
-        m_TargetAssemblyTypeName: PlayerSkillManager, Assembly-CSharp
+      - m_Target: {fileID: 69789064481334406}
+        m_TargetAssemblyTypeName: PlayerInputHandlerManager, Assembly-CSharp
         m_MethodName: OnSkillTwo
         m_Mode: 0
         m_Arguments:
@@ -176,8 +176,8 @@ MonoBehaviour:
     m_ActionName: 'Player/SkillTwo[/Keyboard/e]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5235028921305784554}
-        m_TargetAssemblyTypeName: PlayerSkillManager, Assembly-CSharp
+      - m_Target: {fileID: 69789064481334406}
+        m_TargetAssemblyTypeName: PlayerInputHandlerManager, Assembly-CSharp
         m_MethodName: OnUltimate
         m_Mode: 0
         m_Arguments:
@@ -192,8 +192,8 @@ MonoBehaviour:
     m_ActionName: 'Player/Ultimate[/Keyboard/q]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5235028921305784554}
-        m_TargetAssemblyTypeName: PlayerSkillManager, Assembly-CSharp
+      - m_Target: {fileID: 69789064481334406}
+        m_TargetAssemblyTypeName: PlayerInputHandlerManager, Assembly-CSharp
         m_MethodName: OnDash
         m_Mode: 0
         m_Arguments:
@@ -437,6 +437,8 @@ MonoBehaviour:
   interactionManager: {fileID: 8301854247796386787}
   moveManager: {fileID: 1713622384440033257}
   pauseManager: {fileID: 2133027450637095276}
+  hasSkills: 1
+  skillManager: {fileID: 5235028921305784554}
 --- !u!1001 &8286357315371552398
 PrefabInstance:
   m_ObjectHideFlags: 0

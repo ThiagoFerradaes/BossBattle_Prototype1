@@ -107,23 +107,23 @@ public class PlayerSkillManager : MonoBehaviour {
     #endregion
 
     #region Inputs
-    public void OnBaseAttack(InputAction.CallbackContext ctx) {
+    public void BaseAttack(InputAction.CallbackContext ctx) {
         HandleSkillInput(ctx, (CommonSkillSO)_skills[SkillSlot.BaseAttack], SkillSlot.BaseAttack, () => IsSkillAvailable(SkillSlot.BaseAttack));
     }
 
-    public void OnSkillOne(InputAction.CallbackContext ctx) {
+    public void SkillOne(InputAction.CallbackContext ctx) {
         HandleSkillInput(ctx, (CommonSkillSO)_skills[SkillSlot.SkillOne], SkillSlot.SkillOne, () => IsSkillAvailable(SkillSlot.SkillOne));
     }
 
-    public void OnSkillTwo(InputAction.CallbackContext ctx) {
+    public void SkillTwo(InputAction.CallbackContext ctx) {
         HandleSkillInput(ctx, (CommonSkillSO)_skills[SkillSlot.SkillTwo], SkillSlot.SkillTwo, () => IsSkillAvailable(SkillSlot.SkillTwo));
     }
 
-    public void OnUltimate(InputAction.CallbackContext ctx) {
+    public void Ultimate(InputAction.CallbackContext ctx) {
         HandleSkillInput(ctx, (UltimateSkillSO)_skills[SkillSlot.Ultimate], SkillSlot.Ultimate, () => IsSkillAvailable(SkillSlot.Ultimate));
     }
 
-    public void OnDash(InputAction.CallbackContext ctx) {
+    public void Dash(InputAction.CallbackContext ctx) {
         HandleSkillInput(ctx, (CommonSkillSO)_skills[SkillSlot.Dash], SkillSlot.Dash, () => IsSkillAvailable(SkillSlot.Dash));
     }
     #endregion
@@ -136,7 +136,7 @@ public class PlayerSkillManager : MonoBehaviour {
             return;
         }
 
-        if (!canUseCondition() || !IsSkillReady(slot) || Time.timeScale == 0)
+        if (!canUseCondition() || !IsSkillReady(slot))
             return;
 
         if (skill != null) {
@@ -177,12 +177,6 @@ public class PlayerSkillManager : MonoBehaviour {
     private bool HaveEnergy() {
         return EnergyManager.HasFullEnergy();
     }
-    #endregion
-
-    #region Getter
-
-    public UltimateSkillSO ReturnUltimate() => (UltimateSkillSO)_skills[SkillSlot.Ultimate];
-
     #endregion
 
     #region Setters
