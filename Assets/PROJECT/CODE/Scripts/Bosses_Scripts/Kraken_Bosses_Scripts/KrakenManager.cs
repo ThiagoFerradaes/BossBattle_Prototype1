@@ -260,7 +260,7 @@ public class KrakenManager : EnemyBehaviourManager {
         }
 
         if (allTentaclesDead) {
-            ScreensInGameUI.Instance.TurnScreenOn(TypeOfScreen.Victory);
+            VictoryScreenManager.Instance.InitializeVictoryScreen();
         }
     }
 
