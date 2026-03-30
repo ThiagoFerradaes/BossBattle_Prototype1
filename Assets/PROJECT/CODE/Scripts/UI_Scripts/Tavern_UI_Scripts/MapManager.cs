@@ -8,6 +8,8 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MapManager : MonoBehaviour {
+    [SerializeField] GameObject mapScreen;
+
     [Foldout("Dictionary"), SerializedDictionary("Boss Fog", " Fog object"), SerializeField]
     SerializedDictionary<Bosses, GameObject> DictionaryOfFogs = new();
     [Foldout("Dictionary"), SerializedDictionary("Button phase", " Button object"), SerializeField]
@@ -18,18 +20,20 @@ public class MapManager : MonoBehaviour {
     [Foldout("First Map"), SerializeField] Button CloseMapButton;
     [Foldout("First Map"), SerializeField] Button TestIslandButton;
     [Foldout("First Map"), SerializeField] BossDescription TestIslandDescription;
+    [Foldout("First Map"), SerializeField] GameObject selectedIslandIcon;
 
     [Foldout("Second Map"), SerializeField] GameObject SecondMap;
     [Foldout("Second Map"), SerializeField] Image BossImage;
     [Foldout("Second Map"), SerializeField] Image SelectedCharacterIcon;
-    [Foldout("Second Map"), SerializeField] TextMeshProUGUI BossName;
     [Foldout("Second Map"), SerializeField] TextMeshProUGUI IsleName;
     [Foldout("Second Map"), SerializeField] TextMeshProUGUI BossDescription;
     [Foldout("Second Map"), SerializeField] Button CloseSecondMapButton;
     [Foldout("Second Map"), SerializeField] Button SailButton;
     [Foldout("Second Map"), SerializeField] Button ChangeCharacterButton;
+    [Foldout("Second Map"), SerializeField] List<Sprite> listOfDificultySpritesActive;
+    [Foldout("Second Map"), SerializeField] List<Sprite> listOfDificultySpritesDesactive;
+    [Foldout("Second Map"), SerializeField] List<Image> ListOfDifficultyImages;
     [Foldout("Second Map"), SerializeField] List<Button> ListOfDifficultyButtons;
-    [Foldout("Second Map"), SerializeField] List<Image> ListOfDifficultyBackgrounds;
     [Foldout("Second Map"), SerializeField] List<Image> ListOfDifficultyLocks;
     [Foldout("Second Map"), SerializeField] Color difficultySelectedColor;
     [Foldout("Second Map"), SerializeField] Color difficultyDeselectedColor;
@@ -41,6 +45,8 @@ public class MapManager : MonoBehaviour {
     public event Action OnCloseMap;
 
     Action<CharacterSO> _onChangeSelectedCharacter;
+
+    PlayerInputHandlerManager _handler;
 
     #region StartRegion
     private void Awake() {
@@ -54,16 +60,22 @@ public class MapManager : MonoBehaviour {
     private void OnDestroy() {
         CurrentSelectedCharacterWhiteBoard.Instance.OnSelectedCharacterChanged -= _onChangeSelectedCharacter;
     }
-    private void OnEnable() {
+    public void InitializeMap(PlayerInputHandlerManager handler = null)
+    {   
+        _handler = handler;
+
         WhiteBoard board = WhiteBoard.Instance;
 
-        foreach (var boss in board.ReturnListOfUnlockedPhasesByBoss().Keys) { // FOGS
-            if (DictionaryOfFogs.ContainsKey(boss)) {
+        foreach (var boss in board.ReturnListOfUnlockedPhasesByBoss().Keys)
+        { // FOGS
+            if (DictionaryOfFogs.ContainsKey(boss))
+            {
                 DictionaryOfFogs[boss].SetActive(false);
             }
         }
 
-        foreach (var phase in DictionaryOfButtons.Keys) { // ILHAS
+        foreach (var phase in DictionaryOfButtons.Keys)
+        { // ILHAS
 
             Button button = DictionaryOfButtons[phase].GetComponent<Button>();
             button.interactable = board.ReturnListOfUnlockedPhasesByBoss().ContainsKey(phase);
@@ -72,6 +84,8 @@ public class MapManager : MonoBehaviour {
         }
 
         OnChangeSelectedCharacter(CurrentSelectedCharacterWhiteBoard.Instance.ReturnSelectedCharacterSO());
+
+        mapScreen.SetActive(true);
     }
     #endregion
 
@@ -84,6 +98,7 @@ public class MapManager : MonoBehaviour {
             var localDescription = description;
 
             button.onClick.AddListener(() => TurnScreenOn(localDescription));
+            button.onClick.AddListener(() => TurnSelectedIslandIconOn(button.transform));
         }
 
         for (int i = 0; i < ListOfDifficultyButtons.Count; i++) {
@@ -92,15 +107,17 @@ public class MapManager : MonoBehaviour {
         }
 
         CloseMapButton.onClick.AddListener(() => {
-            gameObject.SetActive(false);
+            TurnMapOff();
             OnCloseMap?.Invoke();
             SecondMap.SetActive(false);
             SailButton.gameObject.SetActive(false);
-            });
+            TurnSelectedIslandIconOff();
+        });
         
         CloseSecondMapButton.onClick.AddListener(() => {
             SecondMap.SetActive(false);
             SailButton.gameObject.SetActive(false);
+            TurnSelectedIslandIconOff();
         });
 
         TestIslandButton.onClick.AddListener(() => TurnScreenOn(TestIslandDescription));
@@ -108,21 +125,39 @@ public class MapManager : MonoBehaviour {
         ChangeCharacterButton.onClick.AddListener(() => _characterSelectionManager.Initialize());
     }
 
+    void TurnMapOff()
+    {
+        if (_handler != null) _handler.SetCanInput(true);
+        mapScreen.SetActive(false);
+    }
+    void TurnSelectedIslandIconOn(Transform islandTransform)
+    {
+        selectedIslandIcon.transform.position = islandTransform.position;
+        selectedIslandIcon.SetActive(true);
+    }
+    void TurnSelectedIslandIconOff()
+    {
+        selectedIslandIcon.SetActive(false);
+    }
+
     void SelectDifficulty(int difficulty) {
         _currentDifficulty = difficulty;
 
-        foreach (var obj in ListOfDifficultyBackgrounds) {
-            if (obj == ListOfDifficultyBackgrounds[difficulty]) {
-                obj.color = difficultySelectedColor;
+        for (int i = 0; i < listOfDificultySpritesActive.Count; i++) {
+            if (i <= difficulty)
+            {
+                ListOfDifficultyImages[i].sprite = listOfDificultySpritesActive[i];
             }
-            else obj.color = difficultyDeselectedColor;
+            else
+            {
+                ListOfDifficultyImages[i].sprite = listOfDificultySpritesDesactive[i];
+            }
         }
     }
 
     void TurnScreenOn(BossDescription description) {
         SecondMap.SetActive(true);
         BossImage.sprite = description.BossSprite;
-        BossName.text = description.BossName;
         IsleName.text = description.IsleName;
         BossDescription.text = description.Description;
 

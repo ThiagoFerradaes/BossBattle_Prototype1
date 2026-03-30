@@ -22,7 +22,17 @@ MonoBehaviour:
     MapSkillSelectedSpriteIcon: {fileID: 0}
     MapLockSkillSpriteIcon: {fileID: 0}
   SkillManagerObject: {fileID: 915159781484785722, guid: de3c47dc503a52546be7e01c6b93c28b, type: 3}
-  ListOfAnimationsInfo: []
+  ListOfAnimationsInfo:
+  - Animation: {fileID: 3319618988318953490, guid: bca2145f2c2ce144d936cb3800adc8d9, type: 3}
+    AnimationLayer: 0
+    AnimationSpeed: 1.8
+    AnimationExitTime: 0.8
+    IsAnimationTrigger: 1
+  - Animation: {fileID: -7751922241162715349, guid: bca2145f2c2ce144d936cb3800adc8d9, type: 3}
+    AnimationLayer: 0
+    AnimationSpeed: 2
+    AnimationExitTime: 0.8
+    IsAnimationTrigger: 1
   Prefabs:
     _serializedList:
     - Key: 1
@@ -96,7 +106,7 @@ MonoBehaviour:
   SkillObjectRangeObject: {fileID: 261372437491194248, guid: c83d144d01a675b458028fc94a087be4, type: 3}
   BlockWalkWhilePreCasting: 1
   BlockDashWhilePreCasting: 1
-  PreCastOn: 1
+  PreCastOn: 0
   SkillCharacter: 0
   Cancelable: 0
   Slot: 0

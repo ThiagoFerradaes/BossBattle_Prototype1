@@ -54,13 +54,13 @@ public class CyrusAxeAttackManager : SkillObjectManager {
         movementManager.ChangeRotationType(RotationType.MouseRotation);
         skillManager.BlockAllSkills(true);
 
-        // Ligar anima��o de subir
-        anim.SetTrigger(_info.FirstAnimationParameterName);
+        // Ligar animação de subir
+        AnimateAxe();
 
         // VFX de subir 
         InstantiateUpAxeVFX();
 
-        // Come�ar o timer
+        // Começar o timer
         _chargeTimeCoroutine ??= StartCoroutine(ChargeTimer());
 
         // Come�ar o cooldown
@@ -74,6 +74,15 @@ public class CyrusAxeAttackManager : SkillObjectManager {
         else if (_skillLevel > 1) healthManager.RecieveShield(_info.Level2AmountOfShield, _info.ShieldDuration);
     }
 
+    void AnimateAxe()
+    {
+        AnimatorOverrideController overrideController = new(anim.runtimeAnimatorController);
+        anim.runtimeAnimatorController = overrideController;
+
+        overrideController["Default 1"] = _info.ListOfAnimationsInfo[0].Animation;
+
+        anim.CrossFade("AttackTwo", 0.05f, 0, 0f);
+    }
     void InstantiateUpAxeVFX() {
 
         if (_info.Prefabs[0].Count == 0) { Debug.Log("Nenhum VFX de subida do machado"); return; }
@@ -115,7 +124,7 @@ public class CyrusAxeAttackManager : SkillObjectManager {
     IEnumerator Attack() {
         while (_chargeTimer < _info.MinimalChargeTime) yield return null;
 
-        StartCoroutine(AttackCoroutine(0, 1));
+        StartCoroutine(AttackCoroutine(1, 1));
 
     }
 

@@ -9,7 +9,6 @@ public class AnimationInfo {
     public int AnimationLayer;
     public float AnimationSpeed = 1;
     [Range(0,1)] public float AnimationExitTime = 1;
-    public bool IsAnimationTrigger = true;
 }
 public abstract class SkillObjectManager : MonoBehaviour {
     #region Parameters
@@ -165,7 +164,7 @@ public abstract class SkillObjectManager : MonoBehaviour {
 
     #region AttackAnimation
 
-    int _currentAnimationHash;
+    static readonly int attackStateHash = Animator.StringToHash("Attack");
     protected virtual IEnumerator AttackCoroutine(int animationIndex = 0, int comboIndex = 0) {
         FirstFunc();
 
@@ -177,9 +176,9 @@ public abstract class SkillObjectManager : MonoBehaviour {
 
         yield return null;
 
-        var stateInfo = anim.GetCurrentAnimatorStateInfo(animInfo.AnimationLayer);
+        while (anim.IsInTransition(animInfo.AnimationLayer)) yield return null;
 
-        _currentAnimationHash = stateInfo.fullPathHash;
+        var stateInfo = anim.GetCurrentAnimatorStateInfo(animInfo.AnimationLayer);
 
         SecondFunc();
 
@@ -188,8 +187,7 @@ public abstract class SkillObjectManager : MonoBehaviour {
         ThirdFunc();
 
         // espera o tempo de cancel
-        while (stateInfo.fullPathHash == _currentAnimationHash &&
-               stateInfo.normalizedTime < animInfo.AnimationExitTime) {
+        while (stateInfo.shortNameHash == attackStateHash && stateInfo.normalizedTime < animInfo.AnimationExitTime) {
             yield return null;
             stateInfo = anim.GetCurrentAnimatorStateInfo(animInfo.AnimationLayer);
         }
@@ -231,9 +229,9 @@ public abstract class SkillObjectManager : MonoBehaviour {
 
                 do {
                     yield return null;
-                    Debug.Log("Esperando spawnar prefab " + prefab.PreFab.name);
+                    //Debug.Log("Esperando spawnar prefab " + prefab.PreFab.name);
                     stateInfo = anim.GetCurrentAnimatorStateInfo(animInfo.AnimationLayer);
-                } while (stateInfo.fullPathHash == _currentAnimationHash && stateInfo.normalizedTime < prefab.TimeToSpawnPreFab);
+                } while (stateInfo.shortNameHash == attackStateHash && stateInfo.normalizedTime < prefab.TimeToSpawnPreFab);
 
                 if (prefab.PrefabType == TypeOfSkillPrefab.Hitbox) InstantiateHitBox(prefab);
                 else InstantiateVFX(prefab);

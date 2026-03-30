@@ -19,6 +19,9 @@ GameObject:
   - component: {fileID: 5183692506811018931}
   - component: {fileID: 3156235811804963752}
   - component: {fileID: 4861411087896609535}
+  - component: {fileID: 8301854247796386787}
+  - component: {fileID: 2133027450637095276}
+  - component: {fileID: 69789064481334406}
   m_Layer: 8
   m_Name: Cyrus_Prefab
   m_TagString: Player
@@ -73,8 +76,8 @@ MonoBehaviour:
     m_ActionName: 'Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5235028921305784554}
-        m_TargetAssemblyTypeName: PlayerSkillManager, Assembly-CSharp
+      - m_Target: {fileID: 69789064481334406}
+        m_TargetAssemblyTypeName: PlayerInputHandlerManager, Assembly-CSharp
         m_MethodName: OnBaseAttack
         m_Mode: 0
         m_Arguments:
@@ -129,8 +132,8 @@ MonoBehaviour:
     m_ActionName: UI/TrackedDeviceOrientation
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5235028921305784554}
-        m_TargetAssemblyTypeName: PlayerSkillManager, Assembly-CSharp
+      - m_Target: {fileID: 69789064481334406}
+        m_TargetAssemblyTypeName: PlayerInputHandlerManager, Assembly-CSharp
         m_MethodName: OnSkillOne
         m_Mode: 0
         m_Arguments:
@@ -145,8 +148,8 @@ MonoBehaviour:
     m_ActionName: 'Player/SkillOne[/Mouse/rightButton]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5235028921305784554}
-        m_TargetAssemblyTypeName: PlayerSkillManager, Assembly-CSharp
+      - m_Target: {fileID: 69789064481334406}
+        m_TargetAssemblyTypeName: PlayerInputHandlerManager, Assembly-CSharp
         m_MethodName: OnSkillTwo
         m_Mode: 0
         m_Arguments:
@@ -161,8 +164,8 @@ MonoBehaviour:
     m_ActionName: 'Player/SkillTwo[/Keyboard/e]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5235028921305784554}
-        m_TargetAssemblyTypeName: PlayerSkillManager, Assembly-CSharp
+      - m_Target: {fileID: 69789064481334406}
+        m_TargetAssemblyTypeName: PlayerInputHandlerManager, Assembly-CSharp
         m_MethodName: OnUltimate
         m_Mode: 0
         m_Arguments:
@@ -177,8 +180,8 @@ MonoBehaviour:
     m_ActionName: 'Player/Ultimate[/Keyboard/q]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5235028921305784554}
-        m_TargetAssemblyTypeName: PlayerSkillManager, Assembly-CSharp
+      - m_Target: {fileID: 69789064481334406}
+        m_TargetAssemblyTypeName: PlayerInputHandlerManager, Assembly-CSharp
         m_MethodName: OnDash
         m_Mode: 0
         m_Arguments:
@@ -193,8 +196,8 @@ MonoBehaviour:
     m_ActionName: 'Player/Dash[/Keyboard/shift]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1713622384440033257}
-        m_TargetAssemblyTypeName: PlayerMovementManager, Assembly-CSharp
+      - m_Target: {fileID: 69789064481334406}
+        m_TargetAssemblyTypeName: PlayerInputHandlerManager, Assembly-CSharp
         m_MethodName: OnRotate
         m_Mode: 0
         m_Arguments:
@@ -209,8 +212,8 @@ MonoBehaviour:
     m_ActionName: 'Player/Rotate[/Mouse/position]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1713622384440033257}
-        m_TargetAssemblyTypeName: PlayerMovementManager, Assembly-CSharp
+      - m_Target: {fileID: 69789064481334406}
+        m_TargetAssemblyTypeName: PlayerInputHandlerManager, Assembly-CSharp
         m_MethodName: OnPause
         m_Mode: 0
         m_Arguments:
@@ -225,16 +228,8 @@ MonoBehaviour:
     m_ActionName: 'Player/Pause[/Keyboard/escape]'
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 0003cf65-0225-4aaa-a88d-8caa51ea290c
-    m_ActionName: 'Tavern/Drag[/Mouse/rightButton]'
-  - m_PersistentCalls:
-      m_Calls: []
     m_ActionId: 109f2a2b-b147-447c-8cf3-fd8494470631
     m_ActionName: 'Player/Interaction[/Keyboard/e]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 82be45cc-17e1-40ce-8c43-a4b89e41ea18
-    m_ActionName: 'Player/EditorRoom[/Keyboard/p]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -252,7 +247,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9690cd017da4554f935b861e03e6b44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveActionReference: {fileID: -1680190386980627800, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  walkAction: {fileID: -1680190386980627800, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   walkingAnimationParameter: Walking
   rotationSpeed: 20
   floorLayer:
@@ -389,6 +384,50 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StunManager
   stunParamenter: Stun
+--- !u!114 &8301854247796386787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8221154074876193513}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15dbab901c65c064aa8751362d9f7ea7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InteractionManager
+  _interactableLayer:
+    serializedVersion: 2
+    m_Bits: 0
+--- !u!114 &2133027450637095276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8221154074876193513}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cac3e1b1367f3c248933be5ec8fe388e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerPauseManager
+--- !u!114 &69789064481334406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8221154074876193513}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4c0b88ccc819c643927ae4ce0db9e99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerInputHandlerManager
+  interactionManager: {fileID: 8301854247796386787}
+  moveManager: {fileID: 1713622384440033257}
+  pauseManager: {fileID: 2133027450637095276}
+  hasSkills: 1
+  skillManager: {fileID: 5235028921305784554}
 --- !u!1001 &8286357315371552398
 PrefabInstance:
   m_ObjectHideFlags: 0
