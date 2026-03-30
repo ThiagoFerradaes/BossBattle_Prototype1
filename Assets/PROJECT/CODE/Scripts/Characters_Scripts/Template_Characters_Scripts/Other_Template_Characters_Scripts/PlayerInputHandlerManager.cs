@@ -39,11 +39,6 @@ public class PlayerInputHandlerManager : MonoBehaviour
         moveManager.DetectRotation(ctx.ReadValue<Vector2>());
     }
 
-    public void OnWalk(InputAction.CallbackContext ctx)
-    {
-        moveManager.SetWalkInputs(ctx.ReadValue<Vector2>());
-    }
-
     public void OnPause(InputAction.CallbackContext ctx)
     {
         if (CheckIfCanInput(false) || !ctx.performed) return;

@@ -7,11 +7,11 @@ using UnityEngine.InputSystem;
 public enum RotationType { MouseRotation, MoveRotation }
 [RequireComponent(typeof(Rigidbody), typeof(StunManager), typeof(StatusManager))]
 public class PlayerMovementManager : MonoBehaviour {
-    
+
     #region Parameters
 
     // Movement floats
-    //float _zVelocity,_xVelocity;
+    [SerializeField] InputActionReference walkAction;
     private float _xInput, _zInput;
 
     // Booleans
@@ -89,11 +89,6 @@ public class PlayerMovementManager : MonoBehaviour {
         Rotate();
     }
 
-    public void SetWalkInputs(Vector2 inputValue)
-    {
-        _xInput = inputValue.x;
-        _zInput = inputValue.y;
-    }
     public void ResetWalkInputs()
     {
         _xInput = 0;
@@ -103,8 +98,15 @@ public class PlayerMovementManager : MonoBehaviour {
         if (!_canMove || !_canWalk) {
             ResetWalkInputs();
         }
+        else
+        {
+            Vector2 value = walkAction.action.ReadValue<Vector2>();
+            _xInput = value.x;
+            _zInput = value.y;
+        }
 
-        if (!_isDashing) {
+        if (!_isDashing)
+        {
             float moveSpeed = _statusManager.ReturnStatusValue(StatusType.MoveSpeed);
             Vector3 movedir = new Vector3(_xInput, 0, _zInput).normalized;
             Vector3 moveDirection = _cameraCenter.transform.TransformDirection(movedir);
