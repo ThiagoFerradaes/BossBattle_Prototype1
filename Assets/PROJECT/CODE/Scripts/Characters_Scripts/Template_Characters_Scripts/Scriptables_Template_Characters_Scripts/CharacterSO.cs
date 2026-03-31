@@ -35,6 +35,8 @@ public class CharacterSO : ScriptableObject {
     [Foldout("Character Selection")] public Sprite SelectedCharacterMapSprite;
     [Foldout("Character Selection")] public Sprite UnselectedCharacterMapSprite;
     [Foldout("Character Selection")] public List<SkillSO> CharacterListOfSkills;
+    [Foldout("Expressions")]
+    [SerializedDictionary("Expression", "Sprite")] public SerializedDictionary<ExpressionTypeDialogue, Sprite> dictionaryOfExpressions;
 
     public Character Character;
     public GameObject CharacterPrefab;

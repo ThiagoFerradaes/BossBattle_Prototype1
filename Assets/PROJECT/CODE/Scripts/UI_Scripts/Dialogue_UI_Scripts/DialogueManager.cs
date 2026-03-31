@@ -1,5 +1,14 @@
+using AYellowpaper.SerializedCollections;
+using System;
+using System.Linq.Expressions;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
+
+public enum TypeOfDialogueSprite { Left, Right }
+public enum ExpressionTypeDialogue { Angry_S, Angry_N, Anxious_S, Anxious_N, Curious_S, Curious_N,
+Default_S, Default_N, Intense_S, Intense_N, Laughing_S, Laughing_N, Satisfied_S, Satisfied_N, Surprise_S, Surprised_N, Vulnerable_S,
+Vulnerable_N}
 
 public class DialogueManager : MonoBehaviour
 {
@@ -8,6 +17,8 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI dialogueText;
     [SerializeField] GameObject responseButtonPrefab;
     [SerializeField] Transform responseButtonParent;
+    [SerializedDictionary("Type", "Image")] SerializedDictionary<TypeOfDialogueSprite, Image> dialogueSprites;
+    [SerializeField,SerializedDictionary("Character", "ExpressionInfo")] SerializedDictionary<Character, CharacterSO> dictionaryOfExpressions;
 
 
     private void Awake()

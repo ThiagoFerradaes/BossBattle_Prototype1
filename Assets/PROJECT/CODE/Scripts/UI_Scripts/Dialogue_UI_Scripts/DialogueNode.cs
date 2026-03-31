@@ -3,10 +3,13 @@ using UnityEngine;
 
 
 //[System.Serializable]
-[CreateAssetMenu(fileName = "New Dialogue", menuName = "Dialogue/Children Dialogue")]
+[CreateAssetMenu(menuName = "Dialogue/Children Dialogue")]
 public class DialogueNode : ScriptableObject
 {
     public string DialogueText;
+    public TypeOfDialogueSprite SpriteType;
+    public Character Character;
+    public TypeOfExpression Expression;
     public List<DialogueResponse> Responses;
 
     internal bool IsLastNode()
