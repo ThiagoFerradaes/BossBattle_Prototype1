@@ -6,6 +6,7 @@ public class DialogueInteract : MonoBehaviour, IInteractable
 
     public void Interact(PlayerInputHandlerManager handler)
     {
-        DialogueManager.Instance.InitializeDialogue(dialogue.RootNode, dialogue);
+        handler.SetCanInput(false);
+        DialogueManager.Instance.InitializeDialogue(dialogue.RootNode, handler);
     }
 }
