@@ -12,9 +12,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1597fa9579ac4d846a113808c996eab7, type: 3}
   m_Name: Dialogue3
   m_EditorClassIdentifier: Assembly-CSharp::DialogueNode
-  DialogueText: "Estou testando o di\xE1logo"
+  DialogueText:
+    m_TableReference:
+      m_TableCollectionName: GUID:e1df73d4645e85b4186dd3cafd0dbba8
+    m_TableEntryReference:
+      m_KeyId: 6877771026432
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  PrimarySpritePosition: 1
+  PrimaryCharacter: 0
+  PrimaryCharacterExpression: 14
+  hasSecondaryCharacterExpression: 1
+  SecondarySpritePosition: 0
+  SecondaryCharacter: 4
+  SecondaryCharacterExpression: 2
   Responses:
-  - ResponseText: Fim
-    NextNode: {fileID: 11400000, guid: a6fbff92b8451234fb3f421516beb77d, type: 2}
-  - ResponseText: "Recome\xE7ar"
+  - ResponseText:
+      m_TableReference:
+        m_TableCollectionName: GUID:0a19d14c90965924bba2519bf8b70631
+      m_TableEntryReference:
+        m_KeyId: 429347393536
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
     NextNode: {fileID: 11400000, guid: 8db33ba52c21b4648b97a16b4ea24898, type: 2}
+  - ResponseText:
+      m_TableReference:
+        m_TableCollectionName: GUID:0a19d14c90965924bba2519bf8b70631
+      m_TableEntryReference:
+        m_KeyId: 233121075200
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    NextNode: {fileID: 11400000, guid: a6fbff92b8451234fb3f421516beb77d, type: 2}
+  references:
+    version: 2
+    RefIds: []

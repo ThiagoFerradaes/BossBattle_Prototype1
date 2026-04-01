@@ -105,7 +105,7 @@ public class CharacterSelectionManager : MonoBehaviour {
         // Trocando a imagem do botão do personagem selecionado
         foreach(var info in _unlockedInfo) {
             var character = info.Character;
-            if (character.Character == Character.TavernKeeper) continue;
+            if (character.Character == Character.Julian) continue;
             else if (info.Character == currentCharater)
                 dictionaryOfCharactersButton[character].GetComponent<Image>().sprite = character.SelectedCharacterMapSprite;
             else if (info.IsUnlocked)
@@ -156,7 +156,7 @@ public class CharacterSelectionManager : MonoBehaviour {
 
     void ActivateCharacterSelectionButtons() {
         foreach (var info in _unlockedInfo) {
-            if (info.Character.Character == Character.TavernKeeper) continue;
+            if (info.Character.Character == Character.Julian) continue;
             dictionaryOfCharactersButton[info.Character].interactable = info.IsUnlocked;
         }
     }

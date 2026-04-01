@@ -1,14 +1,16 @@
 using AYellowpaper.SerializedCollections;
 using System;
-using System.Linq.Expressions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum TypeOfDialogueSprite { Left, Right }
-public enum ExpressionTypeDialogue { Angry_S, Angry_N, Anxious_S, Anxious_N, Curious_S, Curious_N,
-Default_S, Default_N, Intense_S, Intense_N, Laughing_S, Laughing_N, Satisfied_S, Satisfied_N, Surprise_S, Surprised_N, Vulnerable_S,
-Vulnerable_N}
+public enum TypeOfDialogueSpritePosition { Left, Right }
+public enum ExpressionTypeDialogue
+{
+    Angry_S, Angry_N, Anxious_S, Anxious_N, Curious_S, Curious_N,
+    Default_S, Default_N, Intense_S, Intense_N, Laughing_S, Laughing_N, Satisfied_S, Satisfied_N, Surprise_S, Surprised_N, Vulnerable_S,
+    Vulnerable_N
+}
 
 public class DialogueManager : MonoBehaviour
 {
@@ -17,9 +19,8 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI dialogueText;
     [SerializeField] GameObject responseButtonPrefab;
     [SerializeField] Transform responseButtonParent;
-    [SerializedDictionary("Type", "Image")] SerializedDictionary<TypeOfDialogueSprite, Image> dialogueSprites;
-    [SerializeField,SerializedDictionary("Character", "ExpressionInfo")] SerializedDictionary<Character, CharacterSO> dictionaryOfExpressions;
-
+    [SerializedDictionary("Type", "Image"), SerializeField] SerializedDictionary<TypeOfDialogueSpritePosition, Image> dictionaryOfImagesPositions;
+    [SerializeField, SerializedDictionary("Character", "Descriptions")] SerializedDictionary<Character, CharacterSO> dictionaryOfDescriptions;
 
     private void Awake()
     {
@@ -27,11 +28,14 @@ public class DialogueManager : MonoBehaviour
         else Destroy(gameObject);
 
         HideDialogueScreen();
+
     }
 
-    public void InitializeDialogue(DialogueNode node)
+    public void InitializeDialogue(DialogueNode node, Dialogue rootDialogue = null)
     {
-        dialogueText.text = node.DialogueText;
+        dialogueText.text = node.DialogueText.GetLocalizedString();
+
+        ChangeSprite(node);
 
         ShowDialogue();
 
@@ -43,9 +47,9 @@ public class DialogueManager : MonoBehaviour
         foreach (var response in node.Responses)
         {
             GameObject buttonObj = Instantiate(responseButtonPrefab, responseButtonParent);
-            buttonObj.GetComponentInChildren<TextMeshProUGUI>().text = response.ResponseText;
+            buttonObj.GetComponentInChildren<TextMeshProUGUI>().text = response.ResponseText.GetLocalizedString();
 
-            buttonObj.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => SelectResponse(response));
+            buttonObj.GetComponent<Button>().onClick.AddListener(() => SelectResponse(response));
         }
     }
 
@@ -60,6 +64,29 @@ public class DialogueManager : MonoBehaviour
             HideDialogueScreen();
         }
     }
+
+
+    void ChangeSprite(DialogueNode node)
+    {
+        TypeOfDialogueSpritePosition spriteType = node.PrimarySpritePosition;
+
+        var dictionaryOfSprites = dictionaryOfDescriptions[node.PrimaryCharacter].DictionaryOfExpressions;
+
+        Sprite newSprite = dictionaryOfSprites[node.PrimaryCharacterExpression];
+
+        dictionaryOfImagesPositions[spriteType].sprite = newSprite;
+
+        if (!node.hasSecondaryCharacterExpression) return;
+
+        TypeOfDialogueSpritePosition secondarySpriteType = node.SecondarySpritePosition;
+
+        var secondaryDictionaryOfSprites = dictionaryOfDescriptions[node.SecondaryCharacter].DictionaryOfExpressions;
+
+        Sprite newSecondarySprite = secondaryDictionaryOfSprites[node.SecondaryCharacterExpression];
+
+        dictionaryOfImagesPositions[secondarySpriteType].sprite = newSecondarySprite;
+    }
+
 
     void ShowDialogue()
     {

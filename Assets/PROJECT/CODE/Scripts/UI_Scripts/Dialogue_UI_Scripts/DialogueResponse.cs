@@ -1,9 +1,10 @@
 using System;
 using UnityEngine;
+using UnityEngine.Localization;
 
 [Serializable]
 public class DialogueResponse
 {
-    public string ResponseText;
+    public LocalizedString ResponseText;
     public DialogueNode NextNode;
 }

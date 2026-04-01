@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum TypeOfExpression { Happy, Sad, Surprised, Horny, Radiant }
 
 [Serializable]
 public class CharacterKit {
@@ -36,12 +35,10 @@ public class CharacterSO : ScriptableObject {
     [Foldout("Character Selection")] public Sprite UnselectedCharacterMapSprite;
     [Foldout("Character Selection")] public List<SkillSO> CharacterListOfSkills;
     [Foldout("Expressions")]
-    [SerializedDictionary("Expression", "Sprite")] public SerializedDictionary<ExpressionTypeDialogue, Sprite> dictionaryOfExpressions;
+    [SerializedDictionary("Expression", "Sprite")] public SerializedDictionary<ExpressionTypeDialogue, Sprite> DictionaryOfExpressions;
 
     public Character Character;
     public GameObject CharacterPrefab;
     public PassiveSO Passive;
     public CharacterKit InitialKit;
-    [SerializedDictionary("Type of Expression", " Sprite")]
-    public Dictionary<TypeOfExpression, Sprite> DictionaryOfSprites = new();
 }
