@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: CyrusCellShadingMaterial
+  m_Name: KrakenTentacleCellShadingMaterial
   m_Shader: {fileID: -6465566751694194690, guid: dd79d5c2311849d4c8efb97559acb321, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -26,7 +26,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseColor:
-        m_Texture: {fileID: 2800000, guid: 9301a21d71da0444f9de38161367fd4d, type: 3}
+        m_Texture: {fileID: 2800000, guid: e68e2dc8b315ce3498692905b9c821be, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Metalic:
@@ -34,7 +34,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Normal:
-        m_Texture: {fileID: 2800000, guid: 4066fe7a00a68434aa18d09e537595b4, type: 3}
+        m_Texture: {fileID: 2800000, guid: 864ee571d7712df4c9d40573b16fdc32, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Smoothness:
@@ -58,36 +58,39 @@ Material:
     - _AlphaClip: 0
     - _AlphaToMask: 0
     - _Blend: 0
+    - _BlendModePreserveSpecular: 1
     - _CastShadows: 1
     - _Cull: 2
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _Float: 0.28
     - _FrsnelSpace: 0.2
-    - _GradientCut: 0.02
-    - _GradientCut_1: -0.01
-    - _HDR: 1
+    - _GradientCut: 0.06
+    - _GradientCut_1: -0.06
+    - _HDR: 0
     - _HighLightIntensity: 3
-    - _HighLightSpace: -0.8
+    - _HighLightSpace: -0.55
     - _MaxBias: 0
     - _MinBias: 0
     - _QueueControl: 0
     - _QueueOffset: 0
+    - _ReceiveShadows: 1
     - _ReflectionColor: 0
     - _ReflectionColorDecider: 0
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
     - _Surface: 0
+    - _WorkflowMode: 1
     - _ZTest: 4
     - _ZWrite: 1
     - _ZWriteControl: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _LightColor: {r: 1, g: 1, b: 1, a: 0}
-    - _LightColorHDR: {r: 16, g: 16, b: 16, a: 0}
+    - _LightColor: {r: 1, g: 0.9264151, b: 0.9264151, a: 0}
+    - _LightColorHDR: {r: 1.4980394, g: 0.14415093, b: 0.14415093, a: 0}
     - _LightDirection: {r: 0, g: 1, b: 0, a: 0}
-    - _ShadowColor: {r: 0.4792453, g: 0.4792453, b: 0.4792453, a: 0}
-    - _ShadowColorHdr: {r: 14.928529, g: 14.928529, b: 14.928529, a: 0}
+    - _ShadowColor: {r: 0.5019608, g: 0.74071306, b: 0.7647059, a: 1}
+    - _ShadowColorHdr: {r: 0.2150944, g: 0.2150944, b: 0.2150944, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &4466084889001244314
