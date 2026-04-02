@@ -3,13 +3,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.AppUI.Core;
-using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
-using static UnityEngine.Audio.ProcessorInstance;
+using UnityEngine.Localization;
+
 
 public enum TypeOfDialogueSpritePosition { Left, Right }
 public enum ExpressionTypeDialogue
@@ -60,6 +57,8 @@ public class DialogueManager : MonoBehaviour
     [Header("Typing Atributes")]
     [SerializeField] float timeBetweenLetters = 0.04f;
     [SerializeField] float timeBetweenEndOfOneLineAndNext = 0.5f;
+    [SerializeField] LocalizedString autoOnLocalizeString;
+    [SerializeField] LocalizedString autoOffLocalizeString;
 
     bool _autoPlay;
     bool _dialogueHasEnded;
@@ -135,8 +134,8 @@ public class DialogueManager : MonoBehaviour
     void AutoButton()
     {
         _autoPlay = !_autoPlay;
-        if (_autoPlay) autoButton.GetComponentInChildren<TextMeshProUGUI>().text = "Auto On";
-        else autoButton.GetComponentInChildren<TextMeshProUGUI>().text = "Auto Off";
+        if (_autoPlay) autoButton.GetComponentInChildren<TextMeshProUGUI>().text = autoOnLocalizeString.GetLocalizedString();
+        else autoButton.GetComponentInChildren<TextMeshProUGUI>().text = autoOffLocalizeString.GetLocalizedString();
     }
     #endregion
 
@@ -250,7 +249,7 @@ public class DialogueManager : MonoBehaviour
 
     void ChangeName(DialogueNode node)
     {
-        string currentCharacterName = dictionaryOfDescriptions[node.PrimaryCharacter].CharacterName;
+        string currentCharacterName = dictionaryOfDescriptions[node.PrimaryCharacter].CharacterName.GetLocalizedString();
 
         nameText.text = currentCharacterName;
 
