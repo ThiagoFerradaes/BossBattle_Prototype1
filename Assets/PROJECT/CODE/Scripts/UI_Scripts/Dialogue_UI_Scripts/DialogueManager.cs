@@ -1,12 +1,15 @@
 using AYellowpaper.SerializedCollections;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
+using Unity.AppUI.Core;
 using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using static UnityEngine.Audio.ProcessorInstance;
 
 public enum TypeOfDialogueSpritePosition { Left, Right }
 public enum ExpressionTypeDialogue
@@ -25,22 +28,32 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] GameObject responseButtonPrefab;
     [SerializeField] GameObject nextLineIndicator;
     [SerializeField] TextMeshProUGUI dialogueText;
+    [SerializeField] TextMeshProUGUI nameText;
     [SerializeField] Transform responseButtonParent;
     [SerializeField] Button skipButton;
     [SerializeField] Button autoButton;
     [SerializeField] Button maskFakeButton;
     [SerializeField] Image nameBackgroundImage;
-    [SerializeField] TextMeshProUGUI nameText;
+    [SerializeField] Image dialogueBackgroundImage;
 
     [Space(10)]
 
     [Header("Dictionaries")]
     [SerializedDictionary("Type", "Image"), SerializeField] SerializedDictionary<TypeOfDialogueSpritePosition, Image> dictionaryOfImagesPositions;
     [SerializeField, SerializedDictionary("Character", "Descriptions")] SerializedDictionary<Character, CharacterSO> dictionaryOfDescriptions;
-    [SerializeField, SerializedDictionary("Type", "Transform")] 
-    SerializedDictionary<TypeOfDialogueSpritePosition, Transform> dictionaryOfNamePositions;
     [SerializeField, SerializedDictionary("Type", "Transform")]
+    SerializedDictionary<TypeOfDialogueSpritePosition, Transform> dictionaryOfNamePositions;
+    [SerializeField, SerializedDictionary("Type", "Sprite")]
     SerializedDictionary<TypeOfDialogueSpritePosition, Sprite> dictionaryOfNameBackgroundSprites;
+    [SerializeField, SerializedDictionary("Type", "Sprite")]
+    SerializedDictionary<TypeOfDialogueSpritePosition, Sprite> dictionaryOfDialogueBackgroundSprites;
+
+    [Space(10)]
+
+    [Header("Lists")]
+    [SerializeField] List<Sprite> listOfResponsesSprites;
+    List<GameObject> _responseButtonsList = new List<GameObject>();
+
 
     [Space(10)]
 
@@ -58,12 +71,15 @@ public class DialogueManager : MonoBehaviour
     WaitForSeconds _timeBetweenLetterWaitForSeconds;
     WaitForSeconds _timeBetweenEndOfOneLineAndNextWaitForSeconds;
 
+
+
+    #region Variables Methods
     private void Awake()
     {
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
 
-        SetupVariables();
+        SetupInitialVariables();
 
         HideDialogueScreen();
 
@@ -74,8 +90,7 @@ public class DialogueManager : MonoBehaviour
         ResetVariables();
 
     }
-
-    void SetupVariables()
+    void SetupInitialVariables()
     {
         _timeBetweenLetterWaitForSeconds = new(timeBetweenLetters);
         _timeBetweenEndOfOneLineAndNextWaitForSeconds = new(timeBetweenEndOfOneLineAndNext);
@@ -94,6 +109,9 @@ public class DialogueManager : MonoBehaviour
         _handler = null;
         _typingCoroutine = null;
     }
+    #endregion
+
+    #region Buttons Methods
     void SkipButton()
     {
         if (_typingCoroutine != null)
@@ -120,19 +138,19 @@ public class DialogueManager : MonoBehaviour
         if (_autoPlay) autoButton.GetComponentInChildren<TextMeshProUGUI>().text = "Auto On";
         else autoButton.GetComponentInChildren<TextMeshProUGUI>().text = "Auto Off";
     }
+    #endregion
+
     public void InitializeDialogue(DialogueNode node, PlayerInputHandlerManager handler)
     {
         ResetVariables();
 
         HideNextLineIndicator();
 
-        _handler = handler;
+        SetupVariables(node, handler);
 
-        _currentNode = node;
+        ChangeCharacterSprite(node);
 
-        _currentFullLine = node.DialogueText.GetLocalizedString();
-
-        ChangeSprite(node);
+        ChangeDialogueBackground(node);
 
         ChangeName(node);
 
@@ -140,6 +158,15 @@ public class DialogueManager : MonoBehaviour
 
         _typingCoroutine ??= StartCoroutine(DisplayLine());
 
+    }
+
+    void SetupVariables(DialogueNode node, PlayerInputHandlerManager handler)
+    {
+        _handler = handler;
+
+        _currentNode = node;
+
+        _currentFullLine = node.DialogueText.GetLocalizedString();
     }
 
     IEnumerator DisplayLine()
@@ -193,12 +220,13 @@ public class DialogueManager : MonoBehaviour
 
     void SelectResponse(DialogueResponse response)
     {
-        if(response.NextNode != null) InitializeDialogue(response.NextNode, _handler);
+        if (response.NextNode != null) InitializeDialogue(response.NextNode, _handler);
         else HideDialogueScreen();
     }
 
-    void ChangeSprite(DialogueNode node)
+    void ChangeCharacterSprite(DialogueNode node)
     {
+        // PRIMARY CHARACTER
         TypeOfDialogueSpritePosition spriteType = node.PrimarySpritePosition;
 
         var dictionaryOfSprites = dictionaryOfDescriptions[node.PrimaryCharacter].DictionaryOfExpressions;
@@ -207,6 +235,8 @@ public class DialogueManager : MonoBehaviour
 
         dictionaryOfImagesPositions[spriteType].sprite = newSprite;
 
+
+        // SECONDARY CHARACTER
         if (!node.hasSecondaryCharacterExpression) return;
 
         TypeOfDialogueSpritePosition secondarySpriteType = node.SecondarySpritePosition;
@@ -227,6 +257,12 @@ public class DialogueManager : MonoBehaviour
         nameBackgroundImage.transform.position = dictionaryOfNamePositions[node.PrimarySpritePosition].position;
         nameBackgroundImage.sprite = dictionaryOfNameBackgroundSprites[node.PrimarySpritePosition];
     }
+
+    void ChangeDialogueBackground(DialogueNode node)
+    {
+        dialogueBackgroundImage.sprite = dictionaryOfDialogueBackgroundSprites[node.PrimarySpritePosition];
+    }
+
     void SkipLine()
     {
         StopCoroutine(_typingCoroutine);
@@ -249,21 +285,44 @@ public class DialogueManager : MonoBehaviour
     }
     void ShowResponseButtons()
     {
-        // Fazer um pooling depois
-        foreach (Transform child in responseButtonParent)
+        foreach (GameObject child in _responseButtonsList)
         {
-            Destroy(child.gameObject);
+            child.SetActive(false);
         }
 
-        foreach (var response in _currentNode.Responses)
+        var responses = _currentNode.Responses;
+
+        for (int i = 0; i < responses.Count; i++)
         {
-            GameObject buttonObj = Instantiate(responseButtonPrefab, responseButtonParent);
+            var response = responses[i];
+
+            GameObject buttonObj = ReturnResponseButton();
+
             buttonObj.GetComponentInChildren<TextMeshProUGUI>().text = response.ResponseText.GetLocalizedString();
 
+            if (responses.Count == 4) buttonObj.GetComponent<Image>().sprite = listOfResponsesSprites[i];
+            else buttonObj.GetComponent<Image>().sprite = listOfResponsesSprites[i + 1];
+
+            buttonObj.GetComponent<Button>().onClick.RemoveAllListeners();
             buttonObj.GetComponent<Button>().onClick.AddListener(() => SelectResponse(response));
+
+            buttonObj.SetActive(true);
         }
 
         responseButtonParent.gameObject.SetActive(true);
+    }
+
+    GameObject ReturnResponseButton()
+    {
+        for (int i = 0; i < _responseButtonsList.Count; i++)
+        {
+            if (!_responseButtonsList[i].activeSelf) return _responseButtonsList[i];
+        }
+
+        GameObject newButton = Instantiate(responseButtonPrefab, responseButtonParent);
+        newButton.SetActive(false);
+        _responseButtonsList.Add(newButton);
+        return newButton;
     }
     void HideResponseButtons()
     {

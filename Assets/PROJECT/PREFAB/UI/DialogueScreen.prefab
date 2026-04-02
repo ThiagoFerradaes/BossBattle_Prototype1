@@ -249,12 +249,13 @@ MonoBehaviour:
   responseButtonPrefab: {fileID: 2549187002776680687, guid: 120754878bbc52a4e90615a1bbd0f8ba, type: 3}
   nextLineIndicator: {fileID: 8103354860492686195}
   dialogueText: {fileID: 4380932036336398668}
+  nameText: {fileID: 7283841409618359832}
   responseButtonParent: {fileID: 3095727242635525022}
   skipButton: {fileID: 7813699513561617839}
   autoButton: {fileID: 8510367674108969656}
   maskFakeButton: {fileID: 8362085069946372842}
   nameBackgroundImage: {fileID: 8229542965746501272}
-  nameText: {fileID: 7283841409618359832}
+  dialogueBackgroundImage: {fileID: 713084679786926222}
   dictionaryOfImagesPositions:
     _serializedList:
     - Key: 0
@@ -285,6 +286,17 @@ MonoBehaviour:
       Value: {fileID: 333795335, guid: ac1140146ee10324394084cd4e84d237, type: 3}
     - Key: 1
       Value: {fileID: -1431354020, guid: ac1140146ee10324394084cd4e84d237, type: 3}
+  dictionaryOfDialogueBackgroundSprites:
+    _serializedList:
+    - Key: 0
+      Value: {fileID: -1545070244, guid: ac1140146ee10324394084cd4e84d237, type: 3}
+    - Key: 1
+      Value: {fileID: 1006176524, guid: ac1140146ee10324394084cd4e84d237, type: 3}
+  listOfResponsesSprites:
+  - {fileID: -237501416, guid: ac1140146ee10324394084cd4e84d237, type: 3}
+  - {fileID: -2138282504, guid: ac1140146ee10324394084cd4e84d237, type: 3}
+  - {fileID: -1050051390, guid: ac1140146ee10324394084cd4e84d237, type: 3}
+  - {fileID: 1367891783, guid: ac1140146ee10324394084cd4e84d237, type: 3}
   timeBetweenLetters: 0.035
   timeBetweenEndOfOneLineAndNext: 0.4
 --- !u!1 &2624753485351876120
@@ -944,7 +956,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 80, y: 110, z: 200, w: 100}
+  m_margin: {x: 100, y: 110, z: 100, w: 100}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -1507,6 +1519,7 @@ GameObject:
   - component: {fileID: 1075750046694913492}
   - component: {fileID: 2255727332099685647}
   - component: {fileID: 4889448953319370960}
+  - component: {fileID: 6568028875948440518}
   m_Layer: 5
   m_Name: NextDialogueIndicator
   m_TagString: Untagged
@@ -1571,6 +1584,28 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!95 &6568028875948440518
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8103354860492686195}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5fa45af215a4dc04a84aeaa50b65e870, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &8394344194289596945
 GameObject:
   m_ObjectHideFlags: 0
