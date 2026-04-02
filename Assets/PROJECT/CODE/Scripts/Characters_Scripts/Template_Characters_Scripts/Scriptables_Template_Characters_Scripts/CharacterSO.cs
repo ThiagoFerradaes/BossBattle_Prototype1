@@ -24,6 +24,7 @@ public class CharacterKit {
 
 [CreateAssetMenu(menuName = "Characters/ CharactersDescriptions")]
 public class CharacterSO : ScriptableObject {
+
     public string CharacterName;
 
     [Foldout("Character Selection")] public Sprite CharacterSignature;
