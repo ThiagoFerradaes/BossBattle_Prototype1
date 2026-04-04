@@ -18,6 +18,9 @@ public enum ExpressionTypeDialogue
 
 public class DialogueManager : MonoBehaviour
 {
+
+    #region Variables
+
     public static DialogueManager Instance;
 
     [Header("Components")]
@@ -70,7 +73,7 @@ public class DialogueManager : MonoBehaviour
     WaitForSeconds _timeBetweenLetterWaitForSeconds;
     WaitForSeconds _timeBetweenEndOfOneLineAndNextWaitForSeconds;
 
-
+    #endregion
 
     #region Variables Methods
     private void Awake()
@@ -89,6 +92,10 @@ public class DialogueManager : MonoBehaviour
         ResetVariables();
 
     }
+
+    /// <summary>
+    /// Definindo as variáveis de tempo como WaitForSeconds para otimizar o código, e adicionando os listeners dos botões.
+    /// </summary>
     void SetupInitialVariables()
     {
         _timeBetweenLetterWaitForSeconds = new(timeBetweenLetters);
@@ -99,6 +106,9 @@ public class DialogueManager : MonoBehaviour
         autoButton.onClick.AddListener(AutoButton);
     }
 
+    /// <summary>
+    /// Resetando váriaveis para o estado inicial para evitar bugs ao iniciar um novo diálogo.
+    /// </summary>
     void ResetVariables()
     {
         _currentFullLine = "";
@@ -111,6 +121,10 @@ public class DialogueManager : MonoBehaviour
     #endregion
 
     #region Buttons Methods
+
+    /// <summary>
+    /// Adicionando funcionalinade no botão de pular
+    /// </summary>
     void SkipButton()
     {
         if (_typingCoroutine != null)
@@ -120,6 +134,10 @@ public class DialogueManager : MonoBehaviour
         }
         HideDialogueScreen();
     }
+
+    /// <summary>
+    /// Adicionando funcionalidade no botão que avança o diálogo
+    /// </summary>
     void MaskButton()
     {
         if (_autoPlay) return;
@@ -131,14 +149,43 @@ public class DialogueManager : MonoBehaviour
         }
         else SkipLine();
     }
+
+    /// <summary>
+    /// Adicionando funcionalidade no botão de auto play
+    /// </summary>
     void AutoButton()
     {
         _autoPlay = !_autoPlay;
-        if (_autoPlay) autoButton.GetComponentInChildren<TextMeshProUGUI>().text = autoOnLocalizeString.GetLocalizedString();
-        else autoButton.GetComponentInChildren<TextMeshProUGUI>().text = autoOffLocalizeString.GetLocalizedString();
+
+        if (!_autoPlay) autoButton.GetComponentInChildren<TextMeshProUGUI>().text = autoOffLocalizeString.GetLocalizedString();
+        else
+        {
+            autoButton.GetComponentInChildren<TextMeshProUGUI>().text = autoOnLocalizeString.GetLocalizedString();
+            if (_typingCoroutine == null)
+            {
+                if (_dialogueHasEnded) HideDialogueScreen();
+                else if (_onlyOneResponse) InitializeDialogue(_currentNode.Responses[0].NextNode, _handler);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Função que pula a animação de digitação e mostra a linha completa
+    /// </summary>
+    void SkipLine()
+    {
+        StopCoroutine(_typingCoroutine);
+        EndDisplayLine();
     }
     #endregion
 
+    #region Execute Dialogue
+
+    /// <summary>
+    /// Função chamada para começar uma linha de diálogo
+    /// </summary>
+    /// <param name="node"></param>
+    /// <param name="handler"></param>
     public void InitializeDialogue(DialogueNode node, PlayerInputHandlerManager handler)
     {
         ResetVariables();
@@ -159,6 +206,11 @@ public class DialogueManager : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Função usada para definir variáveis necessárias para o funcionamento do diálogo
+    /// </summary>
+    /// <param name="node"></param>
+    /// <param name="handler"></param>
     void SetupVariables(DialogueNode node, PlayerInputHandlerManager handler)
     {
         _handler = handler;
@@ -168,6 +220,10 @@ public class DialogueManager : MonoBehaviour
         _currentFullLine = node.DialogueText.GetLocalizedString();
     }
 
+    /// <summary>
+    /// Corrotina de animação de digitação
+    /// </summary>
+    /// <returns></returns>
     IEnumerator DisplayLine()
     {
         HideResponseButtons();
@@ -184,6 +240,9 @@ public class DialogueManager : MonoBehaviour
         EndDisplayLine();
     }
 
+    /// <summary>
+    /// Função chamada no final da animação de digitação, ou quando o jogador decide pular a animação
+    /// </summary>
     void EndDisplayLine()
     {
         dialogueText.text = _currentFullLine;
@@ -193,6 +252,9 @@ public class DialogueManager : MonoBehaviour
         _typingCoroutine = null;
     }
 
+    /// <summary>
+    /// Função que decide o que acontece quando uma linha de diálogo termina
+    /// </summary>
     void DecideNextStep()
     {
         if (_currentNode.Responses.Count == 0)
@@ -217,12 +279,13 @@ public class DialogueManager : MonoBehaviour
         else ShowResponseButtons(); // Diálogo com opções, mostra os botões
     }
 
-    void SelectResponse(DialogueResponse response)
-    {
-        if (response.NextNode != null) InitializeDialogue(response.NextNode, _handler);
-        else HideDialogueScreen();
-    }
+    #endregion
 
+    #region Change Dialogue UI
+    /// <summary>
+    /// Função que muda o sprite do personagem de acordo com o diálogo
+    /// </summary>
+    /// <param name="node"></param>
     void ChangeCharacterSprite(DialogueNode node)
     {
         // PRIMARY CHARACTER
@@ -247,6 +310,10 @@ public class DialogueManager : MonoBehaviour
         dictionaryOfImagesPositions[secondarySpriteType].sprite = newSecondarySprite;
     }
 
+    /// <summary>
+    /// Função que muda a posição da imagem de fundo do nome e o nome mostrado de acordo com o diálogo
+    /// </summary>
+    /// <param name="node"></param>
     void ChangeName(DialogueNode node)
     {
         string currentCharacterName = dictionaryOfDescriptions[node.PrimaryCharacter].CharacterName.GetLocalizedString();
@@ -257,37 +324,40 @@ public class DialogueManager : MonoBehaviour
         nameBackgroundImage.sprite = dictionaryOfNameBackgroundSprites[node.PrimarySpritePosition];
     }
 
+    /// <summary>
+    /// Função que muda o sprite de fundo do diálogo de acordo com o diálogo
+    /// </summary>
+    /// <param name="node"></param>
     void ChangeDialogueBackground(DialogueNode node)
     {
         dialogueBackgroundImage.sprite = dictionaryOfDialogueBackgroundSprites[node.PrimarySpritePosition];
     }
 
-    void SkipLine()
-    {
-        StopCoroutine(_typingCoroutine);
-        EndDisplayLine();
-    }
-
-
-
-
+    #endregion
 
     #region Hide and Show
+    /// <summary>
+    /// Função para ligar a UI de diálogo
+    /// </summary>
     void ShowDialogueScreen()
     {
         dialogueObject.SetActive(true);
     }
+
+    /// <summary>
+    /// Função para desligar a UI de diálogo e permitir que o jogador volte a controlar o personagem
+    /// </summary>
     void HideDialogueScreen()
     {
         if (_handler != null) _handler.SetCanInput(true);
         dialogueObject.SetActive(false);
     }
+
+    /// <summary>
+    /// Função que mostra as opções de resposta do diálogo
+    /// </summary>
     void ShowResponseButtons()
     {
-        foreach (GameObject child in _responseButtonsList)
-        {
-            child.SetActive(false);
-        }
 
         var responses = _currentNode.Responses;
 
@@ -311,6 +381,10 @@ public class DialogueManager : MonoBehaviour
         responseButtonParent.gameObject.SetActive(true);
     }
 
+    /// <summary>
+    /// Função que retorna os botões de resposta a partir de um pooling
+    /// </summary>
+    /// <returns></returns>
     GameObject ReturnResponseButton()
     {
         for (int i = 0; i < _responseButtonsList.Count; i++)
@@ -323,14 +397,41 @@ public class DialogueManager : MonoBehaviour
         _responseButtonsList.Add(newButton);
         return newButton;
     }
+
+    /// <summary>
+    /// Função atribuida aos botões de resposta
+    /// </summary>
+    /// <param name="response"></param>
+    void SelectResponse(DialogueResponse response)
+    {
+        if (response.NextNode != null) InitializeDialogue(response.NextNode, _handler);
+        else HideDialogueScreen();
+    }
+
+    /// <summary>
+    /// Função que esconde os botões de resposta
+    /// </summary>
     void HideResponseButtons()
     {
         responseButtonParent.gameObject.SetActive(false);
+
+        foreach (GameObject child in _responseButtonsList)
+        {
+            child.SetActive(false);
+        }
     }
+
+    /// <summary>
+    /// Função que mostra o indicador de próxima linha
+    /// </summary>
     void ShowNextLineIndicator()
     {
         nextLineIndicator.SetActive(true);
     }
+
+    /// <summary>
+    /// Função que esconde o indicador de próxima linha
+    /// </summary>
     void HideNextLineIndicator()
     {
         nextLineIndicator.SetActive(false);
