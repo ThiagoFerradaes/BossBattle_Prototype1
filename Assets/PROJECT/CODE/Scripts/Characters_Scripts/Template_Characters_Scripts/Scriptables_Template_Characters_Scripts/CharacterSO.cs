@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Localization;
 
 
 [Serializable]
@@ -25,7 +26,7 @@ public class CharacterKit {
 [CreateAssetMenu(menuName = "Characters/ CharactersDescriptions")]
 public class CharacterSO : ScriptableObject {
 
-    public string CharacterName;
+    public LocalizedString CharacterName;
 
     [Foldout("Character Selection")] public Sprite CharacterSignature;
     [Foldout("Character Selection")] public Sprite CharacterSelectionImage;
