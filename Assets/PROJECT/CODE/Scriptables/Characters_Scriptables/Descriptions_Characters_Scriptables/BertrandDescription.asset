@@ -12,7 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10122c604dc65284f8beb0f19af97283, type: 3}
   m_Name: BertrandDescription
   m_EditorClassIdentifier: Assembly-CSharp::CharacterSO
-  CharacterName: Bertrand
+  CharacterName:
+    m_TableReference:
+      m_TableCollectionName: GUID:5a8c3f4770eec7c4c9f7414abfac7b55
+    m_TableEntryReference:
+      m_KeyId: 498310139904
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   CharacterSignature: {fileID: 0}
   CharacterSelectionImage: {fileID: 0}
   CharacterIcon: {fileID: 0}
@@ -69,3 +77,6 @@ MonoBehaviour:
     Dash: {fileID: 0}
     Ultimate: {fileID: 0}
     Passive: {fileID: 0}
+  references:
+    version: 2
+    RefIds: []

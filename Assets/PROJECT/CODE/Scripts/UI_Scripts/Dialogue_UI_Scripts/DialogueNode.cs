@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.Localization;
 
 
-//[System.Serializable]
 [CreateAssetMenu(menuName = "Dialogue/Children Dialogue")]
 public class DialogueNode : ScriptableObject
 {

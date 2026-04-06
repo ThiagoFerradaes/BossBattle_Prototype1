@@ -12,7 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10122c604dc65284f8beb0f19af97283, type: 3}
   m_Name: LilianDescription
   m_EditorClassIdentifier: 
-  CharacterName: Lillian Pierce
+  CharacterName:
+    m_TableReference:
+      m_TableCollectionName: GUID:5a8c3f4770eec7c4c9f7414abfac7b55
+    m_TableEntryReference:
+      m_KeyId: 11084754407424
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   CharacterSignature: {fileID: 691470794, guid: 732d92020ff5d8f4abf99fa2b5e97964, type: 3}
   CharacterSelectionImage: {fileID: 21300000, guid: 47aa7e59801f5b24698ec4e032a39b6d, type: 3}
   CharacterIcon: {fileID: 1266636975, guid: baedb4a02b06b5749a80811681ac50f4, type: 3}
@@ -75,3 +83,6 @@ MonoBehaviour:
     Dash: {fileID: 11400000, guid: b0a9ec96a6fde044ab9ce580b4628fcd, type: 2}
     Ultimate: {fileID: 11400000, guid: a06d7511ca372b1479f5c73c0ee9990a, type: 2}
     Passive: {fileID: 11400000, guid: b6a0593a1f4401e4082761c496182593, type: 2}
+  references:
+    version: 2
+    RefIds: []
