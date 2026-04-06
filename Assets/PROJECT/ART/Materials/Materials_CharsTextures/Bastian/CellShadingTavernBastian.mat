@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Shader Graphs_CellShading 1
+  m_Name: CellShadingTavernBastian
   m_Shader: {fileID: -6465566751694194690, guid: aab48a074781a5948b9e0799aa0b5e18, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -26,15 +26,19 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseColor:
-        m_Texture: {fileID: 2800000, guid: e68e2dc8b315ce3498692905b9c821be, type: 3}
+        m_Texture: {fileID: 2800000, guid: 067f460764a27db468bf7f799db4af32, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Normal:
-        m_Texture: {fileID: 2800000, guid: 864ee571d7712df4c9d40573b16fdc32, type: 3}
+        m_Texture: {fileID: 2800000, guid: a35f1fb248e7b134cbe9467a604b5284, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_47c8ebe4d8e340ef8cb47fbdb4dc6732_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: d25a7b95e2ab5314ea19fe2470ca8730, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Texture2D:
-        m_Texture: {fileID: 2800000, guid: 5e2aabfb9d810064dbf5d0a75ce092df, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -65,7 +69,7 @@ Material:
     - _HighLightIntensity: 3
     - _HighLightSpace: -0.55
     - _MaxBias: -0.06
-    - _MinBias: 0
+    - _MinBias: 0.06
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReflectionColorDecider: 0
@@ -76,10 +80,10 @@ Material:
     - _ZWrite: 1
     - _ZWriteControl: 0
     m_Colors:
-    - _LightColor: {r: 1, g: 1, b: 1, a: 0}
-    - _LightColor_1: {r: 0.5073193, g: 0.6097286, b: 0.7660377, a: 0}
+    - _LightColor: {r: 1, g: 0.90881777, b: 0.88113207, a: 0}
+    - _LightColor_1: {r: 0.7019608, g: 0.5568628, b: 0.50980395, a: 0}
     - _LightDirection: {r: 0, g: 1, b: 0, a: 0}
-    - _ShadowColor: {r: 0.5019608, g: 0.7411765, b: 0.7647059, a: 0}
+    - _ShadowColor: {r: 0.78039217, g: 0.78039217, b: 0.78039217, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &2447513423968495341
