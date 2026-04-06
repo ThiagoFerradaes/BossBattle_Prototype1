@@ -94,7 +94,7 @@ public class LoadingScreenManager : MonoBehaviour {
 
         tipTitle.text = $"Tip #{list[rng].TipIndex}";
 
-        tipText.text = list[rng].TipDescription;
+        tipText.text = list[rng].TipDescription.GetLocalizedString();
 
         list.RemoveAt(rng);
 
@@ -108,7 +108,7 @@ public class LoadingScreenManager : MonoBehaviour {
 
             tipTitle.text = $"Tip #{list[rng].TipIndex} ";
 
-            tipText.text = list[rng].TipDescription;
+            tipText.text = list[rng].TipDescription.GetLocalizedString();
 
             list.RemoveAt(rng);
 

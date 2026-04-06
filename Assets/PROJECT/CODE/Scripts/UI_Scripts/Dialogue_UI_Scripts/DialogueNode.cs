@@ -8,12 +8,10 @@ using UnityEngine.Localization;
 public class DialogueNode : ScriptableObject
 {
     public LocalizedString DialogueText;
-    public TypeOfDialogueSpritePosition PrimarySpritePosition;
     public Character PrimaryCharacter;
     public ExpressionTypeDialogue PrimaryCharacterExpression;
 
     public bool hasSecondaryCharacterExpression;
-    [ShowIf("hasSecondaryCharacterExpression")] public TypeOfDialogueSpritePosition SecondarySpritePosition;
     [ShowIf("hasSecondaryCharacterExpression")] public Character SecondaryCharacter;
     [ShowIf("hasSecondaryCharacterExpression")] public ExpressionTypeDialogue SecondaryCharacterExpression;
 
