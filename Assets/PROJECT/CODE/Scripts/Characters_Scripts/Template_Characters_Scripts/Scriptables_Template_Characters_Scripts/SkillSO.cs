@@ -2,6 +2,7 @@ using AYellowpaper.SerializedCollections;
 using NaughtyAttributes;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Localization;
 
 
 [System.Serializable]
@@ -14,9 +15,9 @@ public class SkillAnimationEvent {
 }
 [System.Serializable]
 public class UIDescriptionInfo {
-    public string SkillName;
-    [TextArea(3, 10)] public string SkillShortDescription;
-    [TextArea(3, 10)] public string SkillLongDescription;
+    public LocalizedString SkillName;
+    public LocalizedString SkillShortDescription;
+    public LocalizedString SkillLongDescription;
     public Sprite UISkillSpriteIcon;
     public Sprite MapSkillSpriteIcon;
     public Sprite MapSkillSelectedSpriteIcon;

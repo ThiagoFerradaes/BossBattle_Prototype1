@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Localization;
 
 [Serializable]
 public class Tip {
     public int TipIndex;
-    [TextArea(5,10)] public string TipDescription;
+    public LocalizedString TipDescription;
 }
 
 [CreateAssetMenu(menuName = "LoadingScreenSO")]

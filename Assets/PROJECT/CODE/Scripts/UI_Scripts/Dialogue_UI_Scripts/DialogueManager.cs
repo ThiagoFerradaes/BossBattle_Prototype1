@@ -13,7 +13,7 @@ public enum ExpressionTypeDialogue
 {
     Angry_S, Angry_N, Anxious_S, Anxious_N, Curious_S, Curious_N,
     Default_S, Default_N, Intense_S, Intense_N, Laughing_S, Laughing_N, Satisfied_S, Satisfied_N, Surprise_S, Surprised_N, Vulnerable_S,
-    Vulnerable_N
+    Vulnerable_N, Special_1, Special_2, Special_3
 }
 
 public class DialogueManager : MonoBehaviour
@@ -140,6 +140,12 @@ public class DialogueManager : MonoBehaviour
     /// </summary>
     void MaskButton()
     {
+        if (_dialogueHasEnded)
+        {
+            HideDialogueScreen();
+            return;
+        }
+
         if (_autoPlay) return;
 
         if (_typingCoroutine == null)
@@ -257,7 +263,7 @@ public class DialogueManager : MonoBehaviour
     /// </summary>
     void DecideNextStep()
     {
-        if (_currentNode.Responses.Count == 0)
+        if (_currentNode.Responses.Count == 0 || _currentNode.Responses == null)
         {
             _dialogueHasEnded = true;
             ShowNextLineIndicator();
@@ -289,7 +295,8 @@ public class DialogueManager : MonoBehaviour
     void ChangeCharacterSprite(DialogueNode node)
     {
         // PRIMARY CHARACTER
-        TypeOfDialogueSpritePosition spriteType = node.PrimarySpritePosition;
+        TypeOfDialogueSpritePosition spriteType = node.PrimaryCharacter == Character.Julian? TypeOfDialogueSpritePosition.Left:
+            TypeOfDialogueSpritePosition.Right;
 
         var dictionaryOfSprites = dictionaryOfDescriptions[node.PrimaryCharacter].DictionaryOfExpressions;
 
@@ -301,7 +308,8 @@ public class DialogueManager : MonoBehaviour
         // SECONDARY CHARACTER
         if (!node.hasSecondaryCharacterExpression) return;
 
-        TypeOfDialogueSpritePosition secondarySpriteType = node.SecondarySpritePosition;
+        TypeOfDialogueSpritePosition secondarySpriteType = node.SecondaryCharacter == Character.Julian ? TypeOfDialogueSpritePosition.Left :
+            TypeOfDialogueSpritePosition.Right;
 
         var secondaryDictionaryOfSprites = dictionaryOfDescriptions[node.SecondaryCharacter].DictionaryOfExpressions;
 
@@ -320,8 +328,10 @@ public class DialogueManager : MonoBehaviour
 
         nameText.text = currentCharacterName;
 
-        nameBackgroundImage.transform.position = dictionaryOfNamePositions[node.PrimarySpritePosition].position;
-        nameBackgroundImage.sprite = dictionaryOfNameBackgroundSprites[node.PrimarySpritePosition];
+        TypeOfDialogueSpritePosition position = node.PrimaryCharacter == Character.Julian? TypeOfDialogueSpritePosition.Left:
+            TypeOfDialogueSpritePosition.Right;
+        nameBackgroundImage.transform.position = dictionaryOfNamePositions[position].position;
+        nameBackgroundImage.sprite = dictionaryOfNameBackgroundSprites[position];
     }
 
     /// <summary>
@@ -330,7 +340,9 @@ public class DialogueManager : MonoBehaviour
     /// <param name="node"></param>
     void ChangeDialogueBackground(DialogueNode node)
     {
-        dialogueBackgroundImage.sprite = dictionaryOfDialogueBackgroundSprites[node.PrimarySpritePosition];
+        TypeOfDialogueSpritePosition position = node.PrimaryCharacter == Character.Julian ? TypeOfDialogueSpritePosition.Left :
+    TypeOfDialogueSpritePosition.Right;
+        dialogueBackgroundImage.sprite = dictionaryOfDialogueBackgroundSprites[position];
     }
 
     #endregion

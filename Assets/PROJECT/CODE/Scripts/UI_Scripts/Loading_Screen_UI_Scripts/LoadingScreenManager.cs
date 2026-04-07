@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Localization;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
@@ -16,6 +17,7 @@ public class LoadingScreenManager : MonoBehaviour {
     [Foldout("Tip"), SerializeField] float tipDuration;
     [Foldout("Tip"), SerializeField] float tipChangingDuration;
     [Foldout("Tip"), SerializeField] GameObject tipObject;
+    [Foldout("Tip"), SerializeField] LocalizedString tipTitleText;
 
     [Foldout("Save"), SerializeField] Image bossSavingIcon;
     [Foldout("Save"), SerializeField] GameObject savingIcon;
@@ -92,9 +94,9 @@ public class LoadingScreenManager : MonoBehaviour {
 
         int rng = Random.Range(0, list.Count);
 
-        tipTitle.text = $"Tip #{list[rng].TipIndex}";
+        tipTitle.text = tipTitleText.GetLocalizedString(list[rng].TipIndex);
 
-        tipText.text = list[rng].TipDescription;
+        tipText.text = list[rng].TipDescription.GetLocalizedString();
 
         list.RemoveAt(rng);
 
@@ -106,9 +108,9 @@ public class LoadingScreenManager : MonoBehaviour {
 
             rng = Random.Range(0, list.Count);
 
-            tipTitle.text = $"Tip #{list[rng].TipIndex} ";
+            tipTitle.text = tipTitleText.GetLocalizedString(list[rng].TipIndex);
 
-            tipText.text = list[rng].TipDescription;
+            tipText.text = list[rng].TipDescription.GetLocalizedString();
 
             list.RemoveAt(rng);
 

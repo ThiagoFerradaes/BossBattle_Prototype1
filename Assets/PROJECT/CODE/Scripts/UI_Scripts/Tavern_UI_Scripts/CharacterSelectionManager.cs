@@ -130,10 +130,10 @@ public class CharacterSelectionManager : MonoBehaviour {
         ultimateIcon.sprite = ultimate.MapDescriptionInfo.MapSkillSpriteIcon;
 
         // Setando as descri��es
-        passiveShortDescription.text = passive.ShortDescription;
-        skillOneShortDescription.text = skillOne.MapDescriptionInfo.SkillShortDescription;
-        skillTwoShortDescription.text = skillTwo.MapDescriptionInfo.SkillShortDescription;
-        ultimateShortDescription.text = ultimate.MapDescriptionInfo .SkillShortDescription;
+        passiveShortDescription.text = passive.ShortDescription.GetLocalizedString();
+        skillOneShortDescription.text = skillOne.MapDescriptionInfo.SkillShortDescription.GetLocalizedString();
+        skillTwoShortDescription.text = skillTwo.MapDescriptionInfo.SkillShortDescription.GetLocalizedString();
+        ultimateShortDescription.text = ultimate.MapDescriptionInfo .SkillShortDescription.GetLocalizedString();
     }
 
     public void ChangeSkillIcon(SkillSlot slot) {
@@ -141,15 +141,15 @@ public class CharacterSelectionManager : MonoBehaviour {
         switch (slot) {
             case SkillSlot.SkillOne:
                 skillOneIcon.sprite = currentSkill.MapDescriptionInfo.MapSkillSpriteIcon;
-                skillOneShortDescription.text = currentSkill.MapDescriptionInfo.SkillShortDescription;
+                skillOneShortDescription.text = currentSkill.MapDescriptionInfo.SkillShortDescription.GetLocalizedString();
                 break;
             case SkillSlot.SkillTwo:
                 skillTwoIcon.sprite = currentSkill.MapDescriptionInfo.MapSkillSpriteIcon;
-                skillTwoShortDescription.text = currentSkill.MapDescriptionInfo.SkillShortDescription;
+                skillTwoShortDescription.text = currentSkill.MapDescriptionInfo.SkillShortDescription.GetLocalizedString();
                 break;
             case SkillSlot.Ultimate:
                 ultimateIcon.sprite = currentSkill.MapDescriptionInfo.MapSkillSpriteIcon;
-                ultimateShortDescription.text = currentSkill.MapDescriptionInfo.SkillShortDescription;
+                ultimateShortDescription.text = currentSkill.MapDescriptionInfo.SkillShortDescription.GetLocalizedString();
                 break;
         }
     }
