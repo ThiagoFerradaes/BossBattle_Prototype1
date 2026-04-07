@@ -14,9 +14,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CyrusSpearSkillSO
   HasMapDescription: 1
   MapDescriptionInfo:
-    SkillName: Spear Attack
-    SkillShortDescription: Cyrus attacks with his spear
-    SkillLongDescription: Cyrus attacks with his spear
+    SkillName:
+      m_TableReference:
+        m_TableCollectionName: GUID:2eafd25b541933744a0e4b250efe288e
+      m_TableEntryReference:
+        m_KeyId: 22051115008
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    SkillShortDescription:
+      m_TableReference:
+        m_TableCollectionName: GUID:2eafd25b541933744a0e4b250efe288e
+      m_TableEntryReference:
+        m_KeyId: 22051115009
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    SkillLongDescription:
+      m_TableReference:
+        m_TableCollectionName: GUID:2eafd25b541933744a0e4b250efe288e
+      m_TableEntryReference:
+        m_KeyId: 22051115010
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
     UISkillSpriteIcon: {fileID: -2074941056, guid: 3bd66792082ea9042a60054da7e52502, type: 3}
     MapSkillSpriteIcon: {fileID: -218099809, guid: cee67a2d50b177a4a83653c67d610c6c, type: 3}
     MapSkillSelectedSpriteIcon: {fileID: -1460559386, guid: cee67a2d50b177a4a83653c67d610c6c, type: 3}
@@ -27,7 +51,6 @@ MonoBehaviour:
     AnimationLayer: 0
     AnimationSpeed: 3
     AnimationExitTime: 0.7
-    IsAnimationTrigger: 1
   Prefabs:
     _serializedList:
     - Key: 0
@@ -147,3 +170,6 @@ MonoBehaviour:
   - {fileID: -1757669363, guid: 3bd66792082ea9042a60054da7e52502, type: 3}
   - {fileID: -1287095363, guid: 3bd66792082ea9042a60054da7e52502, type: 3}
   - {fileID: -1473493844, guid: 3bd66792082ea9042a60054da7e52502, type: 3}
+  references:
+    version: 2
+    RefIds: []

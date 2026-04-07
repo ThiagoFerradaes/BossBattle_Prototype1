@@ -14,9 +14,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BastianReleaseSO
   HasMapDescription: 1
   MapDescriptionInfo:
-    SkillName: Release
-    SkillShortDescription: Bastian looses heat to gai attack speed
-    SkillLongDescription: Bastian looses heat to gai attack speed
+    SkillName:
+      m_TableReference:
+        m_TableCollectionName: GUID:2eafd25b541933744a0e4b250efe288e
+      m_TableEntryReference:
+        m_KeyId: 22051115026
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    SkillShortDescription:
+      m_TableReference:
+        m_TableCollectionName: GUID:2eafd25b541933744a0e4b250efe288e
+      m_TableEntryReference:
+        m_KeyId: 22051115027
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    SkillLongDescription:
+      m_TableReference:
+        m_TableCollectionName: GUID:2eafd25b541933744a0e4b250efe288e
+      m_TableEntryReference:
+        m_KeyId: 22051115028
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
     UISkillSpriteIcon: {fileID: -185509101, guid: 3bd66792082ea9042a60054da7e52502, type: 3}
     MapSkillSpriteIcon: {fileID: 1078159396, guid: cee67a2d50b177a4a83653c67d610c6c, type: 3}
     MapSkillSelectedSpriteIcon: {fileID: 162989047, guid: cee67a2d50b177a4a83653c67d610c6c, type: 3}
@@ -27,7 +51,6 @@ MonoBehaviour:
     AnimationLayer: 0
     AnimationSpeed: 1
     AnimationExitTime: 0.9
-    IsAnimationTrigger: 1
   Prefabs:
     _serializedList:
     - Key: 0
@@ -85,3 +108,6 @@ MonoBehaviour:
   AttackSpeedGain: 0.8
   AttackSpeedDuration: 2
   AttackSpeedAnimationParameter: AttackSpeed
+  references:
+    version: 2
+    RefIds: []
