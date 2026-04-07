@@ -67,7 +67,8 @@ public class SkillSelectionManager : MonoBehaviour {
 
         CurrentSelectedCharacterWhiteBoard.Instance.SetCurrentCharacterSkillBySlot(_currentSlot, newSkill.Skill);
 
-        ChangeDescriptionText(newSkill.Skill.MapDescriptionInfo.SkillLongDescription, newSkill.Skill.MapDescriptionInfo.SkillName);
+        ChangeDescriptionText(newSkill.Skill.MapDescriptionInfo.SkillLongDescription.GetLocalizedString(), 
+            newSkill.Skill.MapDescriptionInfo.SkillName.GetLocalizedString());
 
         ChangeSkillBackground(typeOfSkill);
 
@@ -115,7 +116,7 @@ public class SkillSelectionManager : MonoBehaviour {
         PassiveSO passive = CurrentSelectedCharacterWhiteBoard.Instance.ReturnPassive(currentCharater);
 
         passiveIcon.sprite = passive.PassiveIcon;
-        ChangeDescriptionText(passive.LongDescription, passive.PassiveName);
+        ChangeDescriptionText(passive.LongDescription.GetLocalizedString(), passive.PassiveName.GetLocalizedString());
 
         passiveIconObject.SetActive(true);
     }
@@ -171,7 +172,8 @@ public class SkillSelectionManager : MonoBehaviour {
         #endregion
 
         // Descrição
-        ChangeDescriptionText(skillInfo.MapDescriptionInfo.SkillLongDescription, skillInfo.MapDescriptionInfo.SkillName);
+        ChangeDescriptionText(skillInfo.MapDescriptionInfo.SkillLongDescription.GetLocalizedString(), 
+            skillInfo.MapDescriptionInfo.SkillName.GetLocalizedString());
 
         // Moldura
         ChangeSkillBackground(skillInfo.SkillType);
