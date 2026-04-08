@@ -7,8 +7,9 @@ public class VictoryScreenManager : MonoBehaviour
     public static VictoryScreenManager Instance;
     [SerializeField] GameObject victoryScreen;
     [SerializeField] Button menuButton;
-    [SerializeField] Button quitButton;
+    [SerializeField] Button tavernButton;
     [SerializeField] LoadingScreenSO menuLoadingInfo;
+    [SerializeField] LoadingScreenSO tavernLoadingInfo;
 
     private void Awake()
     {
@@ -25,7 +26,13 @@ public class VictoryScreenManager : MonoBehaviour
             SceneManager.LoadScene(1);
             Time.timeScale = 1;
         });
-        quitButton.onClick.AddListener(() => Application.Quit());
+        tavernButton.onClick.AddListener(() =>
+        {
+            LoadingScreenManager.CurrentLoadingScreenInfo = tavernLoadingInfo;
+            SceneManager.LoadScene(1);
+            Time.timeScale = 1;
+        }
+        );
     }
 
     public void InitializeVictoryScreen()
