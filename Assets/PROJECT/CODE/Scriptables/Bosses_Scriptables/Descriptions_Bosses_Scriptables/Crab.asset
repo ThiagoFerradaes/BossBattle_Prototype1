@@ -13,10 +13,27 @@ MonoBehaviour:
   m_Name: Crab
   m_EditorClassIdentifier: 
   Boss: 1
-  BossName: Siri
-  IsleName: Ilha do Siri
-  Description: "S R I \nL A N K A"
+  IsleName:
+    m_TableReference:
+      m_TableCollectionName: GUID:20c2cd64e2baee7469fccfd891e6206b
+    m_TableEntryReference:
+      m_KeyId: 1956040495104
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+  Description:
+    m_TableReference:
+      m_TableCollectionName: GUID:3fda93cef8adddf4f991132a9957bbaa
+    m_TableEntryReference:
+      m_KeyId: 1871932116992
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   BossSprite: {fileID: 21300000, guid: d7c62ce64ee0498458191b3186fe622b, type: 3}
   LoadingScreen:
   - {fileID: 11400000, guid: c2e3a4278c1d1ad4b9f507f4740e51cc, type: 2}
   ListOfScenes: 06000000
+  references:
+    version: 2
+    RefIds: []
