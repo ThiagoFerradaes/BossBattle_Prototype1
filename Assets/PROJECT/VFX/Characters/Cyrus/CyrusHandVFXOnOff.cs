@@ -19,7 +19,24 @@ public class CyrusHandVFXOnOff : MonoBehaviour
 
     void Update()
     {
-        leftHandVFX.SetBool("emit_trail", toggleVFX_leftHand);
-        rightHandVFX.SetBool("emit_trail", toggleVFX_rightHand);
+        if(toggleVFX_leftHand)
+        {
+            leftHandVFX.enabled = true;
+        }
+        else
+        {
+            leftHandVFX.enabled = false;
+        }
+        
+        if(toggleVFX_rightHand)
+        {
+            rightHandVFX.enabled = true;
+        }
+        else
+        {
+            rightHandVFX.enabled = false;
+        }
+        //leftHandVFX.SetBool("emit_trail", toggleVFX_leftHand);
+        //rightHandVFX.SetBool("emit_trail", toggleVFX_rightHand);
     }
 }
