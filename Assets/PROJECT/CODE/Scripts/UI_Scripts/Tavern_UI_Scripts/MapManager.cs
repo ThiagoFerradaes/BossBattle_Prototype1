@@ -23,6 +23,8 @@ public class MapManager : MonoBehaviour {
     [Foldout("First Map"), SerializeField] Button TestIslandButton;
     [Foldout("First Map"), SerializeField] BossDescription TestIslandDescription;
     [Foldout("First Map"), SerializeField] GameObject selectedIslandIcon;
+    [Foldout("First Map"), SerializeField] Sprite normalSailButtonSprite;
+    [Foldout("First Map"), SerializeField] Sprite enterSailButtonSprite;
 
     [Foldout("Second Map"), SerializeField] GameObject SecondMap;
     [Foldout("Second Map"), SerializeField] Image BossImage;
@@ -189,6 +191,14 @@ public class MapManager : MonoBehaviour {
         LoadingScreenManager.CurrentLoadingScreenInfo = description.LoadingScreen[_currentDifficulty];
         OnCloseMap?.Invoke();
         SceneManager.LoadScene(1);
-        //LoadingScreenManager.Instance.LoadFightScene(description.LoadingScreen[_currentDifficulty], description.ListOfScenes[_currentDifficulty]);
+    }
+
+    public void EnterSailButton(Image sailImage)
+    {
+        sailImage.sprite = enterSailButtonSprite;
+    }
+    public void ExitSailButton(Image sailImage)
+    {
+        sailImage.sprite = normalSailButtonSprite;
     }
 }
