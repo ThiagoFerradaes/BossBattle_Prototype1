@@ -13,7 +13,7 @@ public class Tip {
 public class LoadingScreenSO : ScriptableObject
 {
     public int SceneIndex;
-    public Sprite SavingIcon;
+    public LocalizedSprite SavingIcon;
     public List<Sprite> ListOfBackgrounds;
     public List<Tip> ListOfTips;
 }

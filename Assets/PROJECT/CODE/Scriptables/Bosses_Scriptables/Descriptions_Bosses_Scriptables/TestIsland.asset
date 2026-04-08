@@ -13,10 +13,27 @@ MonoBehaviour:
   m_Name: TestIsland
   m_EditorClassIdentifier: Assembly-CSharp::BossDescription
   Boss: 0
-  BossName: Dummy
-  IsleName: Dummy Island
-  Description: Teste
+  IsleName:
+    m_TableReference:
+      m_TableCollectionName: GUID:20c2cd64e2baee7469fccfd891e6206b
+    m_TableEntryReference:
+      m_KeyId: 1982976315392
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+  Description:
+    m_TableReference:
+      m_TableCollectionName: GUID:3fda93cef8adddf4f991132a9957bbaa
+    m_TableEntryReference:
+      m_KeyId: 1871965671424
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   BossSprite: {fileID: -474115631, guid: 7a30be293b6c84c4ca3075b7b50efc7f, type: 3}
   LoadingScreen:
   - {fileID: 11400000, guid: 763056ddb4c311b4f96c08168495286c, type: 2}
   ListOfScenes: 05000000
+  references:
+    version: 2
+    RefIds: []

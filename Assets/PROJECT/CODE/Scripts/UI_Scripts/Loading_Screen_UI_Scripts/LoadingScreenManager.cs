@@ -9,6 +9,7 @@ using UnityEngine.Localization;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
+using UnityEngine.Localization.Components;
 
 public class LoadingScreenManager : MonoBehaviour {
     // Components
@@ -19,7 +20,7 @@ public class LoadingScreenManager : MonoBehaviour {
     [Foldout("Tip"), SerializeField] GameObject tipObject;
     [Foldout("Tip"), SerializeField] LocalizedString tipTitleText;
 
-    [Foldout("Save"), SerializeField] Image bossSavingIcon;
+    [Foldout("Save"), SerializeField] LocalizeSpriteEvent bossSavingIcon;
     [Foldout("Save"), SerializeField] GameObject savingIcon;
     [Foldout("Save"), SerializeField] float saveIconFadeTime;
     [Foldout("Save"), SerializeField] float maxSaveIconAlpha;
@@ -56,7 +57,6 @@ public class LoadingScreenManager : MonoBehaviour {
         Load();
     }
     void Load() {
-        //ChooseRandomBackground(CurrentLoadingScreenInfo);
         savingFadeCoroutine ??= StartCoroutine(SavingIconFade());
         tipCoroutine ??= StartCoroutine(HandleTipChanging());
 
@@ -71,7 +71,7 @@ public class LoadingScreenManager : MonoBehaviour {
     #region Coroutines
     IEnumerator SavingIconFade()
     {
-        bossSavingIcon.sprite = CurrentLoadingScreenInfo.SavingIcon;
+        bossSavingIcon.AssetReference = CurrentLoadingScreenInfo.SavingIcon;
 
         CanvasGroup canvasG = savingIcon.GetComponent<CanvasGroup>();
 
@@ -163,21 +163,6 @@ public class LoadingScreenManager : MonoBehaviour {
 
     #endregion
 
-    #region Canceled
-    //[Foldout("BackGround"), SerializeField] Image backGroundImage;
 
-    //void ChooseRandomBackground(LoadingScreenSO loadingScriptable) {
-    //    List<Sprite> list = new(loadingScriptable.ListOfBackgrounds);
-
-    //    int rng = Random.Range(0, list.Count);
-
-    //    Sprite newSprite = list[rng];
-
-    //    backGroundImage.sprite = newSprite;
-
-    //    bossSavingIcon.sprite = loadingScriptable.SavingIcon;
-    //}
-
-    #endregion
 }
 

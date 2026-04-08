@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Localization;
+using UnityEngine.Localization.Components;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -21,11 +23,13 @@ public class MapManager : MonoBehaviour {
     [Foldout("First Map"), SerializeField] Button TestIslandButton;
     [Foldout("First Map"), SerializeField] BossDescription TestIslandDescription;
     [Foldout("First Map"), SerializeField] GameObject selectedIslandIcon;
+    [Foldout("First Map"), SerializeField] Sprite normalSailButtonSprite;
+    [Foldout("First Map"), SerializeField] Sprite enterSailButtonSprite;
 
     [Foldout("Second Map"), SerializeField] GameObject SecondMap;
     [Foldout("Second Map"), SerializeField] Image BossImage;
     [Foldout("Second Map"), SerializeField] Image SelectedCharacterIcon;
-    [Foldout("Second Map"), SerializeField] TextMeshProUGUI IsleName;
+    [Foldout("Second Map"), SerializeField] LocalizeSpriteEvent IsleName;
     [Foldout("Second Map"), SerializeField] TextMeshProUGUI BossDescription;
     [Foldout("Second Map"), SerializeField] Button CloseSecondMapButton;
     [Foldout("Second Map"), SerializeField] Button SailButton;
@@ -47,6 +51,7 @@ public class MapManager : MonoBehaviour {
     Action<CharacterSO> _onChangeSelectedCharacter;
 
     PlayerInputHandlerManager _handler;
+
 
     #region StartRegion
     private void Awake() {
@@ -79,7 +84,7 @@ public class MapManager : MonoBehaviour {
 
             Button button = DictionaryOfButtons[phase].GetComponent<Button>();
             button.interactable = board.ReturnListOfUnlockedPhasesByBoss().ContainsKey(phase);
-            ;
+            
 
         }
 
@@ -99,6 +104,7 @@ public class MapManager : MonoBehaviour {
 
             button.onClick.AddListener(() => TurnScreenOn(localDescription));
             button.onClick.AddListener(() => TurnSelectedIslandIconOn(button.transform));
+
         }
 
         for (int i = 0; i < ListOfDifficultyButtons.Count; i++) {
@@ -156,10 +162,10 @@ public class MapManager : MonoBehaviour {
     }
 
     void TurnScreenOn(BossDescription description) {
-        SecondMap.SetActive(true);
         BossImage.sprite = description.BossSprite;
-        IsleName.text = description.IsleName;
-        BossDescription.text = description.Description;
+        IsleName.AssetReference = description.IsleName;
+        BossDescription.text = description.Description.GetLocalizedString();
+        SecondMap.SetActive(true);
 
         SailButton.onClick.RemoveAllListeners();
         SailButton.onClick.AddListener(() => Sail(description));
@@ -185,6 +191,14 @@ public class MapManager : MonoBehaviour {
         LoadingScreenManager.CurrentLoadingScreenInfo = description.LoadingScreen[_currentDifficulty];
         OnCloseMap?.Invoke();
         SceneManager.LoadScene(1);
-        //LoadingScreenManager.Instance.LoadFightScene(description.LoadingScreen[_currentDifficulty], description.ListOfScenes[_currentDifficulty]);
+    }
+
+    public void EnterSailButton(Image sailImage)
+    {
+        sailImage.sprite = enterSailButtonSprite;
+    }
+    public void ExitSailButton(Image sailImage)
+    {
+        sailImage.sprite = normalSailButtonSprite;
     }
 }
