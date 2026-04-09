@@ -33,22 +33,27 @@ public class SkillSelectionManager : MonoBehaviour {
 
     #region Awake Region
     public void Awake() {
+
         _characterSelectionManager = GetComponent<CharacterSelectionManager>();
         SetButtons();
+
     }
     void SetButtons() {
+
         closeSelectionScreen.onClick.AddListener(TurnScreenOff);
 
         foreach (var button in dictionaryOfSkillButtons) {
             var typeOfSkill = button.Key;
             button.Value.onClick.AddListener(() => ChangeSelectedSkill(typeOfSkill));
         }
+
     }
     public void TurnScreenOff() {
         passiveIconObject.SetActive(false);
         skillsIconObject.SetActive(false);
         skillSelectionScreen.SetActive(false);
 
+        _characterSelectionManager.TurnCloseButtonOn();
         _characterSelectionManager.TurnOffSkillSelectionBackground();
     }
 

@@ -834,6 +834,7 @@ GameObject:
   - component: {fileID: 7760132765579271751}
   - component: {fileID: 8844436535774241496}
   - component: {fileID: 1382647100727835454}
+  - component: {fileID: 7394690219986877134}
   m_Layer: 5
   m_Name: CloseCharacterSelection
   m_TagString: Untagged
@@ -857,8 +858,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -221, y: 468}
-  m_SizeDelta: {x: 70, y: 70}
+  m_AnchoredPosition: {x: 810, y: 400}
+  m_SizeDelta: {x: 65, y: 65}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7760132765579271751
 CanvasRenderer:
@@ -888,7 +889,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9c3c9750e260a1e49bfb1ae2e990f41c, type: 3}
+  m_Sprite: {fileID: 681566100, guid: 8bb853acb03e2334faeed1aa81915ee8, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -942,6 +943,67 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &7394690219986877134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1461088194672986243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.EventSystems.EventTrigger
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 202418728025127129}
+          m_TargetAssemblyTypeName: MapManager, Assembly-CSharp
+          m_MethodName: EnterExitButton
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 8844436535774241496}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 202418728025127129}
+          m_TargetAssemblyTypeName: MapManager, Assembly-CSharp
+          m_MethodName: ExitExitButton
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 8844436535774241496}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 202418728025127129}
+          m_TargetAssemblyTypeName: MapManager, Assembly-CSharp
+          m_MethodName: ExitExitButton
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 8844436535774241496}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1519171303564426061
 GameObject:
   m_ObjectHideFlags: 0
@@ -1364,6 +1426,7 @@ GameObject:
   - component: {fileID: 1982050188527390093}
   - component: {fileID: 3072255197471718751}
   - component: {fileID: 849798775618597150}
+  - component: {fileID: 7407386866572635655}
   m_Layer: 5
   m_Name: CloseSkillSelection
   m_TagString: Untagged
@@ -1387,8 +1450,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 552, y: 319}
-  m_SizeDelta: {x: 50, y: 50}
+  m_AnchoredPosition: {x: 550, y: 340}
+  m_SizeDelta: {x: 65, y: 65}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1982050188527390093
 CanvasRenderer:
@@ -1418,7 +1481,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9c3c9750e260a1e49bfb1ae2e990f41c, type: 3}
+  m_Sprite: {fileID: 681566100, guid: 8bb853acb03e2334faeed1aa81915ee8, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1472,6 +1535,67 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &7407386866572635655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2219202604408158505}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.EventSystems.EventTrigger
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 202418728025127129}
+          m_TargetAssemblyTypeName: MapManager, Assembly-CSharp
+          m_MethodName: EnterExitButton
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 3072255197471718751}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 202418728025127129}
+          m_TargetAssemblyTypeName: MapManager, Assembly-CSharp
+          m_MethodName: ExitExitButton
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 3072255197471718751}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 202418728025127129}
+          m_TargetAssemblyTypeName: MapManager, Assembly-CSharp
+          m_MethodName: ExitExitButton
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 3072255197471718751}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &2246057701864903548
 GameObject:
   m_ObjectHideFlags: 0
@@ -2140,6 +2264,8 @@ MonoBehaviour:
   selectedIslandIcon: {fileID: 4499562609445934112}
   normalSailButtonSprite: {fileID: -1543942665, guid: a3779f27363c2714f8bfe9a37f6a6560, type: 3}
   enterSailButtonSprite: {fileID: -1969939980, guid: a3779f27363c2714f8bfe9a37f6a6560, type: 3}
+  enterExitButtonSprite: {fileID: -1162545600, guid: 8bb853acb03e2334faeed1aa81915ee8, type: 3}
+  exitExitButtonSprite: {fileID: 681566100, guid: 8bb853acb03e2334faeed1aa81915ee8, type: 3}
   SecondMap: {fileID: 3121159974519221307}
   BossImage: {fileID: 3771636648752925615}
   SelectedCharacterIcon: {fileID: 4632046537511866873}
@@ -6283,6 +6409,7 @@ GameObject:
   - component: {fileID: 1453904333652655211}
   - component: {fileID: 747961926055727806}
   - component: {fileID: 5958506895221512042}
+  - component: {fileID: 5684153796023017156}
   m_Layer: 5
   m_Name: CloseMap
   m_TagString: Untagged
@@ -6306,8 +6433,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -892, y: 479}
-  m_SizeDelta: {x: 80, y: 80}
+  m_AnchoredPosition: {x: -880, y: 460}
+  m_SizeDelta: {x: 86, y: 85}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1453904333652655211
 CanvasRenderer:
@@ -6337,7 +6464,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9c3c9750e260a1e49bfb1ae2e990f41c, type: 3}
+  m_Sprite: {fileID: 681566100, guid: 8bb853acb03e2334faeed1aa81915ee8, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6391,6 +6518,67 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &5684153796023017156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6386076746814643498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.EventSystems.EventTrigger
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 202418728025127129}
+          m_TargetAssemblyTypeName: MapManager, Assembly-CSharp
+          m_MethodName: EnterExitButton
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 747961926055727806}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 202418728025127129}
+          m_TargetAssemblyTypeName: MapManager, Assembly-CSharp
+          m_MethodName: ExitExitButton
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 747961926055727806}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 202418728025127129}
+          m_TargetAssemblyTypeName: MapManager, Assembly-CSharp
+          m_MethodName: ExitExitButton
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 747961926055727806}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &6476718386911336999
 GameObject:
   m_ObjectHideFlags: 0
@@ -8021,6 +8209,7 @@ GameObject:
   - component: {fileID: 8671858490856399785}
   - component: {fileID: 6430835946688231784}
   - component: {fileID: 1028241447476385900}
+  - component: {fileID: 175834226168232953}
   m_Layer: 5
   m_Name: CloseSecondMap
   m_TagString: Untagged
@@ -8035,7 +8224,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8227131447860916079}
-  m_LocalRotation: {x: -0, y: -0, z: -0.046517033, w: 0.9989175}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -8044,8 +8233,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -353.86377, y: -433.99243}
-  m_SizeDelta: {x: 80, y: 80}
+  m_AnchoredPosition: {x: -240, y: 420}
+  m_SizeDelta: {x: 86, y: 85}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8671858490856399785
 CanvasRenderer:
@@ -8075,7 +8264,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9c3c9750e260a1e49bfb1ae2e990f41c, type: 3}
+  m_Sprite: {fileID: 681566100, guid: 8bb853acb03e2334faeed1aa81915ee8, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -8129,6 +8318,67 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &175834226168232953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8227131447860916079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.EventSystems.EventTrigger
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 202418728025127129}
+          m_TargetAssemblyTypeName: MapManager, Assembly-CSharp
+          m_MethodName: EnterExitButton
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 6430835946688231784}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 202418728025127129}
+          m_TargetAssemblyTypeName: MapManager, Assembly-CSharp
+          m_MethodName: ExitExitButton
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 6430835946688231784}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 202418728025127129}
+          m_TargetAssemblyTypeName: MapManager, Assembly-CSharp
+          m_MethodName: ExitExitButton
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 6430835946688231784}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &8238123442746491852
 GameObject:
   m_ObjectHideFlags: 0
