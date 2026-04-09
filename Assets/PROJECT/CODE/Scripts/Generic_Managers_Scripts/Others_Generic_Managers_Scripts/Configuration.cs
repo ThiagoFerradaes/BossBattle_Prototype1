@@ -35,7 +35,7 @@ public class Configuration : MonoBehaviour
     }
     void SetInitialToggleValues()
     {
-        dashToMouseToggle.isOn = false;
+        dashToMouseToggle.isOn = ConfigurationWhiteBoard.Instance.DashToMouse;
         ptToggle.isOn = LocalizationSettings.SelectedLocale == LocalizationSettings.AvailableLocales.GetLocale(ptLanguageCode);
         enToggle.isOn = LocalizationSettings.SelectedLocale == LocalizationSettings.AvailableLocales.GetLocale(enLanguageCode);
     }
@@ -54,6 +54,10 @@ public class Configuration : MonoBehaviour
             {
                 SetLanguage(enLanguageCode);
             }
+        });
+
+        dashToMouseToggle.onValueChanged.AddListener((isOn) => {
+            ConfigurationWhiteBoard.Instance.DashToMouse = isOn;
         });
     }
 
