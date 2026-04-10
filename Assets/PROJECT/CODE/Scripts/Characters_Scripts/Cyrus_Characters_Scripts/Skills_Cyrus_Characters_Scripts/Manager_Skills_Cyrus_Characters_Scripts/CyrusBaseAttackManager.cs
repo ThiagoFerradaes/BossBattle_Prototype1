@@ -30,7 +30,9 @@ public class CyrusBaseAttackManager : SkillObjectManager {
             StopCoroutine(_timerBetweenAttacksCoroutine);
             _timerBetweenAttacksCoroutine = null;
         }
-        animationCoroutine ??= StartCoroutine(AttackCoroutine(_attackIndex - 1, _attackIndex));
+
+        _attackSpeedMultiplier = GetAttackSpeedMultiplier();
+        animationCoroutine ??= StartCoroutine(AttackCoroutine(_attackIndex - 1, _attackIndex, _attackSpeedMultiplier));
     }
 
     private void Initialize(SkillSO skill) {
@@ -40,24 +42,12 @@ public class CyrusBaseAttackManager : SkillObjectManager {
 
     }
 
-    protected override void FirstFunc() {
-        _attackSpeedMultiplier = GetAttackSpeedMultiplier();
-
-        float animationSpeed = _attackSpeedMultiplier + _info.ListOfAnimationsInfo[_attackIndex - 1].AnimationBaseSpeed;
-
-        anim.SetFloat("AttackSpeed", animationSpeed);
-
-        base.FirstFunc();
-    }
-
 
     protected override void FourthFunc() {
         float cooldown = _attackIndex == 1 ? _info.CooldownBetweenAttacks : _info.Cooldown;
         float realCooldown = cooldown / _attackSpeedMultiplier;
 
         cooldownManager.SetCooldownSingleCharge(slot, realCooldown);
-
-        anim.SetFloat("AttackSpeed", 1);
 
         _attackIndex = _attackIndex == 1 ? _attackIndex = 2 : _attackIndex = 1;
 

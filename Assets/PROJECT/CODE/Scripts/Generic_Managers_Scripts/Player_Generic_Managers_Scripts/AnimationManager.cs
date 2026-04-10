@@ -57,6 +57,10 @@ public class AnimationManager : MonoBehaviour {
         var controller = GetOverrideController(anim);
         controller["Idle"] = idleClip;
     }
+
+    public void ResetAnimationSpeed(Animator anim) {
+        anim.SetFloat("AnimationSpeed", 1);
+    }
     #endregion
 
     #region PoolingRegion
