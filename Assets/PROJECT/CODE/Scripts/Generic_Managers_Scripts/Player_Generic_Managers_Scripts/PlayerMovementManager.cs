@@ -23,7 +23,8 @@ public class PlayerMovementManager : MonoBehaviour {
 
     // Animation
     [Header("Animation")]
-    [SerializeField] string walkingAnimationParameter;
+    [SerializeField] AnimationClip idleClip;
+    [SerializeField] AnimationClip runningClip;
 
     // Components
     Animator _anim;
@@ -40,7 +41,6 @@ public class PlayerMovementManager : MonoBehaviour {
     // LayerMask
     [Header("Layer")]
     [SerializeField] LayerMask floorLayer;
-    [SerializeField] AnimationClip runningClip;
 
     // Rotation
     Vector2 _mousePosition;
@@ -68,6 +68,8 @@ public class PlayerMovementManager : MonoBehaviour {
         _cameraCenter = PlayerManager.Instance.CameraCenter;
 
         _stunManager.OnStun += _onStun;
+
+        AnimationManager.Instance.SetIdleAnimation(_anim, idleClip);
     }
 
     private void OnDestroy() {

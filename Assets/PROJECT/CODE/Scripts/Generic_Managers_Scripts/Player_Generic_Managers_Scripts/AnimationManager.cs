@@ -41,6 +41,10 @@ public class AnimationManager : MonoBehaviour {
     public void ReturnToIdle(Animator anim) {
         anim.CrossFade("Idle", 0.05f, 0, 0f);
     }
+    public void SetIdleAnimation(Animator anim, AnimationClip idleClip) {
+        var controller = GetOverrideController(anim);
+        controller["Idle"] = idleClip;
+    }
     #endregion
 
     #region PoolingRegion

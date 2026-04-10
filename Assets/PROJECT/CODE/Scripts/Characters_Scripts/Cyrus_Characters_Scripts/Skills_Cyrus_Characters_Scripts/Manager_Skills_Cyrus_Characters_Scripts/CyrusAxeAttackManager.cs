@@ -55,7 +55,7 @@ public class CyrusAxeAttackManager : SkillObjectManager {
         skillManager.BlockAllSkills(true);
 
         // Ligar animação de subir
-        AnimateAxe();
+        AnimationManager.Instance.ChangeAnimation(anim, _info.ListOfAnimationsInfo[0].Animation, true);
 
         // VFX de subir 
         InstantiateUpAxeVFX();
@@ -74,15 +74,6 @@ public class CyrusAxeAttackManager : SkillObjectManager {
         else if (_skillLevel > 1) healthManager.RecieveShield(_info.Level2AmountOfShield, _info.ShieldDuration);
     }
 
-    void AnimateAxe()
-    {
-        AnimatorOverrideController overrideController = new(anim.runtimeAnimatorController);
-        anim.runtimeAnimatorController = overrideController;
-
-        overrideController["Default 1"] = _info.ListOfAnimationsInfo[0].Animation;
-
-        anim.CrossFade("LoopAnimation", 0.05f, 0, 0f);
-    }
     void InstantiateUpAxeVFX() {
 
         if (_info.Prefabs[0].Count == 0) { Debug.Log("Nenhum VFX de subida do machado"); return; }
