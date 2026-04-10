@@ -53,14 +53,13 @@ public class BastianDashManager : SkillObjectManager {
 
         BastianPassiveManager.Instance.LooseHeat(_info.AmountOfHeatLost);
 
-        anim.SetTrigger(_info.AnimationParameter);
+        AnimationManager.Instance.ChangeAnimation(anim, _info.ListOfAnimationsInfo[0]);
 
-        AnimatorStateInfo stateInfo;
+        yield return null;
 
-        do {
-            yield return null;
-            stateInfo = anim.GetCurrentAnimatorStateInfo(0);
-        } while (!stateInfo.IsName(_info.AnimationName));
+        while (anim.IsInTransition(0)) yield return null;
+
+        var stateInfo = anim.GetCurrentAnimatorStateInfo(0);
 
         int attackStateHash = stateInfo.fullPathHash;
 

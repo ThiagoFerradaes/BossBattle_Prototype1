@@ -24,7 +24,7 @@ public class PlayerMovementManager : MonoBehaviour {
     // Animation
     [Header("Animation")]
     [SerializeField] AnimationClip idleClip;
-    [SerializeField] AnimationClip runningClip;
+    [SerializeField] AnimationInfo runningAnimationInfo;
 
     // Components
     Animator _anim;
@@ -126,7 +126,7 @@ public class PlayerMovementManager : MonoBehaviour {
         }
         else if ((_xInput != 0 || _zInput != 0) && !_isWalking) {
             _isWalking = true;
-            AnimationManager.Instance.ChangeAnimation(_anim, runningClip, true);
+            AnimationManager.Instance.ChangeAnimation(_anim, runningAnimationInfo);
         }
     }
     void Rotate() {

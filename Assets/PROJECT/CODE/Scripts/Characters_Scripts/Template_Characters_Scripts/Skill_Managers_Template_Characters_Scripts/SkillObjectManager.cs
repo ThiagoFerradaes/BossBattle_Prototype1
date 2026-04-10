@@ -153,12 +153,12 @@ public abstract class SkillObjectManager : MonoBehaviour {
     #region AttackAnimation
 
     static readonly int attackStateHash = Animator.StringToHash("OneShotAnimation");
-    protected virtual IEnumerator AttackCoroutine(int animationIndex = 0, int comboIndex = 0) {
+    protected virtual IEnumerator AttackCoroutine(int animationIndex = 0, int comboIndex = 0, float extraAnimationSpeed = 0) {
         FirstFunc();
 
         var animInfo = info.ListOfAnimationsInfo[animationIndex];
 
-        AnimationManager.Instance.ChangeAnimation(anim, animInfo.Animation);
+        AnimationManager.Instance.ChangeAnimation(anim, animInfo, extraAnimationSpeed);
 
         yield return null;
 

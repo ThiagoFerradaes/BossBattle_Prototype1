@@ -55,7 +55,7 @@ public class CyrusAxeAttackManager : SkillObjectManager {
         skillManager.BlockAllSkills(true);
 
         // Ligar animação de subir
-        AnimationManager.Instance.ChangeAnimation(anim, _info.ListOfAnimationsInfo[0].Animation, true);
+        AnimationManager.Instance.ChangeAnimation(anim, _info.ListOfAnimationsInfo[0]);
 
         // VFX de subir 
         InstantiateUpAxeVFX();

@@ -43,7 +43,7 @@ public class CyrusBaseAttackManager : SkillObjectManager {
     protected override void FirstFunc() {
         _attackSpeedMultiplier = GetAttackSpeedMultiplier();
 
-        float animationSpeed = _attackSpeedMultiplier + _info.ListOfAnimationsInfo[_attackIndex - 1].AnimationSpeed;
+        float animationSpeed = _attackSpeedMultiplier + _info.ListOfAnimationsInfo[_attackIndex - 1].AnimationBaseSpeed;
 
         anim.SetFloat("AttackSpeed", animationSpeed);
 
