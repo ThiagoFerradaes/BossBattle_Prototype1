@@ -15,6 +15,7 @@ public class RegularObjectUIManager : MonoBehaviour {
     [Header("Atributes")]
     [SerializeField] float screenDuration = 2f;
     [SerializeField] float fadeOutDuration = 1f;
+    [SerializeField] float fadeInDuration = 0.2f;
 
     Coroutine screenDurationCoroutine;
     WaitForSeconds screenDurationWaitForSeconds;
@@ -26,6 +27,7 @@ public class RegularObjectUIManager : MonoBehaviour {
         else {
             Destroy(gameObject);
         }
+        TurnScreenOff();
         SetVariables();
     }
 
@@ -39,11 +41,24 @@ public class RegularObjectUIManager : MonoBehaviour {
     }
 
     IEnumerator ScreenDuration() {
+
+        alphaGroup.alpha = 0;
+
         screen.SetActive(true);
-        alphaGroup.alpha = 1;
-        yield return screenDurationWaitForSeconds;
 
         float timer = 0f;
+
+        while (timer < fadeInDuration) {
+            timer += Time.deltaTime;
+            alphaGroup.alpha = timer / fadeInDuration;
+            yield return null;
+        }
+
+        alphaGroup.alpha = 1;
+
+        timer = 0f;
+
+        yield return screenDurationWaitForSeconds;
 
         while (timer < fadeOutDuration) {
             timer += Time.deltaTime;
@@ -51,7 +66,11 @@ public class RegularObjectUIManager : MonoBehaviour {
             yield return null;
         }
 
-        screen.SetActive(false);
+        TurnScreenOff();
         screenDurationCoroutine = null;
+    }
+
+    void TurnScreenOff() {
+        screen.SetActive(false);
     }
 }

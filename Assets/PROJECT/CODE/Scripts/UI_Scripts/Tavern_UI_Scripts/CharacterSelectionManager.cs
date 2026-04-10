@@ -61,6 +61,7 @@ public class CharacterSelectionManager : MonoBehaviour {
             var tempSlot = slot;
             dictionaryOfSkillSelectionButton[tempSlot].onClick.AddListener(() => {
                 _skillSelectionManager.Initialize(tempSlot);
+                closeScreenButton.gameObject.SetActive(false);
                 ChangeSkillIconBackground(tempSlot);
             });
         }
@@ -166,6 +167,9 @@ public class CharacterSelectionManager : MonoBehaviour {
         characterSelectionScreen.SetActive(false);
     }
 
+    public void TurnCloseButtonOn() {
+        closeScreenButton.gameObject.SetActive(true);
+    }
 
     #endregion
 

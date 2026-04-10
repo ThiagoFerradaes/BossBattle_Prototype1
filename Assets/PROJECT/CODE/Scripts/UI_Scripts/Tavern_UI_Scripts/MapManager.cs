@@ -25,6 +25,8 @@ public class MapManager : MonoBehaviour {
     [Foldout("First Map"), SerializeField] GameObject selectedIslandIcon;
     [Foldout("First Map"), SerializeField] Sprite normalSailButtonSprite;
     [Foldout("First Map"), SerializeField] Sprite enterSailButtonSprite;
+    [Foldout("First Map"), SerializeField] Sprite enterExitButtonSprite;
+    [Foldout("First Map"), SerializeField] Sprite exitExitButtonSprite;
 
     [Foldout("Second Map"), SerializeField] GameObject SecondMap;
     [Foldout("Second Map"), SerializeField] Image BossImage;
@@ -55,8 +57,11 @@ public class MapManager : MonoBehaviour {
 
     #region StartRegion
     private void Awake() {
+        TurnMapOff();
+
         _characterSelectionManager = GetComponent<CharacterSelectionManager>();
         _onChangeSelectedCharacter = OnChangeSelectedCharacter;
+
         SetButtons();
     }
     private void Start() {
@@ -102,7 +107,7 @@ public class MapManager : MonoBehaviour {
             Button button = pair.Value.GetComponent<Button>();
             var localDescription = description;
 
-            button.onClick.AddListener(() => TurnScreenOn(localDescription));
+            button.onClick.AddListener(() => TurnBossDiffucltyScreenOn(localDescription));
             button.onClick.AddListener(() => TurnSelectedIslandIconOn(button.transform));
 
         }
@@ -120,13 +125,9 @@ public class MapManager : MonoBehaviour {
             TurnSelectedIslandIconOff();
         });
         
-        CloseSecondMapButton.onClick.AddListener(() => {
-            SecondMap.SetActive(false);
-            SailButton.gameObject.SetActive(false);
-            TurnSelectedIslandIconOff();
-        });
+        CloseSecondMapButton.onClick.AddListener(() => TurnDifficultyScreenOf());
 
-        TestIslandButton.onClick.AddListener(() => TurnScreenOn(TestIslandDescription));
+        TestIslandButton.onClick.AddListener(() => TurnBossDiffucltyScreenOn(TestIslandDescription));
 
         ChangeCharacterButton.onClick.AddListener(() => _characterSelectionManager.Initialize());
     }
@@ -135,6 +136,14 @@ public class MapManager : MonoBehaviour {
     {
         if (_handler != null) _handler.SetCanInput(true);
         mapScreen.SetActive(false);
+    }
+    void TurnDifficultyScreenOf() {
+
+        SecondMap.SetActive(false);
+        SailButton.gameObject.SetActive(false);
+        CloseMapButton.gameObject.SetActive(true);
+
+        TurnSelectedIslandIconOff();
     }
     void TurnSelectedIslandIconOn(Transform islandTransform)
     {
@@ -161,16 +170,23 @@ public class MapManager : MonoBehaviour {
         }
     }
 
-    void TurnScreenOn(BossDescription description) {
+    void TurnBossDiffucltyScreenOn(BossDescription description) {
+
+        // Limpando objetos antigos
+        CloseMapButton.gameObject.SetActive(false);
+
+        // Mudando as informações da tela de dificuldade do boss
         BossImage.sprite = description.BossSprite;
         IsleName.AssetReference = description.IsleName;
         BossDescription.text = description.Description.GetLocalizedString();
         SecondMap.SetActive(true);
 
+        // Setando o botão de Sail
         SailButton.onClick.RemoveAllListeners();
         SailButton.onClick.AddListener(() => Sail(description));
         SailButton.gameObject.SetActive(true);
 
+        // Setando as dificuldades disponiveis
         int amountOfPhasesUnlocked = WhiteBoard.Instance.ReturnListOfUnlockedPhasesByBoss()[description.Boss];
 
         for (int i = 0; i < ListOfDifficultyLocks.Count; i++) {
@@ -187,12 +203,14 @@ public class MapManager : MonoBehaviour {
         SelectDifficulty(0);
 
     }
+
+
+    #region Button Methods
     void Sail(BossDescription description) {
         LoadingScreenManager.CurrentLoadingScreenInfo = description.LoadingScreen[_currentDifficulty];
         OnCloseMap?.Invoke();
         SceneManager.LoadScene(1);
     }
-
     public void EnterSailButton(Image sailImage)
     {
         sailImage.sprite = enterSailButtonSprite;
@@ -201,4 +219,11 @@ public class MapManager : MonoBehaviour {
     {
         sailImage.sprite = normalSailButtonSprite;
     }
+    public void EnterExitButton(Image exitImage) {
+        exitImage.sprite = enterExitButtonSprite;
+    }
+    public void ExitExitButton(Image exitImage) {
+        exitImage.sprite = exitExitButtonSprite;
+    }
+    #endregion
 }
