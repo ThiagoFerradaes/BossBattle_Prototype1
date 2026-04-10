@@ -3,13 +3,6 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[Serializable]
-public class AnimationInfo {
-    public AnimationClip Animation;
-    public int AnimationLayer;
-    public float AnimationSpeed = 1;
-    [Range(0,1)] public float AnimationExitTime = 1;
-}
 public abstract class SkillObjectManager : MonoBehaviour {
     #region Parameters
     protected bool _preCasted;
@@ -28,8 +21,6 @@ public abstract class SkillObjectManager : MonoBehaviour {
     protected HealthManager healthManager;
     protected Rigidbody rb;
     protected SkillSO info;
-
-    AnimatorOverrideController overrideController;
     Action _stopSkill;
 
     #endregion
@@ -49,9 +40,6 @@ public abstract class SkillObjectManager : MonoBehaviour {
             rb = parent.GetComponent<Rigidbody>();
             info = skill;
         }
-
-        overrideController = new AnimatorOverrideController(anim.runtimeAnimatorController);
-        anim.runtimeAnimatorController = overrideController;
 
         this.slot = slot;
         HandleInput(skill, ctx);
@@ -164,15 +152,13 @@ public abstract class SkillObjectManager : MonoBehaviour {
 
     #region AttackAnimation
 
-    static readonly int attackStateHash = Animator.StringToHash("Attack");
+    static readonly int attackStateHash = Animator.StringToHash("OneShotAnimation");
     protected virtual IEnumerator AttackCoroutine(int animationIndex = 0, int comboIndex = 0) {
         FirstFunc();
 
         var animInfo = info.ListOfAnimationsInfo[animationIndex];
 
-        overrideController["Default"] = animInfo.Animation;
-
-        anim.CrossFade("Attack", 0.05f, animInfo.AnimationLayer, 0f);
+        AnimationManager.Instance.ChangeAnimation(anim, animInfo.Animation);
 
         yield return null;
 

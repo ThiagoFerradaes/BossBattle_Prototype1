@@ -1,9 +1,18 @@
 using AYellowpaper.SerializedCollections;
 using NaughtyAttributes;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Localization;
 
+
+[Serializable]
+public class AnimationInfo {
+    public AnimationClip Animation;
+    public int AnimationLayer;
+    public float AnimationSpeed = 1;
+    [Range(0, 1)] public float AnimationExitTime = 1;
+}
 
 [System.Serializable]
 public class SkillAnimationEvent {

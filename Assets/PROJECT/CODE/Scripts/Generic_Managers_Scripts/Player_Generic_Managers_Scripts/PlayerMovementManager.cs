@@ -19,7 +19,8 @@ public class PlayerMovementManager : MonoBehaviour {
     bool _canWalk = true;
     bool _canRotate = true;
     bool _isDashing = false;
-    
+    bool _isWalking = false;
+
     // Animation
     [Header("Animation")]
     [SerializeField] string walkingAnimationParameter;
@@ -31,7 +32,7 @@ public class PlayerMovementManager : MonoBehaviour {
     Transform _cameraCenter;
     StunManager _stunManager;
 
-    
+
     // Atributes
     [Header("Atributes")]
     [SerializeField] float rotationSpeed;
@@ -39,6 +40,7 @@ public class PlayerMovementManager : MonoBehaviour {
     // LayerMask
     [Header("Layer")]
     [SerializeField] LayerMask floorLayer;
+    [SerializeField] AnimationClip runningClip;
 
     // Rotation
     Vector2 _mousePosition;
@@ -61,7 +63,7 @@ public class PlayerMovementManager : MonoBehaviour {
             BlockMovement(isStunned);
         };
     }
-    
+
     private void Start() {
         _cameraCenter = PlayerManager.Instance.CameraCenter;
 
@@ -89,33 +91,42 @@ public class PlayerMovementManager : MonoBehaviour {
         Rotate();
     }
 
-    public void ResetWalkInputs()
-    {
+    public void ResetWalkInputs() {
         _xInput = 0;
         _zInput = 0;
+        _isWalking = false;
     }
+
     private void Walk() {
         if (!_canMove || !_canWalk) {
             ResetWalkInputs();
         }
-        else
-        {
+        else {
             Vector2 value = walkAction.action.ReadValue<Vector2>();
             _xInput = value.x;
             _zInput = value.y;
         }
 
-        if (!_isDashing)
-        {
+        if (!_isDashing) {
             float moveSpeed = _statusManager.ReturnStatusValue(StatusType.MoveSpeed);
             Vector3 movedir = new Vector3(_xInput, 0, _zInput).normalized;
             Vector3 moveDirection = _cameraCenter.transform.TransformDirection(movedir);
             _rb.linearVelocity = moveDirection * moveSpeed;
         }
 
-        UpdateWalkingAnimation();
+        EnterAnimation();
     }
 
+    void EnterAnimation() {
+        if (_xInput == 0 && _zInput == 0 && _isWalking) {
+            _isWalking = false;
+            AnimationManager.Instance.ReturnToIdle(_anim);
+        }
+        else if ((_xInput != 0 || _zInput != 0) && !_isWalking) {
+            _isWalking = true;
+            AnimationManager.Instance.ChangeAnimation(_anim, runningClip, true);
+        }
+    }
     void Rotate() {
         if (!_canRotate || !_canMove || Time.timeScale == 0) return;
 
@@ -183,14 +194,6 @@ public class PlayerMovementManager : MonoBehaviour {
     /// <param name="isDashing"></param>
     public void ChangeIsDashing(bool isDashing) => _isDashing = isDashing;
 
-    #endregion
-
-    #region Animation
-
-    void UpdateWalkingAnimation() {
-        bool isWalking = new Vector2(_xInput, _zInput).magnitude > 0.1f;
-        _anim.SetBool(walkingAnimationParameter, isWalking);
-    }
     #endregion
 
 }

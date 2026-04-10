@@ -81,7 +81,7 @@ public class CyrusAxeAttackManager : SkillObjectManager {
 
         overrideController["Default 1"] = _info.ListOfAnimationsInfo[0].Animation;
 
-        anim.CrossFade("AttackTwo", 0.05f, 0, 0f);
+        anim.CrossFade("LoopAnimation", 0.05f, 0, 0f);
     }
     void InstantiateUpAxeVFX() {
 
