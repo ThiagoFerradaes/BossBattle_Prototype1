@@ -57,15 +57,15 @@ public class LilianDashManager : SkillObjectManager
 
         cooldownManager.SetCooldownWithCharges(slot, _info);
 
-        anim.SetTrigger(_info.AnimationParameter);
+        //anim.SetTrigger(_info.AnimationParameter);
 
         AnimatorStateInfo stateInfo;
 
-        do {
-            yield return null;
-            stateInfo = anim.GetCurrentAnimatorStateInfo(0);
-        } while (!stateInfo.IsName(_info.AnimationName));
+        //do {
+        //    yield return null;
+        //} while (!stateInfo.IsName(_info.AnimationName));
 
+        stateInfo = anim.GetCurrentAnimatorStateInfo(0);
         int attackStateHash = stateInfo.fullPathHash;
 
         movementManager.ChangeIsDashing(true);

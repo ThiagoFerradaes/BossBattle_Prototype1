@@ -34,7 +34,8 @@ public class BastianFlameEchoManager : SkillObjectManager
 
         gameObject.SetActive(true);
 
-        animationCoroutine ??= StartCoroutine(AttackCoroutine(0, 1));
+        _attackSpeedMultiplier = GetAttackSpeedMultiplier();
+        animationCoroutine ??= StartCoroutine(AttackCoroutine(0, 1, _attackSpeedMultiplier));
 
         _onShootAction = (int attackIdex) => StartCoroutine(SecondaryShoot(attackIdex));
     }
@@ -45,8 +46,7 @@ public class BastianFlameEchoManager : SkillObjectManager
 
     protected override void FirstFunc() {
         base.FirstFunc();
-        _attackSpeedMultiplier = GetAttackSpeedMultiplier();
-        anim.SetFloat(_info.AttackSpeedAnimationParameter, _attackSpeedMultiplier);
+
         _energyManager.LooseAllEnergy();
     }
 
@@ -61,9 +61,6 @@ public class BastianFlameEchoManager : SkillObjectManager
 
         // Avisando que n�o ta mais em anima��o
         skillManager.SkillIsInAnimation(false);
-
-        // Resetando a velocidade da anima��o
-        anim.SetFloat(_info.AttackSpeedAnimationParameter, 1);
 
         // Desbloqueando inputs
         UnblockInputs();

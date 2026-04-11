@@ -14,15 +14,44 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BastianDashSO
   HasMapDescription: 0
   MapDescriptionInfo:
-    SkillName: 
-    SkillShortDescription: 
-    SkillLongDescription: 
+    SkillName:
+      m_TableReference:
+        m_TableCollectionName: 
+      m_TableEntryReference:
+        m_KeyId: 0
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    SkillShortDescription:
+      m_TableReference:
+        m_TableCollectionName: 
+      m_TableEntryReference:
+        m_KeyId: 0
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    SkillLongDescription:
+      m_TableReference:
+        m_TableCollectionName: 
+      m_TableEntryReference:
+        m_KeyId: 0
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
     UISkillSpriteIcon: {fileID: 0}
     MapSkillSpriteIcon: {fileID: 0}
     MapSkillSelectedSpriteIcon: {fileID: 0}
     MapLockSkillSpriteIcon: {fileID: 0}
   SkillManagerObject: {fileID: 1488903759188425461, guid: 91cb9a53250317148883b9d31ddf04e4, type: 3}
-  ListOfAnimationsInfo: []
+  ListOfAnimationsInfo:
+  - AnimationClip: {fileID: 7400000, guid: 3ea2d98b885d25e408c5f2112103de4b, type: 2}
+    AnimationLayer: 0
+    AnimationBaseSpeed: 1
+    Loop: 1
+    AnimationExitTime: 1
   Prefabs:
     _serializedList:
     - Key: 0
@@ -76,8 +105,6 @@ MonoBehaviour:
     MinDistanceBack: 0
     ExtraAtributes:
       _serializedList: []
-  AnimationParameter: Dash
-  AnimationName: Dash
   DashDuration: 0.8
   DashForce: 14
   TimeToStartDash: 0
@@ -86,3 +113,6 @@ MonoBehaviour:
     idInternal: 0
     valueGuidInternal: 
     WwiseObjectReference: {fileID: 11400000, guid: c71d320c0f49352499a672440f7d7869, type: 2}
+  references:
+    version: 2
+    RefIds: []

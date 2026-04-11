@@ -42,6 +42,7 @@ public class LoadingScreenManager : MonoBehaviour {
     #region Start Region
     private void Start() {
         StartLoad();
+        AkUnitySoundEngine.StopAll();
     }
 
     void StartLoad() {
