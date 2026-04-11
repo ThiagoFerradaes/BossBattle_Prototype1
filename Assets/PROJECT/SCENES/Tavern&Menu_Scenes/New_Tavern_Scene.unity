@@ -2094,7 +2094,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff670188a2ddeb5478f88b8c030b1a14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DialogueInteract
-  dialogue: {fileID: 11400000, guid: 90549ed47ed590e478236c729ffd892c, type: 2}
+  dialogue: {fileID: 11400000, guid: a86998ed4d94c9441958d6d54f7490d2, type: 2}
 --- !u!1001 &630124733
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2404,6 +2404,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 712701998}
+  - component: {fileID: 712701999}
   m_Layer: 0
   m_Name: Tavern
   m_TagString: Untagged
@@ -2429,6 +2430,20 @@ Transform:
   - {fileID: 1515405907}
   m_Father: {fileID: 106846426}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &712701999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 712701997}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7dc752f9dfe7bc4eba08a8e54fe0b54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  manager: {fileID: 1442508815}
+  wallMaterial: {fileID: 2100000, guid: e6e72e04db1d4f745bfd4858c414a6c9, type: 2}
 --- !u!1 &750137332
 GameObject:
   m_ObjectHideFlags: 0
@@ -4834,6 +4849,8 @@ GameObject:
   - component: {fileID: 1442508816}
   - component: {fileID: 1442508817}
   - component: {fileID: 1442508818}
+  - component: {fileID: 1442508819}
+  - component: {fileID: 1442508820}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -4886,6 +4903,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   cineCamera: {fileID: 750137333}
+--- !u!114 &1442508819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1442508815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d58ed211e0c32e8458346b1db0e16c1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AnimationManager
+--- !u!114 &1442508820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1442508815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70b32b1c9bf8e32439ce0ed3f853e496, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TavernManager
+  newMusic:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 6c1414e83a4336e41952977cd992fd59, type: 2}
 --- !u!1 &1461653767
 GameObject:
   m_ObjectHideFlags: 0

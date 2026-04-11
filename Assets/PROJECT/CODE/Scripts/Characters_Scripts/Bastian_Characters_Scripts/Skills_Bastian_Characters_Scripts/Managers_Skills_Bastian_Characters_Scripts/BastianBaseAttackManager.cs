@@ -39,13 +39,11 @@ public class BastianBaseAttackManager : SkillObjectManager {
             _timerBetweenAttacksCoroutine = null;
         }
 
-        animationCoroutine ??= StartCoroutine(AttackCoroutine(_attackIndex - 1, _attackIndex));
+        _attackSpeedMultiplier = GetAttackSpeedMultiplier();
+        animationCoroutine ??= StartCoroutine(AttackCoroutine(_attackIndex - 1, _attackIndex, _attackSpeedMultiplier));
     }
 
-    protected override void FirstFunc() {
-        _attackSpeedMultiplier = GetAttackSpeedMultiplier(); 
-        float animationSpeed = _attackSpeedMultiplier + _info.ListOfAnimationsInfo[_attackIndex - 1].AnimationSpeed;
-        anim.SetFloat(_info.AttackSpeedAnimationParameter, animationSpeed);
+    protected override void FirstFunc() { 
         skillManager.SkillIsInAnimation(true);
     }
 

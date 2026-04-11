@@ -426,7 +426,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   walkAction: {fileID: -1680190386980627800, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  walkingAnimationParameter: Walking
+  idleClip: {fileID: 7400000, guid: 9297956b58b273e46b7f0da2b72d35ba, type: 2}
+  runningAnimationInfo:
+    AnimationClip: {fileID: 7400000, guid: e5e3a3dfbf377c846b7a4d7cd20d4f06, type: 2}
+    AnimationLayer: 0
+    AnimationBaseSpeed: 1
+    Loop: 1
+    AnimationExitTime: 1
   rotationSpeed: 20
   floorLayer:
     serializedVersion: 2
@@ -530,7 +536,7 @@ PrefabInstance:
     - target: {fileID: 5866666021909216657, guid: c80ef45100dcc32489aabc17e0f6dfd1, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 5b8e17816a494c140a26acee95bf8e41, type: 2}
+      objectReference: {fileID: 9100000, guid: cf55fac8c2c590147b08156dbcb65316, type: 2}
     - target: {fileID: 5866666021909216657, guid: c80ef45100dcc32489aabc17e0f6dfd1, type: 3}
       propertyPath: m_WarningMessage
       value: 

@@ -14,15 +14,43 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HasMapDescription: 0
   MapDescriptionInfo:
-    SkillName: 
-    SkillShortDescription: 
-    SkillLongDescription: 
+    SkillName:
+      m_TableReference:
+        m_TableCollectionName: 
+      m_TableEntryReference:
+        m_KeyId: 0
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    SkillShortDescription:
+      m_TableReference:
+        m_TableCollectionName: 
+      m_TableEntryReference:
+        m_KeyId: 0
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    SkillLongDescription:
+      m_TableReference:
+        m_TableCollectionName: 
+      m_TableEntryReference:
+        m_KeyId: 0
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
     UISkillSpriteIcon: {fileID: 0}
     MapSkillSpriteIcon: {fileID: 0}
     MapSkillSelectedSpriteIcon: {fileID: 0}
     MapLockSkillSpriteIcon: {fileID: 0}
   SkillManagerObject: {fileID: 2372894199157366626, guid: f2e224e06b323ba47bc1fefd5737c6d9, type: 3}
-  ListOfAnimationsInfo: []
+  ListOfAnimationsInfo:
+  - Animation: {fileID: 7400000, guid: 1042abaac14269d4c9787e046be874fd, type: 2}
+    AnimationLayer: 0
+    AnimationSpeed: 1
+    AnimationExitTime: 1
   Prefabs:
     _serializedList: []
   SkillObjectRangeObject: {fileID: 1830691435722458984, guid: 38e053e2505371642bf9f2d656737eac, type: 3}
@@ -63,3 +91,6 @@ MonoBehaviour:
   DashDuration: 0.8
   DashForce: 7
   TimeToStartDash: 0.15
+  references:
+    version: 2
+    RefIds: []

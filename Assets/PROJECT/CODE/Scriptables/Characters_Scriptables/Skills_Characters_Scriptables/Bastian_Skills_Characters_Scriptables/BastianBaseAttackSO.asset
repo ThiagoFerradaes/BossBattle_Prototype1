@@ -14,30 +14,54 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BastianBaseAttackSO
   HasMapDescription: 0
   MapDescriptionInfo:
-    SkillName: 
-    SkillShortDescription: 
-    SkillLongDescription: 
+    SkillName:
+      m_TableReference:
+        m_TableCollectionName: 
+      m_TableEntryReference:
+        m_KeyId: 0
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    SkillShortDescription:
+      m_TableReference:
+        m_TableCollectionName: 
+      m_TableEntryReference:
+        m_KeyId: 0
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    SkillLongDescription:
+      m_TableReference:
+        m_TableCollectionName: 
+      m_TableEntryReference:
+        m_KeyId: 0
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
     UISkillSpriteIcon: {fileID: 0}
     MapSkillSpriteIcon: {fileID: 0}
     MapSkillSelectedSpriteIcon: {fileID: 0}
     MapLockSkillSpriteIcon: {fileID: 0}
   SkillManagerObject: {fileID: 7423082187053757486, guid: 847e527322c9b4a4685bbcceebc6b21c, type: 3}
   ListOfAnimationsInfo:
-  - Animation: {fileID: 7400000, guid: d7a6991a756c2b64388f424b738b8a38, type: 2}
+  - AnimationClip: {fileID: 7400000, guid: d7a6991a756c2b64388f424b738b8a38, type: 2}
     AnimationLayer: 0
-    AnimationSpeed: 6
-    AnimationExitTime: 0.8
-    IsAnimationTrigger: 1
-  - Animation: {fileID: 7400000, guid: de40b68da9f5c2f4cade9d4faf4f0992, type: 2}
+    AnimationBaseSpeed: 3.5
+    Loop: 0
+    AnimationExitTime: 0.7
+  - AnimationClip: {fileID: 7400000, guid: de40b68da9f5c2f4cade9d4faf4f0992, type: 2}
     AnimationLayer: 0
-    AnimationSpeed: 5
-    AnimationExitTime: 0.8
-    IsAnimationTrigger: 1
-  - Animation: {fileID: 7400000, guid: fa0b5b8564a0f2c4d916f84d91abd8da, type: 2}
+    AnimationBaseSpeed: 4
+    Loop: 0
+    AnimationExitTime: 0.65
+  - AnimationClip: {fileID: 7400000, guid: fa0b5b8564a0f2c4d916f84d91abd8da, type: 2}
     AnimationLayer: 0
-    AnimationSpeed: 5
-    AnimationExitTime: 0.8
-    IsAnimationTrigger: 1
+    AnimationBaseSpeed: 2.5
+    Loop: 0
+    AnimationExitTime: 0.7
   Prefabs:
     _serializedList:
     - Key: 1
@@ -260,3 +284,6 @@ MonoBehaviour:
   PenetrationOnSuperHeat: 50
   CritChanceOverHeat: 100
   LastOverHeatCritDamage: 800
+  references:
+    version: 2
+    RefIds: []

@@ -11,9 +11,12 @@ public class CyrusTonfasSkillManager : SkillObjectManager
 
         Initialize(skill);
 
-        animationCoroutine ??= StartCoroutine(AttackCoroutine());
+        animationCoroutine ??= StartCoroutine(AttackCoroutine(0, 0, GetAttackSpeedMultiplier()));
     }
-
+    float GetAttackSpeedMultiplier() {
+        float baseSpeed = statusManager.ReturnStatusValue(StatusType.AttackSpeed);
+        return Mathf.Max(0.1f, baseSpeed);
+    }
     private void Initialize(SkillSO skill) {
         if (_info  == null) _info = skill as CyrusTonfasSkillSO;
 
