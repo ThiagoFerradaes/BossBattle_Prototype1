@@ -9,7 +9,6 @@ public class MenuButtons : MonoBehaviour
     [SerializeField] Button exitButton;
     [SerializeField] Button configButton;
     [SerializeField] Button tavernButton;
-    [SerializeField] Button exitConfigButton;
     [SerializeField] Button yesExitPopUp;
     [SerializeField] Button noExitPopUp;
     [SerializeField] Button maskExitPopUp;
@@ -21,30 +20,21 @@ public class MenuButtons : MonoBehaviour
     [SerializeField] LoadingScreenSO tavernLoadingScreenInfo;
 
     [Header("Canvas")]
-    [SerializeField] GameObject configCanvas;
+    [SerializeField] Configuration configCanvas;
 
     private void Start() {
         tavernButton.onClick.AddListener(() => {
             LoadingScreenManager.CurrentLoadingScreenInfo = tavernLoadingScreenInfo;
             SceneManager.LoadScene(1);
         });
-        startButton.onClick.AddListener(OpenMap);
-        configButton.onClick.AddListener(() => HandleConfigUI(true));
-        exitConfigButton.onClick.AddListener(() => HandleConfigUI(false));
+        startButton.onClick.AddListener(() => map.InitializeMap());
+        configButton.onClick.AddListener(() => configCanvas.InitializeConfigurationScreen());
 
         // Exit game Buttons
         exitButton.onClick.AddListener(() => HandleExitPopUp(true));
         noExitPopUp.onClick.AddListener(() => HandleExitPopUp(false));
         yesExitPopUp.onClick.AddListener(ExitGame);
         maskExitPopUp.onClick.AddListener(() => HandleExitPopUp(false));
-    }
-
-    void OpenMap() {
-        map.InitializeMap();
-    }
-
-    void HandleConfigUI(bool open) {
-        configCanvas.SetActive(open);
     }
 
     public void HandleButtonBackGroundOn(Button button) {
