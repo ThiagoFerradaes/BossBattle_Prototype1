@@ -4850,6 +4850,7 @@ GameObject:
   - component: {fileID: 1442508817}
   - component: {fileID: 1442508818}
   - component: {fileID: 1442508819}
+  - component: {fileID: 1442508820}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -4914,6 +4915,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d58ed211e0c32e8458346b1db0e16c1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AnimationManager
+--- !u!114 &1442508820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1442508815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9552fdbced1958142b0c5797dbbf5938, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MusicPlayer
+  hasSwitch: 0
+  musicSwitch:
+    idInternal: 0
+    valueGuidInternal: 
+    groupIdInternal: 0
+    groupGuidInternal: 
+    WwiseObjectReference: {fileID: 0}
+  newMusic:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: a75d3a7aed50e5c439b6ea20807de279, type: 2}
 --- !u!1 &1461653767
 GameObject:
   m_ObjectHideFlags: 0
