@@ -40,7 +40,7 @@ public class CyrusSpearAttackManager : SkillObjectManager {
         float cooldown = _skillLevel >= 3 ? _info.Level3Cooldown : _info.Cooldown;
         cooldownManager.SetCooldownSingleCharge(slot, cooldown);
 
-        float animationSpeed = _info.ListOfAnimationsInfo[0].AnimationBaseSpeed;
+        float animationSpeed = _info.ListOfAnimationsInfo[0].AnimationSpeed;
         anim.SetFloat("AttackSpeed", animationSpeed);
 
         base.FirstFunc();

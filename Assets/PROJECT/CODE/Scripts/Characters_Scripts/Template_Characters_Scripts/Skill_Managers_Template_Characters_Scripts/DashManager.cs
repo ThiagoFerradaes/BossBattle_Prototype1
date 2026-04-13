@@ -48,7 +48,7 @@ public class DashManager : SkillObjectManager {
 
         cooldownManager.SetCooldownWithCharges(slot, _info);
 
-        AnimationManager.Instance.ChangeAnimation(anim, _info.ListOfAnimationsInfo[0]);
+        AnimationManager.Instance.ChangeAnimation(anim, _info.ListOfAnimationsInfo[0].Animation, true, 0);
 
         yield return null;
 

@@ -25,14 +25,16 @@ public class BastianReleaseManager : SkillObjectManager {
 
         gameObject.SetActive(true);
 
-        _attackSpeedMultiplier = GetAttackSpeedMultiplier();
-        animationCoroutine ??= StartCoroutine(AttackCoroutine(0, 0, _attackSpeedMultiplier));
+        animationCoroutine ??= StartCoroutine(AttackCoroutine());
     }
 
     protected override void FirstFunc() {
         base.FirstFunc();
 
         cooldownManager.SetCooldownWithCharges(slot, _info);
+
+        _attackSpeedMultiplier = GetAttackSpeedMultiplier();
+        anim.SetFloat(_info.AttackSpeedAnimationParameter, _attackSpeedMultiplier);
     }
     float GetAttackSpeedMultiplier()
     {
@@ -50,5 +52,8 @@ public class BastianReleaseManager : SkillObjectManager {
         statusManager.ChangeStatus(StatusType.AttackSpeed, _info.AttackSpeedGain, true, _info.AttackSpeedDuration);
 
         EndWithUnblockSkills();
+
+        // Resetando a velocidade da anima��o
+        anim.SetFloat(_info.AttackSpeedAnimationParameter, 1);
     }
 }

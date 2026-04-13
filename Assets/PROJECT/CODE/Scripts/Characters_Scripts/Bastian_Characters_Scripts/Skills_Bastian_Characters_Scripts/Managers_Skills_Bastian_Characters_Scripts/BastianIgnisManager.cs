@@ -26,17 +26,22 @@ public class BastianIgnisManager : SkillObjectManager {
             gameObject.SetActive(true);
         }
 
-        _attackSpeedMultiplier = GetAttackSpeedMultiplier();
-        animationCoroutine ??= StartCoroutine(AttackCoroutine(0,0, _attackSpeedMultiplier));
+        animationCoroutine ??= StartCoroutine(AttackCoroutine());
     }
 
     protected override void FirstFunc() {
         cooldownManager.SetCooldownWithCharges(slot, _info);
 
         skillManager.SkillIsInAnimation(true);
+
+        _attackSpeedMultiplier = GetAttackSpeedMultiplier();
+        anim.SetFloat(_info.AttackSpeedAnimationParameter, _attackSpeedMultiplier);
     }
 
     protected override void FourthFunc() {
+        // Resetando a velocidade da anima��o
+        anim.SetFloat(_info.AttackSpeedAnimationParameter, 1);
+
         // Corrotina
         animationCoroutine = null;
 

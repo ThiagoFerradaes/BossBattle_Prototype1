@@ -1,16 +1,6 @@
-using NaughtyAttributes;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-[Serializable]
-public class AnimationInfo {
-    public AnimationClip AnimationClip;
-    public int AnimationLayer;
-    public float AnimationBaseSpeed = 1;
-    public bool Loop = false;
-    [Range(0, 1), HideIf("Loop"), AllowNesting] public float AnimationExitTime = 1;
-}
 public class AnimationManager : MonoBehaviour {
 
     #region Variables
@@ -33,22 +23,20 @@ public class AnimationManager : MonoBehaviour {
     #endregion
 
     #region Animations
-    public void ChangeAnimation(Animator anim, AnimationInfo animInfo, float extraAnimationSpeed = 1, float crossFase = 0.05f) {
+    public void ChangeAnimation(Animator anim, AnimationClip newClip, bool isLoop = false, float crossFase = 0.05f, int layer = 0) {
 
         var controller = GetOverrideController(anim);
 
-        if (animInfo.Loop) {
-            controller["Default 1"] = animInfo.AnimationClip;
+        if (isLoop) {
+            controller["Default 1"] = newClip;
 
-            anim.CrossFade("LoopAnimation", crossFase, animInfo.AnimationLayer, 0f);
+            anim.CrossFade("LoopAnimation", crossFase, layer, 0f);
         }
         else {
-            controller["Default"] = animInfo.AnimationClip;
+            controller["Default"] = newClip;
 
-            anim.CrossFade("OneShotAnimation", crossFase, animInfo.AnimationLayer, 0f);
+            anim.CrossFade("OneShotAnimation", crossFase, layer, 0f);
         }
-
-        anim.SetFloat("AnimationSpeed", animInfo.AnimationBaseSpeed * extraAnimationSpeed);
     }
     public void ReturnToIdle(Animator anim) {
         anim.CrossFade("Idle", 0.05f, 0, 0f);
@@ -56,10 +44,6 @@ public class AnimationManager : MonoBehaviour {
     public void SetIdleAnimation(Animator anim, AnimationClip idleClip) {
         var controller = GetOverrideController(anim);
         controller["Idle"] = idleClip;
-    }
-
-    public void ResetAnimationSpeed(Animator anim) {
-        anim.SetFloat("AnimationSpeed", 1);
     }
     #endregion
 
