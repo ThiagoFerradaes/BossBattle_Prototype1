@@ -24,7 +24,7 @@ public class Configuration : MonoBehaviour {
     [Space(10)]
 
     [SerializeField, Foldout("Screens")] GameObject configurationScreen;
-    [SerializeField, Foldout("Screens"), SerializedDictionary("Type of Screen", " Gameobject")] SerializedDictionary<ConfigurationScreen, GameObject> screens;
+    [SerializeField, Foldout("Screens"), SerializedDictionary("Type of Screen", " Gameobject")] SerializedDictionary<ConfigurationScreen, ConfigScreen> screens;
     [SerializeField, Foldout("Screens"), SerializedDictionary("Type of Screen", " String")] SerializedDictionary<ConfigurationScreen, LocalizedString> screensTitles;
 
     [Space(10)]
@@ -119,13 +119,15 @@ public class Configuration : MonoBehaviour {
 
     void TurnScreenOn(ConfigurationScreen screenType) {
         foreach (var screen in screens) {
-            screen.Value.SetActive(screen.Key == screenType);
+            screen.Value.HandleConfigurationScreen(screen.Key == screenType);
         }
 
         screenTitle.StringReference = screensTitles[screenType];
     }
 
     #endregion
+
+
 
     #region LanguageScreen
 
@@ -139,8 +141,5 @@ public class Configuration : MonoBehaviour {
     }
 
     #endregion
-
-
-
 
 }
