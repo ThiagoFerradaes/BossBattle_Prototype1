@@ -15,9 +15,17 @@ public class MapManager : MonoBehaviour {
     [Foldout("Dictionary"), SerializedDictionary("Boss Fog", " Fog object"), SerializeField]
     SerializedDictionary<Bosses, GameObject> DictionaryOfFogs = new();
     [Foldout("Dictionary"), SerializedDictionary("Button phase", " Button object"), SerializeField]
-    SerializedDictionary<Bosses, GameObject> DictionaryOfButtons = new();
+    SerializedDictionary<Bosses, Button> DictionaryOfButtons = new();
+    [Foldout("Dictionary"), SerializedDictionary("Button phase", " Button object"), SerializeField]
+    SerializedDictionary<Bosses, Sprite> DictionaryOfSelectedSprites = new();
+    [Foldout("Dictionary"), SerializedDictionary("Button phase", " Button object"), SerializeField]
+    SerializedDictionary<Bosses, Sprite> DictionaryOfUnselectedSprites = new();
+    [Foldout("Dictionary"), SerializedDictionary("Button phase", " Button object"), SerializeField]
+    SerializedDictionary<Bosses, Sprite> DictionaryOfHoverSprites = new();
     [Foldout("Dictionary"), SerializedDictionary("Boss phase", " Boss Description"), SerializeField]
     SerializedDictionary<Bosses, BossDescription> DictinaryOfDescritions = new();
+
+    Button _selectedIslandButton;
 
     [Foldout("First Map"), SerializeField] Button CloseMapButton;
     [Foldout("First Map"), SerializeField] Button TestIslandButton;
@@ -70,26 +78,22 @@ public class MapManager : MonoBehaviour {
     private void OnDestroy() {
         CurrentSelectedCharacterWhiteBoard.Instance.OnSelectedCharacterChanged -= _onChangeSelectedCharacter;
     }
-    public void InitializeMap(PlayerInputHandlerManager handler = null)
-    {   
+    public void InitializeMap(PlayerInputHandlerManager handler = null) {
         _handler = handler;
 
         WhiteBoard board = WhiteBoard.Instance;
 
-        foreach (var boss in board.ReturnListOfUnlockedPhasesByBoss().Keys)
-        { // FOGS
-            if (DictionaryOfFogs.ContainsKey(boss))
-            {
+        foreach (var boss in board.ReturnListOfUnlockedPhasesByBoss().Keys) { // FOGS
+            if (DictionaryOfFogs.ContainsKey(boss)) {
                 DictionaryOfFogs[boss].SetActive(false);
             }
         }
 
-        foreach (var phase in DictionaryOfButtons.Keys)
-        { // ILHAS
+        foreach (var phase in DictionaryOfButtons.Keys) { // ILHAS
 
             Button button = DictionaryOfButtons[phase].GetComponent<Button>();
             button.interactable = board.ReturnListOfUnlockedPhasesByBoss().ContainsKey(phase);
-            
+
 
         }
 
@@ -104,11 +108,13 @@ public class MapManager : MonoBehaviour {
         foreach (var pair in DictionaryOfButtons) {  // ILHAS
             if (!DictinaryOfDescritions.TryGetValue(pair.Key, out var description)) continue;
 
-            Button button = pair.Value.GetComponent<Button>();
+            Button button = pair.Value;
             var localDescription = description;
 
+            Bosses boss = pair.Key;
+
             button.onClick.AddListener(() => TurnBossDiffucltyScreenOn(localDescription));
-            button.onClick.AddListener(() => TurnSelectedIslandIconOn(button.transform));
+            button.onClick.AddListener(() => TurnIslandSelectSpriteOn(boss));
 
         }
 
@@ -122,18 +128,19 @@ public class MapManager : MonoBehaviour {
             OnCloseMap?.Invoke();
             SecondMap.SetActive(false);
             SailButton.gameObject.SetActive(false);
-            TurnSelectedIslandIconOff();
         });
-        
-        CloseSecondMapButton.onClick.AddListener(() => TurnDifficultyScreenOf());
+
+        CloseSecondMapButton.onClick.AddListener(() => {
+            TurnDifficultyScreenOf();
+            TurnAllIslandSelectSpriteOff();
+        });
 
         TestIslandButton.onClick.AddListener(() => TurnBossDiffucltyScreenOn(TestIslandDescription));
 
         ChangeCharacterButton.onClick.AddListener(() => _characterSelectionManager.Initialize());
     }
 
-    void TurnMapOff()
-    {
+    void TurnMapOff() {
         if (_handler != null) _handler.SetCanInput(true);
         mapScreen.SetActive(false);
     }
@@ -142,29 +149,56 @@ public class MapManager : MonoBehaviour {
         SecondMap.SetActive(false);
         SailButton.gameObject.SetActive(false);
         CloseMapButton.gameObject.SetActive(true);
+    }
 
-        TurnSelectedIslandIconOff();
+    #region Chang Island Sprite Methods
+    void TurnIslandSelectSpriteOn(Bosses bossRelatedToTheIsland) {
+        foreach (var pair in DictionaryOfButtons) {
+            pair.Value.TryGetComponent(out Image image);
+            if (pair.Key == bossRelatedToTheIsland) {
+                image.sprite = DictionaryOfSelectedSprites[pair.Key];
+                _selectedIslandButton = pair.Value;
+            }
+            else image.sprite = DictionaryOfUnselectedSprites[pair.Key];
+        }
     }
-    void TurnSelectedIslandIconOn(Transform islandTransform)
-    {
-        selectedIslandIcon.transform.position = islandTransform.position;
-        selectedIslandIcon.SetActive(true);
+    void TurnAllIslandSelectSpriteOff() {
+        foreach (var pair in DictionaryOfButtons) {
+            pair.Value.TryGetComponent(out Image image);
+            image.sprite = DictionaryOfUnselectedSprites[pair.Key];
+        }
+
+        _selectedIslandButton = null;
     }
-    void TurnSelectedIslandIconOff()
-    {
-        selectedIslandIcon.SetActive(false);
+    public void TurnIslandHooverSpriteOn(Button bossRelatedToTheIsland) {
+
+        if (!DictionaryOfButtons.ContainsValue(bossRelatedToTheIsland) || _selectedIslandButton == bossRelatedToTheIsland || !bossRelatedToTheIsland.interactable) return;
+
+        foreach (var pair in DictionaryOfButtons) {
+            pair.Value.TryGetComponent(out Image image);
+            if (pair.Value == bossRelatedToTheIsland) image.sprite = DictionaryOfHoverSprites[pair.Key];
+        }
     }
+    public void TurnIslandSelectSpriteOff(Button bossRelatedToTheIsland) {
+
+        if (!DictionaryOfButtons.ContainsValue(bossRelatedToTheIsland) || _selectedIslandButton == bossRelatedToTheIsland || !bossRelatedToTheIsland.interactable) return;
+
+        foreach (var pair in DictionaryOfButtons) {
+            pair.Value.TryGetComponent(out Image image);
+            if (pair.Value == bossRelatedToTheIsland) image.sprite = DictionaryOfUnselectedSprites[pair.Key];
+        }
+    }
+
+    #endregion
 
     void SelectDifficulty(int difficulty) {
         _currentDifficulty = difficulty;
 
         for (int i = 0; i < listOfDificultySpritesActive.Count; i++) {
-            if (i <= difficulty)
-            {
+            if (i <= difficulty) {
                 ListOfDifficultyImages[i].sprite = listOfDificultySpritesActive[i];
             }
-            else
-            {
+            else {
                 ListOfDifficultyImages[i].sprite = listOfDificultySpritesDesactive[i];
             }
         }
@@ -211,12 +245,10 @@ public class MapManager : MonoBehaviour {
         OnCloseMap?.Invoke();
         SceneManager.LoadScene(1);
     }
-    public void EnterSailButton(Image sailImage)
-    {
+    public void EnterSailButton(Image sailImage) {
         sailImage.sprite = enterSailButtonSprite;
     }
-    public void ExitSailButton(Image sailImage)
-    {
+    public void ExitSailButton(Image sailImage) {
         sailImage.sprite = normalSailButtonSprite;
     }
     public void EnterExitButton(Image exitImage) {

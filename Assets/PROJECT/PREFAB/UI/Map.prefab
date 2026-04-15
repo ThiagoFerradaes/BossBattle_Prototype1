@@ -853,6 +853,7 @@ GameObject:
   - component: {fileID: 7263190539268807845}
   - component: {fileID: 8126155142709393185}
   - component: {fileID: 5398181139244949929}
+  - component: {fileID: 1446245097014092392}
   m_Layer: 5
   m_Name: FifthIsland
   m_TagString: Untagged
@@ -940,7 +941,7 @@ MonoBehaviour:
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_PressedColor: {r: 1, g: 1, b: 1, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -961,6 +962,51 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1446245097014092392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1343486603886855208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.EventSystems.EventTrigger
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 202418728025127129}
+          m_TargetAssemblyTypeName: MapManager, Assembly-CSharp
+          m_MethodName: TurnIslandHooverSpriteOn
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 5398181139244949929}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 202418728025127129}
+          m_TargetAssemblyTypeName: MapManager, Assembly-CSharp
+          m_MethodName: TurnIslandSelectSpriteOff
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 5398181139244949929}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1417725136283696292
 GameObject:
   m_ObjectHideFlags: 0
@@ -1838,6 +1884,8 @@ GameObject:
   - component: {fileID: 6316368193906167080}
   - component: {fileID: 1931110099916040099}
   - component: {fileID: 1292281585796265817}
+  - component: {fileID: 6352725743992077480}
+  - component: {fileID: 6831345878881788395}
   m_Layer: 5
   m_Name: LastBossIsland
   m_TagString: Untagged
@@ -1902,6 +1950,95 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6352725743992077480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2167383207470961132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.EventSystems.EventTrigger
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 202418728025127129}
+          m_TargetAssemblyTypeName: MapManager, Assembly-CSharp
+          m_MethodName: TurnIslandHooverSpriteOn
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 6831345878881788395}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 202418728025127129}
+          m_TargetAssemblyTypeName: MapManager, Assembly-CSharp
+          m_MethodName: TurnIslandSelectSpriteOff
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 6831345878881788395}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &6831345878881788395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2167383207470961132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 1, g: 1, b: 1, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 1292281585796265817}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &2219202604408158505
 GameObject:
   m_ObjectHideFlags: 0
@@ -2298,7 +2435,6 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 7757332004144343957}
   - {fileID: 4311053620857684031}
   - {fileID: 137071981364591972}
   - {fileID: 5870609243430229009}
@@ -2830,15 +2966,57 @@ MonoBehaviour:
   DictionaryOfButtons:
     _serializedList:
     - Key: 0
-      Value: {fileID: 8540254446163015817}
+      Value: {fileID: 8822128839783992139}
     - Key: 1
-      Value: {fileID: 7262290275467122908}
+      Value: {fileID: 3849821547933628795}
     - Key: 2
-      Value: {fileID: 5737275303879808081}
+      Value: {fileID: 7470959767205074694}
     - Key: 3
-      Value: {fileID: 8238123442746491852}
+      Value: {fileID: 5560368198956498745}
     - Key: 4
-      Value: {fileID: 1343486603886855208}
+      Value: {fileID: 4630761183781443751}
+  DictionaryOfSelectedSprites:
+    _serializedList:
+    - Key: 0
+      Value: {fileID: 1819426567, guid: a9a484cb8ccb4d7498f34881e0bd8df6, type: 3}
+    - Key: 1
+      Value: {fileID: 2143850303, guid: a9a484cb8ccb4d7498f34881e0bd8df6, type: 3}
+    - Key: 2
+      Value: {fileID: 1605575265, guid: a9a484cb8ccb4d7498f34881e0bd8df6, type: 3}
+    - Key: 3
+      Value: {fileID: -999320976, guid: a9a484cb8ccb4d7498f34881e0bd8df6, type: 3}
+    - Key: 4
+      Value: {fileID: -1770193165, guid: a9a484cb8ccb4d7498f34881e0bd8df6, type: 3}
+    - Key: 5
+      Value: {fileID: 589559785, guid: a9a484cb8ccb4d7498f34881e0bd8df6, type: 3}
+  DictionaryOfUnselectedSprites:
+    _serializedList:
+    - Key: 0
+      Value: {fileID: -940216778, guid: a9a484cb8ccb4d7498f34881e0bd8df6, type: 3}
+    - Key: 1
+      Value: {fileID: -2062618115, guid: a9a484cb8ccb4d7498f34881e0bd8df6, type: 3}
+    - Key: 2
+      Value: {fileID: 1375009525, guid: a9a484cb8ccb4d7498f34881e0bd8df6, type: 3}
+    - Key: 3
+      Value: {fileID: -1867392848, guid: a9a484cb8ccb4d7498f34881e0bd8df6, type: 3}
+    - Key: 4
+      Value: {fileID: 1553280120, guid: a9a484cb8ccb4d7498f34881e0bd8df6, type: 3}
+    - Key: 5
+      Value: {fileID: -2068132288, guid: a9a484cb8ccb4d7498f34881e0bd8df6, type: 3}
+  DictionaryOfHoverSprites:
+    _serializedList:
+    - Key: 0
+      Value: {fileID: -1775259293, guid: a9a484cb8ccb4d7498f34881e0bd8df6, type: 3}
+    - Key: 1
+      Value: {fileID: -739313840, guid: a9a484cb8ccb4d7498f34881e0bd8df6, type: 3}
+    - Key: 2
+      Value: {fileID: 258742522, guid: a9a484cb8ccb4d7498f34881e0bd8df6, type: 3}
+    - Key: 3
+      Value: {fileID: -2068789419, guid: a9a484cb8ccb4d7498f34881e0bd8df6, type: 3}
+    - Key: 4
+      Value: {fileID: 1181899247, guid: a9a484cb8ccb4d7498f34881e0bd8df6, type: 3}
+    - Key: 5
+      Value: {fileID: 971259316, guid: a9a484cb8ccb4d7498f34881e0bd8df6, type: 3}
   DictinaryOfDescritions:
     _serializedList:
     - Key: 0
@@ -2848,7 +3026,7 @@ MonoBehaviour:
   CloseMapButton: {fileID: 5958506895221512042}
   TestIslandButton: {fileID: 6380670268401690714}
   TestIslandDescription: {fileID: 11400000, guid: a6c6aa756c242d845bdd6a6b39c7f477, type: 2}
-  selectedIslandIcon: {fileID: 4499562609445934112}
+  selectedIslandIcon: {fileID: 0}
   normalSailButtonSprite: {fileID: -1543942665, guid: a3779f27363c2714f8bfe9a37f6a6560, type: 3}
   enterSailButtonSprite: {fileID: -1969939980, guid: a3779f27363c2714f8bfe9a37f6a6560, type: 3}
   enterExitButtonSprite: {fileID: -1162545600, guid: 8bb853acb03e2334faeed1aa81915ee8, type: 3}
@@ -5701,81 +5879,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!1 &4499562609445934112
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7757332004144343957}
-  - component: {fileID: 1692027309339383026}
-  - component: {fileID: 673753384063480678}
-  m_Layer: 5
-  m_Name: IslandSelectedIcon
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!224 &7757332004144343957
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4499562609445934112}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6155600286669162392}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 196, y: 324}
-  m_SizeDelta: {x: 268, y: 227}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &1692027309339383026
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4499562609445934112}
-  m_CullTransparentMesh: 1
---- !u!114 &673753384063480678
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4499562609445934112}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: -755376233, guid: 7a30be293b6c84c4ca3075b7b50efc7f, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &4510439920990424571
 GameObject:
   m_ObjectHideFlags: 0
@@ -5788,6 +5891,7 @@ GameObject:
   - component: {fileID: 3758386600372909080}
   - component: {fileID: 6067640380346191739}
   - component: {fileID: 4630761183781443751}
+  - component: {fileID: 1097404836208290208}
   m_Layer: 5
   m_Name: IDKIsland
   m_TagString: Untagged
@@ -5874,8 +5978,8 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
+    m_PressedColor: {r: 1, g: 1, b: 1, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -5896,6 +6000,51 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1097404836208290208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4510439920990424571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.EventSystems.EventTrigger
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 202418728025127129}
+          m_TargetAssemblyTypeName: MapManager, Assembly-CSharp
+          m_MethodName: TurnIslandHooverSpriteOn
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 4630761183781443751}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 202418728025127129}
+          m_TargetAssemblyTypeName: MapManager, Assembly-CSharp
+          m_MethodName: TurnIslandSelectSpriteOff
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 4630761183781443751}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &4539191967696436543
 GameObject:
   m_ObjectHideFlags: 0
@@ -6734,6 +6883,7 @@ GameObject:
   - component: {fileID: 8198017351586800941}
   - component: {fileID: 3638012737308177165}
   - component: {fileID: 7470959767205074694}
+  - component: {fileID: 2568926516988009401}
   m_Layer: 5
   m_Name: ThirdIsland
   m_TagString: Untagged
@@ -6821,7 +6971,7 @@ MonoBehaviour:
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_PressedColor: {r: 1, g: 1, b: 1, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -6842,6 +6992,51 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &2568926516988009401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5737275303879808081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.EventSystems.EventTrigger
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 202418728025127129}
+          m_TargetAssemblyTypeName: MapManager, Assembly-CSharp
+          m_MethodName: TurnIslandHooverSpriteOn
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 7470959767205074694}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 202418728025127129}
+          m_TargetAssemblyTypeName: MapManager, Assembly-CSharp
+          m_MethodName: TurnIslandSelectSpriteOff
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 7470959767205074694}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &5799925671146566201
 GameObject:
   m_ObjectHideFlags: 0
@@ -8995,6 +9190,7 @@ GameObject:
   - component: {fileID: 521216554362386610}
   - component: {fileID: 7193241633281902628}
   - component: {fileID: 3849821547933628795}
+  - component: {fileID: 1375105431287631241}
   m_Layer: 5
   m_Name: SecondIsland
   m_TagString: Untagged
@@ -9082,7 +9278,7 @@ MonoBehaviour:
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_PressedColor: {r: 1, g: 1, b: 1, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -9103,6 +9299,51 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1375105431287631241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7262290275467122908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.EventSystems.EventTrigger
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 202418728025127129}
+          m_TargetAssemblyTypeName: MapManager, Assembly-CSharp
+          m_MethodName: TurnIslandHooverSpriteOn
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 3849821547933628795}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 202418728025127129}
+          m_TargetAssemblyTypeName: MapManager, Assembly-CSharp
+          m_MethodName: TurnIslandSelectSpriteOff
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 3849821547933628795}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &7320640544873847743
 GameObject:
   m_ObjectHideFlags: 0
@@ -10320,6 +10561,7 @@ GameObject:
   - component: {fileID: 4438216371059586395}
   - component: {fileID: 2744293095512203035}
   - component: {fileID: 5560368198956498745}
+  - component: {fileID: 5355504863720128458}
   m_Layer: 5
   m_Name: FourthIsland
   m_TagString: Untagged
@@ -10407,7 +10649,7 @@ MonoBehaviour:
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_PressedColor: {r: 1, g: 1, b: 1, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -10428,6 +10670,51 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &5355504863720128458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8238123442746491852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.EventSystems.EventTrigger
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 202418728025127129}
+          m_TargetAssemblyTypeName: MapManager, Assembly-CSharp
+          m_MethodName: TurnIslandHooverSpriteOn
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 5560368198956498745}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 202418728025127129}
+          m_TargetAssemblyTypeName: MapManager, Assembly-CSharp
+          m_MethodName: TurnIslandSelectSpriteOff
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 5560368198956498745}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &8540254446163015817
 GameObject:
   m_ObjectHideFlags: 0
@@ -10440,6 +10727,7 @@ GameObject:
   - component: {fileID: 42823247710939246}
   - component: {fileID: 8612196288956202898}
   - component: {fileID: 8822128839783992139}
+  - component: {fileID: 1243848353299965171}
   m_Layer: 5
   m_Name: FirstIsland
   m_TagString: Untagged
@@ -10527,7 +10815,7 @@ MonoBehaviour:
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_PressedColor: {r: 1, g: 1, b: 1, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -10548,6 +10836,51 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1243848353299965171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8540254446163015817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.EventSystems.EventTrigger
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 202418728025127129}
+          m_TargetAssemblyTypeName: MapManager, Assembly-CSharp
+          m_MethodName: TurnIslandHooverSpriteOn
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 8822128839783992139}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 202418728025127129}
+          m_TargetAssemblyTypeName: MapManager, Assembly-CSharp
+          m_MethodName: TurnIslandSelectSpriteOff
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 8822128839783992139}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &8551052501903648880
 GameObject:
   m_ObjectHideFlags: 0
