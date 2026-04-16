@@ -25,7 +25,7 @@ public class MapManager : MonoBehaviour {
     [Foldout("Dictionary"), SerializedDictionary("Boss phase", " Boss Description"), SerializeField]
     SerializedDictionary<Bosses, BossDescription> DictinaryOfDescritions = new();
 
-    Button _selectedIslandButton;
+    public Button _selectedIslandButton;
 
     [Foldout("First Map"), SerializeField] Button CloseMapButton;
     [Foldout("First Map"), SerializeField] Button TestIslandButton;
@@ -111,11 +111,7 @@ public class MapManager : MonoBehaviour {
             Button button = pair.Value;
             var localDescription = description;
 
-            Bosses boss = pair.Key;
-
-            button.onClick.AddListener(() => TurnBossDiffucltyScreenOn(localDescription));
-            button.onClick.AddListener(() => TurnIslandSelectSpriteOn(boss));
-
+            button.onClick.AddListener(() => InslandButtonFunc(button, localDescription));
         }
 
         for (int i = 0; i < ListOfDifficultyButtons.Count; i++) {
@@ -124,15 +120,11 @@ public class MapManager : MonoBehaviour {
         }
 
         CloseMapButton.onClick.AddListener(() => {
-            TurnMapOff();
-            OnCloseMap?.Invoke();
-            SecondMap.SetActive(false);
-            SailButton.gameObject.SetActive(false);
+            CloseMapScreen();
         });
 
         CloseSecondMapButton.onClick.AddListener(() => {
-            TurnDifficultyScreenOf();
-            TurnAllIslandSelectSpriteOff();
+            CloseBossDifficultyScreen();
         });
 
         TestIslandButton.onClick.AddListener(() => TurnBossDiffucltyScreenOn(TestIslandDescription));
@@ -140,6 +132,25 @@ public class MapManager : MonoBehaviour {
         ChangeCharacterButton.onClick.AddListener(() => _characterSelectionManager.Initialize());
     }
 
+    void InslandButtonFunc(Button button, BossDescription description) {
+        if (button != _selectedIslandButton) {
+            TurnBossDiffucltyScreenOn(description);
+            TurnIslandSelectSpriteOn(description.Boss);
+        }
+        else {
+            CloseBossDifficultyScreen();
+        }
+    }
+    void CloseMapScreen() {
+        TurnMapOff();
+        OnCloseMap?.Invoke();
+        SecondMap.SetActive(false);
+        SailButton.gameObject.SetActive(false);
+    }
+    void CloseBossDifficultyScreen() {
+        TurnDifficultyScreenOf();
+        TurnAllIslandSelectSpriteOff();
+    }
     void TurnMapOff() {
         if (_handler != null) _handler.SetCanInput(true);
         mapScreen.SetActive(false);
