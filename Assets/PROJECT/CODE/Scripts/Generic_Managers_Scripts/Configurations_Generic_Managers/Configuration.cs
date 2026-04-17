@@ -13,32 +13,27 @@ public enum ConfigurationScreen {
     Gameplay,
     Graphics,
     Audio,
-    Language
+    Language,
+    Tutorial
 }
 public class Configuration : MonoBehaviour {
 
-    [Space(10)]
-
     [SerializeField, Foldout("Components")] LocalizeStringEvent screenTitle;
-
-    [Space(10)]
+    [SerializeField, Foldout("Components")] GameObject hooverBackground;
 
     [SerializeField, Foldout("Screens")] GameObject configurationScreen;
     [SerializeField, Foldout("Screens"), SerializedDictionary("Type of Screen", " Gameobject")] SerializedDictionary<ConfigurationScreen, ConfigScreen> screens;
     [SerializeField, Foldout("Screens"), SerializedDictionary("Type of Screen", " String")] SerializedDictionary<ConfigurationScreen, LocalizedString> screensTitles;
 
-    [Space(10)]
-
     [SerializeField, Foldout("Toggles")] Toggle dashToMouseToggle;
     [SerializeField, Foldout("Toggles")] Toggle ptToggle;
     [SerializeField, Foldout("Toggles")] Toggle enToggle;
 
-    [Space(10)]
-
     [SerializeField, Foldout("Buttons")] Button closeConfigurationScreenButton;
     [SerializeField, Foldout("Buttons"), SerializedDictionary("Type of Screen", " Button")] SerializedDictionary<ConfigurationScreen, Button> screenButtons;
 
-    [Space(10)]
+    [SerializeField, Foldout("Sprites"), SerializedDictionary("Type of Screen", " Sprite")] SerializedDictionary<ConfigurationScreen, Sprite> unselectedSprites;
+    [SerializeField, Foldout("Sprites"), SerializedDictionary("Type of Screen", " Sprite")] SerializedDictionary<ConfigurationScreen, Sprite> selectedSprites;
 
     [SerializeField, Foldout("Language Codes")] string ptLanguageCode = "pt-BR";
     [SerializeField, Foldout("Language Codes")] string enLanguageCode = "en";
@@ -122,7 +117,20 @@ public class Configuration : MonoBehaviour {
             screen.Value.HandleConfigurationScreen(screen.Key == screenType);
         }
 
+        foreach(var button in screenButtons) {
+            button.Value.image.sprite = button.Key == screenType ? selectedSprites[button.Key] : unselectedSprites[button.Key];
+        }
+
         screenTitle.StringReference = screensTitles[screenType];
+    }
+
+    public void SetHooverButtonBackground(Transform hooverPosition) {
+        hooverBackground.SetActive(true);
+        hooverBackground.transform.position = hooverPosition.position;
+    }
+
+    public void DisableHooverButtonBackground() {
+        hooverBackground.SetActive(false);
     }
 
     #endregion
