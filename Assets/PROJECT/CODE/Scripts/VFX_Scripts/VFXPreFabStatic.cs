@@ -1,6 +1,7 @@
 using NaughtyAttributes;
 using System;
 using UnityEngine;
+using UnityEngine.VFX;
 
 [Serializable]
 public class VFXAtributes
@@ -34,6 +35,21 @@ public class VFXAtributes
 
 public class VFXPreFabStatic : MonoBehaviour
 {
+
+    private VisualEffect myVFX;
+    private ParticleSystem myParticle;
+
+    private bool isVFX;
+    private bool isParticle;
+
+    private Collider myCollider;
+
+        void Start()
+    {
+        isVFX = TryGetComponent<VisualEffect>(out myVFX);
+        isParticle = TryGetComponent<ParticleSystem>(out myParticle);
+    }
+
     public void Initialize(VFXAtributes atributes)
     {
         gameObject.SetActive(true);
