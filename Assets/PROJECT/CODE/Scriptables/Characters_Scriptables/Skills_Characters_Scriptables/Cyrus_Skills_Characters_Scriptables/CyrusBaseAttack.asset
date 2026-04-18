@@ -14,25 +14,49 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CyrusBaseAttackSO
   HasMapDescription: 0
   MapDescriptionInfo:
-    SkillName: 
-    SkillShortDescription: 
-    SkillLongDescription: 
+    SkillName:
+      m_TableReference:
+        m_TableCollectionName: 
+      m_TableEntryReference:
+        m_KeyId: 0
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    SkillShortDescription:
+      m_TableReference:
+        m_TableCollectionName: 
+      m_TableEntryReference:
+        m_KeyId: 0
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    SkillLongDescription:
+      m_TableReference:
+        m_TableCollectionName: 
+      m_TableEntryReference:
+        m_KeyId: 0
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
     UISkillSpriteIcon: {fileID: 0}
     MapSkillSpriteIcon: {fileID: 0}
     MapSkillSelectedSpriteIcon: {fileID: 0}
     MapLockSkillSpriteIcon: {fileID: 0}
   SkillManagerObject: {fileID: 915159781484785722, guid: de3c47dc503a52546be7e01c6b93c28b, type: 3}
   ListOfAnimationsInfo:
-  - Animation: {fileID: 3319618988318953490, guid: bca2145f2c2ce144d936cb3800adc8d9, type: 3}
+  - AnimationClip: {fileID: 7400000, guid: f6fec2c6005d75f44bff2ec2c6c2d864, type: 2}
     AnimationLayer: 0
-    AnimationSpeed: 1.8
+    AnimationBaseSpeed: 1
+    Loop: 0
     AnimationExitTime: 0.8
-    IsAnimationTrigger: 1
-  - Animation: {fileID: -7751922241162715349, guid: bca2145f2c2ce144d936cb3800adc8d9, type: 3}
+  - AnimationClip: {fileID: 7400000, guid: a7292c244609e2a4ea26a97f8b378f8a, type: 2}
     AnimationLayer: 0
-    AnimationSpeed: 2
+    AnimationBaseSpeed: 1
+    Loop: 0
     AnimationExitTime: 0.8
-    IsAnimationTrigger: 1
   Prefabs:
     _serializedList:
     - Key: 1
@@ -136,7 +160,6 @@ MonoBehaviour:
     MinDistanceBack: 0
     ExtraAtributes:
       _serializedList: []
-  AttackSpeedAnimationParameter: AttackSpeed
   FirstAttackAtributes:
     DamageType: 0
     UnitsToHit:
@@ -178,3 +201,6 @@ MonoBehaviour:
   CooldownBetweenAttacks: 0
   MaxTimeBetweenAttacks: 0.8
   Size: {x: 3, y: 2, z: 1.5}
+  references:
+    version: 2
+    RefIds: []
