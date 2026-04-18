@@ -1,3 +1,4 @@
+using AYellowpaper.SerializedCollections;
 using UnityEngine;
 using UnityEngine.Localization.Settings;
 
@@ -22,6 +23,9 @@ public class ConfigurationWhiteBoard : MonoBehaviour
 
     [Header("Language")]
     public string LanguageCode = "pt-BR";
+
+    [Header("Audio")]
+    [SerializedDictionary("Type", "Volume")] public SerializedDictionary<TypesOfAudio, float> AudioValues;
 
     private void Awake() {
         if (Instance == null) {
@@ -62,4 +66,5 @@ public class ConfigurationWhiteBoard : MonoBehaviour
     void SetLanguage() {
         LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.GetLocale(LanguageCode);
     }
+
 }
