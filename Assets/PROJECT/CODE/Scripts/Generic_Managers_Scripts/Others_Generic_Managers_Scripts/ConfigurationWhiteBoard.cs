@@ -1,4 +1,6 @@
+using AYellowpaper.SerializedCollections;
 using UnityEngine;
+using UnityEngine.Localization.Settings;
 
 public class ConfigurationWhiteBoard : MonoBehaviour
 {
@@ -19,6 +21,12 @@ public class ConfigurationWhiteBoard : MonoBehaviour
     public int ResolutionWidth = 1920;
     public int WindowModeIndex = 2;
 
+    [Header("Language")]
+    public string LanguageCode = "pt-BR";
+
+    [Header("Audio")]
+    [SerializedDictionary("Type", "Volume")] public SerializedDictionary<TypesOfAudio, float> AudioValues;
+
     private void Awake() {
         if (Instance == null) {
             Instance = this;
@@ -28,6 +36,7 @@ public class ConfigurationWhiteBoard : MonoBehaviour
             Destroy(this);
         }
         SetGraphicsConfigurations();
+        SetLanguage();
     }
 
     void SetGraphicsConfigurations() {
@@ -53,4 +62,9 @@ public class ConfigurationWhiteBoard : MonoBehaviour
         // Resolution
         Screen.SetResolution(ResolutionWidth, ResolutionHeight, Screen.fullScreenMode);
     }
+
+    void SetLanguage() {
+        LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.GetLocale(LanguageCode);
+    }
+
 }
