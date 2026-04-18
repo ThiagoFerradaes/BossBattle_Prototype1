@@ -9,24 +9,25 @@ using UnityEngine.UI;
 
 public class BossDifficultyManager : MonoBehaviour
 {
-    [SerializeField] GameObject BossDifficultyScreen;
-    [SerializeField] CharacterSelectionManager characterSelectionManager;
+    [Foldout("Components") ,SerializeField] GameObject BossDifficultyScreen;
+    [Foldout("Components") ,SerializeField] CharacterSelectionManager characterSelectionManager;
+    [Foldout("Components"), SerializeField] MapManager mapManager;
+    [Foldout("Components"), SerializeField] Image BossImage;
+    [Foldout("Components"), SerializeField] Image SelectedCharacterIcon;
+    [Foldout("Components"), SerializeField] LocalizeSpriteEvent IsleName;
+    [Foldout("Components"), SerializeField] TextMeshProUGUI BossDescription;
+    [Foldout("Components"), SerializeField] Button CloseButton;
+    [Foldout("Components"), SerializeField] Button SailButton;
+    [Foldout("Components"), SerializeField] Button ChangeCharacterButton;
 
-    [Foldout("Second Map"), SerializeField] Image BossImage;
-    [Foldout("Second Map"), SerializeField] Image SelectedCharacterIcon;
-    [Foldout("Second Map"), SerializeField] LocalizeSpriteEvent IsleName;
-    [Foldout("Second Map"), SerializeField] TextMeshProUGUI BossDescription;
-    [Foldout("Second Map"), SerializeField] Button CloseButton;
-    [Foldout("Second Map"), SerializeField] Button SailButton;
-    [Foldout("Second Map"), SerializeField] Button ChangeCharacterButton;
-    [Foldout("Second Map"), SerializeField] List<Sprite> listOfDificultySpritesActive;
-    [Foldout("Second Map"), SerializeField] List<Sprite> listOfDificultySpritesDesactive;
-    [Foldout("Second Map"), SerializeField] List<Image> ListOfDifficultyImages;
-    [Foldout("Second Map"), SerializeField] List<Button> ListOfDifficultyButtons;
-    [Foldout("Second Map"), SerializeField] List<Image> ListOfDifficultyLocks;
+    [Foldout("List"), SerializeField] List<Sprite> listOfDificultySpritesActive;
+    [Foldout("List"), SerializeField] List<Sprite> listOfDificultySpritesDesactive;
+    [Foldout("List"), SerializeField] List<Image> ListOfDifficultyImages;
+    [Foldout("List"), SerializeField] List<Button> ListOfDifficultyButtons;
+    [Foldout("List"), SerializeField] List<Image> ListOfDifficultyLocks;
 
-    [Foldout("First Map"), SerializeField] Sprite normalSailButtonSprite;
-    [Foldout("First Map"), SerializeField] Sprite enterSailButtonSprite;
+    [Foldout("Sprites"), SerializeField] Sprite normalSailButtonSprite;
+    [Foldout("Sprites"), SerializeField] Sprite enterSailButtonSprite;
 
     int _currentDifficulty = 0;
 
@@ -92,6 +93,7 @@ public class BossDifficultyManager : MonoBehaviour
     public void TurnBossDifficultyScreenOff() {
         BossDifficultyScreen.SetActive(false);
         SailButton.gameObject.SetActive(false);
+        mapManager.TurnAllIslandSelectSpriteOff();
     }
 
     void Sail(BossDescription description) {

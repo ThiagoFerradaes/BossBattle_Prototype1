@@ -127,7 +127,7 @@ public class MapManager : MonoBehaviour {
             else image.sprite = DictionaryOfUnselectedSprites[pair.Key];
         }
     }
-    void TurnAllIslandSelectSpriteOff() {
+    public void TurnAllIslandSelectSpriteOff() {
         foreach (var pair in DictionaryOfButtons) {
             pair.Value.TryGetComponent(out Image image);
             image.sprite = DictionaryOfUnselectedSprites[pair.Key];
