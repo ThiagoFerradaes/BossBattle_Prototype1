@@ -6,7 +6,9 @@ public class CyrusHandVFXOnOff : MonoBehaviour
 {
     
     [SerializeField]
-    VisualEffect leftHandVFX, rightHandVFX;
+    VisualEffect leftHandTrail, rightHandTrail;
+        [SerializeField]
+    VisualEffect leftHandParticle, rightHandParticle;
     
     [SerializeField]
     bool toggleVFX_leftHand, toggleVFX_rightHand;
@@ -20,8 +22,10 @@ public class CyrusHandVFXOnOff : MonoBehaviour
 
     void Update()
     {
-        leftHandVFX.enabled = toggleVFX_leftHand;
-        rightHandVFX.enabled = toggleVFX_rightHand;
+        leftHandTrail.enabled = toggleVFX_leftHand;
+        rightHandTrail.enabled = toggleVFX_rightHand;
+        leftHandParticle.enabled = toggleVFX_leftHand;
+        rightHandParticle.enabled = toggleVFX_rightHand;
         
         /* ---testing part 2---
         if(toggleVFX_leftHand) {
