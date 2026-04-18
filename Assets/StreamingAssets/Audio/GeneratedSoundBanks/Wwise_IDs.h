@@ -80,6 +80,14 @@ namespace AK
 
     } // namespace SWITCHES
 
+    namespace GAME_PARAMETERS
+    {
+        static const AkUniqueID AMBIENTVOLUME = 3546521921U;
+        static const AkUniqueID GENERALVOLUME = 421429125U;
+        static const AkUniqueID MUSICVOLUME = 2346531308U;
+        static const AkUniqueID SFXVOLUME = 988953028U;
+    } // namespace GAME_PARAMETERS
+
     namespace BANKS
     {
         static const AkUniqueID INIT = 1355168291U;
@@ -88,7 +96,10 @@ namespace AK
 
     namespace BUSSES
     {
+        static const AkUniqueID AMBIENT_BUS = 3148666284U;
         static const AkUniqueID MAIN_AUDIO_BUS = 2246998526U;
+        static const AkUniqueID MUSIC_BUS = 2680856269U;
+        static const AkUniqueID SFX_BUS = 213475909U;
     } // namespace BUSSES
 
     namespace AUDIO_DEVICES
