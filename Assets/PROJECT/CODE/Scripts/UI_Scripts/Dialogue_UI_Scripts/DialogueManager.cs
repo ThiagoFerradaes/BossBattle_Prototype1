@@ -4,8 +4,9 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.Localization;
+using UnityEngine.UI;
+using static UnityEngine.Audio.ProcessorInstance;
 
 
 public enum TypeOfDialogueSpritePosition { Left, Right }
@@ -52,7 +53,7 @@ public class DialogueManager : MonoBehaviour {
     [SerializeField] List<Sprite> listOfResponsesSprites;
     List<GameObject> _responseButtonsList = new();
     List<ResponseConsequence> _currentResponseConsequencesList = new();
-
+    List<DialogueNodeWithParam> _sortedListOfDialoguesWithParams = new();
 
     [Space(10)]
 
@@ -394,6 +395,8 @@ public class DialogueManager : MonoBehaviour {
     /// <param name="response"></param>
     void SelectResponse(DialogueResponse response) {
 
+        DialogueNode nextNode = ReturnADialogueNode(response);
+
         if (response.ResponseConsequencesList != null || response.ResponseConsequencesList.Count > 0) {
             foreach (var consequence in response.ResponseConsequencesList) {
                 consequence.ExecutePreConsequece();
@@ -401,8 +404,30 @@ public class DialogueManager : MonoBehaviour {
             }
         }
 
-        if (response.NextNode != null) InitializeDialogue(response.NextNode, _handler);
+        if (nextNode != null) InitializeDialogue(nextNode, _handler);
         else HideDialogueScreen();
+    }
+
+    DialogueNode ReturnADialogueNode(DialogueResponse response) {
+        if (response.NodesWithParams != null && response.NodesWithParams.Count > 0) {
+
+            _sortedListOfDialoguesWithParams.Clear();
+            _sortedListOfDialoguesWithParams.AddRange(response.NodesWithParams);
+            _sortedListOfDialoguesWithParams.Sort((a, b) => a.Priority.CompareTo(b.Priority));
+
+            for (int i = 0; i < _sortedListOfDialoguesWithParams.Count; i++) {
+                bool canReturnNode = true;
+                foreach (var param in _sortedListOfDialoguesWithParams[i].ListOfParameters) {
+                    if (!param.CheckParams()) {
+                        canReturnNode = false;
+                        break;
+                    }
+                }
+                if (canReturnNode)  return _sortedListOfDialoguesWithParams[i].Node;
+            }
+        }
+
+        return response.NextNode;
     }
 
     /// <summary>

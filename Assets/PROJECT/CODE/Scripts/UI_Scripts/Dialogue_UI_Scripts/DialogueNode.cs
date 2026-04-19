@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Localization;
 
-
 [CreateAssetMenu(menuName = "Dialogue/Children Dialogue")]
 public class DialogueNode : ScriptableObject
 {
