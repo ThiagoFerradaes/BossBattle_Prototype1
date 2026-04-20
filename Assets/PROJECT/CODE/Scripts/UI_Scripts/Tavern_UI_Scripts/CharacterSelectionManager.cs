@@ -16,23 +16,24 @@ public class CharacterSelectionManager : MonoBehaviour {
     [SerializeField] Image selectedCharacterImage;
     [SerializeField] Image selectedCharacterSignature;
     [SerializeField] Image selectedCharacterBackgroundImage;
-    [SerializeField] TextMeshProUGUI passiveShortDescription;
+    [SerializeField] TextMeshProUGUI selectedCharacterName;
+    [SerializeField] Button closeScreenButton;
+
+    [Header("Descriptions")]
+    [SerializeField] TextMeshProUGUI passiveDescription;
     [SerializeField] TextMeshProUGUI skillOneShortDescription;
     [SerializeField] TextMeshProUGUI skillTwoShortDescription;
     [SerializeField] TextMeshProUGUI ultimateShortDescription;
-    [SerializeField] Button closeScreenButton;
-    [SerializeField] Color unselectedCharacterColor;
-    [SerializeField] Color selectedCharacterColor;
+
     [SerializedDictionary("Character", "Button"), SerializeField]
     SerializedDictionary<CharacterSO, Button> dictionaryOfCharactersButton = new();
 
     [Header("Skills Icons")]
-    [SerializeField] Image passiveIcon;
     [SerializeField] Image skillOneIcon;
     [SerializeField] Image skillTwoIcon;
     [SerializeField] Image ultimateIcon;
-    [SerializedDictionary("Slot", "Button"), SerializeField] SerializedDictionary<SkillSlot, Image> dictionaryOfSkillsIconBackground;
     [SerializedDictionary("Slot", "Button"), SerializeField] SerializedDictionary<SkillSlot, Button> dictionaryOfSkillSelectionButton;
+    [SerializedDictionary("Slot", "Buttons"), SerializeField] SerializedDictionary<SkillSlot, List<Button>> dictionaryOfArrows;
     SkillSelectionManager _skillSelectionManager;
     List<CharacterUnlockedInfo> _unlockedInfo = new();
 
@@ -52,8 +53,7 @@ public class CharacterSelectionManager : MonoBehaviour {
 
         // Bot�o que fecha a UI;
         closeScreenButton.onClick.AddListener(() => {
-            characterSelectionScreen.SetActive(false);
-            _skillSelectionManager.TurnScreenOff();
+            TurnScreenOff();
         });
 
         // Bot�o que abre a UI de sele��o de skill
@@ -62,7 +62,6 @@ public class CharacterSelectionManager : MonoBehaviour {
             dictionaryOfSkillSelectionButton[tempSlot].onClick.AddListener(() => {
                 _skillSelectionManager.Initialize(tempSlot);
                 closeScreenButton.gameObject.SetActive(false);
-                ChangeSkillIconBackground(tempSlot);
             });
         }
 
@@ -77,17 +76,20 @@ public class CharacterSelectionManager : MonoBehaviour {
 
     public void Initialize() {
 
-        _unlockedInfo = WhiteBoard.Instance.ReturnListOfUnlockedCharecters();
+        _unlockedInfo = WhiteBoard.Instance.ReturnListOfUnlockedCharacters();
 
         ChangeSelectedCharactersImages();
-        ChangeSkillsIcon();
+        ChangeAllSkillsIcon();
         ActivateCharacterSelectionButtons();
-        TurnOffSkillSelectionBackground();
 
         characterSelectionScreen.SetActive(true);
 
     }
 
+    public void TurnScreenOff() {
+        characterSelectionScreen.SetActive(false);
+        _skillSelectionManager.TurnScreenOff();
+    }
 
     void ChangeSelectedCharactersImages() {
 
@@ -103,8 +105,11 @@ public class CharacterSelectionManager : MonoBehaviour {
         // Trocando o background por trás das habilidades
         selectedCharacterBackgroundImage.sprite = currentCharater.CharacterSelectedBackground;
 
+        // Trocando o nome
+        selectedCharacterName.text = currentCharater.CharacterName.GetLocalizedString();
+
         // Trocando a imagem do botão do personagem selecionado
-        foreach(var info in _unlockedInfo) {
+        foreach (var info in _unlockedInfo) {
             var character = info.Character;
             if (character.Character == Character.Julian) continue;
             else if (info.Character == currentCharater)
@@ -117,26 +122,15 @@ public class CharacterSelectionManager : MonoBehaviour {
 
     }
 
-    void ChangeSkillsIcon() {
-        Character currentCharacter = CurrentSelectedCharacterWhiteBoard.Instance.ReturnSelectedCharacter();
-        CommonSkillSO skillOne = CurrentSelectedCharacterWhiteBoard.Instance.ReturnSkillOne(currentCharacter);
-        CommonSkillSO skillTwo = CurrentSelectedCharacterWhiteBoard.Instance.ReturnSkillTwo(currentCharacter);
-        UltimateSkillSO ultimate = CurrentSelectedCharacterWhiteBoard.Instance.ReturnUltimate(currentCharacter);
-        PassiveSO passive = CurrentSelectedCharacterWhiteBoard.Instance.ReturnPassive(currentCharacter);
+    void ChangeAllSkillsIcon() { 
+        ChangeSkillIcon(SkillSlot.SkillOne);
+        ChangeSkillIcon(SkillSlot.SkillTwo);
+        ChangeSkillIcon(SkillSlot.Ultimate);
 
-        // Setando os icones
-        passiveIcon.sprite = passive.PassiveIcon;
-        skillOneIcon.sprite = skillOne.MapDescriptionInfo.MapSkillSpriteIcon;
-        skillTwoIcon.sprite = skillTwo.MapDescriptionInfo.MapSkillSpriteIcon;
-        ultimateIcon.sprite = ultimate.MapDescriptionInfo.MapSkillSpriteIcon;
+        HandleArrows();
 
-        // Setando as descri��es
-        passiveShortDescription.text = passive.ShortDescription.GetLocalizedString();
-        skillOneShortDescription.text = skillOne.MapDescriptionInfo.SkillShortDescription.GetLocalizedString();
-        skillTwoShortDescription.text = skillTwo.MapDescriptionInfo.SkillShortDescription.GetLocalizedString();
-        ultimateShortDescription.text = ultimate.MapDescriptionInfo .SkillShortDescription.GetLocalizedString();
+        ChangePassiveText();
     }
-
     public void ChangeSkillIcon(SkillSlot slot) {
         SkillSO currentSkill = CurrentSelectedCharacterWhiteBoard.Instance.ReturnCurrentSkillBySlot(slot);
         switch (slot) {
@@ -154,6 +148,44 @@ public class CharacterSelectionManager : MonoBehaviour {
                 break;
         }
     }
+
+    void ChangePassiveText() {
+        PassiveSO passive = CurrentSelectedCharacterWhiteBoard.Instance.ReturnPassive();
+        passiveDescription.text = passive.ShortDescription.GetLocalizedString();
+    }
+    void HandleArrows() {
+        Character currentCharacter = CurrentSelectedCharacterWhiteBoard.Instance.ReturnSelectedCharacter();
+
+        // Setando as setas
+        CharacterUnlockedInfo currentCharacterUnlockInfo = _unlockedInfo.Where(p => p.Character.Character == currentCharacter).FirstOrDefault();
+        foreach (var slot in dictionaryOfArrows.Keys) {
+
+            List<SkillUnlockedInfo> skillsInfo = currentCharacterUnlockInfo.DictionaryOfUnlockedSkills[slot];
+            SkillUnlockedInfo alternativeSkill = skillsInfo.Where(p => p.Type == SkillType.Alternative).FirstOrDefault();
+
+            foreach (var arrow in dictionaryOfArrows[slot]) {
+
+                bool isUnlocked = alternativeSkill.IsUnlocked;
+
+                if (isUnlocked) arrow.onClick.AddListener(() => ChangeCurrentSkillInDisplay(slot, skillsInfo));
+                else arrow.onClick.RemoveAllListeners();
+
+                arrow.gameObject.SetActive(alternativeSkill.IsUnlocked);
+            }
+        }
+    }
+    void ChangeCurrentSkillInDisplay(SkillSlot slot, List<SkillUnlockedInfo> skillsInfo) {
+
+        SkillSO currentSkill = CurrentSelectedCharacterWhiteBoard.Instance.ReturnCurrentSkillBySlot(slot);
+        SkillType type = currentSkill.SkillType;
+        SkillSO newSkill = skillsInfo.Where(p => p.Type != type).FirstOrDefault().Skill;
+
+        CurrentSelectedCharacterWhiteBoard.Instance.SetCurrentCharacterSkillBySlot(slot, newSkill);
+
+        ChangeSkillIcon(slot);
+    }
+
+
 
     void ActivateCharacterSelectionButtons() {
         foreach (var info in _unlockedInfo) {
@@ -178,20 +210,8 @@ public class CharacterSelectionManager : MonoBehaviour {
     void SelectCharacter(CharacterSO character) {
         CurrentSelectedCharacterWhiteBoard.Instance.SetSelectedCharacter(character);
         ChangeSelectedCharactersImages();
-        ChangeSkillsIcon();
+        ChangeAllSkillsIcon();
         _skillSelectionManager.TurnScreenOff();
-    }
-
-    void ChangeSkillIconBackground(SkillSlot activeSlot) {
-        foreach (var skillIcon in dictionaryOfSkillsIconBackground) {
-            skillIcon.Value.gameObject.SetActive(skillIcon.Key == activeSlot);
-        }
-    }
-
-    public void TurnOffSkillSelectionBackground() {
-        foreach (var skillIcon in dictionaryOfSkillsIconBackground) {
-            skillIcon.Value.gameObject.SetActive(false);
-        }
     }
     #endregion
 }

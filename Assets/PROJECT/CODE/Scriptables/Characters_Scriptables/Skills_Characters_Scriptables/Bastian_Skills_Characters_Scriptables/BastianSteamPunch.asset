@@ -14,9 +14,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BastianSteamPunchSO
   HasMapDescription: 1
   MapDescriptionInfo:
-    SkillName: Steam Punch
-    SkillShortDescription: Bastian looses heat to shoot a steam punch
-    SkillLongDescription: Bastian looses heat to shoot a steam punch
+    SkillName:
+      m_TableReference:
+        m_TableCollectionName: GUID:2eafd25b541933744a0e4b250efe288e
+      m_TableEntryReference:
+        m_KeyId: 4996005117906944
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    SkillShortDescription:
+      m_TableReference:
+        m_TableCollectionName: GUID:2eafd25b541933744a0e4b250efe288e
+      m_TableEntryReference:
+        m_KeyId: 4996005201793024
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    SkillLongDescription:
+      m_TableReference:
+        m_TableCollectionName: GUID:2eafd25b541933744a0e4b250efe288e
+      m_TableEntryReference:
+        m_KeyId: 4996005201793025
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
     UISkillSpriteIcon: {fileID: 1702239051, guid: 3bd66792082ea9042a60054da7e52502, type: 3}
     MapSkillSpriteIcon: {fileID: 699114715, guid: cee67a2d50b177a4a83653c67d610c6c, type: 3}
     MapSkillSelectedSpriteIcon: {fileID: -1378836367, guid: cee67a2d50b177a4a83653c67d610c6c, type: 3}
@@ -97,3 +121,6 @@ MonoBehaviour:
   PenetrationOnSuperHeat: 75
   CritChanceOverHeat: 100
   LastOverHeatCritDamage: 500
+  references:
+    version: 2
+    RefIds: []

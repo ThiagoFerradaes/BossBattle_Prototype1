@@ -105,7 +105,7 @@ public class WhiteBoard : MonoBehaviour {
 
     #region Getters
 
-    public List<CharacterUnlockedInfo> ReturnListOfUnlockedCharecters() => _listOfCharactersUnlockedInfo;
+    public List<CharacterUnlockedInfo> ReturnListOfUnlockedCharacters() => _listOfCharactersUnlockedInfo;
     public Dictionary<Bosses, int> ReturnListOfUnlockedPhasesByBoss() => _dictionaryOfUnlockedPhasesByBosses;
 
     public List<SkillUnlockedInfo> ReturnCurrentCharacterSkillsBySlot(SkillSlot slot) {
