@@ -1300,6 +1300,7 @@
 							<ChildrenList>
 								<Sound Name="Main_Theme" ID="{4ED3DEEF-DDB1-4E50-8AC2-19BC2DACC40A}" ShortID="1057533720">
 									<PropertyList>
+										<Property Name="EnableAttenuation" Type="bool" Value="False"/>
 										<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
 									</PropertyList>
 									<ReferenceList>
@@ -1336,6 +1337,9 @@
 							</PropertyList>
 							<ChildrenList>
 								<SwitchContainer Name="Kraken_Stage" ID="{91992BB5-1E06-4163-A22B-950D7EC6B755}" ShortID="521452326">
+									<PropertyList>
+										<Property Name="EnableAttenuation" Type="bool" Value="False"/>
+									</PropertyList>
 									<ReferenceList>
 										<Reference Name="Conversion">
 											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
@@ -1468,6 +1472,7 @@
 							<ChildrenList>
 								<Sound Name="Tavern" ID="{97D7A798-642E-4D90-ADC4-C872A8AD5B67}" ShortID="197680233">
 									<PropertyList>
+										<Property Name="EnableAttenuation" Type="bool" Value="False"/>
 										<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
 									</PropertyList>
 									<ReferenceList>
@@ -1506,6 +1511,7 @@
 					<ChildrenList>
 						<BlendContainer Name="Boat" ID="{10CA92BC-CD45-4620-A7A5-8E7C58838FE5}" ShortID="198857673">
 							<PropertyList>
+								<Property Name="3DSpatialization" Type="int16" Value="2"/>
 								<Property Name="BlendBehavior" Type="int16" Value="1"/>
 								<Property Name="Color" Type="int16" Value="22"/>
 								<Property Name="OverrideColor" Type="bool" Value="True"/>
@@ -1517,6 +1523,9 @@
 									</ModifierList>
 								</Property>
 								<Property Name="Volume" Type="Real64">
+									<ValueList>
+										<Value>-6</Value>
+									</ValueList>
 									<ModifierList>
 										<ModifierInfo>
 											<Modifier Name="" ID="{F6344A71-07EC-4EFB-B6EC-F19C04BFA7DA}">
@@ -1884,7 +1893,6 @@
 								</RandomSequenceContainer>
 								<RandomSequenceContainer Name="BoatBeat" ID="{9F6F82C3-3A1B-490C-85CD-88FFDEFDB899}" ShortID="228568821">
 									<PropertyList>
-										<Property Name="OverrideEffect" Type="bool" Value="True"/>
 										<Property Name="Pitch" Type="int32">
 											<ModifierList>
 												<ModifierInfo>
@@ -2002,6 +2010,12 @@
 							<ChildrenList>
 								<RandomSequenceContainer Name="Mopping" ID="{BD44121F-704A-4A54-B824-31481B10B31A}" ShortID="100081330">
 									<PropertyList>
+										<Property Name="3DSpatialization" Type="int16" Value="2"/>
+										<Property Name="CenterPercentage" Type="int32">
+											<ValueList>
+												<Value>80</Value>
+											</ValueList>
+										</Property>
 										<Property Name="NormalOrShuffle" Type="int16" Value="0"/>
 										<Property Name="Pitch" Type="int32">
 											<ValueList>
@@ -2017,6 +2031,12 @@
 										<Property Name="PlayMechanismSpecialTransitions" Type="bool" Value="True"/>
 										<Property Name="PlayMechanismSpecialTransitionsValue" Type="Real64" Value="1.5"/>
 										<Property Name="PlayMechanismStepOrContinuous" Type="int16" Value="0"/>
+										<Property Name="SpeakerPanning" Type="int16" Value="1"/>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>-5</Value>
+											</ValueList>
+										</Property>
 									</PropertyList>
 									<ReferenceList>
 										<Reference Name="Conversion">
@@ -2107,7 +2127,7 @@
 												</Property>
 												<Property Name="Weight" Type="Real64">
 													<ValueList>
-														<Value>68</Value>
+														<Value>80</Value>
 													</ValueList>
 												</Property>
 											</PropertyList>
@@ -2132,11 +2152,15 @@
 											</ActiveSourceList>
 										</Sound>
 									</ChildrenList>
+									<PositioningInfo>
+										<Panner Name="" ID="{1939374E-B192-4E1B-A6CA-67F8EBCAA316}"/>
+									</PositioningInfo>
 								</RandomSequenceContainer>
 							</ChildrenList>
 						</Folder>
 						<BlendContainer Name="Water" ID="{F346D2E0-04AB-4487-BFE8-676202765ECE}" ShortID="940777073">
 							<PropertyList>
+								<Property Name="3DSpatialization" Type="int16" Value="2"/>
 								<Property Name="BlendBehavior" Type="int16" Value="1"/>
 								<Property Name="Color" Type="int16" Value="14"/>
 								<Property Name="OverrideColor" Type="bool" Value="True"/>
@@ -2146,6 +2170,11 @@
 											<Modifier Name="" ID="{93CE469D-2057-433D-9334-68DEACFC29D3}"/>
 										</ModifierInfo>
 									</ModifierList>
+								</Property>
+								<Property Name="Volume" Type="Real64">
+									<ValueList>
+										<Value>-18</Value>
+									</ValueList>
 								</Property>
 							</PropertyList>
 							<ReferenceList>
@@ -2171,6 +2200,11 @@
 										<Property Name="PlayMechanismSpecialTransitions" Type="bool" Value="True"/>
 										<Property Name="PlayMechanismSpecialTransitionsValue" Type="Real64" Value="1.5"/>
 										<Property Name="PlayMechanismStepOrContinuous" Type="int16" Value="0"/>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>2</Value>
+											</ValueList>
+										</Property>
 									</PropertyList>
 									<ReferenceList>
 										<Reference Name="Conversion">
@@ -2294,7 +2328,7 @@
 										</Property>
 										<Property Name="Volume" Type="Real64">
 											<ValueList>
-												<Value>-3</Value>
+												<Value>4</Value>
 											</ValueList>
 										</Property>
 									</PropertyList>
@@ -2383,7 +2417,7 @@
 										</Property>
 										<Property Name="Volume" Type="Real64">
 											<ValueList>
-												<Value>-4</Value>
+												<Value>6</Value>
 											</ValueList>
 										</Property>
 									</PropertyList>
@@ -2424,7 +2458,7 @@
 										</Property>
 										<Property Name="Volume" Type="Real64">
 											<ValueList>
-												<Value>-3</Value>
+												<Value>1</Value>
 											</ValueList>
 										</Property>
 									</PropertyList>
@@ -2453,6 +2487,7 @@
 						</BlendContainer>
 						<BlendContainer Name="Wind" ID="{C8070579-B35B-46B9-B603-7BAA372226DE}" ShortID="280304349">
 							<PropertyList>
+								<Property Name="3DSpatialization" Type="int16" Value="2"/>
 								<Property Name="BlendBehavior" Type="int16" Value="1"/>
 								<Property Name="Color" Type="int16" Value="27"/>
 								<Property Name="OverrideColor" Type="bool" Value="True"/>
@@ -2464,6 +2499,9 @@
 									</ModifierList>
 								</Property>
 								<Property Name="Volume" Type="Real64">
+									<ValueList>
+										<Value>-18</Value>
+									</ValueList>
 									<ModifierList>
 										<ModifierInfo>
 											<Modifier Name="" ID="{7AFF580E-9995-40C6-9A89-7EBC026A9640}"/>
@@ -2499,7 +2537,7 @@
 										</Property>
 										<Property Name="Volume" Type="Real64">
 											<ValueList>
-												<Value>-9</Value>
+												<Value>4</Value>
 											</ValueList>
 											<ModifierList>
 												<ModifierInfo>
@@ -2550,6 +2588,11 @@
 												</ModifierInfo>
 											</ModifierList>
 										</Property>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>9</Value>
+											</ValueList>
+										</Property>
 									</PropertyList>
 									<ReferenceList>
 										<Reference Name="Conversion">
@@ -2590,7 +2633,7 @@
 										</Property>
 										<Property Name="Volume" Type="Real64">
 											<ValueList>
-												<Value>-2</Value>
+												<Value>4</Value>
 											</ValueList>
 										</Property>
 									</PropertyList>
