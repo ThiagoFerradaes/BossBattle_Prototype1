@@ -13,8 +13,9 @@ GameObject:
   - component: {fileID: 1957660718774384986}
   - component: {fileID: 783576903744842821}
   - component: {fileID: -6174195062602580166}
+  - component: {fileID: 2096158687383106691}
   m_Layer: 0
-  m_Name: CyrusAxeCharge_VFX
+  m_Name: Skill_VFX_AxeCharge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,8 +45,8 @@ VisualEffect:
   m_GameObject: {fileID: 8649116303366499638}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: 2819c8e2177a90e44800080261d428f9, type: 3}
-  m_InitialEventName: OnPlay
-  m_InitialEventNameOverriden: 0
+  m_InitialEventName: MyPlayOnAwake
+  m_InitialEventNameOverriden: 1
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_AllowInstancing: 1
@@ -151,3 +152,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e11fcbe9a7618d14b9727ca13203b157, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::VFXPreFabStatic
+--- !u!114 &2096158687383106691
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8649116303366499638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c12340266716e749a88c836c9145dc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CyrusAxeVFXManager
