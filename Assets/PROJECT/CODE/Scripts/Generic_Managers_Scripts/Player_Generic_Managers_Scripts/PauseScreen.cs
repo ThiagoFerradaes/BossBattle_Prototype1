@@ -3,33 +3,33 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class PauseScreen : MonoBehaviour
-{
+public class PauseScreen : MonoBehaviour {
     public static PauseScreen Instance;
 
     [SerializeField] Button continueButton;
+    [SerializeField] Button configButton;
     [SerializeField] Button menuButton;
     [SerializeField] Button quitButton;
 
     [SerializeField] GameObject backgroundForButtons;
     [SerializeField] GameObject pauseScreen;
     [SerializeField] LoadingScreenSO menuScreenInfo;
+    [SerializeField] Configuration configScreen;
 
-    private void Awake()
-    {
+    private void Awake() {
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
+
+        configScreen.CloseConfigurationScreen();
+        TurnScreenOff();
     }
-    private void Start()
-    {
+    private void Start() {
         SetButton();
     }
 
-    void SetButton()
-    {
+    void SetButton() {
 
-        menuButton.onClick.AddListener(() =>
-        {
+        menuButton.onClick.AddListener(() => {
             LoadingScreenManager.CurrentLoadingScreenInfo = menuScreenInfo;
             SceneManager.LoadScene(1);
             Time.timeScale = 1;
@@ -38,32 +38,32 @@ public class PauseScreen : MonoBehaviour
         continueButton.onClick.AddListener(() => TurnScreenOff());
 
         quitButton.onClick.AddListener(() => Application.Quit());
+
+        configButton.onClick.AddListener(() => configScreen.InitializeConfigurationScreen());
     }
 
-    public void TurnScreenOn()
-    {
+    public void TurnScreenOn() {
         Time.timeScale = 0;
 
         pauseScreen.SetActive(true);
     }
 
-    public void TurnScreenOff()
-    {
+    public void TurnScreenOff() {
         Time.timeScale = 1;
 
         pauseScreen.SetActive(false);
 
         TurnButtonBackgroundOff();
+
+        configScreen.CloseConfigurationScreen();
     }
 
-    public void TurnButtonBackgroundOn(Transform target)
-    {
+    public void TurnButtonBackgroundOn(Transform target) {
         backgroundForButtons.transform.position = target.position;
         backgroundForButtons.SetActive(true);
     }
 
-    public void TurnButtonBackgroundOff()
-    {
+    public void TurnButtonBackgroundOff() {
         backgroundForButtons.SetActive(false);
     }
 }

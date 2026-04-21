@@ -12,15 +12,8 @@ public class SkillSelectionManager : MonoBehaviour {
     [SerializeField] Button closeSelectionScreen;
     [SerializeField] TextMeshProUGUI skillName;
     [SerializeField] TextMeshProUGUI skillLongDescription;
-    [SerializedDictionary("Slot", "Conexion"), SerializeField]
-    SerializedDictionary<SkillSlot, Image> dictionaryOfConexions = new();
-
-    [Header("Passive")]
-    [SerializeField] GameObject passiveIconObject;
-    [SerializeField] Image passiveIcon;
 
     [Header("Skill")]
-    [SerializeField] GameObject skillsIconObject;
     [SerializeField] Image alternativeLockImage;
     [SerializedDictionary("Type", "SkillIcon"), SerializeField] SerializedDictionary<SkillType, Image> dictionaryOfSkillIcons = new();
     [SerializedDictionary("Type", "SkillBackground"), SerializeField] SerializedDictionary<SkillType, Image> dictionaryOfSkillBackgrounds = new();
@@ -49,12 +42,9 @@ public class SkillSelectionManager : MonoBehaviour {
 
     }
     public void TurnScreenOff() {
-        passiveIconObject.SetActive(false);
-        skillsIconObject.SetActive(false);
         skillSelectionScreen.SetActive(false);
 
         _characterSelectionManager.TurnCloseButtonOn();
-        _characterSelectionManager.TurnOffSkillSelectionBackground();
     }
 
     /// <summary>
@@ -88,9 +78,7 @@ public class SkillSelectionManager : MonoBehaviour {
 
         ChangeCurrentSlot(slotInitialized);
 
-        SetConexions(slotInitialized);
-
-        ChangeIconsAndInformations();
+        SetSkillComponentInfo();
 
         skillSelectionScreen.SetActive(true);
     }
@@ -99,41 +87,11 @@ public class SkillSelectionManager : MonoBehaviour {
         _currentSlot = slot;
     }
 
-    void SetConexions(SkillSlot slot) {
-        foreach (var conexion in dictionaryOfConexions)
-            conexion.Value.gameObject.SetActive(conexion.Key == slot);
-    }
-
-    public void ChangeIconsAndInformations() {
-        switch (_currentSlot) {
-            case SkillSlot.Passive:
-                SetPassive(); break;
-            default:
-                SetSkillComponentInfo(); break;
-        }
-    }
-
-    #region Passive
-    void SetPassive() {
-        skillsIconObject.SetActive(false);
-
-        Character currentCharater = CurrentSelectedCharacterWhiteBoard.Instance.ReturnSelectedCharacter();
-        PassiveSO passive = CurrentSelectedCharacterWhiteBoard.Instance.ReturnPassive(currentCharater);
-
-        passiveIcon.sprite = passive.PassiveIcon;
-        ChangeDescriptionText(passive.LongDescription.GetLocalizedString(), passive.PassiveName.GetLocalizedString());
-
-        passiveIconObject.SetActive(true);
-    }
-    #endregion
-
     #region Skills
     /// <summary>
     /// Settando as informações das skills
     /// </summary>
     void SetSkillComponentInfo() {
-
-        passiveIconObject.SetActive(false);
 
         List<SkillUnlockedInfo> skilslInfo = WhiteBoard.Instance.ReturnCurrentCharacterSkillsBySlot(_currentSlot);
 
@@ -183,8 +141,6 @@ public class SkillSelectionManager : MonoBehaviour {
         // Moldura
         ChangeSkillBackground(skillInfo.SkillType);
 
-        // Object
-        skillsIconObject.SetActive(true);
     }
 
     void ChangeSelectedSkillIcon(SkillType type) {

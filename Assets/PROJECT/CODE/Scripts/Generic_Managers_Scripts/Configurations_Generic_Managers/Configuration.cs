@@ -52,7 +52,7 @@ public class Configuration : MonoBehaviour {
     }
 
 
-    void CloseConfigurationScreen() {
+    public void CloseConfigurationScreen() {
         configurationScreen.SetActive(false);
     }
     #endregion
