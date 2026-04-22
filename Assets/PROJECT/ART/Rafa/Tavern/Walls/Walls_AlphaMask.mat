@@ -21,20 +21,19 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Walls 1
-  m_Shader: {fileID: -6465566751694194690, guid: 5942b821f623c824d9bd44554eaf1425, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: dd6d17fdb5e0f484d8faa789b841b744, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords:
+  m_ValidKeywords: []
+  m_InvalidKeywords:
   - _ALPHAPREMULTIPLY_ON
   - _METALLICSPECGLOSSMAP
   - _SURFACE_TYPE_TRANSPARENT
-  m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
-  stringTagMap:
-    RenderType: Transparent
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
   disabledShaderPasses:
   - MOTIONVECTORS
   m_LockedProperties: 
@@ -45,7 +44,15 @@ Material:
         m_Texture: {fileID: 2800000, guid: f5b8db089eb090c419b61cccecc8d054, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Ambient_Occlusion_Texture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BaseMap:
+        m_Texture: {fileID: 2800000, guid: ad0b4551b2323e54e97aacc2d859fdcb, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Base_Texture:
         m_Texture: {fileID: 2800000, guid: ad0b4551b2323e54e97aacc2d859fdcb, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -70,7 +77,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 4205a512cf9b635458465fd892f9d465, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -79,6 +86,14 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 2800000, guid: 9f2cea115fe816141a3fb23c452a8965, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Metallic_Texture:
+        m_Texture: {fileID: 2800000, guid: 9f2cea115fe816141a3fb23c452a8965, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Normal_Texture:
+        m_Texture: {fileID: 2800000, guid: 2539359042f9529418175b9825906736, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -95,6 +110,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _Texture2D:
         m_Texture: {fileID: 2800000, guid: f5b8db089eb090c419b61cccecc8d054, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _TransparencyMap:
+        m_Texture: {fileID: 2800000, guid: 3aa3c913ac5e02a4a802f7eb6b9d2dda, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -134,6 +153,7 @@ Material:
     - _Displacement_Scale: 5
     - _Displacement_Time: 0.038
     - _Distance_Multiplier: 1
+    - _Dither_SIze: 1
     - _DstBlend: 10
     - _DstBlendAlpha: 10
     - _EMISSION: 0
@@ -166,6 +186,7 @@ Material:
     - _PARALLAXMAP: 0
     - _Parallax: 0.005
     - _Point_Direction: 0
+    - _Point_DirectionBool: 0
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
@@ -196,13 +217,16 @@ Material:
     - _fill: 3.22
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _Base_Color: {r: 1, g: 1, b: 1, a: 0.2392157}
     - _CellLightDirection: {r: 0, g: 1, b: 0, a: 0}
     - _CellShadowColor: {r: 0.21509436, g: 0.21509436, b: 0.21509436, a: 0}
-    - _Character_Position: {r: 9.196435, g: -1, b: 2.7086682, a: 0}
+    - _Character_Position: {r: 8.802062, g: -1, b: 4.701955, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _Emissive_Color: {r: 0, g: 0, b: 0, a: 1}
     - _LightColor: {r: 1, g: 1, b: 1, a: 0}
     - _LightDirection: {r: 0.05, g: 1, b: 0.2, a: 0}
+    - _Point_Direction: {r: 0, g: 10, b: 0, a: 0}
     - _Position: {r: 0.5, g: 0.2, b: 0, a: 0}
     - _ReflectionLightColor: {r: 1, g: 1, b: 1, a: 0}
     - _ShadowColor: {r: 0.47843134, g: 0.47843134, b: 0.47843134, a: 0}
