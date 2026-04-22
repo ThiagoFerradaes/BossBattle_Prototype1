@@ -20,11 +20,12 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Props4 1
+  m_Name: Props4 3
   m_Shader: {fileID: -6465566751694194690, guid: 5942b821f623c824d9bd44554eaf1425, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
+  m_ValidKeywords:
+  - _EMISSION
   m_InvalidKeywords: []
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
@@ -39,19 +40,15 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _AlphaMask:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _BaseColor:
-        m_Texture: {fileID: 2800000, guid: 6edd301153111dc4e929b4ac23887991, type: 3}
+        m_Texture: {fileID: 2800000, guid: ad0fa16cf3008f2479169cbbd2067ee0, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: 6edd301153111dc4e929b4ac23887991, type: 3}
+        m_Texture: {fileID: 2800000, guid: ad0fa16cf3008f2479169cbbd2067ee0, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: c824f73b2d7154c4fa89bb8998c14faf, type: 3}
+        m_Texture: {fileID: 2800000, guid: e449ff610d6ef6c45b3e32dccb996e38, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -75,11 +72,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
-        m_Texture: {fileID: 2800000, guid: 98e8d95e19817104980915445a66a45c, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Normal:
-        m_Texture: {fileID: 2800000, guid: c824f73b2d7154c4fa89bb8998c14faf, type: 3}
+        m_Texture: {fileID: 2800000, guid: 3f5832d712239534eab479fd287ab644, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -113,13 +106,14 @@ Material:
     - _AlphaToMask: 0
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
-    - _BoolCellShading: 0
+    - _BoolCellShading: 1
+    - _Boolean: 1
     - _BumpScale: 1.2
     - _Buraco: 0
     - _CastShadows: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
-    - _Cull: 0
+    - _Cull: 2
     - _Cutoff: 0.5
     - _DETAIL_MULX2: 0
     - _DetailAlbedoMapScale: 1
@@ -129,26 +123,21 @@ Material:
     - _Distance_Multiplier: 1
     - _DstBlend: 0
     - _DstBlendAlpha: 0
-    - _EMISSION: 0
-    - _EmissionVariation: 0
-    - _EmissionVariationIntensity: 1.5
-    - _EmissionVariationSpeed: 0.8
+    - _EMISSION: 1
+    - _EmissionVariation: 1
+    - _EmissionVariationIntensity: 3.2
+    - _EmissionVariationSpeed: 0.5
     - _EnvironmentReflections: 1
-    - _FresnelSpace: 0.01
-    - _FrsnelSpace: 0.14
+    - _FresnelIntensity: 0.08
+    - _FresnelSpace: 0.25
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _GradientCut: 0.2
-    - _GradientCut_1: -0.2
-    - _HDR: 1
-    - _HighLightIntensity: 2
-    - _HighLightSpace: -0.9
     - _IsTarvern: 0
     - _METALLICSPECGLOSSMAP: 0
-    - _MaxBias: 0.2
+    - _MaxBias: -0.55
     - _Metallic: 0
-    - _MinBias: 0.2
+    - _MinBias: -0.55
     - _NORMALMAP: 0
     - _Noise_Scale: 156
     - _Noise_Strength: 3
@@ -156,16 +145,17 @@ Material:
     - _OcclusionStrength: 1
     - _PARALLAXMAP: 0
     - _Parallax: 0.005
+    - _Point_Direction: 1
+    - _Point_Direction_1: 0
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _ReflectionColorDecider: 0
     - _ReflectionDirectionBool: 0
     - _ReflectionLightIntensity: 2
-    - _ReflectionLightSpace: 2
+    - _ReflectionLightSpace: 0.41
     - _Size: 0.424
     - _Smoothnes: 0.135
-    - _Smoothness: 0.731
+    - _Smoothness: 0.2
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
@@ -178,17 +168,14 @@ Material:
     - _ZWriteControl: 0
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _CellLightDirection: {r: 0, g: 80, b: 0, a: 0}
-    - _CellShadowColor: {r: 0.5, g: 0.5, b: 0.5, a: 0}
+    - _CellLightDirection: {r: 0, g: 5, b: 0, a: 0}
+    - _CellLightDirection_1: {r: 10, g: 10, b: 0, a: 0}
+    - _CellShadowColor: {r: 1, g: 1, b: 1, a: 0}
     - _Character_Position: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _LightColor: {r: 1, g: 1, b: 1, a: 0}
-    - _LightColorHDR: {r: 2.9960785, g: 2.9960785, b: 2.9960785, a: 0}
-    - _LightDirection: {r: 0, g: 1, b: 0, a: 0}
+    - _EmissionColor: {r: 48.617725, g: 3.707911, b: 236.07077, a: 1}
     - _Position: {r: 0.5, g: 0.2, b: 0, a: 0}
     - _ReflectionLightColor: {r: 0.5, g: 0.5, b: 0.5, a: 0}
-    - _ShadowColor: {r: 0.645283, g: 0.645283, b: 0.645283, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
