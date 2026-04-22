@@ -27,8 +27,6 @@ Material:
   m_ValidKeywords:
   - _ALPHAPREMULTIPLY_ON
   - _ALPHATEST_ON
-  - _METALLICSPECGLOSSMAP
-  - _NORMALMAP
   - _SURFACE_TYPE_TRANSPARENT
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -111,6 +109,7 @@ Material:
     - _AlphaToMask: 0
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
+    - _BoolCellShading: 0
     - _BumpScale: 1
     - _Buraco: 0
     - _CastShadows: 1
@@ -131,12 +130,16 @@ Material:
     - _EmissionVariationIntensity: 1.5
     - _EmissionVariationSpeed: 0.8
     - _EnvironmentReflections: 1
+    - _FresnelIntensity: 0.08
+    - _FresnelSpace: 0.14
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _IsTarvern: 0
     - _METALLICSPECGLOSSMAP: 0
+    - _MaxBias: -0.55
     - _Metallic: 0
+    - _MinBias: -0.55
     - _NORMALMAP: 0
     - _Noise_Scale: 156
     - _Noise_Strength: 3
@@ -144,9 +147,13 @@ Material:
     - _OcclusionStrength: 1
     - _PARALLAXMAP: 0
     - _Parallax: 0.005
+    - _Point_Direction: 0
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
+    - _ReflectionDirectionBool: 0
+    - _ReflectionLightIntensity: 2
+    - _ReflectionLightSpace: 0.41
     - _Size: 0.424
     - _Smoothnes: 0.135
     - _Smoothness: 0.2
@@ -162,10 +169,13 @@ Material:
     - _ZWriteControl: 0
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _CellLightDirection: {r: 0, g: 1, b: 0, a: 0}
+    - _CellShadowColor: {r: 0.21509436, g: 0.21509436, b: 0.21509436, a: 0}
     - _Character_Position: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _Position: {r: 0.5, g: 0.2, b: 0, a: 0}
+    - _ReflectionLightColor: {r: 1, g: 1, b: 1, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

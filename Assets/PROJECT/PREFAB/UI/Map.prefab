@@ -215,7 +215,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 193935de1d4fbbb44ae187d23bcecbb8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8e7502b6f92743b43b18c3d53cb73bc3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2214,9 +2214,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Components.LocalizeSpriteEvent
   m_LocalizedAssetReference:
     m_TableReference:
-      m_TableCollectionName: GUID:20c2cd64e2baee7469fccfd891e6206b
+      m_TableCollectionName: GUID:d5d65629b54b78b498af18d9dab4f1a1
     m_TableEntryReference:
-      m_KeyId: 7702401024
+      m_KeyId: 11808624640
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -3002,6 +3002,7 @@ MonoBehaviour:
       Value: {fileID: 5308487083112157505}
     - Key: 1
       Value: {fileID: 5375536282065849250}
+  characterSelectionManager: {fileID: 1459560109827272684}
 --- !u!1 &2781987098857333833
 GameObject:
   m_ObjectHideFlags: 0
@@ -3462,7 +3463,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 193935de1d4fbbb44ae187d23bcecbb8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8e7502b6f92743b43b18c3d53cb73bc3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3487,7 +3488,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &3899774580951790794
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3892,9 +3893,8 @@ GameObject:
   - component: {fileID: 3273911930674698020}
   - component: {fileID: 6959664292371450533}
   - component: {fileID: 1860309656476336047}
-  - component: {fileID: 8887540927378366159}
   m_Layer: 5
-  m_Name: MapBackGround (1)
+  m_Name: MapBackGroundLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3957,41 +3957,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &8887540927378366159
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3457457825892374898}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f55fcc3768689a4f9cf863b8c11c618, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Components.LocalizeSpriteEvent
-  m_LocalizedAssetReference:
-    m_TableReference:
-      m_TableCollectionName: GUID:20c2cd64e2baee7469fccfd891e6206b
-    m_TableEntryReference:
-      m_KeyId: 7702401024
-      m_Key: 
-    m_FallbackState: 0
-    m_WaitForCompletion: 0
-  m_UpdateAsset:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1860309656476336047}
-        m_TargetAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
-        m_MethodName: set_sprite
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 1
 --- !u!1 &3467193211568694259
 GameObject:
   m_ObjectHideFlags: 0
@@ -4574,9 +4539,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Components.LocalizeSpriteEvent
   m_LocalizedAssetReference:
     m_TableReference:
-      m_TableCollectionName: GUID:20c2cd64e2baee7469fccfd891e6206b
+      m_TableCollectionName: GUID:d5d65629b54b78b498af18d9dab4f1a1
     m_TableEntryReference:
-      m_KeyId: 1760409767936
+      m_KeyId: 1288735117312
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -4704,9 +4669,8 @@ GameObject:
   - component: {fileID: 8501901335085043863}
   - component: {fileID: 4370522488528171509}
   - component: {fileID: 607297302820772191}
-  - component: {fileID: 7112606516954092555}
   m_Layer: 5
-  m_Name: MapBackGround (2)
+  m_Name: MapBackGroundRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4769,41 +4733,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &7112606516954092555
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3860993140677028543}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f55fcc3768689a4f9cf863b8c11c618, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Components.LocalizeSpriteEvent
-  m_LocalizedAssetReference:
-    m_TableReference:
-      m_TableCollectionName: GUID:20c2cd64e2baee7469fccfd891e6206b
-    m_TableEntryReference:
-      m_KeyId: 7702401024
-      m_Key: 
-    m_FallbackState: 0
-    m_WaitForCompletion: 0
-  m_UpdateAsset:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 607297302820772191}
-        m_TargetAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
-        m_MethodName: set_sprite
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 1
 --- !u!1 &3925259098661962050
 GameObject:
   m_ObjectHideFlags: 0
@@ -5170,9 +5099,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Components.LocalizeSpriteEvent
   m_LocalizedAssetReference:
     m_TableReference:
-      m_TableCollectionName: GUID:20c2cd64e2baee7469fccfd891e6206b
+      m_TableCollectionName: GUID:d5d65629b54b78b498af18d9dab4f1a1
     m_TableEntryReference:
-      m_KeyId: 1856203476992
+      m_KeyId: 1241154932736
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -6397,9 +6326,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Components.LocalizeSpriteEvent
   m_LocalizedAssetReference:
     m_TableReference:
-      m_TableCollectionName: GUID:20c2cd64e2baee7469fccfd891e6206b
+      m_TableCollectionName: GUID:d5d65629b54b78b498af18d9dab4f1a1
     m_TableEntryReference:
-      m_KeyId: 1870506053632
+      m_KeyId: 1135659798528
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -7917,7 +7846,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 193935de1d4fbbb44ae187d23bcecbb8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8e7502b6f92743b43b18c3d53cb73bc3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -9893,7 +9822,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 193935de1d4fbbb44ae187d23bcecbb8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8e7502b6f92743b43b18c3d53cb73bc3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -10491,11 +10420,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1626901146513945209, guid: b23e4b9c886240d448eeb4c092602baf, type: 3}
       propertyPath: m_StringReference.m_TableEntryReference.m_KeyId
-      value: 6527995904
+      value: 397885919232
       objectReference: {fileID: 0}
     - target: {fileID: 1626901146513945209, guid: b23e4b9c886240d448eeb4c092602baf, type: 3}
       propertyPath: m_StringReference.m_TableReference.m_TableCollectionName
-      value: GUID:20c2cd64e2baee7469fccfd891e6206b
+      value: GUID:694c0495fb6de6c45bbb8fe1001cd875
       objectReference: {fileID: 0}
     - target: {fileID: 3855385667001238815, guid: b23e4b9c886240d448eeb4c092602baf, type: 3}
       propertyPath: m_Name
@@ -10656,11 +10585,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1626901146513945209, guid: b23e4b9c886240d448eeb4c092602baf, type: 3}
       propertyPath: m_StringReference.m_TableEntryReference.m_KeyId
-      value: 34139099136
+      value: 399966294016
       objectReference: {fileID: 0}
     - target: {fileID: 1626901146513945209, guid: b23e4b9c886240d448eeb4c092602baf, type: 3}
       propertyPath: m_StringReference.m_TableReference.m_TableCollectionName
-      value: GUID:20c2cd64e2baee7469fccfd891e6206b
+      value: GUID:694c0495fb6de6c45bbb8fe1001cd875
       objectReference: {fileID: 0}
     - target: {fileID: 3855385667001238815, guid: b23e4b9c886240d448eeb4c092602baf, type: 3}
       propertyPath: m_Name
@@ -10849,11 +10778,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1626901146513945209, guid: b23e4b9c886240d448eeb4c092602baf, type: 3}
       propertyPath: m_StringReference.m_TableEntryReference.m_KeyId
-      value: 36383051776
+      value: 402206052352
       objectReference: {fileID: 0}
     - target: {fileID: 1626901146513945209, guid: b23e4b9c886240d448eeb4c092602baf, type: 3}
       propertyPath: m_StringReference.m_TableReference.m_TableCollectionName
-      value: GUID:20c2cd64e2baee7469fccfd891e6206b
+      value: GUID:694c0495fb6de6c45bbb8fe1001cd875
       objectReference: {fileID: 0}
     - target: {fileID: 3855385667001238815, guid: b23e4b9c886240d448eeb4c092602baf, type: 3}
       propertyPath: m_Name
