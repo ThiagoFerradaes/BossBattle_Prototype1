@@ -34,13 +34,11 @@ public class CharacterSelectionManager : MonoBehaviour {
     [SerializeField] Image ultimateIcon;
     [SerializedDictionary("Slot", "Button"), SerializeField] SerializedDictionary<SkillSlot, Button> dictionaryOfSkillSelectionButton;
     [SerializedDictionary("Slot", "Buttons"), SerializeField] SerializedDictionary<SkillSlot, List<Button>> dictionaryOfArrows;
-    SkillSelectionManager _skillSelectionManager;
+    [SerializeField]SkillSelectionManager skillSelectionManager;
     List<CharacterUnlockedInfo> _unlockedInfo = new();
 
     #region StartRegion
-    private void Awake() {
-        _skillSelectionManager = GetComponent<SkillSelectionManager>();
-    }
+
     private void Start() {
         SetButtons();
     }
@@ -60,12 +58,12 @@ public class CharacterSelectionManager : MonoBehaviour {
         foreach (var slot in dictionaryOfSkillSelectionButton.Keys) {
             var tempSlot = slot;
             dictionaryOfSkillSelectionButton[tempSlot].onClick.AddListener(() => {
-                _skillSelectionManager.Initialize(tempSlot);
+                skillSelectionManager.Initialize(tempSlot);
                 closeScreenButton.gameObject.SetActive(false);
             });
         }
 
-        characterSelectionBackground.onClick.AddListener(() => { _skillSelectionManager.TurnScreenOff(); });
+        characterSelectionBackground.onClick.AddListener(() => { skillSelectionManager.TurnScreenOff(); });
 
         characterSelectionMask.onClick.AddListener(ClosedSkillsUi);
     }
@@ -88,7 +86,7 @@ public class CharacterSelectionManager : MonoBehaviour {
 
     public void TurnScreenOff() {
         characterSelectionScreen.SetActive(false);
-        _skillSelectionManager.TurnScreenOff();
+        skillSelectionManager.TurnScreenOff();
     }
 
     void ChangeSelectedCharactersImages() {
@@ -123,6 +121,7 @@ public class CharacterSelectionManager : MonoBehaviour {
     }
 
     void ChangeAllSkillsIcon() { 
+
         ChangeSkillIcon(SkillSlot.SkillOne);
         ChangeSkillIcon(SkillSlot.SkillTwo);
         ChangeSkillIcon(SkillSlot.Ultimate);
@@ -195,7 +194,7 @@ public class CharacterSelectionManager : MonoBehaviour {
     }
 
     public void ClosedSkillsUi() {
-        _skillSelectionManager.TurnScreenOff();
+        skillSelectionManager.TurnScreenOff();
         characterSelectionScreen.SetActive(false);
     }
 
@@ -211,7 +210,7 @@ public class CharacterSelectionManager : MonoBehaviour {
         CurrentSelectedCharacterWhiteBoard.Instance.SetSelectedCharacter(character);
         ChangeSelectedCharactersImages();
         ChangeAllSkillsIcon();
-        _skillSelectionManager.TurnScreenOff();
+        skillSelectionManager.TurnScreenOff();
     }
     #endregion
 }

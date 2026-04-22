@@ -23,10 +23,7 @@ public class MenuButtons : MonoBehaviour
     [SerializeField] Configuration configCanvas;
 
     private void Start() {
-        tavernButton.onClick.AddListener(() => {
-            LoadingScreenManager.CurrentLoadingScreenInfo = tavernLoadingScreenInfo;
-            SceneManager.LoadScene(1);
-        });
+        tavernButton.onClick.AddListener(LoadLoadingScreen);
         startButton.onClick.AddListener(() => map.InitializeMap());
         configButton.onClick.AddListener(() => configCanvas.InitializeConfigurationScreen());
 
@@ -36,7 +33,10 @@ public class MenuButtons : MonoBehaviour
         yesExitPopUp.onClick.AddListener(ExitGame);
         maskExitPopUp.onClick.AddListener(() => HandleExitPopUp(false));
     }
-
+    void LoadLoadingScreen() {
+        LoadingScreenManager.CurrentLoadingScreenInfo = tavernLoadingScreenInfo;
+        SceneManager.LoadSceneAsync(1);
+    }
     public void HandleButtonBackGroundOn(Button button) {
         hoverButtonBackGround.transform.position = button.transform.position;
         hoverButtonBackGround.gameObject.SetActive(true);
