@@ -44,7 +44,7 @@ public class VFXPreFabStatic : MonoBehaviour
 
     private Collider myCollider;
 
-        void Start()
+    void Awake()
     {
         isVFX = TryGetComponent<VisualEffect>(out myVFX);
         isParticle = TryGetComponent<ParticleSystem>(out myParticle);
@@ -64,4 +64,5 @@ public class VFXPreFabStatic : MonoBehaviour
     {
         PoolingManager.Instance.ReturnObjectToPool(this.gameObject, TypeOfSkillPrefab.VFX);
     }
+    
 }

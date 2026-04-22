@@ -91,9 +91,12 @@ public class BossDifficultyManager : MonoBehaviour
     }
 
     public void TurnBossDifficultyScreenOff() {
+
         BossDifficultyScreen.SetActive(false);
+
         SailButton.gameObject.SetActive(false);
-        mapManager.TurnAllIslandSelectSpriteOff();
+
+        mapManager.TurnDifficultyScreenOff(false);
     }
 
     void Sail(BossDescription description) {

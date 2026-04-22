@@ -14,10 +14,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BastianLastWhisperSO
   HasMapDescription: 1
   MapDescriptionInfo:
-    SkillName: Last Whisper
-    SkillShortDescription: Bastian looses all his heat to deal a massive damage
-    SkillLongDescription: Bastian looses all his heat to deal a massive damage in
-      a straight line. More heat equals more damage.
+    SkillName:
+      m_TableReference:
+        m_TableCollectionName: GUID:2eafd25b541933744a0e4b250efe288e
+      m_TableEntryReference:
+        m_KeyId: 4996005201793029
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    SkillShortDescription:
+      m_TableReference:
+        m_TableCollectionName: GUID:2eafd25b541933744a0e4b250efe288e
+      m_TableEntryReference:
+        m_KeyId: 4996005201793030
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    SkillLongDescription:
+      m_TableReference:
+        m_TableCollectionName: GUID:2eafd25b541933744a0e4b250efe288e
+      m_TableEntryReference:
+        m_KeyId: 4996005201793031
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
     UISkillSpriteIcon: {fileID: 825764958, guid: ab75e1b1a9aedbc45b40c78d83e17be3, type: 3}
     MapSkillSpriteIcon: {fileID: 1448771482, guid: cee67a2d50b177a4a83653c67d610c6c, type: 3}
     MapSkillSelectedSpriteIcon: {fileID: -746828527, guid: cee67a2d50b177a4a83653c67d610c6c, type: 3}
@@ -76,3 +99,6 @@ MonoBehaviour:
   PenetrationOnSuperHeat: 70
   CritChanceOverHeat: 100
   LastOverHeatCritDamage: 50
+  references:
+    version: 2
+    RefIds: []
