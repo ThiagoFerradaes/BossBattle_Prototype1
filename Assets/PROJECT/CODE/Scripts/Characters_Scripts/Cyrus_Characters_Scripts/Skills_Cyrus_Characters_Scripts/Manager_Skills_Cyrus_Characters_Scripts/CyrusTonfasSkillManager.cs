@@ -30,9 +30,6 @@ public class CyrusTonfasSkillManager : SkillObjectManager
 
         energyManager.SetCanGainEnergy(false);
         energyManager.LooseAllEnergy();
-
-        float animationSpeed = _skillLevel > 1 ? _info.AnimationSpeedLevelTwo : 1;
-        anim.SetFloat(_info.AnimationSpeedParameter, animationSpeed);
     }
 
     protected override void ThirdFunc() {
