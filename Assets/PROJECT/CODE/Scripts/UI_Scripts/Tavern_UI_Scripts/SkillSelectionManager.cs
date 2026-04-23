@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class SkillSelectionManager : MonoBehaviour {
 
     [Header("Components")]
@@ -22,15 +23,14 @@ public class SkillSelectionManager : MonoBehaviour {
 
     SkillUnlockedInfo _classicSkillUnlockedInfo, _alternativeSkillUnlockedInfo;
     SkillSlot _currentSlot;
-    CharacterSelectionManager _characterSelectionManager;
+    [SerializeField] CharacterSelectionManager characterSelectionManager;
 
     #region Awake Region
-    public void Awake() {
-
-        _characterSelectionManager = GetComponent<CharacterSelectionManager>();
+    public void Awake()
+    {
         SetButtons();
-
     }
+
     void SetButtons() {
 
         closeSelectionScreen.onClick.AddListener(TurnScreenOff);
@@ -44,7 +44,7 @@ public class SkillSelectionManager : MonoBehaviour {
     public void TurnScreenOff() {
         skillSelectionScreen.SetActive(false);
 
-        _characterSelectionManager.TurnCloseButtonOn();
+        characterSelectionManager.TurnCloseButtonOn();
     }
 
     /// <summary>
@@ -69,7 +69,7 @@ public class SkillSelectionManager : MonoBehaviour {
 
         ChangeSelectedSkillIcon(typeOfSkill);
 
-        _characterSelectionManager.ChangeSkillIcon(_currentSlot);
+        characterSelectionManager.ChangeSkillIcon(_currentSlot);
     }
     #endregion
 

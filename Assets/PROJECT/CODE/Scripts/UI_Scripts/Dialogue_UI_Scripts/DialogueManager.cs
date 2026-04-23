@@ -143,7 +143,7 @@ public class DialogueManager : MonoBehaviour {
 
         if (_typingCoroutine == null) {
             if (_dialogueHasEnded) HideDialogueScreen();
-            if (_onlyOneResponse) InitializeDialogue(_currentNode.Responses[0].NextNode, _handler);
+            if (_onlyOneResponse) OnlyOneResponseNextNode();
         }
         else SkipLine();
     }
@@ -251,16 +251,91 @@ public class DialogueManager : MonoBehaviour {
             // Chegamos ao último diálogo, daqui o jogador aperta o botao e chama o HideDialogue
         }
         else if (_currentNode.Responses.Count == 1) {
-            if (_autoPlay) {
-                InitializeDialogue(_currentNode.Responses[0].NextNode, _handler);
-            }
+            if (_autoPlay) OnlyOneResponseNextNode();
             else {
                 _onlyOneResponse = true;
                 ShowNextLineIndicator();
             }
-            // Diálogo sem opções, segue para o próximo
+            // Diálogo sem opções, verifica se tem multiplas respostas e segue para o próximo
         }
         else ShowResponseButtons(); // Diálogo com opções, mostra os botões
+    }
+
+    void OnlyOneResponseNextNode() {
+        DialogueNode nextNode = ReturnADialogueNode(_currentNode.Responses[0]);
+        AddConsequece(_currentNode.Responses[0]);
+        InitializeDialogue(nextNode, _handler);
+    }
+
+    DialogueNode ReturnADialogueNode(DialogueResponse response) {
+        if (response.NodesWithParams != null && response.NodesWithParams.Count > 0) {
+
+            _sortedListOfDialoguesWithParams.Clear();
+            _sortedListOfDialoguesWithParams.AddRange(response.NodesWithParams);
+            _sortedListOfDialoguesWithParams.Sort((a, b) => a.Priority.CompareTo(b.Priority));
+
+            for (int i = 0; i < _sortedListOfDialoguesWithParams.Count; i++) {
+                bool canReturnNode = true;
+                foreach (var param in _sortedListOfDialoguesWithParams[i].ListOfParameters) {
+                    if (!param.CheckParams()) {
+                        canReturnNode = false;
+                        break;
+                    }
+                }
+                if (canReturnNode) return _sortedListOfDialoguesWithParams[i].Node;
+            }
+        }
+
+        return response.NextNode;
+    }
+
+    /// <summary>
+    /// Função que mostra as opções de resposta do diálogo
+    /// </summary>
+    void ShowResponseButtons() {
+
+        var responses = _currentNode.Responses;
+
+        for (int i = 0; i < responses.Count; i++) {
+            var response = responses[i];
+
+            GameObject buttonObj = ReturnResponseButton();
+
+            buttonObj.GetComponentInChildren<TextMeshProUGUI>().text = response.ResponseText.GetLocalizedString();
+
+            if (responses.Count == 4) buttonObj.GetComponent<Image>().sprite = listOfResponsesSprites[i];
+            else buttonObj.GetComponent<Image>().sprite = listOfResponsesSprites[i + 1];
+
+            buttonObj.GetComponent<Button>().onClick.RemoveAllListeners();
+            buttonObj.GetComponent<Button>().onClick.AddListener(() => SelectResponse(response));
+
+            buttonObj.SetActive(true);
+        }
+
+        responseButtonParent.gameObject.SetActive(true);
+    }
+
+    /// <summary>
+    /// Função atribuida aos botões de resposta
+    /// </summary>
+    /// <param name="response"></param>
+    void SelectResponse(DialogueResponse response) {
+
+        DialogueNode nextNode = ReturnADialogueNode(response);
+
+        AddConsequece(response);
+
+        if (nextNode != null) InitializeDialogue(nextNode, _handler);
+        else HideDialogueScreen();
+    }
+
+    void AddConsequece(DialogueResponse response) {
+        if (response.ResponseConsequencesList != null || response.ResponseConsequencesList.Count > 0) {
+            foreach (var consequence in response.ResponseConsequencesList) {
+                consequence.ExecutePreConsequece();
+                _currentResponseConsequencesList.Add(consequence);
+            }
+        }
     }
 
     #endregion
@@ -348,31 +423,6 @@ public class DialogueManager : MonoBehaviour {
 
     }
 
-    /// <summary>
-    /// Função que mostra as opções de resposta do diálogo
-    /// </summary>
-    void ShowResponseButtons() {
-
-        var responses = _currentNode.Responses;
-
-        for (int i = 0; i < responses.Count; i++) {
-            var response = responses[i];
-
-            GameObject buttonObj = ReturnResponseButton();
-
-            buttonObj.GetComponentInChildren<TextMeshProUGUI>().text = response.ResponseText.GetLocalizedString();
-
-            if (responses.Count == 4) buttonObj.GetComponent<Image>().sprite = listOfResponsesSprites[i];
-            else buttonObj.GetComponent<Image>().sprite = listOfResponsesSprites[i + 1];
-
-            buttonObj.GetComponent<Button>().onClick.RemoveAllListeners();
-            buttonObj.GetComponent<Button>().onClick.AddListener(() => SelectResponse(response));
-
-            buttonObj.SetActive(true);
-        }
-
-        responseButtonParent.gameObject.SetActive(true);
-    }
 
     /// <summary>
     /// Função que retorna os botões de resposta a partir de um pooling
@@ -389,46 +439,8 @@ public class DialogueManager : MonoBehaviour {
         return newButton;
     }
 
-    /// <summary>
-    /// Função atribuida aos botões de resposta
-    /// </summary>
-    /// <param name="response"></param>
-    void SelectResponse(DialogueResponse response) {
 
-        DialogueNode nextNode = ReturnADialogueNode(response);
 
-        if (response.ResponseConsequencesList != null || response.ResponseConsequencesList.Count > 0) {
-            foreach (var consequence in response.ResponseConsequencesList) {
-                consequence.ExecutePreConsequece();
-                _currentResponseConsequencesList.Add(consequence);
-            }
-        }
-
-        if (nextNode != null) InitializeDialogue(nextNode, _handler);
-        else HideDialogueScreen();
-    }
-
-    DialogueNode ReturnADialogueNode(DialogueResponse response) {
-        if (response.NodesWithParams != null && response.NodesWithParams.Count > 0) {
-
-            _sortedListOfDialoguesWithParams.Clear();
-            _sortedListOfDialoguesWithParams.AddRange(response.NodesWithParams);
-            _sortedListOfDialoguesWithParams.Sort((a, b) => a.Priority.CompareTo(b.Priority));
-
-            for (int i = 0; i < _sortedListOfDialoguesWithParams.Count; i++) {
-                bool canReturnNode = true;
-                foreach (var param in _sortedListOfDialoguesWithParams[i].ListOfParameters) {
-                    if (!param.CheckParams()) {
-                        canReturnNode = false;
-                        break;
-                    }
-                }
-                if (canReturnNode)  return _sortedListOfDialoguesWithParams[i].Node;
-            }
-        }
-
-        return response.NextNode;
-    }
 
     /// <summary>
     /// Função que esconde os botões de resposta
