@@ -48,6 +48,8 @@ public class DashManager : SkillObjectManager {
 
         skillManager.SkillIsInAnimation(true);
 
+        _info.DashSound?.Post(parent);
+
         cooldownManager.SetCooldownWithCharges(slot, _info);
 
         AnimationManager.Instance.ChangeAnimation(anim, _info.ListOfAnimationsInfo[0]);

@@ -12,6 +12,7 @@ public class CyrusTonfasSkillSO : UltimateSkillSO
     [Header("Atributes")]
     [Foldout("Specific"), SerializedDictionary("Level", "Amount")] public SerializedDictionary<int, int> AmountOfUsesPerLevel;
     [Foldout("Specific")] public List<Sprite> ListOfSprites;
+    [Foldout("Specific")] public List<AK.Wwise.Switch> ListOfSwitches;
 
     [Header("Level One Atributes")]
     [Foldout("Specific")] public float EnergyCostLevelOne;

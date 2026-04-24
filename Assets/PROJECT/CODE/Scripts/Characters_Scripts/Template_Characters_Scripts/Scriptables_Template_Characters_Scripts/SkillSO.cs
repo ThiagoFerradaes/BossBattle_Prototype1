@@ -59,5 +59,6 @@ public class SkillSO : ScriptableObject {
     [Foldout("SkillSO")] public bool Cancelable;
     [Foldout("SkillSO")] public SkillSlot Slot;
     [Foldout("SkillSO")] public SkillType SkillType;
+    [Foldout("SkillSO")] public AK.Wwise.Event SkillSound;
 
 }

@@ -68,6 +68,10 @@ public class CyrusTonfasSkillManager : SkillObjectManager
         InstantDamageHitBox collider = hitbox.GetComponent<InstantDamageHitBox>();
         collider.Initialize(newContext);
 
+        AK.Wwise.Switch newSwitch = _info.ListOfSwitches[_skillLevel];
+        newSwitch.SetValue(parent);
+        _info.SkillSound.Post(parent);
+
         collider.OnHit += () => {
             if (_skillLevel < 3) CyrusPassiveManager.Instance.AddUseSkill(slot, _info.AmountOfUsesPerLevel[_skillLevel], _info.ListOfSprites);
             int newLevel = CyrusPassiveManager.Instance.ReturnSkillLevel(slot);
