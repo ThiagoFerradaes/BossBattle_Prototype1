@@ -57,7 +57,7 @@ public class BossDifficultyManager : MonoBehaviour
         ChangeCharacterButton.onClick.AddListener(() => characterSelectionManager.Initialize());
     }
 
-    void OnChangeSelectedCharacter(CharacterSO newCharacter) { SelectedCharacterIcon.sprite = newCharacter.CharacterIcon; }
+    void OnChangeSelectedCharacter(CharacterSO newCharacter) { SelectedCharacterIcon.sprite = newCharacter.UnselectedCharacterMapSprite; }
 
     public void TurnBossDifficultyScreenOn(BossDescription description) {
         // Mudando as informações da tela de dificuldade do boss
