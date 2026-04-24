@@ -13,24 +13,66 @@ namespace AK
 {
     namespace EVENTS
     {
+        static const AkUniqueID PLAY_AUTO_DIALOGUE = 1117724208U;
+        static const AkUniqueID PLAY_AXE = 2774979410U;
+        static const AkUniqueID PLAY_BASE_ATTACK_SWORD = 1785832610U;
         static const AkUniqueID PLAY_BOAT = 1391074924U;
+        static const AkUniqueID PLAY_BUTTON_HOVER = 4021863785U;
+        static const AkUniqueID PLAY_BUTTON_SELECT = 2034692297U;
+        static const AkUniqueID PLAY_CHANGE_ABILITY = 3856677145U;
+        static const AkUniqueID PLAY_CHANGE_CHARACTER = 2522789498U;
+        static const AkUniqueID PLAY_CHARACTER_SELECTION = 1618694516U;
         static const AkUniqueID PLAY_CLOSE_DOOR = 3898429045U;
+        static const AkUniqueID PLAY_DAMAGE_CYRUS = 3918380470U;
         static const AkUniqueID PLAY_DASH_BASTIAN = 511398661U;
+        static const AkUniqueID PLAY_DASH_CYRUS = 4019037033U;
+        static const AkUniqueID PLAY_DEATH_SCREEN = 4097181143U;
+        static const AkUniqueID PLAY_DIALOGUE_REQUIRED = 2039161124U;
         static const AkUniqueID PLAY_DOWNSTAIRS_TRANSITION = 4197013950U;
+        static const AkUniqueID PLAY_ENTER_DIALOGUE = 2273838185U;
+        static const AkUniqueID PLAY_ENTERING_COMBAT = 310343787U;
+        static const AkUniqueID PLAY_EXIT_DIALOGUE = 3136668379U;
         static const AkUniqueID PLAY_FOOTSTEPSSWITCH = 2975023323U;
+        static const AkUniqueID PLAY_FULL_ENERGY = 2347105308U;
         static const AkUniqueID PLAY_FURNITURE_OFF = 708373978U;
         static const AkUniqueID PLAY_FURNITURE_ON = 2049827036U;
         static const AkUniqueID PLAY_KRAKEN_STAGE = 3978310627U;
+        static const AkUniqueID PLAY_LEVEL_SELECTION = 1880725507U;
+        static const AkUniqueID PLAY_LOADING_SCREEN = 2304162753U;
         static const AkUniqueID PLAY_MAIN_THEME = 3568813383U;
+        static const AkUniqueID PLAY_MAP_SELECTION = 2234947727U;
         static const AkUniqueID PLAY_MOPPING = 1421007458U;
+        static const AkUniqueID PLAY_OPEN_AREA_DATA = 2414956353U;
         static const AkUniqueID PLAY_OPEN_DOOR = 2427215529U;
+        static const AkUniqueID PLAY_OPEN_MAP = 2079076761U;
+        static const AkUniqueID PLAY_PASS_DIALOGUE = 240650658U;
+        static const AkUniqueID PLAY_RANK_UP = 2265727464U;
+        static const AkUniqueID PLAY_SAIL = 236531557U;
+        static const AkUniqueID PLAY_SKIP_DIALOGUE = 3302649596U;
+        static const AkUniqueID PLAY_SPEAR = 910786425U;
         static const AkUniqueID PLAY_TAVERN_MUSIC = 2634924088U;
+        static const AkUniqueID PLAY_TONFA = 2106482138U;
+        static const AkUniqueID PLAY_ULTIMATE_CHARGED = 3252770658U;
+        static const AkUniqueID PLAY_VICTORY_SCREEN = 939402867U;
         static const AkUniqueID PLAY_WATER = 441572235U;
         static const AkUniqueID PLAY_WIND = 1020223172U;
     } // namespace EVENTS
 
     namespace SWITCHES
     {
+        namespace CYRUS_WEAPON_LEVELS
+        {
+            static const AkUniqueID GROUP = 3925408978U;
+
+            namespace SWITCH
+            {
+                static const AkUniqueID LEVEL_0 = 1290008368U;
+                static const AkUniqueID LEVEL_01 = 987635873U;
+                static const AkUniqueID LEVEL_02 = 987635874U;
+                static const AkUniqueID LEVEL_03 = 987635875U;
+            } // namespace SWITCH
+        } // namespace CYRUS_WEAPON_LEVELS
+
         namespace FOOTSTEP_SIDE
         {
             static const AkUniqueID GROUP = 35756383U;
@@ -77,6 +119,18 @@ namespace AK
                 static const AkUniqueID LEVEL_03 = 987635875U;
             } // namespace SWITCH
         } // namespace KRAKEN_STAGE
+
+        namespace LEVEL_SELECTION
+        {
+            static const AkUniqueID GROUP = 3299487386U;
+
+            namespace SWITCH
+            {
+                static const AkUniqueID LEVEL_01 = 987635873U;
+                static const AkUniqueID LEVEL_02 = 987635874U;
+                static const AkUniqueID LEVEL_03 = 987635875U;
+            } // namespace SWITCH
+        } // namespace LEVEL_SELECTION
 
     } // namespace SWITCHES
 
