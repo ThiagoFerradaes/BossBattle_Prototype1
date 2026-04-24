@@ -47,7 +47,7 @@ public class PlayerSkillCooldownManager : MonoBehaviour
                 _cooldowns[skill.Key] = 0f;
                 _runningCoroutines[skill.Key] = null;
 
-                WhiteBoard.Instance.SetCharges(skill.Key, commonSkill.Charges);
+                WhiteBoard.Instance.SetCharges(skill.Key, commonSkill.Charges, commonSkill.HasCharges);
             }
         }
     }
@@ -58,8 +58,7 @@ public class PlayerSkillCooldownManager : MonoBehaviour
         _MaxCooldowns[slot] = skill.Cooldown;
 
         _chargesDictionary[slot] = Mathf.Max(0, _chargesDictionary[slot] - 1);
-        WhiteBoard.Instance.SetCharges(slot, _chargesDictionary[slot]);
-        //OnChargesChange?.Invoke(slot, _chargesDictionary[slot]);
+        WhiteBoard.Instance.SetCharges(slot, _chargesDictionary[slot], skill.HasCharges);
 
         _cooldownChargeDictionary[slot] = true;
         StartCoroutine(CooldownBetweenChargesRoutine(slot, skill.ChargeCooldown));
@@ -71,7 +70,7 @@ public class PlayerSkillCooldownManager : MonoBehaviour
         _MaxCooldowns[slot] = cooldown;
 
         _chargesDictionary[slot] = Mathf.Max(0, _chargesDictionary[slot] - 1);
-        WhiteBoard.Instance.SetCharges(slot, _chargesDictionary[slot]);
+        WhiteBoard.Instance.SetCharges(slot, _chargesDictionary[slot], skill.HasCharges);
 
         _cooldownChargeDictionary[slot] = true;
         StartCoroutine(CooldownBetweenChargesRoutine(slot, skill.ChargeCooldown));
@@ -89,7 +88,7 @@ public class PlayerSkillCooldownManager : MonoBehaviour
     {
 
         _chargesDictionary[slot] = Mathf.Max(0, _chargesDictionary[slot] - 1);
-        WhiteBoard.Instance.SetCharges(slot, _chargesDictionary[slot]);
+        WhiteBoard.Instance.SetChargesChange(slot, _chargesDictionary[slot], false);
 
         _MaxCooldowns[slot] = cooldown;
         _runningCoroutines[slot] ??= StartCoroutine(CooldownCoroutine(slot, 1));
@@ -99,7 +98,6 @@ public class PlayerSkillCooldownManager : MonoBehaviour
     private IEnumerator CooldownCoroutine(SkillSlot slot, int maxCharges)
     {
         WhiteBoard.Instance.SetCooldown(slot, _MaxCooldowns[slot]);
-        //OnCooldownSet?.Invoke(slot, _MaxCooldowns[slot]);
         _cooldowns[slot] = _MaxCooldowns[slot];
 
         while (_cooldowns[slot] > 0f)
@@ -110,7 +108,7 @@ public class PlayerSkillCooldownManager : MonoBehaviour
 
         _cooldowns[slot] = 0f;
         _chargesDictionary[slot] = Mathf.Min(_chargesDictionary[slot] + 1, maxCharges);
-        WhiteBoard.Instance.SetCharges(slot, _chargesDictionary[slot]);
+        WhiteBoard.Instance.SetChargesChange(slot, _chargesDictionary[slot], maxCharges > 1);
         _runningCoroutines[slot] = null;
 
         if (_chargesDictionary[slot] < maxCharges)
@@ -130,9 +128,8 @@ public class PlayerSkillCooldownManager : MonoBehaviour
 
         _cooldowns[slot] = 0f;
         _chargesDictionary[slot] = 1;
-        WhiteBoard.Instance.SetCharges(slot, _chargesDictionary[slot]);
+        WhiteBoard.Instance.SetChargesChange(slot, _chargesDictionary[slot], false);
         WhiteBoard.Instance.SetCooldown(slot,  0f);
-        //OnCooldownSet?.Invoke(slot, 0f);
     }
 
 

@@ -22,6 +22,8 @@ public class MenuButtons : MonoBehaviour
     [Header("Canvas")]
     [SerializeField] Configuration configCanvas;
 
+    AsyncOperation asyncOperation;
+
     private void Start() {
         tavernButton.onClick.AddListener(LoadLoadingScreen);
         startButton.onClick.AddListener(() => map.InitializeMap());
@@ -35,7 +37,7 @@ public class MenuButtons : MonoBehaviour
     }
     void LoadLoadingScreen() {
         LoadingScreenManager.CurrentLoadingScreenInfo = tavernLoadingScreenInfo;
-        SceneManager.LoadSceneAsync(1);
+        asyncOperation = SceneManager.LoadSceneAsync(1, LoadSceneMode.Single);
     }
     public void HandleButtonBackGroundOn(Button button) {
         hoverButtonBackGround.transform.position = button.transform.position;

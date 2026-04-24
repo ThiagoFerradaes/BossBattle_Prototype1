@@ -30,8 +30,8 @@ public class PlayerSkillUI : MonoBehaviour {
 
     // Actions
     Action<float, float> _energyGainAction;
-    Action<SkillSlot, int> _setChargeNumber;
-    Action<SkillSlot, int> _changeChargeNumber;
+    Action<SkillSlot, int, bool> _setChargeNumber;
+    Action<SkillSlot, int, bool> _changeChargeNumber;
 
     // Lists
     private Dictionary<SkillSlot, Coroutine> cooldownCoroutines;
@@ -45,9 +45,8 @@ public class PlayerSkillUI : MonoBehaviour {
         if (Instance == null) Instance = this;
         else Destroy(this);
 
-        _setChargeNumber = (SkillSlot slot, int charge) => SetInitialChargeNumbers(slot, charge);
-        _changeChargeNumber = (SkillSlot slot, int currentCharge) => ChangeCharge(slot, currentCharge);
-        //_energyGainAction = (currentEnergy, maxEnergy) => UpdateUltimateEnergyCost(currentEnergy, maxEnergy);
+        _setChargeNumber = (SkillSlot slot, int charge, bool hasCharges) => ChangeCharge(slot, charge, hasCharges);
+        _changeChargeNumber = (SkillSlot slot, int currentCharge, bool hasCharges) => ChangeCharge(slot, currentCharge, hasCharges);
 
         SubscribeEvents();
     }
@@ -100,10 +99,6 @@ public class PlayerSkillUI : MonoBehaviour {
         Coroutine newRoutine = StartCoroutine(CooldownRoutine(slot, cooldown));
         cooldownCoroutines[slot] = newRoutine;
     }
-
-    //void UpdateUltimateEnergyCost(float currentEnergy, float maxEnergy) {
-    //    cooldownImages[SkillSlot.Ultimate].fillAmount = 1 - (currentEnergy / maxEnergy);
-    //}
 
     private IEnumerator CooldownRoutine(SkillSlot slot, float cooldown) {
 
@@ -189,48 +184,23 @@ public class PlayerSkillUI : MonoBehaviour {
         }
     }
 
-
-
-    void SetInitialChargeNumbers(SkillSlot slot, int charges) {
-        switch (slot) {
-            case SkillSlot.Dash:
-                if (charges < 2)
-                    dashCharge.gameObject.SetActive(false);
-                else {
-                    dashCharge.gameObject.SetActive(true);
-                    dashCharge.text = charges.ToString();
-                }
-                break;
-            case SkillSlot.SkillOne:
-                if (charges < 2)
-                    skillOneCharge.gameObject.SetActive(false);
-                else {
-                    skillOneCharge.gameObject.SetActive(true);
-                    skillOneCharge.text = charges.ToString();
-                }
-                break;
-            case SkillSlot.SkillTwo:
-                if (charges < 2)
-                    skillTwoCharge.gameObject.SetActive(false);
-                else {
-                    skillTwoCharge.gameObject.SetActive(true);
-                    skillTwoCharge.text = charges.ToString();
-                }
-                break;
-        }
-    }
-
-    void ChangeCharge(SkillSlot slot, int currentCharges) {
+    void ChangeCharge(SkillSlot slot, int currentCharges, bool hasCharges) {
         switch (slot) {
             case SkillSlot.Dash:
                 dashCharge.text = currentCharges.ToString();
+                dashCharge.gameObject.SetActive(currentCharges > 0 && hasCharges);
                 break;
+
             case SkillSlot.SkillOne:
                 skillOneCharge.text = currentCharges.ToString();
+                skillOneCharge.gameObject.SetActive(currentCharges > 0 && hasCharges);
                 break;
+
             case SkillSlot.SkillTwo:
                 skillTwoCharge.text = currentCharges.ToString();
+                skillTwoCharge.gameObject.SetActive(currentCharges > 0 && hasCharges);
                 break;
+
         }
     }
 
