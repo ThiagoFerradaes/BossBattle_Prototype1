@@ -1,0 +1,112 @@
+{
+ "SoundBanksInfo": {
+  "Platform": "Mac",
+  "BasePlatform": "Mac",
+  "SchemaVersion": "16",
+  "SoundBankVersion": "172",
+  "SoundBanks": [
+   {
+    "Id": "4097181143",
+    "Type": "Event",
+    "GUID": "{95303607-0E9F-420C-83AC-880A9A2CC3DF}",
+    "Language": "SFX",
+    "Hash": "{131179C0-82C3-935D-1947-A5CE0B5A515C}",
+    "ObjectPath": "Play_Death_Screen",
+    "ShortName": "Play_Death_Screen",
+    "Path": "Event/Play_Death_Screen.bnk",
+    "Media": [
+     {
+      "Id": "233182873",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Loose",
+      "ShortName": "SFX_death_screen_02.wav",
+      "Path": "Media/233182873.wem",
+      "CachePath": "0A/{0AB3F2A0-C3BA-7A45-C664-DA371D520FDF}.wem"
+     },
+     {
+      "Id": "521101670",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Loose",
+      "ShortName": "SFX_death_screen_heart_01.wav",
+      "Path": "Media/521101670.wem",
+      "CachePath": "AF/{AF016235-0F50-34F7-9760-6491AF582892}.wem"
+     },
+     {
+      "Id": "727381882",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Loose",
+      "ShortName": "SFX_death_screen_01.wav",
+      "Path": "Media/727381882.wem",
+      "CachePath": "E3/{E342C294-167B-FCAF-B501-48B9E126CD31}.wem"
+     }
+    ],
+    "Plugins": {
+     "Custom": [
+      {
+       "Id": "290744992",
+       "Name": "Guitar Distortion (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\UI\\Death Screen\\Death Screen\\Death Screen 01\\[Effect Slot [0]: (Guitar Distortion)]\\Guitar Distortion (Custom)",
+       "GUID": "{832E4AB5-ACD5-49E4-8450-B72427424B24}",
+       "LibName": "Wwise Guitar Distortion",
+       "LibId": "8257539"
+      },
+      {
+       "Id": "774526928",
+       "Name": "Guitar Distortion (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\UI\\Death Screen\\Death Screen\\Death Screen 02\\[Effect Slot [0]: (Guitar Distortion)]\\Guitar Distortion (Custom)",
+       "GUID": "{6C69DC9D-FC7A-41CE-ADA2-02DF4383719E}",
+       "LibName": "Wwise Guitar Distortion",
+       "LibId": "8257539"
+      },
+      {
+       "Id": "1047615131",
+       "Name": "Guitar Distortion (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\UI\\Death Screen\\Death Screen\\Death Heart Loop\\[Effect Slot [0]: (Guitar Distortion)]\\Guitar Distortion (Custom)",
+       "GUID": "{0714165A-1374-4A69-A620-AF30CD435A17}",
+       "LibName": "Wwise Guitar Distortion",
+       "LibId": "8257539"
+      }
+     ]
+    },
+    "Events": [
+     {
+      "Id": "4097181143",
+      "Name": "Play_Death_Screen",
+      "ObjectPath": "\\Events\\Default Work Unit\\SFX\\UI\\Death Screen\\Play_Death_Screen",
+      "GUID": "{95303607-0E9F-420C-83AC-880A9A2CC3DF}",
+      "Color": "24",
+      "DurationType": "Infinite",
+      "MediaRefs": [
+       {
+        "Id": "233182873"
+       },
+       {
+        "Id": "521101670"
+       },
+       {
+        "Id": "727381882"
+       }
+      ],
+      "PluginRefs": {
+       "Custom": [
+        {
+         "Id": "290744992"
+        },
+        {
+         "Id": "774526928"
+        },
+        {
+         "Id": "1047615131"
+        }
+       ]
+      }
+     }
+    ]
+   }
+  ],
+  "FileHash": "{D9CC5E9D-302D-EBD2-BD6F-CA2820C06D31}"
+ }
+}

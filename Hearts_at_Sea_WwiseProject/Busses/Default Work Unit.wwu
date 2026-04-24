@@ -13,6 +13,7 @@
 						<Bus Name="Music_Bus" ID="{FD6E900D-CF04-45EB-99FA-C017610D37E5}">
 							<PropertyList>
 								<Property Name="Color" Type="int16" Value="10"/>
+								<Property Name="EnableAttenuation" Type="bool" Value="False"/>
 								<Property Name="OverrideColor" Type="bool" Value="True"/>
 							</PropertyList>
 							<ObjectLists>
@@ -94,7 +95,9 @@
 						</Bus>
 						<Bus Name="Ambient_Bus" ID="{B4272BCE-C4B1-4131-9FE1-5467977A3D78}">
 							<PropertyList>
+								<Property Name="3DSpatialization" Type="int16" Value="2"/>
 								<Property Name="Color" Type="int16" Value="4"/>
+								<Property Name="ListenerRelativeRouting" Type="bool" Value="True"/>
 								<Property Name="OverrideColor" Type="bool" Value="True"/>
 							</PropertyList>
 							<ObjectLists>

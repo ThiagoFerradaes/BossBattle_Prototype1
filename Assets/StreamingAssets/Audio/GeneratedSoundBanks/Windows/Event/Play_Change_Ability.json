@@ -1,0 +1,68 @@
+{
+ "SoundBanksInfo": {
+  "Platform": "Windows",
+  "BasePlatform": "Windows",
+  "SchemaVersion": "16",
+  "SoundBankVersion": "172",
+  "SoundBanks": [
+   {
+    "Id": "3856677145",
+    "Type": "Event",
+    "GUID": "{3DD88B99-F85E-48E2-B90C-1ABB4D5FA495}",
+    "Language": "SFX",
+    "Hash": "{434C68EA-BA5F-E9AC-56D6-146017AD6C45}",
+    "ObjectPath": "Play_Change_Ability",
+    "ShortName": "Play_Change_Ability",
+    "Path": "Event/Play_Change_Ability.bnk",
+    "Media": [
+     {
+      "Id": "734451752",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Loose",
+      "ShortName": "SFX_ability_select _01.wav",
+      "Path": "Media/734451752.wem",
+      "CachePath": "2D/{2D31D9A4-4804-EEDC-C2F5-A22A72F5B61C}.wem"
+     }
+    ],
+    "Plugins": {
+     "Custom": [
+      {
+       "Id": "171510609",
+       "Name": "Octave_Down (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\UI\\Character Selection Screen\\Change Ability\\[Effect Slot [0]: (Pitch Shifter)]\\Octave_Down (Custom)",
+       "GUID": "{E3BD85CD-D8A7-4F57-9A81-9B3C5645966E}",
+       "LibName": "Wwise Pitch Shifter",
+       "LibId": "8912899"
+      }
+     ]
+    },
+    "Events": [
+     {
+      "Id": "3856677145",
+      "Name": "Play_Change_Ability",
+      "ObjectPath": "\\Events\\Default Work Unit\\SFX\\UI\\Character Selection Screen\\Play_Change_Ability",
+      "GUID": "{3DD88B99-F85E-48E2-B90C-1ABB4D5FA495}",
+      "Color": "24",
+      "DurationType": "OneShot",
+      "DurationMin": "0.60167974",
+      "DurationMax": "0.6656801",
+      "MediaRefs": [
+       {
+        "Id": "734451752"
+       }
+      ],
+      "PluginRefs": {
+       "Custom": [
+        {
+         "Id": "171510609"
+        }
+       ]
+      }
+     }
+    ]
+   }
+  ],
+  "FileHash": "{8653CB60-4955-85EB-CA23-1150AE898BEA}"
+ }
+}

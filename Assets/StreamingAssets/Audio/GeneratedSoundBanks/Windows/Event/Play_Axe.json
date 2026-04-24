@@ -1,0 +1,223 @@
+{
+ "SoundBanksInfo": {
+  "Platform": "Windows",
+  "BasePlatform": "Windows",
+  "SchemaVersion": "16",
+  "SoundBankVersion": "172",
+  "SoundBanks": [
+   {
+    "Id": "2774979410",
+    "Type": "Event",
+    "GUID": "{373674C6-18E2-458C-AC59-7DC7C3EE0651}",
+    "Language": "SFX",
+    "Hash": "{58126447-3FB6-BFF7-9182-B944FC604D7E}",
+    "ObjectPath": "Play_Axe",
+    "ShortName": "Play_Axe",
+    "Path": "Event/Play_Axe.bnk",
+    "Media": [
+     {
+      "Id": "167187265",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Loose",
+      "ShortName": "SPFX__axe_Cyrus_01.wav",
+      "Path": "Media/167187265.wem",
+      "CachePath": "BA/{BAC4118F-BB02-9686-7A29-A058399D42F1}.wem"
+     },
+     {
+      "Id": "223049851",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Loose",
+      "ShortName": "SPFX__axe_Cyrus_02.wav",
+      "Path": "Media/223049851.wem",
+      "CachePath": "A6/{A69D738F-AC28-8B30-2239-F57ADD3189DD}.wem"
+     },
+     {
+      "Id": "228049885",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Loose",
+      "ShortName": "SPFX__axe_Cyrus_0.wav",
+      "Path": "Media/228049885.wem",
+      "CachePath": "CD/{CDC08603-AC01-B72C-08A6-E5D83B5F3C3D}.wem"
+     },
+     {
+      "Id": "482407932",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Loose",
+      "ShortName": "SPFX__axe_Cyrus_03.wav",
+      "Path": "Media/482407932.wem",
+      "CachePath": "96/{9608F5CF-3DFC-1211-5218-109A869FE728}.wem"
+     }
+    ],
+    "Plugins": {
+     "Custom": [
+      {
+       "Id": "45568804",
+       "Name": "Guitar Distortion (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Players\\Cyrus\\Weapons\\Axe\\Level 1\\[Effect Slot [0]: (Guitar Distortion)]\\Guitar Distortion (Custom)",
+       "GUID": "{DD875660-110A-4F69-A6BE-E0D7D7895FBD}",
+       "LibName": "Wwise Guitar Distortion",
+       "LibId": "8257539"
+      },
+      {
+       "Id": "189786275",
+       "Name": "Guitar Distortion (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Players\\Cyrus\\Weapons\\Axe\\Level 2\\[Effect Slot [0]: (Guitar Distortion)]\\Guitar Distortion (Custom)",
+       "GUID": "{38EACD99-AE2C-4A4B-9164-BD22E03CAD96}",
+       "LibName": "Wwise Guitar Distortion",
+       "LibId": "8257539"
+      },
+      {
+       "Id": "703087264",
+       "Name": "Guitar Distortion (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Players\\Cyrus\\Weapons\\Axe\\Level 0\\[Effect Slot [0]: (Guitar Distortion)]\\Guitar Distortion (Custom)",
+       "GUID": "{5B06800D-CF0C-45FD-86D4-D308E441F6C4}",
+       "LibName": "Wwise Guitar Distortion",
+       "LibId": "8257539"
+      },
+      {
+       "Id": "874416509",
+       "Name": "Guitar Distortion (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Players\\Cyrus\\Weapons\\Axe\\Level 3\\[Effect Slot [0]: (Guitar Distortion)]\\Guitar Distortion (Custom)",
+       "GUID": "{D2D37A78-9D26-4CAE-84F2-4C97906D9283}",
+       "LibName": "Wwise Guitar Distortion",
+       "LibId": "8257539"
+      }
+     ]
+    },
+    "Events": [
+     {
+      "Id": "2774979410",
+      "Name": "Play_Axe",
+      "ObjectPath": "\\Events\\Default Work Unit\\SFX\\Players\\Cyrus\\Weapons\\Play_Axe",
+      "GUID": "{373674C6-18E2-458C-AC59-7DC7C3EE0651}",
+      "Color": "10",
+      "DurationType": "OneShot",
+      "DurationMin": "1.2584319",
+      "DurationMax": "1.8529173",
+      "SwitchContainers": [
+       {
+        "SwitchValue": {
+         "GroupType": "Switch",
+         "GroupId": "3925408978",
+         "Id": "1290008368",
+         "GUID": "{073DFE37-45E6-40C8-B595-CE11CAC96A8E}"
+        },
+        "MediaRefs": [
+         {
+          "Id": "228049885"
+         }
+        ],
+        "PluginRefs": {
+         "Custom": [
+          {
+           "Id": "703087264"
+          }
+         ]
+        }
+       },
+       {
+        "SwitchValue": {
+         "GroupType": "Switch",
+         "GroupId": "3925408978",
+         "Id": "987635873",
+         "GUID": "{F8046840-6E80-4173-9EB0-CFB2FC0BA9D5}"
+        },
+        "MediaRefs": [
+         {
+          "Id": "167187265"
+         }
+        ],
+        "PluginRefs": {
+         "Custom": [
+          {
+           "Id": "45568804"
+          }
+         ]
+        }
+       },
+       {
+        "SwitchValue": {
+         "GroupType": "Switch",
+         "GroupId": "3925408978",
+         "Id": "987635874",
+         "GUID": "{47703EE3-3F18-4409-9127-2816858BBC8F}"
+        },
+        "MediaRefs": [
+         {
+          "Id": "223049851"
+         }
+        ],
+        "PluginRefs": {
+         "Custom": [
+          {
+           "Id": "189786275"
+          }
+         ]
+        }
+       },
+       {
+        "SwitchValue": {
+         "GroupType": "Switch",
+         "GroupId": "3925408978",
+         "Id": "987635875",
+         "GUID": "{0B0D12E4-2AFE-4EC0-8511-0E3579A722FE}"
+        },
+        "MediaRefs": [
+         {
+          "Id": "482407932"
+         }
+        ],
+        "PluginRefs": {
+         "Custom": [
+          {
+           "Id": "874416509"
+          }
+         ]
+        }
+       }
+      ]
+     }
+    ],
+    "SwitchGroups": [
+     {
+      "Id": "3925408978",
+      "Name": "Cyrus_Weapon_Levels",
+      "ObjectPath": "\\Switches\\Default Work Unit\\Cyrus_Weapon_Levels",
+      "GUID": "{AD459604-8C61-4EFC-ABA2-B1CA7990862F}",
+      "Switches": [
+       {
+        "Id": "987635873",
+        "Name": "Level_01",
+        "ObjectPath": "\\Switches\\Default Work Unit\\Cyrus_Weapon_Levels\\Level_01",
+        "GUID": "{F8046840-6E80-4173-9EB0-CFB2FC0BA9D5}"
+       },
+       {
+        "Id": "987635874",
+        "Name": "Level_02",
+        "ObjectPath": "\\Switches\\Default Work Unit\\Cyrus_Weapon_Levels\\Level_02",
+        "GUID": "{47703EE3-3F18-4409-9127-2816858BBC8F}"
+       },
+       {
+        "Id": "987635875",
+        "Name": "Level_03",
+        "ObjectPath": "\\Switches\\Default Work Unit\\Cyrus_Weapon_Levels\\Level_03",
+        "GUID": "{0B0D12E4-2AFE-4EC0-8511-0E3579A722FE}"
+       },
+       {
+        "Id": "1290008368",
+        "Name": "Level_0",
+        "ObjectPath": "\\Switches\\Default Work Unit\\Cyrus_Weapon_Levels\\Level_0",
+        "GUID": "{073DFE37-45E6-40C8-B595-CE11CAC96A8E}"
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "FileHash": "{25587319-4DE9-F847-33C4-B24CF0C4BC0A}"
+ }
+}

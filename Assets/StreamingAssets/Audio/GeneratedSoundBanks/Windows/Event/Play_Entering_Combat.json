@@ -1,0 +1,83 @@
+{
+ "SoundBanksInfo": {
+  "Platform": "Windows",
+  "BasePlatform": "Windows",
+  "SchemaVersion": "16",
+  "SoundBankVersion": "172",
+  "SoundBanks": [
+   {
+    "Id": "310343787",
+    "Type": "Event",
+    "GUID": "{47E7A4B1-0B88-471C-8405-A29043A9E8ED}",
+    "Language": "SFX",
+    "Hash": "{2CBB85F4-3F6F-8274-B471-6B385909E0FC}",
+    "ObjectPath": "Play_Entering_Combat",
+    "ShortName": "Play_Entering_Combat",
+    "Path": "Event/Play_Entering_Combat.bnk",
+    "Media": [
+     {
+      "Id": "266109836",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Loose",
+      "ShortName": "SFX_begin_combat_01.wav",
+      "Path": "Media/266109836.wem",
+      "CachePath": "D0/{D09DBAE0-A18F-13D0-FE42-C34B7F275C18}.wem"
+     }
+    ],
+    "Plugins": {
+     "Custom": [
+      {
+       "Id": "554751218",
+       "Name": "Guitar Distortion (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\UI\\Combat\\Entering Combat\\[Effect Slot [0]: (Guitar Distortion)]\\Guitar Distortion (Custom)",
+       "GUID": "{EC0AC1E9-6D92-4C53-A5A9-87CA93F1D4EB}",
+       "LibName": "Wwise Guitar Distortion",
+       "LibId": "8257539"
+      }
+     ],
+     "ShareSets": [
+      {
+       "Id": "2662085913",
+       "Name": "Large_Church1",
+       "ObjectPath": "\\Effects\\Factory Effects\\Matrix Reverb\\Large_Church1",
+       "GUID": "{9B6E8B78-EF8C-494C-AADA-D01CF51B5FAC}",
+       "LibName": "Wwise Matrix Reverb",
+       "LibId": "7536643"
+      }
+     ]
+    },
+    "Events": [
+     {
+      "Id": "310343787",
+      "Name": "Play_Entering_Combat",
+      "ObjectPath": "\\Events\\Default Work Unit\\SFX\\UI\\Combat\\Play_Entering_Combat",
+      "GUID": "{47E7A4B1-0B88-471C-8405-A29043A9E8ED}",
+      "Color": "24",
+      "DurationType": "OneShot",
+      "DurationMin": "6.665393",
+      "DurationMax": "6.665393",
+      "MediaRefs": [
+       {
+        "Id": "266109836"
+       }
+      ],
+      "PluginRefs": {
+       "Custom": [
+        {
+         "Id": "554751218"
+        }
+       ],
+       "ShareSets": [
+        {
+         "Id": "2662085913"
+        }
+       ]
+      }
+     }
+    ]
+   }
+  ],
+  "FileHash": "{C80695EB-EDD5-4DD1-7C58-B05175DDEA27}"
+ }
+}
