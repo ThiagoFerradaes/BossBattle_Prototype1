@@ -76,7 +76,7 @@ public class LilianDashManager : SkillObjectManager
             yield return null;
             stateInfo = anim.GetCurrentAnimatorStateInfo(0);
         } while (anim.GetCurrentAnimatorStateInfo(0).fullPathHash == attackStateHash &&
-       anim.GetCurrentAnimatorStateInfo(0).normalizedTime < _info.TimeToStartDash);
+       anim.GetCurrentAnimatorStateInfo(0).normalizedTime < _info.PercentOfAnimationToStartDash);
 
         // Dash
         Coroutine dashRoutine = StartCoroutine(InDashRoutine(attackStateHash));
@@ -97,7 +97,7 @@ public class LilianDashManager : SkillObjectManager
     IEnumerator InDashRoutine(int dashStateHash) {
 
         AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
-        float dashDuration = (stateInfo.length * _info.DashDuration) - (stateInfo.length * _info.TimeToStartDash);
+        float dashDuration = (stateInfo.length * _info.DashDuration) - (stateInfo.length * _info.PercentOfAnimationToStartDash);
         float remainingTime = dashDuration;
 
         Vector3 startPos = parent.transform.position;
