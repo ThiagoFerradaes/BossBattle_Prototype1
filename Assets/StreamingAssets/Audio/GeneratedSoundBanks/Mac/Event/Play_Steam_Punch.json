@@ -1,0 +1,90 @@
+{
+ "SoundBanksInfo": {
+  "Platform": "Mac",
+  "BasePlatform": "Mac",
+  "SchemaVersion": "16",
+  "SoundBankVersion": "172",
+  "SoundBanks": [
+   {
+    "Id": "3757338383",
+    "Type": "Event",
+    "GUID": "{675214F2-7875-47EA-875B-0D53DAA5EBE2}",
+    "Language": "SFX",
+    "Hash": "{0A1ED54D-AD2A-D4B1-7E39-C586EE9B4C3A}",
+    "ObjectPath": "Play_Steam_Punch",
+    "ShortName": "Play_Steam_Punch",
+    "Path": "Event/Play_Steam_Punch.bnk",
+    "Media": [
+     {
+      "Id": "668343413",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Loose",
+      "ShortName": "SPFX_steamPunch_Bastian_01.wav",
+      "Path": "Media/668343413.wem",
+      "CachePath": "52/{521DB7FB-01BE-8147-5A30-21FE64DA0C0B}.wem"
+     }
+    ],
+    "Plugins": {
+     "Custom": [
+      {
+       "Id": "645317789",
+       "Name": "Guitar Distortion (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Players\\Bastian\\Skills\\Steam Punch\\[Effect Slot [2]: (Guitar Distortion)]\\Guitar Distortion (Custom)",
+       "GUID": "{1FC38348-F6C3-4A2E-861E-EE18C0278B8E}",
+       "LibName": "Wwise Guitar Distortion",
+       "LibId": "8257539"
+      },
+      {
+       "Id": "770170949",
+       "Name": "Pitch Shifter (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Players\\Bastian\\Skills\\Steam Punch\\[Effect Slot [1]: (Pitch Shifter)]\\Pitch Shifter (Custom)",
+       "GUID": "{BB110B33-E421-4AD8-BA85-466D79365D21}",
+       "LibName": "Wwise Pitch Shifter",
+       "LibId": "8912899"
+      },
+      {
+       "Id": "852540164",
+       "Name": "Low_Pass_20KHz (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Players\\Bastian\\Skills\\Steam Punch\\[Effect Slot [0]: (Parametric EQ)]\\Low_Pass_20KHz (Custom)",
+       "GUID": "{0494E763-FF6C-430D-BA0D-844A01731068}",
+       "LibName": "Wwise Parametric EQ",
+       "LibId": "6881283"
+      }
+     ]
+    },
+    "Events": [
+     {
+      "Id": "3757338383",
+      "Name": "Play_Steam_Punch",
+      "ObjectPath": "\\Events\\Default Work Unit\\SFX\\Players\\Bastian\\Skills\\Play_Steam_Punch",
+      "GUID": "{675214F2-7875-47EA-875B-0D53DAA5EBE2}",
+      "Color": "23",
+      "DurationType": "OneShot",
+      "DurationMin": "1.7048144",
+      "DurationMax": "1.9135895",
+      "MediaRefs": [
+       {
+        "Id": "668343413"
+       }
+      ],
+      "PluginRefs": {
+       "Custom": [
+        {
+         "Id": "645317789"
+        },
+        {
+         "Id": "770170949"
+        },
+        {
+         "Id": "852540164"
+        }
+       ]
+      }
+     }
+    ]
+   }
+  ],
+  "FileHash": "{02CF7D6E-03C4-B2E6-A3BD-B31CED10B2F8}"
+ }
+}

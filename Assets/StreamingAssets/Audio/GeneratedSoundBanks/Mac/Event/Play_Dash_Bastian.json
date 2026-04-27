@@ -10,7 +10,7 @@
     "Type": "Event",
     "GUID": "{999910FC-ED04-4DBB-BF49-B5B40AC09BE7}",
     "Language": "SFX",
-    "Hash": "{4B7FE8D3-F749-2050-6980-C22CF60DB083}",
+    "Hash": "{335B5B2B-C5D5-F730-FBBA-09E443A288E2}",
     "ObjectPath": "Play_Dash_Bastian",
     "ShortName": "Play_Dash_Bastian",
     "Path": "Event/Play_Dash_Bastian.bnk",
@@ -22,16 +22,28 @@
       "Location": "Loose",
       "ShortName": "SFX_bastian_dash_01.wav",
       "Path": "Media/233593526.wem",
-      "CachePath": "F0/{F0C44BCB-097C-AADC-A408-3436F7A3F435}.wem"
+      "CachePath": "BF/{BF66153F-9D17-F112-C472-4C726971BDFA}.wem"
      }
     ],
+    "Plugins": {
+     "Custom": [
+      {
+       "Id": "893478812",
+       "Name": "Guitar Distortion (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Players\\Bastian\\Dash\\[Effect Slot [0]: (Guitar Distortion)]\\Guitar Distortion (Custom)",
+       "GUID": "{B529343D-BAEF-4A59-9A16-712E2EBE9819}",
+       "LibName": "Wwise Guitar Distortion",
+       "LibId": "8257539"
+      }
+     ]
+    },
     "Events": [
      {
       "Id": "511398661",
       "Name": "Play_Dash_Bastian",
       "ObjectPath": "\\Events\\Default Work Unit\\SFX\\Players\\Bastian\\Play_Dash_Bastian",
       "GUID": "{999910FC-ED04-4DBB-BF49-B5B40AC09BE7}",
-      "Color": "10",
+      "Color": "23",
       "DurationType": "OneShot",
       "DurationMin": "1.0640535",
       "DurationMax": "1.0795305",
@@ -39,11 +51,18 @@
        {
         "Id": "233593526"
        }
-      ]
+      ],
+      "PluginRefs": {
+       "Custom": [
+        {
+         "Id": "893478812"
+        }
+       ]
+      }
      }
     ]
    }
   ],
-  "FileHash": "{51D93519-BCFB-A74B-672A-BE1F33A734FD}"
+  "FileHash": "{E77D9690-6CF3-00A0-1DF6-F0077F6E2907}"
  }
 }

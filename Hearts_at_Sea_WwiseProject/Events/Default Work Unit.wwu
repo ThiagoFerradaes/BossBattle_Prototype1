@@ -24,13 +24,138 @@
 										<Event Name="Play_Dash_Bastian" ID="{999910FC-ED04-4DBB-BF49-B5B40AC09BE7}">
 											<PropertyList>
 												<Property Name="Color" Type="int16" Value="10"/>
-												<Property Name="OverrideColor" Type="bool" Value="True"/>
 											</PropertyList>
 											<ChildrenList>
 												<Action Name="" ID="{33F7993F-7E0C-4488-B4F6-F132DC906939}" ShortID="669757707">
 													<ReferenceList>
 														<Reference Name="Target">
 															<ObjectRef Name="Dash" ID="{6EE81020-80B2-479E-97E8-553A6044D787}" WorkUnitID="{5274A5F1-8227-4981-A61F-0F3417CB92FE}"/>
+														</Reference>
+													</ReferenceList>
+												</Action>
+											</ChildrenList>
+										</Event>
+										<Folder Name="Damage" ID="{8C5B3142-70D0-4907-B48A-ACCD052752E4}" ShortID="867828753">
+											<ChildrenList>
+												<Event Name="Play_Hit_Damage_Bastian" ID="{EC4A326F-38E8-4597-A623-D23060421EB4}">
+													<ChildrenList>
+														<Action Name="" ID="{FF467021-02E2-41F1-9FF2-9F6CED433878}" ShortID="145968328">
+															<ReferenceList>
+																<Reference Name="Target">
+																	<ObjectRef Name="Hit Damage" ID="{49865225-6758-4D90-BB05-EA4C3DA8E6E0}" WorkUnitID="{5274A5F1-8227-4981-A61F-0F3417CB92FE}"/>
+																</Reference>
+															</ReferenceList>
+														</Action>
+													</ChildrenList>
+												</Event>
+												<Event Name="Play_Heat_Damage_Bastian" ID="{C7591FBF-26AA-432B-AC9C-D9589553526D}">
+													<ChildrenList>
+														<Action Name="" ID="{853398C7-9B53-4F06-8440-2C68118947C7}" ShortID="1047106995">
+															<ReferenceList>
+																<Reference Name="Target">
+																	<ObjectRef Name="Heat Damage" ID="{B454A577-3D7F-4B56-A4CA-7CA9AB7E67A9}" WorkUnitID="{5274A5F1-8227-4981-A61F-0F3417CB92FE}"/>
+																</Reference>
+															</ReferenceList>
+														</Action>
+													</ChildrenList>
+												</Event>
+											</ChildrenList>
+										</Folder>
+										<Folder Name="Attacks" ID="{335512DD-3102-4CB5-B2F7-FF3B7861D4E7}" ShortID="207561616">
+											<ChildrenList>
+												<Event Name="Play_Base_Attack_Bastian" ID="{3A5DF467-0284-40B5-9959-E1A6C1389870}">
+													<ChildrenList>
+														<Action Name="" ID="{602F06ED-48A3-41CA-A25C-546669BCB2F4}" ShortID="81510944">
+															<ReferenceList>
+																<Reference Name="Target">
+																	<ObjectRef Name="Base Attack" ID="{9F4D98D4-58D3-4E64-A945-A19A6D309DBE}" WorkUnitID="{5274A5F1-8227-4981-A61F-0F3417CB92FE}"/>
+																</Reference>
+															</ReferenceList>
+														</Action>
+													</ChildrenList>
+												</Event>
+											</ChildrenList>
+										</Folder>
+										<Folder Name="Skills" ID="{B78D2553-6497-4F58-AF4A-E1C9BA48BD19}" ShortID="719987473">
+											<ChildrenList>
+												<Event Name="Play_Ignis" ID="{5FFEC839-7162-41BA-8CD9-7A7E049D9884}">
+													<ChildrenList>
+														<Action Name="" ID="{069AA033-14E6-4775-9F43-CB93BE98C9A8}" ShortID="702429630">
+															<ReferenceList>
+																<Reference Name="Target">
+																	<ObjectRef Name="Ignis" ID="{2A2C3EAB-FA06-4C0C-B171-970D61F1CC5C}" WorkUnitID="{5274A5F1-8227-4981-A61F-0F3417CB92FE}"/>
+																</Reference>
+															</ReferenceList>
+														</Action>
+													</ChildrenList>
+												</Event>
+												<Event Name="Play_Heat_Up" ID="{C6930A55-A8A2-4C39-91FD-ACC437BB3605}">
+													<ChildrenList>
+														<Action Name="" ID="{5ACA3247-872F-4C6D-9686-C2CE999F2253}" ShortID="635720481">
+															<ReferenceList>
+																<Reference Name="Target">
+																	<ObjectRef Name="Heat Up" ID="{2BF90C1E-E6E7-4F34-9B9E-3BDDA03EA0F5}" WorkUnitID="{5274A5F1-8227-4981-A61F-0F3417CB92FE}"/>
+																</Reference>
+															</ReferenceList>
+														</Action>
+													</ChildrenList>
+												</Event>
+												<Event Name="Play_Release" ID="{C4392981-49AE-48DB-95BC-341F3D73E725}">
+													<ChildrenList>
+														<Action Name="" ID="{C0FCFDBB-0AE3-46EB-BA96-AA8B1AF84D4E}" ShortID="458142816">
+															<ReferenceList>
+																<Reference Name="Target">
+																	<ObjectRef Name="Release" ID="{BA2298AE-C0FD-42E0-8B9E-4A7E0DA993BC}" WorkUnitID="{5274A5F1-8227-4981-A61F-0F3417CB92FE}"/>
+																</Reference>
+															</ReferenceList>
+														</Action>
+													</ChildrenList>
+												</Event>
+												<Event Name="Play_Steam_Punch" ID="{675214F2-7875-47EA-875B-0D53DAA5EBE2}">
+													<ChildrenList>
+														<Action Name="" ID="{301DA425-6856-4BBE-AF1D-34A1448D694B}" ShortID="144778895">
+															<ReferenceList>
+																<Reference Name="Target">
+																	<ObjectRef Name="Steam Punch" ID="{C0BF2BFA-D420-4A98-9DE0-FAFE526C73C4}" WorkUnitID="{5274A5F1-8227-4981-A61F-0F3417CB92FE}"/>
+																</Reference>
+															</ReferenceList>
+														</Action>
+													</ChildrenList>
+												</Event>
+											</ChildrenList>
+										</Folder>
+										<Folder Name="Supremes" ID="{EBB4FCF0-BF70-47FD-ABBB-F2BB64ABE579}" ShortID="625972481">
+											<ChildrenList>
+												<Event Name="Play_Flame_Echoes" ID="{C5B027C6-6B4B-40F9-8F56-F0A0F21606EC}">
+													<ChildrenList>
+														<Action Name="" ID="{06EAEC95-4BB0-4B47-8424-739D96352D98}" ShortID="436227219">
+															<ReferenceList>
+																<Reference Name="Target">
+																	<ObjectRef Name="Flame Echoes" ID="{5DBA0E79-4E29-40AD-98D2-F4DA42D8F9D9}" WorkUnitID="{5274A5F1-8227-4981-A61F-0F3417CB92FE}"/>
+																</Reference>
+															</ReferenceList>
+														</Action>
+													</ChildrenList>
+												</Event>
+												<Event Name="Play_Last_Whisper" ID="{1002704E-4C6F-4A03-BEEC-FD91030EDC18}">
+													<ChildrenList>
+														<Action Name="" ID="{0A4DEAD2-926C-4929-8CC9-EFA0CC9934C3}" ShortID="392819350">
+															<ReferenceList>
+																<Reference Name="Target">
+																	<ObjectRef Name="Last Whisper" ID="{A2F9C410-F7A3-4983-AD45-B0351808BDC3}" WorkUnitID="{5274A5F1-8227-4981-A61F-0F3417CB92FE}"/>
+																</Reference>
+															</ReferenceList>
+														</Action>
+													</ChildrenList>
+												</Event>
+											</ChildrenList>
+										</Folder>
+										<Event Name="Play_Heat_Zone_Change" ID="{536BD710-6004-46A6-9DE2-5B64875D83F7}">
+											<ChildrenList>
+												<Action Name="" ID="{D41FAF9E-D0F0-48C4-A99D-26BFBD017B18}" ShortID="1064913753">
+													<ReferenceList>
+														<Reference Name="Target">
+															<ObjectRef Name="Heat Zone Change" ID="{5AFAD9DD-FCE8-460C-8311-A3459E6BE632}" WorkUnitID="{5274A5F1-8227-4981-A61F-0F3417CB92FE}"/>
 														</Reference>
 													</ReferenceList>
 												</Action>

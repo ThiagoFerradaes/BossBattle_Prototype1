@@ -737,6 +737,19 @@
 									<ChildrenList>
 										<Sound Name="Dash" ID="{6EE81020-80B2-479E-97E8-553A6044D787}" ShortID="453093834">
 											<PropertyList>
+												<Property Name="Lowpass" Type="int16">
+													<ModifierList>
+														<ModifierInfo>
+															<Modifier Name="" ID="{B7748172-858D-4890-B429-60D1120C835F}">
+																<PropertyList>
+																	<Property Name="Enabled" Type="bool" Value="True"/>
+																	<Property Name="Max" Type="Real64" Value="12"/>
+																	<Property Name="Min" Type="Real64" Value="-21"/>
+																</PropertyList>
+															</Modifier>
+														</ModifierInfo>
+													</ModifierList>
+												</Property>
 												<Property Name="Pitch" Type="int32">
 													<ModifierList>
 														<ModifierInfo>
@@ -776,6 +789,10 @@
 											</ReferenceList>
 											<ChildrenList>
 												<AudioFileSource Name="SFX_bastian_dash_01" ID="{A9522A16-8AEC-455D-A1DC-6E9D1D3F0604}">
+													<PropertyList>
+														<Property Name="FadeOutDuration" Type="Real64" Value="0.99148251660972"/>
+														<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+													</PropertyList>
 													<Language>SFX</Language>
 													<AudioFile>SFX_bastian_dash_01.wav</AudioFile>
 													<MediaIDList>
@@ -783,10 +800,2339 @@
 													</MediaIDList>
 												</AudioFileSource>
 											</ChildrenList>
+											<ObjectLists>
+												<ObjectList Name="Effects">
+													<EffectSlot Name="" ID="{A8159DE1-AE30-4C19-A854-C0A600B4B96E}" ShortID="96760039">
+														<ReferenceList>
+															<Reference Name="Effect">
+																<Custom>
+																	<Effect Name="Guitar Distortion (Custom)" ID="{B529343D-BAEF-4A59-9A16-712E2EBE9819}" ShortID="893478812" PluginName="Wwise Guitar Distortion" CompanyID="0" PluginID="126" PluginType="3">
+																		<PropertyList>
+																			<Property Name="DistortionDrive" Type="Real32" Value="10"/>
+																			<Property Name="DistortionType" Type="int32" Value="1"/>
+																			<Property Name="OutputLevel" Type="Real32" Value="1.5"/>
+																		</PropertyList>
+																	</Effect>
+																</Custom>
+															</Reference>
+														</ReferenceList>
+													</EffectSlot>
+												</ObjectList>
+											</ObjectLists>
 											<ActiveSourceList>
 												<ActiveSource Name="SFX_bastian_dash_01" ID="{A9522A16-8AEC-455D-A1DC-6E9D1D3F0604}" Platform="Linked"/>
 											</ActiveSourceList>
 										</Sound>
+										<Folder Name="Damage" ID="{7CBF072C-87BF-4E65-9662-94F938204631}" ShortID="353024713">
+											<ChildrenList>
+												<RandomSequenceContainer Name="Hit Damage" ID="{49865225-6758-4D90-BB05-EA4C3DA8E6E0}" ShortID="233405624">
+													<PropertyList>
+														<Property Name="Color" Type="int16" Value="4"/>
+														<Property Name="Lowpass" Type="int16">
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{858B0047-64CC-4436-A727-EF8EBCE8C033}">
+																		<PropertyList>
+																			<Property Name="Enabled" Type="bool" Value="True"/>
+																			<Property Name="Max" Type="Real64" Value="19"/>
+																			<Property Name="Min" Type="Real64" Value="-28"/>
+																		</PropertyList>
+																	</Modifier>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
+														<Property Name="NormalOrShuffle" Type="int16" Value="0"/>
+														<Property Name="Pitch" Type="int32">
+															<ValueList>
+																<Value>-250</Value>
+															</ValueList>
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{5B0544C6-CD88-4356-973C-141CA3F9B0F2}">
+																		<PropertyList>
+																			<Property Name="Enabled" Type="bool" Value="True"/>
+																			<Property Name="Max" Type="Real64" Value="100"/>
+																			<Property Name="Min" Type="Real64" Value="-300"/>
+																		</PropertyList>
+																	</Modifier>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
+														<Property Name="Volume" Type="Real64">
+															<ValueList>
+																<Value>1.5</Value>
+															</ValueList>
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{203232FA-AF5D-4CDF-B821-60FF78005226}">
+																		<PropertyList>
+																			<Property Name="Enabled" Type="bool" Value="True"/>
+																			<Property Name="Max" Type="Real64" Value="5"/>
+																		</PropertyList>
+																	</Modifier>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
+													</PropertyList>
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="SFX_Bus" ID="{F5C91BBD-C9DE-46C1-B10A-F7A0405036D3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<Sound Name="Damage 01" ID="{84419218-197A-4CC2-B841-F5130E596791}" ShortID="739392598">
+															<PropertyList>
+																<Property Name="Volume" Type="Real64">
+																	<ModifierList>
+																		<ModifierInfo>
+																			<Modifier Name="" ID="{5CA4BF0D-95AA-41AB-BBCE-E50C57B4E701}"/>
+																		</ModifierInfo>
+																	</ModifierList>
+																</Property>
+															</PropertyList>
+															<ReferenceList>
+																<Reference Name="Conversion">
+																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
+																</Reference>
+																<Reference Name="OutputBus">
+																	<ObjectRef Name="Main Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
+																</Reference>
+															</ReferenceList>
+															<ChildrenList>
+																<AudioFileSource Name="SFX__damage_01" ID="{3C89436B-B050-47F0-964A-B9E23C61EA46}">
+																	<Language>SFX</Language>
+																	<AudioFile>SFX__damage_01.wav</AudioFile>
+																	<MediaIDList>
+																		<MediaID ID="816003403"/>
+																	</MediaIDList>
+																</AudioFileSource>
+															</ChildrenList>
+															<ActiveSourceList>
+																<ActiveSource Name="SFX__damage_01" ID="{3C89436B-B050-47F0-964A-B9E23C61EA46}" Platform="Linked"/>
+															</ActiveSourceList>
+														</Sound>
+														<Sound Name="Damage 02" ID="{FA7F8AED-80B6-4F51-967C-D5273AF0300D}" ShortID="201410681">
+															<PropertyList>
+																<Property Name="Volume" Type="Real64">
+																	<ModifierList>
+																		<ModifierInfo>
+																			<Modifier Name="" ID="{C8ED094C-7FEB-4151-8670-89AA53D0D566}"/>
+																		</ModifierInfo>
+																	</ModifierList>
+																</Property>
+															</PropertyList>
+															<ReferenceList>
+																<Reference Name="Conversion">
+																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
+																</Reference>
+																<Reference Name="OutputBus">
+																	<ObjectRef Name="Main Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
+																</Reference>
+															</ReferenceList>
+															<ChildrenList>
+																<AudioFileSource Name="SFX__damage_02" ID="{3CD4AC52-3303-4FF9-9FC5-F274C45E12E6}">
+																	<Language>SFX</Language>
+																	<AudioFile>SFX__damage_02 .wav</AudioFile>
+																	<MediaIDList>
+																		<MediaID ID="246775747"/>
+																	</MediaIDList>
+																</AudioFileSource>
+															</ChildrenList>
+															<ActiveSourceList>
+																<ActiveSource Name="SFX__damage_02" ID="{3CD4AC52-3303-4FF9-9FC5-F274C45E12E6}" Platform="Linked"/>
+															</ActiveSourceList>
+														</Sound>
+														<Sound Name="Damage 03" ID="{C260940C-D771-4CB8-915A-A0B6334851D1}" ShortID="971428631">
+															<PropertyList>
+																<Property Name="Pitch" Type="int32">
+																	<ModifierList>
+																		<ModifierInfo>
+																			<Modifier Name="" ID="{FAB58ADC-E3CB-48EC-AA84-3A2A4CCE6241}"/>
+																		</ModifierInfo>
+																	</ModifierList>
+																</Property>
+																<Property Name="Volume" Type="Real64">
+																	<ModifierList>
+																		<ModifierInfo>
+																			<Modifier Name="" ID="{86E1DB35-42FE-4D41-BF93-FB2B335FF261}"/>
+																		</ModifierInfo>
+																	</ModifierList>
+																</Property>
+															</PropertyList>
+															<ReferenceList>
+																<Reference Name="Conversion">
+																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
+																</Reference>
+																<Reference Name="OutputBus">
+																	<ObjectRef Name="Main Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
+																</Reference>
+															</ReferenceList>
+															<ChildrenList>
+																<AudioFileSource Name="SFX__damage_03" ID="{E00B848D-D962-4B5F-B0C7-168C77EC5694}">
+																	<Language>SFX</Language>
+																	<AudioFile>SFX__damage_03.wav</AudioFile>
+																	<MediaIDList>
+																		<MediaID ID="910157443"/>
+																	</MediaIDList>
+																</AudioFileSource>
+															</ChildrenList>
+															<ActiveSourceList>
+																<ActiveSource Name="SFX__damage_03" ID="{E00B848D-D962-4B5F-B0C7-168C77EC5694}" Platform="Linked"/>
+															</ActiveSourceList>
+														</Sound>
+													</ChildrenList>
+													<ObjectLists>
+														<ObjectList Name="Effects">
+															<EffectSlot Name="" ID="{FEF74582-62DB-45B8-9F94-4A2FA8C656E6}" ShortID="492330866">
+																<ReferenceList>
+																	<Reference Name="Effect">
+																		<Custom>
+																			<Effect Name="Guitar Distortion (Custom)" ID="{D48EED01-AC11-40CD-8714-52E9626C0526}" ShortID="895667856" PluginName="Wwise Guitar Distortion" CompanyID="0" PluginID="126" PluginType="3">
+																				<PropertyList>
+																					<Property Name="DistortionDrive" Type="Real32" Value="4"/>
+																					<Property Name="DistortionType" Type="int32" Value="1"/>
+																					<Property Name="OutputLevel" Type="Real32" Value="0.1"/>
+																				</PropertyList>
+																			</Effect>
+																		</Custom>
+																	</Reference>
+																</ReferenceList>
+															</EffectSlot>
+															<EffectSlot Name="" ID="{EC9752A5-0570-415A-A7A9-33DAA8655B5A}" ShortID="796134652">
+																<ReferenceList>
+																	<Reference Name="Effect">
+																		<Custom CreatedFrom="{180A35FE-BF4E-4BCD-8D7F-872B580E55EC}">
+																			<Effect Name="Phone_Booth (Custom)" ID="{5A7EB896-F265-4EEA-811D-0899FEC5BE29}" ShortID="101825657" PluginName="Wwise RoomVerb" CompanyID="0" PluginID="118" PluginType="3">
+																				<PropertyList>
+																					<Property Name="DecayTime" Type="Real32" Value="0.2"/>
+																					<Property Name="Density" Type="Real32" Value="32"/>
+																					<Property Name="Diffusion" Type="Real32" Value="0"/>
+																					<Property Name="DryLevel" Type="Real32" Value="-3"/>
+																					<Property Name="ERLevel" Type="Real32" Value="-10"/>
+																					<Property Name="ERPattern" Type="int32" Value="24"/>
+																					<Property Name="Filter1Freq" Type="Real32" Value="590"/>
+																					<Property Name="Filter1Gain" Type="Real32" Value="-5"/>
+																					<Property Name="Filter1InsertPos" Type="int32" Value="2"/>
+																					<Property Name="Filter2Freq" Type="Real32" Value="6450"/>
+																					<Property Name="Filter2Gain" Type="Real32" Value="8.5"/>
+																					<Property Name="Filter3Freq" Type="Real32" Value="8440"/>
+																					<Property Name="HFDamping" Type="Real32" Value="3.4"/>
+																					<Property Name="Inclusion" Type="bool">
+																						<ValueList>
+																							<Value>False</Value>
+																						</ValueList>
+																					</Property>
+																					<Property Name="PreDelay" Type="Real32" Value="0"/>
+																					<Property Name="Quality" Type="int32" Value="6"/>
+																					<Property Name="ReverbLevel" Type="Real32" Value="-26"/>
+																					<Property Name="RoomShape" Type="Real32" Value="38"/>
+																					<Property Name="RoomSize" Type="Real32" Value="-56"/>
+																					<Property Name="StereoWidth" Type="Real32" Value="0"/>
+																				</PropertyList>
+																			</Effect>
+																		</Custom>
+																	</Reference>
+																</ReferenceList>
+															</EffectSlot>
+														</ObjectList>
+													</ObjectLists>
+												</RandomSequenceContainer>
+												<BlendContainer Name="Heat Damage" ID="{B454A577-3D7F-4B56-A4CA-7CA9AB7E67A9}" ShortID="730709814">
+													<PropertyList>
+														<Property Name="Lowpass" Type="int16">
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{EF6CBA46-4A53-43A6-9119-B53F3478B72B}"/>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
+														<Property Name="Pitch" Type="int32">
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{9DD8CE49-6880-4F6E-BDFD-73AAA58F5FC7}"/>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
+														<Property Name="Volume" Type="Real64">
+															<ValueList>
+																<Value>-2</Value>
+															</ValueList>
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{22698464-513D-4691-AE76-3E77FCEA8797}">
+																		<PropertyList>
+																			<Property Name="Enabled" Type="bool" Value="True"/>
+																			<Property Name="Min" Type="Real64" Value="-3"/>
+																		</PropertyList>
+																	</Modifier>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
+													</PropertyList>
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="SFX_Bus" ID="{F5C91BBD-C9DE-46C1-B10A-F7A0405036D3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<RandomSequenceContainer Name="Hit Damage Heat" ID="{F0FD4A94-2B1C-45DA-AFEE-DBD15C934D99}" ShortID="399968280">
+															<PropertyList>
+																<Property Name="Color" Type="int16" Value="4"/>
+																<Property Name="Lowpass" Type="int16">
+																	<ModifierList>
+																		<ModifierInfo>
+																			<Modifier Name="" ID="{E7AF1D94-2C42-457F-84F6-7C90E0D1CD8F}">
+																				<PropertyList>
+																					<Property Name="Enabled" Type="bool" Value="True"/>
+																					<Property Name="Max" Type="Real64" Value="21"/>
+																					<Property Name="Min" Type="Real64" Value="-26"/>
+																				</PropertyList>
+																			</Modifier>
+																		</ModifierInfo>
+																	</ModifierList>
+																</Property>
+																<Property Name="NormalOrShuffle" Type="int16" Value="0"/>
+																<Property Name="OverrideEffect" Type="bool" Value="True"/>
+																<Property Name="Pitch" Type="int32">
+																	<ValueList>
+																		<Value>-200</Value>
+																	</ValueList>
+																	<ModifierList>
+																		<ModifierInfo>
+																			<Modifier Name="" ID="{EE8B6CCD-9E72-4FFD-9AB8-602A869CEB9C}">
+																				<PropertyList>
+																					<Property Name="Enabled" Type="bool" Value="True"/>
+																					<Property Name="Max" Type="Real64" Value="100"/>
+																					<Property Name="Min" Type="Real64" Value="-300"/>
+																				</PropertyList>
+																			</Modifier>
+																		</ModifierInfo>
+																	</ModifierList>
+																</Property>
+																<Property Name="Volume" Type="Real64">
+																	<ValueList>
+																		<Value>-2</Value>
+																	</ValueList>
+																	<ModifierList>
+																		<ModifierInfo>
+																			<Modifier Name="" ID="{6E1528A6-9EDF-419D-B873-502B7ADBD8C1}"/>
+																		</ModifierInfo>
+																	</ModifierList>
+																</Property>
+															</PropertyList>
+															<ReferenceList>
+																<Reference Name="Conversion">
+																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
+																</Reference>
+																<Reference Name="OutputBus">
+																	<ObjectRef Name="SFX_Bus" ID="{F5C91BBD-C9DE-46C1-B10A-F7A0405036D3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
+																</Reference>
+															</ReferenceList>
+															<ChildrenList>
+																<Sound Name="Damage 01" ID="{1F7975C7-788F-48A4-ACE1-D755966D439B}" ShortID="585159029">
+																	<PropertyList>
+																		<Property Name="Pitch" Type="int32">
+																			<ModifierList>
+																				<ModifierInfo>
+																					<Modifier Name="" ID="{73585BCA-CF19-420F-9C05-7631E172F456}"/>
+																				</ModifierInfo>
+																			</ModifierList>
+																		</Property>
+																		<Property Name="Volume" Type="Real64">
+																			<ModifierList>
+																				<ModifierInfo>
+																					<Modifier Name="" ID="{2D8180FA-B42C-457E-B457-0891A0ADA699}"/>
+																				</ModifierInfo>
+																			</ModifierList>
+																		</Property>
+																	</PropertyList>
+																	<ReferenceList>
+																		<Reference Name="Conversion">
+																			<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
+																		</Reference>
+																		<Reference Name="OutputBus">
+																			<ObjectRef Name="Main Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
+																		</Reference>
+																	</ReferenceList>
+																	<ChildrenList>
+																		<AudioFileSource Name="SFX__damage_01" ID="{31439FCC-CD1D-4B4C-9C22-F6220F8C533F}">
+																			<Language>SFX</Language>
+																			<AudioFile>SFX__damage_01.wav</AudioFile>
+																			<MediaIDList>
+																				<MediaID ID="816003403"/>
+																			</MediaIDList>
+																		</AudioFileSource>
+																	</ChildrenList>
+																	<ActiveSourceList>
+																		<ActiveSource Name="SFX__damage_01" ID="{31439FCC-CD1D-4B4C-9C22-F6220F8C533F}" Platform="Linked"/>
+																	</ActiveSourceList>
+																</Sound>
+																<Sound Name="Damage 02" ID="{609F13B8-02A5-4FDA-B6B2-47654B277867}" ShortID="920300967">
+																	<PropertyList>
+																		<Property Name="Volume" Type="Real64">
+																			<ModifierList>
+																				<ModifierInfo>
+																					<Modifier Name="" ID="{E6D2E3A4-6893-46AC-9976-97E5A28CF4F9}"/>
+																				</ModifierInfo>
+																			</ModifierList>
+																		</Property>
+																	</PropertyList>
+																	<ReferenceList>
+																		<Reference Name="Conversion">
+																			<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
+																		</Reference>
+																		<Reference Name="OutputBus">
+																			<ObjectRef Name="Main Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
+																		</Reference>
+																	</ReferenceList>
+																	<ChildrenList>
+																		<AudioFileSource Name="SFX__damage_02" ID="{213EFE4A-C9C6-4F79-A860-CBD8F09724F1}">
+																			<Language>SFX</Language>
+																			<AudioFile>SFX__damage_02 .wav</AudioFile>
+																			<MediaIDList>
+																				<MediaID ID="246775747"/>
+																			</MediaIDList>
+																		</AudioFileSource>
+																	</ChildrenList>
+																	<ActiveSourceList>
+																		<ActiveSource Name="SFX__damage_02" ID="{213EFE4A-C9C6-4F79-A860-CBD8F09724F1}" Platform="Linked"/>
+																	</ActiveSourceList>
+																</Sound>
+																<Sound Name="Damage 03" ID="{1B50D9A6-3FAC-4578-9F56-EAA9E99F542A}" ShortID="965617261">
+																	<PropertyList>
+																		<Property Name="Pitch" Type="int32">
+																			<ModifierList>
+																				<ModifierInfo>
+																					<Modifier Name="" ID="{D75494A3-D37D-41E4-88AF-7683A80B9464}"/>
+																				</ModifierInfo>
+																			</ModifierList>
+																		</Property>
+																		<Property Name="Volume" Type="Real64">
+																			<ModifierList>
+																				<ModifierInfo>
+																					<Modifier Name="" ID="{536DFDA5-8E9A-4DC0-B586-44F6A9DBD266}"/>
+																				</ModifierInfo>
+																			</ModifierList>
+																		</Property>
+																	</PropertyList>
+																	<ReferenceList>
+																		<Reference Name="Conversion">
+																			<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
+																		</Reference>
+																		<Reference Name="OutputBus">
+																			<ObjectRef Name="Main Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
+																		</Reference>
+																	</ReferenceList>
+																	<ChildrenList>
+																		<AudioFileSource Name="SFX__damage_03" ID="{F0F663D6-87C8-4E3E-A0AB-036D5B825820}">
+																			<Language>SFX</Language>
+																			<AudioFile>SFX__damage_03.wav</AudioFile>
+																			<MediaIDList>
+																				<MediaID ID="910157443"/>
+																			</MediaIDList>
+																		</AudioFileSource>
+																	</ChildrenList>
+																	<ActiveSourceList>
+																		<ActiveSource Name="SFX__damage_03" ID="{F0F663D6-87C8-4E3E-A0AB-036D5B825820}" Platform="Linked"/>
+																	</ActiveSourceList>
+																</Sound>
+															</ChildrenList>
+															<ObjectLists>
+																<ObjectList Name="Effects">
+																	<EffectSlot Name="" ID="{44853E36-A68F-4A28-A6FD-1F05BBD15E8D}" ShortID="634829737">
+																		<ReferenceList>
+																			<Reference Name="Effect">
+																				<Custom>
+																					<Effect Name="Guitar Distortion (Custom)" ID="{7F89314B-017D-46C7-B065-88EA76C3DEF6}" ShortID="97398733" PluginName="Wwise Guitar Distortion" CompanyID="0" PluginID="126" PluginType="3">
+																						<PropertyList>
+																							<Property Name="DistortionDrive" Type="Real32" Value="4"/>
+																							<Property Name="DistortionType" Type="int32" Value="1"/>
+																						</PropertyList>
+																					</Effect>
+																				</Custom>
+																			</Reference>
+																		</ReferenceList>
+																	</EffectSlot>
+																	<EffectSlot Name="" ID="{F04CB31D-EDD3-4FC9-B593-A882C40C1843}" ShortID="125983789">
+																		<ReferenceList>
+																			<Reference Name="Effect">
+																				<Custom CreatedFrom="{180A35FE-BF4E-4BCD-8D7F-872B580E55EC}">
+																					<Effect Name="Phone_Booth (Custom)" ID="{18258497-5DCF-4C8F-A314-F3A9A41B41B5}" ShortID="193736068" PluginName="Wwise RoomVerb" CompanyID="0" PluginID="118" PluginType="3">
+																						<PropertyList>
+																							<Property Name="DecayTime" Type="Real32" Value="0.2"/>
+																							<Property Name="Density" Type="Real32" Value="32"/>
+																							<Property Name="Diffusion" Type="Real32" Value="0"/>
+																							<Property Name="DryLevel" Type="Real32" Value="-3"/>
+																							<Property Name="ERLevel" Type="Real32" Value="-10"/>
+																							<Property Name="ERPattern" Type="int32" Value="24"/>
+																							<Property Name="Filter1Freq" Type="Real32" Value="590"/>
+																							<Property Name="Filter1Gain" Type="Real32" Value="-5"/>
+																							<Property Name="Filter1InsertPos" Type="int32" Value="2"/>
+																							<Property Name="Filter2Freq" Type="Real32" Value="6450"/>
+																							<Property Name="Filter2Gain" Type="Real32" Value="8.5"/>
+																							<Property Name="Filter3Freq" Type="Real32" Value="8440"/>
+																							<Property Name="HFDamping" Type="Real32" Value="3.4"/>
+																							<Property Name="Inclusion" Type="bool">
+																								<ValueList>
+																									<Value>False</Value>
+																								</ValueList>
+																							</Property>
+																							<Property Name="PreDelay" Type="Real32" Value="0"/>
+																							<Property Name="Quality" Type="int32" Value="6"/>
+																							<Property Name="ReverbLevel" Type="Real32" Value="-26"/>
+																							<Property Name="RoomShape" Type="Real32" Value="38"/>
+																							<Property Name="RoomSize" Type="Real32" Value="-31"/>
+																							<Property Name="StereoWidth" Type="Real32" Value="0"/>
+																						</PropertyList>
+																					</Effect>
+																				</Custom>
+																			</Reference>
+																		</ReferenceList>
+																	</EffectSlot>
+																	<EffectSlot Name="" ID="{5458D378-019E-4992-9DCB-5F6014C3E4D2}" ShortID="646583139">
+																		<ReferenceList>
+																			<Reference Name="Effect" PluginName="Wwise Parametric EQ" CompanyID="0" PluginID="105" PluginType="3">
+																				<ObjectRef Name="Low_Pass_20KHz" ID="{830124FB-B9D5-4AE8-846E-E94A74652666}" WorkUnitID="{E8613F7D-BAD3-45CD-A3ED-505576F31277}"/>
+																			</Reference>
+																		</ReferenceList>
+																	</EffectSlot>
+																</ObjectList>
+															</ObjectLists>
+														</RandomSequenceContainer>
+														<Sound Name="Heat Damage" ID="{862D004A-ACA3-4B63-B209-9764BA8F3C93}" ShortID="503374886">
+															<PropertyList>
+																<Property Name="Lowpass" Type="int16">
+																	<ModifierList>
+																		<ModifierInfo>
+																			<Modifier Name="" ID="{D58FD8C5-25DD-4601-B45C-720CEA8454D7}">
+																				<PropertyList>
+																					<Property Name="Enabled" Type="bool" Value="True"/>
+																					<Property Name="Max" Type="Real64" Value="15"/>
+																					<Property Name="Min" Type="Real64" Value="-33"/>
+																				</PropertyList>
+																			</Modifier>
+																		</ModifierInfo>
+																	</ModifierList>
+																</Property>
+																<Property Name="OverrideEffect" Type="bool" Value="True"/>
+																<Property Name="Pitch" Type="int32">
+																	<ValueList>
+																		<Value>-200</Value>
+																	</ValueList>
+																	<ModifierList>
+																		<ModifierInfo>
+																			<Modifier Name="" ID="{3ACD829B-1CF9-402F-90C4-8B163CA0F3C8}">
+																				<PropertyList>
+																					<Property Name="Enabled" Type="bool" Value="True"/>
+																					<Property Name="Max" Type="Real64" Value="250"/>
+																					<Property Name="Min" Type="Real64" Value="-425"/>
+																				</PropertyList>
+																			</Modifier>
+																		</ModifierInfo>
+																	</ModifierList>
+																</Property>
+																<Property Name="Volume" Type="Real64">
+																	<ModifierList>
+																		<ModifierInfo>
+																			<Modifier Name="" ID="{0D3337EE-7376-4C34-B620-6BFCAC88261A}">
+																				<PropertyList>
+																					<Property Name="Enabled" Type="bool" Value="True"/>
+																					<Property Name="Max" Type="Real64" Value="3"/>
+																				</PropertyList>
+																			</Modifier>
+																		</ModifierInfo>
+																	</ModifierList>
+																</Property>
+															</PropertyList>
+															<ReferenceList>
+																<Reference Name="Conversion">
+																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
+																</Reference>
+																<Reference Name="OutputBus">
+																	<ObjectRef Name="SFX_Bus" ID="{F5C91BBD-C9DE-46C1-B10A-F7A0405036D3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
+																</Reference>
+															</ReferenceList>
+															<ChildrenList>
+																<AudioFileSource Name="SFX_damage_heat_01" ID="{59A52B65-CABF-4B6E-A35F-71BC1F381DD0}">
+																	<Language>SFX</Language>
+																	<AudioFile>SFX_damage_heat_01.wav</AudioFile>
+																	<MediaIDList>
+																		<MediaID ID="326328344"/>
+																	</MediaIDList>
+																</AudioFileSource>
+															</ChildrenList>
+															<ObjectLists>
+																<ObjectList Name="Effects">
+																	<EffectSlot Name="" ID="{FF4CBEC9-89D5-4D1F-BE3C-37FB21195CF7}" ShortID="835328319">
+																		<ReferenceList>
+																			<Reference Name="Effect">
+																				<Custom>
+																					<Effect Name="Guitar Distortion (Custom)" ID="{30854C8D-5FC5-475D-9438-6557759B7CEB}" ShortID="506053143" PluginName="Wwise Guitar Distortion" CompanyID="0" PluginID="126" PluginType="3">
+																						<PropertyList>
+																							<Property Name="DistortionDrive" Type="Real32" Value="10"/>
+																							<Property Name="DistortionType" Type="int32" Value="1"/>
+																						</PropertyList>
+																					</Effect>
+																				</Custom>
+																			</Reference>
+																		</ReferenceList>
+																	</EffectSlot>
+																	<EffectSlot Name="" ID="{618B1CB3-7C36-4EEB-AF2C-14D0140F0CC7}" ShortID="817956986">
+																		<ReferenceList>
+																			<Reference Name="Effect">
+																				<Custom CreatedFrom="{180A35FE-BF4E-4BCD-8D7F-872B580E55EC}">
+																					<Effect Name="Phone_Booth (Custom)" ID="{E4B67ACF-5369-4603-BBB5-6701C65B5348}" ShortID="488225834" PluginName="Wwise RoomVerb" CompanyID="0" PluginID="118" PluginType="3">
+																						<PropertyList>
+																							<Property Name="DecayTime" Type="Real32" Value="0.2"/>
+																							<Property Name="Density" Type="Real32" Value="32"/>
+																							<Property Name="Diffusion" Type="Real32" Value="0"/>
+																							<Property Name="DryLevel" Type="Real32" Value="-3"/>
+																							<Property Name="ERLevel" Type="Real32" Value="-10"/>
+																							<Property Name="ERPattern" Type="int32" Value="24"/>
+																							<Property Name="Filter1Freq" Type="Real32" Value="590"/>
+																							<Property Name="Filter1Gain" Type="Real32" Value="-5"/>
+																							<Property Name="Filter1InsertPos" Type="int32" Value="2"/>
+																							<Property Name="Filter2Freq" Type="Real32" Value="6450"/>
+																							<Property Name="Filter2Gain" Type="Real32" Value="8.5"/>
+																							<Property Name="Filter3Freq" Type="Real32" Value="8440"/>
+																							<Property Name="HFDamping" Type="Real32" Value="3.4"/>
+																							<Property Name="Inclusion" Type="bool">
+																								<ValueList>
+																									<Value>False</Value>
+																								</ValueList>
+																							</Property>
+																							<Property Name="PreDelay" Type="Real32" Value="0"/>
+																							<Property Name="Quality" Type="int32" Value="6"/>
+																							<Property Name="ReverbLevel" Type="Real32" Value="-26"/>
+																							<Property Name="RoomShape" Type="Real32" Value="38"/>
+																							<Property Name="RoomSize" Type="Real32" Value="-56"/>
+																							<Property Name="StereoWidth" Type="Real32" Value="0"/>
+																						</PropertyList>
+																					</Effect>
+																				</Custom>
+																			</Reference>
+																		</ReferenceList>
+																	</EffectSlot>
+																	<EffectSlot Name="" ID="{BFDB9FE3-C559-4B8A-A4D5-4D9DF671BE2C}" ShortID="313885786">
+																		<ReferenceList>
+																			<Reference Name="Effect">
+																				<Custom>
+																					<Effect Name="Tremolo (Custom)" ID="{889CB5F4-ADC0-4699-BD16-CAB8C2D3D73D}" ShortID="121634418" PluginName="Wwise Tremolo" CompanyID="0" PluginID="131" PluginType="3">
+																						<PropertyList>
+																							<Property Name="ModDepth" Type="Real32" Value="40.1"/>
+																						</PropertyList>
+																					</Effect>
+																				</Custom>
+																			</Reference>
+																		</ReferenceList>
+																	</EffectSlot>
+																</ObjectList>
+															</ObjectLists>
+															<ActiveSourceList>
+																<ActiveSource Name="SFX_damage_heat_01" ID="{59A52B65-CABF-4B6E-A35F-71BC1F381DD0}" Platform="Linked"/>
+															</ActiveSourceList>
+														</Sound>
+													</ChildrenList>
+												</BlendContainer>
+											</ChildrenList>
+										</Folder>
+										<Folder Name="Attacks" ID="{F14E2CF6-DF2B-4B3E-BF9C-B7023EAC3DB3}" ShortID="223995493">
+											<ChildrenList>
+												<SwitchContainer Name="Base Attack" ID="{9F4D98D4-58D3-4E64-A945-A19A6D309DBE}" ShortID="1059090938">
+													<PropertyList>
+														<Property Name="Volume" Type="Real64">
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{C615F50F-B909-44A9-A23A-2D04AE607792}"/>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
+													</PropertyList>
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="SFX_Bus" ID="{F5C91BBD-C9DE-46C1-B10A-F7A0405036D3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
+														</Reference>
+														<Reference Name="SwitchGroupOrStateGroup">
+															<ObjectRef Name="Bastian_Heat_Zones" ID="{3FE2A4A3-76B7-4122-B209-15AB13F4603D}" WorkUnitID="{FBD9D139-D7FA-4CB3-B23B-0BB9656E3693}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<Sound Name="Base Attack Cool Zone" ID="{C402BF65-0582-469E-8151-013280078E87}" ShortID="841177226">
+															<PropertyList>
+																<Property Name="OverrideEffect" Type="bool" Value="True"/>
+																<Property Name="Pitch" Type="int32">
+																	<ModifierList>
+																		<ModifierInfo>
+																			<Modifier Name="" ID="{DFBBF028-A034-4873-887D-F0DDC8463BF6}">
+																				<PropertyList>
+																					<Property Name="Enabled" Type="bool" Value="True"/>
+																					<Property Name="Max" Type="Real64" Value="15"/>
+																					<Property Name="Min" Type="Real64" Value="-35"/>
+																				</PropertyList>
+																			</Modifier>
+																		</ModifierInfo>
+																	</ModifierList>
+																</Property>
+																<Property Name="Volume" Type="Real64">
+																	<ModifierList>
+																		<ModifierInfo>
+																			<Modifier Name="" ID="{698456D1-6512-4980-9D3D-D7888D034761}">
+																				<PropertyList>
+																					<Property Name="Enabled" Type="bool" Value="True"/>
+																					<Property Name="Max" Type="Real64" Value="2"/>
+																					<Property Name="Min" Type="Real64" Value="-1"/>
+																				</PropertyList>
+																			</Modifier>
+																		</ModifierInfo>
+																	</ModifierList>
+																</Property>
+															</PropertyList>
+															<ReferenceList>
+																<Reference Name="Conversion">
+																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
+																</Reference>
+																<Reference Name="OutputBus">
+																	<ObjectRef Name="Main Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
+																</Reference>
+															</ReferenceList>
+															<ChildrenList>
+																<AudioFileSource Name="SFX_baseAttack_coolZone_01" ID="{5B20939A-E29C-4CFD-A71B-A8B36C295CBD}">
+																	<Language>SFX</Language>
+																	<AudioFile>SFX_baseAttack_coolZone_01.wav</AudioFile>
+																	<MediaIDList>
+																		<MediaID ID="566023778"/>
+																	</MediaIDList>
+																</AudioFileSource>
+															</ChildrenList>
+															<ObjectLists>
+																<ObjectList Name="Effects">
+																	<EffectSlot Name="" ID="{925AF8F6-BD35-4EB6-BA9E-F4ED6ADE2BB1}" ShortID="549745814">
+																		<ReferenceList>
+																			<Reference Name="Effect">
+																				<Custom>
+																					<Effect Name="Guitar Distortion (Custom)" ID="{E8D2BA24-ACDE-44D7-BDF4-2224F51E03DF}" ShortID="86722717" PluginName="Wwise Guitar Distortion" CompanyID="0" PluginID="126" PluginType="3">
+																						<PropertyList>
+																							<Property Name="DistortionDrive" Type="Real32" Value="1.8"/>
+																							<Property Name="DistortionType" Type="int32" Value="1"/>
+																							<Property Name="PreEQBand1FilterType" Type="int32" Value="4"/>
+																							<Property Name="PreEQBand1Frequency" Type="Real32" Value="51"/>
+																						</PropertyList>
+																					</Effect>
+																				</Custom>
+																			</Reference>
+																		</ReferenceList>
+																	</EffectSlot>
+																</ObjectList>
+															</ObjectLists>
+															<ActiveSourceList>
+																<ActiveSource Name="SFX_baseAttack_coolZone_01" ID="{5B20939A-E29C-4CFD-A71B-A8B36C295CBD}" Platform="Linked"/>
+															</ActiveSourceList>
+														</Sound>
+														<Sound Name="Base Attack Heat Zone" ID="{B3C55FA9-3751-4D7B-B338-7BB0227C50EE}" ShortID="623257226">
+															<PropertyList>
+																<Property Name="OverrideEffect" Type="bool" Value="True"/>
+																<Property Name="Pitch" Type="int32">
+																	<ModifierList>
+																		<ModifierInfo>
+																			<Modifier Name="" ID="{AEFCF809-DC70-4FDD-AC66-3F789AFCB4D2}">
+																				<PropertyList>
+																					<Property Name="Enabled" Type="bool" Value="True"/>
+																					<Property Name="Max" Type="Real64" Value="15"/>
+																					<Property Name="Min" Type="Real64" Value="-35"/>
+																				</PropertyList>
+																			</Modifier>
+																		</ModifierInfo>
+																	</ModifierList>
+																</Property>
+																<Property Name="Volume" Type="Real64">
+																	<ModifierList>
+																		<ModifierInfo>
+																			<Modifier Name="" ID="{FA59743B-F9D6-4C33-B237-6CAD71FD581C}">
+																				<PropertyList>
+																					<Property Name="Enabled" Type="bool" Value="True"/>
+																					<Property Name="Max" Type="Real64" Value="2"/>
+																					<Property Name="Min" Type="Real64" Value="-1"/>
+																				</PropertyList>
+																			</Modifier>
+																		</ModifierInfo>
+																	</ModifierList>
+																</Property>
+															</PropertyList>
+															<ReferenceList>
+																<Reference Name="Conversion">
+																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
+																</Reference>
+																<Reference Name="OutputBus">
+																	<ObjectRef Name="Main Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
+																</Reference>
+															</ReferenceList>
+															<ChildrenList>
+																<AudioFileSource Name="SFX_baseAttack_heatZone_01" ID="{37011B7D-A26F-4D4B-AC36-7614C70794B5}">
+																	<Language>SFX</Language>
+																	<AudioFile>SFX_baseAttack_heatZone_01.wav</AudioFile>
+																	<MediaIDList>
+																		<MediaID ID="984102593"/>
+																	</MediaIDList>
+																</AudioFileSource>
+															</ChildrenList>
+															<ObjectLists>
+																<ObjectList Name="Effects">
+																	<EffectSlot Name="" ID="{02C03FF4-CBCA-4E88-9254-D06F58AF8080}" ShortID="670310320">
+																		<ReferenceList>
+																			<Reference Name="Effect">
+																				<Custom>
+																					<Effect Name="Guitar Distortion (Custom)" ID="{15702F02-35BA-4354-B1F5-BA55535AE426}" ShortID="128521792" PluginName="Wwise Guitar Distortion" CompanyID="0" PluginID="126" PluginType="3">
+																						<PropertyList>
+																							<Property Name="DistortionDrive" Type="Real32" Value="2"/>
+																							<Property Name="DistortionType" Type="int32" Value="1"/>
+																						</PropertyList>
+																					</Effect>
+																				</Custom>
+																			</Reference>
+																		</ReferenceList>
+																	</EffectSlot>
+																</ObjectList>
+															</ObjectLists>
+															<ActiveSourceList>
+																<ActiveSource Name="SFX_baseAttack_heatZone_01" ID="{37011B7D-A26F-4D4B-AC36-7614C70794B5}" Platform="Linked"/>
+															</ActiveSourceList>
+														</Sound>
+														<Sound Name="Base Attack Super Heat Zone" ID="{5F194D9F-2C78-4950-865D-89D1311BA813}" ShortID="581533794">
+															<PropertyList>
+																<Property Name="OverrideEffect" Type="bool" Value="True"/>
+																<Property Name="Pitch" Type="int32">
+																	<ModifierList>
+																		<ModifierInfo>
+																			<Modifier Name="" ID="{F1927BCE-6C27-49C2-8495-049BCE23FF18}">
+																				<PropertyList>
+																					<Property Name="Enabled" Type="bool" Value="True"/>
+																					<Property Name="Max" Type="Real64" Value="15"/>
+																					<Property Name="Min" Type="Real64" Value="-35"/>
+																				</PropertyList>
+																			</Modifier>
+																		</ModifierInfo>
+																	</ModifierList>
+																</Property>
+																<Property Name="Volume" Type="Real64">
+																	<ModifierList>
+																		<ModifierInfo>
+																			<Modifier Name="" ID="{2D84D196-C8CE-4D6C-B2CB-5E6C80683E9D}">
+																				<PropertyList>
+																					<Property Name="Enabled" Type="bool" Value="True"/>
+																					<Property Name="Max" Type="Real64" Value="1"/>
+																					<Property Name="Min" Type="Real64" Value="-2"/>
+																				</PropertyList>
+																			</Modifier>
+																		</ModifierInfo>
+																	</ModifierList>
+																</Property>
+															</PropertyList>
+															<ReferenceList>
+																<Reference Name="Conversion">
+																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
+																</Reference>
+																<Reference Name="OutputBus">
+																	<ObjectRef Name="Main Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
+																</Reference>
+															</ReferenceList>
+															<ChildrenList>
+																<AudioFileSource Name="SFX_baseAttack_superHeatZone_01" ID="{2B8C8F56-0D48-4B25-9770-519C6B50EAED}">
+																	<Language>SFX</Language>
+																	<AudioFile>SFX_baseAttack_superHeatZone_01.wav</AudioFile>
+																	<MediaIDList>
+																		<MediaID ID="997306949"/>
+																	</MediaIDList>
+																</AudioFileSource>
+															</ChildrenList>
+															<ObjectLists>
+																<ObjectList Name="Effects">
+																	<EffectSlot Name="" ID="{E2A47F46-FC2F-4C39-BB2E-C76F2369A6F0}" ShortID="973013366">
+																		<ReferenceList>
+																			<Reference Name="Effect">
+																				<Custom>
+																					<Effect Name="Guitar Distortion (Custom)" ID="{3A78E7DC-298A-4E31-B014-389360BCB0EA}" ShortID="882066652" PluginName="Wwise Guitar Distortion" CompanyID="0" PluginID="126" PluginType="3">
+																						<PropertyList>
+																							<Property Name="DistortionDrive" Type="Real32" Value="2.3"/>
+																							<Property Name="DistortionType" Type="int32" Value="1"/>
+																						</PropertyList>
+																					</Effect>
+																				</Custom>
+																			</Reference>
+																		</ReferenceList>
+																	</EffectSlot>
+																</ObjectList>
+															</ObjectLists>
+															<ActiveSourceList>
+																<ActiveSource Name="SFX_baseAttack_superHeatZone_01" ID="{2B8C8F56-0D48-4B25-9770-519C6B50EAED}" Platform="Linked"/>
+															</ActiveSourceList>
+														</Sound>
+														<Sound Name="Base Attack Over Heat Zone" ID="{DEB8D15B-73AB-4E9F-B7AC-2ACC5C398636}" ShortID="962791292">
+															<PropertyList>
+																<Property Name="OverrideEffect" Type="bool" Value="True"/>
+																<Property Name="Pitch" Type="int32">
+																	<ModifierList>
+																		<ModifierInfo>
+																			<Modifier Name="" ID="{C09A7ADF-66E9-4FC4-B447-AFFE71593116}">
+																				<PropertyList>
+																					<Property Name="Enabled" Type="bool" Value="True"/>
+																					<Property Name="Max" Type="Real64" Value="15"/>
+																					<Property Name="Min" Type="Real64" Value="-35"/>
+																				</PropertyList>
+																			</Modifier>
+																		</ModifierInfo>
+																	</ModifierList>
+																</Property>
+																<Property Name="Volume" Type="Real64">
+																	<ModifierList>
+																		<ModifierInfo>
+																			<Modifier Name="" ID="{1B30EAC5-5284-48CD-BE22-D31CD28AFFAD}">
+																				<PropertyList>
+																					<Property Name="Enabled" Type="bool" Value="True"/>
+																					<Property Name="Max" Type="Real64" Value="2"/>
+																					<Property Name="Min" Type="Real64" Value="-1"/>
+																				</PropertyList>
+																			</Modifier>
+																		</ModifierInfo>
+																	</ModifierList>
+																</Property>
+															</PropertyList>
+															<ReferenceList>
+																<Reference Name="Conversion">
+																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
+																</Reference>
+																<Reference Name="OutputBus">
+																	<ObjectRef Name="Main Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
+																</Reference>
+															</ReferenceList>
+															<ChildrenList>
+																<AudioFileSource Name="SFX_baseAttack_overHeatZone_01" ID="{0DF4FFE8-93CE-43DF-9B90-5B48A7E868C3}">
+																	<Language>SFX</Language>
+																	<AudioFile>SFX_baseAttack_overHeatZone_01.wav</AudioFile>
+																	<MediaIDList>
+																		<MediaID ID="256398600"/>
+																	</MediaIDList>
+																</AudioFileSource>
+															</ChildrenList>
+															<ObjectLists>
+																<ObjectList Name="Effects">
+																	<EffectSlot Name="" ID="{95E871AC-0D64-4F86-A5E4-E12F191C94AB}" ShortID="863610411">
+																		<ReferenceList>
+																			<Reference Name="Effect">
+																				<Custom>
+																					<Effect Name="Guitar Distortion (Custom)" ID="{F3596230-DE9D-46EF-AF01-0C78FFAD7D88}" ShortID="306721634" PluginName="Wwise Guitar Distortion" CompanyID="0" PluginID="126" PluginType="3">
+																						<PropertyList>
+																							<Property Name="DistortionDrive" Type="Real32" Value="3"/>
+																							<Property Name="DistortionType" Type="int32" Value="1"/>
+																						</PropertyList>
+																					</Effect>
+																				</Custom>
+																			</Reference>
+																		</ReferenceList>
+																	</EffectSlot>
+																</ObjectList>
+															</ObjectLists>
+															<ActiveSourceList>
+																<ActiveSource Name="SFX_baseAttack_overHeatZone_01" ID="{0DF4FFE8-93CE-43DF-9B90-5B48A7E868C3}" Platform="Linked"/>
+															</ActiveSourceList>
+														</Sound>
+														<Sound Name="Base Attack Extreme Heat Zone" ID="{F772E79F-3E79-4F4B-8EF2-9FA2CFCF7049}" ShortID="486500582">
+															<PropertyList>
+																<Property Name="OverrideEffect" Type="bool" Value="True"/>
+																<Property Name="Pitch" Type="int32">
+																	<ModifierList>
+																		<ModifierInfo>
+																			<Modifier Name="" ID="{93573D81-0570-47A5-8BB1-32B9EF5C03AE}">
+																				<PropertyList>
+																					<Property Name="Enabled" Type="bool" Value="True"/>
+																					<Property Name="Max" Type="Real64" Value="15"/>
+																					<Property Name="Min" Type="Real64" Value="-35"/>
+																				</PropertyList>
+																			</Modifier>
+																		</ModifierInfo>
+																	</ModifierList>
+																</Property>
+																<Property Name="Volume" Type="Real64">
+																	<ModifierList>
+																		<ModifierInfo>
+																			<Modifier Name="" ID="{E9D0147E-33CB-48F1-887A-5D98A147B41C}">
+																				<PropertyList>
+																					<Property Name="Enabled" Type="bool" Value="True"/>
+																					<Property Name="Max" Type="Real64" Value="2"/>
+																					<Property Name="Min" Type="Real64" Value="-1"/>
+																				</PropertyList>
+																			</Modifier>
+																		</ModifierInfo>
+																	</ModifierList>
+																</Property>
+															</PropertyList>
+															<ReferenceList>
+																<Reference Name="Conversion">
+																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
+																</Reference>
+																<Reference Name="OutputBus">
+																	<ObjectRef Name="Main Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
+																</Reference>
+															</ReferenceList>
+															<ChildrenList>
+																<AudioFileSource Name="SFX_baseAttack_extremeHeatZone_01" ID="{07A17740-9A7A-415B-8A92-2D6C1FAF2989}">
+																	<Language>SFX</Language>
+																	<AudioFile>SFX_baseAttack_extremeHeatZone_01.wav</AudioFile>
+																	<MediaIDList>
+																		<MediaID ID="95541098"/>
+																	</MediaIDList>
+																</AudioFileSource>
+															</ChildrenList>
+															<ObjectLists>
+																<ObjectList Name="Effects">
+																	<EffectSlot Name="" ID="{26E08074-ADE4-4E59-B6B6-5EC1B25D21DB}" ShortID="523769977">
+																		<ReferenceList>
+																			<Reference Name="Effect">
+																				<Custom>
+																					<Effect Name="Guitar Distortion (Custom)" ID="{7B12F776-BF9C-49A4-8B74-098C11DA869F}" ShortID="226830044" PluginName="Wwise Guitar Distortion" CompanyID="0" PluginID="126" PluginType="3">
+																						<PropertyList>
+																							<Property Name="DistortionDrive" Type="Real32" Value="3.3"/>
+																							<Property Name="DistortionType" Type="int32" Value="1"/>
+																						</PropertyList>
+																					</Effect>
+																				</Custom>
+																			</Reference>
+																		</ReferenceList>
+																	</EffectSlot>
+																</ObjectList>
+															</ObjectLists>
+															<ActiveSourceList>
+																<ActiveSource Name="SFX_baseAttack_extremeHeatZone_01" ID="{07A17740-9A7A-415B-8A92-2D6C1FAF2989}" Platform="Linked"/>
+															</ActiveSourceList>
+														</Sound>
+													</ChildrenList>
+													<GroupingInfo>
+														<GroupingBehaviorList>
+															<GroupingBehavior>
+																<ItemRef Name="Base Attack Over Heat Zone" ID="{DEB8D15B-73AB-4E9F-B7AC-2ACC5C398636}"/>
+															</GroupingBehavior>
+															<GroupingBehavior>
+																<ItemRef Name="Base Attack Cool Zone" ID="{C402BF65-0582-469E-8151-013280078E87}"/>
+															</GroupingBehavior>
+															<GroupingBehavior>
+																<ItemRef Name="Base Attack Super Heat Zone" ID="{5F194D9F-2C78-4950-865D-89D1311BA813}"/>
+															</GroupingBehavior>
+															<GroupingBehavior>
+																<ItemRef Name="Base Attack Extreme Heat Zone" ID="{F772E79F-3E79-4F4B-8EF2-9FA2CFCF7049}"/>
+															</GroupingBehavior>
+															<GroupingBehavior>
+																<ItemRef Name="Base Attack Heat Zone" ID="{B3C55FA9-3751-4D7B-B338-7BB0227C50EE}"/>
+															</GroupingBehavior>
+														</GroupingBehaviorList>
+														<GroupingList>
+															<Grouping>
+																<SwitchRef Name="Cool" ID="{94D5DA06-74D1-46F4-BC4C-A4B3A1145714}"/>
+																<ItemList>
+																	<ItemRef Name="Base Attack Cool Zone" ID="{C402BF65-0582-469E-8151-013280078E87}"/>
+																</ItemList>
+															</Grouping>
+															<Grouping>
+																<SwitchRef Name="Extreme_Heat" ID="{FACADA76-31D1-4A0B-A4C7-3BB5CC234C74}"/>
+																<ItemList>
+																	<ItemRef Name="Base Attack Extreme Heat Zone" ID="{F772E79F-3E79-4F4B-8EF2-9FA2CFCF7049}"/>
+																</ItemList>
+															</Grouping>
+															<Grouping>
+																<SwitchRef Name="Heat" ID="{7F79E085-6CC6-4244-BAAB-B280520E2A8F}"/>
+																<ItemList>
+																	<ItemRef Name="Base Attack Heat Zone" ID="{B3C55FA9-3751-4D7B-B338-7BB0227C50EE}"/>
+																</ItemList>
+															</Grouping>
+															<Grouping>
+																<SwitchRef Name="Over_Heat" ID="{959961BE-1F31-40A0-B412-8EDAA15D3279}"/>
+																<ItemList>
+																	<ItemRef Name="Base Attack Over Heat Zone" ID="{DEB8D15B-73AB-4E9F-B7AC-2ACC5C398636}"/>
+																</ItemList>
+															</Grouping>
+															<Grouping>
+																<SwitchRef Name="Super_Heat" ID="{FC93EFC9-866B-478D-8781-55567C5D04A2}"/>
+																<ItemList>
+																	<ItemRef Name="Base Attack Super Heat Zone" ID="{5F194D9F-2C78-4950-865D-89D1311BA813}"/>
+																</ItemList>
+															</Grouping>
+														</GroupingList>
+													</GroupingInfo>
+												</SwitchContainer>
+											</ChildrenList>
+										</Folder>
+										<Folder Name="Skills" ID="{5F7B8F0F-86D4-48EB-9444-2183CE8B657C}" ShortID="169871532">
+											<ChildrenList>
+												<Sound Name="Release" ID="{BA2298AE-C0FD-42E0-8B9E-4A7E0DA993BC}" ShortID="554171387">
+													<PropertyList>
+														<Property Name="Lowpass" Type="int16">
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{CFB1D9AD-F8C3-4294-9638-CEA238685504}"/>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
+														<Property Name="Pitch" Type="int32">
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{2A68B06B-9E5A-45B2-9522-994EA54E1C29}">
+																		<PropertyList>
+																			<Property Name="Enabled" Type="bool" Value="True"/>
+																			<Property Name="Max" Type="Real64" Value="100"/>
+																			<Property Name="Min" Type="Real64" Value="-100"/>
+																		</PropertyList>
+																	</Modifier>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
+														<Property Name="Volume" Type="Real64">
+															<ValueList>
+																<Value>2</Value>
+															</ValueList>
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{A626E0DE-0613-49B6-985A-E27CE5F99913}">
+																		<PropertyList>
+																			<Property Name="Enabled" Type="bool" Value="True"/>
+																			<Property Name="Min" Type="Real64" Value="-2"/>
+																		</PropertyList>
+																	</Modifier>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
+													</PropertyList>
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="SFX_Bus" ID="{F5C91BBD-C9DE-46C1-B10A-F7A0405036D3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="SPFX_release_Bastian_01" ID="{092A9467-CB5C-4FD5-BFBD-7724A57CB96F}">
+															<Language>SFX</Language>
+															<AudioFile>SPFX_release_Bastian_01.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="208185192"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ObjectLists>
+														<ObjectList Name="Effects">
+															<EffectSlot Name="" ID="{14A2A5EB-7754-4161-B486-F15B74D19909}" ShortID="261535246">
+																<ReferenceList>
+																	<Reference Name="Effect">
+																		<Custom CreatedFrom="{830124FB-B9D5-4AE8-846E-E94A74652666}">
+																			<Effect Name="Low_Pass_20KHz (Custom)" ID="{6EC6991D-A996-4088-999F-6CDAC4A165FC}" ShortID="582712470" PluginName="Wwise Parametric EQ" CompanyID="0" PluginID="105" PluginType="3">
+																				<PropertyList>
+																					<Property Name="FilterTypeBand1" Type="int32" Value="7"/>
+																					<Property Name="FilterTypeBand2" Type="int32" Value="8"/>
+																					<Property Name="FilterTypeBand3" Type="int32" Value="0"/>
+																					<Property Name="FrequencyBand1" Type="Real32" Value="15375.99"/>
+																					<Property Name="FrequencyBand2" Type="Real32" Value="74.26137"/>
+																					<Property Name="FrequencyBand3" Type="Real32" Value="20000"/>
+																					<Property Name="OnOffBand1" Type="bool" Value="False"/>
+																					<Property Name="OutputLevel" Type="Real32" Value="3"/>
+																					<Property Name="QFactorBand1" Type="Real32" Value="0.7432276"/>
+																					<Property Name="QFactorBand2" Type="Real32" Value="0.5706366"/>
+																					<Property Name="RolloffRateBand2" Type="int32" Value="36"/>
+																				</PropertyList>
+																			</Effect>
+																		</Custom>
+																	</Reference>
+																</ReferenceList>
+															</EffectSlot>
+															<EffectSlot Name="" ID="{DCBB762D-A8B3-4FCE-AF88-4DCA208DCB68}" ShortID="193806087">
+																<ReferenceList>
+																	<Reference Name="Effect">
+																		<Custom>
+																			<Effect Name="Guitar Distortion (Custom)" ID="{0C91ABE3-3AE8-41C9-9211-8A367F92BD8A}" ShortID="1033205905" PluginName="Wwise Guitar Distortion" CompanyID="0" PluginID="126" PluginType="3">
+																				<PropertyList>
+																					<Property Name="DistortionDrive" Type="Real32" Value="0.5"/>
+																					<Property Name="DistortionType" Type="int32" Value="1"/>
+																					<Property Name="OutputLevel" Type="Real32" Value="2"/>
+																					<Property Name="PreEQBand1Enable" Type="bool" Value="True"/>
+																					<Property Name="PreEQBand1Frequency" Type="Real32" Value="6831"/>
+																					<Property Name="PreEQBand2Enable" Type="bool" Value="True"/>
+																					<Property Name="PreEQBand2FilterType" Type="int32" Value="4"/>
+																					<Property Name="PreEQBand2Frequency" Type="Real32" Value="46"/>
+																				</PropertyList>
+																			</Effect>
+																		</Custom>
+																	</Reference>
+																</ReferenceList>
+															</EffectSlot>
+														</ObjectList>
+													</ObjectLists>
+													<ActiveSourceList>
+														<ActiveSource Name="SPFX_release_Bastian_01" ID="{092A9467-CB5C-4FD5-BFBD-7724A57CB96F}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="Heat Up" ID="{2BF90C1E-E6E7-4F34-9B9E-3BDDA03EA0F5}" ShortID="1014599340">
+													<PropertyList>
+														<Property Name="Lowpass" Type="int16">
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{2B523257-B074-4CF3-94C1-D0B133CBDE22}">
+																		<PropertyList>
+																			<Property Name="Enabled" Type="bool" Value="True"/>
+																			<Property Name="Max" Type="Real64" Value="11"/>
+																			<Property Name="Min" Type="Real64" Value="-24"/>
+																		</PropertyList>
+																	</Modifier>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
+														<Property Name="Pitch" Type="int32">
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{CB5F2764-9C4D-4B9B-B71D-BD1F206D9B93}">
+																		<PropertyList>
+																			<Property Name="Enabled" Type="bool" Value="True"/>
+																			<Property Name="Max" Type="Real64" Value="100"/>
+																			<Property Name="Min" Type="Real64" Value="-150"/>
+																		</PropertyList>
+																	</Modifier>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
+														<Property Name="Volume" Type="Real64">
+															<ValueList>
+																<Value>-3</Value>
+															</ValueList>
+														</Property>
+													</PropertyList>
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="SFX_Bus" ID="{F5C91BBD-C9DE-46C1-B10A-F7A0405036D3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="SPFX_heatUp_Bastian_01" ID="{E955EC4B-3E64-42DD-A8D1-FC7A0A2BC2BF}">
+															<Language>SFX</Language>
+															<AudioFile>SPFX_heatUp_Bastian_01.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="958772841"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ObjectLists>
+														<ObjectList Name="Effects">
+															<EffectSlot Name="" ID="{351B8756-236C-4FFA-A8A5-7B59E7199449}" ShortID="1005654909">
+																<ReferenceList>
+																	<Reference Name="Effect">
+																		<Custom>
+																			<Effect Name="Tremolo (Custom)" ID="{7F09A7E5-F4A1-4B21-9B95-308F0BA25CA5}" ShortID="990638915" PluginName="Wwise Tremolo" CompanyID="0" PluginID="131" PluginType="3">
+																				<PropertyList>
+																					<Property Name="ModDepth" Type="Real32" Value="27.6"/>
+																					<Property Name="ModSmoothing" Type="Real32" Value="15"/>
+																					<Property Name="ModWaveform" Type="int32" Value="1"/>
+																				</PropertyList>
+																			</Effect>
+																		</Custom>
+																	</Reference>
+																</ReferenceList>
+															</EffectSlot>
+															<EffectSlot Name="" ID="{ECB4D8CE-2B39-4D2C-BDA0-3244B3DE5535}" ShortID="1027774077">
+																<ReferenceList>
+																	<Reference Name="Effect">
+																		<Custom CreatedFrom="{830124FB-B9D5-4AE8-846E-E94A74652666}">
+																			<Effect Name="Low_Pass_20KHz (Custom)" ID="{9B9BD4D2-F4A9-4499-9EDA-D3B2FC7E81EC}" ShortID="868192414" PluginName="Wwise Parametric EQ" CompanyID="0" PluginID="105" PluginType="3">
+																				<PropertyList>
+																					<Property Name="FilterTypeBand1" Type="int32" Value="7"/>
+																					<Property Name="FilterTypeBand3" Type="int32" Value="0"/>
+																					<Property Name="FrequencyBand1" Type="Real32" Value="8781.793"/>
+																					<Property Name="FrequencyBand3" Type="Real32" Value="20000"/>
+																					<Property Name="OnOffBand2" Type="bool" Value="False"/>
+																					<Property Name="OutputLevel" Type="Real32" Value="3"/>
+																					<Property Name="QFactorBand1" Type="Real32" Value="0.7800005"/>
+																				</PropertyList>
+																			</Effect>
+																		</Custom>
+																	</Reference>
+																</ReferenceList>
+															</EffectSlot>
+															<EffectSlot Name="" ID="{D9F86596-614A-482C-802C-5FD09C58787E}" ShortID="78111168">
+																<ReferenceList>
+																	<Reference Name="Effect">
+																		<Custom>
+																			<Effect Name="Guitar Distortion (Custom)" ID="{BD105FC1-9135-4A63-AD67-1AD3C12AA9BF}" ShortID="773168853" PluginName="Wwise Guitar Distortion" CompanyID="0" PluginID="126" PluginType="3">
+																				<PropertyList>
+																					<Property Name="DistortionDrive" Type="Real32" Value="2.5"/>
+																					<Property Name="DistortionType" Type="int32" Value="1"/>
+																					<Property Name="PreEQBand1Enable" Type="bool" Value="True"/>
+																					<Property Name="PreEQBand1Frequency" Type="Real32" Value="8102"/>
+																					<Property Name="PreEQBand1Gain" Type="Real32" Value="2.5"/>
+																					<Property Name="PreEQBand2Enable" Type="bool" Value="True"/>
+																					<Property Name="PreEQBand2FilterType" Type="int32" Value="4"/>
+																					<Property Name="PreEQBand2Frequency" Type="Real32" Value="82"/>
+																				</PropertyList>
+																			</Effect>
+																		</Custom>
+																	</Reference>
+																</ReferenceList>
+															</EffectSlot>
+														</ObjectList>
+													</ObjectLists>
+													<ActiveSourceList>
+														<ActiveSource Name="SPFX_heatUp_Bastian_01" ID="{E955EC4B-3E64-42DD-A8D1-FC7A0A2BC2BF}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="Steam Punch" ID="{C0BF2BFA-D420-4A98-9DE0-FAFE526C73C4}" ShortID="625149089">
+													<PropertyList>
+														<Property Name="Lowpass" Type="int16">
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{ED17E5B1-3C04-4989-A72A-A2945AEFCD72}">
+																		<PropertyList>
+																			<Property Name="Enabled" Type="bool" Value="True"/>
+																			<Property Name="Max" Type="Real64" Value="8"/>
+																			<Property Name="Min" Type="Real64" Value="-22"/>
+																		</PropertyList>
+																	</Modifier>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
+														<Property Name="Pitch" Type="int32">
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{8F2E5564-9319-4CD5-B3E9-B9FAFD048BC1}">
+																		<PropertyList>
+																			<Property Name="Enabled" Type="bool" Value="True"/>
+																			<Property Name="Max" Type="Real64" Value="150"/>
+																			<Property Name="Min" Type="Real64" Value="-50"/>
+																		</PropertyList>
+																	</Modifier>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
+														<Property Name="Volume" Type="Real64">
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{6A486283-85EE-4935-880F-28EE4A31CE5F}">
+																		<PropertyList>
+																			<Property Name="Enabled" Type="bool" Value="True"/>
+																			<Property Name="Max" Type="Real64" Value="2"/>
+																			<Property Name="Min" Type="Real64" Value="-1"/>
+																		</PropertyList>
+																	</Modifier>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
+													</PropertyList>
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="SFX_Bus" ID="{F5C91BBD-C9DE-46C1-B10A-F7A0405036D3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="SPFX_steamPunch_Bastian_01" ID="{AA0DEFCE-C2F6-4F00-A7D8-326475F10F25}">
+															<PropertyList>
+																<Property Name="FadeOutDuration" Type="Real64" Value="1.859113364555"/>
+																<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+																<Property Name="TrimEnd" Type="Real64" Value="1.859113364555"/>
+															</PropertyList>
+															<Language>SFX</Language>
+															<AudioFile>SPFX_steamPunch_Bastian_01.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="668343413"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ObjectLists>
+														<ObjectList Name="Effects">
+															<EffectSlot Name="" ID="{FE00BB98-C97A-4E57-8304-CED244E1ECF5}" ShortID="88991702">
+																<ReferenceList>
+																	<Reference Name="Effect">
+																		<Custom CreatedFrom="{830124FB-B9D5-4AE8-846E-E94A74652666}">
+																			<Effect Name="Low_Pass_20KHz (Custom)" ID="{0494E763-FF6C-430D-BA0D-844A01731068}" ShortID="852540164" PluginName="Wwise Parametric EQ" CompanyID="0" PluginID="105" PluginType="3">
+																				<PropertyList>
+																					<Property Name="FilterTypeBand1" Type="int32" Value="7"/>
+																					<Property Name="FilterTypeBand2" Type="int32" Value="8"/>
+																					<Property Name="FilterTypeBand3" Type="int32" Value="0"/>
+																					<Property Name="FrequencyBand1" Type="Real32" Value="16907.59"/>
+																					<Property Name="FrequencyBand2" Type="Real32" Value="31"/>
+																					<Property Name="FrequencyBand3" Type="Real32" Value="20000"/>
+																					<Property Name="OnOffBand1" Type="bool" Value="False"/>
+																					<Property Name="QFactorBand1" Type="Real32" Value="0.6776648"/>
+																					<Property Name="QFactorBand2" Type="Real32" Value="1.078746"/>
+																					<Property Name="RolloffRateBand2" Type="int32" Value="36"/>
+																				</PropertyList>
+																			</Effect>
+																		</Custom>
+																	</Reference>
+																</ReferenceList>
+															</EffectSlot>
+															<EffectSlot Name="" ID="{3F9007EC-0D97-4B43-9274-6E8D94823376}" ShortID="668573982">
+																<ReferenceList>
+																	<Reference Name="Effect">
+																		<Custom>
+																			<Effect Name="Pitch Shifter (Custom)" ID="{BB110B33-E421-4AD8-BA85-466D79365D21}" ShortID="770170949" PluginName="Wwise Pitch Shifter" CompanyID="0" PluginID="136" PluginType="3">
+																				<PropertyList>
+																					<Property Name="DelayTime" Type="Real32" Value="100"/>
+																					<Property Name="DryLevel" Type="Real32" Value="0"/>
+																					<Property Name="Pitch" Type="Real32" Value="-300"/>
+																					<Property Name="SyncDry" Type="bool" Value="True"/>
+																				</PropertyList>
+																			</Effect>
+																		</Custom>
+																	</Reference>
+																</ReferenceList>
+															</EffectSlot>
+															<EffectSlot Name="" ID="{A55E274B-778C-4AE0-B3B9-7B71B5E19DDB}" ShortID="239898207">
+																<ReferenceList>
+																	<Reference Name="Effect">
+																		<Custom>
+																			<Effect Name="Guitar Distortion (Custom)" ID="{1FC38348-F6C3-4A2E-861E-EE18C0278B8E}" ShortID="645317789" PluginName="Wwise Guitar Distortion" CompanyID="0" PluginID="126" PluginType="3">
+																				<PropertyList>
+																					<Property Name="DistortionDrive" Type="Real32" Value="2"/>
+																					<Property Name="DistortionType" Type="int32" Value="1"/>
+																					<Property Name="OutputLevel" Type="Real32" Value="1"/>
+																					<Property Name="PreEQBand1Frequency" Type="Real32" Value="6831"/>
+																					<Property Name="PreEQBand2FilterType" Type="int32" Value="4"/>
+																					<Property Name="PreEQBand2Frequency" Type="Real32" Value="46"/>
+																				</PropertyList>
+																			</Effect>
+																		</Custom>
+																	</Reference>
+																</ReferenceList>
+															</EffectSlot>
+														</ObjectList>
+													</ObjectLists>
+													<ActiveSourceList>
+														<ActiveSource Name="SPFX_steamPunch_Bastian_01" ID="{AA0DEFCE-C2F6-4F00-A7D8-326475F10F25}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<SwitchContainer Name="Ignis" ID="{2A2C3EAB-FA06-4C0C-B171-970D61F1CC5C}" ShortID="739735828">
+													<PropertyList>
+														<Property Name="Lowpass" Type="int16">
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{DDA48D8A-241C-4365-A9E0-329BF240F8A9}"/>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
+														<Property Name="Volume" Type="Real64">
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{539405CD-EFBC-4250-A333-F917FF1E6864}"/>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
+													</PropertyList>
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="SFX_Bus" ID="{F5C91BBD-C9DE-46C1-B10A-F7A0405036D3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
+														</Reference>
+														<Reference Name="SwitchGroupOrStateGroup">
+															<ObjectRef Name="Bastian_Ignis_Charges" ID="{65F23326-92AB-4FA3-B6A4-C6985B4A54BC}" WorkUnitID="{FBD9D139-D7FA-4CB3-B23B-0BB9656E3693}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<Sound Name="Ignis_01" ID="{B8635CE7-27C9-46C5-8204-9BDF3B90D3A5}" ShortID="1041444870">
+															<PropertyList>
+																<Property Name="Lowpass" Type="int16">
+																	<ModifierList>
+																		<ModifierInfo>
+																			<Modifier Name="" ID="{75671519-FAE6-4BF9-9EDD-DA35DBA16386}">
+																				<PropertyList>
+																					<Property Name="Enabled" Type="bool" Value="True"/>
+																					<Property Name="Max" Type="Real64" Value="16"/>
+																					<Property Name="Min" Type="Real64" Value="-18"/>
+																				</PropertyList>
+																			</Modifier>
+																		</ModifierInfo>
+																	</ModifierList>
+																</Property>
+																<Property Name="OverrideEffect" Type="bool" Value="True"/>
+																<Property Name="Pitch" Type="int32">
+																	<ModifierList>
+																		<ModifierInfo>
+																			<Modifier Name="" ID="{314C0797-3A06-4BD9-904D-6DF86DD7EC49}">
+																				<PropertyList>
+																					<Property Name="Enabled" Type="bool" Value="True"/>
+																					<Property Name="Max" Type="Real64" Value="100"/>
+																					<Property Name="Min" Type="Real64" Value="-200"/>
+																				</PropertyList>
+																			</Modifier>
+																		</ModifierInfo>
+																	</ModifierList>
+																</Property>
+																<Property Name="Volume" Type="Real64">
+																	<ValueList>
+																		<Value>-3</Value>
+																	</ValueList>
+																	<ModifierList>
+																		<ModifierInfo>
+																			<Modifier Name="" ID="{0E9F013D-9299-44F7-97C0-5B4565994059}">
+																				<PropertyList>
+																					<Property Name="Enabled" Type="bool" Value="True"/>
+																					<Property Name="Max" Type="Real64" Value="1"/>
+																					<Property Name="Min" Type="Real64" Value="-1"/>
+																				</PropertyList>
+																			</Modifier>
+																		</ModifierInfo>
+																	</ModifierList>
+																</Property>
+															</PropertyList>
+															<ReferenceList>
+																<Reference Name="Conversion">
+																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
+																</Reference>
+																<Reference Name="OutputBus">
+																	<ObjectRef Name="Main Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
+																</Reference>
+															</ReferenceList>
+															<ChildrenList>
+																<AudioFileSource Name="SPFX_ignis_Bastian_01" ID="{693689BA-8524-4779-A478-F026CE18F741}">
+																	<Language>SFX</Language>
+																	<AudioFile>SPFX_ignis_Bastian_01.wav</AudioFile>
+																	<MediaIDList>
+																		<MediaID ID="366981663"/>
+																	</MediaIDList>
+																</AudioFileSource>
+															</ChildrenList>
+															<ObjectLists>
+																<ObjectList Name="Effects">
+																	<EffectSlot Name="" ID="{0B4E37BF-D6EF-4880-A618-8695CA661A74}" ShortID="1023567497">
+																		<ReferenceList>
+																			<Reference Name="Effect">
+																				<Custom>
+																					<Effect Name="Guitar Distortion (Custom)" ID="{ECBBA941-2A46-4EEE-84D8-777A07AD84C7}" ShortID="914736224" PluginName="Wwise Guitar Distortion" CompanyID="0" PluginID="126" PluginType="3">
+																						<PropertyList>
+																							<Property Name="DistortionDrive" Type="Real32" Value="5"/>
+																							<Property Name="DistortionType" Type="int32" Value="1"/>
+																							<Property Name="Rectification" Type="Real32" Value="28"/>
+																						</PropertyList>
+																					</Effect>
+																				</Custom>
+																			</Reference>
+																		</ReferenceList>
+																	</EffectSlot>
+																</ObjectList>
+															</ObjectLists>
+															<ActiveSourceList>
+																<ActiveSource Name="SPFX_ignis_Bastian_01" ID="{693689BA-8524-4779-A478-F026CE18F741}" Platform="Linked"/>
+															</ActiveSourceList>
+														</Sound>
+														<Sound Name="Ignis_02" ID="{51DB9FC2-3C33-483A-B8ED-872BCA7D5E60}" ShortID="250657950">
+															<PropertyList>
+																<Property Name="Lowpass" Type="int16">
+																	<ModifierList>
+																		<ModifierInfo>
+																			<Modifier Name="" ID="{D1A1B490-7BF0-4D66-8647-C1FF7B7E9D8A}">
+																				<PropertyList>
+																					<Property Name="Enabled" Type="bool" Value="True"/>
+																					<Property Name="Max" Type="Real64" Value="6"/>
+																					<Property Name="Min" Type="Real64" Value="-19"/>
+																				</PropertyList>
+																			</Modifier>
+																		</ModifierInfo>
+																	</ModifierList>
+																</Property>
+																<Property Name="OverrideEffect" Type="bool" Value="True"/>
+																<Property Name="Pitch" Type="int32">
+																	<ModifierList>
+																		<ModifierInfo>
+																			<Modifier Name="" ID="{C4B547A3-E563-46F8-9A96-4F3F3A447E78}">
+																				<PropertyList>
+																					<Property Name="Enabled" Type="bool" Value="True"/>
+																					<Property Name="Max" Type="Real64" Value="100"/>
+																					<Property Name="Min" Type="Real64" Value="-150"/>
+																				</PropertyList>
+																			</Modifier>
+																		</ModifierInfo>
+																	</ModifierList>
+																</Property>
+																<Property Name="Volume" Type="Real64">
+																	<ValueList>
+																		<Value>-3</Value>
+																	</ValueList>
+																	<ModifierList>
+																		<ModifierInfo>
+																			<Modifier Name="" ID="{881168ED-B9BD-43AE-A8B3-0AD9E0D72889}">
+																				<PropertyList>
+																					<Property Name="Enabled" Type="bool" Value="True"/>
+																					<Property Name="Max" Type="Real64" Value="2"/>
+																				</PropertyList>
+																			</Modifier>
+																		</ModifierInfo>
+																	</ModifierList>
+																</Property>
+															</PropertyList>
+															<ReferenceList>
+																<Reference Name="Conversion">
+																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
+																</Reference>
+																<Reference Name="OutputBus">
+																	<ObjectRef Name="Main Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
+																</Reference>
+															</ReferenceList>
+															<ChildrenList>
+																<AudioFileSource Name="SPFX_ignis_Bastian_02" ID="{2899C4BC-CAEE-4432-A181-466BC98BDE29}">
+																	<Language>SFX</Language>
+																	<AudioFile>SPFX_ignis_Bastian_02.wav</AudioFile>
+																	<MediaIDList>
+																		<MediaID ID="794964998"/>
+																	</MediaIDList>
+																</AudioFileSource>
+															</ChildrenList>
+															<ObjectLists>
+																<ObjectList Name="Effects">
+																	<EffectSlot Name="" ID="{C3DD15C9-2FE7-47A4-9768-B6575EEBB9CE}" ShortID="920760657">
+																		<ReferenceList>
+																			<Reference Name="Effect">
+																				<Custom>
+																					<Effect Name="Guitar Distortion (Custom)" ID="{28924741-8CEA-408F-A30C-8DB5A5185015}" ShortID="939787748" PluginName="Wwise Guitar Distortion" CompanyID="0" PluginID="126" PluginType="3">
+																						<PropertyList>
+																							<Property Name="DistortionDrive" Type="Real32" Value="3.3"/>
+																							<Property Name="DistortionType" Type="int32" Value="1"/>
+																							<Property Name="OutputLevel" Type="Real32" Value="0.5"/>
+																						</PropertyList>
+																					</Effect>
+																				</Custom>
+																			</Reference>
+																		</ReferenceList>
+																	</EffectSlot>
+																</ObjectList>
+															</ObjectLists>
+															<ActiveSourceList>
+																<ActiveSource Name="SPFX_ignis_Bastian_02" ID="{2899C4BC-CAEE-4432-A181-466BC98BDE29}" Platform="Linked"/>
+															</ActiveSourceList>
+														</Sound>
+														<Sound Name="Ignis_03" ID="{A7DB4CDA-3AD5-4DC3-B769-9CDCB61D4AF1}" ShortID="147562383">
+															<PropertyList>
+																<Property Name="Lowpass" Type="int16">
+																	<ModifierList>
+																		<ModifierInfo>
+																			<Modifier Name="" ID="{75F1FD70-D6A4-48FD-8446-D1098014B737}">
+																				<PropertyList>
+																					<Property Name="Enabled" Type="bool" Value="True"/>
+																					<Property Name="Max" Type="Real64" Value="13"/>
+																					<Property Name="Min" Type="Real64" Value="-18"/>
+																				</PropertyList>
+																			</Modifier>
+																		</ModifierInfo>
+																	</ModifierList>
+																</Property>
+																<Property Name="OverrideEffect" Type="bool" Value="True"/>
+																<Property Name="Pitch" Type="int32">
+																	<ModifierList>
+																		<ModifierInfo>
+																			<Modifier Name="" ID="{8F0A8077-294A-49D6-B5B4-4C8DD7674CDF}">
+																				<PropertyList>
+																					<Property Name="Enabled" Type="bool" Value="True"/>
+																					<Property Name="Max" Type="Real64" Value="100"/>
+																					<Property Name="Min" Type="Real64" Value="-150"/>
+																				</PropertyList>
+																			</Modifier>
+																		</ModifierInfo>
+																	</ModifierList>
+																</Property>
+															</PropertyList>
+															<ReferenceList>
+																<Reference Name="Conversion">
+																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
+																</Reference>
+																<Reference Name="OutputBus">
+																	<ObjectRef Name="Main Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
+																</Reference>
+															</ReferenceList>
+															<ChildrenList>
+																<AudioFileSource Name="SPFX_ignis_Bastian_03" ID="{A126D064-DB54-40F5-A77A-BC58332C53DB}">
+																	<Language>SFX</Language>
+																	<AudioFile>SPFX_ignis_Bastian_03.wav</AudioFile>
+																	<MediaIDList>
+																		<MediaID ID="101948241"/>
+																	</MediaIDList>
+																</AudioFileSource>
+															</ChildrenList>
+															<ObjectLists>
+																<ObjectList Name="Effects">
+																	<EffectSlot Name="" ID="{2BDBBF2A-71CF-4A3D-8D11-B5F2C8BEE5CD}" ShortID="614662878">
+																		<ReferenceList>
+																			<Reference Name="Effect">
+																				<Custom>
+																					<Effect Name="Guitar Distortion (Custom)" ID="{5FFFEA13-E3C7-4A09-A6B4-73275EC9A029}" ShortID="418946225" PluginName="Wwise Guitar Distortion" CompanyID="0" PluginID="126" PluginType="3">
+																						<PropertyList>
+																							<Property Name="DistortionDrive" Type="Real32" Value="5"/>
+																							<Property Name="DistortionType" Type="int32" Value="1"/>
+																						</PropertyList>
+																					</Effect>
+																				</Custom>
+																			</Reference>
+																		</ReferenceList>
+																	</EffectSlot>
+																</ObjectList>
+															</ObjectLists>
+															<ActiveSourceList>
+																<ActiveSource Name="SPFX_ignis_Bastian_03" ID="{A126D064-DB54-40F5-A77A-BC58332C53DB}" Platform="Linked"/>
+															</ActiveSourceList>
+														</Sound>
+													</ChildrenList>
+													<GroupingInfo>
+														<GroupingBehaviorList>
+															<GroupingBehavior>
+																<ItemRef Name="Ignis_02" ID="{51DB9FC2-3C33-483A-B8ED-872BCA7D5E60}"/>
+															</GroupingBehavior>
+															<GroupingBehavior>
+																<ItemRef Name="Ignis_03" ID="{A7DB4CDA-3AD5-4DC3-B769-9CDCB61D4AF1}"/>
+															</GroupingBehavior>
+															<GroupingBehavior>
+																<ItemRef Name="Ignis_01" ID="{B8635CE7-27C9-46C5-8204-9BDF3B90D3A5}"/>
+															</GroupingBehavior>
+														</GroupingBehaviorList>
+														<GroupingList>
+															<Grouping>
+																<SwitchRef Name="Charge_01" ID="{28AB9780-F283-4E3C-9407-1C03DA1B2A3A}"/>
+																<ItemList>
+																	<ItemRef Name="Ignis_01" ID="{B8635CE7-27C9-46C5-8204-9BDF3B90D3A5}"/>
+																</ItemList>
+															</Grouping>
+															<Grouping>
+																<SwitchRef Name="Charge_02" ID="{F200B0B7-9C73-4E9C-B720-0D3F9806EF80}"/>
+																<ItemList>
+																	<ItemRef Name="Ignis_02" ID="{51DB9FC2-3C33-483A-B8ED-872BCA7D5E60}"/>
+																</ItemList>
+															</Grouping>
+															<Grouping>
+																<SwitchRef Name="Charge_03" ID="{F76545CA-ED7A-4771-889C-C89C538A249F}"/>
+																<ItemList>
+																	<ItemRef Name="Ignis_03" ID="{A7DB4CDA-3AD5-4DC3-B769-9CDCB61D4AF1}"/>
+																</ItemList>
+															</Grouping>
+														</GroupingList>
+													</GroupingInfo>
+												</SwitchContainer>
+											</ChildrenList>
+										</Folder>
+										<Folder Name="Supremes" ID="{32DCDF50-E048-4BC3-83DA-B21E6BD875B1}" ShortID="462888058">
+											<ChildrenList>
+												<Sound Name="Last Whisper" ID="{A2F9C410-F7A3-4983-AD45-B0351808BDC3}" ShortID="1035556381">
+													<PropertyList>
+														<Property Name="Lowpass" Type="int16">
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{0CB19335-8FEC-4015-8E09-37ADC24EE7AA}">
+																		<PropertyList>
+																			<Property Name="Enabled" Type="bool" Value="True"/>
+																			<Property Name="Max" Type="Real64" Value="12"/>
+																			<Property Name="Min" Type="Real64" Value="-21"/>
+																		</PropertyList>
+																	</Modifier>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
+														<Property Name="Pitch" Type="int32">
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{977BC084-477D-4F9D-9A85-3BDE2A49FF13}">
+																		<PropertyList>
+																			<Property Name="Enabled" Type="bool" Value="True"/>
+																			<Property Name="Max" Type="Real64" Value="50"/>
+																			<Property Name="Min" Type="Real64" Value="-100"/>
+																		</PropertyList>
+																	</Modifier>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
+														<Property Name="Volume" Type="Real64">
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{93321403-3626-45BE-8EA9-D9092B58524A}">
+																		<PropertyList>
+																			<Property Name="Enabled" Type="bool" Value="True"/>
+																			<Property Name="Max" Type="Real64" Value="2"/>
+																			<Property Name="Min" Type="Real64" Value="-1"/>
+																		</PropertyList>
+																	</Modifier>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
+													</PropertyList>
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="SFX_Bus" ID="{F5C91BBD-C9DE-46C1-B10A-F7A0405036D3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="SPFX_lastWhisper_Bastian_01" ID="{F7D36753-2209-46FC-946F-1DDE12212BED}">
+															<Language>SFX</Language>
+															<AudioFile>SPFX_lastWhisper_Bastian_01.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="922529155"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ObjectLists>
+														<ObjectList Name="Effects">
+															<EffectSlot Name="" ID="{D951B5F6-BFDD-46C6-B1D9-F3D1C11A03C3}" ShortID="762246112">
+																<ReferenceList>
+																	<Reference Name="Effect">
+																		<Custom CreatedFrom="{830124FB-B9D5-4AE8-846E-E94A74652666}">
+																			<Effect Name="Low_Pass_20KHz (Custom)" ID="{E4F803B9-65C8-474C-92BB-86A6C3A6BFED}" ShortID="108241156" PluginName="Wwise Parametric EQ" CompanyID="0" PluginID="105" PluginType="3">
+																				<PropertyList>
+																					<Property Name="FilterTypeBand1" Type="int32" Value="7"/>
+																					<Property Name="FilterTypeBand2" Type="int32" Value="8"/>
+																					<Property Name="FilterTypeBand3" Type="int32" Value="0"/>
+																					<Property Name="FrequencyBand1" Type="Real32" Value="20000"/>
+																					<Property Name="FrequencyBand2" Type="Real32" Value="74.26137"/>
+																					<Property Name="FrequencyBand3" Type="Real32" Value="20000"/>
+																					<Property Name="OnOffBand1" Type="bool" Value="False"/>
+																					<Property Name="OutputLevel" Type="Real32" Value="3"/>
+																					<Property Name="QFactorBand1" Type="Real32" Value="0.7905468"/>
+																					<Property Name="QFactorBand2" Type="Real32" Value="0.5706366"/>
+																					<Property Name="RolloffRateBand2" Type="int32" Value="36"/>
+																				</PropertyList>
+																			</Effect>
+																		</Custom>
+																	</Reference>
+																</ReferenceList>
+															</EffectSlot>
+															<EffectSlot Name="" ID="{2EE7D922-3A39-47A3-8748-9B722FA451AC}" ShortID="126377893">
+																<ReferenceList>
+																	<Reference Name="Effect">
+																		<Custom>
+																			<Effect Name="Guitar Distortion (Custom)" ID="{58026CFD-B883-45F0-A202-43B7A4EFB470}" ShortID="74340807" PluginName="Wwise Guitar Distortion" CompanyID="0" PluginID="126" PluginType="3">
+																				<PropertyList>
+																					<Property Name="DistortionDrive" Type="Real32" Value="3"/>
+																					<Property Name="DistortionTone" Type="Real32" Value="16"/>
+																					<Property Name="DistortionType" Type="int32" Value="1"/>
+																					<Property Name="PreEQBand1Frequency" Type="Real32" Value="6831"/>
+																					<Property Name="PreEQBand2FilterType" Type="int32" Value="4"/>
+																					<Property Name="PreEQBand2Frequency" Type="Real32" Value="46"/>
+																				</PropertyList>
+																			</Effect>
+																		</Custom>
+																	</Reference>
+																</ReferenceList>
+															</EffectSlot>
+														</ObjectList>
+													</ObjectLists>
+													<ActiveSourceList>
+														<ActiveSource Name="SPFX_lastWhisper_Bastian_01" ID="{F7D36753-2209-46FC-946F-1DDE12212BED}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="Flame Echoes" ID="{5DBA0E79-4E29-40AD-98D2-F4DA42D8F9D9}" ShortID="536598757">
+													<PropertyList>
+														<Property Name="Lowpass" Type="int16">
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{C57B83FC-CEEC-43C2-AE72-5F71E68C3848}">
+																		<PropertyList>
+																			<Property Name="Enabled" Type="bool" Value="True"/>
+																			<Property Name="Max" Type="Real64" Value="14"/>
+																			<Property Name="Min" Type="Real64" Value="-22"/>
+																		</PropertyList>
+																	</Modifier>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
+														<Property Name="Pitch" Type="int32">
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{8F1BD16D-F742-4410-824A-73DBFC42044F}">
+																		<PropertyList>
+																			<Property Name="Enabled" Type="bool" Value="True"/>
+																			<Property Name="Max" Type="Real64" Value="100"/>
+																			<Property Name="Min" Type="Real64" Value="-100"/>
+																		</PropertyList>
+																	</Modifier>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
+														<Property Name="Volume" Type="Real64">
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{F7ED03E8-2976-4B19-AD1D-52883391BB62}">
+																		<PropertyList>
+																			<Property Name="Enabled" Type="bool" Value="True"/>
+																			<Property Name="Max" Type="Real64" Value="1"/>
+																			<Property Name="Min" Type="Real64" Value="-1"/>
+																		</PropertyList>
+																	</Modifier>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
+													</PropertyList>
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="SFX_Bus" ID="{F5C91BBD-C9DE-46C1-B10A-F7A0405036D3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="SPFX_echoesOfFlame_Bastian_01" ID="{9337759A-86F1-4BE0-92D4-D26FE87B9590}">
+															<Language>SFX</Language>
+															<AudioFile>SPFX_echoesOfFlame_Bastian_01.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="678110189"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ObjectLists>
+														<ObjectList Name="Effects">
+															<EffectSlot Name="" ID="{A2246969-2A62-4CBA-956F-1E7B7AFD3397}" ShortID="1063484480">
+																<ReferenceList>
+																	<Reference Name="Effect">
+																		<Custom CreatedFrom="{830124FB-B9D5-4AE8-846E-E94A74652666}">
+																			<Effect Name="Low_Pass_20KHz (Custom)" ID="{9499AAA7-8F5A-4842-88AA-29BCE9A53765}" ShortID="856938066" PluginName="Wwise Parametric EQ" CompanyID="0" PluginID="105" PluginType="3">
+																				<PropertyList>
+																					<Property Name="FilterTypeBand1" Type="int32" Value="7"/>
+																					<Property Name="FilterTypeBand2" Type="int32" Value="8"/>
+																					<Property Name="FilterTypeBand3" Type="int32" Value="0"/>
+																					<Property Name="FrequencyBand1" Type="Real32" Value="15375.99"/>
+																					<Property Name="FrequencyBand2" Type="Real32" Value="20"/>
+																					<Property Name="FrequencyBand3" Type="Real32" Value="20000"/>
+																					<Property Name="OutputLevel" Type="Real32" Value="3"/>
+																					<Property Name="QFactorBand1" Type="Real32" Value="0.7432276"/>
+																					<Property Name="QFactorBand2" Type="Real32" Value="0.6278945"/>
+																					<Property Name="RolloffRateBand2" Type="int32" Value="36"/>
+																				</PropertyList>
+																			</Effect>
+																		</Custom>
+																	</Reference>
+																</ReferenceList>
+															</EffectSlot>
+															<EffectSlot Name="" ID="{163BA265-D4C0-4C8A-83B1-76466DE7AAAB}" ShortID="1031187767">
+																<ReferenceList>
+																	<Reference Name="Effect">
+																		<Custom>
+																			<Effect Name="Guitar Distortion (Custom)" ID="{7E979D42-9DAB-46BC-B6B8-ACF91C2C9BA2}" ShortID="1067583891" PluginName="Wwise Guitar Distortion" CompanyID="0" PluginID="126" PluginType="3">
+																				<PropertyList>
+																					<Property Name="DistortionDrive" Type="Real32" Value="3.5"/>
+																					<Property Name="DistortionType" Type="int32" Value="1"/>
+																					<Property Name="PreEQBand1Enable" Type="bool" Value="True"/>
+																					<Property Name="PreEQBand1Frequency" Type="Real32" Value="6831"/>
+																					<Property Name="PreEQBand2Enable" Type="bool" Value="True"/>
+																					<Property Name="PreEQBand2FilterType" Type="int32" Value="4"/>
+																					<Property Name="PreEQBand2Frequency" Type="Real32" Value="46"/>
+																				</PropertyList>
+																			</Effect>
+																		</Custom>
+																	</Reference>
+																</ReferenceList>
+															</EffectSlot>
+														</ObjectList>
+													</ObjectLists>
+													<ActiveSourceList>
+														<ActiveSource Name="SPFX_echoesOfFlame_Bastian_01" ID="{9337759A-86F1-4BE0-92D4-D26FE87B9590}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+											</ChildrenList>
+										</Folder>
+										<SwitchContainer Name="Heat Zone Change" ID="{5AFAD9DD-FCE8-460C-8311-A3459E6BE632}" ShortID="219156768">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Main Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
+												</Reference>
+												<Reference Name="SwitchGroupOrStateGroup">
+													<ObjectRef Name="Bastian_Heat_Zones" ID="{3FE2A4A3-76B7-4122-B209-15AB13F4603D}" WorkUnitID="{FBD9D139-D7FA-4CB3-B23B-0BB9656E3693}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<Sound Name="Heat" ID="{D6428E13-58C2-486E-A020-8A1CCB7A32C0}" ShortID="1002987076">
+													<PropertyList>
+														<Property Name="OverrideEffect" Type="bool" Value="True"/>
+													</PropertyList>
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Main Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="SFX_heatZone_change_01" ID="{A83183AE-82DD-4259-8858-C7D1CD9C2A56}">
+															<Language>SFX</Language>
+															<AudioFile>SFX_heatZone_change_01.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="66103672"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ObjectLists>
+														<ObjectList Name="Effects">
+															<EffectSlot Name="" ID="{80B0A061-42C8-4401-ACB2-7386868A5BF2}" ShortID="337941122">
+																<ReferenceList>
+																	<Reference Name="Effect">
+																		<Custom CreatedFrom="{830124FB-B9D5-4AE8-846E-E94A74652666}">
+																			<Effect Name="Low_Pass_20KHz (Custom)" ID="{2D14A93D-55C0-4C7B-8BA4-C468313A8F9D}" ShortID="9434040" PluginName="Wwise Parametric EQ" CompanyID="0" PluginID="105" PluginType="3">
+																				<PropertyList>
+																					<Property Name="FilterTypeBand1" Type="int32" Value="7"/>
+																					<Property Name="FilterTypeBand2" Type="int32" Value="8"/>
+																					<Property Name="FilterTypeBand3" Type="int32" Value="0"/>
+																					<Property Name="FrequencyBand1" Type="Real32" Value="15375.99"/>
+																					<Property Name="FrequencyBand2" Type="Real32" Value="74.26137"/>
+																					<Property Name="FrequencyBand3" Type="Real32" Value="20000"/>
+																					<Property Name="OnOffBand1" Type="bool" Value="False"/>
+																					<Property Name="OutputLevel" Type="Real32" Value="3"/>
+																					<Property Name="QFactorBand1" Type="Real32" Value="0.7432276"/>
+																					<Property Name="QFactorBand2" Type="Real32" Value="0.5706366"/>
+																					<Property Name="RolloffRateBand2" Type="int32" Value="36"/>
+																				</PropertyList>
+																			</Effect>
+																		</Custom>
+																	</Reference>
+																</ReferenceList>
+															</EffectSlot>
+															<EffectSlot Name="" ID="{B4BB366F-2C6F-4D60-B4DA-C059141FF25B}" ShortID="395385969">
+																<ReferenceList>
+																	<Reference Name="Effect">
+																		<Custom>
+																			<Effect Name="Guitar Distortion (Custom)" ID="{87C9087A-2856-4857-B0A3-55C47BF771EC}" ShortID="708124325" PluginName="Wwise Guitar Distortion" CompanyID="0" PluginID="126" PluginType="3">
+																				<PropertyList>
+																					<Property Name="DistortionDrive" Type="Real32" Value="0.5"/>
+																					<Property Name="DistortionType" Type="int32" Value="1"/>
+																					<Property Name="OutputLevel" Type="Real32" Value="2"/>
+																					<Property Name="PreEQBand1Enable" Type="bool" Value="True"/>
+																					<Property Name="PreEQBand1Frequency" Type="Real32" Value="6831"/>
+																					<Property Name="PreEQBand2Enable" Type="bool" Value="True"/>
+																					<Property Name="PreEQBand2FilterType" Type="int32" Value="4"/>
+																					<Property Name="PreEQBand2Frequency" Type="Real32" Value="46"/>
+																				</PropertyList>
+																			</Effect>
+																		</Custom>
+																	</Reference>
+																</ReferenceList>
+															</EffectSlot>
+														</ObjectList>
+													</ObjectLists>
+													<ActiveSourceList>
+														<ActiveSource Name="SFX_heatZone_change_01" ID="{A83183AE-82DD-4259-8858-C7D1CD9C2A56}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="Super Heat" ID="{09DE3311-207F-4B49-ACFC-631EFD3446D7}" ShortID="733740142">
+													<PropertyList>
+														<Property Name="OverrideEffect" Type="bool" Value="True"/>
+														<Property Name="Pitch" Type="int32">
+															<ValueList>
+																<Value>170</Value>
+															</ValueList>
+														</Property>
+													</PropertyList>
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Main Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="SFX_heatZone_change_01" ID="{48FD5F5B-FF3B-4055-8DA3-1DF1A9CC855D}">
+															<Language>SFX</Language>
+															<AudioFile>SFX_heatZone_change_01.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="66103672"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ObjectLists>
+														<ObjectList Name="Effects">
+															<EffectSlot Name="" ID="{68C63AD3-E34B-4EBE-A7E9-2FBA6FD263A3}" ShortID="612376363">
+																<ReferenceList>
+																	<Reference Name="Effect">
+																		<Custom CreatedFrom="{830124FB-B9D5-4AE8-846E-E94A74652666}">
+																			<Effect Name="Low_Pass_20KHz (Custom)" ID="{0966B7BD-3266-4943-AB8C-442C7AE5F3B9}" ShortID="821736253" PluginName="Wwise Parametric EQ" CompanyID="0" PluginID="105" PluginType="3">
+																				<PropertyList>
+																					<Property Name="FilterTypeBand1" Type="int32" Value="7"/>
+																					<Property Name="FilterTypeBand2" Type="int32" Value="8"/>
+																					<Property Name="FilterTypeBand3" Type="int32" Value="0"/>
+																					<Property Name="FrequencyBand1" Type="Real32" Value="15375.99"/>
+																					<Property Name="FrequencyBand2" Type="Real32" Value="74.26137"/>
+																					<Property Name="FrequencyBand3" Type="Real32" Value="20000"/>
+																					<Property Name="OnOffBand1" Type="bool" Value="False"/>
+																					<Property Name="OutputLevel" Type="Real32" Value="3"/>
+																					<Property Name="QFactorBand1" Type="Real32" Value="0.7432276"/>
+																					<Property Name="QFactorBand2" Type="Real32" Value="0.5706366"/>
+																					<Property Name="RolloffRateBand2" Type="int32" Value="36"/>
+																				</PropertyList>
+																			</Effect>
+																		</Custom>
+																	</Reference>
+																</ReferenceList>
+															</EffectSlot>
+															<EffectSlot Name="" ID="{47D62FAF-9D9C-4A87-83D5-5C7474B34EAD}" ShortID="830962820">
+																<ReferenceList>
+																	<Reference Name="Effect">
+																		<Custom>
+																			<Effect Name="Guitar Distortion (Custom)" ID="{D5845712-1521-4036-AEFA-6F8BE90D2FD1}" ShortID="365258429" PluginName="Wwise Guitar Distortion" CompanyID="0" PluginID="126" PluginType="3">
+																				<PropertyList>
+																					<Property Name="DistortionDrive" Type="Real32" Value="0.5"/>
+																					<Property Name="DistortionType" Type="int32" Value="1"/>
+																					<Property Name="OutputLevel" Type="Real32" Value="2"/>
+																					<Property Name="PreEQBand1Enable" Type="bool" Value="True"/>
+																					<Property Name="PreEQBand1Frequency" Type="Real32" Value="6831"/>
+																					<Property Name="PreEQBand2Enable" Type="bool" Value="True"/>
+																					<Property Name="PreEQBand2FilterType" Type="int32" Value="4"/>
+																					<Property Name="PreEQBand2Frequency" Type="Real32" Value="46"/>
+																				</PropertyList>
+																			</Effect>
+																		</Custom>
+																	</Reference>
+																</ReferenceList>
+															</EffectSlot>
+														</ObjectList>
+													</ObjectLists>
+													<ActiveSourceList>
+														<ActiveSource Name="SFX_heatZone_change_01" ID="{48FD5F5B-FF3B-4055-8DA3-1DF1A9CC855D}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="Over Heat" ID="{1F445BCE-240C-4010-B897-1C635C9DFE66}" ShortID="976221863">
+													<PropertyList>
+														<Property Name="OverrideEffect" Type="bool" Value="True"/>
+														<Property Name="Pitch" Type="int32">
+															<ValueList>
+																<Value>275</Value>
+															</ValueList>
+														</Property>
+													</PropertyList>
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Main Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="SFX_heatZone_change_01" ID="{5AF48EDB-104C-4E70-A1E3-89279310396B}">
+															<Language>SFX</Language>
+															<AudioFile>SFX_heatZone_change_01.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="66103672"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ObjectLists>
+														<ObjectList Name="Effects">
+															<EffectSlot Name="" ID="{FF22C4F6-A3CB-4BE4-8839-03348659E6B4}" ShortID="1045752971">
+																<ReferenceList>
+																	<Reference Name="Effect">
+																		<Custom CreatedFrom="{830124FB-B9D5-4AE8-846E-E94A74652666}">
+																			<Effect Name="Low_Pass_20KHz (Custom)" ID="{CC203D5A-4C20-4E43-B8AF-D90386714025}" ShortID="529996869" PluginName="Wwise Parametric EQ" CompanyID="0" PluginID="105" PluginType="3">
+																				<PropertyList>
+																					<Property Name="FilterTypeBand1" Type="int32" Value="7"/>
+																					<Property Name="FilterTypeBand2" Type="int32" Value="8"/>
+																					<Property Name="FilterTypeBand3" Type="int32" Value="0"/>
+																					<Property Name="FrequencyBand1" Type="Real32" Value="15375.99"/>
+																					<Property Name="FrequencyBand2" Type="Real32" Value="74.26137"/>
+																					<Property Name="FrequencyBand3" Type="Real32" Value="20000"/>
+																					<Property Name="OnOffBand1" Type="bool" Value="False"/>
+																					<Property Name="OutputLevel" Type="Real32" Value="3"/>
+																					<Property Name="QFactorBand1" Type="Real32" Value="0.7432276"/>
+																					<Property Name="QFactorBand2" Type="Real32" Value="0.5706366"/>
+																					<Property Name="RolloffRateBand2" Type="int32" Value="36"/>
+																				</PropertyList>
+																			</Effect>
+																		</Custom>
+																	</Reference>
+																</ReferenceList>
+															</EffectSlot>
+															<EffectSlot Name="" ID="{6629D25B-591E-48FF-ADEC-1D6D5B9D3128}" ShortID="562882209">
+																<ReferenceList>
+																	<Reference Name="Effect">
+																		<Custom>
+																			<Effect Name="Guitar Distortion (Custom)" ID="{E7F35C71-6117-45CC-997A-CBAAFD8804A9}" ShortID="101872829" PluginName="Wwise Guitar Distortion" CompanyID="0" PluginID="126" PluginType="3">
+																				<PropertyList>
+																					<Property Name="DistortionDrive" Type="Real32" Value="0.5"/>
+																					<Property Name="DistortionType" Type="int32" Value="1"/>
+																					<Property Name="OutputLevel" Type="Real32" Value="2"/>
+																					<Property Name="PreEQBand1Enable" Type="bool" Value="True"/>
+																					<Property Name="PreEQBand1Frequency" Type="Real32" Value="6831"/>
+																					<Property Name="PreEQBand2Enable" Type="bool" Value="True"/>
+																					<Property Name="PreEQBand2FilterType" Type="int32" Value="4"/>
+																					<Property Name="PreEQBand2Frequency" Type="Real32" Value="46"/>
+																				</PropertyList>
+																			</Effect>
+																		</Custom>
+																	</Reference>
+																</ReferenceList>
+															</EffectSlot>
+														</ObjectList>
+													</ObjectLists>
+													<ActiveSourceList>
+														<ActiveSource Name="SFX_heatZone_change_01" ID="{5AF48EDB-104C-4E70-A1E3-89279310396B}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="Extreme Heat" ID="{1D426356-CB04-459D-BC92-F305874ABE7E}" ShortID="260378682">
+													<PropertyList>
+														<Property Name="OverrideEffect" Type="bool" Value="True"/>
+														<Property Name="Pitch" Type="int32">
+															<ValueList>
+																<Value>360</Value>
+															</ValueList>
+														</Property>
+													</PropertyList>
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Main Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="SFX_heatZone_change_01" ID="{16B5D785-15E8-42B6-A629-49406B6CED88}">
+															<Language>SFX</Language>
+															<AudioFile>SFX_heatZone_change_01.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="66103672"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ObjectLists>
+														<ObjectList Name="Effects">
+															<EffectSlot Name="" ID="{39A529A3-048C-4566-90DA-64AB894C7F20}" ShortID="969967057">
+																<ReferenceList>
+																	<Reference Name="Effect">
+																		<Custom CreatedFrom="{830124FB-B9D5-4AE8-846E-E94A74652666}">
+																			<Effect Name="Low_Pass_20KHz (Custom)" ID="{5A931997-0D85-4B9A-99D2-F2A67B6FBC40}" ShortID="856902326" PluginName="Wwise Parametric EQ" CompanyID="0" PluginID="105" PluginType="3">
+																				<PropertyList>
+																					<Property Name="FilterTypeBand1" Type="int32" Value="7"/>
+																					<Property Name="FilterTypeBand2" Type="int32" Value="8"/>
+																					<Property Name="FilterTypeBand3" Type="int32" Value="0"/>
+																					<Property Name="FrequencyBand1" Type="Real32" Value="15375.99"/>
+																					<Property Name="FrequencyBand2" Type="Real32" Value="74.26137"/>
+																					<Property Name="FrequencyBand3" Type="Real32" Value="20000"/>
+																					<Property Name="OnOffBand1" Type="bool" Value="False"/>
+																					<Property Name="OutputLevel" Type="Real32" Value="3"/>
+																					<Property Name="QFactorBand1" Type="Real32" Value="0.7432276"/>
+																					<Property Name="QFactorBand2" Type="Real32" Value="0.5706366"/>
+																					<Property Name="RolloffRateBand2" Type="int32" Value="36"/>
+																				</PropertyList>
+																			</Effect>
+																		</Custom>
+																	</Reference>
+																</ReferenceList>
+															</EffectSlot>
+															<EffectSlot Name="" ID="{29D0BAC7-B2F4-4B1B-9E93-8DE51D9DD188}" ShortID="1072091616">
+																<ReferenceList>
+																	<Reference Name="Effect">
+																		<Custom>
+																			<Effect Name="Guitar Distortion (Custom)" ID="{BF65B53F-A4D7-4E0A-8F8C-67CC6CE7F05C}" ShortID="1043694910" PluginName="Wwise Guitar Distortion" CompanyID="0" PluginID="126" PluginType="3">
+																				<PropertyList>
+																					<Property Name="DistortionDrive" Type="Real32" Value="0.5"/>
+																					<Property Name="DistortionType" Type="int32" Value="1"/>
+																					<Property Name="OutputLevel" Type="Real32" Value="2"/>
+																					<Property Name="PreEQBand1Enable" Type="bool" Value="True"/>
+																					<Property Name="PreEQBand1Frequency" Type="Real32" Value="6831"/>
+																					<Property Name="PreEQBand2Enable" Type="bool" Value="True"/>
+																					<Property Name="PreEQBand2FilterType" Type="int32" Value="4"/>
+																					<Property Name="PreEQBand2Frequency" Type="Real32" Value="46"/>
+																				</PropertyList>
+																			</Effect>
+																		</Custom>
+																	</Reference>
+																</ReferenceList>
+															</EffectSlot>
+														</ObjectList>
+													</ObjectLists>
+													<ActiveSourceList>
+														<ActiveSource Name="SFX_heatZone_change_01" ID="{16B5D785-15E8-42B6-A629-49406B6CED88}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="Cool" ID="{4F239E54-E29D-4CD9-8B74-4406B9A27E89}" ShortID="626638756">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Main Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<SourcePlugin Name="Silence" ID="{10FA2165-A459-44B3-8DD7-B56C115FBAF4}" ShortID="19840067" PluginName="Wwise Silence" CompanyID="0" PluginID="101">
+															<PropertyList>
+																<Property Name="Length" Type="Real32" Value="0.001"/>
+															</PropertyList>
+															<Language>SFX</Language>
+														</SourcePlugin>
+													</ChildrenList>
+													<ActiveSourceList>
+														<ActiveSource Name="Silence" ID="{10FA2165-A459-44B3-8DD7-B56C115FBAF4}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+											</ChildrenList>
+											<GroupingInfo>
+												<GroupingBehaviorList>
+													<GroupingBehavior>
+														<ItemRef Name="Super Heat" ID="{09DE3311-207F-4B49-ACFC-631EFD3446D7}"/>
+													</GroupingBehavior>
+													<GroupingBehavior>
+														<ItemRef Name="Heat" ID="{D6428E13-58C2-486E-A020-8A1CCB7A32C0}"/>
+													</GroupingBehavior>
+													<GroupingBehavior>
+														<ItemRef Name="Cool" ID="{4F239E54-E29D-4CD9-8B74-4406B9A27E89}"/>
+													</GroupingBehavior>
+													<GroupingBehavior>
+														<ItemRef Name="Extreme Heat" ID="{1D426356-CB04-459D-BC92-F305874ABE7E}"/>
+													</GroupingBehavior>
+													<GroupingBehavior>
+														<ItemRef Name="Over Heat" ID="{1F445BCE-240C-4010-B897-1C635C9DFE66}"/>
+													</GroupingBehavior>
+												</GroupingBehaviorList>
+												<GroupingList>
+													<Grouping>
+														<SwitchRef Name="Cool" ID="{94D5DA06-74D1-46F4-BC4C-A4B3A1145714}"/>
+														<ItemList>
+															<ItemRef Name="Cool" ID="{4F239E54-E29D-4CD9-8B74-4406B9A27E89}"/>
+														</ItemList>
+													</Grouping>
+													<Grouping>
+														<SwitchRef Name="Extreme_Heat" ID="{FACADA76-31D1-4A0B-A4C7-3BB5CC234C74}"/>
+														<ItemList>
+															<ItemRef Name="Extreme Heat" ID="{1D426356-CB04-459D-BC92-F305874ABE7E}"/>
+														</ItemList>
+													</Grouping>
+													<Grouping>
+														<SwitchRef Name="Heat" ID="{7F79E085-6CC6-4244-BAAB-B280520E2A8F}"/>
+														<ItemList>
+															<ItemRef Name="Heat" ID="{D6428E13-58C2-486E-A020-8A1CCB7A32C0}"/>
+														</ItemList>
+													</Grouping>
+													<Grouping>
+														<SwitchRef Name="Over_Heat" ID="{959961BE-1F31-40A0-B412-8EDAA15D3279}"/>
+														<ItemList>
+															<ItemRef Name="Over Heat" ID="{1F445BCE-240C-4010-B897-1C635C9DFE66}"/>
+														</ItemList>
+													</Grouping>
+													<Grouping>
+														<SwitchRef Name="Super_Heat" ID="{FC93EFC9-866B-478D-8781-55567C5D04A2}"/>
+														<ItemList>
+															<ItemRef Name="Super Heat" ID="{09DE3311-207F-4B49-ACFC-631EFD3446D7}"/>
+														</ItemList>
+													</Grouping>
+												</GroupingList>
+											</GroupingInfo>
+										</SwitchContainer>
 									</ChildrenList>
 								</Folder>
 								<Folder Name="Cyrus" ID="{B99FD61D-ACAD-419E-89D0-8C81E7FD272B}" ShortID="530346211">
@@ -794,6 +3140,19 @@
 										<Sound Name="Rank Up" ID="{9EE677D4-082D-4C19-ABE9-553295090B02}" ShortID="328780096">
 											<PropertyList>
 												<Property Name="Color" Type="int16" Value="4"/>
+												<Property Name="Lowpass" Type="int16">
+													<ModifierList>
+														<ModifierInfo>
+															<Modifier Name="" ID="{6F1BC938-2C32-4764-BC18-080C9B94B83E}">
+																<PropertyList>
+																	<Property Name="Enabled" Type="bool" Value="True"/>
+																	<Property Name="Max" Type="Real64" Value="10"/>
+																	<Property Name="Min" Type="Real64" Value="-16"/>
+																</PropertyList>
+															</Modifier>
+														</ModifierInfo>
+													</ModifierList>
+												</Property>
 												<Property Name="Pitch" Type="int32">
 													<ModifierList>
 														<ModifierInfo>
@@ -813,7 +3172,8 @@
 															<Modifier Name="" ID="{68AA4BB9-3A87-46DA-8F43-1B4394ABAF80}">
 																<PropertyList>
 																	<Property Name="Enabled" Type="bool" Value="True"/>
-																	<Property Name="Min" Type="Real64" Value="-3"/>
+																	<Property Name="Max" Type="Real64" Value="2"/>
+																	<Property Name="Min" Type="Real64" Value="-1"/>
 																</PropertyList>
 															</Modifier>
 														</ModifierInfo>
@@ -847,6 +3207,7 @@
 																		<PropertyList>
 																			<Property Name="DistortionDrive" Type="Real32" Value="2"/>
 																			<Property Name="DistortionType" Type="int32" Value="1"/>
+																			<Property Name="OutputLevel" Type="Real32" Value="2"/>
 																		</PropertyList>
 																	</Effect>
 																</Custom>
@@ -862,6 +3223,19 @@
 										<Sound Name="Dash" ID="{BC02ACCA-A86A-4DCF-907F-8381296A77A3}" ShortID="867044427">
 											<PropertyList>
 												<Property Name="Color" Type="int16" Value="4"/>
+												<Property Name="Lowpass" Type="int16">
+													<ModifierList>
+														<ModifierInfo>
+															<Modifier Name="" ID="{B62E3887-7F01-4B7B-AB3D-45EEC29B6628}">
+																<PropertyList>
+																	<Property Name="Enabled" Type="bool" Value="True"/>
+																	<Property Name="Max" Type="Real64" Value="10"/>
+																	<Property Name="Min" Type="Real64" Value="-21"/>
+																</PropertyList>
+															</Modifier>
+														</ModifierInfo>
+													</ModifierList>
+												</Property>
 												<Property Name="Pitch" Type="int32">
 													<ModifierList>
 														<ModifierInfo>
@@ -881,8 +3255,8 @@
 															<Modifier Name="" ID="{CB9E2639-45D8-4847-96F2-D48177A49512}">
 																<PropertyList>
 																	<Property Name="Enabled" Type="bool" Value="True"/>
-																	<Property Name="Max" Type="Real64" Value="1"/>
-																	<Property Name="Min" Type="Real64" Value="-3"/>
+																	<Property Name="Max" Type="Real64" Value="2"/>
+																	<Property Name="Min" Type="Real64" Value="-2"/>
 																</PropertyList>
 															</Modifier>
 														</ModifierInfo>
@@ -900,8 +3274,7 @@
 											<ChildrenList>
 												<AudioFileSource Name="SFX__dash_Cyrus_01" ID="{7875B7D0-BC45-4F1E-8FDB-10C4AECFD947}">
 													<PropertyList>
-														<Property Name="FadeInDuration" Type="Real64" Value="0.0553683455247618"/>
-														<Property Name="LoopBegin" Type="Real64" Value="0"/>
+														<Property Name="FadeInDuration" Type="Real64" Value="0.0305480527033169"/>
 														<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
 													</PropertyList>
 													<Language>SFX</Language>
@@ -911,6 +3284,25 @@
 													</MediaIDList>
 												</AudioFileSource>
 											</ChildrenList>
+											<ObjectLists>
+												<ObjectList Name="Effects">
+													<EffectSlot Name="" ID="{BD50DBF2-7822-4A50-A1A1-1BE10F6B2461}" ShortID="652109949">
+														<ReferenceList>
+															<Reference Name="Effect">
+																<Custom>
+																	<Effect Name="Guitar Distortion (Custom)" ID="{C3CC557F-4A06-4896-8905-62AFE517F7BC}" ShortID="235659040" PluginName="Wwise Guitar Distortion" CompanyID="0" PluginID="126" PluginType="3">
+																		<PropertyList>
+																			<Property Name="DistortionDrive" Type="Real32" Value="12"/>
+																			<Property Name="DistortionType" Type="int32" Value="1"/>
+																			<Property Name="OutputLevel" Type="Real32" Value="1"/>
+																		</PropertyList>
+																	</Effect>
+																</Custom>
+															</Reference>
+														</ReferenceList>
+													</EffectSlot>
+												</ObjectList>
+											</ObjectLists>
 											<ActiveSourceList>
 												<ActiveSource Name="SFX__dash_Cyrus_01" ID="{7875B7D0-BC45-4F1E-8FDB-10C4AECFD947}" Platform="Linked"/>
 											</ActiveSourceList>
@@ -2064,6 +4456,17 @@
 															<ValueList>
 																<Value>12</Value>
 															</ValueList>
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{D2A52467-6239-4019-A7E4-B7B59B84A83F}">
+																		<PropertyList>
+																			<Property Name="Enabled" Type="bool" Value="True"/>
+																			<Property Name="Max" Type="Real64" Value="20"/>
+																			<Property Name="Min" Type="Real64" Value="-21"/>
+																		</PropertyList>
+																	</Modifier>
+																</ModifierInfo>
+															</ModifierList>
 														</Property>
 														<Property Name="NormalOrShuffle" Type="int16" Value="0"/>
 														<Property Name="Pitch" Type="int32">
@@ -2107,6 +4510,13 @@
 													<ChildrenList>
 														<Sound Name="Sword 01" ID="{A3FDB443-DDCD-4CCE-8F5C-D1B8C6044252}" ShortID="553262213">
 															<PropertyList>
+																<Property Name="Lowpass" Type="int16">
+																	<ModifierList>
+																		<ModifierInfo>
+																			<Modifier Name="" ID="{87736470-5252-4854-9D95-F74AB9CBA82A}"/>
+																		</ModifierInfo>
+																	</ModifierList>
+																</Property>
 																<Property Name="OverrideEffect" Type="bool" Value="True"/>
 																<Property Name="Pitch" Type="int32">
 																	<ValueList>
@@ -2178,42 +4588,6 @@
 																							<Property Name="PreEQBand1FilterType" Type="int32" Value="4"/>
 																							<Property Name="PreEQBand1Frequency" Type="Real32" Value="80"/>
 																							<Property Name="Rectification" Type="Real32" Value="18"/>
-																						</PropertyList>
-																					</Effect>
-																				</Custom>
-																			</Reference>
-																		</ReferenceList>
-																	</EffectSlot>
-																	<EffectSlot Name="" ID="{8A91CE94-01C1-4052-B899-D7DDF14F69A1}" ShortID="509675980">
-																		<ReferenceList>
-																			<Reference Name="Effect">
-																				<Custom CreatedFrom="{180A35FE-BF4E-4BCD-8D7F-872B580E55EC}">
-																					<Effect Name="Phone_Booth (Custom)" ID="{BB814900-113A-46F5-A398-DAB73F3A7224}" ShortID="675501527" PluginName="Wwise RoomVerb" CompanyID="0" PluginID="118" PluginType="3">
-																						<PropertyList>
-																							<Property Name="DecayTime" Type="Real32" Value="4.4"/>
-																							<Property Name="Density" Type="Real32" Value="32"/>
-																							<Property Name="Diffusion" Type="Real32" Value="0"/>
-																							<Property Name="DryLevel" Type="Real32" Value="-3"/>
-																							<Property Name="ERLevel" Type="Real32" Value="-10"/>
-																							<Property Name="ERPattern" Type="int32" Value="24"/>
-																							<Property Name="Filter1Freq" Type="Real32" Value="590"/>
-																							<Property Name="Filter1Gain" Type="Real32" Value="-5"/>
-																							<Property Name="Filter1InsertPos" Type="int32" Value="2"/>
-																							<Property Name="Filter2Freq" Type="Real32" Value="6450"/>
-																							<Property Name="Filter2Gain" Type="Real32" Value="8.5"/>
-																							<Property Name="Filter3Freq" Type="Real32" Value="8440"/>
-																							<Property Name="HFDamping" Type="Real32" Value="3.4"/>
-																							<Property Name="Inclusion" Type="bool">
-																								<ValueList>
-																									<Value>False</Value>
-																								</ValueList>
-																							</Property>
-																							<Property Name="PreDelay" Type="Real32" Value="0"/>
-																							<Property Name="Quality" Type="int32" Value="6"/>
-																							<Property Name="ReverbLevel" Type="Real32" Value="-26"/>
-																							<Property Name="RoomShape" Type="Real32" Value="43"/>
-																							<Property Name="RoomSize" Type="Real32" Value="-50"/>
-																							<Property Name="StereoWidth" Type="Real32" Value="0"/>
 																						</PropertyList>
 																					</Effect>
 																				</Custom>
@@ -2603,6 +4977,19 @@
 										<RandomSequenceContainer Name="Damage" ID="{6BFA2E92-5D92-45DB-9755-846E84178D4A}" ShortID="701596036">
 											<PropertyList>
 												<Property Name="Color" Type="int16" Value="4"/>
+												<Property Name="Lowpass" Type="int16">
+													<ModifierList>
+														<ModifierInfo>
+															<Modifier Name="" ID="{38FC4D53-2E55-456E-A1A4-59DB2DBD7042}">
+																<PropertyList>
+																	<Property Name="Enabled" Type="bool" Value="True"/>
+																	<Property Name="Max" Type="Real64" Value="20"/>
+																	<Property Name="Min" Type="Real64" Value="-18"/>
+																</PropertyList>
+															</Modifier>
+														</ModifierInfo>
+													</ModifierList>
+												</Property>
 												<Property Name="NormalOrShuffle" Type="int16" Value="0"/>
 												<Property Name="Pitch" Type="int32">
 													<ValueList>
@@ -2613,21 +5000,23 @@
 															<Modifier Name="" ID="{6E2AEE2E-2D39-4C2C-9B9D-674541058303}">
 																<PropertyList>
 																	<Property Name="Enabled" Type="bool" Value="True"/>
-																	<Property Name="Max" Type="Real64" Value="10"/>
-																	<Property Name="Min" Type="Real64" Value="-10"/>
+																	<Property Name="Max" Type="Real64" Value="100"/>
+																	<Property Name="Min" Type="Real64" Value="-300"/>
 																</PropertyList>
 															</Modifier>
 														</ModifierInfo>
 													</ModifierList>
 												</Property>
 												<Property Name="Volume" Type="Real64">
+													<ValueList>
+														<Value>2</Value>
+													</ValueList>
 													<ModifierList>
 														<ModifierInfo>
 															<Modifier Name="" ID="{EF07E7F9-E538-45E1-A78B-15FD20BCA205}">
 																<PropertyList>
 																	<Property Name="Enabled" Type="bool" Value="True"/>
 																	<Property Name="Max" Type="Real64" Value="5"/>
-																	<Property Name="Min" Type="Real64" Value="-1"/>
 																</PropertyList>
 															</Modifier>
 														</ModifierInfo>
@@ -2737,8 +5126,37 @@
 													</EffectSlot>
 													<EffectSlot Name="" ID="{91185A93-EBE4-47E5-A57F-F8165D3963A7}" ShortID="145783635">
 														<ReferenceList>
-															<Reference Name="Effect" PluginName="Wwise RoomVerb" CompanyID="0" PluginID="118" PluginType="3">
-																<ObjectRef Name="Phone_Booth" ID="{180A35FE-BF4E-4BCD-8D7F-872B580E55EC}" WorkUnitID="{E8613F7D-BAD3-45CD-A3ED-505576F31277}"/>
+															<Reference Name="Effect">
+																<Custom CreatedFrom="{180A35FE-BF4E-4BCD-8D7F-872B580E55EC}">
+																	<Effect Name="Phone_Booth (Custom)" ID="{A84EA995-864F-4367-9420-F07F5D326AA9}" ShortID="340549827" PluginName="Wwise RoomVerb" CompanyID="0" PluginID="118" PluginType="3">
+																		<PropertyList>
+																			<Property Name="DecayTime" Type="Real32" Value="0.2"/>
+																			<Property Name="Density" Type="Real32" Value="32"/>
+																			<Property Name="Diffusion" Type="Real32" Value="0"/>
+																			<Property Name="DryLevel" Type="Real32" Value="-3"/>
+																			<Property Name="ERLevel" Type="Real32" Value="-10"/>
+																			<Property Name="ERPattern" Type="int32" Value="24"/>
+																			<Property Name="Filter1Freq" Type="Real32" Value="590"/>
+																			<Property Name="Filter1Gain" Type="Real32" Value="-5"/>
+																			<Property Name="Filter1InsertPos" Type="int32" Value="2"/>
+																			<Property Name="Filter2Freq" Type="Real32" Value="6450"/>
+																			<Property Name="Filter2Gain" Type="Real32" Value="8.5"/>
+																			<Property Name="Filter3Freq" Type="Real32" Value="8440"/>
+																			<Property Name="HFDamping" Type="Real32" Value="3.4"/>
+																			<Property Name="Inclusion" Type="bool">
+																				<ValueList>
+																					<Value>False</Value>
+																				</ValueList>
+																			</Property>
+																			<Property Name="PreDelay" Type="Real32" Value="0"/>
+																			<Property Name="Quality" Type="int32" Value="6"/>
+																			<Property Name="ReverbLevel" Type="Real32" Value="-26"/>
+																			<Property Name="RoomShape" Type="Real32" Value="38"/>
+																			<Property Name="RoomSize" Type="Real32" Value="-56"/>
+																			<Property Name="StereoWidth" Type="Real32" Value="0"/>
+																		</PropertyList>
+																	</Effect>
+																</Custom>
 															</Reference>
 														</ReferenceList>
 													</EffectSlot>

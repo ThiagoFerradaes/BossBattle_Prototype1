@@ -10,7 +10,7 @@
     "Type": "Event",
     "GUID": "{40396CFD-FC78-4C18-8996-FA541C9A6DDF}",
     "Language": "SFX",
-    "Hash": "{35BAC62C-0386-0E63-77A6-36121EED8B1A}",
+    "Hash": "{261ED66A-AD43-A475-789F-43FF6822E97A}",
     "ObjectPath": "Play_Dash_Cyrus",
     "ShortName": "Play_Dash_Cyrus",
     "Path": "Event/Play_Dash_Cyrus.bnk",
@@ -22,9 +22,21 @@
       "Location": "Loose",
       "ShortName": "SFX__dash_Cyrus_01 .wav",
       "Path": "Media/746855739.wem",
-      "CachePath": "D9/{D9E4398C-B56C-B118-A38D-0CAED5485EFE}.wem"
+      "CachePath": "3C/{3C499943-D72F-DA26-00FB-F8B2D79D3DCB}.wem"
      }
     ],
+    "Plugins": {
+     "Custom": [
+      {
+       "Id": "235659040",
+       "Name": "Guitar Distortion (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Players\\Cyrus\\Dash\\[Effect Slot [0]: (Guitar Distortion)]\\Guitar Distortion (Custom)",
+       "GUID": "{C3CC557F-4A06-4896-8905-62AFE517F7BC}",
+       "LibName": "Wwise Guitar Distortion",
+       "LibId": "8257539"
+      }
+     ]
+    },
     "Events": [
      {
       "Id": "4019037033",
@@ -39,11 +51,18 @@
        {
         "Id": "746855739"
        }
-      ]
+      ],
+      "PluginRefs": {
+       "Custom": [
+        {
+         "Id": "235659040"
+        }
+       ]
+      }
      }
     ]
    }
   ],
-  "FileHash": "{3601D513-1B42-B781-2A88-A8DBB9EF510E}"
+  "FileHash": "{E2337273-B30D-1B7C-2CFD-36493F30776C}"
  }
 }
