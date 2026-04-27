@@ -25,7 +25,9 @@ public class BastianPassiveSO : PassiveSO
     public GameObject HeatCanvas;
 
     [Header("Loose Health")]
-    public float PercentOfMaxHealthLostPerTime;
+    public float PercentOfMaxHealthLostPerTimeSuperHeat;
+    public float PercentOfMaxHealthLostPerTimeOverHeat;
+    public float PercentOfMaxHealthLostPerTimeExtremeHeat;
     public float TimeToLooseHealth;
-    public HeatArea AreaToLooseHealth;
+    public HeatArea MinAreaToLooseHealth;
 }

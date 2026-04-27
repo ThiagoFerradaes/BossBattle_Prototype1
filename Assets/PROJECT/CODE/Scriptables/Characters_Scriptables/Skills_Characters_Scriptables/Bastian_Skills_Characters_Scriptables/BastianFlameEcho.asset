@@ -108,10 +108,44 @@ MonoBehaviour:
             m_Bits: 0
           VFXSpeed: 0
           Distance: 0
+    - Key: 4
+      Value:
+      - TimeToSpawnPreFab: 0.6
+        PrefabType: 0
+        PreFab: {fileID: 5556882484380889040, guid: 73183662ed7be604f90dff0cc2f277ff, type: 3}
+        PreFabPosition: {x: 0, y: 1, z: 0}
+        VFXAtribute:
+          VFXType: 0
+          VFXDuration: 0
+          VFXPosCollisionDuration: 0
+          CrossEnemy: 0
+          TimeStopped: 0
+          MinDistanceBack: 0
+          UnitsToHit:
+            serializedVersion: 2
+            m_Bits: 0
+          VFXSpeed: 0
+          Distance: 0
+      - TimeToSpawnPreFab: 0.5
+        PrefabType: 1
+        PreFab: {fileID: 4924003528972884429, guid: 60cf0431affc69a46b58c0760a74c28c, type: 3}
+        PreFabPosition: {x: 0, y: 1, z: 0}
+        VFXAtribute:
+          VFXType: 2
+          VFXDuration: 0
+          VFXPosCollisionDuration: 1
+          CrossEnemy: 1
+          TimeStopped: 0
+          MinDistanceBack: 0
+          UnitsToHit:
+            serializedVersion: 2
+            m_Bits: 192
+          VFXSpeed: 30
+          Distance: 20
   SkillObjectRangeObject: {fileID: 5203434260948203345, guid: ade6d2bcd504d27418184cc1070b8f59, type: 3}
   BlockWalkWhilePreCasting: 1
   BlockDashWhilePreCasting: 1
-  PreCastOn: 1
+  PreCastOn: 0
   SkillCharacter: 1
   Cancelable: 0
   Slot: 3
@@ -208,6 +242,31 @@ MonoBehaviour:
   SPenetrationOnSuperHeat: 0
   SCritChanceOverHeat: 0
   SLastOverHeatCritDamage: 0
+  IgnisDamageAtributes:
+    DamageType: 1
+    UnitsToHit:
+      serializedVersion: 2
+      m_Bits: 128
+    Damage: 30
+    HitShield: 1
+    BreakShield: 0
+    Size: {x: 1, y: 1, z: 1}
+    TypeOfPrefab: 2
+    HitBoxDuration: 0
+    DamageCooldown: 0
+    Distance: 12
+    Speed: 30
+    CrossEnemy: 1
+    TimeStopped: 0
+    MinDistanceBack: 0
+    ExtraAtributes:
+      _serializedList: []
+  IgnisHeatGain: 0
+  IgnisPenetrationOnSuperHeat: 0
+  IgnisCritChanceOverHeat: 0
+  IgnisLastOverHeatCritDamage: 0
+  IgnisSize: 0
+  TimeBetweenIgnis: 0.25
   AttackSpeedAnimationParameter: AttackSpeed
   UltimateDuration: 6
   TimeBetweenFirstAndSecondShoot: 0.15

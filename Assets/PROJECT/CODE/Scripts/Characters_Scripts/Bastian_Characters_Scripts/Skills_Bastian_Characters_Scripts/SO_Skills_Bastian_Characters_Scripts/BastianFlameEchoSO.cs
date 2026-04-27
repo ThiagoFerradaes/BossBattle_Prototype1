@@ -17,6 +17,15 @@ public class BastianFlameEchoSO : UltimateSkillSO
     [Foldout("Specific")] public float SCritChanceOverHeat;
     [Foldout("Specific")] public float SLastOverHeatCritDamage;
 
+    [Header("Secondary Ignis")]
+    [Foldout("Specific")] public DamageAtributes IgnisDamageAtributes;
+    [Foldout("Specific")] public float IgnisHeatGain;
+    [Foldout("Specific")] public float IgnisPenetrationOnSuperHeat;
+    [Foldout("Specific")] public float IgnisCritChanceOverHeat;
+    [Foldout("Specific")] public float IgnisLastOverHeatCritDamage;
+    [Foldout("Specific")] public float IgnisSize;
+    [Foldout("Specific")] public float TimeBetweenIgnis;
+
     [Header("Animation")]
     [Foldout("Specific")] public string AttackSpeedAnimationParameter;
 
