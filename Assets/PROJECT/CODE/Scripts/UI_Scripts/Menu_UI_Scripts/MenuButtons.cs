@@ -1,6 +1,9 @@
+using Unity.AppUI.UI;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Button = UnityEngine.UI.Button;
 
 public class MenuButtons : MonoBehaviour
 {
@@ -9,11 +12,10 @@ public class MenuButtons : MonoBehaviour
     [SerializeField] Button exitButton;
     [SerializeField] Button configButton;
     [SerializeField] Button tavernButton;
-    [SerializeField] Button yesExitPopUp;
-    [SerializeField] Button noExitPopUp;
-    [SerializeField] Button maskExitPopUp;
+
+    [Header("Components")]
     [SerializeField] Image hoverButtonBackGround;
-    [SerializeField] GameObject exitPopUp;
+    [SerializeField] ExitPopUpManager exitPopUp;
 
     [Header ("Temporario")]
     [SerializeField] MapManager map;
@@ -24,16 +26,13 @@ public class MenuButtons : MonoBehaviour
 
     AsyncOperation asyncOperation;
 
-    private void Start() {
+    private void Awake() {
         tavernButton.onClick.AddListener(LoadLoadingScreen);
         startButton.onClick.AddListener(() => map.InitializeMap());
         configButton.onClick.AddListener(() => configCanvas.InitializeConfigurationScreen());
 
         // Exit game Buttons
-        exitButton.onClick.AddListener(() => HandleExitPopUp(true));
-        noExitPopUp.onClick.AddListener(() => HandleExitPopUp(false));
-        yesExitPopUp.onClick.AddListener(ExitGame);
-        maskExitPopUp.onClick.AddListener(() => HandleExitPopUp(false));
+        exitButton.onClick.AddListener(() => exitPopUp.HandleExitPopUp(true));
     }
     void LoadLoadingScreen() {
         LoadingScreenManager.CurrentLoadingScreenInfo = tavernLoadingScreenInfo;
@@ -48,10 +47,5 @@ public class MenuButtons : MonoBehaviour
         hoverButtonBackGround.gameObject.SetActive(false);
     }
 
-    void HandleExitPopUp(bool on) {
-        exitPopUp.SetActive(on);
-    }
-    void ExitGame() {
-        Application.Quit();
-    }
+
 }
