@@ -1,0 +1,102 @@
+{
+ "SoundBanksInfo": {
+  "Platform": "Windows",
+  "BasePlatform": "Windows",
+  "SchemaVersion": "16",
+  "SoundBankVersion": "172",
+  "SoundBanks": [
+   {
+    "Id": "939402867",
+    "Type": "Event",
+    "GUID": "{B43B5588-99FD-4732-98E0-B3BB09DC8C2F}",
+    "Language": "SFX",
+    "Hash": "{E30DA025-252C-7EAF-E0B7-FC6D594F9A01}",
+    "ObjectPath": "Play_Victory_Screen",
+    "ShortName": "Play_Victory_Screen",
+    "Path": "Event/Play_Victory_Screen.bnk",
+    "Media": [
+     {
+      "Id": "166955185",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Loose",
+      "ShortName": "SFX_victory_screen_sea_01.wav",
+      "Path": "Media/166955185.wem",
+      "CachePath": "7D/{7D3E83B9-F337-7C50-B173-A5C334D58D5E}.wem"
+     },
+     {
+      "Id": "476583020",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Loose",
+      "ShortName": "SFX_victory_chime_01.wav",
+      "Path": "Media/476583020.wem",
+      "CachePath": "36/{36C3068E-5502-72B5-A74F-4413930C71A1}.wem"
+     },
+     {
+      "Id": "803648510",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Loose",
+      "ShortName": "SFX_victory_jingle_01.wav",
+      "Path": "Media/803648510.wem",
+      "CachePath": "7C/{7C3040C4-CA5C-D1E1-24C1-8BD4FDC7108B}.wem"
+     },
+     {
+      "Id": "1023299375",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Loose",
+      "ShortName": "SFX_victory_screen_sea_02.wav",
+      "Path": "Media/1023299375.wem",
+      "CachePath": "24/{248983C3-7443-612B-FCF0-E31C30280202}.wem"
+     }
+    ],
+    "Plugins": {
+     "Custom": [
+      {
+       "Id": "350717458",
+       "Name": "Octave_Down (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\UI\\Victory Screen\\Victory Screen\\Victory Sea Loop\\[Effect Slot [0]: (Pitch Shifter)]\\Octave_Down (Custom)",
+       "GUID": "{2E5ADF51-5999-43D8-902D-DCE4FF124901}",
+       "LibName": "Wwise Pitch Shifter",
+       "LibId": "8912899"
+      }
+     ]
+    },
+    "Events": [
+     {
+      "Id": "939402867",
+      "Name": "Play_Victory_Screen",
+      "ObjectPath": "\\Events\\Default Work Unit\\SFX\\UI\\Victory Screen\\Play_Victory_Screen",
+      "GUID": "{B43B5588-99FD-4732-98E0-B3BB09DC8C2F}",
+      "Color": "24",
+      "DurationType": "Infinite",
+      "MediaRefs": [
+       {
+        "Id": "166955185"
+       },
+       {
+        "Id": "476583020"
+       },
+       {
+        "Id": "803648510"
+       },
+       {
+        "Id": "1023299375"
+       }
+      ],
+      "PluginRefs": {
+       "Custom": [
+        {
+         "Id": "350717458"
+        }
+       ]
+      }
+     }
+    ]
+   }
+  ],
+  "FileHash": "{0273EAB5-7A73-9283-8A07-DC1B30FE393C}"
+ }
+}

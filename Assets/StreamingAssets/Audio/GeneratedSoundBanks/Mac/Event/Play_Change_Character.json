@@ -1,0 +1,79 @@
+{
+ "SoundBanksInfo": {
+  "Platform": "Mac",
+  "BasePlatform": "Mac",
+  "SchemaVersion": "16",
+  "SoundBankVersion": "172",
+  "SoundBanks": [
+   {
+    "Id": "2522789498",
+    "Type": "Event",
+    "GUID": "{6D5870F7-0FF6-4D34-A701-66207FC98C40}",
+    "Language": "SFX",
+    "Hash": "{5BB94F69-74F4-37EF-BCDF-1E74C1DF8EC3}",
+    "ObjectPath": "Play_Change_Character",
+    "ShortName": "Play_Change_Character",
+    "Path": "Event/Play_Change_Character.bnk",
+    "Media": [
+     {
+      "Id": "412795425",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Loose",
+      "ShortName": "SFX_character_select _01.wav",
+      "Path": "Media/412795425.wem",
+      "CachePath": "1F/{1FD36FF2-2FB8-EC33-F734-AA998F29E615}.wem"
+     }
+    ],
+    "Plugins": {
+     "Custom": [
+      {
+       "Id": "548868559",
+       "Name": "Octave_Down (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\UI\\Character Selection Screen\\Change Character\\[Effect Slot [0]: (Pitch Shifter)]\\Octave_Down (Custom)",
+       "GUID": "{B7DE8CA4-790B-41E4-997D-13B8598CFE4F}",
+       "LibName": "Wwise Pitch Shifter",
+       "LibId": "8912899"
+      },
+      {
+       "Id": "888617973",
+       "Name": "Tremolo (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\UI\\Character Selection Screen\\Change Character\\[Effect Slot [2]: (Tremolo)]\\Tremolo (Custom)",
+       "GUID": "{95FDD44E-FD94-4635-BDBA-0703199CDD4C}",
+       "LibName": "Wwise Tremolo",
+       "LibId": "8585219"
+      }
+     ]
+    },
+    "Events": [
+     {
+      "Id": "2522789498",
+      "Name": "Play_Change_Character",
+      "ObjectPath": "\\Events\\Default Work Unit\\SFX\\UI\\Character Selection Screen\\Play_Change_Character",
+      "GUID": "{6D5870F7-0FF6-4D34-A701-66207FC98C40}",
+      "Color": "24",
+      "DurationType": "OneShot",
+      "DurationMin": "0.3778665",
+      "DurationMax": "0.4061586",
+      "MediaRefs": [
+       {
+        "Id": "412795425"
+       }
+      ],
+      "PluginRefs": {
+       "Custom": [
+        {
+         "Id": "548868559"
+        },
+        {
+         "Id": "888617973"
+        }
+       ]
+      }
+     }
+    ]
+   }
+  ],
+  "FileHash": "{EB9145C3-E27D-9B14-0FC4-54F1A5ED1A09}"
+ }
+}

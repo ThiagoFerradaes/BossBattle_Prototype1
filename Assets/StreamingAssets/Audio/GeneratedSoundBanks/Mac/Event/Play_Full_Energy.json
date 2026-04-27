@@ -1,0 +1,68 @@
+{
+ "SoundBanksInfo": {
+  "Platform": "Mac",
+  "BasePlatform": "Mac",
+  "SchemaVersion": "16",
+  "SoundBankVersion": "172",
+  "SoundBanks": [
+   {
+    "Id": "2347105308",
+    "Type": "Event",
+    "GUID": "{01AD3AA2-3E86-4C19-9D4C-C4171C0FC275}",
+    "Language": "SFX",
+    "Hash": "{7F874701-59CB-9C20-296B-7E6E38A751ED}",
+    "ObjectPath": "Play_Full_Energy",
+    "ShortName": "Play_Full_Energy",
+    "Path": "Event/Play_Full_Energy.bnk",
+    "Media": [
+     {
+      "Id": "67702890",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Loose",
+      "ShortName": "SFX_full_energy_01.wav",
+      "Path": "Media/67702890.wem",
+      "CachePath": "77/{772824CD-616C-C0BD-95ED-9556F382990F}.wem"
+     }
+    ],
+    "Plugins": {
+     "Custom": [
+      {
+       "Id": "174544149",
+       "Name": "Guitar Distortion (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\UI\\Combat\\Full Energy\\[Effect Slot [0]: (Guitar Distortion)]\\Guitar Distortion (Custom)",
+       "GUID": "{EAEACAF2-2E6A-4514-BE0C-418DF4D0A2A1}",
+       "LibName": "Wwise Guitar Distortion",
+       "LibId": "8257539"
+      }
+     ]
+    },
+    "Events": [
+     {
+      "Id": "2347105308",
+      "Name": "Play_Full_Energy",
+      "ObjectPath": "\\Events\\Default Work Unit\\SFX\\UI\\Combat\\Play_Full_Energy",
+      "GUID": "{01AD3AA2-3E86-4C19-9D4C-C4171C0FC275}",
+      "Color": "24",
+      "DurationType": "OneShot",
+      "DurationMin": "2.2636442",
+      "DurationMax": "2.2833424",
+      "MediaRefs": [
+       {
+        "Id": "67702890"
+       }
+      ],
+      "PluginRefs": {
+       "Custom": [
+        {
+         "Id": "174544149"
+        }
+       ]
+      }
+     }
+    ]
+   }
+  ],
+  "FileHash": "{D7F93175-ADC1-E7A5-4B4E-9FC6DE3A79B7}"
+ }
+}

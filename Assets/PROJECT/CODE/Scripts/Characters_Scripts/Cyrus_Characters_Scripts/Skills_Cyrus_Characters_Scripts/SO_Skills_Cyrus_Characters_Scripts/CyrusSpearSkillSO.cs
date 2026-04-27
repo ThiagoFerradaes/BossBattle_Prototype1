@@ -13,4 +13,5 @@ public class CyrusSpearSkillSO : CommonSkillSO
     [Foldout("Specific")] public float Level3Cooldown;
     [Foldout("Specific"), SerializedDictionary("Level", "Amount")] public SerializedDictionary<int, int> AmountOfUsesPerLevel;
     [Foldout("Specific")] public List<Sprite> ListOfSprites;
+    [Foldout("Specific")] public List<AK.Wwise.Switch> ListOfSwitches;
 }

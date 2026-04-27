@@ -77,6 +77,10 @@ public class CyrusSpearAttackManager : SkillObjectManager {
         InstantDamageHitBox hitbox = preFab.GetComponent<InstantDamageHitBox>();
         hitbox.Initialize(newContext);
 
+        AK.Wwise.Switch newSwitch = _info.ListOfSwitches[_skillLevel];
+        newSwitch.SetValue(parent);
+        _info.SkillSound.Post(parent);
+
         hitbox.OnHit += () => {
             energyManager.GainEnergy(_info.FlatEnergyGainPerHit);
             if (_skillLevel < 3) CyrusPassiveManager.Instance.AddUseSkill(slot, _info.AmountOfUsesPerLevel[_skillLevel], _info.ListOfSprites);

@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -188,6 +189,10 @@ public class CyrusAxeAttackManager : SkillObjectManager {
 
         InstantDamageHitBox hitbox = preFab.GetComponent<InstantDamageHitBox>();
         hitbox.Initialize(newContext);
+
+        AK.Wwise.Switch newSwitch = _info.ListOfSwitches[_skillLevel];
+        newSwitch.SetValue(parent);
+        _info.SkillSound.Post(parent);
 
         // On Hit
         hitbox.OnHit += () => {

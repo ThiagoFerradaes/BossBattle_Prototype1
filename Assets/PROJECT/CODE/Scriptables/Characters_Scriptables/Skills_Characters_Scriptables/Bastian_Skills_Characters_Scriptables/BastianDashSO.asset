@@ -49,7 +49,7 @@ MonoBehaviour:
   ListOfAnimationsInfo:
   - AnimationClip: {fileID: 7400000, guid: 3ea2d98b885d25e408c5f2112103de4b, type: 2}
     AnimationLayer: 0
-    AnimationBaseSpeed: 1
+    AnimationBaseSpeed: 10
     Loop: 1
     AnimationExitTime: 1
   Prefabs:
@@ -75,7 +75,7 @@ MonoBehaviour:
   SkillObjectRangeObject: {fileID: 1830691435722458984, guid: 38e053e2505371642bf9f2d656737eac, type: 3}
   BlockWalkWhilePreCasting: 1
   BlockDashWhilePreCasting: 1
-  PreCastOn: 1
+  PreCastOn: 0
   SkillCharacter: 1
   Cancelable: 0
   Slot: 4
@@ -85,7 +85,7 @@ MonoBehaviour:
   HasCharges: 0
   Charges: 1
   ChargeCooldown: 0
-  DealDamage: 1
+  DealDamage: 0
   SkillDamageAtributes:
     DamageType: 0
     UnitsToHit:
@@ -105,9 +105,9 @@ MonoBehaviour:
     MinDistanceBack: 0
     ExtraAtributes:
       _serializedList: []
-  DashDuration: 0.8
-  DashForce: 14
-  TimeToStartDash: 0
+  DashDuration: 0.15
+  DashForce: 25
+  PercentOfAnimationToStartDash: 0.1
   AmountOfHeatLost: 20
   DashSFX:
     idInternal: 0

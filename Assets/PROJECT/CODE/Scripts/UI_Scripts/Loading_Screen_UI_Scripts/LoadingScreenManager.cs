@@ -19,12 +19,14 @@ public class LoadingScreenManager : MonoBehaviour {
     [Foldout("Tip"), SerializeField] float tipChangingDuration;
     [Foldout("Tip"), SerializeField] GameObject tipObject;
     [Foldout("Tip"), SerializeField] LocalizedString tipTitleText;
+    [Foldout("Tip"), SerializeField, Range(0,1)] float maxTipAlpha;
+    [Foldout("Tip"), SerializeField, Range(0,1)] float minTipAlpha;
 
     [Foldout("Save"), SerializeField] LocalizeSpriteEvent bossSavingIcon;
     [Foldout("Save"), SerializeField] GameObject savingIcon;
     [Foldout("Save"), SerializeField] float saveIconFadeTime;
-    [Foldout("Save"), SerializeField] float maxSaveIconAlpha;
-    [Foldout("Save"), SerializeField] float minSaveIconAlpha;
+    [Foldout("Save"), SerializeField, Range(0,1)] float maxSaveIconAlpha;
+    [Foldout("Save"), SerializeField, Range(0,1)] float minSaveIconAlpha;
 
     [Foldout("Loading"), SerializeField] Image loadingBar;
     [Foldout("Loading"), SerializeField] float loadingScreenMinTime;
@@ -32,17 +34,21 @@ public class LoadingScreenManager : MonoBehaviour {
 
     public static LoadingScreenManager Instance;
     public static LoadingScreenSO CurrentLoadingScreenInfo = null;
-    Coroutine savingFadeCoroutine, tipCoroutine;
+    Coroutine savingFadeCoroutine; // tipCoroutine;
 
     AsyncOperation loadingOperation;
     bool isLoadingComplete = false;
     bool canLoad = false;
     float loadingScreenTimer;
 
+    WaitForSeconds tipDurationWaitForSeconds;
+
     #region Start Region
     private void Start() {
         StartLoad();
         AkUnitySoundEngine.StopAll();
+
+        tipDurationWaitForSeconds = new(tipDuration);
     }
 
     void StartLoad() {
@@ -59,7 +65,9 @@ public class LoadingScreenManager : MonoBehaviour {
     }
     void Load() {
         savingFadeCoroutine ??= StartCoroutine(SavingIconFade());
-        tipCoroutine ??= StartCoroutine(HandleTipChanging());
+        //tipCoroutine ??= StartCoroutine(HandleTip());
+
+        HandleTip();
 
         loadingOperation = SceneManager.LoadSceneAsync(CurrentLoadingScreenInfo.SceneIndex);
         loadingOperation.allowSceneActivation = false;
@@ -86,12 +94,13 @@ public class LoadingScreenManager : MonoBehaviour {
         }
     }
 
-    IEnumerator HandleTipChanging()
+    void HandleTip()
     {
+        //Debug.Log("Corrotina começou");
 
         List<Tip> list = new(CurrentLoadingScreenInfo.ListOfTips);
 
-        CanvasGroup canvasG = tipObject.GetComponent<CanvasGroup>();
+        //CanvasGroup canvasG = tipObject.GetComponent<CanvasGroup>();
 
         int rng = Random.Range(0, list.Count);
 
@@ -99,25 +108,27 @@ public class LoadingScreenManager : MonoBehaviour {
 
         tipText.text = list[rng].TipDescription.GetLocalizedString();
 
-        list.RemoveAt(rng);
+        //list.RemoveAt(rng);
 
-        while (true)
-        {
-            yield return new WaitForSecondsRealtime(tipDuration);
+        //yield return tipDurationWaitForSeconds;
 
-            yield return canvasG.DOFade(minSaveIconAlpha, tipChangingDuration).SetUpdate(true).WaitForCompletion();
+        //while (true)
+        //{
+        //    Debug.Log("While começou");
+        //    yield return canvasG.DOFade(minTipAlpha, tipChangingDuration).SetUpdate(true).WaitForCompletion();
 
-            rng = Random.Range(0, list.Count);
+        //    rng = Random.Range(0, list.Count);
 
-            tipTitle.text = tipTitleText.GetLocalizedString(list[rng].TipIndex);
+        //    tipTitle.text = tipTitleText.GetLocalizedString(list[rng].TipIndex);
 
-            tipText.text = list[rng].TipDescription.GetLocalizedString();
+        //    tipText.text = list[rng].TipDescription.GetLocalizedString();
 
-            list.RemoveAt(rng);
+        //    list.RemoveAt(rng);
 
-            yield return canvasG.DOFade(maxSaveIconAlpha, tipChangingDuration).SetUpdate(true).WaitForCompletion();
+        //    yield return canvasG.DOFade(maxTipAlpha, tipChangingDuration).SetUpdate(true).WaitForCompletion();
 
-        }
+        //    yield return tipDurationWaitForSeconds;
+        //}
     }
     #endregion
 
@@ -147,11 +158,11 @@ public class LoadingScreenManager : MonoBehaviour {
             StopCoroutine(savingFadeCoroutine);
             savingFadeCoroutine = null;
         }
-        if (tipCoroutine != null)
-        {
-            StopCoroutine(tipCoroutine);
-            tipCoroutine = null;
-        }
+        //if (tipCoroutine != null)
+        //{
+        //    StopCoroutine(tipCoroutine);
+        //    tipCoroutine = null;
+        //}
 
         DOTween.KillAll();
 

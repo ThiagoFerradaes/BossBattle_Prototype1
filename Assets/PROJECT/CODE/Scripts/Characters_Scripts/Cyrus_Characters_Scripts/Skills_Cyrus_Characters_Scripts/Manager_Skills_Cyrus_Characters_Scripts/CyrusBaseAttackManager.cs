@@ -103,6 +103,8 @@ public class CyrusBaseAttackManager : SkillObjectManager {
         InstantDamageHitBox hitbox = preFab.GetComponent<InstantDamageHitBox>();
         hitbox.Initialize(newContext);
 
+        _info.SkillSound.Post(parent);
+
         hitbox.OnHit += () => {
             energyManager.GainEnergy(_info.FlatEnergyGainPerHit);
         };

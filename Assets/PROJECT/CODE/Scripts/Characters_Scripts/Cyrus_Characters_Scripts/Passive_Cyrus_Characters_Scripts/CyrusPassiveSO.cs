@@ -12,4 +12,7 @@ public class CyrusPassiveSO : PassiveSO {
 
     [Header("SS Rank Buffs")]
     [SerializedDictionary("Status", "Buff Percent")] public SerializedDictionary<StatusType, float> ListOfStatusToBuff;
+
+    [Header("Sound")]
+    public AK.Wwise.Event RankUpSound;
 }

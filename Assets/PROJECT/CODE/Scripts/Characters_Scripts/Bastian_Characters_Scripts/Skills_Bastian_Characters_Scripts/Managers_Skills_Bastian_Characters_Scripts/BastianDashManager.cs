@@ -47,7 +47,7 @@ public class BastianDashManager : SkillObjectManager {
 
         skillManager.SkillIsInAnimation(true);
 
-        _info.DashSFX?.Post(parent);
+        _info.DashSound?.Post(parent);
 
         cooldownManager.SetCooldownWithCharges(slot, _info);
 
@@ -73,29 +73,26 @@ public class BastianDashManager : SkillObjectManager {
             yield return null;
             stateInfo = anim.GetCurrentAnimatorStateInfo(0);
         } while (anim.GetCurrentAnimatorStateInfo(0).fullPathHash == attackStateHash &&
-       anim.GetCurrentAnimatorStateInfo(0).normalizedTime < _info.TimeToStartDash);
+       anim.GetCurrentAnimatorStateInfo(0).normalizedTime < _info.PercentOfAnimationToStartDash);
 
-        do {
+        while (elapsedTime < _info.DashDuration) {
+
             rb.linearVelocity = parent.transform.forward * _info.DashForce;
             elapsedTime += Time.deltaTime;
 
             yield return null;
-            stateInfo = anim.GetCurrentAnimatorStateInfo(0);
-        } while (stateInfo.fullPathHash == attackStateHash && stateInfo.normalizedTime < _info.DashDuration);
+        }
 
         movementManager.ChangeIsDashing(false);
         healthManager.SetCanTakeDamage();
-
-        while (anim.GetCurrentAnimatorStateInfo(0).fullPathHash == attackStateHash &&
-       anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f) {
-            yield return null;
-        }
 
         animationCoroutine = null;
 
         skillManager.SkillIsInAnimation(false);
 
         EndWithUnblockSkills();
+
+        AnimationManager.Instance.ReturnToIdle(anim);
     }
 
     public override void CancelSkill() {
