@@ -3499,6 +3499,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1237525318800126641}
+  - component: {fileID: 7243958470122705502}
   m_Layer: 0
   m_Name: pt
   m_TagString: Untagged
@@ -3527,6 +3528,63 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 800, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &7243958470122705502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2196033422377924800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.EventSystems.EventTrigger
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4087078687943068003}
+          m_TargetAssemblyTypeName: Configuration, Assembly-CSharp
+          m_MethodName: SetSelectedBackground
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 7087671723666335692}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: Configuration, Assembly-CSharp
+          m_MethodName: 
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: 
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4087078687943068003}
+          m_TargetAssemblyTypeName: Configuration, Assembly-CSharp
+          m_MethodName: SetUnselectedBackgroung
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 7087671723666335692}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &2337107994327988330
 GameObject:
   m_ObjectHideFlags: 0
@@ -3536,6 +3594,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8403071815051390683}
+  - component: {fileID: 3944886494717211631}
   m_Layer: 0
   m_Name: Window
   m_TagString: Untagged
@@ -3565,6 +3624,51 @@ RectTransform:
   m_AnchoredPosition: {x: 400, y: -250}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &3944886494717211631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2337107994327988330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.EventSystems.EventTrigger
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4087078687943068003}
+          m_TargetAssemblyTypeName: Configuration, Assembly-CSharp
+          m_MethodName: SetSelectedBackground
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 8087708409077775170}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4087078687943068003}
+          m_TargetAssemblyTypeName: Configuration, Assembly-CSharp
+          m_MethodName: SetUnselectedBackgroung
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 8087708409077775170}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &2383451275499170275
 GameObject:
   m_ObjectHideFlags: 0
@@ -5119,6 +5223,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1297117840180431130}
+  - component: {fileID: 6700646842975720342}
   m_Layer: 0
   m_Name: Quality
   m_TagString: Untagged
@@ -5148,6 +5253,51 @@ RectTransform:
   m_AnchoredPosition: {x: 400, y: -150}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &6700646842975720342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4415946717119992095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.EventSystems.EventTrigger
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4087078687943068003}
+          m_TargetAssemblyTypeName: Configuration, Assembly-CSharp
+          m_MethodName: SetSelectedBackground
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 8908865219710588968}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4087078687943068003}
+          m_TargetAssemblyTypeName: Configuration, Assembly-CSharp
+          m_MethodName: SetUnselectedBackgroung
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 8908865219710588968}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &4426306327621447111
 GameObject:
   m_ObjectHideFlags: 0
@@ -6144,6 +6294,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3549422502545930279}
+  - component: {fileID: 4232598101320366525}
   m_Layer: 0
   m_Name: Resolutions
   m_TagString: Untagged
@@ -6173,6 +6324,51 @@ RectTransform:
   m_AnchoredPosition: {x: 400, y: -50}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &4232598101320366525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5219990517595548189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.EventSystems.EventTrigger
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4087078687943068003}
+          m_TargetAssemblyTypeName: Configuration, Assembly-CSharp
+          m_MethodName: SetSelectedBackground
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 851139940215810452}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4087078687943068003}
+          m_TargetAssemblyTypeName: Configuration, Assembly-CSharp
+          m_MethodName: SetUnselectedBackgroung
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 851139940215810452}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &5253375177043524242
 GameObject:
   m_ObjectHideFlags: 0
@@ -7064,6 +7260,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3870138319904117304}
+  - component: {fileID: 6208456169702035402}
   m_Layer: 0
   m_Name: Fps
   m_TagString: Untagged
@@ -7093,6 +7290,51 @@ RectTransform:
   m_AnchoredPosition: {x: 400, y: -350}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &6208456169702035402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5854976300533903083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.EventSystems.EventTrigger
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4087078687943068003}
+          m_TargetAssemblyTypeName: Configuration, Assembly-CSharp
+          m_MethodName: SetSelectedBackground
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 7488184449348027199}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4087078687943068003}
+          m_TargetAssemblyTypeName: Configuration, Assembly-CSharp
+          m_MethodName: SetUnselectedBackgroung
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 7488184449348027199}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &5920559835833890341
 GameObject:
   m_ObjectHideFlags: 0
@@ -9334,6 +9576,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4656486037726395848}
+  - component: {fileID: 584362363455457830}
   m_Layer: 0
   m_Name: en
   m_TagString: Untagged
@@ -9362,6 +9605,63 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &584362363455457830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7595679662653169213}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.EventSystems.EventTrigger
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4087078687943068003}
+          m_TargetAssemblyTypeName: Configuration, Assembly-CSharp
+          m_MethodName: SetSelectedBackground
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 7422553220178447436}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: Configuration, Assembly-CSharp
+          m_MethodName: 
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: 
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4087078687943068003}
+          m_TargetAssemblyTypeName: Configuration, Assembly-CSharp
+          m_MethodName: SetUnselectedBackgroung
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 7422553220178447436}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &7838503245404284693
 GameObject:
   m_ObjectHideFlags: 0
@@ -10837,6 +11137,7 @@ GameObject:
   - component: {fileID: 4295538459680237317}
   - component: {fileID: 4873689745296262625}
   - component: {fileID: 5357043168881659}
+  - component: {fileID: 193881960383928761}
   m_Layer: 5
   m_Name: LabelBackground
   m_TagString: Untagged
@@ -10901,6 +11202,35 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &193881960383928761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8802915465958312750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.EventSystems.EventTrigger
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4087078687943068003}
+          m_TargetAssemblyTypeName: Configuration, Assembly-CSharp
+          m_MethodName: SetSelectedBackground
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 5357043168881659}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &8813370587702581258
 GameObject:
   m_ObjectHideFlags: 0

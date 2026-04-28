@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -15,6 +16,9 @@ public class ExitPopUpManager : MonoBehaviour {
 
     [Header("Atributes")]
     [SerializeField] InputActionReference cancelAction;
+
+    [Header("Events")]
+    [SerializeField] UnityEvent onInitializeEvent;
 
     GameObject _oldSelectedButton = null;
 
@@ -38,6 +42,7 @@ public class ExitPopUpManager : MonoBehaviour {
             EventSystem.current.SetSelectedGameObject(null);
             EventSystem.current.SetSelectedGameObject(yesButton.gameObject);
             HandleSelectedButtonBackground(yesButton.gameObject);
+            onInitializeEvent?.Invoke();
         }
 
         exitPopUp.SetActive(isOn);

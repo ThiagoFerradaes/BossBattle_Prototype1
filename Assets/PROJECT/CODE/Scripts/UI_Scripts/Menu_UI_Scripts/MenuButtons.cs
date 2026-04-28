@@ -39,6 +39,9 @@ public class MenuButtons : MonoBehaviour
         asyncOperation = SceneManager.LoadSceneAsync(1, LoadSceneMode.Single);
     }
     public void HandleButtonBackGroundOn(Button button) {
+
+        if (!button.interactable) return;
+
         hoverButtonBackGround.transform.position = button.transform.position;
         hoverButtonBackGround.gameObject.SetActive(true);
     }
