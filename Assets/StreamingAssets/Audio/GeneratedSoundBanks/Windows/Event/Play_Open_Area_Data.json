@@ -10,7 +10,7 @@
     "Type": "Event",
     "GUID": "{C50080E7-C802-422A-BC12-A2905A77487D}",
     "Language": "SFX",
-    "Hash": "{046005D2-ABFE-F096-498D-79BAB8490943}",
+    "Hash": "{0CAB801B-1A6A-C7B4-8274-832056DA04BC}",
     "ObjectPath": "Play_Open_Area_Data",
     "ShortName": "Play_Open_Area_Data",
     "Path": "Event/Play_Open_Area_Data.bnk",
@@ -34,6 +34,18 @@
       "CachePath": "94/{941C45D7-2DD0-788F-1E4F-FFEFA49A42B0}.wem"
      }
     ],
+    "Plugins": {
+     "Custom": [
+      {
+       "Id": "856712198",
+       "Name": "Phone_Booth (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\UI\\Map Screen\\Open Area Data\\[Effect Slot [0]: (RoomVerb)]\\Phone_Booth (Custom)",
+       "GUID": "{15BA0695-8D92-41FF-AD8E-FCFA617E1DBF}",
+       "LibName": "Wwise RoomVerb",
+       "LibId": "7733251"
+      }
+     ]
+    },
     "Events": [
      {
       "Id": "2414956353",
@@ -51,11 +63,18 @@
        {
         "Id": "451371922"
        }
-      ]
+      ],
+      "PluginRefs": {
+       "Custom": [
+        {
+         "Id": "856712198"
+        }
+       ]
+      }
      }
     ]
    }
   ],
-  "FileHash": "{DBA46A11-0745-51CB-B261-4C0683A5BE76}"
+  "FileHash": "{3C5A7D1F-4BF5-655F-8546-C2589783E176}"
  }
 }

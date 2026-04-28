@@ -1,0 +1,103 @@
+{
+ "SoundBanksInfo": {
+  "Platform": "Windows",
+  "BasePlatform": "Windows",
+  "SchemaVersion": "16",
+  "SoundBankVersion": "172",
+  "SoundBanks": [
+   {
+    "Id": "2481540739",
+    "Type": "Event",
+    "GUID": "{96026119-D219-477F-9E0E-5D6333B402F2}",
+    "Language": "SFX",
+    "Hash": "{44EDA9F8-C3F8-1DC1-2C2C-9F7B7F184A42}",
+    "ObjectPath": "Play_4__Rocks_Cracking",
+    "ShortName": "Play_4__Rocks_Cracking",
+    "Path": "Event/Play_4__Rocks_Cracking.bnk",
+    "Media": [
+     {
+      "Id": "188320656",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Loose",
+      "ShortName": "SPFX_attack_rocks_Kraken_02  .wav",
+      "Path": "Media/188320656.wem",
+      "CachePath": "84/{84EE57C1-D298-28F6-B9CC-27F89B808E3F}.wem"
+     },
+     {
+      "Id": "863325323",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Loose",
+      "ShortName": "SPFX_attack_rocks_Kraken_01.wav",
+      "Path": "Media/863325323.wem",
+      "CachePath": "EE/{EE047127-B6EE-DB7E-8729-3F2879F12418}.wem"
+     },
+     {
+      "Id": "1021864714",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Loose",
+      "ShortName": "SPFX_attack_rocks_Kraken_03.wav",
+      "Path": "Media/1021864714.wem",
+      "CachePath": "41/{418B45CB-0E8C-9A14-F376-3CB28B2A3C17}.wem"
+     }
+    ],
+    "Plugins": {
+     "Custom": [
+      {
+       "Id": "694844500",
+       "Name": "Parametric EQ (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\Attack\\Attacking\\4- Rocks Cracking\\[Effect Slot [0]: (Parametric EQ)]\\Parametric EQ (Custom)",
+       "GUID": "{2C9E7A6D-368E-421F-8BDF-7E345C4778BC}",
+       "LibName": "Wwise Parametric EQ",
+       "LibId": "6881283"
+      },
+      {
+       "Id": "838246956",
+       "Name": "Guitar Distortion (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\Attack\\Attacking\\4- Rocks Cracking\\[Effect Slot [1]: (Guitar Distortion)]\\Guitar Distortion (Custom)",
+       "GUID": "{2426BE9B-3A70-4CB3-9DC3-65369FE850EC}",
+       "LibName": "Wwise Guitar Distortion",
+       "LibId": "8257539"
+      }
+     ]
+    },
+    "Events": [
+     {
+      "Id": "2481540739",
+      "Name": "Play_4__Rocks_Cracking",
+      "ObjectPath": "\\Events\\Default Work Unit\\SFX\\Kraken\\Attack Parts\\Play_4__Rocks_Cracking",
+      "GUID": "{96026119-D219-477F-9E0E-5D6333B402F2}",
+      "Color": "8",
+      "DurationType": "OneShot",
+      "DurationMin": "1.7265532",
+      "DurationMax": "2.5669677",
+      "MediaRefs": [
+       {
+        "Id": "188320656"
+       },
+       {
+        "Id": "863325323"
+       },
+       {
+        "Id": "1021864714"
+       }
+      ],
+      "PluginRefs": {
+       "Custom": [
+        {
+         "Id": "694844500"
+        },
+        {
+         "Id": "838246956"
+        }
+       ]
+      }
+     }
+    ]
+   }
+  ],
+  "FileHash": "{649C7001-A5E1-7B0C-FDE5-61E6DD866A12}"
+ }
+}

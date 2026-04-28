@@ -1,0 +1,129 @@
+{
+ "SoundBanksInfo": {
+  "Platform": "Mac",
+  "BasePlatform": "Mac",
+  "SchemaVersion": "16",
+  "SoundBankVersion": "172",
+  "SoundBanks": [
+   {
+    "Id": "2604050293",
+    "Type": "Event",
+    "GUID": "{4146FB0D-E81C-45CB-8CF6-51EA9DFC25EA}",
+    "Language": "SFX",
+    "Hash": "{44FC40D7-DD7B-7A0E-EE7D-2707E7751087}",
+    "ObjectPath": "Play_Rage",
+    "ShortName": "Play_Rage",
+    "Path": "Event/Play_Rage.bnk",
+    "Media": [
+     {
+      "Id": "132351818",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Loose",
+      "ShortName": "SFX_rage_Kraken_02.wav",
+      "Path": "Media/132351818.wem",
+      "CachePath": "EC/{ECEEF672-7939-A134-F6F7-673AA41FAD01}.wem"
+     },
+     {
+      "Id": "309001858",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Loose",
+      "ShortName": "SFX_rage_Kraken_03.wav",
+      "Path": "Media/309001858.wem",
+      "CachePath": "6A/{6A874A9D-5C11-20B2-91F3-7C258BB614B9}.wem"
+     },
+     {
+      "Id": "860729886",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Loose",
+      "ShortName": "SFX_rage_Kraken_01.wav",
+      "Path": "Media/860729886.wem",
+      "CachePath": "96/{967D5847-31AD-4EAA-9677-34C50A063ED9}.wem"
+     }
+    ],
+    "Plugins": {
+     "Custom": [
+      {
+       "Id": "605397600",
+       "Name": "Tremolo (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\Rage\\[Effect Slot [0]: (Tremolo)]\\Tremolo (Custom)",
+       "GUID": "{49095D76-13DF-4FDD-9598-BA6D9D262F28}",
+       "LibName": "Wwise Tremolo",
+       "LibId": "8585219"
+      },
+      {
+       "Id": "1057884020",
+       "Name": "Phone_Booth (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\Rage\\[Effect Slot [1]: (RoomVerb)]\\Phone_Booth (Custom)",
+       "GUID": "{983E7C10-0621-46DF-B25B-C22F2B897C3D}",
+       "LibName": "Wwise RoomVerb",
+       "LibId": "7733251"
+      },
+      {
+       "Id": "1072579593",
+       "Name": "Guitar Distortion (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\Rage\\[Effect Slot [3]: (Guitar Distortion)]\\Guitar Distortion (Custom)",
+       "GUID": "{76FF3B7E-B19E-4103-A2A1-C3C6681D0827}",
+       "LibName": "Wwise Guitar Distortion",
+       "LibId": "8257539"
+      }
+     ],
+     "ShareSets": [
+      {
+       "Id": "3604890626",
+       "Name": "High_Pass_60Hz",
+       "ObjectPath": "\\Effects\\Factory Effects\\Parametric EQ\\High Pass Filters\\High_Pass_60Hz",
+       "GUID": "{F9627628-0B10-4272-BC30-D4C20423CB38}",
+       "LibName": "Wwise Parametric EQ",
+       "LibId": "6881283"
+      }
+     ]
+    },
+    "Events": [
+     {
+      "Id": "2604050293",
+      "Name": "Play_Rage",
+      "ObjectPath": "\\Events\\Default Work Unit\\SFX\\Kraken\\Rage\\Play_Rage",
+      "GUID": "{4146FB0D-E81C-45CB-8CF6-51EA9DFC25EA}",
+      "Color": "8",
+      "DurationType": "OneShot",
+      "DurationMin": "1.7810183",
+      "DurationMax": "3.5786297",
+      "MediaRefs": [
+       {
+        "Id": "132351818"
+       },
+       {
+        "Id": "309001858"
+       },
+       {
+        "Id": "860729886"
+       }
+      ],
+      "PluginRefs": {
+       "Custom": [
+        {
+         "Id": "605397600"
+        },
+        {
+         "Id": "1057884020"
+        },
+        {
+         "Id": "1072579593"
+        }
+       ],
+       "ShareSets": [
+        {
+         "Id": "3604890626"
+        }
+       ]
+      }
+     }
+    ]
+   }
+  ],
+  "FileHash": "{C1009AAE-B53F-A548-4B65-02970584511F}"
+ }
+}
