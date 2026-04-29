@@ -1,0 +1,79 @@
+{
+ "SoundBanksInfo": {
+  "Platform": "Mac",
+  "BasePlatform": "Mac",
+  "SchemaVersion": "16",
+  "SoundBankVersion": "172",
+  "SoundBanks": [
+   {
+    "Id": "2316495489",
+    "Type": "Event",
+    "GUID": "{C5B027C6-6B4B-40F9-8F56-F0A0F21606EC}",
+    "Language": "SFX",
+    "Hash": "{FC143B7E-6969-6B01-5E9C-3767ED38A53A}",
+    "ObjectPath": "Play_Flame_Echoes",
+    "ShortName": "Play_Flame_Echoes",
+    "Path": "Event/Play_Flame_Echoes.bnk",
+    "Media": [
+     {
+      "Id": "678110189",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Loose",
+      "ShortName": "SPFX_echoesOfFlame_Bastian_01.wav",
+      "Path": "Media/678110189.wem",
+      "CachePath": "9F/{9F1CF36F-4686-3E9D-89E3-037DAD1EF254}.wem"
+     }
+    ],
+    "Plugins": {
+     "Custom": [
+      {
+       "Id": "856938066",
+       "Name": "Low_Pass_20KHz (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Players\\Bastian\\Supremes\\Flame Echoes\\[Effect Slot [0]: (Parametric EQ)]\\Low_Pass_20KHz (Custom)",
+       "GUID": "{9499AAA7-8F5A-4842-88AA-29BCE9A53765}",
+       "LibName": "Wwise Parametric EQ",
+       "LibId": "6881283"
+      },
+      {
+       "Id": "1067583891",
+       "Name": "Guitar Distortion (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Players\\Bastian\\Supremes\\Flame Echoes\\[Effect Slot [1]: (Guitar Distortion)]\\Guitar Distortion (Custom)",
+       "GUID": "{7E979D42-9DAB-46BC-B6B8-ACF91C2C9BA2}",
+       "LibName": "Wwise Guitar Distortion",
+       "LibId": "8257539"
+      }
+     ]
+    },
+    "Events": [
+     {
+      "Id": "2316495489",
+      "Name": "Play_Flame_Echoes",
+      "ObjectPath": "\\Events\\Default Work Unit\\SFX\\Players\\Bastian\\Supremes\\Play_Flame_Echoes",
+      "GUID": "{C5B027C6-6B4B-40F9-8F56-F0A0F21606EC}",
+      "Color": "23",
+      "DurationType": "OneShot",
+      "DurationMin": "5.665065",
+      "DurationMax": "6.358821",
+      "MediaRefs": [
+       {
+        "Id": "678110189"
+       }
+      ],
+      "PluginRefs": {
+       "Custom": [
+        {
+         "Id": "856938066"
+        },
+        {
+         "Id": "1067583891"
+        }
+       ]
+      }
+     }
+    ]
+   }
+  ],
+  "FileHash": "{EC3A216D-F154-9D0C-DF30-ACB99DF4E1F0}"
+ }
+}

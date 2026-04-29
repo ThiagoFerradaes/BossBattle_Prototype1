@@ -10,7 +10,7 @@
     "Type": "Event",
     "GUID": "{6D5870F7-0FF6-4D34-A701-66207FC98C40}",
     "Language": "SFX",
-    "Hash": "{5BB94F69-74F4-37EF-BCDF-1E74C1DF8EC3}",
+    "Hash": "{26ECE3C6-0BB0-ED91-807A-F53CDB7D32A5}",
     "ObjectPath": "Play_Change_Character",
     "ShortName": "Play_Change_Character",
     "Path": "Event/Play_Change_Character.bnk",
@@ -27,6 +27,14 @@
     ],
     "Plugins": {
      "Custom": [
+      {
+       "Id": "458985357",
+       "Name": "Phone_Booth (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\UI\\Character Selection Screen\\Change Character\\[Effect Slot [1]: (RoomVerb)]\\Phone_Booth (Custom)",
+       "GUID": "{8B4326AB-9435-4079-8CE6-246815EF5543}",
+       "LibName": "Wwise RoomVerb",
+       "LibId": "7733251"
+      },
       {
        "Id": "548868559",
        "Name": "Octave_Down (Custom)",
@@ -63,6 +71,9 @@
       "PluginRefs": {
        "Custom": [
         {
+         "Id": "458985357"
+        },
+        {
          "Id": "548868559"
         },
         {
@@ -74,6 +85,6 @@
     ]
    }
   ],
-  "FileHash": "{EB9145C3-E27D-9B14-0FC4-54F1A5ED1A09}"
+  "FileHash": "{2928F12F-8A1B-9C82-1519-C0D0BC7F1D34}"
  }
 }

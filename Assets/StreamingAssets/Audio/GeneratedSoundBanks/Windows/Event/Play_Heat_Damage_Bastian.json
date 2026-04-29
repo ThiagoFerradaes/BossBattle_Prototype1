@@ -1,0 +1,141 @@
+{
+ "SoundBanksInfo": {
+  "Platform": "Windows",
+  "BasePlatform": "Windows",
+  "SchemaVersion": "16",
+  "SoundBankVersion": "172",
+  "SoundBanks": [
+   {
+    "Id": "3068605067",
+    "Type": "Event",
+    "GUID": "{C7591FBF-26AA-432B-AC9C-D9589553526D}",
+    "Language": "SFX",
+    "Hash": "{2C0F18DD-3C38-2767-8B97-5B9B4AB77E32}",
+    "ObjectPath": "Play_Heat_Damage_Bastian",
+    "ShortName": "Play_Heat_Damage_Bastian",
+    "Path": "Event/Play_Heat_Damage_Bastian.bnk",
+    "Media": [
+     {
+      "Id": "246775747",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Loose",
+      "ShortName": "SFX__damage_02 .wav",
+      "Path": "Media/246775747.wem",
+      "CachePath": "17/{1757AA94-9455-596F-73C9-0F2F21D271EA}.wem"
+     },
+     {
+      "Id": "326328344",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Loose",
+      "ShortName": "SFX_damage_heat_01.wav",
+      "Path": "Media/326328344.wem",
+      "CachePath": "D2/{D2921892-FDF8-7278-D659-F7D866F9AFBC}.wem"
+     },
+     {
+      "Id": "816003403",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Loose",
+      "ShortName": "SFX__damage_01.wav",
+      "Path": "Media/816003403.wem",
+      "CachePath": "55/{55B4FB99-370F-9E34-207D-83CDF7E33E42}.wem"
+     },
+     {
+      "Id": "910157443",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Loose",
+      "ShortName": "SFX__damage_03.wav",
+      "Path": "Media/910157443.wem",
+      "CachePath": "D8/{D8492568-1215-9101-54CD-5E667C937CE4}.wem"
+     }
+    ],
+    "Plugins": {
+     "Custom": [
+      {
+       "Id": "97398733",
+       "Name": "Guitar Distortion (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Players\\Bastian\\Damage\\Heat Damage\\Hit Damage Heat\\[Effect Slot [0]: (Guitar Distortion)]\\Guitar Distortion (Custom)",
+       "GUID": "{7F89314B-017D-46C7-B065-88EA76C3DEF6}",
+       "LibName": "Wwise Guitar Distortion",
+       "LibId": "8257539"
+      },
+      {
+       "Id": "121634418",
+       "Name": "Tremolo (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Players\\Bastian\\Damage\\Heat Damage\\Heat Damage\\[Effect Slot [2]: (Tremolo)]\\Tremolo (Custom)",
+       "GUID": "{889CB5F4-ADC0-4699-BD16-CAB8C2D3D73D}",
+       "LibName": "Wwise Tremolo",
+       "LibId": "8585219"
+      },
+      {
+       "Id": "506053143",
+       "Name": "Guitar Distortion (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Players\\Bastian\\Damage\\Heat Damage\\Heat Damage\\[Effect Slot [0]: (Guitar Distortion)]\\Guitar Distortion (Custom)",
+       "GUID": "{30854C8D-5FC5-475D-9438-6557759B7CEB}",
+       "LibName": "Wwise Guitar Distortion",
+       "LibId": "8257539"
+      }
+     ],
+     "ShareSets": [
+      {
+       "Id": "1008402193",
+       "Name": "Low_Pass_20KHz",
+       "ObjectPath": "\\Effects\\Factory Effects\\Parametric EQ\\Low Pass Filters\\Low_Pass_20KHz",
+       "GUID": "{830124FB-B9D5-4AE8-846E-E94A74652666}",
+       "LibName": "Wwise Parametric EQ",
+       "LibId": "6881283"
+      }
+     ]
+    },
+    "Events": [
+     {
+      "Id": "3068605067",
+      "Name": "Play_Heat_Damage_Bastian",
+      "ObjectPath": "\\Events\\Default Work Unit\\SFX\\Players\\Bastian\\Damage\\Play_Heat_Damage_Bastian",
+      "GUID": "{C7591FBF-26AA-432B-AC9C-D9589553526D}",
+      "Color": "23",
+      "DurationType": "OneShot",
+      "DurationMin": "1.7025822",
+      "DurationMax": "2.514418",
+      "MediaRefs": [
+       {
+        "Id": "246775747"
+       },
+       {
+        "Id": "326328344"
+       },
+       {
+        "Id": "816003403"
+       },
+       {
+        "Id": "910157443"
+       }
+      ],
+      "PluginRefs": {
+       "Custom": [
+        {
+         "Id": "97398733"
+        },
+        {
+         "Id": "121634418"
+        },
+        {
+         "Id": "506053143"
+        }
+       ],
+       "ShareSets": [
+        {
+         "Id": "1008402193"
+        }
+       ]
+      }
+     }
+    ]
+   }
+  ],
+  "FileHash": "{157F8586-92DB-D2F8-C083-B63AA3D16854}"
+ }
+}

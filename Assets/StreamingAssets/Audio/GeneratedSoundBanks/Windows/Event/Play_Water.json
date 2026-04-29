@@ -10,7 +10,7 @@
     "Type": "Event",
     "GUID": "{32BB7169-EF23-4065-8404-8A32EB93C3ED}",
     "Language": "SFX",
-    "Hash": "{EA59FBD7-BA7F-8F12-A198-64AB09FB0B66}",
+    "Hash": "{B4ACC945-B8C7-43A6-2454-52C5E8669EB8}",
     "ObjectPath": "Play_Water",
     "ShortName": "Play_Water",
     "Path": "Event/Play_Water.bnk",
@@ -77,9 +77,17 @@
        "Name": "Silence",
        "ObjectPath": "\\Containers\\Default Work Unit\\Ambient\\Water\\Water Waves\\Waves_Silence_01\\Silence",
        "GUID": "{723B57DB-1E3C-4AA5-B093-BFDA0CB438DB}",
-       "Color": "14",
+       "Color": "15",
        "LibName": "Wwise Silence",
        "LibId": "6619138"
+      },
+      {
+       "Id": "978597324",
+       "Name": "Parametric EQ (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\Ambient\\Water\\[Effect Slot [0]: (Parametric EQ)]\\Parametric EQ (Custom)",
+       "GUID": "{2D395151-CB07-4E31-88F4-0C7BA5ACF685}",
+       "LibName": "Wwise Parametric EQ",
+       "LibId": "6881283"
       }
      ]
     },
@@ -89,7 +97,7 @@
       "Name": "Play_Water",
       "ObjectPath": "\\Events\\Default Work Unit\\SFX\\Ambient\\Water\\Play_Water",
       "GUID": "{32BB7169-EF23-4065-8404-8A32EB93C3ED}",
-      "Color": "14",
+      "Color": "15",
       "DurationType": "Infinite",
       "MediaRefs": [
        {
@@ -115,6 +123,9 @@
        "Custom": [
         {
          "Id": "285906211"
+        },
+        {
+         "Id": "978597324"
         }
        ]
       }
@@ -122,6 +133,6 @@
     ]
    }
   ],
-  "FileHash": "{5F36E2CC-6BFC-324D-55E6-5D968644FB1A}"
+  "FileHash": "{030D1861-0051-1313-2D40-7AFC89340D0E}"
  }
 }
