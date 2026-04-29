@@ -3,7 +3,7 @@ using System.Collections;
 using System.Threading;
 using UnityEngine;
 
-public enum HeatArea { CoolArea = 0, HeatArea = 1, SuperHeatArea = 2, OverHeatArea = 3, LastOverHeatArea = 4 }
+public enum HeatArea { CoolArea = 0, HeatArea = 1, SuperHeatArea = 2, OverHeatArea = 3, ExtremeHeatArea = 4 }
 public class BastianPassiveManager : PassiveSkillManager {
 
     // Singleton
@@ -96,7 +96,14 @@ public class BastianPassiveManager : PassiveSkillManager {
     void LooseHealth() {
         float currentHealth = _healthManager.ReturnCurrentHealth();
         float maxHealth = _healthManager.ReturnMaxHealth();
-        float healthToLoose = maxHealth * _info.PercentOfMaxHealthLostPerTime / 100;
+        float healthMultiplier = _heatArea switch
+        {
+            HeatArea.SuperHeatArea => _info.PercentOfMaxHealthLostPerTimeSuperHeat,
+            HeatArea.OverHeatArea => _info.PercentOfMaxHealthLostPerTimeOverHeat,
+            HeatArea.ExtremeHeatArea => _info.PercentOfMaxHealthLostPerTimeExtremeHeat,
+            _ => 0
+        };
+        float healthToLoose = maxHealth * healthMultiplier / 100;
 
         float damage = Mathf.Min(healthToLoose, Mathf.Max(0, currentHealth - 1));
         if (damage > 0) _healthManager.TakeDamage(damage, false);
@@ -180,9 +187,9 @@ public class BastianPassiveManager : PassiveSkillManager {
     }
 
     void LastOverHeatHit() {
-        if (_heatArea == HeatArea.LastOverHeatArea) return;
+        if (_heatArea == HeatArea.ExtremeHeatArea) return;
 
-        _heatArea = HeatArea.LastOverHeatArea;
+        _heatArea = HeatArea.ExtremeHeatArea;
     }
     #endregion
 
@@ -213,7 +220,7 @@ public class BastianPassiveManager : PassiveSkillManager {
     }
 
     IEnumerator LooseHealthOverTime() {
-        while (_heatArea == _info.AreaToLooseHealth) {
+        while (_heatArea >= _info.MinAreaToLooseHealth) {
             LooseHealth();
             yield return new WaitForSeconds(_info.TimeToLooseHealth);
         }

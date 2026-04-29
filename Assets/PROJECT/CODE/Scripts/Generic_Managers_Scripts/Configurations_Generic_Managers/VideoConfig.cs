@@ -3,6 +3,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
+using UnityEngine.UI;
 
 public class VideoConfig : ConfigScreen {
 
@@ -55,6 +56,7 @@ public class VideoConfig : ConfigScreen {
         SetWindowModeDropdownValues();
         SetGraphicDropdownValues();
     }
+
 
     #region Resolution Settings
 

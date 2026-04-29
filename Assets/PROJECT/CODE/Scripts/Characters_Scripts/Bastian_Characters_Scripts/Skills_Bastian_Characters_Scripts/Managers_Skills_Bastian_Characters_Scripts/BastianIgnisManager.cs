@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -7,6 +8,9 @@ public class BastianIgnisManager : SkillObjectManager {
     BastianIgnisSO _info;
 
     float _attackSpeedMultiplier;
+
+    public static event Action OnIgnisShoot;
+
     public override void HandleInput(SkillSO skill, InputAction.CallbackContext ctx)
     {
         if (!BastianPassiveManager.Instance.CanShoot)
@@ -57,7 +61,7 @@ public class BastianIgnisManager : SkillObjectManager {
 
         float pen = BastianPassiveManager.Instance.ReturnMinHeat(HeatArea.SuperHeatArea) ? _info.PenetrationOnSuperHeat : 0;
         float critChance = BastianPassiveManager.Instance.ReturnMinHeat(HeatArea.OverHeatArea) ? _info.CritChanceOverHeat : 0;
-        float additionalCriDmg = BastianPassiveManager.Instance.ReturnMinHeat(HeatArea.LastOverHeatArea) ? _info.LastOverHeatCritDamage : 0;
+        float additionalCriDmg = BastianPassiveManager.Instance.ReturnMinHeat(HeatArea.ExtremeHeatArea) ? _info.LastOverHeatCritDamage : 0;
         float critDamage = statusManager.ReturnStatusValue(StatusType.CritDamage) + additionalCriDmg;
 
         DamageAtributes atributes = new(_info.SkillDamageAtributes);
@@ -80,5 +84,7 @@ public class BastianIgnisManager : SkillObjectManager {
         if (BastianPassiveManager.Instance.ReturnMaxHeat(HeatArea.SuperHeatArea))
             BastianPassiveManager.Instance.GainHeat(_info.HeatGain);
         else BastianPassiveManager.Instance.GainHeat(1);
+
+        OnIgnisShoot?.Invoke();
     }
 }
