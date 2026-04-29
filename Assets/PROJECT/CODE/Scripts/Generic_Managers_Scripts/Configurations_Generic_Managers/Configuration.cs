@@ -1,5 +1,6 @@
 using AYellowpaper.SerializedCollections;
 using NaughtyAttributes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -42,6 +43,8 @@ public class Configuration : MonoBehaviour {
     [SerializeField, Foldout("Input")] InputActionReference LBButton;
     [SerializeField, Foldout("Input")] InputActionReference CancelButton;
 
+    public event Action OnConfigurationScreenClose;
+
 
     ConfigurationScreen _currentScreen;
     List<ConfigurationScreen> _screensOrder;
@@ -78,6 +81,8 @@ public class Configuration : MonoBehaviour {
         }
 
         configurationScreen.SetActive(false);
+
+        OnConfigurationScreenClose?.Invoke();
 
     }
     #endregion
