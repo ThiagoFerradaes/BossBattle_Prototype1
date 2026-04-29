@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Localization;
 
 [CreateAssetMenu(menuName = "Characters/ Passives/ BastianPassive")]
 public class BastianPassiveSO : PassiveSO
@@ -10,8 +11,7 @@ public class BastianPassiveSO : PassiveSO
     public float HeatToHitSuperHeatArea;
     public float HeatToHitOverHeatArea;
     public float HeatToHitLastOverHeatArea;
-    public Color CoolColor, HeatColor, SuperHeatColor, OverHeatColor, LastOverHeatColor;
-    public string CoolText, HeatText, SuperHeatText, OverHeatText, LastOverHeatText;
+    public LocalizedString CoolText, HeatText, SuperHeatText, OverHeatText, LastOverHeatText;
     public AK.Wwise.Event HeatZoneChangeSound;
     public List<AK.Wwise.Switch> HeatZoneSwitchs;
     public AK.Wwise.Event LooseHealthSound;
