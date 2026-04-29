@@ -19,6 +19,8 @@ public class PauseScreen : MonoBehaviour {
     [SerializeField] Configuration configScreen;
     [SerializeField] InputActionReference cancelAction;
 
+    public event Action OnDespause;
+
     private void Awake() {
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
@@ -48,10 +50,16 @@ public class PauseScreen : MonoBehaviour {
 
         configButton.onClick.AddListener(() => configScreen.InitializeConfigurationScreen());
 
-        cancelAction.action.performed += CancelButton;
+        
     }
 
-    public void TurnScreenOn() {
+    public void Pause() {
+        if (Time.timeScale == 1 && !pauseScreen.activeInHierarchy) {
+            TurnScreenOn();
+        }
+        else TurnScreenOff();
+    }
+    void TurnScreenOn() {
         Time.timeScale = 0;
 
         pauseScreen.SetActive(true);
@@ -68,9 +76,11 @@ public class PauseScreen : MonoBehaviour {
     void CancelButton(InputAction.CallbackContext context) {
         if (!context.performed || !pauseScreen.activeInHierarchy) return;
 
+        Debug.Log("Cancel button");
+
         TurnScreenOff();
     }
-    public void TurnScreenOff() {
+    void TurnScreenOff() {
         Time.timeScale = 1;
 
         pauseScreen.SetActive(false);
@@ -78,6 +88,8 @@ public class PauseScreen : MonoBehaviour {
         TurnButtonBackgroundOff();
 
         configScreen.CloseConfigurationScreen();
+
+        OnDespause?.Invoke();
     }
 
     public void TurnButtonBackgroundOn(Transform target) {
