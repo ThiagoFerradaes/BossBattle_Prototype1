@@ -42,6 +42,13 @@ public class HealthManager : MonoBehaviour {
     [SerializeField]
     bool imortal = false; //keep this false unless you want to debug vfxs and not die
 
+    // Sound
+    [SerializeField] AK.Wwise.Event damageSound;
+    [SerializeField] AK.Wwise.Event damageOnShieldSound;
+    [SerializeField] AK.Wwise.Event healSound;
+    [SerializeField] AK.Wwise.Event gainShieldSound;
+    [SerializeField] AK.Wwise.Event breakShieldSound;
+
     #region Methods
 
     #region Initialize
@@ -51,7 +58,7 @@ public class HealthManager : MonoBehaviour {
 
     private void Start() {
         _maxHealth = imortal ? 1000000f : _statusManager.ReturnStatusValue(StatusType.MaxHealth);
-        _maxShield = _statusManager.ReturnStatusValue(StatusType.MaxAmountOfShield)/100;
+        _maxShield = _statusManager.ReturnStatusValue(StatusType.MaxAmountOfShield) / 100;
         ChangeHealth(_maxHealth);
         ChangeShield(0);
     }
@@ -69,9 +76,19 @@ public class HealthManager : MonoBehaviour {
     #endregion
 
     #region Health
-    void ChangeHealth(float newHealth) {
+    void ChangeHealth(float newHealth, AK.Wwise.Event overrideDamageSound = null) {
+
+        float oldHealth = _currentHealth;
+
         _currentHealth = Mathf.Clamp(newHealth, 0, _maxHealth);
         OnHealthChanged?.Invoke(_currentHealth, _maxHealth);
+
+        if (_currentHealth == _maxHealth) return;
+
+        if (oldHealth > _currentHealth) { // Tomou dano
+            if (overrideDamageSound != null) overrideDamageSound.Post(gameObject);
+            else damageSound?.Post(gameObject);
+        }
 
         if (_currentHealth <= 0) {
             _isDead = true;
@@ -87,30 +104,35 @@ public class HealthManager : MonoBehaviour {
     /// </summary>
     /// <param name="damageTaken"></param>
     /// <param name="hitShield"></param>
-    public void TakeDamage(float damageTaken, bool hitShield = true) {
+    public void TakeDamage(float damageTaken, bool hitShield = true, AK.Wwise.Event overrideDamageSound = null) {
 
         if (_isDead || !_canTakeDamage) return;
 
         OnHit?.Invoke();
 
-        if (!hitShield) {
-            ChangeHealth(_currentHealth - damageTaken);
+        if (!hitShield) { // Bate no escudo?
+            ChangeHealth(_currentHealth - damageTaken, overrideDamageSound);
             OnDamageTaken?.Invoke(damageTaken);
         }
         else {
             bool isShielded = _currentShield > 0;
 
-            if (isShielded) {
-                if (_currentShield > damageTaken) ChangeShield(_currentShield - damageTaken);
-                else {
-                    float realDamage = -(_currentShield - damageTaken);
+            if (isShielded) { // Tomou dano no escudo
+                if (_currentShield > damageTaken) ChangeShield(_currentShield - damageTaken); // Não quebrou o escudo
+
+                else { // Quebrou o escudo
+
+                    // Quebrando o escudo
                     ChangeShield(0);
-                    ChangeHealth(_currentHealth - realDamage);
+
+                    // Tomando dano na vida
+                    float realDamage = -(_currentShield - damageTaken);
+                    ChangeHealth(_currentHealth - realDamage, overrideDamageSound);
                     OnDamageTaken?.Invoke(realDamage);
                 }
             }
             else {
-                ChangeHealth(_currentHealth - damageTaken);
+                ChangeHealth(_currentHealth - damageTaken, overrideDamageSound);
                 OnDamageTaken?.Invoke(damageTaken);
             }
         }
@@ -133,16 +155,20 @@ public class HealthManager : MonoBehaviour {
     /// Heal the character
     /// </summary>
     /// <param name="amount"></param>
-    public void Heal(float amount) {
+    public void Heal(float amount, AK.Wwise.Event overrideHealingSound = null) {
+
         ChangeHealth(_currentHealth + amount);
+
+        if (overrideHealingSound != null) overrideHealingSound.Post(gameObject);
+        else healSound?.Post(gameObject);
+
         OnHeal?.Invoke(amount);
     }
 
     /// <summary>
     /// Reset booleans -> canTakeDamage and isDead, also heals the character to max and reset the shield to 0
     /// </summary>
-    public void Revive()
-    {
+    public void Revive() {
         SetCanTakeDamage();
         _isDead = false;
 
@@ -162,9 +188,22 @@ public class HealthManager : MonoBehaviour {
 
     #region Shield
     void ChangeShield(float newShield) {
+
+        float oldShieldValue = _currentShield;
+
         _currentShield = Mathf.Clamp(newShield, 0, _maxHealth * _maxShield);
+
+        // Ganhou escudo
+        if (oldShieldValue < _currentShield) gainShieldSound?.Post(gameObject);
+        // Perdeu escudo
+        else damageOnShieldSound?.Post(gameObject);
+
         OnShieldChanged?.Invoke(_currentShield, _maxHealth * _maxShield);
-        if (_currentShield == 0) OnShieldBreak?.Invoke();
+
+        if (_currentShield == 0) { // Quebrou escudo
+            breakShieldSound?.Post(gameObject);
+            OnShieldBreak?.Invoke();
+        }
     }
 
     /// <summary>

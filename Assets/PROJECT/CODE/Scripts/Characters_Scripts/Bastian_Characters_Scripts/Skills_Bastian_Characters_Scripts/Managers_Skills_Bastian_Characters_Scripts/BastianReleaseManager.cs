@@ -42,6 +42,8 @@ public class BastianReleaseManager : SkillObjectManager {
 
     protected override void ThirdFunc() {
         BastianPassiveManager.Instance.LooseHeat(_info.HeatLost);
+
+        _info.SkillSound.Post(parent);
     }
 
     protected override void FourthFunc() {

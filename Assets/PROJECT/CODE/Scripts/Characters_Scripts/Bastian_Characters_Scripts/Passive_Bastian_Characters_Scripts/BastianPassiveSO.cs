@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Characters/ Passives/ BastianPassive")]
@@ -11,6 +12,9 @@ public class BastianPassiveSO : PassiveSO
     public float HeatToHitLastOverHeatArea;
     public Color CoolColor, HeatColor, SuperHeatColor, OverHeatColor, LastOverHeatColor;
     public string CoolText, HeatText, SuperHeatText, OverHeatText, LastOverHeatText;
+    public AK.Wwise.Event HeatZoneChangeSound;
+    public List<AK.Wwise.Switch> HeatZoneSwitchs;
+    public AK.Wwise.Event LooseHealthSound;
 
     [Header("Attack Speed Gain")]
     [Range(0,1)]public float AmountOfAttackSpeedGainHeat;

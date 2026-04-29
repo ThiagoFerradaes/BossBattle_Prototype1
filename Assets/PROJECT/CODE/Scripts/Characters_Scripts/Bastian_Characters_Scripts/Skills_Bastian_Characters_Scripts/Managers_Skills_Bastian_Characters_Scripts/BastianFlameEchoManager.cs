@@ -53,6 +53,8 @@ public class BastianFlameEchoManager : SkillObjectManager
         base.FirstFunc();
 
         _energyManager.LooseAllEnergy();
+
+        _info.SkillSound.Post(parent);
     }
 
     float GetAttackSpeedMultiplier()
