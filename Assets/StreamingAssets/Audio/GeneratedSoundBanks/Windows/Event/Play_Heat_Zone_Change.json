@@ -10,7 +10,7 @@
     "Type": "Event",
     "GUID": "{536BD710-6004-46A6-9DE2-5B64875D83F7}",
     "Language": "SFX",
-    "Hash": "{F7968896-1AE3-AF38-401B-3C02F9720234}",
+    "Hash": "{B841388C-D49E-162E-3BC3-425C7572FFFE}",
     "ObjectPath": "Play_Heat_Zone_Change",
     "ShortName": "Play_Heat_Zone_Change",
     "Path": "Event/Play_Heat_Zone_Change.bnk",
@@ -36,13 +36,12 @@
        "LibId": "6881283"
       },
       {
-       "Id": "19840067",
-       "Name": "Silence",
-       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Players\\Bastian\\Heat Zone Change\\Cool\\Silence",
-       "GUID": "{10FA2165-A459-44B3-8DD7-B56C115FBAF4}",
-       "Color": "22",
-       "LibName": "Wwise Silence",
-       "LibId": "6619138"
+       "Id": "63239589",
+       "Name": "Guitar Distortion (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Players\\Bastian\\Heat Zone Change\\Cool\\[Effect Slot [1]: (Guitar Distortion)]\\Guitar Distortion (Custom)",
+       "GUID": "{DFA09A00-530B-473C-8B02-DE32E26E63D0}",
+       "LibName": "Wwise Guitar Distortion",
+       "LibId": "8257539"
       },
       {
        "Id": "101872829",
@@ -93,6 +92,14 @@
        "LibId": "6881283"
       },
       {
+       "Id": "926424999",
+       "Name": "Low_Pass_20KHz (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Players\\Bastian\\Heat Zone Change\\Cool\\[Effect Slot [0]: (Parametric EQ)]\\Low_Pass_20KHz (Custom)",
+       "GUID": "{D1326528-DD22-4481-9B94-48FBA66564BE}",
+       "LibName": "Wwise Parametric EQ",
+       "LibId": "6881283"
+      },
+      {
        "Id": "1043694910",
        "Name": "Guitar Distortion (Custom)",
        "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Players\\Bastian\\Heat Zone Change\\Extreme Heat\\[Effect Slot [1]: (Guitar Distortion)]\\Guitar Distortion (Custom)",
@@ -110,8 +117,8 @@
       "GUID": "{536BD710-6004-46A6-9DE2-5B64875D83F7}",
       "Color": "23",
       "DurationType": "OneShot",
-      "DurationMin": "0.001",
-      "DurationMax": "2.5123355",
+      "DurationMin": "2.0406506",
+      "DurationMax": "2.852768",
       "SwitchContainers": [
        {
         "SwitchValue": {
@@ -120,10 +127,18 @@
          "Id": "3703938822",
          "GUID": "{94D5DA06-74D1-46F4-BC4C-A4B3A1145714}"
         },
+        "MediaRefs": [
+         {
+          "Id": "66103672"
+         }
+        ],
         "PluginRefs": {
          "Custom": [
           {
-           "Id": "19840067"
+           "Id": "63239589"
+          },
+          {
+           "Id": "926424999"
           }
          ]
         }
@@ -265,6 +280,6 @@
     ]
    }
   ],
-  "FileHash": "{CA323A54-EE6B-9811-400A-5B21E32B645D}"
+  "FileHash": "{79F1C1BA-E37C-4898-FB47-9C87A0AA02E1}"
  }
 }
