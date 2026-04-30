@@ -51,11 +51,27 @@ MonoBehaviour:
     AnimationLayer: 0
     AnimationBaseSpeed: 3
     Loop: 0
-    AnimationExitTime: 0.6
+    AnimationExitTime: 0.7
   Prefabs:
     _serializedList:
     - Key: 0
       Value:
+      - TimeToSpawnPreFab: 0.4
+        PrefabType: 0
+        PreFab: {fileID: 5556882484380889040, guid: 73183662ed7be604f90dff0cc2f277ff, type: 3}
+        PreFabPosition: {x: 0, y: 1, z: 0}
+        VFXAtribute:
+          VFXType: 0
+          VFXDuration: 0
+          VFXPosCollisionDuration: 0
+          CrossEnemy: 0
+          TimeStopped: 0
+          MinDistanceBack: 0
+          UnitsToHit:
+            serializedVersion: 2
+            m_Bits: 0
+          VFXSpeed: 0
+          Distance: 0
       - TimeToSpawnPreFab: 0.5
         PrefabType: 1
         PreFab: {fileID: 4924003528972884429, guid: 60cf0431affc69a46b58c0760a74c28c, type: 3}
@@ -72,26 +88,10 @@ MonoBehaviour:
             m_Bits: 192
           VFXSpeed: 30
           Distance: 20
-      - TimeToSpawnPreFab: 0.6
-        PrefabType: 0
-        PreFab: {fileID: 5556882484380889040, guid: 73183662ed7be604f90dff0cc2f277ff, type: 3}
-        PreFabPosition: {x: 0, y: 1, z: 0}
-        VFXAtribute:
-          VFXType: 0
-          VFXDuration: 0
-          VFXPosCollisionDuration: 0
-          CrossEnemy: 0
-          TimeStopped: 0
-          MinDistanceBack: 0
-          UnitsToHit:
-            serializedVersion: 2
-            m_Bits: 0
-          VFXSpeed: 0
-          Distance: 0
   SkillObjectRangeObject: {fileID: 5203434260948203345, guid: 33b85ce993cf5ac42bc2d8a1f986e21e, type: 3}
   BlockWalkWhilePreCasting: 1
   BlockDashWhilePreCasting: 1
-  PreCastOn: 1
+  PreCastOn: 0
   SkillCharacter: 1
   Cancelable: 0
   Slot: 2
@@ -99,11 +99,11 @@ MonoBehaviour:
   SkillSound:
     idInternal: 0
     valueGuidInternal: 
-    WwiseObjectReference: {fileID: 0}
+    WwiseObjectReference: {fileID: 11400000, guid: b6961ea86b33feb4f8692c271732c9e1, type: 2}
   FlatEnergyGainPerHit: 5
   Cooldown: 5
   HasCharges: 1
-  Charges: 3
+  Charges: 2
   ChargeCooldown: 0.5
   DealDamage: 1
   SkillDamageAtributes:

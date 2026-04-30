@@ -1,0 +1,180 @@
+{
+ "SoundBanksInfo": {
+  "Platform": "Windows",
+  "BasePlatform": "Windows",
+  "SchemaVersion": "16",
+  "SoundBankVersion": "172",
+  "SoundBanks": [
+   {
+    "Id": "3225718600",
+    "Type": "Event",
+    "GUID": "{5FFEC839-7162-41BA-8CD9-7A7E049D9884}",
+    "Language": "SFX",
+    "Hash": "{D558481D-C93C-3A27-F324-4769E9E02C3B}",
+    "ObjectPath": "Play_Ignis",
+    "ShortName": "Play_Ignis",
+    "Path": "Event/Play_Ignis.bnk",
+    "Media": [
+     {
+      "Id": "101948241",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Loose",
+      "ShortName": "SPFX_ignis_Bastian_03.wav",
+      "Path": "Media/101948241.wem",
+      "CachePath": "62/{62429632-B8E7-57E8-7C0D-D3BEE6DC913D}.wem"
+     },
+     {
+      "Id": "366981663",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Loose",
+      "ShortName": "SPFX_ignis_Bastian_01.wav",
+      "Path": "Media/366981663.wem",
+      "CachePath": "E9/{E9529066-B261-77C8-8CEF-53C0BA6FE298}.wem"
+     },
+     {
+      "Id": "794964998",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Loose",
+      "ShortName": "SPFX_ignis_Bastian_02.wav",
+      "Path": "Media/794964998.wem",
+      "CachePath": "B8/{B8198662-8A34-B90F-A670-1716EF20B457}.wem"
+     }
+    ],
+    "Plugins": {
+     "Custom": [
+      {
+       "Id": "418946225",
+       "Name": "Guitar Distortion (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Players\\Bastian\\Skills\\Ignis\\Ignis_03\\[Effect Slot [0]: (Guitar Distortion)]\\Guitar Distortion (Custom)",
+       "GUID": "{5FFFEA13-E3C7-4A09-A6B4-73275EC9A029}",
+       "LibName": "Wwise Guitar Distortion",
+       "LibId": "8257539"
+      },
+      {
+       "Id": "914736224",
+       "Name": "Guitar Distortion (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Players\\Bastian\\Skills\\Ignis\\Ignis_01\\[Effect Slot [0]: (Guitar Distortion)]\\Guitar Distortion (Custom)",
+       "GUID": "{ECBBA941-2A46-4EEE-84D8-777A07AD84C7}",
+       "LibName": "Wwise Guitar Distortion",
+       "LibId": "8257539"
+      },
+      {
+       "Id": "939787748",
+       "Name": "Guitar Distortion (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Players\\Bastian\\Skills\\Ignis\\Ignis_02\\[Effect Slot [0]: (Guitar Distortion)]\\Guitar Distortion (Custom)",
+       "GUID": "{28924741-8CEA-408F-A30C-8DB5A5185015}",
+       "LibName": "Wwise Guitar Distortion",
+       "LibId": "8257539"
+      }
+     ]
+    },
+    "Events": [
+     {
+      "Id": "3225718600",
+      "Name": "Play_Ignis",
+      "ObjectPath": "\\Events\\Default Work Unit\\SFX\\Players\\Bastian\\Skills\\Play_Ignis",
+      "GUID": "{5FFEC839-7162-41BA-8CD9-7A7E049D9884}",
+      "Color": "23",
+      "DurationType": "OneShot",
+      "DurationMin": "2.095037",
+      "DurationMax": "2.491433",
+      "SwitchContainers": [
+       {
+        "SwitchValue": {
+         "GroupType": "Switch",
+         "GroupId": "3974953584",
+         "Id": "3136062081",
+         "GUID": "{28AB9780-F283-4E3C-9407-1C03DA1B2A3A}"
+        },
+        "MediaRefs": [
+         {
+          "Id": "366981663"
+         }
+        ],
+        "PluginRefs": {
+         "Custom": [
+          {
+           "Id": "914736224"
+          }
+         ]
+        }
+       },
+       {
+        "SwitchValue": {
+         "GroupType": "Switch",
+         "GroupId": "3974953584",
+         "Id": "3136062082",
+         "GUID": "{F200B0B7-9C73-4E9C-B720-0D3F9806EF80}"
+        },
+        "MediaRefs": [
+         {
+          "Id": "794964998"
+         }
+        ],
+        "PluginRefs": {
+         "Custom": [
+          {
+           "Id": "939787748"
+          }
+         ]
+        }
+       },
+       {
+        "SwitchValue": {
+         "GroupType": "Switch",
+         "GroupId": "3974953584",
+         "Id": "3136062083",
+         "GUID": "{F76545CA-ED7A-4771-889C-C89C538A249F}"
+        },
+        "MediaRefs": [
+         {
+          "Id": "101948241"
+         }
+        ],
+        "PluginRefs": {
+         "Custom": [
+          {
+           "Id": "418946225"
+          }
+         ]
+        }
+       }
+      ]
+     }
+    ],
+    "SwitchGroups": [
+     {
+      "Id": "3974953584",
+      "Name": "Bastian_Ignis_Charges",
+      "ObjectPath": "\\Switches\\Default Work Unit\\Bastian_Ignis_Charges",
+      "GUID": "{65F23326-92AB-4FA3-B6A4-C6985B4A54BC}",
+      "Switches": [
+       {
+        "Id": "3136062081",
+        "Name": "Charge_01",
+        "ObjectPath": "\\Switches\\Default Work Unit\\Bastian_Ignis_Charges\\Charge_01",
+        "GUID": "{28AB9780-F283-4E3C-9407-1C03DA1B2A3A}"
+       },
+       {
+        "Id": "3136062082",
+        "Name": "Charge_02",
+        "ObjectPath": "\\Switches\\Default Work Unit\\Bastian_Ignis_Charges\\Charge_02",
+        "GUID": "{F200B0B7-9C73-4E9C-B720-0D3F9806EF80}"
+       },
+       {
+        "Id": "3136062083",
+        "Name": "Charge_03",
+        "ObjectPath": "\\Switches\\Default Work Unit\\Bastian_Ignis_Charges\\Charge_03",
+        "GUID": "{F76545CA-ED7A-4771-889C-C89C538A249F}"
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "FileHash": "{E9B03B64-7FA6-A188-C05F-37553196525D}"
+ }
+}

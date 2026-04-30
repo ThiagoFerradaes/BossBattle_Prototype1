@@ -1,0 +1,270 @@
+{
+ "SoundBanksInfo": {
+  "Platform": "Mac",
+  "BasePlatform": "Mac",
+  "SchemaVersion": "16",
+  "SoundBankVersion": "172",
+  "SoundBanks": [
+   {
+    "Id": "968398296",
+    "Type": "Event",
+    "GUID": "{536BD710-6004-46A6-9DE2-5B64875D83F7}",
+    "Language": "SFX",
+    "Hash": "{F7968896-1AE3-AF38-401B-3C02F9720234}",
+    "ObjectPath": "Play_Heat_Zone_Change",
+    "ShortName": "Play_Heat_Zone_Change",
+    "Path": "Event/Play_Heat_Zone_Change.bnk",
+    "Media": [
+     {
+      "Id": "66103672",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Loose",
+      "ShortName": "SFX_heatZone_change_01.wav",
+      "Path": "Media/66103672.wem",
+      "CachePath": "4A/{4AAF8816-89CD-D166-0DD8-D2CB6338F422}.wem"
+     }
+    ],
+    "Plugins": {
+     "Custom": [
+      {
+       "Id": "9434040",
+       "Name": "Low_Pass_20KHz (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Players\\Bastian\\Heat Zone Change\\Heat\\[Effect Slot [0]: (Parametric EQ)]\\Low_Pass_20KHz (Custom)",
+       "GUID": "{2D14A93D-55C0-4C7B-8BA4-C468313A8F9D}",
+       "LibName": "Wwise Parametric EQ",
+       "LibId": "6881283"
+      },
+      {
+       "Id": "19840067",
+       "Name": "Silence",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Players\\Bastian\\Heat Zone Change\\Cool\\Silence",
+       "GUID": "{10FA2165-A459-44B3-8DD7-B56C115FBAF4}",
+       "Color": "22",
+       "LibName": "Wwise Silence",
+       "LibId": "6619138"
+      },
+      {
+       "Id": "101872829",
+       "Name": "Guitar Distortion (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Players\\Bastian\\Heat Zone Change\\Over Heat\\[Effect Slot [1]: (Guitar Distortion)]\\Guitar Distortion (Custom)",
+       "GUID": "{E7F35C71-6117-45CC-997A-CBAAFD8804A9}",
+       "LibName": "Wwise Guitar Distortion",
+       "LibId": "8257539"
+      },
+      {
+       "Id": "365258429",
+       "Name": "Guitar Distortion (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Players\\Bastian\\Heat Zone Change\\Super Heat\\[Effect Slot [1]: (Guitar Distortion)]\\Guitar Distortion (Custom)",
+       "GUID": "{D5845712-1521-4036-AEFA-6F8BE90D2FD1}",
+       "LibName": "Wwise Guitar Distortion",
+       "LibId": "8257539"
+      },
+      {
+       "Id": "529996869",
+       "Name": "Low_Pass_20KHz (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Players\\Bastian\\Heat Zone Change\\Over Heat\\[Effect Slot [0]: (Parametric EQ)]\\Low_Pass_20KHz (Custom)",
+       "GUID": "{CC203D5A-4C20-4E43-B8AF-D90386714025}",
+       "LibName": "Wwise Parametric EQ",
+       "LibId": "6881283"
+      },
+      {
+       "Id": "708124325",
+       "Name": "Guitar Distortion (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Players\\Bastian\\Heat Zone Change\\Heat\\[Effect Slot [1]: (Guitar Distortion)]\\Guitar Distortion (Custom)",
+       "GUID": "{87C9087A-2856-4857-B0A3-55C47BF771EC}",
+       "LibName": "Wwise Guitar Distortion",
+       "LibId": "8257539"
+      },
+      {
+       "Id": "821736253",
+       "Name": "Low_Pass_20KHz (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Players\\Bastian\\Heat Zone Change\\Super Heat\\[Effect Slot [0]: (Parametric EQ)]\\Low_Pass_20KHz (Custom)",
+       "GUID": "{0966B7BD-3266-4943-AB8C-442C7AE5F3B9}",
+       "LibName": "Wwise Parametric EQ",
+       "LibId": "6881283"
+      },
+      {
+       "Id": "856902326",
+       "Name": "Low_Pass_20KHz (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Players\\Bastian\\Heat Zone Change\\Extreme Heat\\[Effect Slot [0]: (Parametric EQ)]\\Low_Pass_20KHz (Custom)",
+       "GUID": "{5A931997-0D85-4B9A-99D2-F2A67B6FBC40}",
+       "LibName": "Wwise Parametric EQ",
+       "LibId": "6881283"
+      },
+      {
+       "Id": "1043694910",
+       "Name": "Guitar Distortion (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Players\\Bastian\\Heat Zone Change\\Extreme Heat\\[Effect Slot [1]: (Guitar Distortion)]\\Guitar Distortion (Custom)",
+       "GUID": "{BF65B53F-A4D7-4E0A-8F8C-67CC6CE7F05C}",
+       "LibName": "Wwise Guitar Distortion",
+       "LibId": "8257539"
+      }
+     ]
+    },
+    "Events": [
+     {
+      "Id": "968398296",
+      "Name": "Play_Heat_Zone_Change",
+      "ObjectPath": "\\Events\\Default Work Unit\\SFX\\Players\\Bastian\\Play_Heat_Zone_Change",
+      "GUID": "{536BD710-6004-46A6-9DE2-5B64875D83F7}",
+      "Color": "23",
+      "DurationType": "OneShot",
+      "DurationMin": "0.001",
+      "DurationMax": "2.5123355",
+      "SwitchContainers": [
+       {
+        "SwitchValue": {
+         "GroupType": "Switch",
+         "GroupId": "1865195506",
+         "Id": "3703938822",
+         "GUID": "{94D5DA06-74D1-46F4-BC4C-A4B3A1145714}"
+        },
+        "PluginRefs": {
+         "Custom": [
+          {
+           "Id": "19840067"
+          }
+         ]
+        }
+       },
+       {
+        "SwitchValue": {
+         "GroupType": "Switch",
+         "GroupId": "1865195506",
+         "Id": "2126345988",
+         "GUID": "{FACADA76-31D1-4A0B-A4C7-3BB5CC234C74}"
+        },
+        "MediaRefs": [
+         {
+          "Id": "66103672"
+         }
+        ],
+        "PluginRefs": {
+         "Custom": [
+          {
+           "Id": "856902326"
+          },
+          {
+           "Id": "1043694910"
+          }
+         ]
+        }
+       },
+       {
+        "SwitchValue": {
+         "GroupType": "Switch",
+         "GroupId": "1865195506",
+         "Id": "3448274455",
+         "GUID": "{7F79E085-6CC6-4244-BAAB-B280520E2A8F}"
+        },
+        "MediaRefs": [
+         {
+          "Id": "66103672"
+         }
+        ],
+        "PluginRefs": {
+         "Custom": [
+          {
+           "Id": "9434040"
+          },
+          {
+           "Id": "708124325"
+          }
+         ]
+        }
+       },
+       {
+        "SwitchValue": {
+         "GroupType": "Switch",
+         "GroupId": "1865195506",
+         "Id": "3744454952",
+         "GUID": "{959961BE-1F31-40A0-B412-8EDAA15D3279}"
+        },
+        "MediaRefs": [
+         {
+          "Id": "66103672"
+         }
+        ],
+        "PluginRefs": {
+         "Custom": [
+          {
+           "Id": "101872829"
+          },
+          {
+           "Id": "529996869"
+          }
+         ]
+        }
+       },
+       {
+        "SwitchValue": {
+         "GroupType": "Switch",
+         "GroupId": "1865195506",
+         "Id": "4108471679",
+         "GUID": "{FC93EFC9-866B-478D-8781-55567C5D04A2}"
+        },
+        "MediaRefs": [
+         {
+          "Id": "66103672"
+         }
+        ],
+        "PluginRefs": {
+         "Custom": [
+          {
+           "Id": "365258429"
+          },
+          {
+           "Id": "821736253"
+          }
+         ]
+        }
+       }
+      ]
+     }
+    ],
+    "SwitchGroups": [
+     {
+      "Id": "1865195506",
+      "Name": "Bastian_Heat_Zones",
+      "ObjectPath": "\\Switches\\Default Work Unit\\Bastian_Heat_Zones",
+      "GUID": "{3FE2A4A3-76B7-4122-B209-15AB13F4603D}",
+      "Switches": [
+       {
+        "Id": "2126345988",
+        "Name": "Extreme_Heat",
+        "ObjectPath": "\\Switches\\Default Work Unit\\Bastian_Heat_Zones\\Extreme_Heat",
+        "GUID": "{FACADA76-31D1-4A0B-A4C7-3BB5CC234C74}"
+       },
+       {
+        "Id": "3448274455",
+        "Name": "Heat",
+        "ObjectPath": "\\Switches\\Default Work Unit\\Bastian_Heat_Zones\\Heat",
+        "GUID": "{7F79E085-6CC6-4244-BAAB-B280520E2A8F}"
+       },
+       {
+        "Id": "3703938822",
+        "Name": "Cool",
+        "ObjectPath": "\\Switches\\Default Work Unit\\Bastian_Heat_Zones\\Cool",
+        "GUID": "{94D5DA06-74D1-46F4-BC4C-A4B3A1145714}"
+       },
+       {
+        "Id": "3744454952",
+        "Name": "Over_Heat",
+        "ObjectPath": "\\Switches\\Default Work Unit\\Bastian_Heat_Zones\\Over_Heat",
+        "GUID": "{959961BE-1F31-40A0-B412-8EDAA15D3279}"
+       },
+       {
+        "Id": "4108471679",
+        "Name": "Super_Heat",
+        "ObjectPath": "\\Switches\\Default Work Unit\\Bastian_Heat_Zones\\Super_Heat",
+        "GUID": "{FC93EFC9-866B-478D-8781-55567C5D04A2}"
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "FileHash": "{4D853ACF-878F-03AD-78E5-50C68268601A}"
+ }
+}

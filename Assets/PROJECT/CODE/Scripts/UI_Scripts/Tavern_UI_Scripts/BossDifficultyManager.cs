@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Localization;
 using UnityEngine.Localization.Components;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -19,6 +20,8 @@ public class BossDifficultyManager : MonoBehaviour
     [Foldout("Components"), SerializeField] Button CloseButton;
     [Foldout("Components"), SerializeField] Button SailButton;
     [Foldout("Components"), SerializeField] Button ChangeCharacterButton;
+    [Foldout("Components"), SerializeField] Button SecondChangeCharacterButton;
+    [Foldout("Components"), SerializeField] LocalizeSpriteEvent ChangeCharacterButtonLocalizeEvent;
 
     [Foldout("List"), SerializeField] List<Sprite> listOfDificultySpritesActive;
     [Foldout("List"), SerializeField] List<Sprite> listOfDificultySpritesDesactive;
@@ -28,11 +31,15 @@ public class BossDifficultyManager : MonoBehaviour
 
     [Foldout("Sprites"), SerializeField] Sprite normalSailButtonSprite;
     [Foldout("Sprites"), SerializeField] Sprite enterSailButtonSprite;
+    [Foldout("Sprites"), SerializeField] LocalizedSprite CharacterSelectionSelectedLocalizedSprite;
+    [Foldout("Sprites"), SerializeField] LocalizedSprite CharacterSelectionUnselectedLocalizedSprite;
 
     int _currentDifficulty = 0;
 
     public event Action OnCloseMap;
     Action<CharacterSO> _onChangeSelectedCharacter;
+
+    CharacterSO _currentSelectedCharacter;
 
     private void Awake() {
         _onChangeSelectedCharacter = OnChangeSelectedCharacter; 
@@ -55,9 +62,14 @@ public class BossDifficultyManager : MonoBehaviour
         });
 
         ChangeCharacterButton.onClick.AddListener(() => characterSelectionManager.Initialize());
+        SecondChangeCharacterButton.onClick.AddListener(() => characterSelectionManager.Initialize());
+
     }
 
-    void OnChangeSelectedCharacter(CharacterSO newCharacter) { SelectedCharacterIcon.sprite = newCharacter.UnselectedCharacterMapSprite; }
+    void OnChangeSelectedCharacter(CharacterSO newCharacter) {
+        _currentSelectedCharacter = newCharacter;
+        SelectedCharacterIcon.sprite = _currentSelectedCharacter.UnselectedCharacterMapSprite; 
+    }
 
     public void TurnBossDifficultyScreenOn(BossDescription description) {
         // Mudando as informações da tela de dificuldade do boss
@@ -122,5 +134,21 @@ public class BossDifficultyManager : MonoBehaviour
     }
     public void ExitSailButton(Image sailImage) {
         sailImage.sprite = normalSailButtonSprite;
+    }
+
+    public void EnterCharacterSelectionButton() {
+        ChangeCharacterButtonLocalizeEvent.AssetReference = CharacterSelectionSelectedLocalizedSprite;
+    }
+
+    public void ExitCharacterSelectionButton() {
+        ChangeCharacterButtonLocalizeEvent.AssetReference = CharacterSelectionUnselectedLocalizedSprite;
+    }
+
+    public void EnterSelectedCharacterButton() {
+        SelectedCharacterIcon.sprite = _currentSelectedCharacter.SelectedCharacterMapSprite;
+    }
+
+    public void ExitSelectedCharacterButton() {
+        SelectedCharacterIcon.sprite = _currentSelectedCharacter.UnselectedCharacterMapSprite;
     }
 }

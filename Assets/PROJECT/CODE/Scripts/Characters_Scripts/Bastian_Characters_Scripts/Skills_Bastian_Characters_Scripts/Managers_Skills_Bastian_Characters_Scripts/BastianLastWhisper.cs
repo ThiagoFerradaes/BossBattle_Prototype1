@@ -54,7 +54,7 @@ public class BastianLastWhisper : SkillObjectManager
 
         float pen = BastianPassiveManager.Instance.ReturnMinHeat(HeatArea.SuperHeatArea) ? _info.PenetrationOnSuperHeat : 0;
         float critChance = BastianPassiveManager.Instance.ReturnMinHeat(HeatArea.OverHeatArea) ? _info.CritChanceOverHeat : 0;
-        float additionalCriDmg = BastianPassiveManager.Instance.ReturnMinHeat(HeatArea.LastOverHeatArea) ? _info.LastOverHeatCritDamage : 0;
+        float additionalCriDmg = BastianPassiveManager.Instance.ReturnMinHeat(HeatArea.ExtremeHeatArea) ? _info.LastOverHeatCritDamage : 0;
         float critDamage = statusManager.ReturnStatusValue(StatusType.CritDamage) + additionalCriDmg;
         float damage = _info.Atributes.Damage + (_info.HeatDamageMultiplier * BastianPassiveManager.Instance.ReturnCurrentHeat());
 

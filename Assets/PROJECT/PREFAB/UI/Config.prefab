@@ -76,7 +76,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 0}
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -668,7 +668,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -4}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 850, y: 56}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2278169497693992425
@@ -743,8 +743,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -4}
-  m_SizeDelta: {x: 850, y: 56}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 848, y: 56}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &428538774872065492
 CanvasRenderer:
@@ -1230,7 +1230,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Configuration
   screenTitle: {fileID: 4396123702655319271}
   hooverBackground: {fileID: 5560918778086779647}
+  firstButtonSelected: {fileID: 0}
   configurationScreen: {fileID: 8781213162353682131}
+  firstScreen: 0
   screens:
     _serializedList:
     - Key: 0
@@ -1332,6 +1334,11 @@ MonoBehaviour:
       Value: {fileID: -1152302529, guid: 0cf7ff8fe3af1cc48ad6bce5c1bf97f3, type: 3}
     - Key: 4
       Value: {fileID: -407910329, guid: 0cf7ff8fe3af1cc48ad6bce5c1bf97f3, type: 3}
+  unselectedBackground: {fileID: -982637560, guid: 0cf7ff8fe3af1cc48ad6bce5c1bf97f3, type: 3}
+  selectedBackground: {fileID: 1772009130, guid: f2f2ef8fe69484047aae901bdcfa49c1, type: 3}
+  RBButton: {fileID: 6628885957869167960, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  LBButton: {fileID: -3528367876449822608, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  cancelButton: {fileID: 7727032971491509709, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   references:
     version: 2
     RefIds: []
@@ -1348,6 +1355,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameplayConfig
   screen: {fileID: 4039109974766594993}
+  firstButtonSelected: {fileID: 6071577450323657933}
   dashToMouseToggle: {fileID: 3300789027916615033}
 --- !u!114 &2735419817186509969
 MonoBehaviour:
@@ -1362,6 +1370,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GraphicsConfig
   screen: {fileID: 8988481096643606507}
+  firstButtonSelected: {fileID: 5064513028856530797}
   resolutionDropdown: {fileID: 272984808621249569}
   graphicsDropdown: {fileID: 3363856695191847258}
   graphicsOptions:
@@ -1433,6 +1442,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioConfig
   screen: {fileID: 1314127311370722976}
+  firstButtonSelected: {fileID: 2052378586322936241}
   audioSliders:
     _serializedList:
     - Key: 0
@@ -1478,6 +1488,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LanguageConfig
   screen: {fileID: 5657783388119980349}
+  firstButtonSelected: {fileID: 8262660575773350015}
   ptToggle: {fileID: 6760730739826557100}
   enToggle: {fileID: 6566325313778576235}
   ptLanguageCode: pt-BR
@@ -1495,6 +1506,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TutorialConfig
   screen: {fileID: 8558777362165839721}
+  firstButtonSelected: {fileID: 0}
 --- !u!1 &760533891377468611
 GameObject:
   m_ObjectHideFlags: 0
@@ -1585,7 +1597,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -1878,7 +1890,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 317}
+  m_AnchoredPosition: {x: 0, y: 325}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1140195623056478957
@@ -2149,7 +2161,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -2465,7 +2477,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6846892051230823484
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2996,6 +3008,8 @@ GameObject:
   - component: {fileID: 4777909535513613066}
   - component: {fileID: 2754011565469077156}
   - component: {fileID: 6717643744122351626}
+  - component: {fileID: 8417092412249755252}
+  - component: {fileID: 5340509372070175278}
   m_Layer: 0
   m_Name: FpsDropdown
   m_TagString: Untagged
@@ -3076,10 +3090,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TMP_Dropdown
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
+    m_SelectOnUp: {fileID: 9056855991360265}
+    m_SelectOnDown: {fileID: 272984808621249569}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
@@ -3087,7 +3101,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_SelectedColor: {r: 0, g: 0, b: 0, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -3118,6 +3132,78 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_AlphaFadeSpeed: 0.15
+--- !u!114 &8417092412249755252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2087354408203174003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b7c567867a2f4248ae5a83e97ae4d78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UISelectedEvent
+  OnSelected:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4087078687943068003}
+        m_TargetAssemblyTypeName: Configuration, Assembly-CSharp
+        m_MethodName: SetSelectedBackground
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 7488184449348027199}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnDeselected:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4087078687943068003}
+        m_TargetAssemblyTypeName: Configuration, Assembly-CSharp
+        m_MethodName: SetUnselectedBackgroung
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 7488184449348027199}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &5340509372070175278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2087354408203174003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdbb8c5682579c64da4dae915369ece6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OnEnableEvent
+  onEnableEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  onDisableEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4087078687943068003}
+        m_TargetAssemblyTypeName: Configuration, Assembly-CSharp
+        m_MethodName: SetUnselectedBackgroung
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 7488184449348027199}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2096638145360955595
 GameObject:
   m_ObjectHideFlags: 0
@@ -3207,7 +3293,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -3328,7 +3414,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -3413,6 +3499,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1237525318800126641}
+  - component: {fileID: 7243958470122705502}
   m_Layer: 0
   m_Name: pt
   m_TagString: Untagged
@@ -3436,11 +3523,68 @@ RectTransform:
   - {fileID: 2880826234679089926}
   m_Father: {fileID: 989675381474155503}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 400, y: -50}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 800, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &7243958470122705502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2196033422377924800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.EventSystems.EventTrigger
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4087078687943068003}
+          m_TargetAssemblyTypeName: Configuration, Assembly-CSharp
+          m_MethodName: SetSelectedBackground
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 7087671723666335692}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: Configuration, Assembly-CSharp
+          m_MethodName: 
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: 
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4087078687943068003}
+          m_TargetAssemblyTypeName: Configuration, Assembly-CSharp
+          m_MethodName: SetUnselectedBackgroung
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 7087671723666335692}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &2337107994327988330
 GameObject:
   m_ObjectHideFlags: 0
@@ -3450,6 +3594,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8403071815051390683}
+  - component: {fileID: 3944886494717211631}
   m_Layer: 0
   m_Name: Window
   m_TagString: Untagged
@@ -3479,6 +3624,51 @@ RectTransform:
   m_AnchoredPosition: {x: 400, y: -250}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &3944886494717211631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2337107994327988330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.EventSystems.EventTrigger
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4087078687943068003}
+          m_TargetAssemblyTypeName: Configuration, Assembly-CSharp
+          m_MethodName: SetSelectedBackground
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 8087708409077775170}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4087078687943068003}
+          m_TargetAssemblyTypeName: Configuration, Assembly-CSharp
+          m_MethodName: SetUnselectedBackgroung
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 8087708409077775170}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &2383451275499170275
 GameObject:
   m_ObjectHideFlags: 0
@@ -4450,6 +4640,8 @@ GameObject:
   - component: {fileID: 4140648051650168807}
   - component: {fileID: 2490896402370972130}
   - component: {fileID: 3363856695191847258}
+  - component: {fileID: 517527182479689383}
+  - component: {fileID: 3389854818262524509}
   m_Layer: 0
   m_Name: QualityDropdown
   m_TagString: Untagged
@@ -4530,10 +4722,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TMP_Dropdown
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
+    m_SelectOnUp: {fileID: 272984808621249569}
+    m_SelectOnDown: {fileID: 9056855991360265}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
@@ -4541,7 +4733,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_SelectedColor: {r: 0, g: 0, b: 0, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -4572,6 +4764,78 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_AlphaFadeSpeed: 0.15
+--- !u!114 &517527182479689383
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3562269667307760111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b7c567867a2f4248ae5a83e97ae4d78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UISelectedEvent
+  OnSelected:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4087078687943068003}
+        m_TargetAssemblyTypeName: Configuration, Assembly-CSharp
+        m_MethodName: SetSelectedBackground
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 8908865219710588968}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnDeselected:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4087078687943068003}
+        m_TargetAssemblyTypeName: Configuration, Assembly-CSharp
+        m_MethodName: SetUnselectedBackgroung
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 8908865219710588968}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &3389854818262524509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3562269667307760111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdbb8c5682579c64da4dae915369ece6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OnEnableEvent
+  onEnableEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  onDisableEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4087078687943068003}
+        m_TargetAssemblyTypeName: Configuration, Assembly-CSharp
+        m_MethodName: SetUnselectedBackgroung
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 8908865219710588968}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &3570326531039829733
 GameObject:
   m_ObjectHideFlags: 0
@@ -4900,13 +5164,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4290175487354922396}
-  m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 3149755893725881711}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -4941,13 +5205,13 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 2031945296, guid: 0cf7ff8fe3af1cc48ad6bce5c1bf97f3, type: 3}
-  m_Type: 3
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 1
+  m_FillMethod: 4
   m_FillAmount: 1
   m_FillClockwise: 1
-  m_FillOrigin: 1
+  m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
 --- !u!1 &4415946717119992095
@@ -4959,6 +5223,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1297117840180431130}
+  - component: {fileID: 6700646842975720342}
   m_Layer: 0
   m_Name: Quality
   m_TagString: Untagged
@@ -4988,6 +5253,51 @@ RectTransform:
   m_AnchoredPosition: {x: 400, y: -150}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &6700646842975720342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4415946717119992095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.EventSystems.EventTrigger
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4087078687943068003}
+          m_TargetAssemblyTypeName: Configuration, Assembly-CSharp
+          m_MethodName: SetSelectedBackground
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 8908865219710588968}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4087078687943068003}
+          m_TargetAssemblyTypeName: Configuration, Assembly-CSharp
+          m_MethodName: SetUnselectedBackgroung
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 8908865219710588968}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &4426306327621447111
 GameObject:
   m_ObjectHideFlags: 0
@@ -5601,6 +5911,8 @@ GameObject:
   - component: {fileID: 526754131244464188}
   - component: {fileID: 3892273750031861276}
   - component: {fileID: 272984808621249569}
+  - component: {fileID: 6118736905062248709}
+  - component: {fileID: 6915225782028029211}
   m_Layer: 0
   m_Name: ResolutionsDropdown
   m_TagString: Untagged
@@ -5681,10 +5993,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TMP_Dropdown
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
+    m_SelectOnUp: {fileID: 6717643744122351626}
+    m_SelectOnDown: {fileID: 3363856695191847258}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
@@ -5692,7 +6004,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_SelectedColor: {r: 0, g: 0, b: 0, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -5723,6 +6035,78 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_AlphaFadeSpeed: 0.15
+--- !u!114 &6118736905062248709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5064513028856530797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b7c567867a2f4248ae5a83e97ae4d78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UISelectedEvent
+  OnSelected:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4087078687943068003}
+        m_TargetAssemblyTypeName: Configuration, Assembly-CSharp
+        m_MethodName: SetSelectedBackground
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 851139940215810452}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnDeselected:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4087078687943068003}
+        m_TargetAssemblyTypeName: Configuration, Assembly-CSharp
+        m_MethodName: SetUnselectedBackgroung
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 851139940215810452}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &6915225782028029211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5064513028856530797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdbb8c5682579c64da4dae915369ece6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OnEnableEvent
+  onEnableEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  onDisableEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4087078687943068003}
+        m_TargetAssemblyTypeName: Configuration, Assembly-CSharp
+        m_MethodName: SetUnselectedBackgroung
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 851139940215810452}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5098508634587312084
 GameObject:
   m_ObjectHideFlags: 0
@@ -5799,7 +6183,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 0}
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -5910,6 +6294,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3549422502545930279}
+  - component: {fileID: 4232598101320366525}
   m_Layer: 0
   m_Name: Resolutions
   m_TagString: Untagged
@@ -5939,6 +6324,51 @@ RectTransform:
   m_AnchoredPosition: {x: 400, y: -50}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &4232598101320366525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5219990517595548189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.EventSystems.EventTrigger
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4087078687943068003}
+          m_TargetAssemblyTypeName: Configuration, Assembly-CSharp
+          m_MethodName: SetSelectedBackground
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 851139940215810452}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4087078687943068003}
+          m_TargetAssemblyTypeName: Configuration, Assembly-CSharp
+          m_MethodName: SetUnselectedBackgroung
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 851139940215810452}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &5253375177043524242
 GameObject:
   m_ObjectHideFlags: 0
@@ -6401,7 +6831,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -267}
-  m_SizeDelta: {x: 80, y: 80}
+  m_SizeDelta: {x: 73, y: 73}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2737782160718467111
 CanvasRenderer:
@@ -6431,7 +6861,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -153303635, guid: 0cf7ff8fe3af1cc48ad6bce5c1bf97f3, type: 3}
+  m_Sprite: {fileID: -814436218, guid: f2f2ef8fe69484047aae901bdcfa49c1, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6456,7 +6886,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &510757024620678858
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6588,6 +7018,8 @@ GameObject:
   - component: {fileID: 1339053166274115339}
   - component: {fileID: 5772304390985864378}
   - component: {fileID: 9056855991360265}
+  - component: {fileID: 421046995735728997}
+  - component: {fileID: 7853984003296588113}
   m_Layer: 0
   m_Name: WindowDropdown
   m_TagString: Untagged
@@ -6668,10 +7100,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TMP_Dropdown
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
+    m_SelectOnUp: {fileID: 3363856695191847258}
+    m_SelectOnDown: {fileID: 6717643744122351626}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
@@ -6679,7 +7111,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_SelectedColor: {r: 0, g: 0, b: 0, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -6710,6 +7142,78 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_AlphaFadeSpeed: 0.15
+--- !u!114 &421046995735728997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5765865894424990106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b7c567867a2f4248ae5a83e97ae4d78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UISelectedEvent
+  OnSelected:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4087078687943068003}
+        m_TargetAssemblyTypeName: Configuration, Assembly-CSharp
+        m_MethodName: SetSelectedBackground
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 8087708409077775170}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnDeselected:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4087078687943068003}
+        m_TargetAssemblyTypeName: Configuration, Assembly-CSharp
+        m_MethodName: SetUnselectedBackgroung
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 8087708409077775170}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &7853984003296588113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5765865894424990106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdbb8c5682579c64da4dae915369ece6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OnEnableEvent
+  onEnableEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  onDisableEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4087078687943068003}
+        m_TargetAssemblyTypeName: Configuration, Assembly-CSharp
+        m_MethodName: SetUnselectedBackgroung
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 8087708409077775170}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5827534820014319811
 GameObject:
   m_ObjectHideFlags: 0
@@ -6756,6 +7260,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3870138319904117304}
+  - component: {fileID: 6208456169702035402}
   m_Layer: 0
   m_Name: Fps
   m_TagString: Untagged
@@ -6785,6 +7290,51 @@ RectTransform:
   m_AnchoredPosition: {x: 400, y: -350}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &6208456169702035402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5854976300533903083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.EventSystems.EventTrigger
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4087078687943068003}
+          m_TargetAssemblyTypeName: Configuration, Assembly-CSharp
+          m_MethodName: SetSelectedBackground
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 7488184449348027199}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4087078687943068003}
+          m_TargetAssemblyTypeName: Configuration, Assembly-CSharp
+          m_MethodName: SetUnselectedBackgroung
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 7488184449348027199}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &5920559835833890341
 GameObject:
   m_ObjectHideFlags: 0
@@ -7244,6 +7794,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5501154834374507189}
   - component: {fileID: 3300789027916615033}
+  - component: {fileID: 255556375447174916}
+  - component: {fileID: 872781497174226991}
   m_Layer: 5
   m_Name: DashToggle
   m_TagString: Untagged
@@ -7285,7 +7837,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Toggle
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -7320,6 +7872,78 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_IsOn: 1
+--- !u!114 &255556375447174916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6071577450323657933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b7c567867a2f4248ae5a83e97ae4d78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UISelectedEvent
+  OnSelected:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4087078687943068003}
+        m_TargetAssemblyTypeName: Configuration, Assembly-CSharp
+        m_MethodName: SetSelectedBackground
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 5357043168881659}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnDeselected:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4087078687943068003}
+        m_TargetAssemblyTypeName: Configuration, Assembly-CSharp
+        m_MethodName: SetUnselectedBackgroung
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 5357043168881659}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &872781497174226991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6071577450323657933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdbb8c5682579c64da4dae915369ece6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OnEnableEvent
+  onEnableEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  onDisableEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4087078687943068003}
+        m_TargetAssemblyTypeName: Configuration, Assembly-CSharp
+        m_MethodName: SetUnselectedBackgroung
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 5357043168881659}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6121605796556880970
 GameObject:
   m_ObjectHideFlags: 0
@@ -7354,7 +7978,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -4}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 850, y: 56}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3702612639395210334
@@ -8642,7 +9266,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -4}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 850, y: 56}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1734095565853322221
@@ -8952,6 +9576,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4656486037726395848}
+  - component: {fileID: 584362363455457830}
   m_Layer: 0
   m_Name: en
   m_TagString: Untagged
@@ -8975,11 +9600,68 @@ RectTransform:
   - {fileID: 2252840263214797952}
   m_Father: {fileID: 989675381474155503}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 400, y: -150}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &584362363455457830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7595679662653169213}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.EventSystems.EventTrigger
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4087078687943068003}
+          m_TargetAssemblyTypeName: Configuration, Assembly-CSharp
+          m_MethodName: SetSelectedBackground
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 7422553220178447436}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: Configuration, Assembly-CSharp
+          m_MethodName: 
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: 
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4087078687943068003}
+          m_TargetAssemblyTypeName: Configuration, Assembly-CSharp
+          m_MethodName: SetUnselectedBackgroung
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 7422553220178447436}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &7838503245404284693
 GameObject:
   m_ObjectHideFlags: 0
@@ -8990,6 +9672,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2252840263214797952}
   - component: {fileID: 6566325313778576235}
+  - component: {fileID: 7265091962579975805}
+  - component: {fileID: 4699950920855729261}
   m_Layer: 5
   m_Name: EnToggle
   m_TagString: Untagged
@@ -9031,10 +9715,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Toggle
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
+    m_SelectOnUp: {fileID: 6760730739826557100}
+    m_SelectOnDown: {fileID: 6760730739826557100}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
@@ -9042,7 +9726,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_SelectedColor: {r: 0, g: 0, b: 0, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -9066,6 +9750,78 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_IsOn: 1
+--- !u!114 &7265091962579975805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7838503245404284693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b7c567867a2f4248ae5a83e97ae4d78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UISelectedEvent
+  OnSelected:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4087078687943068003}
+        m_TargetAssemblyTypeName: Configuration, Assembly-CSharp
+        m_MethodName: SetSelectedBackground
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 7422553220178447436}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnDeselected:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4087078687943068003}
+        m_TargetAssemblyTypeName: Configuration, Assembly-CSharp
+        m_MethodName: SetUnselectedBackgroung
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 7422553220178447436}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &4699950920855729261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7838503245404284693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdbb8c5682579c64da4dae915369ece6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OnEnableEvent
+  onEnableEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  onDisableEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4087078687943068003}
+        m_TargetAssemblyTypeName: Configuration, Assembly-CSharp
+        m_MethodName: SetUnselectedBackgroung
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 7422553220178447436}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8093043583379092342
 GameObject:
   m_ObjectHideFlags: 0
@@ -9115,6 +9871,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2880826234679089926}
   - component: {fileID: 6760730739826557100}
+  - component: {fileID: 1682031802350387655}
+  - component: {fileID: 7807718173039507509}
   m_Layer: 5
   m_Name: PtToggle
   m_TagString: Untagged
@@ -9156,10 +9914,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Toggle
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
+    m_SelectOnUp: {fileID: 6566325313778576235}
+    m_SelectOnDown: {fileID: 6566325313778576235}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
@@ -9167,7 +9925,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_SelectedColor: {r: 0, g: 0, b: 0, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -9191,6 +9949,78 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_IsOn: 1
+--- !u!114 &1682031802350387655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8262660575773350015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b7c567867a2f4248ae5a83e97ae4d78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UISelectedEvent
+  OnSelected:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4087078687943068003}
+        m_TargetAssemblyTypeName: Configuration, Assembly-CSharp
+        m_MethodName: SetSelectedBackground
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 7087671723666335692}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnDeselected:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4087078687943068003}
+        m_TargetAssemblyTypeName: Configuration, Assembly-CSharp
+        m_MethodName: SetUnselectedBackgroung
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 7087671723666335692}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &7807718173039507509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8262660575773350015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdbb8c5682579c64da4dae915369ece6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OnEnableEvent
+  onEnableEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  onDisableEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4087078687943068003}
+        m_TargetAssemblyTypeName: Configuration, Assembly-CSharp
+        m_MethodName: SetUnselectedBackgroung
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 7087671723666335692}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8272084001988678165
 GameObject:
   m_ObjectHideFlags: 0
@@ -9356,7 +10186,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -9522,7 +10352,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -9866,7 +10696,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8668179011860599160
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10189,7 +11019,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3149755893725881711}
-  - component: {fileID: 1333842854395360310}
   m_Layer: 5
   m_Name: ConfigurationScreen
   m_TagString: Untagged
@@ -10222,28 +11051,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!95 &1333842854395360310
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8781213162353682131}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 9424079f5dd752d42966c68f587cea62, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &8785930587796300099
 GameObject:
   m_ObjectHideFlags: 0
@@ -10330,6 +11137,7 @@ GameObject:
   - component: {fileID: 4295538459680237317}
   - component: {fileID: 4873689745296262625}
   - component: {fileID: 5357043168881659}
+  - component: {fileID: 193881960383928761}
   m_Layer: 5
   m_Name: LabelBackground
   m_TagString: Untagged
@@ -10394,6 +11202,35 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &193881960383928761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8802915465958312750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.EventSystems.EventTrigger
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4087078687943068003}
+          m_TargetAssemblyTypeName: Configuration, Assembly-CSharp
+          m_MethodName: SetSelectedBackground
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 5357043168881659}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &8813370587702581258
 GameObject:
   m_ObjectHideFlags: 0
@@ -10512,7 +11349,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5386933075578853641}
   m_Layer: 0
-  m_Name: Graphics
+  m_Name: Video
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10546,21 +11383,41 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2922550807055568385}
     m_Modifications:
-    - target: {fileID: 949856832932899661, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
-      propertyPath: m_Color.a
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 998567578673173246, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
-      propertyPath: m_Colors.m_NormalColor.a
-      value: 0
-      objectReference: {fileID: 0}
+      propertyPath: m_Navigation.m_SelectOnUp
+      value: 
+      objectReference: {fileID: 7320395792325697880}
     - target: {fileID: 998567578673173246, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
-      propertyPath: m_Colors.m_ColorMultiplier
-      value: 1
-      objectReference: {fileID: 0}
+      propertyPath: m_Navigation.m_SelectOnDown
+      value: 
+      objectReference: {fileID: 8457981742498940577}
     - target: {fileID: 1076617917171600968, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
       propertyPath: m_Name
       value: AmbientVolumeSliderText
+      objectReference: {fileID: 0}
+    - target: {fileID: 2051425143110704293, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: onDisableEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2051425143110704293, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: onDisableEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4087078687943068003}
+    - target: {fileID: 2051425143110704293, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: onDisableEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetUnselectedBackgroung
+      objectReference: {fileID: 0}
+    - target: {fileID: 2051425143110704293, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: onDisableEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Configuration, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2051425143110704293, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: onDisableEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 4580862290865885111}
+    - target: {fileID: 2051425143110704293, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: onDisableEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.UI.Image, UnityEngine.UI
       objectReference: {fileID: 0}
     - target: {fileID: 2262736879206903225, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
       propertyPath: m_Name
@@ -10570,12 +11427,56 @@ PrefabInstance:
       propertyPath: m_Name
       value: AmbientVolumeConfigPrefab
       objectReference: {fileID: 0}
+    - target: {fileID: 5481848900681956293, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: OnSelected.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5481848900681956293, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: OnDeselected.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5481848900681956293, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: OnSelected.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4087078687943068003}
+    - target: {fileID: 5481848900681956293, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: OnDeselected.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4087078687943068003}
+    - target: {fileID: 5481848900681956293, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: OnSelected.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetSelectedBackground
+      objectReference: {fileID: 0}
+    - target: {fileID: 5481848900681956293, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: OnDeselected.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetUnselectedBackgroung
+      objectReference: {fileID: 0}
+    - target: {fileID: 5481848900681956293, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: OnSelected.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Configuration, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5481848900681956293, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: OnDeselected.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Configuration, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5481848900681956293, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: OnSelected.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 4580862290865885111}
+    - target: {fileID: 5481848900681956293, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: OnDeselected.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 4580862290865885111}
+    - target: {fileID: 5481848900681956293, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: OnSelected.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.UI.Image, UnityEngine.UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 5481848900681956293, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: OnDeselected.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.UI.Image, UnityEngine.UI
+      objectReference: {fileID: 0}
     - target: {fileID: 6602440520776442197, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6891486487191182143, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
-      propertyPath: m_Color.a
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7260036839506933230, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
@@ -10584,7 +11485,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8185797267702831052, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8187444431619749150, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
       propertyPath: m_Pivot.x
@@ -10600,7 +11501,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8187444431619749150, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8187444431619749150, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
       propertyPath: m_AnchorMin.x
@@ -10608,7 +11509,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8187444431619749150, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8187444431619749150, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
       propertyPath: m_SizeDelta.x
@@ -10648,11 +11549,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8187444431619749150, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 400
       objectReference: {fileID: 0}
     - target: {fileID: 8187444431619749150, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -350
       objectReference: {fileID: 0}
     - target: {fileID: 8187444431619749150, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -10666,33 +11567,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8432468336148219704, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
-      propertyPath: m_Color.a
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8638448929553041227, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
       propertyPath: m_text
       value: Ambient
-      objectReference: {fileID: 0}
-    - target: {fileID: 8638448929553041227, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
-      propertyPath: m_fontColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8638448929553041227, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
-      propertyPath: m_fontColor.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8638448929553041227, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
-      propertyPath: m_fontColor.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8638448929553041227, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
-      propertyPath: m_fontColor.r
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8638448929553041227, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
-      propertyPath: m_fontColor32.rgba
-      value: 4278190080
       objectReference: {fileID: 0}
     - target: {fileID: 8725343980449210869, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
       propertyPath: m_StringReference.m_TableEntryReference.m_KeyId
@@ -10701,10 +11578,6 @@ PrefabInstance:
     - target: {fileID: 8725343980449210869, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
       propertyPath: m_StringReference.m_TableReference.m_TableCollectionName
       value: GUID:5b9e65ee5bea4c045a4b654e3235d7a3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8918012088017710706, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
-      propertyPath: m_Color.a
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -10716,6 +11589,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8187444431619749150, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
   m_PrefabInstance: {fileID: 4922814021601878469}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4580862290865885111 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8918012088017710706, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+  m_PrefabInstance: {fileID: 4922814021601878469}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!114 &5299266341510656827 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 998567578673173246, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
@@ -10735,21 +11619,41 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2922550807055568385}
     m_Modifications:
-    - target: {fileID: 949856832932899661, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
-      propertyPath: m_Color.a
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 998567578673173246, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
-      propertyPath: m_Colors.m_NormalColor.a
-      value: 0
-      objectReference: {fileID: 0}
+      propertyPath: m_Navigation.m_SelectOnUp
+      value: 
+      objectReference: {fileID: 8457981742498940577}
     - target: {fileID: 998567578673173246, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
-      propertyPath: m_Colors.m_ColorMultiplier
-      value: 1
-      objectReference: {fileID: 0}
+      propertyPath: m_Navigation.m_SelectOnDown
+      value: 
+      objectReference: {fileID: 7320395792325697880}
     - target: {fileID: 1076617917171600968, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
       propertyPath: m_Name
       value: MusicVolumeSliderText
+      objectReference: {fileID: 0}
+    - target: {fileID: 2051425143110704293, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: onDisableEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2051425143110704293, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: onDisableEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4087078687943068003}
+    - target: {fileID: 2051425143110704293, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: onDisableEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetUnselectedBackgroung
+      objectReference: {fileID: 0}
+    - target: {fileID: 2051425143110704293, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: onDisableEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Configuration, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2051425143110704293, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: onDisableEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 2834551092565064469}
+    - target: {fileID: 2051425143110704293, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: onDisableEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.UI.Image, UnityEngine.UI
       objectReference: {fileID: 0}
     - target: {fileID: 2262736879206903225, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
       propertyPath: m_Name
@@ -10759,12 +11663,56 @@ PrefabInstance:
       propertyPath: m_Name
       value: MusicVolumeConfigPrefab
       objectReference: {fileID: 0}
+    - target: {fileID: 5481848900681956293, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: OnSelected.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5481848900681956293, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: OnDeselected.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5481848900681956293, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: OnSelected.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4087078687943068003}
+    - target: {fileID: 5481848900681956293, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: OnDeselected.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4087078687943068003}
+    - target: {fileID: 5481848900681956293, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: OnSelected.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetSelectedBackground
+      objectReference: {fileID: 0}
+    - target: {fileID: 5481848900681956293, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: OnDeselected.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetUnselectedBackgroung
+      objectReference: {fileID: 0}
+    - target: {fileID: 5481848900681956293, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: OnSelected.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Configuration, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5481848900681956293, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: OnDeselected.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Configuration, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5481848900681956293, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: OnSelected.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 2834551092565064469}
+    - target: {fileID: 5481848900681956293, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: OnDeselected.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 2834551092565064469}
+    - target: {fileID: 5481848900681956293, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: OnSelected.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.UI.Image, UnityEngine.UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 5481848900681956293, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: OnDeselected.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.UI.Image, UnityEngine.UI
+      objectReference: {fileID: 0}
     - target: {fileID: 6602440520776442197, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6891486487191182143, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
-      propertyPath: m_Color.a
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7260036839506933230, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
@@ -10773,7 +11721,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8185797267702831052, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8187444431619749150, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
       propertyPath: m_Pivot.x
@@ -10789,7 +11737,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8187444431619749150, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8187444431619749150, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
       propertyPath: m_AnchorMin.x
@@ -10797,7 +11745,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8187444431619749150, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8187444431619749150, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
       propertyPath: m_SizeDelta.x
@@ -10837,11 +11785,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8187444431619749150, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 400
       objectReference: {fileID: 0}
     - target: {fileID: 8187444431619749150, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -150
       objectReference: {fileID: 0}
     - target: {fileID: 8187444431619749150, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -10855,33 +11803,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8432468336148219704, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
-      propertyPath: m_Color.a
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8638448929553041227, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
       propertyPath: m_text
       value: Music
-      objectReference: {fileID: 0}
-    - target: {fileID: 8638448929553041227, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
-      propertyPath: m_fontColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8638448929553041227, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
-      propertyPath: m_fontColor.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8638448929553041227, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
-      propertyPath: m_fontColor.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8638448929553041227, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
-      propertyPath: m_fontColor.r
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8638448929553041227, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
-      propertyPath: m_fontColor32.rgba
-      value: 4278190080
       objectReference: {fileID: 0}
     - target: {fileID: 8725343980449210869, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
       propertyPath: m_StringReference.m_TableEntryReference.m_KeyId
@@ -10891,15 +11815,22 @@ PrefabInstance:
       propertyPath: m_StringReference.m_TableReference.m_TableCollectionName
       value: GUID:5b9e65ee5bea4c045a4b654e3235d7a3
       objectReference: {fileID: 0}
-    - target: {fileID: 8918012088017710706, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
-      propertyPath: m_Color.a
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+--- !u!114 &2834551092565064469 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8918012088017710706, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+  m_PrefabInstance: {fileID: 6671376470967211367}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!224 &3245644908766666873 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8187444431619749150, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
@@ -10924,21 +11855,41 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2922550807055568385}
     m_Modifications:
-    - target: {fileID: 949856832932899661, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
-      propertyPath: m_Color.a
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 998567578673173246, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
-      propertyPath: m_Colors.m_NormalColor.a
-      value: 0
-      objectReference: {fileID: 0}
+      propertyPath: m_Navigation.m_SelectOnUp
+      value: 
+      objectReference: {fileID: 5858869075151619993}
     - target: {fileID: 998567578673173246, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
-      propertyPath: m_Colors.m_ColorMultiplier
-      value: 1
-      objectReference: {fileID: 0}
+      propertyPath: m_Navigation.m_SelectOnDown
+      value: 
+      objectReference: {fileID: 5299266341510656827}
     - target: {fileID: 1076617917171600968, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
       propertyPath: m_Name
       value: SFXVolumeSliderText
+      objectReference: {fileID: 0}
+    - target: {fileID: 2051425143110704293, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: onDisableEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2051425143110704293, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: onDisableEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4087078687943068003}
+    - target: {fileID: 2051425143110704293, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: onDisableEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetUnselectedBackgroung
+      objectReference: {fileID: 0}
+    - target: {fileID: 2051425143110704293, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: onDisableEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Configuration, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2051425143110704293, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: onDisableEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 1409624907988360660}
+    - target: {fileID: 2051425143110704293, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: onDisableEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.UI.Image, UnityEngine.UI
       objectReference: {fileID: 0}
     - target: {fileID: 2262736879206903225, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
       propertyPath: m_Name
@@ -10948,12 +11899,56 @@ PrefabInstance:
       propertyPath: m_Name
       value: SFXVolumeConfigPrefab
       objectReference: {fileID: 0}
+    - target: {fileID: 5481848900681956293, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: OnSelected.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5481848900681956293, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: OnDeselected.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5481848900681956293, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: OnSelected.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4087078687943068003}
+    - target: {fileID: 5481848900681956293, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: OnDeselected.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4087078687943068003}
+    - target: {fileID: 5481848900681956293, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: OnSelected.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetSelectedBackground
+      objectReference: {fileID: 0}
+    - target: {fileID: 5481848900681956293, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: OnDeselected.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetUnselectedBackgroung
+      objectReference: {fileID: 0}
+    - target: {fileID: 5481848900681956293, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: OnSelected.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Configuration, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5481848900681956293, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: OnDeselected.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Configuration, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5481848900681956293, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: OnSelected.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 1409624907988360660}
+    - target: {fileID: 5481848900681956293, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: OnDeselected.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 1409624907988360660}
+    - target: {fileID: 5481848900681956293, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: OnSelected.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.UI.Image, UnityEngine.UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 5481848900681956293, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: OnDeselected.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.UI.Image, UnityEngine.UI
+      objectReference: {fileID: 0}
     - target: {fileID: 6602440520776442197, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6891486487191182143, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
-      propertyPath: m_Color.a
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7260036839506933230, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
@@ -10962,7 +11957,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8185797267702831052, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8187444431619749150, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
       propertyPath: m_Pivot.x
@@ -10978,7 +11973,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8187444431619749150, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8187444431619749150, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
       propertyPath: m_AnchorMin.x
@@ -10986,7 +11981,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8187444431619749150, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8187444431619749150, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
       propertyPath: m_SizeDelta.x
@@ -11026,11 +12021,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8187444431619749150, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 400
       objectReference: {fileID: 0}
     - target: {fileID: 8187444431619749150, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -250
       objectReference: {fileID: 0}
     - target: {fileID: 8187444431619749150, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -11044,33 +12039,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8432468336148219704, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
-      propertyPath: m_Color.a
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8638448929553041227, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
       propertyPath: m_text
       value: SFX
-      objectReference: {fileID: 0}
-    - target: {fileID: 8638448929553041227, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
-      propertyPath: m_fontColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8638448929553041227, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
-      propertyPath: m_fontColor.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8638448929553041227, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
-      propertyPath: m_fontColor.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8638448929553041227, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
-      propertyPath: m_fontColor.r
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8638448929553041227, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
-      propertyPath: m_fontColor32.rgba
-      value: 4278190080
       objectReference: {fileID: 0}
     - target: {fileID: 8725343980449210869, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
       propertyPath: m_StringReference.m_TableEntryReference.m_KeyId
@@ -11080,15 +12051,22 @@ PrefabInstance:
       propertyPath: m_StringReference.m_TableReference.m_TableCollectionName
       value: GUID:5b9e65ee5bea4c045a4b654e3235d7a3
       objectReference: {fileID: 0}
-    - target: {fileID: 8918012088017710706, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
-      propertyPath: m_Color.a
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+--- !u!114 &1409624907988360660 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8918012088017710706, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+  m_PrefabInstance: {fileID: 7515622517472441254}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!224 &1860971296736593592 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8187444431619749150, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
@@ -11113,21 +12091,45 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2922550807055568385}
     m_Modifications:
-    - target: {fileID: 949856832932899661, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
-      propertyPath: m_Color.a
-      value: 1
+    - target: {fileID: 998567578673173246, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 998567578673173246, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
-      propertyPath: m_Colors.m_NormalColor.a
-      value: 0
-      objectReference: {fileID: 0}
+      propertyPath: m_Navigation.m_SelectOnUp
+      value: 
+      objectReference: {fileID: 5299266341510656827}
     - target: {fileID: 998567578673173246, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
-      propertyPath: m_Colors.m_ColorMultiplier
-      value: 1
-      objectReference: {fileID: 0}
+      propertyPath: m_Navigation.m_SelectOnDown
+      value: 
+      objectReference: {fileID: 5858869075151619993}
     - target: {fileID: 1076617917171600968, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
       propertyPath: m_Name
       value: GlobalVolumeSliderText
+      objectReference: {fileID: 0}
+    - target: {fileID: 2051425143110704293, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: onDisableEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2051425143110704293, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: onDisableEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4087078687943068003}
+    - target: {fileID: 2051425143110704293, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: onDisableEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetUnselectedBackgroung
+      objectReference: {fileID: 0}
+    - target: {fileID: 2051425143110704293, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: onDisableEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Configuration, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2051425143110704293, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: onDisableEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 250075980985907757}
+    - target: {fileID: 2051425143110704293, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: onDisableEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.UI.Image, UnityEngine.UI
       objectReference: {fileID: 0}
     - target: {fileID: 2262736879206903225, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
       propertyPath: m_Name
@@ -11137,12 +12139,56 @@ PrefabInstance:
       propertyPath: m_Name
       value: GlobalVolumeConfigPrefab
       objectReference: {fileID: 0}
+    - target: {fileID: 5481848900681956293, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: OnSelected.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5481848900681956293, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: OnDeselected.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5481848900681956293, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: OnSelected.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4087078687943068003}
+    - target: {fileID: 5481848900681956293, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: OnDeselected.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4087078687943068003}
+    - target: {fileID: 5481848900681956293, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: OnSelected.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetSelectedBackground
+      objectReference: {fileID: 0}
+    - target: {fileID: 5481848900681956293, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: OnDeselected.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetUnselectedBackgroung
+      objectReference: {fileID: 0}
+    - target: {fileID: 5481848900681956293, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: OnSelected.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Configuration, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5481848900681956293, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: OnDeselected.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Configuration, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5481848900681956293, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: OnSelected.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 250075980985907757}
+    - target: {fileID: 5481848900681956293, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: OnDeselected.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 250075980985907757}
+    - target: {fileID: 5481848900681956293, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: OnSelected.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.UI.Image, UnityEngine.UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 5481848900681956293, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+      propertyPath: OnDeselected.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.UI.Image, UnityEngine.UI
+      objectReference: {fileID: 0}
     - target: {fileID: 6602440520776442197, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6891486487191182143, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
-      propertyPath: m_Color.a
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7260036839506933230, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
@@ -11151,7 +12197,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8185797267702831052, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8187444431619749150, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
       propertyPath: m_Pivot.x
@@ -11167,7 +12213,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8187444431619749150, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8187444431619749150, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
       propertyPath: m_AnchorMin.x
@@ -11175,7 +12221,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8187444431619749150, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8187444431619749150, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
       propertyPath: m_SizeDelta.x
@@ -11215,11 +12261,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8187444431619749150, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 400
       objectReference: {fileID: 0}
     - target: {fileID: 8187444431619749150, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -50
       objectReference: {fileID: 0}
     - target: {fileID: 8187444431619749150, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -11233,33 +12279,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8432468336148219704, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
-      propertyPath: m_Color.a
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8638448929553041227, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
       propertyPath: m_text
       value: Global
-      objectReference: {fileID: 0}
-    - target: {fileID: 8638448929553041227, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
-      propertyPath: m_fontColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8638448929553041227, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
-      propertyPath: m_fontColor.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8638448929553041227, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
-      propertyPath: m_fontColor.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8638448929553041227, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
-      propertyPath: m_fontColor.r
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8638448929553041227, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
-      propertyPath: m_fontColor32.rgba
-      value: 4278190080
       objectReference: {fileID: 0}
     - target: {fileID: 8725343980449210869, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
       propertyPath: m_StringReference.m_TableEntryReference.m_KeyId
@@ -11269,18 +12291,30 @@ PrefabInstance:
       propertyPath: m_StringReference.m_TableReference.m_TableCollectionName
       value: GUID:5b9e65ee5bea4c045a4b654e3235d7a3
       objectReference: {fileID: 0}
-    - target: {fileID: 8918012088017710706, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
-      propertyPath: m_Color.a
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+--- !u!114 &250075980985907757 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8918012088017710706, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+  m_PrefabInstance: {fileID: 8699642183112381535}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!224 &658918824021270849 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8187444431619749150, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
+  m_PrefabInstance: {fileID: 8699642183112381535}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2052378586322936241 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7260036839506933230, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
   m_PrefabInstance: {fileID: 8699642183112381535}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &8457981742498940577 stripped
@@ -11288,7 +12322,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 998567578673173246, guid: 600d18a106611c24180ca244ca4ed92a, type: 3}
   m_PrefabInstance: {fileID: 8699642183112381535}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 2052378586322936241}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}

@@ -20,7 +20,6 @@ GameObject:
   - component: {fileID: 3156235811804963752}
   - component: {fileID: 4861411087896609535}
   - component: {fileID: 8301854247796386787}
-  - component: {fileID: 2133027450637095276}
   - component: {fileID: 69789064481334406}
   m_Layer: 8
   m_Name: Cyrus_Prefab
@@ -230,6 +229,14 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 109f2a2b-b147-447c-8cf3-fd8494470631
     m_ActionName: 'Player/Interaction[/Keyboard/e]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a5007f50-2bf8-46d3-80ca-2f77db369c02
+    m_ActionName: UI/RB
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5ce51003-22fb-4845-948d-97b769f5db72
+    m_ActionName: UI/LB
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -290,6 +297,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   imortal: 0
+  damageSound:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: d567dd35d4ceac34aa29a17443dd0f26, type: 2}
+  damageOnShieldSound:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 0}
+  healSound:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 0}
+  gainShieldSound:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 0}
+  breakShieldSound:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 0}
 --- !u!114 &8286436313011281821
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -405,18 +432,6 @@ MonoBehaviour:
   _interactableLayer:
     serializedVersion: 2
     m_Bits: 0
---- !u!114 &2133027450637095276
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8221154074876193513}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cac3e1b1367f3c248933be5ec8fe388e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerPauseManager
 --- !u!114 &69789064481334406
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -431,7 +446,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInputHandlerManager
   interactionManager: {fileID: 8301854247796386787}
   moveManager: {fileID: 1713622384440033257}
-  pauseManager: {fileID: 2133027450637095276}
   hasSkills: 1
   skillManager: {fileID: 5235028921305784554}
 --- !u!1001 &5477080575265098636

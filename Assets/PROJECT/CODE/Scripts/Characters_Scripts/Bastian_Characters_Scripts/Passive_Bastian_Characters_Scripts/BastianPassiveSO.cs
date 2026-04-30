@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Localization;
 
 [CreateAssetMenu(menuName = "Characters/ Passives/ BastianPassive")]
 public class BastianPassiveSO : PassiveSO
@@ -9,8 +11,10 @@ public class BastianPassiveSO : PassiveSO
     public float HeatToHitSuperHeatArea;
     public float HeatToHitOverHeatArea;
     public float HeatToHitLastOverHeatArea;
-    public Color CoolColor, HeatColor, SuperHeatColor, OverHeatColor, LastOverHeatColor;
-    public string CoolText, HeatText, SuperHeatText, OverHeatText, LastOverHeatText;
+    public LocalizedString CoolText, HeatText, SuperHeatText, OverHeatText, LastOverHeatText;
+    public AK.Wwise.Event HeatZoneChangeSound;
+    public List<AK.Wwise.Switch> HeatZoneSwitchs;
+    public AK.Wwise.Event LooseHealthSound;
 
     [Header("Attack Speed Gain")]
     [Range(0,1)]public float AmountOfAttackSpeedGainHeat;
@@ -25,7 +29,9 @@ public class BastianPassiveSO : PassiveSO
     public GameObject HeatCanvas;
 
     [Header("Loose Health")]
-    public float PercentOfMaxHealthLostPerTime;
+    public float PercentOfMaxHealthLostPerTimeSuperHeat;
+    public float PercentOfMaxHealthLostPerTimeOverHeat;
+    public float PercentOfMaxHealthLostPerTimeExtremeHeat;
     public float TimeToLooseHealth;
-    public HeatArea AreaToLooseHealth;
+    public HeatArea MinAreaToLooseHealth;
 }

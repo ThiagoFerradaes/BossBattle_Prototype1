@@ -1,0 +1,114 @@
+{
+ "SoundBanksInfo": {
+  "Platform": "Windows",
+  "BasePlatform": "Windows",
+  "SchemaVersion": "16",
+  "SoundBankVersion": "172",
+  "SoundBanks": [
+   {
+    "Id": "4245241169",
+    "Type": "Event",
+    "GUID": "{17D6CAFC-9962-4F07-A796-82A42FFA7213}",
+    "Language": "SFX",
+    "Hash": "{FC3FF43B-F099-D184-160E-CB53C48F0285}",
+    "ObjectPath": "Play_2__Air_Swing",
+    "ShortName": "Play_2__Air_Swing",
+    "Path": "Event/Play_2__Air_Swing.bnk",
+    "Media": [
+     {
+      "Id": "65418891",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Loose",
+      "ShortName": "SPFX_attack_airSwing_Kraken_01.wav",
+      "Path": "Media/65418891.wem",
+      "CachePath": "88/{881E78EA-A12F-51CB-B5CF-7C18A5E108ED}.wem"
+     },
+     {
+      "Id": "122896941",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Loose",
+      "ShortName": "SPFX_attack_airSwing_Kraken_02.wav",
+      "Path": "Media/122896941.wem",
+      "CachePath": "9F/{9F0DAE4E-C076-7B4C-B9C6-A2AB3EA52F35}.wem"
+     },
+     {
+      "Id": "208747048",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Loose",
+      "ShortName": "SPFX_attack_airSwing_Kraken_03.wav",
+      "Path": "Media/208747048.wem",
+      "CachePath": "9C/{9CD57732-4988-AE71-E3CA-88024101BED0}.wem"
+     }
+    ],
+    "Plugins": {
+     "Custom": [
+      {
+       "Id": "111040477",
+       "Name": "Parametric EQ (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\Attack\\Attacking\\2- Air Swing\\[Effect Slot [1]: (Parametric EQ)]\\Parametric EQ (Custom)",
+       "GUID": "{AE4B752D-85AA-4F66-9890-89C7190E88EF}",
+       "LibName": "Wwise Parametric EQ",
+       "LibId": "6881283"
+      },
+      {
+       "Id": "558822316",
+       "Name": "Holy (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\Attack\\Attacking\\2- Air Swing\\[Effect Slot [0]: (RoomVerb)]\\Holy (Custom)",
+       "GUID": "{0C86D793-0332-46A9-AF05-2AC967E552C2}",
+       "LibName": "Wwise RoomVerb",
+       "LibId": "7733251"
+      },
+      {
+       "Id": "796409807",
+       "Name": "Guitar Distortion (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\Attack\\Attacking\\2- Air Swing\\[Effect Slot [2]: (Guitar Distortion)]\\Guitar Distortion (Custom)",
+       "GUID": "{6BEB33AB-9596-46C7-B496-E535043686F7}",
+       "LibName": "Wwise Guitar Distortion",
+       "LibId": "8257539"
+      }
+     ]
+    },
+    "Events": [
+     {
+      "Id": "4245241169",
+      "Name": "Play_2__Air_Swing",
+      "ObjectPath": "\\Events\\Default Work Unit\\SFX\\Kraken\\Attack Parts\\Play_2__Air_Swing",
+      "GUID": "{17D6CAFC-9962-4F07-A796-82A42FFA7213}",
+      "Color": "8",
+      "DurationType": "OneShot",
+      "DurationMin": "0.8577321",
+      "DurationMax": "1.1070704",
+      "MediaRefs": [
+       {
+        "Id": "65418891"
+       },
+       {
+        "Id": "122896941"
+       },
+       {
+        "Id": "208747048"
+       }
+      ],
+      "PluginRefs": {
+       "Custom": [
+        {
+         "Id": "111040477"
+        },
+        {
+         "Id": "558822316"
+        },
+        {
+         "Id": "796409807"
+        }
+       ]
+      }
+     }
+    ]
+   }
+  ],
+  "FileHash": "{1916A1A8-CC8E-D455-8BFE-9657CC46C609}"
+ }
+}

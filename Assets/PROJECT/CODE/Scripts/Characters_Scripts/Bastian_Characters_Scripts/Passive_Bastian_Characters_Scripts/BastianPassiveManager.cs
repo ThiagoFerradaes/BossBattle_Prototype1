@@ -3,7 +3,7 @@ using System.Collections;
 using System.Threading;
 using UnityEngine;
 
-public enum HeatArea { CoolArea = 0, HeatArea = 1, SuperHeatArea = 2, OverHeatArea = 3, LastOverHeatArea = 4 }
+public enum HeatArea { CoolArea = 0, HeatArea = 1, SuperHeatArea = 2, OverHeatArea = 3, ExtremeHeatArea = 4 }
 public class BastianPassiveManager : PassiveSkillManager {
 
     // Singleton
@@ -96,14 +96,22 @@ public class BastianPassiveManager : PassiveSkillManager {
     void LooseHealth() {
         float currentHealth = _healthManager.ReturnCurrentHealth();
         float maxHealth = _healthManager.ReturnMaxHealth();
-        float healthToLoose = maxHealth * _info.PercentOfMaxHealthLostPerTime / 100;
+        float healthMultiplier = _heatArea switch
+        {
+            HeatArea.SuperHeatArea => _info.PercentOfMaxHealthLostPerTimeSuperHeat,
+            HeatArea.OverHeatArea => _info.PercentOfMaxHealthLostPerTimeOverHeat,
+            HeatArea.ExtremeHeatArea => _info.PercentOfMaxHealthLostPerTimeExtremeHeat,
+            _ => 0
+        };
+        float healthToLoose = maxHealth * healthMultiplier / 100;
 
         float damage = Mathf.Min(healthToLoose, Mathf.Max(0, currentHealth - 1));
-        if (damage > 0) _healthManager.TakeDamage(damage, false);
+        if (damage > 0) _healthManager.TakeDamage(damage, false, _info.LooseHealthSound);
     }
     #endregion
 
     #region CheckHeat
+    public HeatArea ReturnCurrentHeatArea () => _heatArea;
     public void LooseAllHeat() => _currentHeat = 0;
     public float ReturnCurrentHeat() => _currentHeat;
     public bool ReturnMinHeat(HeatArea minHeatArea)
@@ -141,7 +149,7 @@ public class BastianPassiveManager : PassiveSkillManager {
             _statusManager.ChangeStatus(StatusType.AttackSpeed, _info.AmountOfAttackSpeedGainSuperHeat, false);
         }
 
-        _heatArea = HeatArea.CoolArea;
+        ChangeHeatArea(HeatArea.CoolArea);
     }
 
     void EnterHeatArea() {
@@ -155,7 +163,7 @@ public class BastianPassiveManager : PassiveSkillManager {
             _statusManager.ChangeStatus(StatusType.AttackSpeed, _info.AmountOfAttackSpeedGainHeat, true);
         }
 
-        _heatArea = HeatArea.HeatArea;
+        ChangeHeatArea(HeatArea.HeatArea);
     }
 
     void EnterSuperHeatArea() {
@@ -169,20 +177,29 @@ public class BastianPassiveManager : PassiveSkillManager {
             _statusManager.ChangeStatus(StatusType.AttackSpeed, _info.AmountOfAttackSpeedGainSuperHeat, true);
         }
 
-        _heatArea = HeatArea.SuperHeatArea;
-        if(!_looseAllHeat) _looseHealthCoroutine ??= StartCoroutine(LooseHealthOverTime());
+        ChangeHeatArea(HeatArea.SuperHeatArea);
+        if (!_looseAllHeat) _looseHealthCoroutine ??= StartCoroutine(LooseHealthOverTime());
     }
 
     void EnterOverHeatArea() {
         if (_heatArea == HeatArea.OverHeatArea) return;
 
-        _heatArea = HeatArea.OverHeatArea;
+        ChangeHeatArea(HeatArea.OverHeatArea);
     }
 
     void LastOverHeatHit() {
-        if (_heatArea == HeatArea.LastOverHeatArea) return;
+        if (_heatArea == HeatArea.ExtremeHeatArea) return;
 
-        _heatArea = HeatArea.LastOverHeatArea;
+        ChangeHeatArea(HeatArea.ExtremeHeatArea);
+    }
+
+    void ChangeHeatArea(HeatArea newArea) {
+        _heatArea = newArea;
+
+        int switchIndex = Mathf.Clamp((int)(_heatArea - 1), 0, 5);
+        AK.Wwise.Switch newSwitch = _info.HeatZoneSwitchs[switchIndex];
+        newSwitch.SetValue(parent);
+        _info.HeatZoneChangeSound.Post(parent);
     }
     #endregion
 
@@ -213,7 +230,7 @@ public class BastianPassiveManager : PassiveSkillManager {
     }
 
     IEnumerator LooseHealthOverTime() {
-        while (_heatArea == _info.AreaToLooseHealth) {
+        while (_heatArea >= _info.MinAreaToLooseHealth) {
             LooseHealth();
             yield return new WaitForSeconds(_info.TimeToLooseHealth);
         }

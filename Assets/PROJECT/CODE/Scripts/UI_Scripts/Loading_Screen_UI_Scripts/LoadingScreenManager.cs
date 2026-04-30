@@ -18,7 +18,6 @@ public class LoadingScreenManager : MonoBehaviour {
     [Foldout("Tip"), SerializeField] float tipDuration;
     [Foldout("Tip"), SerializeField] float tipChangingDuration;
     [Foldout("Tip"), SerializeField] GameObject tipObject;
-    [Foldout("Tip"), SerializeField] LocalizedString tipTitleText;
     [Foldout("Tip"), SerializeField, Range(0,1)] float maxTipAlpha;
     [Foldout("Tip"), SerializeField, Range(0,1)] float minTipAlpha;
 
@@ -34,24 +33,24 @@ public class LoadingScreenManager : MonoBehaviour {
 
     public static LoadingScreenManager Instance;
     public static LoadingScreenSO CurrentLoadingScreenInfo = null;
-    Coroutine savingFadeCoroutine; // tipCoroutine;
+    Coroutine savingFadeCoroutine, loadCoroutine;
 
     AsyncOperation loadingOperation;
     bool isLoadingComplete = false;
     bool canLoad = false;
     float loadingScreenTimer;
 
-    WaitForSeconds tipDurationWaitForSeconds;
+    WaitForSecondsRealtime _realSecondsToWait = new(0.1f);
+    WaitForEndOfFrame _waitForFrame = new();
 
-    #region Start Region
+    #region Load Flow
     private void Start() {
         StartLoad();
-        AkUnitySoundEngine.StopAll();
-
-        tipDurationWaitForSeconds = new(tipDuration);
     }
 
     void StartLoad() {
+
+        //AkUnitySoundEngine.StopAll();
 
         Application.runInBackground = true;
 
@@ -61,23 +60,57 @@ public class LoadingScreenManager : MonoBehaviour {
         canLoad = false;
         loadingScreenTimer = 0.0f;
 
-        Load();
+        loadCoroutine ??= StartCoroutine(Load());
     }
-    void Load() {
+    IEnumerator Load() {
+
         savingFadeCoroutine ??= StartCoroutine(SavingIconFade());
-        //tipCoroutine ??= StartCoroutine(HandleTip());
 
         HandleTip();
+
+        yield return _realSecondsToWait;
+        yield return _waitForFrame;
 
         loadingOperation = SceneManager.LoadSceneAsync(CurrentLoadingScreenInfo.SceneIndex);
         loadingOperation.allowSceneActivation = false;
 
         canLoad = true;
 
+        loadCoroutine = null;
+
+    }
+    private void Update() {
+        if (!canLoad) return;
+
+
+        if (!isLoadingComplete) {
+            loadingScreenTimer += Time.deltaTime;
+            float timeProgress = Mathf.Clamp01(loadingScreenTimer / loadingScreenMinTime);
+            float sceneProgress = Mathf.Clamp01(loadingOperation.progress / 0.9f);
+
+            float progress = Mathf.Min(timeProgress, sceneProgress);
+            loadingBar.fillAmount = progress;
+
+            if (loadingScreenTimer >= loadingScreenMinTime && loadingOperation.progress >= 0.9f)
+                EndLoad();
+        }
+    }
+    void EndLoad() {
+        if (savingFadeCoroutine != null) {
+            StopCoroutine(savingFadeCoroutine);
+            savingFadeCoroutine = null;
+        }
+
+        DOTween.KillAll();
+
+        Application.runInBackground = true;
+
+        isLoadingComplete = true;
+        loadingOperation.allowSceneActivation = true;
+        loadingOperation = null;
     }
 
-
-    #region Coroutines
+    #region UI Elements
     IEnumerator SavingIconFade()
     {
         bossSavingIcon.AssetReference = CurrentLoadingScreenInfo.SavingIcon;
@@ -96,82 +129,14 @@ public class LoadingScreenManager : MonoBehaviour {
 
     void HandleTip()
     {
-        //Debug.Log("Corrotina começou");
-
         List<Tip> list = new(CurrentLoadingScreenInfo.ListOfTips);
-
-        //CanvasGroup canvasG = tipObject.GetComponent<CanvasGroup>();
 
         int rng = Random.Range(0, list.Count);
 
-        tipTitle.text = tipTitleText.GetLocalizedString(list[rng].TipIndex);
-
         tipText.text = list[rng].TipDescription.GetLocalizedString();
 
-        //list.RemoveAt(rng);
-
-        //yield return tipDurationWaitForSeconds;
-
-        //while (true)
-        //{
-        //    Debug.Log("While começou");
-        //    yield return canvasG.DOFade(minTipAlpha, tipChangingDuration).SetUpdate(true).WaitForCompletion();
-
-        //    rng = Random.Range(0, list.Count);
-
-        //    tipTitle.text = tipTitleText.GetLocalizedString(list[rng].TipIndex);
-
-        //    tipText.text = list[rng].TipDescription.GetLocalizedString();
-
-        //    list.RemoveAt(rng);
-
-        //    yield return canvasG.DOFade(maxTipAlpha, tipChangingDuration).SetUpdate(true).WaitForCompletion();
-
-        //    yield return tipDurationWaitForSeconds;
-        //}
     }
     #endregion
-
-    #endregion
-
-    #region Update Region
-    private void Update() {
-        if (!canLoad)  return;
-
-
-        if (!isLoadingComplete) {
-            loadingScreenTimer += Time.deltaTime;
-            float timeProgress = Mathf.Clamp01(loadingScreenTimer / loadingScreenMinTime);
-            float sceneProgress = Mathf.Clamp01(loadingOperation.progress / 0.9f);
-
-            float progress = Mathf.Min(timeProgress, sceneProgress);
-            loadingBar.fillAmount = progress;
-
-            if (loadingScreenTimer >= loadingScreenMinTime && loadingOperation.progress >= 0.9f)
-                EndLoad();
-        }
-    }
-    void EndLoad()
-    {
-        if (savingFadeCoroutine != null)
-        {
-            StopCoroutine(savingFadeCoroutine);
-            savingFadeCoroutine = null;
-        }
-        //if (tipCoroutine != null)
-        //{
-        //    StopCoroutine(tipCoroutine);
-        //    tipCoroutine = null;
-        //}
-
-        DOTween.KillAll();
-
-        Application.runInBackground = true;
-
-        isLoadingComplete = true;
-        loadingOperation.allowSceneActivation = true;
-        loadingOperation = null;
-    }
 
     #endregion
 

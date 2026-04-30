@@ -13,6 +13,10 @@ public class BastianFlameEchoManager : SkillObjectManager
 
     // Actions
     Action<int> _onShootAction;
+    Action _onIgnisAction;
+
+    // Coroutines
+    Coroutine _ignisCoroutine, _attackCoroutine;
 
     float _attackSpeedMultiplier;
     public override void HandleInput(SkillSO skill, InputAction.CallbackContext ctx)
@@ -37,7 +41,8 @@ public class BastianFlameEchoManager : SkillObjectManager
         _attackSpeedMultiplier = GetAttackSpeedMultiplier();
         animationCoroutine ??= StartCoroutine(AttackCoroutine(0, 1, _attackSpeedMultiplier));
 
-        _onShootAction = (int attackIdex) => StartCoroutine(SecondaryShoot(attackIdex));
+        _onShootAction = (int attackIdex) => _attackCoroutine ??= StartCoroutine(SecondaryShoot(attackIdex));
+        _onIgnisAction = () => _ignisCoroutine ??= StartCoroutine(SecondaryIgnis());
     }
 
     private void OnDestroy() {
@@ -48,6 +53,8 @@ public class BastianFlameEchoManager : SkillObjectManager
         base.FirstFunc();
 
         _energyManager.LooseAllEnergy();
+
+        _info.SkillSound.Post(parent);
     }
 
     float GetAttackSpeedMultiplier()
@@ -65,15 +72,19 @@ public class BastianFlameEchoManager : SkillObjectManager
         // Desbloqueando inputs
         UnblockInputs();
 
-        StartCoroutine(Duration());
-
         BastianBaseAttackManager.OnShoot += _onShootAction;
+        BastianIgnisManager.OnIgnisShoot += _onIgnisAction;
+
+        StartCoroutine(Duration());
     }
 
     IEnumerator Duration()
     {
         _energyManager.SetCanGainEnergy(false);
         yield return new WaitForSeconds(_info.UltimateDuration);
+
+        BastianBaseAttackManager.OnShoot -= _onShootAction;
+        BastianIgnisManager.OnIgnisShoot -= _onIgnisAction;
 
         EndWithUnblockSkills();
     }
@@ -93,6 +104,25 @@ public class BastianFlameEchoManager : SkillObjectManager
             if (prefabInfo.PrefabType == TypeOfSkillPrefab.Hitbox) InstantiateSecondShoot(prefabInfo, attackIndex);
             else if (prefabInfo.PrefabType == TypeOfSkillPrefab.VFX) InstantiateVFX(prefabInfo);
         }
+
+        _attackCoroutine = null;
+    }
+
+    IEnumerator SecondaryIgnis() {
+        float realTimer = _info.TimeBetweenIgnis / _statusManager.ReturnStatusValue(StatusType.AttackSpeed);
+        yield return new WaitForSeconds(realTimer);
+
+        var prefabList = _info.Prefabs[3];
+        prefabList.Sort((a, b) => a.TimeToSpawnPreFab.CompareTo(b.TimeToSpawnPreFab));
+
+        for (int i = 0; i < prefabList.Count; i++) {
+            SkillAnimationEvent prefabInfo = prefabList[i];
+
+            if (prefabInfo.PrefabType == TypeOfSkillPrefab.Hitbox) InstantiateIgnis(prefabInfo);
+            else if (prefabInfo.PrefabType == TypeOfSkillPrefab.VFX) InstantiateVFX(prefabInfo);
+        }
+
+        _ignisCoroutine = null;
     }
 
     public override void EndWithUnblockSkills()
@@ -126,5 +156,34 @@ public class BastianFlameEchoManager : SkillObjectManager
 
         ProjectileDamageHitBox hitbox = preFab.GetComponent<ProjectileDamageHitBox>();
         hitbox.Initialize(newContext);
+    }
+
+    void InstantiateIgnis(SkillAnimationEvent prefabInfo) {
+        GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFab, TypeOfSkillPrefab.Hitbox);
+
+        preFab.transform.localScale = _info.IgnisDamageAtributes.Size;
+        preFab.transform.SetPositionAndRotation(parent.transform.position + prefabInfo.PreFabPosition, parent.transform.rotation);
+
+        float pen = BastianPassiveManager.Instance.ReturnMinHeat(HeatArea.SuperHeatArea) ? _info.IgnisPenetrationOnSuperHeat : 0;
+        float critChance = BastianPassiveManager.Instance.ReturnMinHeat(HeatArea.OverHeatArea) ? _info.IgnisCritChanceOverHeat : 0;
+        float additionalCriDmg = BastianPassiveManager.Instance.ReturnMinHeat(HeatArea.ExtremeHeatArea) ? _info.IgnisLastOverHeatCritDamage : 0;
+        float critDamage = statusManager.ReturnStatusValue(StatusType.CritDamage) + additionalCriDmg;
+
+        DamageAtributes atributes = new(_info.IgnisDamageAtributes);
+        atributes.ExtraAtributes[ExtraDamageContextAtributes.Penetration] = pen;
+        atributes.ExtraAtributes[ExtraDamageContextAtributes.CritRate] = critChance;
+        atributes.ExtraAtributes[ExtraDamageContextAtributes.CritDamage] = critDamage;
+
+        DamageContext newContext = new(
+            atributes,
+            parent.GetComponent<StatusManager>()
+            );
+
+        ProjectileDamageHitBox hitbox = preFab.GetComponent<ProjectileDamageHitBox>();
+        hitbox.Initialize(newContext);
+
+        if (BastianPassiveManager.Instance.ReturnMaxHeat(HeatArea.SuperHeatArea))
+            BastianPassiveManager.Instance.GainHeat(_info.IgnisHeatGain);
+        else BastianPassiveManager.Instance.GainHeat(1);
     }
 }
