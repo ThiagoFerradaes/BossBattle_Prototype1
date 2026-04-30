@@ -1,0 +1,93 @@
+{
+ "SoundBanksInfo": {
+  "Platform": "Mac",
+  "BasePlatform": "Mac",
+  "SchemaVersion": "16",
+  "SoundBankVersion": "172",
+  "SoundBanks": [
+   {
+    "Id": "467174588",
+    "Type": "Event",
+    "GUID": "{EB4177F0-3F05-43E0-AAC0-018A3104C0A0}",
+    "Language": "SFX",
+    "Hash": "{5783943B-37D5-2F88-B2B2-34623D985D07}",
+    "ObjectPath": "Play_Waterfall",
+    "ShortName": "Play_Waterfall",
+    "Path": "Event/Play_Waterfall.bnk",
+    "Media": [
+     {
+      "Id": "10747154",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Loose",
+      "ShortName": "AMB_waterfall_Kraken_01.wav",
+      "Path": "Media/10747154.wem",
+      "CachePath": "08/{08764A3C-DA6D-0190-ED8B-D1AF3EECF833}.wem"
+     },
+     {
+      "Id": "1004066516",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Loose",
+      "ShortName": "AMB_waterfall_Kraken_02.wav",
+      "Path": "Media/1004066516.wem",
+      "CachePath": "D1/{D1A885C0-5781-1641-5DD4-818510D085AE}.wem"
+     }
+    ],
+    "Plugins": {
+     "Custom": [
+      {
+       "Id": "276589202",
+       "Name": "Parametric EQ (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\Ambient\\Waterfall\\[Effect Slot [1]: (Parametric EQ)]\\Parametric EQ (Custom)",
+       "GUID": "{E0BBB4FA-F768-48CC-83CC-E67638733F8D}",
+       "LibName": "Wwise Parametric EQ",
+       "LibId": "6881283"
+      }
+     ],
+     "ShareSets": [
+      {
+       "Id": "3164629247",
+       "Name": "Holy",
+       "ObjectPath": "\\Effects\\Factory Effects\\RoomVerb\\Cathedrals\\Holy",
+       "GUID": "{CC7B8638-C670-4AD5-B3FB-331EA81037F6}",
+       "LibName": "Wwise RoomVerb",
+       "LibId": "7733251"
+      }
+     ]
+    },
+    "Events": [
+     {
+      "Id": "467174588",
+      "Name": "Play_Waterfall",
+      "ObjectPath": "\\Events\\Default Work Unit\\SFX\\Ambient\\Waterfall\\Play_Waterfall",
+      "GUID": "{EB4177F0-3F05-43E0-AAC0-018A3104C0A0}",
+      "Color": "1",
+      "DurationType": "Infinite",
+      "MediaRefs": [
+       {
+        "Id": "10747154"
+       },
+       {
+        "Id": "1004066516"
+       }
+      ],
+      "PluginRefs": {
+       "Custom": [
+        {
+         "Id": "276589202"
+        }
+       ],
+       "ShareSets": [
+        {
+         "Id": "3164629247"
+        }
+       ]
+      }
+     }
+    ]
+   }
+  ],
+  "FileHash": "{6A8FA26B-DA36-AAAC-E3C4-509686A42A2D}"
+ }
+}

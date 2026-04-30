@@ -9,6 +9,7 @@ public class HeatUIManager : MonoBehaviour
     [SerializeField] Image heatBar;
     [SerializeField] TextMeshProUGUI heatText;
     [SerializeField] BastianPassiveSO info;
+    [SerializeField] GameObject barAnimation;
 
     // Actions
     Action<float, float> _updateHeatBarAction;
@@ -21,6 +22,8 @@ public class HeatUIManager : MonoBehaviour
         BastianPassiveManager.Instance.OnHeatGain += _updateHeatBarAction;
 
         ChangeColors(0);
+
+        barAnimation.SetActive(false);
     }
 
     private void OnDestroy() {
@@ -30,33 +33,25 @@ public class HeatUIManager : MonoBehaviour
         heatBar.fillAmount = currentHeat / maxHeat;
 
         ChangeColors(currentHeat);
+
+        barAnimation.SetActive(currentHeat >= info.HeatToHitSuperHeatArea);
     }
 
     void ChangeColors(float currentHeat) {
         if (currentHeat >= info.HeatToHitLastOverHeatArea) {
-            heatBar.color = info.LastOverHeatColor;
-            heatText.text = info.LastOverHeatText;
-            heatText.color = info.LastOverHeatColor;
+            heatText.text = info.LastOverHeatText.GetLocalizedString();
         }
         else if (currentHeat >= info.HeatToHitOverHeatArea) {
-            heatBar.color = info.OverHeatColor;
-            heatText.text = info.OverHeatText;
-            heatText.color = info.OverHeatColor;
+            heatText.text = info.OverHeatText.GetLocalizedString();
         }
         else if (currentHeat >= info.HeatToHitSuperHeatArea) {
-            heatBar.color = info.SuperHeatColor;
-            heatText.text = info.SuperHeatText;
-            heatText.color = info.SuperHeatColor;
+            heatText.text = info.SuperHeatText.GetLocalizedString();
         }
         else if (currentHeat >= info.HeatToHitHeatArea) {
-            heatBar.color = info.HeatColor;
-            heatText.text = info.HeatText;
-            heatText.color = info.HeatColor;
+            heatText.text = info.HeatText.GetLocalizedString();
         }
         else {
-            heatBar.color = info.CoolColor;
-            heatText.text = info.CoolText;
-            heatText.color = info.CoolColor;
+            heatText.text = info.CoolText.GetLocalizedString();
         }
     }
 }

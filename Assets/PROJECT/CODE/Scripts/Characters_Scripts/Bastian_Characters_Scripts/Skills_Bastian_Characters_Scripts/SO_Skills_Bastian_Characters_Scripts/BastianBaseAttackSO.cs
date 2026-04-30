@@ -15,6 +15,7 @@ public class BastianBaseAttackSO : CommonSkillSO {
     [Foldout("Specific")] public float AttackDistance;
     [Foldout("Specific")] public float ProjectileSpeed;
     [Foldout("Specific")] public float ProjectileSize = 0.5f;
+    [Foldout("Specific")] public List<AK.Wwise.Switch> Switchs;
 
     [Header("Cooldown")]
     [Foldout("Specific")] public float CooldownBetweenAttacks;

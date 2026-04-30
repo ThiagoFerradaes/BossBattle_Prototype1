@@ -1,0 +1,90 @@
+{
+ "SoundBanksInfo": {
+  "Platform": "Windows",
+  "BasePlatform": "Windows",
+  "SchemaVersion": "16",
+  "SoundBankVersion": "172",
+  "SoundBanks": [
+   {
+    "Id": "842623176",
+    "Type": "Event",
+    "GUID": "{C6930A55-A8A2-4C39-91FD-ACC437BB3605}",
+    "Language": "SFX",
+    "Hash": "{69DEB552-5E05-C7FF-A420-7A4F4DD39A3C}",
+    "ObjectPath": "Play_Heat_Up",
+    "ShortName": "Play_Heat_Up",
+    "Path": "Event/Play_Heat_Up.bnk",
+    "Media": [
+     {
+      "Id": "958772841",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Loose",
+      "ShortName": "SPFX_heatUp_Bastian_01.wav",
+      "Path": "Media/958772841.wem",
+      "CachePath": "1E/{1E785875-CA24-1AAE-FA02-42985DB3F6BB}.wem"
+     }
+    ],
+    "Plugins": {
+     "Custom": [
+      {
+       "Id": "773168853",
+       "Name": "Guitar Distortion (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Players\\Bastian\\Skills\\Heat Up\\[Effect Slot [2]: (Guitar Distortion)]\\Guitar Distortion (Custom)",
+       "GUID": "{BD105FC1-9135-4A63-AD67-1AD3C12AA9BF}",
+       "LibName": "Wwise Guitar Distortion",
+       "LibId": "8257539"
+      },
+      {
+       "Id": "868192414",
+       "Name": "Low_Pass_20KHz (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Players\\Bastian\\Skills\\Heat Up\\[Effect Slot [1]: (Parametric EQ)]\\Low_Pass_20KHz (Custom)",
+       "GUID": "{9B9BD4D2-F4A9-4499-9EDA-D3B2FC7E81EC}",
+       "LibName": "Wwise Parametric EQ",
+       "LibId": "6881283"
+      },
+      {
+       "Id": "990638915",
+       "Name": "Tremolo (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Players\\Bastian\\Skills\\Heat Up\\[Effect Slot [0]: (Tremolo)]\\Tremolo (Custom)",
+       "GUID": "{7F09A7E5-F4A1-4B21-9B95-308F0BA25CA5}",
+       "LibName": "Wwise Tremolo",
+       "LibId": "8585219"
+      }
+     ]
+    },
+    "Events": [
+     {
+      "Id": "842623176",
+      "Name": "Play_Heat_Up",
+      "ObjectPath": "\\Events\\Default Work Unit\\SFX\\Players\\Bastian\\Skills\\Play_Heat_Up",
+      "GUID": "{C6930A55-A8A2-4C39-91FD-ACC437BB3605}",
+      "Color": "23",
+      "DurationType": "OneShot",
+      "DurationMin": "11.403521",
+      "DurationMax": "13.175089",
+      "MediaRefs": [
+       {
+        "Id": "958772841"
+       }
+      ],
+      "PluginRefs": {
+       "Custom": [
+        {
+         "Id": "773168853"
+        },
+        {
+         "Id": "868192414"
+        },
+        {
+         "Id": "990638915"
+        }
+       ]
+      }
+     }
+    ]
+   }
+  ],
+  "FileHash": "{B4CF52DC-C805-D363-5EB5-08B1BEB770A6}"
+ }
+}
