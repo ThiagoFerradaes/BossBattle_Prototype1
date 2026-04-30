@@ -18,7 +18,6 @@ public class LoadingScreenManager : MonoBehaviour {
     [Foldout("Tip"), SerializeField] float tipDuration;
     [Foldout("Tip"), SerializeField] float tipChangingDuration;
     [Foldout("Tip"), SerializeField] GameObject tipObject;
-    [Foldout("Tip"), SerializeField] LocalizedString tipTitleText;
     [Foldout("Tip"), SerializeField, Range(0,1)] float maxTipAlpha;
     [Foldout("Tip"), SerializeField, Range(0,1)] float minTipAlpha;
 
@@ -133,8 +132,6 @@ public class LoadingScreenManager : MonoBehaviour {
         List<Tip> list = new(CurrentLoadingScreenInfo.ListOfTips);
 
         int rng = Random.Range(0, list.Count);
-
-        tipTitle.text = tipTitleText.GetLocalizedString(list[rng].TipIndex);
 
         tipText.text = list[rng].TipDescription.GetLocalizedString();
 
