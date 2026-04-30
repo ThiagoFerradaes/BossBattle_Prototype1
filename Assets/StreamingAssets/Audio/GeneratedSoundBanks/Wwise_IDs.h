@@ -97,18 +97,6 @@ namespace AK
             } // namespace SWITCH
         } // namespace BASTIAN_HEAT_ZONES
 
-        namespace BASTIAN_IGNIS_CHARGES
-        {
-            static const AkUniqueID GROUP = 3974953584U;
-
-            namespace SWITCH
-            {
-                static const AkUniqueID CHARGE_01 = 3136062081U;
-                static const AkUniqueID CHARGE_02 = 3136062082U;
-                static const AkUniqueID CHARGE_03 = 3136062083U;
-            } // namespace SWITCH
-        } // namespace BASTIAN_IGNIS_CHARGES
-
         namespace CYRUS_WEAPON_LEVELS
         {
             static const AkUniqueID GROUP = 3925408978U;
