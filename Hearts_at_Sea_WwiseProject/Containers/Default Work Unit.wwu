@@ -1468,6 +1468,19 @@
 													<ChildrenList>
 														<Sound Name="Base Attack Cool Zone" ID="{C402BF65-0582-469E-8151-013280078E87}" ShortID="841177226">
 															<PropertyList>
+																<Property Name="Lowpass" Type="int16">
+																	<ModifierList>
+																		<ModifierInfo>
+																			<Modifier Name="" ID="{08570BC7-51DF-4F49-B70F-6180C83340F2}">
+																				<PropertyList>
+																					<Property Name="Enabled" Type="bool" Value="True"/>
+																					<Property Name="Max" Type="Real64" Value="16"/>
+																					<Property Name="Min" Type="Real64" Value="-14"/>
+																				</PropertyList>
+																			</Modifier>
+																		</ModifierInfo>
+																	</ModifierList>
+																</Property>
 																<Property Name="OverrideEffect" Type="bool" Value="True"/>
 																<Property Name="Pitch" Type="int32">
 																	<ModifierList>
@@ -1475,8 +1488,8 @@
 																			<Modifier Name="" ID="{DFBBF028-A034-4873-887D-F0DDC8463BF6}">
 																				<PropertyList>
 																					<Property Name="Enabled" Type="bool" Value="True"/>
-																					<Property Name="Max" Type="Real64" Value="15"/>
-																					<Property Name="Min" Type="Real64" Value="-35"/>
+																					<Property Name="Max" Type="Real64" Value="190"/>
+																					<Property Name="Min" Type="Real64" Value="-110"/>
 																				</PropertyList>
 																			</Modifier>
 																		</ModifierInfo>
@@ -1505,7 +1518,7 @@
 																</Reference>
 															</ReferenceList>
 															<ChildrenList>
-																<AudioFileSource Name="SFX_baseAttack_coolZone_01" ID="{5B20939A-E29C-4CFD-A71B-A8B36C295CBD}">
+																<AudioFileSource Name="SFX_baseAttack_coolZone_01" ID="{8E8A1899-38E7-4025-89CA-819A92168479}">
 																	<Language>SFX</Language>
 																	<AudioFile>SFX_baseAttack_coolZone_01.wav</AudioFile>
 																	<MediaIDList>
@@ -1521,8 +1534,9 @@
 																				<Custom>
 																					<Effect Name="Guitar Distortion (Custom)" ID="{E8D2BA24-ACDE-44D7-BDF4-2224F51E03DF}" ShortID="86722717" PluginName="Wwise Guitar Distortion" CompanyID="0" PluginID="126" PluginType="3">
 																						<PropertyList>
-																							<Property Name="DistortionDrive" Type="Real32" Value="1.8"/>
+																							<Property Name="DistortionDrive" Type="Real32" Value="2"/>
 																							<Property Name="DistortionType" Type="int32" Value="1"/>
+																							<Property Name="OutputLevel" Type="Real32" Value="0.5"/>
 																							<Property Name="PreEQBand1FilterType" Type="int32" Value="4"/>
 																							<Property Name="PreEQBand1Frequency" Type="Real32" Value="51"/>
 																						</PropertyList>
@@ -1534,11 +1548,24 @@
 																</ObjectList>
 															</ObjectLists>
 															<ActiveSourceList>
-																<ActiveSource Name="SFX_baseAttack_coolZone_01" ID="{5B20939A-E29C-4CFD-A71B-A8B36C295CBD}" Platform="Linked"/>
+																<ActiveSource Name="SFX_baseAttack_coolZone_01" ID="{8E8A1899-38E7-4025-89CA-819A92168479}" Platform="Linked"/>
 															</ActiveSourceList>
 														</Sound>
 														<Sound Name="Base Attack Heat Zone" ID="{B3C55FA9-3751-4D7B-B338-7BB0227C50EE}" ShortID="623257226">
 															<PropertyList>
+																<Property Name="Lowpass" Type="int16">
+																	<ModifierList>
+																		<ModifierInfo>
+																			<Modifier Name="" ID="{37C68906-ECA6-485C-85F3-A87BACF04332}">
+																				<PropertyList>
+																					<Property Name="Enabled" Type="bool" Value="True"/>
+																					<Property Name="Max" Type="Real64" Value="11"/>
+																					<Property Name="Min" Type="Real64" Value="-8"/>
+																				</PropertyList>
+																			</Modifier>
+																		</ModifierInfo>
+																	</ModifierList>
+																</Property>
 																<Property Name="OverrideEffect" Type="bool" Value="True"/>
 																<Property Name="Pitch" Type="int32">
 																	<ModifierList>
@@ -1546,8 +1573,8 @@
 																			<Modifier Name="" ID="{AEFCF809-DC70-4FDD-AC66-3F789AFCB4D2}">
 																				<PropertyList>
 																					<Property Name="Enabled" Type="bool" Value="True"/>
-																					<Property Name="Max" Type="Real64" Value="15"/>
-																					<Property Name="Min" Type="Real64" Value="-35"/>
+																					<Property Name="Max" Type="Real64" Value="190"/>
+																					<Property Name="Min" Type="Real64" Value="-110"/>
 																				</PropertyList>
 																			</Modifier>
 																		</ModifierInfo>
@@ -1576,7 +1603,7 @@
 																</Reference>
 															</ReferenceList>
 															<ChildrenList>
-																<AudioFileSource Name="SFX_baseAttack_heatZone_01" ID="{37011B7D-A26F-4D4B-AC36-7614C70794B5}">
+																<AudioFileSource Name="SFX_baseAttack_heatZone_01" ID="{341CFCE5-4D61-4A5B-96D7-3162D0C6F85D}">
 																	<Language>SFX</Language>
 																	<AudioFile>SFX_baseAttack_heatZone_01.wav</AudioFile>
 																	<MediaIDList>
@@ -1592,8 +1619,9 @@
 																				<Custom>
 																					<Effect Name="Guitar Distortion (Custom)" ID="{15702F02-35BA-4354-B1F5-BA55535AE426}" ShortID="128521792" PluginName="Wwise Guitar Distortion" CompanyID="0" PluginID="126" PluginType="3">
 																						<PropertyList>
-																							<Property Name="DistortionDrive" Type="Real32" Value="2"/>
+																							<Property Name="DistortionDrive" Type="Real32" Value="3"/>
 																							<Property Name="DistortionType" Type="int32" Value="1"/>
+																							<Property Name="OutputLevel" Type="Real32" Value="0.5"/>
 																						</PropertyList>
 																					</Effect>
 																				</Custom>
@@ -1603,11 +1631,24 @@
 																</ObjectList>
 															</ObjectLists>
 															<ActiveSourceList>
-																<ActiveSource Name="SFX_baseAttack_heatZone_01" ID="{37011B7D-A26F-4D4B-AC36-7614C70794B5}" Platform="Linked"/>
+																<ActiveSource Name="SFX_baseAttack_heatZone_01" ID="{341CFCE5-4D61-4A5B-96D7-3162D0C6F85D}" Platform="Linked"/>
 															</ActiveSourceList>
 														</Sound>
 														<Sound Name="Base Attack Super Heat Zone" ID="{5F194D9F-2C78-4950-865D-89D1311BA813}" ShortID="581533794">
 															<PropertyList>
+																<Property Name="Lowpass" Type="int16">
+																	<ModifierList>
+																		<ModifierInfo>
+																			<Modifier Name="" ID="{C0D52C85-9498-49F1-85A6-D1A58D4E7EB4}">
+																				<PropertyList>
+																					<Property Name="Enabled" Type="bool" Value="True"/>
+																					<Property Name="Max" Type="Real64" Value="18"/>
+																					<Property Name="Min" Type="Real64" Value="-14"/>
+																				</PropertyList>
+																			</Modifier>
+																		</ModifierInfo>
+																	</ModifierList>
+																</Property>
 																<Property Name="OverrideEffect" Type="bool" Value="True"/>
 																<Property Name="Pitch" Type="int32">
 																	<ModifierList>
@@ -1615,8 +1656,8 @@
 																			<Modifier Name="" ID="{F1927BCE-6C27-49C2-8495-049BCE23FF18}">
 																				<PropertyList>
 																					<Property Name="Enabled" Type="bool" Value="True"/>
-																					<Property Name="Max" Type="Real64" Value="15"/>
-																					<Property Name="Min" Type="Real64" Value="-35"/>
+																					<Property Name="Max" Type="Real64" Value="190"/>
+																					<Property Name="Min" Type="Real64" Value="-110"/>
 																				</PropertyList>
 																			</Modifier>
 																		</ModifierInfo>
@@ -1645,7 +1686,7 @@
 																</Reference>
 															</ReferenceList>
 															<ChildrenList>
-																<AudioFileSource Name="SFX_baseAttack_superHeatZone_01" ID="{2B8C8F56-0D48-4B25-9770-519C6B50EAED}">
+																<AudioFileSource Name="SFX_baseAttack_superHeatZone_01" ID="{37E75E29-79D2-4F81-A55A-FF723EC62CBB}">
 																	<Language>SFX</Language>
 																	<AudioFile>SFX_baseAttack_superHeatZone_01.wav</AudioFile>
 																	<MediaIDList>
@@ -1661,8 +1702,9 @@
 																				<Custom>
 																					<Effect Name="Guitar Distortion (Custom)" ID="{3A78E7DC-298A-4E31-B014-389360BCB0EA}" ShortID="882066652" PluginName="Wwise Guitar Distortion" CompanyID="0" PluginID="126" PluginType="3">
 																						<PropertyList>
-																							<Property Name="DistortionDrive" Type="Real32" Value="2.3"/>
+																							<Property Name="DistortionDrive" Type="Real32" Value="4.3"/>
 																							<Property Name="DistortionType" Type="int32" Value="1"/>
+																							<Property Name="OutputLevel" Type="Real32" Value="0.5"/>
 																						</PropertyList>
 																					</Effect>
 																				</Custom>
@@ -1672,11 +1714,24 @@
 																</ObjectList>
 															</ObjectLists>
 															<ActiveSourceList>
-																<ActiveSource Name="SFX_baseAttack_superHeatZone_01" ID="{2B8C8F56-0D48-4B25-9770-519C6B50EAED}" Platform="Linked"/>
+																<ActiveSource Name="SFX_baseAttack_superHeatZone_01" ID="{37E75E29-79D2-4F81-A55A-FF723EC62CBB}" Platform="Linked"/>
 															</ActiveSourceList>
 														</Sound>
 														<Sound Name="Base Attack Over Heat Zone" ID="{DEB8D15B-73AB-4E9F-B7AC-2ACC5C398636}" ShortID="962791292">
 															<PropertyList>
+																<Property Name="Lowpass" Type="int16">
+																	<ModifierList>
+																		<ModifierInfo>
+																			<Modifier Name="" ID="{2BCDDFAF-AF67-4796-9092-BD8F3E7B3FCC}">
+																				<PropertyList>
+																					<Property Name="Enabled" Type="bool" Value="True"/>
+																					<Property Name="Max" Type="Real64" Value="16"/>
+																					<Property Name="Min" Type="Real64" Value="-11"/>
+																				</PropertyList>
+																			</Modifier>
+																		</ModifierInfo>
+																	</ModifierList>
+																</Property>
 																<Property Name="OverrideEffect" Type="bool" Value="True"/>
 																<Property Name="Pitch" Type="int32">
 																	<ModifierList>
@@ -1684,8 +1739,8 @@
 																			<Modifier Name="" ID="{C09A7ADF-66E9-4FC4-B447-AFFE71593116}">
 																				<PropertyList>
 																					<Property Name="Enabled" Type="bool" Value="True"/>
-																					<Property Name="Max" Type="Real64" Value="15"/>
-																					<Property Name="Min" Type="Real64" Value="-35"/>
+																					<Property Name="Max" Type="Real64" Value="190"/>
+																					<Property Name="Min" Type="Real64" Value="-110"/>
 																				</PropertyList>
 																			</Modifier>
 																		</ModifierInfo>
@@ -1714,7 +1769,7 @@
 																</Reference>
 															</ReferenceList>
 															<ChildrenList>
-																<AudioFileSource Name="SFX_baseAttack_overHeatZone_01" ID="{0DF4FFE8-93CE-43DF-9B90-5B48A7E868C3}">
+																<AudioFileSource Name="SFX_baseAttack_overHeatZone_01" ID="{9B6A4F38-6EC2-4B23-B26D-3F30DDD9343D}">
 																	<Language>SFX</Language>
 																	<AudioFile>SFX_baseAttack_overHeatZone_01.wav</AudioFile>
 																	<MediaIDList>
@@ -1730,8 +1785,9 @@
 																				<Custom>
 																					<Effect Name="Guitar Distortion (Custom)" ID="{F3596230-DE9D-46EF-AF01-0C78FFAD7D88}" ShortID="306721634" PluginName="Wwise Guitar Distortion" CompanyID="0" PluginID="126" PluginType="3">
 																						<PropertyList>
-																							<Property Name="DistortionDrive" Type="Real32" Value="3"/>
+																							<Property Name="DistortionDrive" Type="Real32" Value="7"/>
 																							<Property Name="DistortionType" Type="int32" Value="1"/>
+																							<Property Name="OutputLevel" Type="Real32" Value="0.5"/>
 																						</PropertyList>
 																					</Effect>
 																				</Custom>
@@ -1741,11 +1797,24 @@
 																</ObjectList>
 															</ObjectLists>
 															<ActiveSourceList>
-																<ActiveSource Name="SFX_baseAttack_overHeatZone_01" ID="{0DF4FFE8-93CE-43DF-9B90-5B48A7E868C3}" Platform="Linked"/>
+																<ActiveSource Name="SFX_baseAttack_overHeatZone_01" ID="{9B6A4F38-6EC2-4B23-B26D-3F30DDD9343D}" Platform="Linked"/>
 															</ActiveSourceList>
 														</Sound>
 														<Sound Name="Base Attack Extreme Heat Zone" ID="{F772E79F-3E79-4F4B-8EF2-9FA2CFCF7049}" ShortID="486500582">
 															<PropertyList>
+																<Property Name="Lowpass" Type="int16">
+																	<ModifierList>
+																		<ModifierInfo>
+																			<Modifier Name="" ID="{C12770C6-9E85-4433-917F-6A0375C043E4}">
+																				<PropertyList>
+																					<Property Name="Enabled" Type="bool" Value="True"/>
+																					<Property Name="Max" Type="Real64" Value="15"/>
+																					<Property Name="Min" Type="Real64" Value="-10"/>
+																				</PropertyList>
+																			</Modifier>
+																		</ModifierInfo>
+																	</ModifierList>
+																</Property>
 																<Property Name="OverrideEffect" Type="bool" Value="True"/>
 																<Property Name="Pitch" Type="int32">
 																	<ModifierList>
@@ -1753,8 +1822,8 @@
 																			<Modifier Name="" ID="{93573D81-0570-47A5-8BB1-32B9EF5C03AE}">
 																				<PropertyList>
 																					<Property Name="Enabled" Type="bool" Value="True"/>
-																					<Property Name="Max" Type="Real64" Value="15"/>
-																					<Property Name="Min" Type="Real64" Value="-35"/>
+																					<Property Name="Max" Type="Real64" Value="190"/>
+																					<Property Name="Min" Type="Real64" Value="-110"/>
 																				</PropertyList>
 																			</Modifier>
 																		</ModifierInfo>
@@ -1783,7 +1852,7 @@
 																</Reference>
 															</ReferenceList>
 															<ChildrenList>
-																<AudioFileSource Name="SFX_baseAttack_extremeHeatZone_01" ID="{07A17740-9A7A-415B-8A92-2D6C1FAF2989}">
+																<AudioFileSource Name="SFX_baseAttack_extremeHeatZone_01" ID="{A26B9B04-E26D-4645-895E-3DC08EEEB8B3}">
 																	<Language>SFX</Language>
 																	<AudioFile>SFX_baseAttack_extremeHeatZone_01.wav</AudioFile>
 																	<MediaIDList>
@@ -1799,8 +1868,9 @@
 																				<Custom>
 																					<Effect Name="Guitar Distortion (Custom)" ID="{7B12F776-BF9C-49A4-8B74-098C11DA869F}" ShortID="226830044" PluginName="Wwise Guitar Distortion" CompanyID="0" PluginID="126" PluginType="3">
 																						<PropertyList>
-																							<Property Name="DistortionDrive" Type="Real32" Value="3.3"/>
+																							<Property Name="DistortionDrive" Type="Real32" Value="10.3"/>
 																							<Property Name="DistortionType" Type="int32" Value="1"/>
+																							<Property Name="OutputLevel" Type="Real32" Value="0.5"/>
 																						</PropertyList>
 																					</Effect>
 																				</Custom>
@@ -1810,7 +1880,7 @@
 																</ObjectList>
 															</ObjectLists>
 															<ActiveSourceList>
-																<ActiveSource Name="SFX_baseAttack_extremeHeatZone_01" ID="{07A17740-9A7A-415B-8A92-2D6C1FAF2989}" Platform="Linked"/>
+																<ActiveSource Name="SFX_baseAttack_extremeHeatZone_01" ID="{A26B9B04-E26D-4645-895E-3DC08EEEB8B3}" Platform="Linked"/>
 															</ActiveSourceList>
 														</Sound>
 													</ChildrenList>
@@ -2248,7 +2318,7 @@
 															<ObjectRef Name="SFX_Bus" ID="{F5C91BBD-C9DE-46C1-B10A-F7A0405036D3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
 														</Reference>
 														<Reference Name="SwitchGroupOrStateGroup">
-															<ObjectRef Name="Bastian_Ignis_Charges" ID="{65F23326-92AB-4FA3-B6A4-C6985B4A54BC}" WorkUnitID="{FBD9D139-D7FA-4CB3-B23B-0BB9656E3693}"/>
+															<ObjectRef Name="Bastian_Heat_Zones" ID="{3FE2A4A3-76B7-4122-B209-15AB13F4603D}" WorkUnitID="{FBD9D139-D7FA-4CB3-B23B-0BB9656E3693}"/>
 														</Reference>
 													</ReferenceList>
 													<ChildrenList>
@@ -2283,7 +2353,7 @@
 																</Property>
 																<Property Name="Volume" Type="Real64">
 																	<ValueList>
-																		<Value>-3</Value>
+																		<Value>-2</Value>
 																	</ValueList>
 																	<ModifierList>
 																		<ModifierInfo>
@@ -2308,6 +2378,11 @@
 															</ReferenceList>
 															<ChildrenList>
 																<AudioFileSource Name="SPFX_ignis_Bastian_01" ID="{693689BA-8524-4779-A478-F026CE18F741}">
+																	<PropertyList>
+																		<Property Name="FadeOutDuration" Type="Real64" Value="1.3710163740658"/>
+																		<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+																		<Property Name="TrimEnd" Type="Real64" Value="1.3710163740658"/>
+																	</PropertyList>
 																	<Language>SFX</Language>
 																	<AudioFile>SPFX_ignis_Bastian_01.wav</AudioFile>
 																	<MediaIDList>
@@ -2323,8 +2398,13 @@
 																				<Custom>
 																					<Effect Name="Guitar Distortion (Custom)" ID="{ECBBA941-2A46-4EEE-84D8-777A07AD84C7}" ShortID="914736224" PluginName="Wwise Guitar Distortion" CompanyID="0" PluginID="126" PluginType="3">
 																						<PropertyList>
-																							<Property Name="DistortionDrive" Type="Real32" Value="5"/>
+																							<Property Name="DistortionDrive" Type="Real32" Value="6"/>
 																							<Property Name="DistortionType" Type="int32" Value="1"/>
+																							<Property Name="PostEQBand1Enable" Type="bool" Value="True"/>
+																							<Property Name="PostEQBand1FilterType" Type="int32" Value="1"/>
+																							<Property Name="PostEQBand1Frequency" Type="Real32" Value="9226"/>
+																							<Property Name="PostEQBand1Gain" Type="Real32" Value="6"/>
+																							<Property Name="PostEQBand1QFactor" Type="Real32" Value="7"/>
 																							<Property Name="Rectification" Type="Real32" Value="28"/>
 																						</PropertyList>
 																					</Effect>
@@ -2369,7 +2449,7 @@
 																</Property>
 																<Property Name="Volume" Type="Real64">
 																	<ValueList>
-																		<Value>-3</Value>
+																		<Value>-2</Value>
 																	</ValueList>
 																	<ModifierList>
 																		<ModifierInfo>
@@ -2393,6 +2473,11 @@
 															</ReferenceList>
 															<ChildrenList>
 																<AudioFileSource Name="SPFX_ignis_Bastian_02" ID="{2899C4BC-CAEE-4432-A181-466BC98BDE29}">
+																	<PropertyList>
+																		<Property Name="FadeOutDuration" Type="Real64" Value="1.35245328978817"/>
+																		<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+																		<Property Name="TrimEnd" Type="Real64" Value="1.35245328978817"/>
+																	</PropertyList>
 																	<Language>SFX</Language>
 																	<AudioFile>SPFX_ignis_Bastian_02.wav</AudioFile>
 																	<MediaIDList>
@@ -2408,9 +2493,13 @@
 																				<Custom>
 																					<Effect Name="Guitar Distortion (Custom)" ID="{28924741-8CEA-408F-A30C-8DB5A5185015}" ShortID="939787748" PluginName="Wwise Guitar Distortion" CompanyID="0" PluginID="126" PluginType="3">
 																						<PropertyList>
-																							<Property Name="DistortionDrive" Type="Real32" Value="3.3"/>
+																							<Property Name="DistortionDrive" Type="Real32" Value="5.3"/>
 																							<Property Name="DistortionType" Type="int32" Value="1"/>
-																							<Property Name="OutputLevel" Type="Real32" Value="0.5"/>
+																							<Property Name="OutputLevel" Type="Real32" Value="1"/>
+																							<Property Name="PostEQBand1Enable" Type="bool" Value="True"/>
+																							<Property Name="PostEQBand1FilterType" Type="int32" Value="1"/>
+																							<Property Name="PostEQBand1Frequency" Type="Real32" Value="8816"/>
+																							<Property Name="PostEQBand1QFactor" Type="Real32" Value="2.9"/>
 																						</PropertyList>
 																					</Effect>
 																				</Custom>
@@ -2462,7 +2551,12 @@
 																</Reference>
 															</ReferenceList>
 															<ChildrenList>
-																<AudioFileSource Name="SPFX_ignis_Bastian_03" ID="{A126D064-DB54-40F5-A77A-BC58332C53DB}">
+																<AudioFileSource Name="SPFX_ignis_Bastian_03" ID="{47B1C18F-3CFC-4861-A10D-3F9970887DF9}">
+																	<PropertyList>
+																		<Property Name="FadeOutDuration" Type="Real64" Value="1.47126318243408"/>
+																		<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+																		<Property Name="TrimEnd" Type="Real64" Value="1.47126318243408"/>
+																	</PropertyList>
 																	<Language>SFX</Language>
 																	<AudioFile>SPFX_ignis_Bastian_03.wav</AudioFile>
 																	<MediaIDList>
@@ -2478,8 +2572,9 @@
 																				<Custom>
 																					<Effect Name="Guitar Distortion (Custom)" ID="{5FFFEA13-E3C7-4A09-A6B4-73275EC9A029}" ShortID="418946225" PluginName="Wwise Guitar Distortion" CompanyID="0" PluginID="126" PluginType="3">
 																						<PropertyList>
-																							<Property Name="DistortionDrive" Type="Real32" Value="5"/>
+																							<Property Name="DistortionDrive" Type="Real32" Value="7"/>
 																							<Property Name="DistortionType" Type="int32" Value="1"/>
+																							<Property Name="OutputLevel" Type="Real32" Value="0.5"/>
 																						</PropertyList>
 																					</Effect>
 																				</Custom>
@@ -2489,12 +2584,196 @@
 																</ObjectList>
 															</ObjectLists>
 															<ActiveSourceList>
-																<ActiveSource Name="SPFX_ignis_Bastian_03" ID="{A126D064-DB54-40F5-A77A-BC58332C53DB}" Platform="Linked"/>
+																<ActiveSource Name="SPFX_ignis_Bastian_03" ID="{47B1C18F-3CFC-4861-A10D-3F9970887DF9}" Platform="Linked"/>
+															</ActiveSourceList>
+														</Sound>
+														<Sound Name="Ignis_04" ID="{1CB533A7-4B6F-4387-9A2C-D2139C1BA988}" ShortID="880881957">
+															<PropertyList>
+																<Property Name="Lowpass" Type="int16">
+																	<ModifierList>
+																		<ModifierInfo>
+																			<Modifier Name="" ID="{AF94EF05-4F99-41D9-B7C3-D5110C203978}">
+																				<PropertyList>
+																					<Property Name="Enabled" Type="bool" Value="True"/>
+																					<Property Name="Max" Type="Real64" Value="11"/>
+																					<Property Name="Min" Type="Real64" Value="-16"/>
+																				</PropertyList>
+																			</Modifier>
+																		</ModifierInfo>
+																	</ModifierList>
+																</Property>
+																<Property Name="OverrideEffect" Type="bool" Value="True"/>
+																<Property Name="Pitch" Type="int32">
+																	<ModifierList>
+																		<ModifierInfo>
+																			<Modifier Name="" ID="{1E4E5B20-420F-41D7-929C-B1E21BAC6EF9}">
+																				<PropertyList>
+																					<Property Name="Enabled" Type="bool" Value="True"/>
+																					<Property Name="Max" Type="Real64" Value="100"/>
+																					<Property Name="Min" Type="Real64" Value="-150"/>
+																				</PropertyList>
+																			</Modifier>
+																		</ModifierInfo>
+																	</ModifierList>
+																</Property>
+																<Property Name="Volume" Type="Real64">
+																	<ValueList>
+																		<Value>1</Value>
+																	</ValueList>
+																</Property>
+															</PropertyList>
+															<ReferenceList>
+																<Reference Name="Conversion">
+																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
+																</Reference>
+																<Reference Name="OutputBus">
+																	<ObjectRef Name="Main Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
+																</Reference>
+															</ReferenceList>
+															<ChildrenList>
+																<AudioFileSource Name="SPFX_ignis_Bastian_04" ID="{F89DCF69-2D07-4FFF-A2C8-5D1091C160A9}">
+																	<PropertyList>
+																		<Property Name="FadeOutDuration" Type="Real64" Value="1.4635467676851"/>
+																		<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+																		<Property Name="TrimEnd" Type="Real64" Value="1.60758650966608"/>
+																	</PropertyList>
+																	<Language>SFX</Language>
+																	<AudioFile>SPFX_ignis_Bastian_04.wav</AudioFile>
+																	<MediaIDList>
+																		<MediaID ID="1073302272"/>
+																	</MediaIDList>
+																</AudioFileSource>
+															</ChildrenList>
+															<ObjectLists>
+																<ObjectList Name="Effects">
+																	<EffectSlot Name="" ID="{78709C63-0970-40AC-A994-8B95F1506ADE}" ShortID="386913269">
+																		<ReferenceList>
+																			<Reference Name="Effect">
+																				<Custom>
+																					<Effect Name="Guitar Distortion (Custom)" ID="{517A3583-99DA-4461-B002-57AD6ADC9114}" ShortID="107944644" PluginName="Wwise Guitar Distortion" CompanyID="0" PluginID="126" PluginType="3">
+																						<PropertyList>
+																							<Property Name="DistortionDrive" Type="Real32" Value="10"/>
+																							<Property Name="DistortionType" Type="int32" Value="1"/>
+																							<Property Name="OutputLevel" Type="Real32" Value="1"/>
+																							<Property Name="PostEQBand1FilterType" Type="int32" Value="1"/>
+																							<Property Name="PostEQBand1Frequency" Type="Real32" Value="2847"/>
+																							<Property Name="PostEQBand1Gain" Type="Real32" Value="0.5"/>
+																							<Property Name="PreEQBand1Enable" Type="bool" Value="True"/>
+																							<Property Name="PreEQBand1FilterType" Type="int32" Value="4"/>
+																							<Property Name="PreEQBand1Frequency" Type="Real32" Value="80"/>
+																							<Property Name="PreEQBand2FilterType" Type="int32" Value="1"/>
+																							<Property Name="PreEQBand2Frequency" Type="Real32" Value="3003"/>
+																							<Property Name="PreEQBand2QFactor" Type="Real32" Value="9.5"/>
+																						</PropertyList>
+																					</Effect>
+																				</Custom>
+																			</Reference>
+																		</ReferenceList>
+																	</EffectSlot>
+																</ObjectList>
+															</ObjectLists>
+															<ActiveSourceList>
+																<ActiveSource Name="SPFX_ignis_Bastian_04" ID="{F89DCF69-2D07-4FFF-A2C8-5D1091C160A9}" Platform="Linked"/>
+															</ActiveSourceList>
+														</Sound>
+														<Sound Name="Ignis_05" ID="{699DAE62-18BB-4603-BD90-EB6CB43F3AA3}" ShortID="233090728">
+															<PropertyList>
+																<Property Name="Lowpass" Type="int16">
+																	<ModifierList>
+																		<ModifierInfo>
+																			<Modifier Name="" ID="{4876FCD3-8FB2-4840-B8C6-4627DBB780F3}">
+																				<PropertyList>
+																					<Property Name="Enabled" Type="bool" Value="True"/>
+																					<Property Name="Max" Type="Real64" Value="13"/>
+																					<Property Name="Min" Type="Real64" Value="-13"/>
+																				</PropertyList>
+																			</Modifier>
+																		</ModifierInfo>
+																	</ModifierList>
+																</Property>
+																<Property Name="OverrideEffect" Type="bool" Value="True"/>
+																<Property Name="Pitch" Type="int32">
+																	<ModifierList>
+																		<ModifierInfo>
+																			<Modifier Name="" ID="{9F5D75A7-2187-426E-A0CA-00B0486AA593}">
+																				<PropertyList>
+																					<Property Name="Enabled" Type="bool" Value="True"/>
+																					<Property Name="Max" Type="Real64" Value="50"/>
+																					<Property Name="Min" Type="Real64" Value="-150"/>
+																				</PropertyList>
+																			</Modifier>
+																		</ModifierInfo>
+																	</ModifierList>
+																</Property>
+																<Property Name="Volume" Type="Real64">
+																	<ValueList>
+																		<Value>2</Value>
+																	</ValueList>
+																</Property>
+															</PropertyList>
+															<ReferenceList>
+																<Reference Name="Conversion">
+																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
+																</Reference>
+																<Reference Name="OutputBus">
+																	<ObjectRef Name="Main Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
+																</Reference>
+															</ReferenceList>
+															<ChildrenList>
+																<AudioFileSource Name="SPFX_ignis_Bastian_05" ID="{AB117169-512C-458C-B5B8-D52B6CF2F2BD}">
+																	<PropertyList>
+																		<Property Name="FadeOutDuration" Type="Real64" Value="1.68171033046747"/>
+																		<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+																		<Property Name="TrimEnd" Type="Real64" Value="1.68171033046747"/>
+																	</PropertyList>
+																	<Language>SFX</Language>
+																	<AudioFile>SPFX_ignis_Bastian_05.wav</AudioFile>
+																	<MediaIDList>
+																		<MediaID ID="604970812"/>
+																	</MediaIDList>
+																</AudioFileSource>
+															</ChildrenList>
+															<ObjectLists>
+																<ObjectList Name="Effects">
+																	<EffectSlot Name="" ID="{C85FD3FC-6FCA-4C11-86A5-8DB924D76349}" ShortID="292833938">
+																		<ReferenceList>
+																			<Reference Name="Effect">
+																				<Custom>
+																					<Effect Name="Guitar Distortion (Custom)" ID="{D56597BF-D993-4E38-9ED9-8AFB739E4BE4}" ShortID="30832807" PluginName="Wwise Guitar Distortion" CompanyID="0" PluginID="126" PluginType="3">
+																						<PropertyList>
+																							<Property Name="DistortionDrive" Type="Real32" Value="12"/>
+																							<Property Name="DistortionType" Type="int32" Value="1"/>
+																							<Property Name="OutputLevel" Type="Real32" Value="0.5"/>
+																							<Property Name="PostEQBand1FilterType" Type="int32" Value="6"/>
+																							<Property Name="PostEQBand1Frequency" Type="Real32" Value="73"/>
+																							<Property Name="PostEQBand1Gain" Type="Real32" Value="0.5"/>
+																							<Property Name="PreEQBand1Enable" Type="bool" Value="True"/>
+																							<Property Name="PreEQBand1FilterType" Type="int32" Value="4"/>
+																							<Property Name="PreEQBand1Frequency" Type="Real32" Value="84"/>
+																							<Property Name="PreEQBand2FilterType" Type="int32" Value="1"/>
+																							<Property Name="PreEQBand2Frequency" Type="Real32" Value="3003"/>
+																							<Property Name="PreEQBand2QFactor" Type="Real32" Value="9.5"/>
+																						</PropertyList>
+																					</Effect>
+																				</Custom>
+																			</Reference>
+																		</ReferenceList>
+																	</EffectSlot>
+																</ObjectList>
+															</ObjectLists>
+															<ActiveSourceList>
+																<ActiveSource Name="SPFX_ignis_Bastian_05" ID="{AB117169-512C-458C-B5B8-D52B6CF2F2BD}" Platform="Linked"/>
 															</ActiveSourceList>
 														</Sound>
 													</ChildrenList>
 													<GroupingInfo>
 														<GroupingBehaviorList>
+															<GroupingBehavior>
+																<ItemRef Name="Ignis_05" ID="{699DAE62-18BB-4603-BD90-EB6CB43F3AA3}"/>
+															</GroupingBehavior>
+															<GroupingBehavior>
+																<ItemRef Name="Ignis_04" ID="{1CB533A7-4B6F-4387-9A2C-D2139C1BA988}"/>
+															</GroupingBehavior>
 															<GroupingBehavior>
 																<ItemRef Name="Ignis_02" ID="{51DB9FC2-3C33-483A-B8ED-872BCA7D5E60}"/>
 															</GroupingBehavior>
@@ -2507,19 +2786,19 @@
 														</GroupingBehaviorList>
 														<GroupingList>
 															<Grouping>
-																<SwitchRef Name="Charge_01" ID="{28AB9780-F283-4E3C-9407-1C03DA1B2A3A}"/>
+																<SwitchRef Name="Cool" ID="{94D5DA06-74D1-46F4-BC4C-A4B3A1145714}"/>
 																<ItemList>
 																	<ItemRef Name="Ignis_01" ID="{B8635CE7-27C9-46C5-8204-9BDF3B90D3A5}"/>
 																</ItemList>
 															</Grouping>
 															<Grouping>
-																<SwitchRef Name="Charge_02" ID="{F200B0B7-9C73-4E9C-B720-0D3F9806EF80}"/>
+																<SwitchRef Name="Heat" ID="{7F79E085-6CC6-4244-BAAB-B280520E2A8F}"/>
 																<ItemList>
 																	<ItemRef Name="Ignis_02" ID="{51DB9FC2-3C33-483A-B8ED-872BCA7D5E60}"/>
 																</ItemList>
 															</Grouping>
 															<Grouping>
-																<SwitchRef Name="Charge_03" ID="{F76545CA-ED7A-4771-889C-C89C538A249F}"/>
+																<SwitchRef Name="Super_Heat" ID="{FC93EFC9-866B-478D-8781-55567C5D04A2}"/>
 																<ItemList>
 																	<ItemRef Name="Ignis_03" ID="{A7DB4CDA-3AD5-4DC3-B769-9CDCB61D4AF1}"/>
 																</ItemList>
