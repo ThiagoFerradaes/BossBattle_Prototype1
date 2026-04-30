@@ -82,8 +82,6 @@ public class Configuration : MonoBehaviour {
     public void CloseConfigurationScreen() {
         if (!configurationScreen.activeInHierarchy) return;
 
-        Debug.Log("Close Config");
-
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(firstButtonSelected);
 

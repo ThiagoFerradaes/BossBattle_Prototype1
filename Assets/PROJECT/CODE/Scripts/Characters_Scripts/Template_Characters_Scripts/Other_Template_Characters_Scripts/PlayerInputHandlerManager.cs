@@ -3,12 +3,11 @@ using Unity.Burst.CompilerServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(InteractionManager), typeof(PlayerMovementManager), typeof(PlayerPauseManager))]
+[RequireComponent(typeof(InteractionManager), typeof(PlayerMovementManager))]
 public class PlayerInputHandlerManager : MonoBehaviour
 {
     [SerializeField] private InteractionManager interactionManager;
     [SerializeField] private PlayerMovementManager moveManager;
-    [SerializeField] private PlayerPauseManager pauseManager;
 #pragma warning disable CS0414
     [SerializeField] private bool hasSkills = true;
 #pragma warning restore CS0414
@@ -22,7 +21,6 @@ public class PlayerInputHandlerManager : MonoBehaviour
 
         if (interactionManager == null) interactionManager = GetComponent<InteractionManager>();
         if (moveManager == null) moveManager = GetComponent<PlayerMovementManager>();
-        if (pauseManager == null) pauseManager = GetComponent<PlayerPauseManager>();
     }
 
     public void OnInteraction(InputAction.CallbackContext ctx)

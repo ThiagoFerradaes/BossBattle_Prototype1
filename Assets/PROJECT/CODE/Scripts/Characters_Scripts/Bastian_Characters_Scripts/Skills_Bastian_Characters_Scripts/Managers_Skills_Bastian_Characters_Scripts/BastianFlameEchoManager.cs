@@ -159,19 +159,31 @@ public class BastianFlameEchoManager : SkillObjectManager
     }
 
     void InstantiateIgnis(SkillAnimationEvent prefabInfo) {
-        DamageAtributes newAtributes = new(_info.IgnisDamageAtributes);
-
         GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFab, TypeOfSkillPrefab.Hitbox);
 
         preFab.transform.localScale = _info.IgnisDamageAtributes.Size;
         preFab.transform.SetPositionAndRotation(parent.transform.position + prefabInfo.PreFabPosition, parent.transform.rotation);
 
+        float pen = BastianPassiveManager.Instance.ReturnMinHeat(HeatArea.SuperHeatArea) ? _info.IgnisPenetrationOnSuperHeat : 0;
+        float critChance = BastianPassiveManager.Instance.ReturnMinHeat(HeatArea.OverHeatArea) ? _info.IgnisCritChanceOverHeat : 0;
+        float additionalCriDmg = BastianPassiveManager.Instance.ReturnMinHeat(HeatArea.ExtremeHeatArea) ? _info.IgnisLastOverHeatCritDamage : 0;
+        float critDamage = statusManager.ReturnStatusValue(StatusType.CritDamage) + additionalCriDmg;
+
+        DamageAtributes atributes = new(_info.IgnisDamageAtributes);
+        atributes.ExtraAtributes[ExtraDamageContextAtributes.Penetration] = pen;
+        atributes.ExtraAtributes[ExtraDamageContextAtributes.CritRate] = critChance;
+        atributes.ExtraAtributes[ExtraDamageContextAtributes.CritDamage] = critDamage;
+
         DamageContext newContext = new(
-            newAtributes,
+            atributes,
             parent.GetComponent<StatusManager>()
             );
 
         ProjectileDamageHitBox hitbox = preFab.GetComponent<ProjectileDamageHitBox>();
         hitbox.Initialize(newContext);
+
+        if (BastianPassiveManager.Instance.ReturnMaxHeat(HeatArea.SuperHeatArea))
+            BastianPassiveManager.Instance.GainHeat(_info.IgnisHeatGain);
+        else BastianPassiveManager.Instance.GainHeat(1);
     }
 }
