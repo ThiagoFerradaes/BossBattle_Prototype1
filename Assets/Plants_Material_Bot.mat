@@ -20,12 +20,13 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Pillars_Material
+  m_Name: Plants_Material_Bot
   m_Shader: {fileID: -6465566751694194690, guid: c4ee72391c13fd845b851e52d6c1eda2, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _ALPHAPREMULTIPLY_ON
+  - _EMISSION
   - _SPECULAR_SETUP
   - _SURFACE_TYPE_TRANSPARENT
   m_InvalidKeywords: []
@@ -46,11 +47,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: 5f005792c5e837347bc1535926a43f2e, type: 3}
+        m_Texture: {fileID: 2800000, guid: 26e2eff8d5f69e94b8f7402e52092007, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: ae18c751344f0194b9dfd3b244153c73, type: 3}
+        m_Texture: {fileID: 2800000, guid: b4e3124942949244c9af85480b88e9f6, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -66,15 +67,15 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
-        m_Texture: {fileID: 2800000, guid: 4205a512cf9b635458465fd892f9d465, type: 3}
+        m_Texture: {fileID: 2800000, guid: 123335029ecf8784aae71a882bb2396d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 5f005792c5e837347bc1535926a43f2e, type: 3}
+        m_Texture: {fileID: 2800000, guid: 26e2eff8d5f69e94b8f7402e52092007, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
-        m_Texture: {fileID: 2800000, guid: 72bf51581b8837b43935b4ead8cf0be5, type: 3}
+        m_Texture: {fileID: 2800000, guid: 40ba600cc3ad71e4a97d74bbb16002f2, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -86,10 +87,6 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Texture2DAsset_0cb46cbe42ce47419c57580830e3d92f_Out_0_Texture2D:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -113,9 +110,8 @@ Material:
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
     - _BoolCellShading: 1
-    - _Boolean: 1
     - _BumpScale: 2
-    - _Buraco: 0
+    - _Buraco: 1
     - _CastShadows: 1
     - _CellShading: 0
     - _ClearCoatMask: 0
@@ -130,7 +126,7 @@ Material:
     - _Distance_Multiplier: 1
     - _DstBlend: 10
     - _DstBlendAlpha: 10
-    - _EMISSION: 0
+    - _EMISSION: 1
     - _EmissionVariation: 0
     - _EmissionVariationIntensity: 1.5
     - _EmissionVariationSpeed: 0.8
@@ -146,9 +142,9 @@ Material:
     - _HiglightIntensity: 2
     - _IsTarvern: 0
     - _METALLICSPECGLOSSMAP: 0
-    - _MaxBias: 0.4
+    - _MaxBias: 0.1
     - _Metallic: 1
-    - _MinBias: 0.3
+    - _MinBias: 0.4
     - _NORMALMAP: 0
     - _Noise_Scale: 156
     - _Noise_Strength: 3
@@ -161,9 +157,9 @@ Material:
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _ReflectionColor: 0
-    - _ReflectionDirectionBool: 0
-    - _ReflectionLightIntensity: 2.3
-    - _ReflectionLightSpace: -0.5
+    - _ReflectionDirectionBool: 1
+    - _ReflectionLightIntensity: 0.1
+    - _ReflectionLightSpace: -2
     - _Size: 0.424
     - _Smoothnes: 0.135
     - _Smoothness: 0.2
@@ -180,16 +176,16 @@ Material:
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _CellLightDirection: {r: 0, g: 20, b: 0, a: 0}
-    - _CellShadowColor: {r: 0.5849056, g: 0.5849056, b: 0.5849056, a: 0}
+    - _CellShadowColor: {r: 0.58431375, g: 0.58431375, b: 0.58431375, a: 0}
     - _Character_Position: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _EmissionColor: {r: 0.8649671, g: 1.7299342, b: 1.8773718, a: 1}
     - _LightColor: {r: 1, g: 1, b: 1, a: 0}
     - _LightDirection: {r: 1, g: 1, b: -1, a: 0}
     - _Position: {r: 0.5, g: 0.2, b: 0, a: 0}
-    - _ReflectionLightColor: {r: 0.6, g: 0.6, b: 0.6, a: 0}
+    - _ReflectionLightColor: {r: 1, g: 1, b: 1, a: 0}
     - _ShadowColor: {r: 0.49275184, g: 0.6288084, b: 0.6679245, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - _Vector3: {r: 0, g: 0, b: 0, a: 0}
+    - _Vector3: {r: 0, g: 1, b: -1, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
