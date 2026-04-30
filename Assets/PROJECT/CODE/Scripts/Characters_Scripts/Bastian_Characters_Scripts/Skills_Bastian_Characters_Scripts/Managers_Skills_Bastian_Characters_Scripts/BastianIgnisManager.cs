@@ -81,10 +81,15 @@ public class BastianIgnisManager : SkillObjectManager {
             energyManager.GainEnergy(_info.FlatEnergyGainPerHit);
         };
 
+
+        OnIgnisShoot?.Invoke();
+
+
+        _info.SkillSound.Post(parent);
+
         if (BastianPassiveManager.Instance.ReturnMaxHeat(HeatArea.SuperHeatArea))
             BastianPassiveManager.Instance.GainHeat(_info.HeatGain);
         else BastianPassiveManager.Instance.GainHeat(1);
 
-        OnIgnisShoot?.Invoke();
     }
 }

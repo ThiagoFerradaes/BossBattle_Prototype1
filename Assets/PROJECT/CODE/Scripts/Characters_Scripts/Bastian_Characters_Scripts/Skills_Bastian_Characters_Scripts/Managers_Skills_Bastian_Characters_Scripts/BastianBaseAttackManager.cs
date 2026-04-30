@@ -56,9 +56,6 @@ public class BastianBaseAttackManager : SkillObjectManager {
 
         cooldownManager.SetCooldownSingleCharge(slot, realCooldown);
 
-        // Resetando a velocidade da anima��o
-        //anim.SetFloat(_info.AttackSpeedAnimationParameter, 1);
-
         // Resetando Index
         _attackIndex = _attackIndex < 3 ? _attackIndex + 1 : 1;
 
@@ -140,9 +137,15 @@ public class BastianBaseAttackManager : SkillObjectManager {
             energyManager.GainEnergy(_info.FlatEnergyGainPerHit);
         };
 
-        BastianPassiveManager.Instance.GainHeat(_info.HeatGain);
 
         OnShoot?.Invoke(_attackIndex);
+
+        int heatArea = (int)BastianPassiveManager.Instance.ReturnCurrentHeatArea();
+        AK.Wwise.Switch newSwitch = _info.Switchs[heatArea];
+        newSwitch.SetValue(parent);
+        _info.SkillSound.Post(parent);
+
+        BastianPassiveManager.Instance.GainHeat(_info.HeatGain);
     }
 
     public override void InstantiateVFX(SkillAnimationEvent prefab, Vector3? finalPosition = null) {

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Localization;
 using UnityEngine.Localization.Components;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -19,6 +20,7 @@ public class BossDifficultyManager : MonoBehaviour
     [Foldout("Components"), SerializeField] Button CloseButton;
     [Foldout("Components"), SerializeField] Button SailButton;
     [Foldout("Components"), SerializeField] Button ChangeCharacterButton;
+    [Foldout("Components"), SerializeField] LocalizeSpriteEvent ChangeCharacterButtonLocalizeEvent;
 
     [Foldout("List"), SerializeField] List<Sprite> listOfDificultySpritesActive;
     [Foldout("List"), SerializeField] List<Sprite> listOfDificultySpritesDesactive;
@@ -28,6 +30,8 @@ public class BossDifficultyManager : MonoBehaviour
 
     [Foldout("Sprites"), SerializeField] Sprite normalSailButtonSprite;
     [Foldout("Sprites"), SerializeField] Sprite enterSailButtonSprite;
+    [Foldout("Sprites"), SerializeField] LocalizedSprite CharacterSelectionSelectedLocalizedSprite;
+    [Foldout("Sprites"), SerializeField] LocalizedSprite CharacterSelectionUnselectedLocalizedSprite;
 
     int _currentDifficulty = 0;
 
@@ -122,5 +126,13 @@ public class BossDifficultyManager : MonoBehaviour
     }
     public void ExitSailButton(Image sailImage) {
         sailImage.sprite = normalSailButtonSprite;
+    }
+
+    public void EnterCharacterSelectionButton() {
+        ChangeCharacterButtonLocalizeEvent.AssetReference = CharacterSelectionSelectedLocalizedSprite;
+    }
+
+    public void ExitCharacterSelectionButton() {
+        ChangeCharacterButtonLocalizeEvent.AssetReference = CharacterSelectionUnselectedLocalizedSprite;
     }
 }

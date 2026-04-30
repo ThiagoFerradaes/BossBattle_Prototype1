@@ -30,6 +30,9 @@ public class ExitPopUpManager : MonoBehaviour {
 
         HandleExitPopUp(false, true);
     }
+    private void OnDestroy() {
+        cancelAction.action.performed -= CancelButton;
+    }
     public void HandleExitPopUp(bool isOn, bool firstCall = false) {
 
         if (!firstCall && exitPopUp.activeInHierarchy) {

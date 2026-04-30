@@ -18,7 +18,7 @@ public class CyrusAxeAttackManager : SkillObjectManager {
     // Coroutine
     Coroutine _chargeTimeCoroutine;
 
-    public static event Action OnAxeUp, OnAxeDown;
+    public static event Action<GameObject> OnAxeUp, OnAxeDown;
 
     #endregion
 
@@ -80,7 +80,6 @@ public class CyrusAxeAttackManager : SkillObjectManager {
 
     void InstantiateUpAxeVFX() {
 
-        OnAxeUp?.Invoke();
 
         if (_info.Prefabs[0].Count == 0) { Debug.Log("Nenhum VFX de subida do machado"); return; }
 
@@ -88,11 +87,12 @@ public class CyrusAxeAttackManager : SkillObjectManager {
 
         if (rocksVFXEvent.PrefabType == TypeOfSkillPrefab.VFX) InstantiateVFX(rocksVFXEvent);
 
+        OnAxeUp?.Invoke(parent);
     }
     public override void UseSkill(SkillSO skill) {
 
         // Só é chamado quando o machado ta descendo
-        OnAxeDown?.Invoke();
+        OnAxeDown?.Invoke(parent);
         animationCoroutine ??= StartCoroutine(Attack());
     }
 
