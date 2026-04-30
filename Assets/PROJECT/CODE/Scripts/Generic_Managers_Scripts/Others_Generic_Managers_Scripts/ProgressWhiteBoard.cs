@@ -2,7 +2,7 @@ using AYellowpaper.SerializedCollections;
 using UnityEngine;
 
 
-public enum ProgressBools { IsKrakenDefeated, HasTalkedToLilianBGFDemo }
+public enum ProgressBools { IsKrakenDefeated, HasTalkedToLilianBGFDemo, LilianTwo, TalkedToBastian, TalkedToCyrus, AskedAboutLilian, TalkedtoLilianORBastian }
 
 public class ProgressWhiteBoard : MonoBehaviour {
 

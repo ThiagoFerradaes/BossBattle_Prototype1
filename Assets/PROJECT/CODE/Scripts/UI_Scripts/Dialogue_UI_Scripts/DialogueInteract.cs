@@ -26,9 +26,13 @@ public class DialogueInteract : MonoBehaviour, IInteractable {
             _sortedList.Sort((a, b) => a.Priority.CompareTo(b.Priority));
 
             for (int i = 0; i < _sortedList.Count; i++) {
-                if (_sortedList[i].Parameter.CheckParams()) {
-                    return _sortedList[i].Dialogue;
+                bool passedParams = true;
+                foreach (var parm in _sortedList[i].Parameteres) {
+                    passedParams = parm.CheckParams();
+                    if (!passedParams) break;
                 }
+
+                if (passedParams) return _sortedList[i].Dialogue;
             }
 
         }
