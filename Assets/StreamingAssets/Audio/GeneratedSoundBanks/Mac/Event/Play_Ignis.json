@@ -10,7 +10,7 @@
     "Type": "Event",
     "GUID": "{5FFEC839-7162-41BA-8CD9-7A7E049D9884}",
     "Language": "SFX",
-    "Hash": "{E5E82534-E88A-6D9F-4C51-6F422C7C382D}",
+    "Hash": "{10640FED-1E61-E34F-ECA2-D0246DA59BED}",
     "ObjectPath": "Play_Ignis",
     "ShortName": "Play_Ignis",
     "Path": "Event/Play_Ignis.bnk",
@@ -22,7 +22,7 @@
       "Location": "Loose",
       "ShortName": "SPFX_ignis_Bastian_03.wav",
       "Path": "Media/101948241.wem",
-      "CachePath": "7C/{7C916D22-D579-016A-E5D9-1394ADF0DB44}.wem"
+      "CachePath": "F9/{F939F484-2AEE-94D1-E70F-27DF80CD339C}.wem"
      },
      {
       "Id": "366981663",
@@ -31,7 +31,16 @@
       "Location": "Loose",
       "ShortName": "SPFX_ignis_Bastian_01.wav",
       "Path": "Media/366981663.wem",
-      "CachePath": "51/{51712D56-7EA9-3C55-3633-B4C7109E1213}.wem"
+      "CachePath": "F0/{F0918C77-A7C2-3CD1-CCA0-B1E755517027}.wem"
+     },
+     {
+      "Id": "604970812",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Loose",
+      "ShortName": "SPFX_ignis_Bastian_05.wav",
+      "Path": "Media/604970812.wem",
+      "CachePath": "27/{27B09EB7-08FA-79E5-765F-D36E179C5B43}.wem"
      },
      {
       "Id": "794964998",
@@ -40,11 +49,36 @@
       "Location": "Loose",
       "ShortName": "SPFX_ignis_Bastian_02.wav",
       "Path": "Media/794964998.wem",
-      "CachePath": "A8/{A8F90FAA-2DE8-CEB7-45F8-BF776B108276}.wem"
+      "CachePath": "72/{72E3B53C-4DAF-BE3E-B6EE-4EF071971668}.wem"
+     },
+     {
+      "Id": "1073302272",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Loose",
+      "ShortName": "SPFX_ignis_Bastian_04.wav",
+      "Path": "Media/1073302272.wem",
+      "CachePath": "38/{38D7410F-D384-7262-1752-CA4DB0137E4C}.wem"
      }
     ],
     "Plugins": {
      "Custom": [
+      {
+       "Id": "30832807",
+       "Name": "Guitar Distortion (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Players\\Bastian\\Skills\\Ignis\\Ignis_05\\[Effect Slot [0]: (Guitar Distortion)]\\Guitar Distortion (Custom)",
+       "GUID": "{D56597BF-D993-4E38-9ED9-8AFB739E4BE4}",
+       "LibName": "Wwise Guitar Distortion",
+       "LibId": "8257539"
+      },
+      {
+       "Id": "107944644",
+       "Name": "Guitar Distortion (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Players\\Bastian\\Skills\\Ignis\\Ignis_04\\[Effect Slot [0]: (Guitar Distortion)]\\Guitar Distortion (Custom)",
+       "GUID": "{517A3583-99DA-4461-B002-57AD6ADC9114}",
+       "LibName": "Wwise Guitar Distortion",
+       "LibId": "8257539"
+      },
       {
        "Id": "418946225",
        "Name": "Guitar Distortion (Custom)",
@@ -80,7 +114,7 @@
       "Color": "23",
       "DurationType": "OneShot",
       "DurationMin": "1.2765458",
-      "DurationMax": "1.6044239",
+      "DurationMax": "1.8339182",
       "SwitchContainers": [
        {
         "SwitchValue": {
@@ -106,6 +140,26 @@
         "SwitchValue": {
          "GroupType": "Switch",
          "GroupId": "1865195506",
+         "Id": "2126345988",
+         "GUID": "{FACADA76-31D1-4A0B-A4C7-3BB5CC234C74}"
+        },
+        "MediaRefs": [
+         {
+          "Id": "604970812"
+         }
+        ],
+        "PluginRefs": {
+         "Custom": [
+          {
+           "Id": "30832807"
+          }
+         ]
+        }
+       },
+       {
+        "SwitchValue": {
+         "GroupType": "Switch",
+         "GroupId": "1865195506",
          "Id": "3448274455",
          "GUID": "{7F79E085-6CC6-4244-BAAB-B280520E2A8F}"
         },
@@ -118,6 +172,26 @@
          "Custom": [
           {
            "Id": "939787748"
+          }
+         ]
+        }
+       },
+       {
+        "SwitchValue": {
+         "GroupType": "Switch",
+         "GroupId": "1865195506",
+         "Id": "3744454952",
+         "GUID": "{959961BE-1F31-40A0-B412-8EDAA15D3279}"
+        },
+        "MediaRefs": [
+         {
+          "Id": "1073302272"
+         }
+        ],
+        "PluginRefs": {
+         "Custom": [
+          {
+           "Id": "107944644"
           }
          ]
         }
@@ -187,6 +261,6 @@
     ]
    }
   ],
-  "FileHash": "{3AF06166-A419-AF3B-0736-6931EA5C630B}"
+  "FileHash": "{8AC050B6-7734-CCBC-05A1-0C8E8E042CF8}"
  }
 }
