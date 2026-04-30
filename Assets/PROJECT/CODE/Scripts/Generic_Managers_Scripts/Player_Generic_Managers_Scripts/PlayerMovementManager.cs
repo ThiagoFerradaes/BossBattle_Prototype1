@@ -25,6 +25,7 @@ public class PlayerMovementManager : MonoBehaviour {
     [Header("Animation")]
     [SerializeField] AnimationClip idleClip;
     [SerializeField] AnimationInfo runningAnimationInfo;
+    [SerializeField] string runningAnimParam;
 
     // Components
     Animator _anim;
@@ -96,7 +97,7 @@ public class PlayerMovementManager : MonoBehaviour {
     public void ResetWalkInputs() {
         _xInput = 0;
         _zInput = 0;
-        _isWalking = false;
+        EnterAnimation();
     }
 
     private void Walk() {

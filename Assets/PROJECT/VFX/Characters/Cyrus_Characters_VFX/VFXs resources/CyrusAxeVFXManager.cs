@@ -18,6 +18,10 @@ public class CyrusAxeVFXManager : MonoBehaviour
         CyrusAxeAttackManager.OnAxeUp += StartVFX;
         CyrusAxeAttackManager.OnAxeDown += StopVFX;
     }
+    private void OnDestroy() {
+        CyrusAxeAttackManager.OnAxeUp -= StartVFX;
+        CyrusAxeAttackManager.OnAxeDown -= StopVFX;
+    }
     void Update()
     {
         transform.position = playerObj.transform.position;
