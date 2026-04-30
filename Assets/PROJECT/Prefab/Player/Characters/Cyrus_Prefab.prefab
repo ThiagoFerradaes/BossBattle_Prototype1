@@ -20,7 +20,6 @@ GameObject:
   - component: {fileID: 3156235811804963752}
   - component: {fileID: 4861411087896609535}
   - component: {fileID: 8301854247796386787}
-  - component: {fileID: 2133027450637095276}
   - component: {fileID: 69789064481334406}
   m_Layer: 8
   m_Name: Cyrus_Prefab
@@ -433,18 +432,6 @@ MonoBehaviour:
   _interactableLayer:
     serializedVersion: 2
     m_Bits: 0
---- !u!114 &2133027450637095276
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8221154074876193513}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cac3e1b1367f3c248933be5ec8fe388e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerPauseManager
 --- !u!114 &69789064481334406
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -459,7 +446,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInputHandlerManager
   interactionManager: {fileID: 8301854247796386787}
   moveManager: {fileID: 1713622384440033257}
-  pauseManager: {fileID: 2133027450637095276}
   hasSkills: 1
   skillManager: {fileID: 5235028921305784554}
 --- !u!1001 &5477080575265098636
