@@ -1,4 +1,3 @@
-using Unity.AppUI.UI;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
