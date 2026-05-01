@@ -1,0 +1,79 @@
+{
+ "SoundBanksInfo": {
+  "Platform": "Windows",
+  "BasePlatform": "Windows",
+  "SchemaVersion": "16",
+  "SoundBankVersion": "172",
+  "SoundBanks": [
+   {
+    "Id": "3306541077",
+    "Type": "Event",
+    "GUID": "{1002704E-4C6F-4A03-BEEC-FD91030EDC18}",
+    "Language": "SFX",
+    "Hash": "{86D05AB0-369B-B0F1-1F16-8C515A17681C}",
+    "ObjectPath": "Play_Last_Whisper",
+    "ShortName": "Play_Last_Whisper",
+    "Path": "Event/Play_Last_Whisper.bnk",
+    "Media": [
+     {
+      "Id": "922529155",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Loose",
+      "ShortName": "SPFX_lastWhisper_Bastian_01.wav",
+      "Path": "Media/922529155.wem",
+      "CachePath": "3E/{3E9FCC31-9964-00BB-A3C8-9A43413D8AE0}.wem"
+     }
+    ],
+    "Plugins": {
+     "Custom": [
+      {
+       "Id": "74340807",
+       "Name": "Guitar Distortion (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Players\\Bastian\\Supremes\\Last Whisper\\[Effect Slot [1]: (Guitar Distortion)]\\Guitar Distortion (Custom)",
+       "GUID": "{58026CFD-B883-45F0-A202-43B7A4EFB470}",
+       "LibName": "Wwise Guitar Distortion",
+       "LibId": "8257539"
+      },
+      {
+       "Id": "108241156",
+       "Name": "Low_Pass_20KHz (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Players\\Bastian\\Supremes\\Last Whisper\\[Effect Slot [0]: (Parametric EQ)]\\Low_Pass_20KHz (Custom)",
+       "GUID": "{E4F803B9-65C8-474C-92BB-86A6C3A6BFED}",
+       "LibName": "Wwise Parametric EQ",
+       "LibId": "6881283"
+      }
+     ]
+    },
+    "Events": [
+     {
+      "Id": "3306541077",
+      "Name": "Play_Last_Whisper",
+      "ObjectPath": "\\Events\\Default Work Unit\\SFX\\Players\\Bastian\\Supremes\\Play_Last_Whisper",
+      "GUID": "{1002704E-4C6F-4A03-BEEC-FD91030EDC18}",
+      "Color": "23",
+      "DurationType": "OneShot",
+      "DurationMin": "2.0681734",
+      "DurationMax": "2.2553592",
+      "MediaRefs": [
+       {
+        "Id": "922529155"
+       }
+      ],
+      "PluginRefs": {
+       "Custom": [
+        {
+         "Id": "74340807"
+        },
+        {
+         "Id": "108241156"
+        }
+       ]
+      }
+     }
+    ]
+   }
+  ],
+  "FileHash": "{ED6FFC98-3948-EC58-5C6F-E2E53C320311}"
+ }
+}

@@ -10,7 +10,7 @@
     "Type": "Event",
     "GUID": "{761E6F38-47BE-4219-9054-03F52065F743}",
     "Language": "SFX",
-    "Hash": "{E06EABBD-07DC-8AB7-21C2-A941116A8134}",
+    "Hash": "{0A1CACEA-E500-A615-749B-6C5E19E63740}",
     "ObjectPath": "Play_Mopping",
     "ShortName": "Play_Mopping",
     "Path": "Event/Play_Mopping.bnk",
@@ -53,6 +53,22 @@
        "Color": "21",
        "LibName": "Wwise Silence",
        "LibId": "6619138"
+      },
+      {
+       "Id": "610340389",
+       "Name": "Parametric EQ (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\Ambient\\Tavern\\Mopping\\[Effect Slot [1]: (Parametric EQ)]\\Parametric EQ (Custom)",
+       "GUID": "{EF5D34BF-F467-469F-B1E7-8752B19CA90F}",
+       "LibName": "Wwise Parametric EQ",
+       "LibId": "6881283"
+      },
+      {
+       "Id": "992012529",
+       "Name": "Phone_Booth (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\Ambient\\Tavern\\Mopping\\[Effect Slot [0]: (RoomVerb)]\\Phone_Booth (Custom)",
+       "GUID": "{662C608E-897D-4B52-A2C4-418B601477A0}",
+       "LibName": "Wwise RoomVerb",
+       "LibId": "7733251"
       }
      ]
     },
@@ -63,6 +79,7 @@
       "ObjectPath": "\\Events\\Default Work Unit\\SFX\\Ambient\\Tavern\\Play_Mopping",
       "GUID": "{761E6F38-47BE-4219-9054-03F52065F743}",
       "Color": "20",
+      "MaxAttenuation": "20",
       "DurationType": "Infinite",
       "MediaRefs": [
        {
@@ -79,6 +96,12 @@
        "Custom": [
         {
          "Id": "493043755"
+        },
+        {
+         "Id": "610340389"
+        },
+        {
+         "Id": "992012529"
         }
        ]
       }
@@ -86,6 +109,6 @@
     ]
    }
   ],
-  "FileHash": "{A5BD034A-6813-21D6-F015-C8900E81BE48}"
+  "FileHash": "{D6E0065C-DB54-69BC-2FAC-07498DD0E1E3}"
  }
 }

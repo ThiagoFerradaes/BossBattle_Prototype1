@@ -21,21 +21,22 @@ MonoBehaviour:
   CloseOldChannels: 0
   ListOfChannelsToClose: 
   attackDuration: 8
-  cooldownBetweenEachStalactite: 0.4
-  stalactiteFallSpeed: 15
-  stalactiteFallDuration: 1.5
+  cooldownBetweenEachStalactite: 0.2
+  cooldownBetweenWarningAndStalactite: 1
+  stalactiteFallSpeed: 30
   stalactiteHeight: 10
+  floorHeight: 0
   damageAtributes:
-    DamageType: 0
+    DamageType: 1
     UnitsToHit:
       serializedVersion: 2
       m_Bits: 256
-    Damage: 0
+    Damage: 30
     HitShield: 0
     BreakShield: 0
-    Size: {x: 0, y: 0, z: 0}
+    Size: {x: 2, y: 2, z: 2}
     TypeOfPrefab: 0
-    HitBoxDuration: 0
+    HitBoxDuration: 0.5
     DamageCooldown: 0
     Distance: 0
     Speed: 0
@@ -46,10 +47,8 @@ MonoBehaviour:
       _serializedList: []
   smallCooldown: 10
   cooldownBetweenStalactiteAndNextAttack: 1
-  healthLimit: 50
-  stalactitePrefabName: KrakenStalactite
+  healthLimit: 100
   stalactitePrefab: {fileID: 4550290939490962478, guid: d93e102fb57409c4c905947756dc899f, type: 3}
-  warningPrefabName: KrakenStalactiteWarning
   warningVFXAtributes:
     VFXType: 0
     VFXDuration: 1

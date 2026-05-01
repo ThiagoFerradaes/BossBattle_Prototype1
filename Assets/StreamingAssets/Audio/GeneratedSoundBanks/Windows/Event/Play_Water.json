@@ -10,7 +10,7 @@
     "Type": "Event",
     "GUID": "{32BB7169-EF23-4065-8404-8A32EB93C3ED}",
     "Language": "SFX",
-    "Hash": "{EA59FBD7-BA7F-8F12-A198-64AB09FB0B66}",
+    "Hash": "{A889D2DB-774A-9A32-6385-C8DFD1409817}",
     "ObjectPath": "Play_Water",
     "ShortName": "Play_Water",
     "Path": "Event/Play_Water.bnk",
@@ -73,13 +73,45 @@
     "Plugins": {
      "Custom": [
       {
+       "Id": "147006902",
+       "Name": "Have_U_Ever_Been_Outside (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\Ambient\\Tavern\\Water\\[Effect Slot [2]: (RoomVerb)]\\Have_U_Ever_Been_Outside (Custom)",
+       "GUID": "{2A540A73-F48E-49A2-80DA-6A67A401C97F}",
+       "LibName": "Wwise RoomVerb",
+       "LibId": "7733251"
+      },
+      {
        "Id": "285906211",
        "Name": "Silence",
-       "ObjectPath": "\\Containers\\Default Work Unit\\Ambient\\Water\\Water Waves\\Waves_Silence_01\\Silence",
+       "ObjectPath": "\\Containers\\Default Work Unit\\Ambient\\Tavern\\Water\\Water Waves\\Waves_Silence_01\\Silence",
        "GUID": "{723B57DB-1E3C-4AA5-B093-BFDA0CB438DB}",
-       "Color": "14",
+       "Color": "15",
        "LibName": "Wwise Silence",
        "LibId": "6619138"
+      },
+      {
+       "Id": "397751977",
+       "Name": "Underwater_Echoes (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\Ambient\\Tavern\\Water\\[Effect Slot [1]: (Stereo Delay)]\\Underwater_Echoes (Custom)",
+       "GUID": "{CC92B6EF-DF01-462C-9C28-D28DACBE009E}",
+       "LibName": "Wwise Stereo Delay",
+       "LibId": "8847363"
+      },
+      {
+       "Id": "586336500",
+       "Name": "Guitar Distortion (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\Ambient\\Tavern\\Water\\[Effect Slot [3]: (Guitar Distortion)]\\Guitar Distortion (Custom)",
+       "GUID": "{EEC2468C-58D3-4562-A209-D49F6BE2ED10}",
+       "LibName": "Wwise Guitar Distortion",
+       "LibId": "8257539"
+      },
+      {
+       "Id": "978597324",
+       "Name": "Parametric EQ (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\Ambient\\Tavern\\Water\\[Effect Slot [0]: (Parametric EQ)]\\Parametric EQ (Custom)",
+       "GUID": "{2D395151-CB07-4E31-88F4-0C7BA5ACF685}",
+       "LibName": "Wwise Parametric EQ",
+       "LibId": "6881283"
       }
      ]
     },
@@ -87,9 +119,10 @@
      {
       "Id": "441572235",
       "Name": "Play_Water",
-      "ObjectPath": "\\Events\\Default Work Unit\\SFX\\Ambient\\Water\\Play_Water",
+      "ObjectPath": "\\Events\\Default Work Unit\\SFX\\Ambient\\Tavern\\Water\\Play_Water",
       "GUID": "{32BB7169-EF23-4065-8404-8A32EB93C3ED}",
-      "Color": "14",
+      "Color": "15",
+      "MaxAttenuation": "70",
       "DurationType": "Infinite",
       "MediaRefs": [
        {
@@ -114,7 +147,19 @@
       "PluginRefs": {
        "Custom": [
         {
+         "Id": "147006902"
+        },
+        {
          "Id": "285906211"
+        },
+        {
+         "Id": "397751977"
+        },
+        {
+         "Id": "586336500"
+        },
+        {
+         "Id": "978597324"
         }
        ]
       }
@@ -122,6 +167,6 @@
     ]
    }
   ],
-  "FileHash": "{5F36E2CC-6BFC-324D-55E6-5D968644FB1A}"
+  "FileHash": "{D0EE3EA9-2B5F-BAD7-4929-F0FC748CBB30}"
  }
 }

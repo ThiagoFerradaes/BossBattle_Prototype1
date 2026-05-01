@@ -32,6 +32,9 @@ public class InstantDamageHitBox : MonoBehaviour {
 
         if (_collider != null) _collider.enabled = true;
 
+        _hasHitted = false;
+        OnHit = null;
+
         gameObject.SetActive(true);
 
         if (hasTimer) StartCoroutine(AttackDuration());

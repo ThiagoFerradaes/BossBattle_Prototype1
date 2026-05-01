@@ -17,7 +17,6 @@ GameObject:
   - component: {fileID: 4897075270024237032}
   - component: {fileID: 5855090442782285008}
   - component: {fileID: 1713622384440033257}
-  - component: {fileID: 3553482988163014037}
   m_Layer: 8
   m_Name: TavernKeeper
   m_TagString: Player
@@ -333,7 +332,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInputManager
   interactionManager: {fileID: 5855090442782285008}
   moveManager: {fileID: 1713622384440033257}
-  pauseManager: {fileID: 3553482988163014037}
   hasSkills: 0
   skillManager: {fileID: 0}
 --- !u!114 &5855090442782285008
@@ -375,18 +373,6 @@ MonoBehaviour:
   floorLayer:
     serializedVersion: 2
     m_Bits: 8
---- !u!114 &3553482988163014037
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8221154074876193513}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cac3e1b1367f3c248933be5ec8fe388e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerPauseManager
 --- !u!1001 &3008586402115835066
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -439,6 +425,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Julian_Animations_V01
       objectReference: {fileID: 0}
+    - target: {fileID: 2694178273305999115, guid: 24db837b5ce05124e9a0b0aacdf731fa, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 6e48f173f0c63424f8e8dd636897892a, type: 2}
     - target: {fileID: 5866666021909216657, guid: 24db837b5ce05124e9a0b0aacdf731fa, type: 3}
       propertyPath: m_Controller
       value: 

@@ -1,0 +1,266 @@
+{
+ "SoundBanksInfo": {
+  "Platform": "Windows",
+  "BasePlatform": "Windows",
+  "SchemaVersion": "16",
+  "SoundBankVersion": "172",
+  "SoundBanks": [
+   {
+    "Id": "1851619595",
+    "Type": "Event",
+    "GUID": "{3A5DF467-0284-40B5-9959-E1A6C1389870}",
+    "Language": "SFX",
+    "Hash": "{57940095-0367-7D45-6E1E-14D416808E2C}",
+    "ObjectPath": "Play_Base_Attack_Bastian",
+    "ShortName": "Play_Base_Attack_Bastian",
+    "Path": "Event/Play_Base_Attack_Bastian.bnk",
+    "Media": [
+     {
+      "Id": "95541098",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Loose",
+      "ShortName": "SFX_baseAttack_extremeHeatZone_01.wav",
+      "Path": "Media/95541098.wem",
+      "CachePath": "DB/{DB17C604-881F-3601-8334-6818D60EB0A3}.wem"
+     },
+     {
+      "Id": "256398600",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Loose",
+      "ShortName": "SFX_baseAttack_overHeatZone_01.wav",
+      "Path": "Media/256398600.wem",
+      "CachePath": "2D/{2DB114BA-6D6A-0097-4A6E-4187938192ED}.wem"
+     },
+     {
+      "Id": "566023778",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Loose",
+      "ShortName": "SFX_baseAttack_coolZone_01.wav",
+      "Path": "Media/566023778.wem",
+      "CachePath": "60/{60629C68-0185-4BD2-C374-A5A5C6F3447B}.wem"
+     },
+     {
+      "Id": "984102593",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Loose",
+      "ShortName": "SFX_baseAttack_heatZone_01.wav",
+      "Path": "Media/984102593.wem",
+      "CachePath": "08/{08788B03-6906-202A-6C91-B4CBCBE6471D}.wem"
+     },
+     {
+      "Id": "997306949",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Loose",
+      "ShortName": "SFX_baseAttack_superHeatZone_01.wav",
+      "Path": "Media/997306949.wem",
+      "CachePath": "CB/{CB89A14C-8992-AACE-6BB5-CD6F1A580BF3}.wem"
+     }
+    ],
+    "Plugins": {
+     "Custom": [
+      {
+       "Id": "86722717",
+       "Name": "Guitar Distortion (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Players\\Bastian\\Attacks\\Base Attack\\Base Attack Cool Zone\\[Effect Slot [0]: (Guitar Distortion)]\\Guitar Distortion (Custom)",
+       "GUID": "{E8D2BA24-ACDE-44D7-BDF4-2224F51E03DF}",
+       "LibName": "Wwise Guitar Distortion",
+       "LibId": "8257539"
+      },
+      {
+       "Id": "128521792",
+       "Name": "Guitar Distortion (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Players\\Bastian\\Attacks\\Base Attack\\Base Attack Heat Zone\\[Effect Slot [0]: (Guitar Distortion)]\\Guitar Distortion (Custom)",
+       "GUID": "{15702F02-35BA-4354-B1F5-BA55535AE426}",
+       "LibName": "Wwise Guitar Distortion",
+       "LibId": "8257539"
+      },
+      {
+       "Id": "226830044",
+       "Name": "Guitar Distortion (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Players\\Bastian\\Attacks\\Base Attack\\Base Attack Extreme Heat Zone\\[Effect Slot [0]: (Guitar Distortion)]\\Guitar Distortion (Custom)",
+       "GUID": "{7B12F776-BF9C-49A4-8B74-098C11DA869F}",
+       "LibName": "Wwise Guitar Distortion",
+       "LibId": "8257539"
+      },
+      {
+       "Id": "306721634",
+       "Name": "Guitar Distortion (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Players\\Bastian\\Attacks\\Base Attack\\Base Attack Over Heat Zone\\[Effect Slot [0]: (Guitar Distortion)]\\Guitar Distortion (Custom)",
+       "GUID": "{F3596230-DE9D-46EF-AF01-0C78FFAD7D88}",
+       "LibName": "Wwise Guitar Distortion",
+       "LibId": "8257539"
+      },
+      {
+       "Id": "882066652",
+       "Name": "Guitar Distortion (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Players\\Bastian\\Attacks\\Base Attack\\Base Attack Super Heat Zone\\[Effect Slot [0]: (Guitar Distortion)]\\Guitar Distortion (Custom)",
+       "GUID": "{3A78E7DC-298A-4E31-B014-389360BCB0EA}",
+       "LibName": "Wwise Guitar Distortion",
+       "LibId": "8257539"
+      }
+     ]
+    },
+    "Events": [
+     {
+      "Id": "1851619595",
+      "Name": "Play_Base_Attack_Bastian",
+      "ObjectPath": "\\Events\\Default Work Unit\\SFX\\Players\\Bastian\\Attacks\\Play_Base_Attack_Bastian",
+      "GUID": "{3A5DF467-0284-40B5-9959-E1A6C1389870}",
+      "Color": "23",
+      "DurationType": "OneShot",
+      "DurationMin": "0.90164727",
+      "DurationMax": "2.1284463",
+      "SwitchContainers": [
+       {
+        "SwitchValue": {
+         "GroupType": "Switch",
+         "GroupId": "1865195506",
+         "Id": "3703938822",
+         "GUID": "{94D5DA06-74D1-46F4-BC4C-A4B3A1145714}"
+        },
+        "MediaRefs": [
+         {
+          "Id": "566023778"
+         }
+        ],
+        "PluginRefs": {
+         "Custom": [
+          {
+           "Id": "86722717"
+          }
+         ]
+        }
+       },
+       {
+        "SwitchValue": {
+         "GroupType": "Switch",
+         "GroupId": "1865195506",
+         "Id": "2126345988",
+         "GUID": "{FACADA76-31D1-4A0B-A4C7-3BB5CC234C74}"
+        },
+        "MediaRefs": [
+         {
+          "Id": "95541098"
+         }
+        ],
+        "PluginRefs": {
+         "Custom": [
+          {
+           "Id": "226830044"
+          }
+         ]
+        }
+       },
+       {
+        "SwitchValue": {
+         "GroupType": "Switch",
+         "GroupId": "1865195506",
+         "Id": "3448274455",
+         "GUID": "{7F79E085-6CC6-4244-BAAB-B280520E2A8F}"
+        },
+        "MediaRefs": [
+         {
+          "Id": "984102593"
+         }
+        ],
+        "PluginRefs": {
+         "Custom": [
+          {
+           "Id": "128521792"
+          }
+         ]
+        }
+       },
+       {
+        "SwitchValue": {
+         "GroupType": "Switch",
+         "GroupId": "1865195506",
+         "Id": "3744454952",
+         "GUID": "{959961BE-1F31-40A0-B412-8EDAA15D3279}"
+        },
+        "MediaRefs": [
+         {
+          "Id": "256398600"
+         }
+        ],
+        "PluginRefs": {
+         "Custom": [
+          {
+           "Id": "306721634"
+          }
+         ]
+        }
+       },
+       {
+        "SwitchValue": {
+         "GroupType": "Switch",
+         "GroupId": "1865195506",
+         "Id": "4108471679",
+         "GUID": "{FC93EFC9-866B-478D-8781-55567C5D04A2}"
+        },
+        "MediaRefs": [
+         {
+          "Id": "997306949"
+         }
+        ],
+        "PluginRefs": {
+         "Custom": [
+          {
+           "Id": "882066652"
+          }
+         ]
+        }
+       }
+      ]
+     }
+    ],
+    "SwitchGroups": [
+     {
+      "Id": "1865195506",
+      "Name": "Bastian_Heat_Zones",
+      "ObjectPath": "\\Switches\\Default Work Unit\\Bastian_Heat_Zones",
+      "GUID": "{3FE2A4A3-76B7-4122-B209-15AB13F4603D}",
+      "Switches": [
+       {
+        "Id": "2126345988",
+        "Name": "Extreme_Heat",
+        "ObjectPath": "\\Switches\\Default Work Unit\\Bastian_Heat_Zones\\Extreme_Heat",
+        "GUID": "{FACADA76-31D1-4A0B-A4C7-3BB5CC234C74}"
+       },
+       {
+        "Id": "3448274455",
+        "Name": "Heat",
+        "ObjectPath": "\\Switches\\Default Work Unit\\Bastian_Heat_Zones\\Heat",
+        "GUID": "{7F79E085-6CC6-4244-BAAB-B280520E2A8F}"
+       },
+       {
+        "Id": "3703938822",
+        "Name": "Cool",
+        "ObjectPath": "\\Switches\\Default Work Unit\\Bastian_Heat_Zones\\Cool",
+        "GUID": "{94D5DA06-74D1-46F4-BC4C-A4B3A1145714}"
+       },
+       {
+        "Id": "3744454952",
+        "Name": "Over_Heat",
+        "ObjectPath": "\\Switches\\Default Work Unit\\Bastian_Heat_Zones\\Over_Heat",
+        "GUID": "{959961BE-1F31-40A0-B412-8EDAA15D3279}"
+       },
+       {
+        "Id": "4108471679",
+        "Name": "Super_Heat",
+        "ObjectPath": "\\Switches\\Default Work Unit\\Bastian_Heat_Zones\\Super_Heat",
+        "GUID": "{FC93EFC9-866B-478D-8781-55567C5D04A2}"
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "FileHash": "{F8E6A356-78ED-F10B-BA71-EF93D059D30B}"
+ }
+}

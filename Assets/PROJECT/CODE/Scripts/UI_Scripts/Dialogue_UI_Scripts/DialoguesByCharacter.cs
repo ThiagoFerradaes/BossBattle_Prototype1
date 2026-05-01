@@ -5,7 +5,7 @@ using UnityEngine;
 [Serializable]
 public class DialogueWithParams {
     public int Priority;
-    public DialogueParams Parameter;
+    public List<DialogueParams> Parameteres;
     public Dialogue Dialogue;
 }
 

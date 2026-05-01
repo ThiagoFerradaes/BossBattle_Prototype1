@@ -1,5 +1,6 @@
 using AYellowpaper.SerializedCollections;
 using NaughtyAttributes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -40,7 +41,9 @@ public class Configuration : MonoBehaviour {
 
     [SerializeField, Foldout("Input")] InputActionReference RBButton;
     [SerializeField, Foldout("Input")] InputActionReference LBButton;
-    [SerializeField, Foldout("Input")] InputActionReference CancelButton;
+    [SerializeField, Foldout("Input")] InputActionReference cancelButton;
+
+    public event Action OnConfigurationScreenClose;
 
 
     ConfigurationScreen _currentScreen;
@@ -53,6 +56,11 @@ public class Configuration : MonoBehaviour {
         configurationScreen.SetActive(false);
 
         _screensOrder = screens.Keys.ToList();
+    }
+    private void OnDestroy() {
+        RBButton.action.performed -= RBMethod;
+        LBButton.action.performed -= LBMethod;
+        cancelButton.action.performed -= CancelMethod;
     }
 
     void SetButtonsFunctions() {
@@ -67,17 +75,20 @@ public class Configuration : MonoBehaviour {
 
         RBButton.action.performed += RBMethod;
         LBButton.action.performed += LBMethod;
-        CancelButton.action.performed += CancelMethod;
+        cancelButton.action.performed += CancelMethod;
     }
 
 
     public void CloseConfigurationScreen() {
-        if (configurationScreen.activeInHierarchy) {
-            EventSystem.current.SetSelectedGameObject(null);
-            EventSystem.current.SetSelectedGameObject(firstButtonSelected);
-        }
+        if (!configurationScreen.activeInHierarchy) return;
+
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(firstButtonSelected);
+
 
         configurationScreen.SetActive(false);
+
+        OnConfigurationScreenClose?.Invoke();
 
     }
     #endregion
@@ -141,7 +152,7 @@ public class Configuration : MonoBehaviour {
 
     public void CancelMethod(InputAction.CallbackContext ctx) {
 
-        if (!ctx.performed || !configurationScreen.activeInHierarchy) return;
+        if (!ctx.performed) return;
 
         CloseConfigurationScreen();
     }

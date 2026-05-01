@@ -7,9 +7,10 @@ using UnityEngine;
 public class KrakenStalactiteAttack : EnemyBehaviourSO {
     [Foldout("Attack Atributes"), SerializeField] float attackDuration;
     [Foldout("Attack Atributes"), SerializeField] float cooldownBetweenEachStalactite;
+    [Foldout("Attack Atributes"), SerializeField] float cooldownBetweenWarningAndStalactite;
     [Foldout("Attack Atributes"), SerializeField] float stalactiteFallSpeed;
-    [Foldout("Attack Atributes"), SerializeField] float stalactiteFallDuration;
     [Foldout("Attack Atributes"), SerializeField] float stalactiteHeight;
+    [Foldout("Attack Atributes"), SerializeField] float floorHeight;
     [Foldout("Attack Atributes"), SerializeField] DamageAtributes damageAtributes;
 
     [Foldout("Cooldown"), SerializeField] float smallCooldown;
@@ -86,6 +87,7 @@ public class KrakenStalactiteAttack : EnemyBehaviourSO {
 
             warningVFX.transform.position = warningPos;
             warningVFX.GetComponent<VFXPreFabStatic>().Initialize(warningVFXAtributes);
+
             _krakenManager.StartCoroutine(StalactiteFall(stalactite));
 
             yield return new WaitForSeconds(cooldownBetweenEachStalactite);
@@ -98,6 +100,9 @@ public class KrakenStalactiteAttack : EnemyBehaviourSO {
     }
 
     IEnumerator StalactiteFall(GameObject stalactite) {
+
+        yield return new WaitForSeconds(cooldownBetweenWarningAndStalactite);
+
         stalactite.SetActive(true);
 
         DamageContext context = new(
@@ -105,12 +110,9 @@ public class KrakenStalactiteAttack : EnemyBehaviourSO {
             _krakenManager.KrakenStatus
         );
 
-        stalactite.GetComponent<InstantDamageHitBox>().Initialize(context);
+        stalactite.GetComponent<InstantDamageHitBox>().Initialize(context, false);
 
-        float timer = 0f;
-
-        while (timer < stalactiteFallDuration) {
-            timer += Time.deltaTime;
+        while (stalactite.transform.position.y >= floorHeight) {
             stalactite.transform.position += stalactiteFallSpeed * Time.deltaTime * Vector3.down;
             yield return null;
         }

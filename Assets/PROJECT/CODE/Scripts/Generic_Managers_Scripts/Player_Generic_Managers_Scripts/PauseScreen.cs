@@ -1,5 +1,7 @@
 using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -15,18 +17,28 @@ public class PauseScreen : MonoBehaviour {
     [SerializeField] GameObject pauseScreen;
     [SerializeField] LoadingScreenSO menuScreenInfo;
     [SerializeField] Configuration configScreen;
+    [SerializeField] InputActionReference cancelAction;
+    [SerializeField] Animator anim;
+
+    public event Action OnDespause;
 
     private void Awake() {
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
 
         configScreen.CloseConfigurationScreen();
+        configScreen.OnConfigurationScreenClose += HandleControlSystem;
         TurnScreenOff();
+
+        anim.updateMode = AnimatorUpdateMode.UnscaledTime;
     }
     private void Start() {
         SetButton();
     }
 
+    private void OnDestroy() {
+        configScreen.OnConfigurationScreenClose -= HandleControlSystem;
+    }
     void SetButton() {
 
         menuButton.onClick.AddListener(() => {
@@ -40,15 +52,38 @@ public class PauseScreen : MonoBehaviour {
         quitButton.onClick.AddListener(() => Application.Quit());
 
         configButton.onClick.AddListener(() => configScreen.InitializeConfigurationScreen());
+
+        
     }
 
-    public void TurnScreenOn() {
+    public void Pause() {
+        if (Time.timeScale == 1 && !pauseScreen.activeInHierarchy) {
+            TurnScreenOn();
+        }
+        else TurnScreenOff();
+    }
+    void TurnScreenOn() {
         Time.timeScale = 0;
 
         pauseScreen.SetActive(true);
+
+        HandleControlSystem();
     }
 
-    public void TurnScreenOff() {
+    void HandleControlSystem() {
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(continueButton.gameObject);
+        InputDeviceManager.Instance.ChangeCurrentSelectedButton(continueButton.gameObject);
+    }
+
+    void CancelButton(InputAction.CallbackContext context) {
+        if (!context.performed || !pauseScreen.activeInHierarchy) return;
+
+        Debug.Log("Cancel button");
+
+        TurnScreenOff();
+    }
+    void TurnScreenOff() {
         Time.timeScale = 1;
 
         pauseScreen.SetActive(false);
@@ -56,6 +91,8 @@ public class PauseScreen : MonoBehaviour {
         TurnButtonBackgroundOff();
 
         configScreen.CloseConfigurationScreen();
+
+        OnDespause?.Invoke();
     }
 
     public void TurnButtonBackgroundOn(Transform target) {

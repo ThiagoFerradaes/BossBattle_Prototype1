@@ -13,8 +13,15 @@ namespace AK
 {
     namespace EVENTS
     {
+        static const AkUniqueID PLAY_1__SLIME_SWING = 1665944396U;
+        static const AkUniqueID PLAY_2__AIR_SWING = 4245241169U;
+        static const AkUniqueID PLAY_3__ATTACK_IMPACT = 1272333644U;
+        static const AkUniqueID PLAY_4__ROCKS_CRACKING = 2481540739U;
+        static const AkUniqueID PLAY_5__WATER_SPLASHING = 3975503780U;
+        static const AkUniqueID PLAY_ALL_TENTACLES_IDLE = 2048315312U;
         static const AkUniqueID PLAY_AUTO_DIALOGUE = 1117724208U;
         static const AkUniqueID PLAY_AXE = 2774979410U;
+        static const AkUniqueID PLAY_BASE_ATTACK_BASTIAN = 1851619595U;
         static const AkUniqueID PLAY_BASE_ATTACK_SWORD = 1785832610U;
         static const AkUniqueID PLAY_BOAT = 1391074924U;
         static const AkUniqueID PLAY_BUTTON_HOVER = 4021863785U;
@@ -24,6 +31,7 @@ namespace AK
         static const AkUniqueID PLAY_CHARACTER_SELECTION = 1618694516U;
         static const AkUniqueID PLAY_CLOSE_DOOR = 3898429045U;
         static const AkUniqueID PLAY_DAMAGE_CYRUS = 3918380470U;
+        static const AkUniqueID PLAY_DAMAGE_KRAKEN = 507907510U;
         static const AkUniqueID PLAY_DASH_BASTIAN = 511398661U;
         static const AkUniqueID PLAY_DASH_CYRUS = 4019037033U;
         static const AkUniqueID PLAY_DEATH_SCREEN = 4097181143U;
@@ -32,11 +40,19 @@ namespace AK
         static const AkUniqueID PLAY_ENTER_DIALOGUE = 2273838185U;
         static const AkUniqueID PLAY_ENTERING_COMBAT = 310343787U;
         static const AkUniqueID PLAY_EXIT_DIALOGUE = 3136668379U;
+        static const AkUniqueID PLAY_FLAME_ECHOES = 2316495489U;
         static const AkUniqueID PLAY_FOOTSTEPSSWITCH = 2975023323U;
         static const AkUniqueID PLAY_FULL_ENERGY = 2347105308U;
         static const AkUniqueID PLAY_FURNITURE_OFF = 708373978U;
         static const AkUniqueID PLAY_FURNITURE_ON = 2049827036U;
+        static const AkUniqueID PLAY_GET_BACK_UP = 4001516568U;
+        static const AkUniqueID PLAY_HEAT_DAMAGE_BASTIAN = 3068605067U;
+        static const AkUniqueID PLAY_HEAT_UP = 842623176U;
+        static const AkUniqueID PLAY_HEAT_ZONE_CHANGE = 968398296U;
+        static const AkUniqueID PLAY_HIT_DAMAGE_BASTIAN = 3737971812U;
+        static const AkUniqueID PLAY_IGNIS = 3225718600U;
         static const AkUniqueID PLAY_KRAKEN_STAGE = 3978310627U;
+        static const AkUniqueID PLAY_LAST_WHISPER = 3306541077U;
         static const AkUniqueID PLAY_LEVEL_SELECTION = 1880725507U;
         static const AkUniqueID PLAY_LOADING_SCREEN = 2304162753U;
         static const AkUniqueID PLAY_MAIN_THEME = 3568813383U;
@@ -46,20 +62,41 @@ namespace AK
         static const AkUniqueID PLAY_OPEN_DOOR = 2427215529U;
         static const AkUniqueID PLAY_OPEN_MAP = 2079076761U;
         static const AkUniqueID PLAY_PASS_DIALOGUE = 240650658U;
+        static const AkUniqueID PLAY_PREPARATION = 2041475345U;
+        static const AkUniqueID PLAY_RAGE = 2604050293U;
         static const AkUniqueID PLAY_RANK_UP = 2265727464U;
+        static const AkUniqueID PLAY_RELEASE = 692169189U;
         static const AkUniqueID PLAY_SAIL = 236531557U;
         static const AkUniqueID PLAY_SKIP_DIALOGUE = 3302649596U;
         static const AkUniqueID PLAY_SPEAR = 910786425U;
+        static const AkUniqueID PLAY_STALACTITE = 2051749912U;
+        static const AkUniqueID PLAY_STEAM_PUNCH = 3757338383U;
         static const AkUniqueID PLAY_TAVERN_MUSIC = 2634924088U;
         static const AkUniqueID PLAY_TONFA = 2106482138U;
         static const AkUniqueID PLAY_ULTIMATE_CHARGED = 3252770658U;
         static const AkUniqueID PLAY_VICTORY_SCREEN = 939402867U;
+        static const AkUniqueID PLAY_WARNING_SIREN = 293184560U;
         static const AkUniqueID PLAY_WATER = 441572235U;
+        static const AkUniqueID PLAY_WATERFALL = 467174588U;
         static const AkUniqueID PLAY_WIND = 1020223172U;
     } // namespace EVENTS
 
     namespace SWITCHES
     {
+        namespace BASTIAN_HEAT_ZONES
+        {
+            static const AkUniqueID GROUP = 1865195506U;
+
+            namespace SWITCH
+            {
+                static const AkUniqueID COOL = 3703938822U;
+                static const AkUniqueID EXTREME_HEAT = 2126345988U;
+                static const AkUniqueID HEAT = 3448274455U;
+                static const AkUniqueID OVER_HEAT = 3744454952U;
+                static const AkUniqueID SUPER_HEAT = 4108471679U;
+            } // namespace SWITCH
+        } // namespace BASTIAN_HEAT_ZONES
+
         namespace CYRUS_WEAPON_LEVELS
         {
             static const AkUniqueID GROUP = 3925408978U;

@@ -1,0 +1,79 @@
+{
+ "SoundBanksInfo": {
+  "Platform": "Windows",
+  "BasePlatform": "Windows",
+  "SchemaVersion": "16",
+  "SoundBankVersion": "172",
+  "SoundBanks": [
+   {
+    "Id": "692169189",
+    "Type": "Event",
+    "GUID": "{C4392981-49AE-48DB-95BC-341F3D73E725}",
+    "Language": "SFX",
+    "Hash": "{FF8A27AE-9367-4465-FFAE-971F58256D08}",
+    "ObjectPath": "Play_Release",
+    "ShortName": "Play_Release",
+    "Path": "Event/Play_Release.bnk",
+    "Media": [
+     {
+      "Id": "208185192",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Loose",
+      "ShortName": "SPFX_release_Bastian_01.wav",
+      "Path": "Media/208185192.wem",
+      "CachePath": "07/{070F8FB8-0D0B-6CFE-F465-7B6F4157B328}.wem"
+     }
+    ],
+    "Plugins": {
+     "Custom": [
+      {
+       "Id": "582712470",
+       "Name": "Low_Pass_20KHz (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Players\\Bastian\\Skills\\Release\\[Effect Slot [0]: (Parametric EQ)]\\Low_Pass_20KHz (Custom)",
+       "GUID": "{6EC6991D-A996-4088-999F-6CDAC4A165FC}",
+       "LibName": "Wwise Parametric EQ",
+       "LibId": "6881283"
+      },
+      {
+       "Id": "1033205905",
+       "Name": "Guitar Distortion (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Players\\Bastian\\Skills\\Release\\[Effect Slot [1]: (Guitar Distortion)]\\Guitar Distortion (Custom)",
+       "GUID": "{0C91ABE3-3AE8-41C9-9211-8A367F92BD8A}",
+       "LibName": "Wwise Guitar Distortion",
+       "LibId": "8257539"
+      }
+     ]
+    },
+    "Events": [
+     {
+      "Id": "692169189",
+      "Name": "Play_Release",
+      "ObjectPath": "\\Events\\Default Work Unit\\SFX\\Players\\Bastian\\Skills\\Play_Release",
+      "GUID": "{C4392981-49AE-48DB-95BC-341F3D73E725}",
+      "Color": "23",
+      "DurationType": "OneShot",
+      "DurationMin": "1.8952334",
+      "DurationMax": "2.127328",
+      "MediaRefs": [
+       {
+        "Id": "208185192"
+       }
+      ],
+      "PluginRefs": {
+       "Custom": [
+        {
+         "Id": "582712470"
+        },
+        {
+         "Id": "1033205905"
+        }
+       ]
+      }
+     }
+    ]
+   }
+  ],
+  "FileHash": "{CD927102-7609-FE7B-86CB-3F0877E7A607}"
+ }
+}

@@ -18,7 +18,6 @@ GameObject:
   - component: {fileID: 6258257328607820948}
   - component: {fileID: 4785105642234197886}
   - component: {fileID: 6028357984213268908}
-  - component: {fileID: 7933282325481281284}
   - component: {fileID: 4968554122995488538}
   - component: {fileID: 5625784079947553004}
   - component: {fileID: 5452518475692003026}
@@ -230,6 +229,14 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 109f2a2b-b147-447c-8cf3-fd8494470631
     m_ActionName: 'Player/Interaction[/Keyboard/e]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a5007f50-2bf8-46d3-80ca-2f77db369c02
+    m_ActionName: UI/RB
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5ce51003-22fb-4845-948d-97b769f5db72
+    m_ActionName: UI/LB
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -248,6 +255,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   imortal: 0
+  damageSound:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 8cce3bcd549123f46aa9f44751b93545, type: 2}
+  damageOnShieldSound:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 0}
+  healSound:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 0}
+  gainShieldSound:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 0}
+  breakShieldSound:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 0}
 --- !u!114 &500991153540020254
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -362,21 +389,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInputHandlerManager
   interactionManager: {fileID: 4968554122995488538}
   moveManager: {fileID: 5625784079947553004}
-  pauseManager: {fileID: 7933282325481281284}
   hasSkills: 1
   skillManager: {fileID: 5452518475692003026}
---- !u!114 &7933282325481281284
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6930794299559206022}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cac3e1b1367f3c248933be5ec8fe388e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerPauseManager
 --- !u!114 &4968554122995488538
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -489,7 +503,7 @@ PrefabInstance:
     - target: {fileID: -7823293702887809713, guid: 9f8459a2ec07f05408fd6a37b6598f68, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 06f44af5ee5695841b18c18bc059d547, type: 2}
+      objectReference: {fileID: 2100000, guid: 3e2aeef1a35c8d348ad946463cae9776, type: 2}
     - target: {fileID: -5334000131640321852, guid: 9f8459a2ec07f05408fd6a37b6598f68, type: 3}
       propertyPath: m_Name
       value: Corpo
@@ -505,7 +519,7 @@ PrefabInstance:
     - target: {fileID: 5139777655244087475, guid: 9f8459a2ec07f05408fd6a37b6598f68, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 06f44af5ee5695841b18c18bc059d547, type: 2}
+      objectReference: {fileID: 2100000, guid: 3e2aeef1a35c8d348ad946463cae9776, type: 2}
     - target: {fileID: 7817600340844650133, guid: 9f8459a2ec07f05408fd6a37b6598f68, type: 3}
       propertyPath: m_RenderingLayerMask
       value: 17
@@ -513,7 +527,7 @@ PrefabInstance:
     - target: {fileID: 7817600340844650133, guid: 9f8459a2ec07f05408fd6a37b6598f68, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 06f44af5ee5695841b18c18bc059d547, type: 2}
+      objectReference: {fileID: 2100000, guid: 3e2aeef1a35c8d348ad946463cae9776, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -10,7 +10,7 @@
     "Type": "Event",
     "GUID": "{2650119C-7959-47E2-947A-C694BBA249FB}",
     "Language": "SFX",
-    "Hash": "{75B22D9E-BDA7-D7DD-84E3-66BBC9AEEEE4}",
+    "Hash": "{0DF9B78A-E1F0-B124-E9E0-8D45294D4D1E}",
     "ObjectPath": "Play_Wind",
     "ShortName": "Play_Wind",
     "Path": "Event/Play_Wind.bnk",
@@ -43,13 +43,26 @@
       "CachePath": "C5/{C591AC18-9B7B-2BA1-5D1E-DA5CF22ED990}.wem"
      }
     ],
+    "Plugins": {
+     "Custom": [
+      {
+       "Id": "555103926",
+       "Name": "Parametric EQ (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\Ambient\\Tavern\\Wind\\[Effect Slot [0]: (Parametric EQ)]\\Parametric EQ (Custom)",
+       "GUID": "{F6A99C98-319D-441D-AFF4-4CC4D87DF96F}",
+       "LibName": "Wwise Parametric EQ",
+       "LibId": "6881283"
+      }
+     ]
+    },
     "Events": [
      {
       "Id": "1020223172",
       "Name": "Play_Wind",
-      "ObjectPath": "\\Events\\Default Work Unit\\SFX\\Ambient\\Wind\\Play_Wind",
+      "ObjectPath": "\\Events\\Default Work Unit\\SFX\\Ambient\\Tavern\\Wind\\Play_Wind",
       "GUID": "{2650119C-7959-47E2-947A-C694BBA249FB}",
       "Color": "27",
+      "MaxAttenuation": "90",
       "DurationType": "Infinite",
       "MediaRefs": [
        {
@@ -61,11 +74,18 @@
        {
         "Id": "869677003"
        }
-      ]
+      ],
+      "PluginRefs": {
+       "Custom": [
+        {
+         "Id": "555103926"
+        }
+       ]
+      }
      }
     ]
    }
   ],
-  "FileHash": "{458139A4-C6BB-FC12-9772-E8535481AA1A}"
+  "FileHash": "{0F215A5B-5603-0174-521C-A9A2C934F993}"
  }
 }

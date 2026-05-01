@@ -10,7 +10,7 @@
     "Type": "Event",
     "GUID": "{D41B8797-1FC1-43E2-934D-6546019EC20D}",
     "Language": "SFX",
-    "Hash": "{A8FFF454-8D73-E312-C931-4E63F64CEDED}",
+    "Hash": "{564AC96A-F33B-DE02-53AA-B670198B1CA2}",
     "ObjectPath": "Play_Character_Selection",
     "ShortName": "Play_Character_Selection",
     "Path": "Event/Play_Character_Selection.bnk",
@@ -25,6 +25,18 @@
       "CachePath": "DD/{DDD84753-6B82-1639-6621-3C4F11D8F186}.wem"
      }
     ],
+    "Plugins": {
+     "Custom": [
+      {
+       "Id": "347273443",
+       "Name": "Phone_Booth (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\UI\\Map Screen\\Character Selection\\[Effect Slot [0]: (RoomVerb)]\\Phone_Booth (Custom)",
+       "GUID": "{ACA9E8D5-8EF7-4ED0-AAC8-78C408D4FA78}",
+       "LibName": "Wwise RoomVerb",
+       "LibId": "7733251"
+      }
+     ]
+    },
     "Events": [
      {
       "Id": "1618694516",
@@ -39,11 +51,18 @@
        {
         "Id": "481503509"
        }
-      ]
+      ],
+      "PluginRefs": {
+       "Custom": [
+        {
+         "Id": "347273443"
+        }
+       ]
+      }
      }
     ]
    }
   ],
-  "FileHash": "{349E62AB-6C72-1F28-FE19-D10772711AE7}"
+  "FileHash": "{CD44C639-4EAC-5BA2-72A0-51107ABFCE1D}"
  }
 }

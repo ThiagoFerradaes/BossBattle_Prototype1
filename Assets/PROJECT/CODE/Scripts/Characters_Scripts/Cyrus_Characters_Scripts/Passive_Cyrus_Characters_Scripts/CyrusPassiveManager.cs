@@ -45,6 +45,8 @@ public class CyrusPassiveManager : PassiveSkillManager {
     }
     public override void OnStart(PassiveSO passive, GameObject parent) {
 
+        base.OnStart(passive, parent);
+
         Initialize(passive, parent);
 
         gameObject.SetActive(true);

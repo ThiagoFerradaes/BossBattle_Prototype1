@@ -9,5 +9,4 @@ public class DashSO : CommonSkillSO
     [Foldout("Specific")] public float DashDuration;
     [Foldout("Specific")] public float DashForce;
     [Foldout("Specific")] public float PercentOfAnimationToStartDash;
-    [Foldout("Specific")] public AK.Wwise.Event DashSound;
 }

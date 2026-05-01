@@ -2,6 +2,7 @@ using AYellowpaper.SerializedCollections;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 public enum Bosses { Kraken, Crab, Thalassia, Voodoo, Birds, Ecdna }
 
@@ -43,6 +44,7 @@ public class CharacterUnlockedInfo {
 }
 public class WhiteBoard : MonoBehaviour {
     public static WhiteBoard Instance;
+    [SerializeField] Character firstCharacterSelected;
 
     [SerializedDictionary("Character", "Info"), SerializeField] SerializedDictionary<Character, CharacterSO> listOfAllCharacters = new();
     [SerializedDictionary("Character", "Info"), SerializeField] SerializedDictionary<Character, List<SkillSO>> listOfSkillsToUnlock = new();
@@ -92,7 +94,7 @@ public class WhiteBoard : MonoBehaviour {
 
 
     private void Start() {
-        CurrentSelectedCharacterWhiteBoard.Instance.SetSelectedCharacter(listOfAllCharacters[Character.Cyrus]);
+        CurrentSelectedCharacterWhiteBoard.Instance.SetSelectedCharacter(listOfAllCharacters[firstCharacterSelected]);
 
     }
 
