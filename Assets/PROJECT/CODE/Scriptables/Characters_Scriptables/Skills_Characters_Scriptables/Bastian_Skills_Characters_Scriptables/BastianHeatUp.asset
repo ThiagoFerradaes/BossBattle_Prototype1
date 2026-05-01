@@ -50,7 +50,23 @@ MonoBehaviour:
   Prefabs:
     _serializedList:
     - Key: 0
-      Value: []
+      Value:
+      - TimeToSpawnPreFab: 0
+        PrefabType: 1
+        PreFab: {fileID: 968842764516389286, guid: 7351d80cd862f7c4085cb5cdfbd4b4d4, type: 3}
+        PreFabPosition: {x: 0, y: 0, z: 0}
+        VFXAtribute:
+          VFXType: 0
+          VFXDuration: 5
+          VFXPosCollisionDuration: 0
+          CrossEnemy: 0
+          TimeStopped: 0
+          MinDistanceBack: 0
+          UnitsToHit:
+            serializedVersion: 2
+            m_Bits: 0
+          VFXSpeed: 0
+          Distance: 0
   SkillObjectRangeObject: {fileID: 0}
   BlockWalkWhilePreCasting: 1
   BlockDashWhilePreCasting: 1
@@ -59,6 +75,10 @@ MonoBehaviour:
   Cancelable: 0
   Slot: 2
   SkillType: 1
+  SkillSound:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 0}
   FlatEnergyGainPerHit: 0
   Cooldown: 6
   HasCharges: 0
