@@ -296,6 +296,8 @@ public class DialogueManager : MonoBehaviour {
 
         var responses = _currentNode.Responses;
 
+        ChangeResponseSpriteList(responses.Count);
+
         for (int i = 0; i < responses.Count; i++) {
             var response = responses[i];
 
@@ -303,8 +305,12 @@ public class DialogueManager : MonoBehaviour {
 
             buttonObj.GetComponentInChildren<TextMeshProUGUI>().text = response.ResponseText.GetLocalizedString();
 
-            if (responses.Count == 4) buttonObj.GetComponent<Image>().sprite = listOfResponsesSprites[i];
-            else buttonObj.GetComponent<Image>().sprite = listOfResponsesSprites[i + 1];
+            int spriteIndex = _responsesSpritesList[i];
+
+            buttonObj.GetComponent<Image>().sprite = listOfResponsesSprites[spriteIndex];
+
+            //if (responses.Count == 4) buttonObj.GetComponent<Image>().sprite = listOfResponsesSprites[i];
+            //else buttonObj.GetComponent<Image>().sprite = listOfResponsesSprites[i + 1];
 
             buttonObj.GetComponent<Button>().onClick.RemoveAllListeners();
             buttonObj.GetComponent<Button>().onClick.AddListener(() => SelectResponse(response));
@@ -313,6 +319,35 @@ public class DialogueManager : MonoBehaviour {
         }
 
         responseButtonParent.gameObject.SetActive(true);
+    }
+    List<int> _responsesSpritesList = new();
+    void ChangeResponseSpriteList(int count) {
+        _responsesSpritesList.Clear();
+
+        switch (count) {
+            case 2:
+                _responsesSpritesList.Add(1);
+                _responsesSpritesList.Add(3);
+                break;
+
+            case 3:
+                _responsesSpritesList.Add(1);
+                _responsesSpritesList.Add(2);
+                _responsesSpritesList.Add(3);
+                break;
+
+            case 4:
+                _responsesSpritesList.Add(0);
+                _responsesSpritesList.Add(1);
+                _responsesSpritesList.Add(3);
+                _responsesSpritesList.Add(4);
+                break;
+
+            default:
+                for (int i = 0; i < 5; i++)
+                    _responsesSpritesList.Add(i);
+                break;
+        }
     }
 
     /// <summary>

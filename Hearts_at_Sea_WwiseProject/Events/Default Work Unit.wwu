@@ -275,25 +275,6 @@
 								<Property Name="OverrideColor" Type="bool" Value="True"/>
 							</PropertyList>
 							<ChildrenList>
-								<Folder Name="Boat" ID="{5888D47C-FD4C-42A2-94A1-FE0810D5EF27}" ShortID="271374770">
-									<PropertyList>
-										<Property Name="Color" Type="int16" Value="22"/>
-										<Property Name="OverrideColor" Type="bool" Value="True"/>
-									</PropertyList>
-									<ChildrenList>
-										<Event Name="Play_Boat" ID="{29663E17-C8C3-4E5D-BC3C-BB53EB953F27}">
-											<ChildrenList>
-												<Action Name="" ID="{AD4BDB80-6EDF-49E9-9641-2D40183130F3}" ShortID="47207957">
-													<ReferenceList>
-														<Reference Name="Target">
-															<ObjectRef Name="Boat" ID="{10CA92BC-CD45-4620-A7A5-8E7C58838FE5}" WorkUnitID="{5274A5F1-8227-4981-A61F-0F3417CB92FE}"/>
-														</Reference>
-													</ReferenceList>
-												</Action>
-											</ChildrenList>
-										</Event>
-									</ChildrenList>
-								</Folder>
 								<Folder Name="Tavern" ID="{8EB5728E-EC61-4AB3-9B17-92A371742E0E}" ShortID="695010567">
 									<PropertyList>
 										<Property Name="Color" Type="int16" Value="20"/>
@@ -311,63 +292,90 @@
 												</Action>
 											</ChildrenList>
 										</Event>
+										<Folder Name="Boat" ID="{5888D47C-FD4C-42A2-94A1-FE0810D5EF27}" ShortID="271374770">
+											<PropertyList>
+												<Property Name="Color" Type="int16" Value="22"/>
+												<Property Name="OverrideColor" Type="bool" Value="True"/>
+											</PropertyList>
+											<ChildrenList>
+												<Event Name="Play_Boat" ID="{29663E17-C8C3-4E5D-BC3C-BB53EB953F27}">
+													<ChildrenList>
+														<Action Name="" ID="{AD4BDB80-6EDF-49E9-9641-2D40183130F3}" ShortID="47207957">
+															<ReferenceList>
+																<Reference Name="Target">
+																	<ObjectRef Name="Boat" ID="{10CA92BC-CD45-4620-A7A5-8E7C58838FE5}" WorkUnitID="{5274A5F1-8227-4981-A61F-0F3417CB92FE}"/>
+																</Reference>
+															</ReferenceList>
+														</Action>
+													</ChildrenList>
+												</Event>
+											</ChildrenList>
+										</Folder>
+										<Folder Name="Water" ID="{2FBA6472-1534-4D20-90C0-D61158873478}" ShortID="237881163">
+											<PropertyList>
+												<Property Name="Color" Type="int16" Value="15"/>
+												<Property Name="OverrideColor" Type="bool" Value="True"/>
+											</PropertyList>
+											<ChildrenList>
+												<Event Name="Play_Water" ID="{32BB7169-EF23-4065-8404-8A32EB93C3ED}">
+													<ChildrenList>
+														<Action Name="" ID="{CCB77358-14BD-47A2-B148-FD7A9988BF74}" ShortID="1021605878">
+															<ReferenceList>
+																<Reference Name="Target">
+																	<ObjectRef Name="Water" ID="{F346D2E0-04AB-4487-BFE8-676202765ECE}" WorkUnitID="{5274A5F1-8227-4981-A61F-0F3417CB92FE}"/>
+																</Reference>
+															</ReferenceList>
+														</Action>
+													</ChildrenList>
+												</Event>
+											</ChildrenList>
+										</Folder>
+										<Folder Name="Wind" ID="{4DCBD4E1-D50B-4EFD-BEC2-C6FC87C84F98}" ShortID="545002533">
+											<PropertyList>
+												<Property Name="Color" Type="int16" Value="27"/>
+												<Property Name="OverrideColor" Type="bool" Value="True"/>
+											</PropertyList>
+											<ChildrenList>
+												<Event Name="Play_Wind" ID="{2650119C-7959-47E2-947A-C694BBA249FB}">
+													<ChildrenList>
+														<Action Name="" ID="{759AD4F4-355C-419C-BF9E-25DCFDF08057}" ShortID="978774361">
+															<ReferenceList>
+																<Reference Name="Target">
+																	<ObjectRef Name="Wind" ID="{C8070579-B35B-46B9-B603-7BAA372226DE}" WorkUnitID="{5274A5F1-8227-4981-A61F-0F3417CB92FE}"/>
+																</Reference>
+															</ReferenceList>
+														</Action>
+													</ChildrenList>
+												</Event>
+											</ChildrenList>
+										</Folder>
 									</ChildrenList>
 								</Folder>
-								<Folder Name="Water" ID="{2FBA6472-1534-4D20-90C0-D61158873478}" ShortID="237881163">
+								<Folder Name="Kraken Stage" ID="{4354550A-E0D3-40CC-9642-959360492309}" ShortID="805452838">
 									<PropertyList>
-										<Property Name="Color" Type="int16" Value="15"/>
+										<Property Name="Color" Type="int16" Value="8"/>
 										<Property Name="OverrideColor" Type="bool" Value="True"/>
 									</PropertyList>
 									<ChildrenList>
-										<Event Name="Play_Water" ID="{32BB7169-EF23-4065-8404-8A32EB93C3ED}">
+										<Folder Name="Waterfall" ID="{6B5AC2D3-4B24-4C97-84A5-1FA4220CBF69}" ShortID="421804585">
+											<PropertyList>
+												<Property Name="Color" Type="int16" Value="1"/>
+												<Property Name="OverrideColor" Type="bool" Value="True"/>
+											</PropertyList>
 											<ChildrenList>
-												<Action Name="" ID="{CCB77358-14BD-47A2-B148-FD7A9988BF74}" ShortID="1021605878">
-													<ReferenceList>
-														<Reference Name="Target">
-															<ObjectRef Name="Water" ID="{F346D2E0-04AB-4487-BFE8-676202765ECE}" WorkUnitID="{5274A5F1-8227-4981-A61F-0F3417CB92FE}"/>
-														</Reference>
-													</ReferenceList>
-												</Action>
+												<Event Name="Play_Waterfall" ID="{EB4177F0-3F05-43E0-AAC0-018A3104C0A0}">
+													<ChildrenList>
+														<Action Name="" ID="{FB4D397B-6D24-4D3F-ACAE-EB6869CFE8FC}" ShortID="404718347">
+															<ReferenceList>
+																<Reference Name="Target">
+																	<ObjectRef Name="Waterfall" ID="{06FF3339-353F-459D-B997-8DB17C9B5A97}" WorkUnitID="{5274A5F1-8227-4981-A61F-0F3417CB92FE}"/>
+																</Reference>
+															</ReferenceList>
+														</Action>
+													</ChildrenList>
+												</Event>
 											</ChildrenList>
-										</Event>
-									</ChildrenList>
-								</Folder>
-								<Folder Name="Wind" ID="{4DCBD4E1-D50B-4EFD-BEC2-C6FC87C84F98}" ShortID="545002533">
-									<PropertyList>
-										<Property Name="Color" Type="int16" Value="27"/>
-										<Property Name="OverrideColor" Type="bool" Value="True"/>
-									</PropertyList>
-									<ChildrenList>
-										<Event Name="Play_Wind" ID="{2650119C-7959-47E2-947A-C694BBA249FB}">
-											<ChildrenList>
-												<Action Name="" ID="{759AD4F4-355C-419C-BF9E-25DCFDF08057}" ShortID="978774361">
-													<ReferenceList>
-														<Reference Name="Target">
-															<ObjectRef Name="Wind" ID="{C8070579-B35B-46B9-B603-7BAA372226DE}" WorkUnitID="{5274A5F1-8227-4981-A61F-0F3417CB92FE}"/>
-														</Reference>
-													</ReferenceList>
-												</Action>
-											</ChildrenList>
-										</Event>
-									</ChildrenList>
-								</Folder>
-								<Folder Name="Waterfall" ID="{6B5AC2D3-4B24-4C97-84A5-1FA4220CBF69}" ShortID="421804585">
-									<PropertyList>
-										<Property Name="Color" Type="int16" Value="1"/>
-										<Property Name="OverrideColor" Type="bool" Value="True"/>
-									</PropertyList>
-									<ChildrenList>
-										<Event Name="Play_Waterfall" ID="{EB4177F0-3F05-43E0-AAC0-018A3104C0A0}">
-											<ChildrenList>
-												<Action Name="" ID="{FB4D397B-6D24-4D3F-ACAE-EB6869CFE8FC}" ShortID="404718347">
-													<ReferenceList>
-														<Reference Name="Target">
-															<ObjectRef Name="Waterfall" ID="{06FF3339-353F-459D-B997-8DB17C9B5A97}" WorkUnitID="{5274A5F1-8227-4981-A61F-0F3417CB92FE}"/>
-														</Reference>
-													</ReferenceList>
-												</Action>
-											</ChildrenList>
-										</Event>
+										</Folder>
 									</ChildrenList>
 								</Folder>
 							</ChildrenList>

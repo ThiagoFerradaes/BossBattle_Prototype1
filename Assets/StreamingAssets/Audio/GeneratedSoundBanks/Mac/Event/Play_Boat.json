@@ -10,7 +10,7 @@
     "Type": "Event",
     "GUID": "{29663E17-C8C3-4E5D-BC3C-BB53EB953F27}",
     "Language": "SFX",
-    "Hash": "{6E24F9F8-23B6-904E-9958-C05287D7E895}",
+    "Hash": "{AE1669AD-918F-3B22-6AD7-976472CB0D8B}",
     "ObjectPath": "Play_Boat",
     "ShortName": "Play_Boat",
     "Path": "Event/Play_Boat.bnk",
@@ -93,7 +93,7 @@
       {
        "Id": "51724052",
        "Name": "Silence",
-       "ObjectPath": "\\Containers\\Default Work Unit\\Ambient\\Boat\\BoatBeat\\BoatSilence_03_01\\Silence",
+       "ObjectPath": "\\Containers\\Default Work Unit\\Ambient\\Tavern\\Boat\\BoatBeat\\BoatSilence_03_01\\Silence",
        "GUID": "{3FCD8C1F-6064-454A-A9EF-7AF12BA464D1}",
        "Color": "22",
        "LibName": "Wwise Silence",
@@ -102,7 +102,7 @@
       {
        "Id": "242719794",
        "Name": "Parametric EQ (Custom)",
-       "ObjectPath": "\\Containers\\Default Work Unit\\Ambient\\Boat\\[Effect Slot [0]: (Parametric EQ)]\\Parametric EQ (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\Ambient\\Tavern\\Boat\\[Effect Slot [0]: (Parametric EQ)]\\Parametric EQ (Custom)",
        "GUID": "{C71E633E-DFFE-4B43-930D-F8BE9E07AAFE}",
        "LibName": "Wwise Parametric EQ",
        "LibId": "6881283"
@@ -110,7 +110,7 @@
       {
        "Id": "391622179",
        "Name": "Silence",
-       "ObjectPath": "\\Containers\\Default Work Unit\\Ambient\\Boat\\BoatSqueaks_01\\BoatSilence_01_01\\Silence",
+       "ObjectPath": "\\Containers\\Default Work Unit\\Ambient\\Tavern\\Boat\\BoatSqueaks_01\\BoatSilence_01_01\\Silence",
        "GUID": "{329A9251-1679-468F-A691-F12F930DFA35}",
        "Color": "22",
        "LibName": "Wwise Silence",
@@ -119,11 +119,19 @@
       {
        "Id": "484185559",
        "Name": "Silence",
-       "ObjectPath": "\\Containers\\Default Work Unit\\Ambient\\Boat\\BoatSqueaks_02\\BoatSilence_02_01\\Silence",
+       "ObjectPath": "\\Containers\\Default Work Unit\\Ambient\\Tavern\\Boat\\BoatSqueaks_02\\BoatSilence_02_01\\Silence",
        "GUID": "{531563C7-460D-4151-9B30-E2639784A025}",
        "Color": "22",
        "LibName": "Wwise Silence",
        "LibId": "6619138"
+      },
+      {
+       "Id": "690042722",
+       "Name": "Guitar Distortion (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\Ambient\\Tavern\\Boat\\[Effect Slot [1]: (Guitar Distortion)]\\Guitar Distortion (Custom)",
+       "GUID": "{278CA572-9E2D-4916-BE89-BE8A686BF832}",
+       "LibName": "Wwise Guitar Distortion",
+       "LibId": "8257539"
       }
      ]
     },
@@ -131,9 +139,10 @@
      {
       "Id": "1391074924",
       "Name": "Play_Boat",
-      "ObjectPath": "\\Events\\Default Work Unit\\SFX\\Ambient\\Boat\\Play_Boat",
+      "ObjectPath": "\\Events\\Default Work Unit\\SFX\\Ambient\\Tavern\\Boat\\Play_Boat",
       "GUID": "{29663E17-C8C3-4E5D-BC3C-BB53EB953F27}",
       "Color": "22",
+      "MaxAttenuation": "60",
       "DurationType": "Infinite",
       "MediaRefs": [
        {
@@ -174,6 +183,9 @@
         },
         {
          "Id": "484185559"
+        },
+        {
+         "Id": "690042722"
         }
        ]
       }
@@ -181,6 +193,6 @@
     ]
    }
   ],
-  "FileHash": "{D40C894D-1921-EA72-4568-B0FE35498807}"
+  "FileHash": "{8A86EAC7-66DC-54F3-195B-AFCB60F4D9D8}"
  }
 }

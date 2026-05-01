@@ -2,13 +2,14 @@ using AYellowpaper.SerializedCollections;
 using UnityEngine;
 
 
-public enum ProgressBools { IsKrakenDefeated, HasTalkedToLilianBGFDemo }
+public enum ProgressBools { IsKrakenDefeated, HasTalkedToLilianBGFDemo, LilianTwo, TalkedToBastian, TalkedToCyrus, AskedAboutLilian, TalkedtoLilianORBastian }
 
 public class ProgressWhiteBoard : MonoBehaviour {
 
     public static ProgressWhiteBoard Instance;
 
     public SerializedDictionary<ProgressBools, bool> DictionaryOfProgressBools = new();
+    public bool HasSeenDemoPopUp;
 
     private void Awake() {
         if (Instance == null) {
