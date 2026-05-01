@@ -9,6 +9,7 @@ public class ProgressWhiteBoard : MonoBehaviour {
     public static ProgressWhiteBoard Instance;
 
     public SerializedDictionary<ProgressBools, bool> DictionaryOfProgressBools = new();
+    public bool HasSeenDemoPopUp;
 
     private void Awake() {
         if (Instance == null) {
