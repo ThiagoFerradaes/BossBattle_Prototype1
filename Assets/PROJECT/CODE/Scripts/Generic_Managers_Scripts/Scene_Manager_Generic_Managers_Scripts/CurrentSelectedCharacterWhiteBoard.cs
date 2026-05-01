@@ -6,7 +6,7 @@ using UnityEngine.TextCore.Text;
 public class CurrentSelectedCharacterWhiteBoard : MonoBehaviour {
     public static CurrentSelectedCharacterWhiteBoard Instance;
 
-    Character _selectedCharacter = Character.Cyrus;
+    Character _selectedCharacter = Character.Bastian;
     CharacterSO _selectedCharacterSO;
 
     [SerializedDictionary("Character", "Kit"), SerializeField] 

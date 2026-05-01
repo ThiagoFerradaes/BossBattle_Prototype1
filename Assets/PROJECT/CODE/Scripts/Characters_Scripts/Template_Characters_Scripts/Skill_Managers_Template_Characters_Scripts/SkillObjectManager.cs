@@ -159,6 +159,7 @@ public abstract class SkillObjectManager : MonoBehaviour {
         var animInfo = info.ListOfAnimationsInfo[animationIndex];
 
         AnimationManager.Instance.ChangeAnimation(anim, animInfo, extraAnimationSpeed);
+        AnimationManager.Instance.BlockAnimation(true);
 
         yield return null;
 
@@ -177,6 +178,8 @@ public abstract class SkillObjectManager : MonoBehaviour {
             yield return null;
             stateInfo = anim.GetCurrentAnimatorStateInfo(animInfo.AnimationLayer);
         }
+
+        AnimationManager.Instance.BlockAnimation(false);
 
         FourthFunc();
     }
