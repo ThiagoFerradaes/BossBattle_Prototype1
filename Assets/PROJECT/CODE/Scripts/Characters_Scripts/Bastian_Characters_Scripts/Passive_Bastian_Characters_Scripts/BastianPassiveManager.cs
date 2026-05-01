@@ -194,9 +194,13 @@ public class BastianPassiveManager : PassiveSkillManager {
     }
 
     void ChangeHeatArea(HeatArea newArea) {
+        bool increasedHeat = _heatArea < newArea;
         _heatArea = newArea;
 
         int switchIndex = Mathf.Clamp((int)(_heatArea - 1), 0, 5);
+
+        if (!increasedHeat) return;
+
         AK.Wwise.Switch newSwitch = _info.HeatZoneSwitchs[switchIndex];
         newSwitch.SetValue(parent);
         _info.HeatZoneChangeSound.Post(parent);

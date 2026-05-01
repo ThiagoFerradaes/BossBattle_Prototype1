@@ -47,6 +47,7 @@ public class BastianFlameEchoManager : SkillObjectManager
 
     private void OnDestroy() {
         BastianBaseAttackManager.OnShoot -= _onShootAction;
+        //BastianIgnisManager.OnIgnisShoot -= _onIgnisAction;
     }
 
     protected override void FirstFunc() {
@@ -73,7 +74,7 @@ public class BastianFlameEchoManager : SkillObjectManager
         UnblockInputs();
 
         BastianBaseAttackManager.OnShoot += _onShootAction;
-        BastianIgnisManager.OnIgnisShoot += _onIgnisAction;
+        //BastianIgnisManager.OnIgnisShoot += _onIgnisAction;
 
         StartCoroutine(Duration());
     }

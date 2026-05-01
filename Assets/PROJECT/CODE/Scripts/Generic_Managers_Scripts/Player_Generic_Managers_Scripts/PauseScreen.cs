@@ -18,6 +18,7 @@ public class PauseScreen : MonoBehaviour {
     [SerializeField] LoadingScreenSO menuScreenInfo;
     [SerializeField] Configuration configScreen;
     [SerializeField] InputActionReference cancelAction;
+    [SerializeField] Animator anim;
 
     public event Action OnDespause;
 
@@ -28,6 +29,8 @@ public class PauseScreen : MonoBehaviour {
         configScreen.CloseConfigurationScreen();
         configScreen.OnConfigurationScreenClose += HandleControlSystem;
         TurnScreenOff();
+
+        anim.updateMode = AnimatorUpdateMode.UnscaledTime;
     }
     private void Start() {
         SetButton();
