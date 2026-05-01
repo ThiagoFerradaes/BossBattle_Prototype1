@@ -28,6 +28,7 @@ public class PlayerSkillUI : MonoBehaviour {
     [SerializeField] private TextMeshProUGUI skillOneCharge;
     [SerializeField] private TextMeshProUGUI skillTwoCharge;
 
+
     // Actions
     Action<float, float> _energyGainAction;
     Action<SkillSlot, int, bool> _setChargeNumber;

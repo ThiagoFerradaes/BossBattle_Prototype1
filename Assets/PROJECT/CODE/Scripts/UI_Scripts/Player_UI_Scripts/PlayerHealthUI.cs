@@ -17,6 +17,10 @@ public class PlayerHealthUI : MonoBehaviour
     [Header("Energy Components")]
     [SerializeField] Image energyBar;
 
+    [Header("AnimatedBackgrounds")]
+    [SerializeField] GameObject cyrusAnimatedBackground;
+    [SerializeField] GameObject bastianAnimatedBackground;
+
     // Components
     GameObject _player;
     HealthManager _healthManager;
@@ -78,7 +82,25 @@ public class PlayerHealthUI : MonoBehaviour
 
     void UpdateEnergyUI(float currentEnergy, float maxEnergy) {
         energyBar.fillAmount = currentEnergy / maxEnergy;
+
+        HandleAnimatedBackground(currentEnergy == maxEnergy);
     }
+
+    void HandleAnimatedBackground(bool isOn) {
+        if (!isOn) {
+            cyrusAnimatedBackground.SetActive(false);
+            bastianAnimatedBackground.SetActive(false);
+            return;
+        }
+
+        Character currentCharacter = CurrentSelectedCharacterWhiteBoard.Instance.ReturnSelectedCharacter();
+
+        switch (currentCharacter) {
+            case Character.Cyrus: cyrusAnimatedBackground.SetActive(true); break;
+            case Character.Bastian: bastianAnimatedBackground.SetActive(true); break;
+        }
+    }
+
     private void OnDestroy() {
         _healthManager.OnHealthChanged -= _healthChangeAction;
         _healthManager.OnShieldChanged -= _shieldChangeAction;
