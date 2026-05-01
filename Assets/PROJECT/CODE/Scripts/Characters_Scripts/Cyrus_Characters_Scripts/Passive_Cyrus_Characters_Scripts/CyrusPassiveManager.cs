@@ -84,7 +84,6 @@ public class CyrusPassiveManager : PassiveSkillManager {
 
         if (_skillLevel[slot] >= 3) return;
 
-        Debug.Log(parent.name);
         _info.RankUpSound.Post(parent);
 
         _skillLevel[slot]++;
