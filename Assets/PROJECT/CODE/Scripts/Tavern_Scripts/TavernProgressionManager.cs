@@ -1,16 +1,17 @@
+using System;
 using UnityEngine;
 
 public class TavernProgressionManager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
+    private void Start() {
+        if (ProgressWhiteBoard.Instance.DictionaryOfProgressBools[ProgressBools.IsKrakenDefeated]) {
+            HandleKrakendDefeated();
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    void HandleKrakendDefeated() {
+
+        WhiteBoard.Instance.UnlockCharacter(Character.Cyrus);
     }
+
 }

@@ -12,14 +12,14 @@ public class ChangeBoolResponseConsequence : ResponseConsequence
         if (!isPreconsequence) return;
 
         foreach (ProgressBools boolToChange in boolsToChange) {
-            ProgressWhiteBoard.Instance.DictionaryOfProgressBools[boolToChange] = newValue;
+            ProgressWhiteBoard.Instance.SetProgressBool(boolToChange, newValue);
         }
     }
     public override void ExecuteConsequence() {
         if (isPreconsequence) return;
 
         foreach (ProgressBools boolToChange in boolsToChange) {
-            ProgressWhiteBoard.Instance.DictionaryOfProgressBools[boolToChange] = newValue;
+            ProgressWhiteBoard.Instance.SetProgressBool(boolToChange, newValue);
         }
     }
 }
