@@ -17,6 +17,8 @@ public class AnimationManager : MonoBehaviour {
 
     public static AnimationManager Instance;
 
+    bool _animtionIsLocked;
+
     Dictionary<Animator, AnimatorOverrideController> _overrideControllers = new();
 
     #endregion
@@ -35,6 +37,8 @@ public class AnimationManager : MonoBehaviour {
     #region Animations
     public void ChangeAnimation(Animator anim, AnimationInfo animInfo, float extraAnimationSpeed = 1, float crossFase = 0.05f) {
 
+        if (_animtionIsLocked) return;
+
         var controller = GetOverrideController(anim);
 
         if (animInfo.Loop) {
@@ -51,6 +55,9 @@ public class AnimationManager : MonoBehaviour {
         anim.SetFloat("AnimationSpeed", animInfo.AnimationBaseSpeed * extraAnimationSpeed);
     }
     public void ReturnToIdle(Animator anim) {
+
+        if (_animtionIsLocked) return;
+
         anim.CrossFade("Idle", 0.05f, 0, 0f);
     }
     public void SetIdleAnimation(Animator anim, AnimationClip idleClip) {
@@ -60,6 +67,10 @@ public class AnimationManager : MonoBehaviour {
 
     public void ResetAnimationSpeed(Animator anim) {
         anim.SetFloat("AnimationSpeed", 1);
+    }
+
+    public void BlockAnimation(bool value) {
+        _animtionIsLocked = value;
     }
     #endregion
 
