@@ -261,6 +261,7 @@ public class KrakenManager : EnemyBehaviourManager {
 
         if (allTentaclesDead) {
             VictoryScreenManager.Instance.InitializeVictoryScreen();
+            ProgressWhiteBoard.Instance.SetProgressBool(ProgressBools.IsKrakenDefeated, true);
         }
     }
 
