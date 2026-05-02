@@ -38,6 +38,8 @@ public class Configuration : MonoBehaviour {
     [SerializeField, Foldout("Sprites"), SerializedDictionary("Type of Screen", " Sprite")] SerializedDictionary<ConfigurationScreen, Sprite> selectedSprites;
     [SerializeField, Foldout("Sprites")] Sprite unselectedBackground;
     [SerializeField, Foldout("Sprites")] Sprite selectedBackground;
+    [SerializeField, Foldout("Sprites")] Sprite selectedCloseButton;
+    [SerializeField, Foldout("Sprites")] Sprite unSelectedCloseButton;
 
     [SerializeField, Foldout("Input")] InputActionReference RBButton;
     [SerializeField, Foldout("Input")] InputActionReference LBButton;
@@ -123,6 +125,10 @@ public class Configuration : MonoBehaviour {
     public void SetHooverButtonBackground(Transform hooverPosition) {
         hooverBackground.SetActive(true);
         hooverBackground.transform.position = hooverPosition.position;
+    }
+
+    public void CloseMapHoover(bool isHoover) {
+        closeConfigurationScreenButton.image.sprite = isHoover ? selectedCloseButton : unSelectedCloseButton;
     }
 
     public void DisableHooverButtonBackground() {
