@@ -10,6 +10,7 @@ public class DefeatScreenManager : MonoBehaviour
     [SerializeField] Button tavernButton;
     [SerializeField] LoadingScreenSO menuLoadingInfo;
     [SerializeField] LoadingScreenSO tavernLoadingInfo;
+    [SerializeField] AK.Wwise.Event defeatMusic;
 
     private void Awake()
     {
@@ -38,6 +39,9 @@ public class DefeatScreenManager : MonoBehaviour
     {
         defeatScreen.SetActive(true);
         Time.timeScale = 0;
+        
+        AkUnitySoundEngine.StopAll();
+        defeatMusic.Post(gameObject);
     }
 
     void TurnScreenOff()
