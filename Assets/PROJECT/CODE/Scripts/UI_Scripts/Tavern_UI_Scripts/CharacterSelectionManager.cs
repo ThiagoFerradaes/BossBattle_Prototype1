@@ -1,6 +1,7 @@
 using AYellowpaper.SerializedCollections;
 using NaughtyAttributes;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -22,8 +23,11 @@ public class CharacterSelectionManager : MonoBehaviour {
 
     [Header("Animations")]
     [SerializeField] Animator anim;
-    [SerializeField] string enterAnimation;
     [SerializeField] string exitAnimation;
+    [SerializeField] float animationDuration;
+
+    Coroutine exitAnimationCoroutine;
+    WaitForSeconds exitAnimationDelay;
 
     [Header("Descriptions")]
     [SerializeField] TextMeshProUGUI passiveDescription;
@@ -47,6 +51,8 @@ public class CharacterSelectionManager : MonoBehaviour {
 
     private void Start() {
         SetButtons();
+
+        exitAnimationDelay = new(animationDuration);
     }
 
     void SetButtons() {
@@ -88,15 +94,21 @@ public class CharacterSelectionManager : MonoBehaviour {
 
         characterSelectionScreen.SetActive(true);
 
-        //if (anim.gameObject.activeInHierarchy) anim.Play(enterAnimation);
-
     }
 
     public void TurnScreenOff() {
+        exitAnimationCoroutine ??= StartCoroutine(EndCoroutine());
+    }
+
+    IEnumerator EndCoroutine() {
+        if (anim.gameObject.activeInHierarchy) anim.Play(exitAnimation);
+
+        yield return exitAnimationDelay;
+
         characterSelectionScreen.SetActive(false);
         skillSelectionManager.TurnScreenOff();
 
-        //if (anim.gameObject.activeInHierarchy) anim.Play(exitAnimation);
+        exitAnimationCoroutine = null;
     }
 
     void ChangeSelectedCharactersImages() {
