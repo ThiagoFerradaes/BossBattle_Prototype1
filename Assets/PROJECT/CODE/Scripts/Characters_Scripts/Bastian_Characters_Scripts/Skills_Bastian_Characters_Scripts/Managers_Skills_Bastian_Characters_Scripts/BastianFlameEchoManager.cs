@@ -12,8 +12,8 @@ public class BastianFlameEchoManager : SkillObjectManager
     StatusManager _statusManager;
 
     // Actions
-    Action<int> _onShootAction;
-    Action _onIgnisAction;
+    Action<int, HeatArea> _onShootAction;
+    Action<HeatArea> _onIgnisAction;
 
     // Coroutines
     Coroutine _ignisCoroutine, _attackCoroutine;
@@ -41,8 +41,8 @@ public class BastianFlameEchoManager : SkillObjectManager
         _attackSpeedMultiplier = GetAttackSpeedMultiplier();
         animationCoroutine ??= StartCoroutine(AttackCoroutine(0, 1, _attackSpeedMultiplier));
 
-        _onShootAction = (int attackIdex) => _attackCoroutine ??= StartCoroutine(SecondaryShoot(attackIdex));
-        _onIgnisAction = () => _ignisCoroutine ??= StartCoroutine(SecondaryIgnis());
+        _onShootAction = (int attackIdex, HeatArea area) => _attackCoroutine ??= StartCoroutine(SecondaryShoot(attackIdex, area));
+        _onIgnisAction = (HeatArea area) => _ignisCoroutine ??= StartCoroutine(SecondaryIgnis(area));
     }
 
     private void OnDestroy() {
@@ -90,7 +90,7 @@ public class BastianFlameEchoManager : SkillObjectManager
         EndWithUnblockSkills();
     }
 
-    IEnumerator SecondaryShoot(int attackIndex)
+    IEnumerator SecondaryShoot(int attackIndex, HeatArea area)
     {
         float realTimer = _info.TimeBetweenFirstAndSecondShoot / _statusManager.ReturnStatusValue(StatusType.AttackSpeed);
         yield return new WaitForSeconds(realTimer);
@@ -102,14 +102,14 @@ public class BastianFlameEchoManager : SkillObjectManager
         {
             SkillAnimationEvent prefabInfo = prefabList[i];
 
-            if (prefabInfo.PrefabType == TypeOfSkillPrefab.Hitbox) InstantiateSecondShoot(prefabInfo, attackIndex);
+            if (prefabInfo.PrefabType == TypeOfSkillPrefab.Hitbox) InstantiateSecondShoot(prefabInfo, attackIndex, area);
             else if (prefabInfo.PrefabType == TypeOfSkillPrefab.VFX) InstantiateVFX(prefabInfo);
         }
 
         _attackCoroutine = null;
     }
 
-    IEnumerator SecondaryIgnis() {
+    IEnumerator SecondaryIgnis(HeatArea area) {
         float realTimer = _info.TimeBetweenIgnis / _statusManager.ReturnStatusValue(StatusType.AttackSpeed);
         yield return new WaitForSeconds(realTimer);
 
@@ -119,7 +119,7 @@ public class BastianFlameEchoManager : SkillObjectManager
         for (int i = 0; i < prefabList.Count; i++) {
             SkillAnimationEvent prefabInfo = prefabList[i];
 
-            if (prefabInfo.PrefabType == TypeOfSkillPrefab.Hitbox) InstantiateIgnis(prefabInfo);
+            if (prefabInfo.PrefabType == TypeOfSkillPrefab.Hitbox) InstantiateIgnis(prefabInfo, area);
             else if (prefabInfo.PrefabType == TypeOfSkillPrefab.VFX) InstantiateVFX(prefabInfo);
         }
 
@@ -129,13 +129,14 @@ public class BastianFlameEchoManager : SkillObjectManager
     public override void EndWithUnblockSkills()
     {
         BastianBaseAttackManager.OnShoot -= _onShootAction;
+        BastianIgnisManager.OnIgnisShoot -= _onIgnisAction;
 
         _energyManager.SetCanGainEnergy(true);
 
         base.EndWithUnblockSkills();
     }
 
-    void InstantiateSecondShoot(SkillAnimationEvent prefabInfo, int attackIndex) {
+    void InstantiateSecondShoot(SkillAnimationEvent prefabInfo, int attackIndex, HeatArea area) {
         DamageAtributes atributes = attackIndex switch {
             1 => _info.FirstAttackDamageAtributes,
             2 => _info.SecondAttackDamageAtributes,
@@ -143,7 +144,16 @@ public class BastianFlameEchoManager : SkillObjectManager
             _ => _info.FirstAttackDamageAtributes,
         };
 
+        float pen = area >= HeatArea.SuperHeatArea ? _info.SPenetrationOnSuperHeat : 0;
+        float critChance = area >= HeatArea.OverHeatArea ? _info.SCritChanceOverHeat : 0;
+        float additionalCriDmg = area >= HeatArea.ExtremeHeatArea ? _info.SLastOverHeatCritDamage : 0;
+        float critDamage = statusManager.ReturnStatusValue(StatusType.CritDamage) + additionalCriDmg;
+
         DamageAtributes newAtributes = new(atributes);
+
+        newAtributes.ExtraAtributes[ExtraDamageContextAtributes.Penetration] = pen;
+        newAtributes.ExtraAtributes[ExtraDamageContextAtributes.CritRate] = critChance;
+        newAtributes.ExtraAtributes[ExtraDamageContextAtributes.CritDamage] = critDamage;
 
         GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFab, TypeOfSkillPrefab.Hitbox);
 
@@ -156,18 +166,24 @@ public class BastianFlameEchoManager : SkillObjectManager
             );
 
         ProjectileDamageHitBox hitbox = preFab.GetComponent<ProjectileDamageHitBox>();
+        
         hitbox.Initialize(newContext);
+
+        if (area < HeatArea.OverHeatArea) {
+            BastianPassiveManager.Instance.GainHeat(_info.SHeatGain);
+        }
+        else BastianPassiveManager.Instance.GainHeat(_info.SHeatGainOverHeat);
     }
 
-    void InstantiateIgnis(SkillAnimationEvent prefabInfo) {
+    void InstantiateIgnis(SkillAnimationEvent prefabInfo, HeatArea area) {
         GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFab, TypeOfSkillPrefab.Hitbox);
 
         preFab.transform.localScale = _info.IgnisDamageAtributes.Size;
         preFab.transform.SetPositionAndRotation(parent.transform.position + prefabInfo.PreFabPosition, parent.transform.rotation);
 
-        float pen = BastianPassiveManager.Instance.ReturnMinHeat(HeatArea.SuperHeatArea) ? _info.IgnisPenetrationOnSuperHeat : 0;
-        float critChance = BastianPassiveManager.Instance.ReturnMinHeat(HeatArea.OverHeatArea) ? _info.IgnisCritChanceOverHeat : 0;
-        float additionalCriDmg = BastianPassiveManager.Instance.ReturnMinHeat(HeatArea.ExtremeHeatArea) ? _info.IgnisLastOverHeatCritDamage : 0;
+        float pen = area >= HeatArea.SuperHeatArea ? _info.IgnisPenetrationOnSuperHeat : 0;
+        float critChance = area >= HeatArea.OverHeatArea ? _info.IgnisCritChanceOverHeat : 0;
+        float additionalCriDmg = area >= HeatArea.ExtremeHeatArea ? _info.IgnisLastOverHeatCritDamage : 0;
         float critDamage = statusManager.ReturnStatusValue(StatusType.CritDamage) + additionalCriDmg;
 
         DamageAtributes atributes = new(_info.IgnisDamageAtributes);
@@ -185,6 +201,6 @@ public class BastianFlameEchoManager : SkillObjectManager
 
         if (BastianPassiveManager.Instance.ReturnMaxHeat(HeatArea.SuperHeatArea))
             BastianPassiveManager.Instance.GainHeat(_info.IgnisHeatGain);
-        else BastianPassiveManager.Instance.GainHeat(1);
+        else BastianPassiveManager.Instance.GainHeat(_info.IgnisHeatGainOverHeat);
     }
 }
