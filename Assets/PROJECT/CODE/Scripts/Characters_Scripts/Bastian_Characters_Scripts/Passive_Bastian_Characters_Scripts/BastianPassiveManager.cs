@@ -62,6 +62,9 @@ public class BastianPassiveManager : PassiveSkillManager {
         _currentHeat = newHeatAmount;
     }
     public void GainHeat(float amountOfHeat) {
+
+        if (amountOfHeat <= 0) return;
+
         if (_currentHeat + amountOfHeat <= _info.HeatToHitOverHeatArea)
             _currentHeat += amountOfHeat;
         else if (_currentHeat < _info.HeatToHitOverHeatArea) {

@@ -9,7 +9,7 @@ public class BastianIgnisManager : SkillObjectManager {
 
     float _attackSpeedMultiplier;
 
-    public static event Action OnIgnisShoot;
+    public static event Action<HeatArea> OnIgnisShoot;
 
     public override void HandleInput(SkillSO skill, InputAction.CallbackContext ctx)
     {
@@ -82,7 +82,7 @@ public class BastianIgnisManager : SkillObjectManager {
         };
 
 
-        OnIgnisShoot?.Invoke();
+        OnIgnisShoot?.Invoke(BastianPassiveManager.Instance.ReturnCurrentHeatArea());
 
 
         _info.SkillSound.Post(parent);

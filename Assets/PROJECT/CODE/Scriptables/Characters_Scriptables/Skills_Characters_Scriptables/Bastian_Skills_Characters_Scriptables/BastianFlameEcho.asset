@@ -238,10 +238,11 @@ MonoBehaviour:
       - Key: 0
         Value: 0
   ProjectileSize: 0.5
-  SHeatGain: 0
-  SPenetrationOnSuperHeat: 0
-  SCritChanceOverHeat: 0
-  SLastOverHeatCritDamage: 0
+  SHeatGain: 2
+  SHeatGainOverHeat: 0
+  SPenetrationOnSuperHeat: 10
+  SCritChanceOverHeat: 100
+  SLastOverHeatCritDamage: 1000
   IgnisDamageAtributes:
     DamageType: 1
     UnitsToHit:
@@ -262,6 +263,7 @@ MonoBehaviour:
     ExtraAtributes:
       _serializedList: []
   IgnisHeatGain: 16
+  IgnisHeatGainOverHeat: 0
   IgnisPenetrationOnSuperHeat: 30
   IgnisCritChanceOverHeat: 100
   IgnisLastOverHeatCritDamage: 250
