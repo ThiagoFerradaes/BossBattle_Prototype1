@@ -44,7 +44,7 @@ public class KrakenAudio : MonoBehaviour
             FadeIdleTo(20f, 0.5f);
             warningTentacleAttackEvent?.Post(gameObject);
             warningPlayed = true;
-            StartCoroutine(ResetWarningAfterDelay(15f)); // reset after 10 seconds
+            StartCoroutine(ResetWarningAfterDelay(20f));
         }
     }
 
