@@ -92,6 +92,7 @@ public class CharacterSelectionManager : MonoBehaviour {
         ChangeAllSkillsIcon();
         ActivateCharacterSelectionButtons();
 
+        closeScreenButton.gameObject.SetActive(true);
         characterSelectionScreen.SetActive(true);
 
     }
@@ -101,6 +102,7 @@ public class CharacterSelectionManager : MonoBehaviour {
     }
 
     IEnumerator EndCoroutine() {
+        closeScreenButton.gameObject.SetActive(false);
         if (anim.gameObject.activeInHierarchy) anim.Play(exitAnimation);
 
         yield return exitAnimationDelay;
