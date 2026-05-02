@@ -29,6 +29,8 @@ public class KrakenStalactiteAttack : EnemyBehaviourSO {
 
     KrakenManager _krakenManager;
     bool _canAttack;
+
+    WaitForSeconds myWaitForSeconds = new(0.3f);
     public override void StartState(EnemyBehaviourManager parent) {
 
         _krakenManager = parent as KrakenManager;
@@ -79,6 +81,8 @@ public class KrakenStalactiteAttack : EnemyBehaviourSO {
 
             GameObject stalactite = PoolingManager.Instance.ReturnPrefabFromPool(stalactitePrefab, TypeOfSkillPrefab.Hitbox);
             stalactite.transform.position = stalactitePosition;
+            stalactite.GetComponent<Collider>().enabled = true;
+            stalactite.GetComponentInChildren<MeshRenderer>().enabled = true;
 
             GameObject warningVFX = PoolingManager.Instance.ReturnPrefabFromPool(stalactiteWarning, TypeOfSkillPrefab.VFX);
 
@@ -101,10 +105,10 @@ public class KrakenStalactiteAttack : EnemyBehaviourSO {
 
     IEnumerator StalactiteFall(GameObject stalactite) {
 
-        yield return new WaitForSeconds(cooldownBetweenWarningAndStalactite);
 
         stalactite.SetActive(true);
-
+        yield return new WaitForSeconds(cooldownBetweenWarningAndStalactite);
+        
         DamageContext context = new(
             damageAtributes,
             _krakenManager.KrakenStatus
@@ -116,7 +120,9 @@ public class KrakenStalactiteAttack : EnemyBehaviourSO {
             stalactite.transform.position += stalactiteFallSpeed * Time.deltaTime * Vector3.down;
             yield return null;
         }
-
+        stalactite.GetComponent<Collider>().enabled = false;
+        stalactite.GetComponentInChildren<MeshRenderer>().enabled = false;
+        yield return myWaitForSeconds;
         PoolingManager.Instance.ReturnObjectToPool(stalactite, TypeOfSkillPrefab.Hitbox);
     }
 
