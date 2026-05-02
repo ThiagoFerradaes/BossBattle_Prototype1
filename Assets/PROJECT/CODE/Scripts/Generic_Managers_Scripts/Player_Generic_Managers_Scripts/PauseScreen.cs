@@ -65,7 +65,7 @@ public class PauseScreen : MonoBehaviour {
 
         pauseScreen.SetActive(true);
 
-        HandleControlSystem();
+        //HandleControlSystem();
     }
 
     void HandleControlSystem() {
