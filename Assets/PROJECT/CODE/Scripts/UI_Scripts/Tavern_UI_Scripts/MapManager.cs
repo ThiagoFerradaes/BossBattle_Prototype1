@@ -40,6 +40,10 @@ public class MapManager : MonoBehaviour {
     [Foldout("Temp"), SerializeField] Button testIslandButton;
     [Foldout("Temp"), SerializeField] BossDescription TestIslandDescription;
 
+    [Foldout("Anim"), SerializeField] Animator anim;
+    [Foldout("Anim"), SerializeField] string openDifficultyScreenAnimation;
+    [Foldout("Anim"), SerializeField] string closeDifficultyScreenAnimation;
+
 
     Button _selectedIslandButton;
     PlayerInputHandlerManager _handler;
@@ -103,9 +107,13 @@ public class MapManager : MonoBehaviour {
         TurnIslandSelectSpriteOn(description.Boss);
 
         closeMapButton.gameObject.SetActive(false);
+
+        if (anim.gameObject.activeInHierarchy) anim.Play(openDifficultyScreenAnimation);
     }
 
     public void TurnDifficultyScreenOff(bool turnDifficultySreenOff = true) {
+
+        if (anim.gameObject.activeInHierarchy) anim.Play(closeDifficultyScreenAnimation);
 
         if (turnDifficultySreenOff) bossDifficultyManager.TurnBossDifficultyScreenOff();
 
