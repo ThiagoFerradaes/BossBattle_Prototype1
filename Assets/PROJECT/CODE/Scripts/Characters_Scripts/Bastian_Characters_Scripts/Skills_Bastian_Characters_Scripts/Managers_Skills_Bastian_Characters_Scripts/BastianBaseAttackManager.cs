@@ -15,7 +15,7 @@ public class BastianBaseAttackManager : SkillObjectManager {
     Coroutine _timerBetweenAttacksCoroutine;
 
     // Actions
-    public static event Action<int> OnShoot;
+    public static event Action<int, HeatArea> OnShoot;
 
     float _attackSpeedMultiplier;
     public override void HandleInput(SkillSO skill, InputAction.CallbackContext ctx) {
@@ -138,7 +138,7 @@ public class BastianBaseAttackManager : SkillObjectManager {
         };
 
 
-        OnShoot?.Invoke(_attackIndex);
+        OnShoot?.Invoke(_attackIndex, BastianPassiveManager.Instance.ReturnCurrentHeatArea());
 
         int heatArea = (int)BastianPassiveManager.Instance.ReturnCurrentHeatArea();
         AK.Wwise.Switch newSwitch = _info.Switchs[heatArea];
