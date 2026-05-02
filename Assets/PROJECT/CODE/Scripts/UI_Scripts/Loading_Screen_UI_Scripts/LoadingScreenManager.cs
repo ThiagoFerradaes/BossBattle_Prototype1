@@ -50,8 +50,6 @@ public class LoadingScreenManager : MonoBehaviour {
 
     void StartLoad() {
 
-        //AkUnitySoundEngine.StopAll();
-
         Application.runInBackground = true;
 
         Time.timeScale = 1.0f;
