@@ -756,8 +756,8 @@
 															<Modifier Name="" ID="{267673F4-638D-4A59-A35C-AFAE51F57F2B}">
 																<PropertyList>
 																	<Property Name="Enabled" Type="bool" Value="True"/>
-																	<Property Name="Max" Type="Real64" Value="20"/>
-																	<Property Name="Min" Type="Real64" Value="-5"/>
+																	<Property Name="Max" Type="Real64" Value="30"/>
+																	<Property Name="Min" Type="Real64" Value="-10"/>
 																</PropertyList>
 															</Modifier>
 														</ModifierInfo>
@@ -808,7 +808,7 @@
 																<Custom>
 																	<Effect Name="Guitar Distortion (Custom)" ID="{B529343D-BAEF-4A59-9A16-712E2EBE9819}" ShortID="893478812" PluginName="Wwise Guitar Distortion" CompanyID="0" PluginID="126" PluginType="3">
 																		<PropertyList>
-																			<Property Name="DistortionDrive" Type="Real32" Value="10"/>
+																			<Property Name="DistortionDrive" Type="Real32" Value="8"/>
 																			<Property Name="DistortionType" Type="int32" Value="1"/>
 																			<Property Name="OutputLevel" Type="Real32" Value="1.5"/>
 																		</PropertyList>
@@ -6208,7 +6208,7 @@
 															<Modifier Name="" ID="{1B4F0EED-F626-47A6-9986-4B131A642264}">
 																<PropertyList>
 																	<Property Name="Enabled" Type="bool" Value="True"/>
-																	<Property Name="Max" Type="Real64" Value="11"/>
+																	<Property Name="Max" Type="Real64" Value="27"/>
 																	<Property Name="Min" Type="Real64" Value="-17"/>
 																</PropertyList>
 															</Modifier>
@@ -6222,7 +6222,7 @@
 																<PropertyList>
 																	<Property Name="Enabled" Type="bool" Value="True"/>
 																	<Property Name="Max" Type="Real64" Value="200"/>
-																	<Property Name="Min" Type="Real64" Value="-100"/>
+																	<Property Name="Min" Type="Real64" Value="-150"/>
 																</PropertyList>
 															</Modifier>
 														</ModifierInfo>
@@ -6258,7 +6258,13 @@
 														<Property Name="Lowpass" Type="int16">
 															<ModifierList>
 																<ModifierInfo>
-																	<Modifier Name="" ID="{78F0A4A9-D226-4E03-A248-AB93BAA1306E}"/>
+																	<Modifier Name="" ID="{78F0A4A9-D226-4E03-A248-AB93BAA1306E}">
+																		<PropertyList>
+																			<Property Name="Enabled" Type="bool" Value="True"/>
+																			<Property Name="Max" Type="Real64" Value="12"/>
+																			<Property Name="Min" Type="Real64" Value="-13"/>
+																		</PropertyList>
+																	</Modifier>
 																</ModifierInfo>
 															</ModifierList>
 														</Property>
@@ -6274,6 +6280,9 @@
 															</ModifierList>
 														</Property>
 														<Property Name="Volume" Type="Real64">
+															<ValueList>
+																<Value>3</Value>
+															</ValueList>
 															<ModifierList>
 																<ModifierInfo>
 																	<Modifier Name="" ID="{40219D2A-53A6-4826-8E6D-D61616E01792}"/>
@@ -6292,6 +6301,18 @@
 													<ChildrenList>
 														<Sound Name="Woosh_01" ID="{337E2CFC-82BD-41D7-AC43-D19657F22EBF}" ShortID="637504898">
 															<PropertyList>
+																<Property Name="Inclusion" Type="bool">
+																	<ValueList>
+																		<Value>False</Value>
+																	</ValueList>
+																</Property>
+																<Property Name="Lowpass" Type="int16">
+																	<ModifierList>
+																		<ModifierInfo>
+																			<Modifier Name="" ID="{D8561FA3-9AC7-484B-836E-7C8B7ACFAD10}"/>
+																		</ModifierInfo>
+																	</ModifierList>
+																</Property>
 																<Property Name="OverrideEffect" Type="bool" Value="True"/>
 																<Property Name="Pitch" Type="int32">
 																	<ValueList>
@@ -6305,12 +6326,17 @@
 																</Property>
 																<Property Name="Volume" Type="Real64">
 																	<ValueList>
-																		<Value>4</Value>
+																		<Value>-5</Value>
 																	</ValueList>
+																	<ModifierList>
+																		<ModifierInfo>
+																			<Modifier Name="" ID="{185B48BB-0199-4B79-95A4-5F28B86D33AB}"/>
+																		</ModifierInfo>
+																	</ModifierList>
 																</Property>
 																<Property Name="Weight" Type="Real64">
 																	<ValueList>
-																		<Value>34</Value>
+																		<Value>21</Value>
 																	</ValueList>
 																</Property>
 															</PropertyList>
@@ -6341,12 +6367,24 @@
 														</Sound>
 														<Sound Name="Woosh_02" ID="{C9791441-2964-44AC-8322-ED333AA6AD6E}" ShortID="408607608">
 															<PropertyList>
+																<Property Name="Lowpass" Type="int16">
+																	<ModifierList>
+																		<ModifierInfo>
+																			<Modifier Name="" ID="{51340C71-E26C-49E3-A7BA-89A136D6792F}"/>
+																		</ModifierInfo>
+																	</ModifierList>
+																</Property>
 																<Property Name="Pitch" Type="int32">
 																	<ModifierList>
 																		<ModifierInfo>
 																			<Modifier Name="" ID="{A5008626-517A-4914-B8CD-5988ED774ACA}"/>
 																		</ModifierInfo>
 																	</ModifierList>
+																</Property>
+																<Property Name="Volume" Type="Real64">
+																	<ValueList>
+																		<Value>-3</Value>
+																	</ValueList>
 																</Property>
 																<Property Name="Weight" Type="Real64">
 																	<ValueList>
@@ -6382,6 +6420,13 @@
 														</Sound>
 														<Sound Name="Woosh_03" ID="{4008D054-7383-46FF-BF2D-79995BB0E5FA}" ShortID="364407892">
 															<PropertyList>
+																<Property Name="Lowpass" Type="int16">
+																	<ModifierList>
+																		<ModifierInfo>
+																			<Modifier Name="" ID="{AB6AA9F6-2D00-4B4E-BF05-7414136B7B90}"/>
+																		</ModifierInfo>
+																	</ModifierList>
+																</Property>
 																<Property Name="Pitch" Type="int32">
 																	<ModifierList>
 																		<ModifierInfo>
@@ -6425,7 +6470,7 @@
 																		<Custom>
 																			<Effect Name="Guitar Distortion (Custom)" ID="{CBDCE763-2506-4526-9B15-C73CBBA7B056}" ShortID="126975534" PluginName="Wwise Guitar Distortion" CompanyID="0" PluginID="126" PluginType="3">
 																				<PropertyList>
-																					<Property Name="DistortionDrive" Type="Real32" Value="0.3"/>
+																					<Property Name="DistortionDrive" Type="Real32" Value="0.5"/>
 																					<Property Name="DistortionType" Type="int32" Value="1"/>
 																				</PropertyList>
 																			</Effect>
@@ -6446,7 +6491,13 @@
 														<Property Name="Lowpass" Type="int16">
 															<ModifierList>
 																<ModifierInfo>
-																	<Modifier Name="" ID="{070007C0-4013-40CB-BDD2-1617B903B83E}"/>
+																	<Modifier Name="" ID="{070007C0-4013-40CB-BDD2-1617B903B83E}">
+																		<PropertyList>
+																			<Property Name="Enabled" Type="bool" Value="True"/>
+																			<Property Name="Max" Type="Real64" Value="18"/>
+																			<Property Name="Min" Type="Real64" Value="-16"/>
+																		</PropertyList>
+																	</Modifier>
 																</ModifierInfo>
 															</ModifierList>
 														</Property>
@@ -6464,7 +6515,13 @@
 														<Property Name="Volume" Type="Real64">
 															<ModifierList>
 																<ModifierInfo>
-																	<Modifier Name="" ID="{2986A6D8-2B18-4663-8003-3CA165C147C2}"/>
+																	<Modifier Name="" ID="{2986A6D8-2B18-4663-8003-3CA165C147C2}">
+																		<PropertyList>
+																			<Property Name="Enabled" Type="bool" Value="True"/>
+																			<Property Name="Max" Type="Real64" Value="1"/>
+																			<Property Name="Min" Type="Real64" Value="-1"/>
+																		</PropertyList>
+																	</Modifier>
 																</ModifierInfo>
 															</ModifierList>
 														</Property>
@@ -6542,13 +6599,62 @@
 																	</Reference>
 																</ReferenceList>
 															</EffectSlot>
+															<EffectSlot Name="" ID="{13B83C6B-5ADC-4755-B68C-015DECC3DE4C}" ShortID="524623007">
+																<ReferenceList>
+																	<Reference Name="Effect">
+																		<Custom>
+																			<Effect Name="Stereo Delay (Custom)" ID="{6CDC1FA4-4B37-4E2A-974C-21258DA7DEC8}" ShortID="1039163569" PluginName="Wwise Stereo Delay" CompanyID="0" PluginID="135" PluginType="3">
+																				<PropertyList>
+																					<Property Name="DryLevel" Type="Real32" Value="-8"/>
+																					<Property Name="LeftInputType" Type="int32" Value="2"/>
+																					<Property Name="RightInputType" Type="int32" Value="2"/>
+																					<Property Name="WetLevel" Type="Real32" Value="-9"/>
+																				</PropertyList>
+																			</Effect>
+																		</Custom>
+																	</Reference>
+																</ReferenceList>
+															</EffectSlot>
+															<EffectSlot Name="" ID="{E86BE9AA-8FC6-47F2-9B7D-218F7DC625D4}" ShortID="846898091">
+																<ReferenceList>
+																	<Reference Name="Effect">
+																		<Custom CreatedFrom="{A1F17D99-0801-4F32-B74E-ADB2D9ACC556}">
+																			<Effect Name="Fear_no_Evil (Custom)" ID="{A9A53CE1-B50A-488F-BA2E-E998DCEF76AC}" ShortID="1000732847" PluginName="Wwise Harmonizer" CompanyID="0" PluginID="138" PluginType="3">
+																				<PropertyList>
+																					<Property Name="DryLevel" Type="Real32" Value="-3"/>
+																					<Property Name="Voice1Pitch" Type="Real32" Value="-100"/>
+																					<Property Name="Voice2Enable" Type="bool" Value="True"/>
+																					<Property Name="Voice2Pitch" Type="Real32" Value="100"/>
+																				</PropertyList>
+																			</Effect>
+																		</Custom>
+																	</Reference>
+																</ReferenceList>
+															</EffectSlot>
+															<EffectSlot Name="" ID="{FE105FA7-8EC7-4C70-B10A-A3E28AA24F96}" ShortID="1033772505">
+																<ReferenceList>
+																	<Reference Name="Effect">
+																		<Custom CreatedFrom="{99F80B38-1C45-42CE-9BCD-E94F3885DCAA}">
+																			<Effect Name="Monsterize (Custom)" ID="{29CD8F59-11B2-4F11-9455-4EDB85F5E2D2}" ShortID="574856209" PluginName="Wwise Pitch Shifter" CompanyID="0" PluginID="136" PluginType="3">
+																				<PropertyList>
+																					<Property Name="DryLevel" Type="Real32" Value="3"/>
+																					<Property Name="FilterFrequency" Type="Real32" Value="8250"/>
+																					<Property Name="FilterType" Type="int32" Value="2"/>
+																					<Property Name="Pitch" Type="Real32" Value="-1200"/>
+																					<Property Name="WetLevel" Type="Real32" Value="5"/>
+																				</PropertyList>
+																			</Effect>
+																		</Custom>
+																	</Reference>
+																</ReferenceList>
+															</EffectSlot>
 															<EffectSlot Name="" ID="{DC87C86F-D90B-46C3-AC92-5ECDEE5FB47D}" ShortID="540035726">
 																<ReferenceList>
 																	<Reference Name="Effect">
 																		<Custom>
 																			<Effect Name="Guitar Distortion (Custom)" ID="{C4DDB2C9-0473-4FBA-8D33-F26F17413B1C}" ShortID="783637256" PluginName="Wwise Guitar Distortion" CompanyID="0" PluginID="126" PluginType="3">
 																				<PropertyList>
-																					<Property Name="DistortionDrive" Type="Real32" Value="1"/>
+																					<Property Name="DistortionDrive" Type="Real32" Value="7"/>
 																					<Property Name="DistortionType" Type="int32" Value="1"/>
 																					<Property Name="PreEQBand1Enable" Type="bool" Value="True"/>
 																					<Property Name="PreEQBand1FilterType" Type="int32" Value="3"/>
@@ -8155,7 +8261,7 @@
 												</Property>
 												<Property Name="Volume" Type="Real64">
 													<ValueList>
-														<Value>1</Value>
+														<Value>3</Value>
 													</ValueList>
 													<ModifierList>
 														<ModifierInfo>
@@ -8288,7 +8394,7 @@
 														<Property Name="OverrideEffect" Type="bool" Value="True"/>
 														<Property Name="Pitch" Type="int32">
 															<ValueList>
-																<Value>-230</Value>
+																<Value>-650</Value>
 															</ValueList>
 															<ModifierList>
 																<ModifierInfo>
@@ -8327,13 +8433,47 @@
 													</ChildrenList>
 													<ObjectLists>
 														<ObjectList Name="Effects">
+															<EffectSlot Name="" ID="{CA29AC6A-F901-437F-A8B1-0C53756F3D2D}" ShortID="426298645">
+																<ReferenceList>
+																	<Reference Name="Effect">
+																		<Custom CreatedFrom="{A1F17D99-0801-4F32-B74E-ADB2D9ACC556}">
+																			<Effect Name="Fear_no_Evil (Custom)" ID="{307E7DE9-20D3-4762-9245-C5E4354A2D57}" ShortID="106487808" PluginName="Wwise Harmonizer" CompanyID="0" PluginID="138" PluginType="3">
+																				<PropertyList>
+																					<Property Name="DryLevel" Type="Real32" Value="-3"/>
+																					<Property Name="Voice1Pitch" Type="Real32" Value="-100"/>
+																					<Property Name="Voice2Enable" Type="bool" Value="True"/>
+																					<Property Name="Voice2Pitch" Type="Real32" Value="100"/>
+																					<Property Name="WetLevel" Type="Real32" Value="-9"/>
+																				</PropertyList>
+																			</Effect>
+																		</Custom>
+																	</Reference>
+																</ReferenceList>
+															</EffectSlot>
+															<EffectSlot Name="" ID="{AEC538CE-7B68-4D86-A0DE-693ABB6C22DF}" ShortID="192891810">
+																<ReferenceList>
+																	<Reference Name="Effect">
+																		<Custom CreatedFrom="{99F80B38-1C45-42CE-9BCD-E94F3885DCAA}">
+																			<Effect Name="Monsterize (Custom)" ID="{C1432CA9-0D92-45C6-84B4-645D0805572C}" ShortID="596958442" PluginName="Wwise Pitch Shifter" CompanyID="0" PluginID="136" PluginType="3">
+																				<PropertyList>
+																					<Property Name="DryLevel" Type="Real32" Value="-1"/>
+																					<Property Name="FilterFrequency" Type="Real32" Value="8250"/>
+																					<Property Name="FilterType" Type="int32" Value="2"/>
+																					<Property Name="Pitch" Type="Real32" Value="-1200"/>
+																					<Property Name="WetLevel" Type="Real32" Value="-31"/>
+																				</PropertyList>
+																			</Effect>
+																		</Custom>
+																	</Reference>
+																</ReferenceList>
+															</EffectSlot>
 															<EffectSlot Name="" ID="{55F7CC13-4070-4701-96EE-806226D18B3C}" ShortID="947925820">
 																<ReferenceList>
 																	<Reference Name="Effect">
 																		<Custom>
 																			<Effect Name="Guitar Distortion (Custom)" ID="{92302C6B-A13D-453B-BE36-01F044DDD9AF}" ShortID="882297707" PluginName="Wwise Guitar Distortion" CompanyID="0" PluginID="126" PluginType="3">
 																				<PropertyList>
-																					<Property Name="DistortionDrive" Type="Real32" Value="3"/>
+																					<Property Name="DistortionDrive" Type="Real32" Value="11"/>
 																					<Property Name="DistortionType" Type="int32" Value="1"/>
 																				</PropertyList>
 																			</Effect>
@@ -8380,7 +8520,7 @@
 												</Property>
 												<Property Name="Volume" Type="Real64">
 													<ValueList>
-														<Value>1</Value>
+														<Value>3</Value>
 													</ValueList>
 													<ModifierList>
 														<ModifierInfo>
@@ -8557,13 +8697,47 @@
 													</ChildrenList>
 													<ObjectLists>
 														<ObjectList Name="Effects">
-															<EffectSlot Name="" ID="{88D0E066-E5C7-4095-9A23-C1C14D549C43}" ShortID="356187037">
+															<EffectSlot Name="" ID="{BAF9EAEA-2472-4311-953D-5F6BB3004233}" ShortID="201316177">
+																<ReferenceList>
+																	<Reference Name="Effect">
+																		<Custom CreatedFrom="{A1F17D99-0801-4F32-B74E-ADB2D9ACC556}">
+																			<Effect Name="Fear_no_Evil (Custom)" ID="{8A584EF1-CFB5-4237-87AB-45765A92EDBC}" ShortID="170208044" PluginName="Wwise Harmonizer" CompanyID="0" PluginID="138" PluginType="3">
+																				<PropertyList>
+																					<Property Name="DryLevel" Type="Real32" Value="-3"/>
+																					<Property Name="Voice1Pitch" Type="Real32" Value="-100"/>
+																					<Property Name="Voice2Enable" Type="bool" Value="True"/>
+																					<Property Name="Voice2Pitch" Type="Real32" Value="100"/>
+																					<Property Name="WetLevel" Type="Real32" Value="-9"/>
+																				</PropertyList>
+																			</Effect>
+																		</Custom>
+																	</Reference>
+																</ReferenceList>
+															</EffectSlot>
+															<EffectSlot Name="" ID="{863A343F-8409-4DA8-96B6-A7A470042E88}" ShortID="602846046">
+																<ReferenceList>
+																	<Reference Name="Effect">
+																		<Custom CreatedFrom="{99F80B38-1C45-42CE-9BCD-E94F3885DCAA}">
+																			<Effect Name="Monsterize (Custom)" ID="{7B10F52E-74F9-4BCC-BBB4-8FB0A8210D1E}" ShortID="542057699" PluginName="Wwise Pitch Shifter" CompanyID="0" PluginID="136" PluginType="3">
+																				<PropertyList>
+																					<Property Name="DryLevel" Type="Real32" Value="-1"/>
+																					<Property Name="FilterFrequency" Type="Real32" Value="8250"/>
+																					<Property Name="FilterType" Type="int32" Value="2"/>
+																					<Property Name="Pitch" Type="Real32" Value="-1200"/>
+																					<Property Name="WetLevel" Type="Real32" Value="-31"/>
+																				</PropertyList>
+																			</Effect>
+																		</Custom>
+																	</Reference>
+																</ReferenceList>
+															</EffectSlot>
+															<EffectSlot Name="" ID="{1F224109-D7ED-45B4-B9BC-D285B39A84CF}" ShortID="72426665">
 																<ReferenceList>
 																	<Reference Name="Effect">
 																		<Custom>
-																			<Effect Name="Guitar Distortion (Custom)" ID="{285A586D-574D-4C3A-8D25-017D5A492957}" ShortID="572270910" PluginName="Wwise Guitar Distortion" CompanyID="0" PluginID="126" PluginType="3">
+																			<Effect Name="Guitar Distortion (Custom)" ID="{9F413D70-0F6A-46D1-BFA4-3C864BCD97C0}" ShortID="926670316" PluginName="Wwise Guitar Distortion" CompanyID="0" PluginID="126" PluginType="3">
 																				<PropertyList>
-																					<Property Name="DistortionDrive" Type="Real32" Value="2"/>
+																					<Property Name="DistortionDrive" Type="Real32" Value="11"/>
 																					<Property Name="DistortionType" Type="int32" Value="1"/>
 																				</PropertyList>
 																			</Effect>
@@ -8610,7 +8784,7 @@
 												</Property>
 												<Property Name="Volume" Type="Real64">
 													<ValueList>
-														<Value>1</Value>
+														<Value>3</Value>
 													</ValueList>
 													<ModifierList>
 														<ModifierInfo>
@@ -8770,13 +8944,47 @@
 													</ChildrenList>
 													<ObjectLists>
 														<ObjectList Name="Effects">
-															<EffectSlot Name="" ID="{3458F95E-A8AC-46E6-98F5-88A722EB11BF}" ShortID="7640227">
+															<EffectSlot Name="" ID="{ED89D47A-C2F6-4CDC-B320-24D2967C9C3E}" ShortID="895582795">
+																<ReferenceList>
+																	<Reference Name="Effect">
+																		<Custom CreatedFrom="{A1F17D99-0801-4F32-B74E-ADB2D9ACC556}">
+																			<Effect Name="Fear_no_Evil (Custom)" ID="{C473CA6D-09A0-41FE-B0FC-93114A3B2270}" ShortID="643211734" PluginName="Wwise Harmonizer" CompanyID="0" PluginID="138" PluginType="3">
+																				<PropertyList>
+																					<Property Name="DryLevel" Type="Real32" Value="-3"/>
+																					<Property Name="Voice1Pitch" Type="Real32" Value="-100"/>
+																					<Property Name="Voice2Enable" Type="bool" Value="True"/>
+																					<Property Name="Voice2Pitch" Type="Real32" Value="100"/>
+																					<Property Name="WetLevel" Type="Real32" Value="-9"/>
+																				</PropertyList>
+																			</Effect>
+																		</Custom>
+																	</Reference>
+																</ReferenceList>
+															</EffectSlot>
+															<EffectSlot Name="" ID="{2D21C867-0518-4F09-89FD-0C4FE4144655}" ShortID="410171349">
+																<ReferenceList>
+																	<Reference Name="Effect">
+																		<Custom CreatedFrom="{99F80B38-1C45-42CE-9BCD-E94F3885DCAA}">
+																			<Effect Name="Monsterize (Custom)" ID="{D6ACAA03-DDE9-43F7-93AE-612902A0015E}" ShortID="49333056" PluginName="Wwise Pitch Shifter" CompanyID="0" PluginID="136" PluginType="3">
+																				<PropertyList>
+																					<Property Name="DryLevel" Type="Real32" Value="-1"/>
+																					<Property Name="FilterFrequency" Type="Real32" Value="8250"/>
+																					<Property Name="FilterType" Type="int32" Value="2"/>
+																					<Property Name="Pitch" Type="Real32" Value="-1200"/>
+																					<Property Name="WetLevel" Type="Real32" Value="-31"/>
+																				</PropertyList>
+																			</Effect>
+																		</Custom>
+																	</Reference>
+																</ReferenceList>
+															</EffectSlot>
+															<EffectSlot Name="" ID="{A0D96F7B-95B0-4689-9B50-B85C396D6802}" ShortID="499735417">
 																<ReferenceList>
 																	<Reference Name="Effect">
 																		<Custom>
-																			<Effect Name="Guitar Distortion (Custom)" ID="{94FE7B69-19E7-42FC-A406-062194425E54}" ShortID="118976320" PluginName="Wwise Guitar Distortion" CompanyID="0" PluginID="126" PluginType="3">
+																			<Effect Name="Guitar Distortion (Custom)" ID="{8360D61D-ED15-478F-8B9C-4596A0616AAB}" ShortID="187491010" PluginName="Wwise Guitar Distortion" CompanyID="0" PluginID="126" PluginType="3">
 																				<PropertyList>
-																					<Property Name="DistortionDrive" Type="Real32" Value="2"/>
+																					<Property Name="DistortionDrive" Type="Real32" Value="11"/>
 																					<Property Name="DistortionType" Type="int32" Value="1"/>
 																				</PropertyList>
 																			</Effect>
@@ -8851,6 +9059,15 @@
 									</ReferenceList>
 									<ChildrenList>
 										<RandomSequenceContainer Name="Drag Tentacle" ID="{278414E2-DF75-4C89-9CA2-BA93BA7316E8}" ShortID="752466731">
+											<PropertyList>
+												<Property Name="Volume" Type="Real64">
+													<ModifierList>
+														<ModifierInfo>
+															<Modifier Name="" ID="{8C4FDC9A-23FE-4D13-99A0-419E056D89A1}"/>
+														</ModifierInfo>
+													</ModifierList>
+												</Property>
+											</PropertyList>
 											<ReferenceList>
 												<Reference Name="Conversion">
 													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
@@ -8874,6 +9091,13 @@
 															<ValueList>
 																<Value>-900</Value>
 															</ValueList>
+														</Property>
+														<Property Name="Volume" Type="Real64">
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{7E7A016D-80F4-43C0-A0DD-BB30ED05D4CA}"/>
+																</ModifierInfo>
+															</ModifierList>
 														</Property>
 													</PropertyList>
 													<ReferenceList>
@@ -8945,6 +9169,13 @@
 																<Value>-310</Value>
 															</ValueList>
 														</Property>
+														<Property Name="Volume" Type="Real64">
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{FFD47A5E-F46B-4633-A972-F4D9FBB30A07}"/>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
 													</PropertyList>
 													<ReferenceList>
 														<Reference Name="Conversion">
@@ -9015,6 +9246,13 @@
 																<Value>-480</Value>
 															</ValueList>
 														</Property>
+														<Property Name="Volume" Type="Real64">
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{38FC488F-7262-46D5-A0B8-28E463C1B8FA}"/>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
 													</PropertyList>
 													<ReferenceList>
 														<Reference Name="Conversion">
@@ -9077,6 +9315,15 @@
 											</ChildrenList>
 										</RandomSequenceContainer>
 										<RandomSequenceContainer Name="Rise Up" ID="{B17373C0-F42F-417B-AF81-E23A71C3C75B}" ShortID="711188603">
+											<PropertyList>
+												<Property Name="Volume" Type="Real64">
+													<ModifierList>
+														<ModifierInfo>
+															<Modifier Name="" ID="{212124CD-95FB-4A7D-B5D6-B927418185F7}"/>
+														</ModifierInfo>
+													</ModifierList>
+												</Property>
+											</PropertyList>
 											<ReferenceList>
 												<Reference Name="Conversion">
 													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
@@ -9440,6 +9687,55 @@
 													</Reference>
 												</ReferenceList>
 											</EffectSlot>
+											<EffectSlot Name="" ID="{21835371-05DC-4FD7-BC0C-F6A68452280C}" ShortID="664618815">
+												<ReferenceList>
+													<Reference Name="Effect">
+														<Custom>
+															<Effect Name="Stereo Delay (Custom)" ID="{1E779BD8-E407-4E47-AFB7-17B55DE57DE7}" ShortID="608437530" PluginName="Wwise Stereo Delay" CompanyID="0" PluginID="135" PluginType="3">
+																<PropertyList>
+																	<Property Name="DryLevel" Type="Real32" Value="-8"/>
+																	<Property Name="LeftInputType" Type="int32" Value="2"/>
+																	<Property Name="RightInputType" Type="int32" Value="2"/>
+																	<Property Name="WetLevel" Type="Real32" Value="-9"/>
+																</PropertyList>
+															</Effect>
+														</Custom>
+													</Reference>
+												</ReferenceList>
+											</EffectSlot>
+											<EffectSlot Name="" ID="{620270AE-41B4-4ABD-B94B-60946134B264}" ShortID="682052453">
+												<ReferenceList>
+													<Reference Name="Effect">
+														<Custom CreatedFrom="{A1F17D99-0801-4F32-B74E-ADB2D9ACC556}">
+															<Effect Name="Fear_no_Evil (Custom)" ID="{AD63253F-F554-4572-B97B-B33160C470C1}" ShortID="773773816" PluginName="Wwise Harmonizer" CompanyID="0" PluginID="138" PluginType="3">
+																<PropertyList>
+																	<Property Name="DryLevel" Type="Real32" Value="-3"/>
+																	<Property Name="Voice1Pitch" Type="Real32" Value="-100"/>
+																	<Property Name="Voice2Enable" Type="bool" Value="True"/>
+																	<Property Name="Voice2Pitch" Type="Real32" Value="100"/>
+																</PropertyList>
+															</Effect>
+														</Custom>
+													</Reference>
+												</ReferenceList>
+											</EffectSlot>
+											<EffectSlot Name="" ID="{50A866CE-7FC0-4766-BBC6-4241A21976A9}" ShortID="952414720">
+												<ReferenceList>
+													<Reference Name="Effect">
+														<Custom CreatedFrom="{99F80B38-1C45-42CE-9BCD-E94F3885DCAA}">
+															<Effect Name="Monsterize (Custom)" ID="{B3C863DC-EF1A-44DC-BE3F-03B4E80EFD96}" ShortID="827799676" PluginName="Wwise Pitch Shifter" CompanyID="0" PluginID="136" PluginType="3">
+																<PropertyList>
+																	<Property Name="DryLevel" Type="Real32" Value="-1"/>
+																	<Property Name="FilterFrequency" Type="Real32" Value="8250"/>
+																	<Property Name="FilterType" Type="int32" Value="2"/>
+																	<Property Name="Pitch" Type="Real32" Value="-1200"/>
+																	<Property Name="WetLevel" Type="Real32" Value="-31"/>
+																</PropertyList>
+															</Effect>
+														</Custom>
+													</Reference>
+												</ReferenceList>
+											</EffectSlot>
 										</ObjectList>
 									</ObjectLists>
 								</RandomSequenceContainer>
@@ -9492,7 +9788,7 @@
 										<Property Name="SpeakerPanning3DSpatializationMix" Type="int32" Value="89"/>
 										<Property Name="Volume" Type="Real64">
 											<ValueList>
-												<Value>-7</Value>
+												<Value>-6</Value>
 											</ValueList>
 											<ModifierList>
 												<ModifierInfo>
@@ -10855,6 +11151,13 @@
 									<PropertyList>
 										<Property Name="EnableAttenuation" Type="bool" Value="False"/>
 										<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+										<Property Name="Lowpass" Type="int16">
+											<ModifierList>
+												<ModifierInfo>
+													<Modifier Name="" ID="{12B723F2-894D-45BA-91FB-2A98C7CDED7A}"/>
+												</ModifierInfo>
+											</ModifierList>
+										</Property>
 										<Property Name="Volume" Type="Real64">
 											<ValueList>
 												<Value>-5</Value>
@@ -10872,6 +11175,9 @@
 									<ChildrenList>
 										<AudioFileSource Name="Tavern_4" ID="{1CC023B7-ED32-4453-9F3F-E1E0765A6561}">
 											<PropertyList>
+												<Property Name="LoopBegin" Type="Real64" Value="0.664776983629445"/>
+												<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+												<Property Name="TrimBegin" Type="Real64" Value="0.664776983629445"/>
 												<Property Name="TrimEnd" Type="Real64" Value="140.941"/>
 											</PropertyList>
 											<Language>SFX</Language>
@@ -13623,7 +13929,7 @@
 														<PropertyList>
 															<Property Name="Enabled" Type="bool" Value="True"/>
 															<Property Name="Max" Type="Real64" Value="3"/>
-															<Property Name="Min" Type="Real64" Value="-2"/>
+															<Property Name="Min" Type="Real64" Value="-1"/>
 														</PropertyList>
 													</Modifier>
 												</ModifierInfo>
@@ -13727,7 +14033,7 @@
 														<PropertyList>
 															<Property Name="Enabled" Type="bool" Value="True"/>
 															<Property Name="Max" Type="Real64" Value="3"/>
-															<Property Name="Min" Type="Real64" Value="-2"/>
+															<Property Name="Min" Type="Real64" Value="-1"/>
 														</PropertyList>
 													</Modifier>
 												</ModifierInfo>
@@ -13803,7 +14109,17 @@
 							<ChildrenList>
 								<BlendContainer Name="Victory Screen" ID="{FB72ECA3-515E-4836-A4F6-6538F6FDD8FC}" ShortID="911534693">
 									<PropertyList>
+										<Property Name="Lowpass" Type="int16">
+											<ModifierList>
+												<ModifierInfo>
+													<Modifier Name="" ID="{75B6C827-6183-458C-A766-322438453232}"/>
+												</ModifierInfo>
+											</ModifierList>
+										</Property>
 										<Property Name="Pitch" Type="int32">
+											<ValueList>
+												<Value>-15</Value>
+											</ValueList>
 											<ModifierList>
 												<ModifierInfo>
 													<Modifier Name="" ID="{0C1F92A4-F77A-4984-9342-22A5109F8149}"/>
@@ -14035,7 +14351,20 @@
 								<BlendContainer Name="Death Screen" ID="{9DA855EF-4949-4058-B686-331B1CE0BA6B}" ShortID="919237457">
 									<PropertyList>
 										<Property Name="BlendBehavior" Type="int16" Value="1"/>
+										<Property Name="Lowpass" Type="int16">
+											<ValueList>
+												<Value>22</Value>
+											</ValueList>
+											<ModifierList>
+												<ModifierInfo>
+													<Modifier Name="" ID="{4F963FF6-ED35-40F6-8A41-2509F70C0096}"/>
+												</ModifierInfo>
+											</ModifierList>
+										</Property>
 										<Property Name="Pitch" Type="int32">
+											<ValueList>
+												<Value>-20</Value>
+											</ValueList>
 											<ModifierList>
 												<ModifierInfo>
 													<Modifier Name="" ID="{518A6677-3490-443A-A8B8-F04F4D887A88}"/>
@@ -14233,6 +14562,24 @@
 											</ActiveSourceList>
 										</Sound>
 									</ChildrenList>
+									<ObjectLists>
+										<ObjectList Name="Effects">
+											<EffectSlot Name="" ID="{35273370-26F7-456A-B7DB-B71096BBFC8A}" ShortID="572412575">
+												<ReferenceList>
+													<Reference Name="Effect">
+														<Custom>
+															<Effect Name="Guitar Distortion (Custom)" ID="{FAD09EC6-0358-42C9-A29F-397A36252268}" ShortID="435783693" PluginName="Wwise Guitar Distortion" CompanyID="0" PluginID="126" PluginType="3">
+																<PropertyList>
+																	<Property Name="DistortionDrive" Type="Real32" Value="2"/>
+																	<Property Name="DistortionType" Type="int32" Value="1"/>
+																</PropertyList>
+															</Effect>
+														</Custom>
+													</Reference>
+												</ReferenceList>
+											</EffectSlot>
+										</ObjectList>
+									</ObjectLists>
 								</BlendContainer>
 							</ChildrenList>
 						</Folder>
@@ -14587,6 +14934,20 @@
 													</Reference>
 												</ReferenceList>
 											</EffectSlot>
+											<EffectSlot Name="" ID="{7B8D16E0-8BC8-4B4D-969F-CE7A66480250}" ShortID="753991566">
+												<ReferenceList>
+													<Reference Name="Effect">
+														<Custom>
+															<Effect Name="Guitar Distortion (Custom)" ID="{712893F7-14E2-4266-9572-55608FD0A5C3}" ShortID="180215729" PluginName="Wwise Guitar Distortion" CompanyID="0" PluginID="126" PluginType="3">
+																<PropertyList>
+																	<Property Name="DistortionDrive" Type="Real32" Value="4"/>
+																	<Property Name="DistortionType" Type="int32" Value="1"/>
+																</PropertyList>
+															</Effect>
+														</Custom>
+													</Reference>
+												</ReferenceList>
+											</EffectSlot>
 										</ObjectList>
 									</ObjectLists>
 									<ActiveSourceList>
@@ -14706,7 +15067,8 @@
 													<Modifier Name="" ID="{49E9BA53-C3B2-4539-8D0A-27006DF2D229}">
 														<PropertyList>
 															<Property Name="Enabled" Type="bool" Value="True"/>
-															<Property Name="Max" Type="Real64" Value="10"/>
+															<Property Name="Max" Type="Real64" Value="18"/>
+															<Property Name="Min" Type="Real64" Value="-14"/>
 														</PropertyList>
 													</Modifier>
 												</ModifierInfo>
@@ -14888,7 +15250,8 @@
 													<Modifier Name="" ID="{57B93C61-4188-42B8-8F84-6ACD9054AFEB}">
 														<PropertyList>
 															<Property Name="Enabled" Type="bool" Value="True"/>
-															<Property Name="Max" Type="Real64" Value="10"/>
+															<Property Name="Max" Type="Real64" Value="15"/>
+															<Property Name="Min" Type="Real64" Value="-8"/>
 														</PropertyList>
 													</Modifier>
 												</ModifierInfo>
@@ -15039,10 +15402,29 @@
 								</RandomSequenceContainer>
 								<SwitchContainer Name="Level Selection" ID="{B798D031-5918-406D-8916-1A0D03DCCCE1}" ShortID="975248357">
 									<PropertyList>
+										<Property Name="Lowpass" Type="int16">
+											<ModifierList>
+												<ModifierInfo>
+													<Modifier Name="" ID="{1A23A7D6-4F7C-454E-95BC-96F213377B79}">
+														<PropertyList>
+															<Property Name="Enabled" Type="bool" Value="True"/>
+															<Property Name="Max" Type="Real64" Value="7"/>
+															<Property Name="Min" Type="Real64" Value="-12"/>
+														</PropertyList>
+													</Modifier>
+												</ModifierInfo>
+											</ModifierList>
+										</Property>
 										<Property Name="Pitch" Type="int32">
 											<ModifierList>
 												<ModifierInfo>
-													<Modifier Name="" ID="{3BDF4428-A66F-4A6C-96F6-B042B6CB7995}"/>
+													<Modifier Name="" ID="{3BDF4428-A66F-4A6C-96F6-B042B6CB7995}">
+														<PropertyList>
+															<Property Name="Enabled" Type="bool" Value="True"/>
+															<Property Name="Max" Type="Real64" Value="225"/>
+															<Property Name="Min" Type="Real64" Value="-100"/>
+														</PropertyList>
+													</Modifier>
 												</ModifierInfo>
 											</ModifierList>
 										</Property>
@@ -15420,6 +15802,13 @@
 								<Sound Name="Enter Dialogue" ID="{FA0B18B4-68E7-45B1-83DA-97D325088A18}" ShortID="184266842">
 									<PropertyList>
 										<Property Name="Color" Type="int16" Value="4"/>
+										<Property Name="Lowpass" Type="int16">
+											<ModifierList>
+												<ModifierInfo>
+													<Modifier Name="" ID="{EE632CEE-D380-4D8D-A334-ED5C03E91D25}"/>
+												</ModifierInfo>
+											</ModifierList>
+										</Property>
 										<Property Name="Pitch" Type="int32">
 											<ModifierList>
 												<ModifierInfo>
@@ -15474,6 +15863,19 @@
 								<Sound Name="Pass Dialogue" ID="{68EAF1C1-7A3A-458C-BD85-F71F1B6B0C48}" ShortID="903702610">
 									<PropertyList>
 										<Property Name="Color" Type="int16" Value="4"/>
+										<Property Name="Lowpass" Type="int16">
+											<ModifierList>
+												<ModifierInfo>
+													<Modifier Name="" ID="{336621FF-7218-4AB8-9E6E-D87ABA46A371}">
+														<PropertyList>
+															<Property Name="Enabled" Type="bool" Value="True"/>
+															<Property Name="Max" Type="Real64" Value="22"/>
+															<Property Name="Min" Type="Real64" Value="-18"/>
+														</PropertyList>
+													</Modifier>
+												</ModifierInfo>
+											</ModifierList>
+										</Property>
 										<Property Name="Pitch" Type="int32">
 											<ModifierList>
 												<ModifierInfo>
@@ -15528,6 +15930,13 @@
 								<Sound Name="Skip Dialogue" ID="{B4321980-0EB4-4F40-A184-75592617EC24}" ShortID="649382415">
 									<PropertyList>
 										<Property Name="Color" Type="int16" Value="4"/>
+										<Property Name="Lowpass" Type="int16">
+											<ModifierList>
+												<ModifierInfo>
+													<Modifier Name="" ID="{89E2C712-3C98-4800-BF5A-905973FF0E37}"/>
+												</ModifierInfo>
+											</ModifierList>
+										</Property>
 										<Property Name="Pitch" Type="int32">
 											<ModifierList>
 												<ModifierInfo>
@@ -15587,6 +15996,13 @@
 								<Sound Name="Auto Dialogue" ID="{965596E9-A612-416F-A9EE-D427A88AD69C}" ShortID="1044960485">
 									<PropertyList>
 										<Property Name="Color" Type="int16" Value="4"/>
+										<Property Name="Lowpass" Type="int16">
+											<ModifierList>
+												<ModifierInfo>
+													<Modifier Name="" ID="{C662BD99-A23F-4165-BDED-0268A2F285BD}"/>
+												</ModifierInfo>
+											</ModifierList>
+										</Property>
 										<Property Name="Pitch" Type="int32">
 											<ModifierList>
 												<ModifierInfo>
@@ -15643,6 +16059,13 @@
 								<Sound Name="Exit Dialogue" ID="{38CE3D3F-1DAF-4678-9E53-97EB90653B06}" ShortID="748195902">
 									<PropertyList>
 										<Property Name="Color" Type="int16" Value="4"/>
+										<Property Name="Lowpass" Type="int16">
+											<ModifierList>
+												<ModifierInfo>
+													<Modifier Name="" ID="{BE27E145-2152-421C-8CBD-79FD72A1D215}"/>
+												</ModifierInfo>
+											</ModifierList>
+										</Property>
 										<Property Name="Pitch" Type="int32">
 											<ModifierList>
 												<ModifierInfo>
@@ -15697,6 +16120,13 @@
 								<Sound Name="Dialogue Required" ID="{FFE97BAA-57B8-41BB-990D-043BE7911FCB}" ShortID="176013169">
 									<PropertyList>
 										<Property Name="Color" Type="int16" Value="4"/>
+										<Property Name="Lowpass" Type="int16">
+											<ModifierList>
+												<ModifierInfo>
+													<Modifier Name="" ID="{EAB07AA4-E80E-4336-9612-6FD68B861A73}"/>
+												</ModifierInfo>
+											</ModifierList>
+										</Property>
 										<Property Name="Pitch" Type="int32">
 											<ValueList>
 												<Value>-180</Value>

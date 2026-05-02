@@ -10,7 +10,7 @@
     "Type": "Event",
     "GUID": "{ED693462-E626-4E73-962F-BBEE4E926F14}",
     "Language": "SFX",
-    "Hash": "{0F7B8980-8C2C-4DF5-7825-EA372D51F6EC}",
+    "Hash": "{54EF950A-BCE3-454F-FDAD-144D27AED133}",
     "ObjectPath": "Play_Preparation",
     "ShortName": "Play_Preparation",
     "Path": "Event/Play_Preparation.bnk",
@@ -41,15 +41,6 @@
       "ShortName": "SPFX_prepare_woosh_Kraken_02.wav",
       "Path": "Media/738458967.wem",
       "CachePath": "7D/{7DF31D86-98F9-7281-0BB7-5E0FDD6434F0}.wem"
-     },
-     {
-      "Id": "769131885",
-      "Language": "SFX",
-      "Streaming": "false",
-      "Location": "Loose",
-      "ShortName": "SPFX_prepare_woosh_Kraken_01.wav",
-      "Path": "Media/769131885.wem",
-      "CachePath": "DF/{DF8CE127-5285-823D-34E6-9E4D52156A5E}.wem"
      }
     ],
     "Plugins": {
@@ -63,6 +54,14 @@
        "LibId": "8257539"
       },
       {
+       "Id": "574856209",
+       "Name": "Monsterize (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\Attack\\Preparation\\Prepare\\[Effect Slot [4]: (Pitch Shifter)]\\Monsterize (Custom)",
+       "GUID": "{29CD8F59-11B2-4F11-9455-4EDB85F5E2D2}",
+       "LibName": "Wwise Pitch Shifter",
+       "LibId": "8912899"
+      },
+      {
        "Id": "670135798",
        "Name": "Phone_Booth (Custom)",
        "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\Attack\\Preparation\\Prepare\\[Effect Slot [1]: (RoomVerb)]\\Phone_Booth (Custom)",
@@ -73,10 +72,26 @@
       {
        "Id": "783637256",
        "Name": "Guitar Distortion (Custom)",
-       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\Attack\\Preparation\\Prepare\\[Effect Slot [2]: (Guitar Distortion)]\\Guitar Distortion (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\Attack\\Preparation\\Prepare\\[Effect Slot [5]: (Guitar Distortion)]\\Guitar Distortion (Custom)",
        "GUID": "{C4DDB2C9-0473-4FBA-8D33-F26F17413B1C}",
        "LibName": "Wwise Guitar Distortion",
        "LibId": "8257539"
+      },
+      {
+       "Id": "1000732847",
+       "Name": "Fear_no_Evil (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\Attack\\Preparation\\Prepare\\[Effect Slot [3]: (Harmonizer)]\\Fear_no_Evil (Custom)",
+       "GUID": "{A9A53CE1-B50A-488F-BA2E-E998DCEF76AC}",
+       "LibName": "Wwise Harmonizer",
+       "LibId": "9043971"
+      },
+      {
+       "Id": "1039163569",
+       "Name": "Stereo Delay (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\Attack\\Preparation\\Prepare\\[Effect Slot [2]: (Stereo Delay)]\\Stereo Delay (Custom)",
+       "GUID": "{6CDC1FA4-4B37-4E2A-974C-21258DA7DEC8}",
+       "LibName": "Wwise Stereo Delay",
+       "LibId": "8847363"
       },
       {
        "Id": "1039930494",
@@ -96,8 +111,8 @@
       "GUID": "{ED693462-E626-4E73-962F-BBEE4E926F14}",
       "Color": "8",
       "DurationType": "OneShot",
-      "DurationMin": "0.8308569",
-      "DurationMax": "1.0462354",
+      "DurationMin": "0.86022514",
+      "DurationMax": "1.0768925",
       "MediaRefs": [
        {
         "Id": "621240962"
@@ -107,9 +122,6 @@
        },
        {
         "Id": "738458967"
-       },
-       {
-        "Id": "769131885"
        }
       ],
       "PluginRefs": {
@@ -118,10 +130,19 @@
          "Id": "126975534"
         },
         {
+         "Id": "574856209"
+        },
+        {
          "Id": "670135798"
         },
         {
          "Id": "783637256"
+        },
+        {
+         "Id": "1000732847"
+        },
+        {
+         "Id": "1039163569"
         },
         {
          "Id": "1039930494"
@@ -132,6 +153,6 @@
     ]
    }
   ],
-  "FileHash": "{BD3CFB7D-3EAC-3C08-1FF9-9F7CDE6BCF5F}"
+  "FileHash": "{7B788095-54CE-9285-11AF-CBEF3C633D2F}"
  }
 }
