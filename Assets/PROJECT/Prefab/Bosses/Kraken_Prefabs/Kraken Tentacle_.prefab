@@ -714,10 +714,82 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 00cf0b1c30abfe04e9ff3f91f6a478b2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3177198228284101899}
   m_SourcePrefab: {fileID: 100100000, guid: 00cf0b1c30abfe04e9ff3f91f6a478b2, type: 3}
 --- !u!4 &3523163889386959352 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 00cf0b1c30abfe04e9ff3f91f6a478b2, type: 3}
   m_PrefabInstance: {fileID: 3994257022351169043}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &4300685068031290178 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 00cf0b1c30abfe04e9ff3f91f6a478b2, type: 3}
+  m_PrefabInstance: {fileID: 3994257022351169043}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3177198228284101899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4300685068031290178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a206af037d92eb4c9e8bfd4a418b8b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::KrakenAudio
+  tentacleIdleEvent:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 2909b5416a443c74fa069ff651ffc9a7, type: 2}
+  warningTentacleAttackEvent:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: e21490a35345dcd47b9320f18d5d163f, type: 2}
+  tentacleSwingEvent:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 5242ede6e69da6d4990400f80fd7a510, type: 2}
+  airSwingEvent:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 6071b70b632431941be8aa50180a2932, type: 2}
+  tentacleImpactEvent:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: ee2fc7ef1c533774cbc28408979906c0, type: 2}
+  rocksCrackingEvent:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 176b49dfea4b0c6439df88f5bde5fde8, type: 2}
+  waterSplashingEvent:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: b0b560bd470fd6d47acc1f548eb83589, type: 2}
+  tentaclePrepareEvent:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: bc3262deaf00f5947b33448f120c57ec, type: 2}
+  tentacleDragEvent:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 42ffd640b863d7f47a2c124707921187, type: 2}
+  tentacleRisingEvent:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: ffd50ee289aee3744bc66696a7ff6df6, type: 2}
+  tentacleStalactiteWipEvent:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: e03a0dd7e6bc145448aa8c26d45f27e3, type: 2}
+  stopTentacleStalactiteWipEvent:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: f838c6884669fc24dad2300d19e546d7, type: 2}
+  idleVolumeRTPC:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: d52525460b329ea48a1f2f607f73a28b, type: 2}
