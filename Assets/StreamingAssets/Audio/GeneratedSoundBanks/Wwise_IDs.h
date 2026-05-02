@@ -79,6 +79,7 @@ namespace AK
         static const AkUniqueID PLAY_VICTORY_SCREEN = 939402867U;
         static const AkUniqueID PLAY_WARNING_SIREN = 293184560U;
         static const AkUniqueID PLAY_WATER = 441572235U;
+        static const AkUniqueID PLAY_WATER_KRAKEN = 4273409992U;
         static const AkUniqueID PLAY_WATERFALL = 467174588U;
         static const AkUniqueID PLAY_WIND = 1020223172U;
         static const AkUniqueID STOP_STALACTITE_WIP = 1304530187U;

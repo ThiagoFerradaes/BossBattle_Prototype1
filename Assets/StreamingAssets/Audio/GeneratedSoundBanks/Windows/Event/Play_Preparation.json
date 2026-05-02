@@ -10,7 +10,7 @@
     "Type": "Event",
     "GUID": "{ED693462-E626-4E73-962F-BBEE4E926F14}",
     "Language": "SFX",
-    "Hash": "{54EF950A-BCE3-454F-FDAD-144D27AED133}",
+    "Hash": "{F70D71CA-83F9-E321-7347-C5A725E8F6C6}",
     "ObjectPath": "Play_Preparation",
     "ShortName": "Play_Preparation",
     "Path": "Event/Play_Preparation.bnk",
@@ -31,7 +31,7 @@
       "Location": "Loose",
       "ShortName": "SPFX_prepare_slime_Kraken_01.wav",
       "Path": "Media/622687840.wem",
-      "CachePath": "FD/{FDA63E40-9C12-3D2D-10BB-92C6F4A31883}.wem"
+      "CachePath": "65/{65BA9A03-B623-D50C-1638-3AEFDEDF0C94}.wem"
      },
      {
       "Id": "738458967",
@@ -46,6 +46,14 @@
     "Plugins": {
      "Custom": [
       {
+       "Id": "47000358",
+       "Name": "Tremolo (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\Attack\\Preparation\\Prepare\\[Effect Slot [1]: (Tremolo)]\\Tremolo (Custom)",
+       "GUID": "{B5085B0E-F0C8-4A8A-B51F-3F7D1D869C17}",
+       "LibName": "Wwise Tremolo",
+       "LibId": "8585219"
+      },
+      {
        "Id": "126975534",
        "Name": "Guitar Distortion (Custom)",
        "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\Attack\\Preparation\\Woosh\\[Effect Slot [0]: (Guitar Distortion)]\\Guitar Distortion (Custom)",
@@ -56,50 +64,18 @@
       {
        "Id": "574856209",
        "Name": "Monsterize (Custom)",
-       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\Attack\\Preparation\\Prepare\\[Effect Slot [4]: (Pitch Shifter)]\\Monsterize (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\Attack\\Preparation\\Prepare\\[Effect Slot [0]: (Pitch Shifter)]\\Monsterize (Custom)",
        "GUID": "{29CD8F59-11B2-4F11-9455-4EDB85F5E2D2}",
        "LibName": "Wwise Pitch Shifter",
        "LibId": "8912899"
       },
       {
-       "Id": "670135798",
-       "Name": "Phone_Booth (Custom)",
-       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\Attack\\Preparation\\Prepare\\[Effect Slot [1]: (RoomVerb)]\\Phone_Booth (Custom)",
-       "GUID": "{0EB10D69-3FC1-4418-97CA-C12304030A6D}",
-       "LibName": "Wwise RoomVerb",
-       "LibId": "7733251"
-      },
-      {
        "Id": "783637256",
        "Name": "Guitar Distortion (Custom)",
-       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\Attack\\Preparation\\Prepare\\[Effect Slot [5]: (Guitar Distortion)]\\Guitar Distortion (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\Attack\\Preparation\\Prepare\\[Effect Slot [2]: (Guitar Distortion)]\\Guitar Distortion (Custom)",
        "GUID": "{C4DDB2C9-0473-4FBA-8D33-F26F17413B1C}",
        "LibName": "Wwise Guitar Distortion",
        "LibId": "8257539"
-      },
-      {
-       "Id": "1000732847",
-       "Name": "Fear_no_Evil (Custom)",
-       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\Attack\\Preparation\\Prepare\\[Effect Slot [3]: (Harmonizer)]\\Fear_no_Evil (Custom)",
-       "GUID": "{A9A53CE1-B50A-488F-BA2E-E998DCEF76AC}",
-       "LibName": "Wwise Harmonizer",
-       "LibId": "9043971"
-      },
-      {
-       "Id": "1039163569",
-       "Name": "Stereo Delay (Custom)",
-       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\Attack\\Preparation\\Prepare\\[Effect Slot [2]: (Stereo Delay)]\\Stereo Delay (Custom)",
-       "GUID": "{6CDC1FA4-4B37-4E2A-974C-21258DA7DEC8}",
-       "LibName": "Wwise Stereo Delay",
-       "LibId": "8847363"
-      },
-      {
-       "Id": "1039930494",
-       "Name": "Flanger (Custom)",
-       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\Attack\\Preparation\\Prepare\\[Effect Slot [0]: (Flanger)]\\Flanger (Custom)",
-       "GUID": "{E2613E89-38AE-48C9-8934-D0F785F80D2E}",
-       "LibName": "Wwise Flanger",
-       "LibId": "8192003"
       }
      ]
     },
@@ -110,9 +86,10 @@
       "ObjectPath": "\\Events\\Default Work Unit\\SFX\\Kraken\\Preparation\\Play_Preparation",
       "GUID": "{ED693462-E626-4E73-962F-BBEE4E926F14}",
       "Color": "8",
+      "MaxAttenuation": "100",
       "DurationType": "OneShot",
-      "DurationMin": "0.86022514",
-      "DurationMax": "1.0768925",
+      "DurationMin": "0.9380821",
+      "DurationMax": "1.1409279",
       "MediaRefs": [
        {
         "Id": "621240962"
@@ -127,25 +104,16 @@
       "PluginRefs": {
        "Custom": [
         {
+         "Id": "47000358"
+        },
+        {
          "Id": "126975534"
         },
         {
          "Id": "574856209"
         },
         {
-         "Id": "670135798"
-        },
-        {
          "Id": "783637256"
-        },
-        {
-         "Id": "1000732847"
-        },
-        {
-         "Id": "1039163569"
-        },
-        {
-         "Id": "1039930494"
         }
        ]
       }
@@ -153,6 +121,6 @@
     ]
    }
   ],
-  "FileHash": "{7B788095-54CE-9285-11AF-CBEF3C633D2F}"
+  "FileHash": "{41491A00-1B14-B617-27D1-19BBD00F5BC4}"
  }
 }

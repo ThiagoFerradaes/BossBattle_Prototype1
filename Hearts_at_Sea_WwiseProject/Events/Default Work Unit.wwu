@@ -322,7 +322,7 @@
 												<Action Name="" ID="{961DDA5F-3CBB-4F1D-9E92-2B2BE888DF0B}" ShortID="553668232">
 													<PropertyList>
 														<Property Name="FadeInCurve" Type="int16" Value="7"/>
-														<Property Name="FadeTime" Type="Real64" Value="0.1"/>
+														<Property Name="FadeTime" Type="Real64" Value="1"/>
 													</PropertyList>
 													<ReferenceList>
 														<Reference Name="Target">
@@ -343,7 +343,7 @@
 														<Action Name="" ID="{AD4BDB80-6EDF-49E9-9641-2D40183130F3}" ShortID="47207957">
 															<PropertyList>
 																<Property Name="FadeInCurve" Type="int16" Value="7"/>
-																<Property Name="FadeTime" Type="Real64" Value="1.1"/>
+																<Property Name="FadeTime" Type="Real64" Value="3"/>
 															</PropertyList>
 															<ReferenceList>
 																<Reference Name="Target">
@@ -366,7 +366,7 @@
 														<Action Name="" ID="{CCB77358-14BD-47A2-B148-FD7A9988BF74}" ShortID="1021605878">
 															<PropertyList>
 																<Property Name="FadeInCurve" Type="int16" Value="7"/>
-																<Property Name="FadeTime" Type="Real64" Value="0.1"/>
+																<Property Name="FadeTime" Type="Real64" Value="2"/>
 															</PropertyList>
 															<ReferenceList>
 																<Reference Name="Target">
@@ -389,7 +389,7 @@
 														<Action Name="" ID="{759AD4F4-355C-419C-BF9E-25DCFDF08057}" ShortID="978774361">
 															<PropertyList>
 																<Property Name="FadeInCurve" Type="int16" Value="7"/>
-																<Property Name="FadeTime" Type="Real64" Value="0.2"/>
+																<Property Name="FadeTime" Type="Real64" Value="2"/>
 															</PropertyList>
 															<ReferenceList>
 																<Reference Name="Target">
@@ -425,6 +425,29 @@
 															<ReferenceList>
 																<Reference Name="Target">
 																	<ObjectRef Name="Waterfall" ID="{06FF3339-353F-459D-B997-8DB17C9B5A97}" WorkUnitID="{5274A5F1-8227-4981-A61F-0F3417CB92FE}"/>
+																</Reference>
+															</ReferenceList>
+														</Action>
+													</ChildrenList>
+												</Event>
+											</ChildrenList>
+										</Folder>
+										<Folder Name="Water" ID="{0BFF27D5-C66F-4C44-912F-CB2A424113BD}" ShortID="591920842">
+											<PropertyList>
+												<Property Name="Color" Type="int16" Value="1"/>
+												<Property Name="OverrideColor" Type="bool" Value="True"/>
+											</PropertyList>
+											<ChildrenList>
+												<Event Name="Play_Water_Kraken" ID="{8F88759E-C673-4263-AAA3-673FD0675877}">
+													<ChildrenList>
+														<Action Name="" ID="{AC4D03E8-2DDA-4803-9258-C1E9F902CAEC}" ShortID="931172782">
+															<PropertyList>
+																<Property Name="FadeInCurve" Type="int16" Value="7"/>
+																<Property Name="FadeTime" Type="Real64" Value="0.1"/>
+															</PropertyList>
+															<ReferenceList>
+																<Reference Name="Target">
+																	<ObjectRef Name="Water_Kraken" ID="{15439207-DCA1-4D65-B336-C5E6FE506D92}" WorkUnitID="{5274A5F1-8227-4981-A61F-0F3417CB92FE}"/>
 																</Reference>
 															</ReferenceList>
 														</Action>
