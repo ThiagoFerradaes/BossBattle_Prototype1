@@ -9,13 +9,13 @@ public class MusicPlayer : MonoBehaviour {
     [SerializeField, ShowIf("hasSwitch")] AK.Wwise.Switch musicSwitch;
 
     [SerializeField] AK.Wwise.Event newMusic = null;
-    [SerializeField, ShowIf("hasAmbience")] List<AK.Wwise.Event> newAmbienceList = null;
+    [SerializeField, ShowIf("hasAmbience")] List<GameObject> ambiencePrefabs = null;
 
     private void Start() {
         AkUnitySoundEngine.StopAll();
 
         PlayMusic();
-        PlayAmbience();
+        SpawnAmbiencePrefabs();
     }
 
     void PlayMusic() {
@@ -24,12 +24,16 @@ public class MusicPlayer : MonoBehaviour {
         newMusic.Post(gameObject);
     }
 
-    void PlayAmbience() {
-        if (hasAmbience) {
-            foreach (var ambience in newAmbienceList) {
-                ambience.Post(gameObject);
+    void SpawnAmbiencePrefabs()
+    {
+        if (!hasAmbience || ambiencePrefabs == null) return;
+
+        foreach (var prefab in ambiencePrefabs)
+        {
+            if (prefab != null)
+            {
+                Instantiate(prefab, prefab.transform.position, prefab.transform.rotation);
             }
         }
     }
-
 }

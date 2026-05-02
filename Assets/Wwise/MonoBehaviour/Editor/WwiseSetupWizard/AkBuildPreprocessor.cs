@@ -119,14 +119,14 @@ public partial class AkBuildPreprocessor : UnityEditor.Build.IPreprocessBuild, U
 		if (!AkBasePathGetter.GetSoundBankPaths(platformName, out sourceFolder, out destinationFolder))
 			return false;
 
-		if (!AkUtilities.DirectoryCopy(sourceFolder, destinationFolder, true))
-		{
-			destinationFolder = null;
-			WwiseLogger.ErrorFormat("Could not copy SoundBank folder for <{0}> platform", platformName);
-			return false;
-		}
+        if (!AkUtilities.DirectoryCopy(sourceFolder, destinationFolder, true, skipMetaFiles: true))
+        {
+            destinationFolder = null;
+            WwiseLogger.ErrorFormat("Could not copy SoundBank folder for <{0}> platform", platformName);
+            return false;
+        }
 
-		WwiseLogger.Log($"Copied SoundBank folder from <{sourceFolder}> to streaming assets folder <{destinationFolder}> for <{platformName}> platform build");
+        WwiseLogger.Log($"Copied SoundBank folder from <{sourceFolder}> to streaming assets folder <{destinationFolder}> for <{platformName}> platform build");
 		return true;
 	}
 
