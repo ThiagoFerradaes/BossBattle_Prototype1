@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Walls
-  m_Shader: {fileID: -6465566751694194690, guid: 30d1ed6b055ee1d4c9bdbc6e07cb3a8b, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 7919bf72e5bf8a94c9177b0319679cc6, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
@@ -30,7 +30,7 @@ Material:
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 1
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 2450
   stringTagMap:
     RenderType: TransparentCutout
   disabledShaderPasses:
@@ -40,6 +40,10 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _AlphaMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _AlphaTexture:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -110,6 +114,7 @@ Material:
     - _BumpScale: 5
     - _Buraco: 0
     - _CastShadows: 1
+    - _CharScreenPos_Alpha: 0
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
     - _Cull: 0
@@ -133,14 +138,14 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _IsTarvern: 0
+    - _IsTarvern: 1
     - _METALLICSPECGLOSSMAP: 0
     - _MaxBias: -0.55
     - _Metallic: 0
     - _MinBias: -0.55
     - _NORMALMAP: 0
     - _Noise_Scale: 0
-    - _Noise_Strength: 15
+    - _Noise_Strength: 0
     - _OCCLUSIONMAP: 0
     - _OcclusionStrength: 1
     - _PARALLAXMAP: 0
@@ -152,8 +157,8 @@ Material:
     - _ReflectionDirectionBool: 0
     - _ReflectionLightIntensity: 2
     - _ReflectionLightSpace: 0.41
-    - _Size: 0.45
-    - _Smoothnes: 0.3
+    - _Size: 0.3
+    - _Smoothnes: 0.15
     - _Smoothness: 0.2
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -169,10 +174,11 @@ Material:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _CellLightDirection: {r: 0, g: 1, b: 0, a: 0}
     - _CellShadowColor: {r: 0.21509436, g: 0.21509436, b: 0.21509436, a: 0}
-    - _Character_Position: {r: 7.3211746, g: -1, b: -1.1588221, a: 0}
+    - _CharScreenPos_Alpha: {r: 0, g: 0, b: 0, a: 0}
+    - _Character_Position: {r: 5.0612345, g: -1, b: -3.9012444, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _Position: {r: 0.5, g: 0.2, b: 0, a: 0}
+    - _Position: {r: 0.53, g: 0.2, b: 0, a: 0}
     - _ReflectionLightColor: {r: 1, g: 1, b: 1, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []

@@ -2330,6 +2330,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: de762181c8fd5b9478815e03412466bf, type: 2}
     - target: {fileID: 2459607429800364346, guid: 9f180adf3489d7e4fab2a19cc5da8da0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2459607429800364346, guid: 9f180adf3489d7e4fab2a19cc5da8da0, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
@@ -2899,7 +2903,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8204228224886815333, guid: 9f180adf3489d7e4fab2a19cc5da8da0, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8204228224886815333, guid: 9f180adf3489d7e4fab2a19cc5da8da0, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -4732,8 +4736,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7dc752f9dfe7bc4eba08a8e54fe0b54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  manager: {fileID: 1442508815}
-  wallMaterial: {fileID: 2100000, guid: 2d3a0221bc17be44584e67bdb806166d, type: 2}
+  playerManager: {fileID: 1442508817}
 --- !u!1 &750137332
 GameObject:
   m_ObjectHideFlags: 0
@@ -7320,10 +7323,6 @@ MonoBehaviour:
   - {fileID: 7765992401839114045, guid: 3c4c09ea37f631f4fa8926a7a3e1edba, type: 3}
   - {fileID: 7849622874725117107, guid: 4f0601e59d2c2a549a89141a2e8cedb5, type: 3}
   - {fileID: 8785261444944102842, guid: 62a5cd9d6b7b74d4e8671c681f1cf001, type: 3}
-  generalVolumeRTPC:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 94ac143847bceb142a8c98c087377452, type: 2}
 --- !u!114 &1442508821
 MonoBehaviour:
   m_ObjectHideFlags: 0
