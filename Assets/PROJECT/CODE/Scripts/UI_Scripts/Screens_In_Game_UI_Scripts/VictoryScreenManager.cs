@@ -10,6 +10,7 @@ public class VictoryScreenManager : MonoBehaviour
     [SerializeField] Button tavernButton;
     [SerializeField] LoadingScreenSO menuLoadingInfo;
     [SerializeField] LoadingScreenSO tavernLoadingInfo;
+    [SerializeField] AK.Wwise.Event victoryMusic;
 
     private void Awake()
     {
@@ -39,6 +40,9 @@ public class VictoryScreenManager : MonoBehaviour
     {
         victoryScreen.SetActive(true);
         Time.timeScale = 0;
+
+        AkUnitySoundEngine.StopAll();
+        victoryMusic.Post(gameObject);
     }
 
     void TurnScreenOff()
