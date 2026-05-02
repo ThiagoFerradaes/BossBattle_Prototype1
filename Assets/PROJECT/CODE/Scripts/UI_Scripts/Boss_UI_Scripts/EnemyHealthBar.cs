@@ -27,9 +27,20 @@ public class EnemyHealthBar : MonoBehaviour
     }
 
     void UpdateHealthBar(float currentHealth, float maxHealth) {
+
         healthBar.fillAmount = currentHealth / maxHealth;
-        if (currentHealth == 0) gameObject.SetActive(false);
-        if (healthBar.fillAmount < 1) damageBarCoroutine ??= StartCoroutine(UpdateDamageBar());
+
+        if (currentHealth == 0) {
+            gameObject.SetActive(false);
+            healthManager.OnHealthChanged -= UpdateHealthBar;
+            return;
+        }
+
+        if (healthBar.fillAmount < 1) {
+            if (!gameObject.activeInHierarchy) return;
+
+            damageBarCoroutine ??= StartCoroutine(UpdateDamageBar());
+        }
     }
 
     IEnumerator UpdateDamageBar() {

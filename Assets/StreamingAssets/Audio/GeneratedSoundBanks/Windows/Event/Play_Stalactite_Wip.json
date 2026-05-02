@@ -1,0 +1,112 @@
+{
+ "SoundBanksInfo": {
+  "Platform": "Windows",
+  "BasePlatform": "Windows",
+  "SchemaVersion": "16",
+  "SoundBankVersion": "172",
+  "SoundBanks": [
+   {
+    "Id": "1390673645",
+    "Type": "Event",
+    "GUID": "{64298A45-5B8E-43E4-9D5F-6DB4DE3D0C24}",
+    "Language": "SFX",
+    "Hash": "{5C8664B2-9401-8CC6-2BF4-C1CEB2CF3C76}",
+    "ObjectPath": "Play_Stalactite_Wip",
+    "ShortName": "Play_Stalactite_Wip",
+    "Path": "Event/Play_Stalactite_Wip.bnk",
+    "Media": [
+     {
+      "Id": "25396952",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Loose",
+      "ShortName": "SFX_idle_Kraken_01.wav",
+      "Path": "Media/25396952.wem",
+      "CachePath": "DE/{DEB38E66-3F80-422F-A485-B36310C80E31}.wem"
+     },
+     {
+      "Id": "131662449",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Loose",
+      "ShortName": "SFX_idle_Kraken_03.wav",
+      "Path": "Media/131662449.wem",
+      "CachePath": "1D/{1DBD811C-EF3D-03A2-C1F0-02E78789CBD8}.wem"
+     }
+    ],
+    "Plugins": {
+     "Custom": [
+      {
+       "Id": "151950908",
+       "Name": "Monsterize (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\Stalactite\\Wip\\[Effect Slot [3]: (Pitch Shifter)]\\Monsterize (Custom)",
+       "GUID": "{27AAEBF5-E774-4558-8DF3-1F507BFB67D8}",
+       "LibName": "Wwise Pitch Shifter",
+       "LibId": "8912899"
+      },
+      {
+       "Id": "529980050",
+       "Name": "Fear_no_Evil (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\Stalactite\\Wip\\[Effect Slot [2]: (Harmonizer)]\\Fear_no_Evil (Custom)",
+       "GUID": "{EF68C4D0-4D60-443A-8733-3852555CCDBC}",
+       "LibName": "Wwise Harmonizer",
+       "LibId": "9043971"
+      },
+      {
+       "Id": "598168491",
+       "Name": "Stereo Delay (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\Stalactite\\Wip\\[Effect Slot [0]: (Stereo Delay)]\\Stereo Delay (Custom)",
+       "GUID": "{05511239-B375-4D9F-92EF-0ACEC4A5E8DD}",
+       "LibName": "Wwise Stereo Delay",
+       "LibId": "8847363"
+      },
+      {
+       "Id": "850292924",
+       "Name": "Guitar Distortion (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\Stalactite\\Wip\\[Effect Slot [1]: (Guitar Distortion)]\\Guitar Distortion (Custom)",
+       "GUID": "{31D52DAF-1FEC-42D4-A418-ACA2A03553B1}",
+       "LibName": "Wwise Guitar Distortion",
+       "LibId": "8257539"
+      }
+     ]
+    },
+    "Events": [
+     {
+      "Id": "1390673645",
+      "Name": "Play_Stalactite_Wip",
+      "ObjectPath": "\\Events\\Default Work Unit\\SFX\\Kraken\\Stalactite\\Play_Stalactite_Wip",
+      "GUID": "{64298A45-5B8E-43E4-9D5F-6DB4DE3D0C24}",
+      "Color": "8",
+      "MaxAttenuation": "100",
+      "DurationType": "Infinite",
+      "MediaRefs": [
+       {
+        "Id": "25396952"
+       },
+       {
+        "Id": "131662449"
+       }
+      ],
+      "PluginRefs": {
+       "Custom": [
+        {
+         "Id": "151950908"
+        },
+        {
+         "Id": "529980050"
+        },
+        {
+         "Id": "598168491"
+        },
+        {
+         "Id": "850292924"
+        }
+       ]
+      }
+     }
+    ]
+   }
+  ],
+  "FileHash": "{0E9EFEEE-B36D-9D81-B13C-B37B1463629E}"
+ }
+}

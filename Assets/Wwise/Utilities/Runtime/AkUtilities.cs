@@ -1,4 +1,4 @@
-/*******************************************************************************
+﻿/*******************************************************************************
 The content of this file includes portions of the proprietary AUDIOKINETIC Wwise
 Technology released in source code form as part of the game integration package.
 The content of this file may not be used without valid licenses to the
@@ -780,48 +780,51 @@ public partial class AkUtilities
 		return System.IO.Path.GetFullPath(System.IO.Path.Combine(BasePath, RelativePath));
 	}
 
-	public static bool DirectoryCopy(string sourceDirName, string destDirName, bool copySubDirs)
-	{
-		var dir = new System.IO.DirectoryInfo(sourceDirName);
-		if (!dir.Exists)
-		{
-			WwiseLogger.Error("Source directory doesn't exist");
-			return false;
-		}
+    public static bool DirectoryCopy(string sourceDirName, string destDirName, bool copySubDirs, bool skipMetaFiles = true)
+    {
+        var dir = new System.IO.DirectoryInfo(sourceDirName);
+        if (!dir.Exists)
+        {
+            WwiseLogger.Error("Source directory doesn't exist");
+            return false;
+        }
 
-		if (!System.IO.Directory.Exists(destDirName))
-		{
-			System.IO.Directory.CreateDirectory(destDirName);
-		}
+        if (!System.IO.Directory.Exists(destDirName))
+        {
+            System.IO.Directory.CreateDirectory(destDirName);
+        }
 
-		var files = dir.GetFiles();
-		foreach (var file in files)
-		{
-			var destFilePath = System.IO.Path.Combine(destDirName, file.Name);
-			if (System.IO.File.Exists(destFilePath))
-			{
-				WwiseLogger.WarningFormat("Destination file path will be overwritten: {0}", destFilePath);
-			}
+        var files = dir.GetFiles();
+        foreach (var file in files)
+        {
+            if (skipMetaFiles && file.Extension.Equals(".meta", StringComparison.OrdinalIgnoreCase))
+                continue;
 
-			file.CopyTo(destFilePath, true);
-		}
+            var destFilePath = System.IO.Path.Combine(destDirName, file.Name);
+            if (System.IO.File.Exists(destFilePath))
+            {
+                WwiseLogger.WarningFormat("Destination file path will be overwritten: {0}", destFilePath);
+            }
 
-		if (!copySubDirs)
-		{
-			return true;
-		}
+            file.CopyTo(destFilePath, true);
+        }
 
-		var dirs = dir.GetDirectories();
-		foreach (var subdir in dirs)
-		{
-			var destSubDirName = System.IO.Path.Combine(destDirName, subdir.Name);
-			DirectoryCopy(subdir.FullName, destSubDirName, copySubDirs);
-		}
+        if (!copySubDirs)
+        {
+            return true;
+        }
 
-		return true;
-	}
+        var dirs = dir.GetDirectories();
+        foreach (var subdir in dirs)
+        {
+            var destSubDirName = System.IO.Path.Combine(destDirName, subdir.Name);
+            DirectoryCopy(subdir.FullName, destSubDirName, copySubDirs, skipMetaFiles);
+        }
 
-	public static bool MoveAssetsFromDirectory(string sourceDirName, string destDirName, bool copySubDirs)
+        return true;
+    }
+
+    public static bool MoveAssetsFromDirectory(string sourceDirName, string destDirName, bool copySubDirs)
 	{
 		var dir = new System.IO.DirectoryInfo(sourceDirName);
 		if (!dir.Exists)

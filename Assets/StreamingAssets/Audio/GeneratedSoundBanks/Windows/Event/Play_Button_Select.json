@@ -10,7 +10,7 @@
     "Type": "Event",
     "GUID": "{F3F4B022-E20E-423B-95DD-7FD42987BD88}",
     "Language": "SFX",
-    "Hash": "{8D63690C-3ED3-12E7-635E-3807D6C8D6E7}",
+    "Hash": "{F310226D-B2DD-765B-1C8A-F10A77C3344A}",
     "ObjectPath": "Play_Button_Select",
     "ShortName": "Play_Button_Select",
     "Path": "Event/Play_Button_Select.bnk",
@@ -25,6 +25,26 @@
       "CachePath": "C0/{C0149D44-21AE-5A4D-8734-BB1B9D94446F}.wem"
      }
     ],
+    "Plugins": {
+     "Custom": [
+      {
+       "Id": "759904118",
+       "Name": "Pitch Shifter (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\UI\\Buttons\\Select\\[Effect Slot [1]: (Pitch Shifter)]\\Pitch Shifter (Custom)",
+       "GUID": "{45E6F6E5-D5E9-4FE8-A5D4-605237170F24}",
+       "LibName": "Wwise Pitch Shifter",
+       "LibId": "8912899"
+      },
+      {
+       "Id": "1038873811",
+       "Name": "Parametric EQ (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\UI\\Buttons\\Select\\[Effect Slot [0]: (Parametric EQ)]\\Parametric EQ (Custom)",
+       "GUID": "{2B6E0CF4-E9CF-4F89-818E-8F0A318B7C30}",
+       "LibName": "Wwise Parametric EQ",
+       "LibId": "6881283"
+      }
+     ]
+    },
     "Events": [
      {
       "Id": "2034692297",
@@ -33,17 +53,27 @@
       "GUID": "{F3F4B022-E20E-423B-95DD-7FD42987BD88}",
       "Color": "24",
       "DurationType": "OneShot",
-      "DurationMin": "1.4464685",
-      "DurationMax": "1.452329",
+      "DurationMin": "1.4257308",
+      "DurationMax": "1.9611524",
       "MediaRefs": [
        {
         "Id": "795787807"
        }
-      ]
+      ],
+      "PluginRefs": {
+       "Custom": [
+        {
+         "Id": "759904118"
+        },
+        {
+         "Id": "1038873811"
+        }
+       ]
+      }
      }
     ]
    }
   ],
-  "FileHash": "{4A47F7B3-CB2F-A98C-BA19-D6D25AF8654F}"
+  "FileHash": "{7BB0D6BC-4A4A-D7A0-6A88-C812A5B16EFC}"
  }
 }

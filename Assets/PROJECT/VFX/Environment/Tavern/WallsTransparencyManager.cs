@@ -3,21 +3,17 @@ using UnityEngine;
 public class WallsTransparencyManager : MonoBehaviour
 {
 
+    //GameObject manager;
     [SerializeField]
-    GameObject manager;
-    [SerializeField]
-    Material wallMaterial;
-
     PlayerManager playerManager;
 
     void Start()
     {
-        playerManager = manager.GetComponent<PlayerManager>();
+        //playerManager = manager.GetComponent<PlayerManager>();
     }
 
     void Update()
     {
-        wallMaterial.SetVector("_Character_Position", playerManager.Player.transform.position);
-        //Debug.Log(playerManager.Player.transform.position);
+        Shader.SetGlobalVector("_CharScreenPos_Alpha", Camera.main.WorldToViewportPoint(playerManager.Player.transform.position));
     }
 }

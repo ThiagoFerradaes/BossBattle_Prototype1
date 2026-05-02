@@ -10,7 +10,7 @@
     "Type": "Event",
     "GUID": "{ED693462-E626-4E73-962F-BBEE4E926F14}",
     "Language": "SFX",
-    "Hash": "{0F7B8980-8C2C-4DF5-7825-EA372D51F6EC}",
+    "Hash": "{F70D71CA-83F9-E321-7347-C5A725E8F6C6}",
     "ObjectPath": "Play_Preparation",
     "ShortName": "Play_Preparation",
     "Path": "Event/Play_Preparation.bnk",
@@ -31,7 +31,7 @@
       "Location": "Loose",
       "ShortName": "SPFX_prepare_slime_Kraken_01.wav",
       "Path": "Media/622687840.wem",
-      "CachePath": "FD/{FDA63E40-9C12-3D2D-10BB-92C6F4A31883}.wem"
+      "CachePath": "65/{65BA9A03-B623-D50C-1638-3AEFDEDF0C94}.wem"
      },
      {
       "Id": "738458967",
@@ -41,19 +41,18 @@
       "ShortName": "SPFX_prepare_woosh_Kraken_02.wav",
       "Path": "Media/738458967.wem",
       "CachePath": "7D/{7DF31D86-98F9-7281-0BB7-5E0FDD6434F0}.wem"
-     },
-     {
-      "Id": "769131885",
-      "Language": "SFX",
-      "Streaming": "false",
-      "Location": "Loose",
-      "ShortName": "SPFX_prepare_woosh_Kraken_01.wav",
-      "Path": "Media/769131885.wem",
-      "CachePath": "DF/{DF8CE127-5285-823D-34E6-9E4D52156A5E}.wem"
      }
     ],
     "Plugins": {
      "Custom": [
+      {
+       "Id": "47000358",
+       "Name": "Tremolo (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\Attack\\Preparation\\Prepare\\[Effect Slot [1]: (Tremolo)]\\Tremolo (Custom)",
+       "GUID": "{B5085B0E-F0C8-4A8A-B51F-3F7D1D869C17}",
+       "LibName": "Wwise Tremolo",
+       "LibId": "8585219"
+      },
       {
        "Id": "126975534",
        "Name": "Guitar Distortion (Custom)",
@@ -63,12 +62,12 @@
        "LibId": "8257539"
       },
       {
-       "Id": "670135798",
-       "Name": "Phone_Booth (Custom)",
-       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\Attack\\Preparation\\Prepare\\[Effect Slot [1]: (RoomVerb)]\\Phone_Booth (Custom)",
-       "GUID": "{0EB10D69-3FC1-4418-97CA-C12304030A6D}",
-       "LibName": "Wwise RoomVerb",
-       "LibId": "7733251"
+       "Id": "574856209",
+       "Name": "Monsterize (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\Attack\\Preparation\\Prepare\\[Effect Slot [0]: (Pitch Shifter)]\\Monsterize (Custom)",
+       "GUID": "{29CD8F59-11B2-4F11-9455-4EDB85F5E2D2}",
+       "LibName": "Wwise Pitch Shifter",
+       "LibId": "8912899"
       },
       {
        "Id": "783637256",
@@ -77,14 +76,6 @@
        "GUID": "{C4DDB2C9-0473-4FBA-8D33-F26F17413B1C}",
        "LibName": "Wwise Guitar Distortion",
        "LibId": "8257539"
-      },
-      {
-       "Id": "1039930494",
-       "Name": "Flanger (Custom)",
-       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\Attack\\Preparation\\Prepare\\[Effect Slot [0]: (Flanger)]\\Flanger (Custom)",
-       "GUID": "{E2613E89-38AE-48C9-8934-D0F785F80D2E}",
-       "LibName": "Wwise Flanger",
-       "LibId": "8192003"
       }
      ]
     },
@@ -95,9 +86,10 @@
       "ObjectPath": "\\Events\\Default Work Unit\\SFX\\Kraken\\Preparation\\Play_Preparation",
       "GUID": "{ED693462-E626-4E73-962F-BBEE4E926F14}",
       "Color": "8",
+      "MaxAttenuation": "100",
       "DurationType": "OneShot",
-      "DurationMin": "0.8308569",
-      "DurationMax": "1.0462354",
+      "DurationMin": "0.9380821",
+      "DurationMax": "1.1409279",
       "MediaRefs": [
        {
         "Id": "621240962"
@@ -107,24 +99,21 @@
        },
        {
         "Id": "738458967"
-       },
-       {
-        "Id": "769131885"
        }
       ],
       "PluginRefs": {
        "Custom": [
         {
+         "Id": "47000358"
+        },
+        {
          "Id": "126975534"
         },
         {
-         "Id": "670135798"
+         "Id": "574856209"
         },
         {
          "Id": "783637256"
-        },
-        {
-         "Id": "1039930494"
         }
        ]
       }
@@ -132,6 +121,6 @@
     ]
    }
   ],
-  "FileHash": "{BD3CFB7D-3EAC-3C08-1FF9-9F7CDE6BCF5F}"
+  "FileHash": "{41491A00-1B14-B617-27D1-19BBD00F5BC4}"
  }
 }

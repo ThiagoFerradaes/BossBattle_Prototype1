@@ -16,6 +16,7 @@ public class PlayerHealthUI : MonoBehaviour
 
     [Header("Energy Components")]
     [SerializeField] Image energyBar;
+    [SerializeField] AK.Wwise.Event soundWhenEnergyAtMax;
 
     [Header("AnimatedBackgrounds")]
     [SerializeField] GameObject cyrusAnimatedBackground;
@@ -99,6 +100,8 @@ public class PlayerHealthUI : MonoBehaviour
             case Character.Cyrus: cyrusAnimatedBackground.SetActive(true); break;
             case Character.Bastian: bastianAnimatedBackground.SetActive(true); break;
         }
+
+        soundWhenEnergyAtMax.Post(gameObject);
     }
 
     private void OnDestroy() {

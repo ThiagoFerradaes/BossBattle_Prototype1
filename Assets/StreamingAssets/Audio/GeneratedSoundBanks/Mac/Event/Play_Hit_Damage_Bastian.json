@@ -10,7 +10,7 @@
     "Type": "Event",
     "GUID": "{EC4A326F-38E8-4597-A623-D23060421EB4}",
     "Language": "SFX",
-    "Hash": "{0469A8A1-84D5-6C6F-A155-635E3659E2AB}",
+    "Hash": "{DC15ACE0-862B-4905-F525-67FF7A703B00}",
     "ObjectPath": "Play_Hit_Damage_Bastian",
     "ShortName": "Play_Hit_Damage_Bastian",
     "Path": "Event/Play_Hit_Damage_Bastian.bnk",
@@ -46,9 +46,25 @@
     "Plugins": {
      "Custom": [
       {
+       "Id": "101825657",
+       "Name": "Phone_Booth (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Players\\Bastian\\Damage\\Hit Damage\\[Effect Slot [0]: (RoomVerb)]\\Phone_Booth (Custom)",
+       "GUID": "{5A7EB896-F265-4EEA-811D-0899FEC5BE29}",
+       "LibName": "Wwise RoomVerb",
+       "LibId": "7733251"
+      },
+      {
+       "Id": "312877663",
+       "Name": "Time Stretch (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Players\\Bastian\\Damage\\Hit Damage\\[Effect Slot [1]: (Time Stretch)]\\Time Stretch (Custom)",
+       "GUID": "{5EBE874B-7943-4774-85A4-7C94CDD4168B}",
+       "LibName": "Wwise Time Stretch",
+       "LibId": "8519683"
+      },
+      {
        "Id": "895667856",
        "Name": "Guitar Distortion (Custom)",
-       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Players\\Bastian\\Damage\\Hit Damage\\[Effect Slot [0]: (Guitar Distortion)]\\Guitar Distortion (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Players\\Bastian\\Damage\\Hit Damage\\[Effect Slot [2]: (Guitar Distortion)]\\Guitar Distortion (Custom)",
        "GUID": "{D48EED01-AC11-40CD-8714-52E9626C0526}",
        "LibName": "Wwise Guitar Distortion",
        "LibId": "8257539"
@@ -79,6 +95,12 @@
       "PluginRefs": {
        "Custom": [
         {
+         "Id": "101825657"
+        },
+        {
+         "Id": "312877663"
+        },
+        {
          "Id": "895667856"
         }
        ]
@@ -87,6 +109,6 @@
     ]
    }
   ],
-  "FileHash": "{581E1BFA-A922-EAA4-7AFA-AD3B35737BC2}"
+  "FileHash": "{D77DC87F-BB44-FF95-5EAA-9428545B5919}"
  }
 }

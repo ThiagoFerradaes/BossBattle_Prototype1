@@ -10,7 +10,7 @@
     "Type": "Event",
     "GUID": "{1252502E-247B-4E83-AE05-E22D9CF9526B}",
     "Language": "SFX",
-    "Hash": "{5C5137A7-8DB6-FCAB-E052-3AD89992B5F0}",
+    "Hash": "{05C2DF09-1794-3C74-E467-C0A227515A3B}",
     "ObjectPath": "Play_Loading_Screen",
     "ShortName": "Play_Loading_Screen",
     "Path": "Event/Play_Loading_Screen.bnk",
@@ -22,7 +22,7 @@
       "Location": "Loose",
       "ShortName": "SFX_loading_screen_wind_sea_01.wav",
       "Path": "Media/437307638.wem",
-      "CachePath": "41/{41E26E26-F833-2A7C-5105-2A9BFC31AAFD}.wem"
+      "CachePath": "B6/{B6E24F46-90F9-CB02-CB54-951C76959BBC}.wem"
      },
      {
       "Id": "452456358",
@@ -31,7 +31,7 @@
       "Location": "Loose",
       "ShortName": "SFX_loading_screen_waves_01.wav",
       "Path": "Media/452456358.wem",
-      "CachePath": "2A/{2A0BD008-3AAE-9569-9E63-52C831A8CB7F}.wem"
+      "CachePath": "6A/{6A2BD488-566A-214D-65DC-64DF5C6FA83F}.wem"
      },
      {
       "Id": "458534358",
@@ -49,7 +49,7 @@
       "Location": "Loose",
       "ShortName": "SFX_loading_screen_boat_01.wav",
       "Path": "Media/782168149.wem",
-      "CachePath": "72/{7270AF33-CF39-C8CB-B46E-854D8785A82C}.wem"
+      "CachePath": "4A/{4A3F940C-38F5-D397-C8CF-FF3926A68A37}.wem"
      },
      {
       "Id": "842718408",
@@ -58,10 +58,28 @@
       "Location": "Loose",
       "ShortName": "SFX_loading_screen_water_01.wav",
       "Path": "Media/842718408.wem",
-      "CachePath": "58/{58DB3A19-FEDC-F1CB-9496-FC935E99922D}.wem"
+      "CachePath": "EA/{EADB9357-7000-86D5-B481-3697B8CD6B9C}.wem"
      }
     ],
     "Plugins": {
+     "Custom": [
+      {
+       "Id": "141376029",
+       "Name": "Matrix Reverb (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\UI\\Loading Screen\\Loading Screen\\Loading Screen Boat\\[Effect Slot [0]: (Matrix Reverb)]\\Matrix Reverb (Custom)",
+       "GUID": "{065827FB-CDF0-471C-B2B7-242D350CF339}",
+       "LibName": "Wwise Matrix Reverb",
+       "LibId": "7536643"
+      },
+      {
+       "Id": "408671682",
+       "Name": "Parametric EQ (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\UI\\Loading Screen\\Loading Screen\\Loading Screen Boat\\[Effect Slot [1]: (Parametric EQ)]\\Parametric EQ (Custom)",
+       "GUID": "{7BFD5A06-2F7D-4E32-BF7F-E58319618963}",
+       "LibName": "Wwise Parametric EQ",
+       "LibId": "6881283"
+      }
+     ],
      "ShareSets": [
       {
        "Id": "2513915904",
@@ -88,9 +106,7 @@
       "ObjectPath": "\\Events\\Default Work Unit\\SFX\\UI\\Loading Screen\\Play_Loading_Screen",
       "GUID": "{1252502E-247B-4E83-AE05-E22D9CF9526B}",
       "Color": "24",
-      "DurationType": "OneShot",
-      "DurationMin": "7.853243",
-      "DurationMax": "7.853243",
+      "DurationType": "Infinite",
       "MediaRefs": [
        {
         "Id": "437307638"
@@ -109,6 +125,14 @@
        }
       ],
       "PluginRefs": {
+       "Custom": [
+        {
+         "Id": "141376029"
+        },
+        {
+         "Id": "408671682"
+        }
+       ],
        "ShareSets": [
         {
          "Id": "2513915904"
@@ -122,6 +146,6 @@
     ]
    }
   ],
-  "FileHash": "{20F874CB-1EBA-AA7F-847F-A22E3B412018}"
+  "FileHash": "{8CB733ED-8FC9-B621-1F17-616A55C2794C}"
  }
 }

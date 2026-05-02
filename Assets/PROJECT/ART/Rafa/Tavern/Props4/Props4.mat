@@ -24,14 +24,15 @@ Material:
   m_Shader: {fileID: -6465566751694194690, guid: 30d1ed6b055ee1d4c9bdbc6e07cb3a8b, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
+  m_ValidKeywords:
+  - _ALPHATEST_ON
   m_InvalidKeywords: []
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 1
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 2450
   stringTagMap:
-    RenderType: Opaque
+    RenderType: TransparentCutout
   disabledShaderPasses:
   - MOTIONVECTORS
   m_LockedProperties: 
@@ -39,6 +40,10 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _AlphaMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _AlphaTexture:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -101,8 +106,8 @@ Material:
     m_Ints: []
     m_Floats:
     - _AddPrecomputedVelocity: 0
-    - _AlphaClip: 0
-    - _AlphaToMask: 0
+    - _AlphaClip: 1
+    - _AlphaToMask: 1
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
     - _BoolCellShading: 0
@@ -116,9 +121,10 @@ Material:
     - _DETAIL_MULX2: 0
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
-    - _Displacement_Scale: 5
-    - _Displacement_Time: 0.038
+    - _Displacement_Scale: 0
+    - _Displacement_Time: 0
     - _Distance_Multiplier: 1
+    - _Dither_Size: 1
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EMISSION: 0
@@ -137,8 +143,8 @@ Material:
     - _Metallic: 0
     - _MinBias: -0.55
     - _NORMALMAP: 0
-    - _Noise_Scale: 156
-    - _Noise_Strength: 3
+    - _Noise_Scale: 0
+    - _Noise_Strength: 0
     - _OCCLUSIONMAP: 0
     - _OcclusionStrength: 1
     - _PARALLAXMAP: 0
@@ -150,8 +156,8 @@ Material:
     - _ReflectionDirectionBool: 0
     - _ReflectionLightIntensity: 2
     - _ReflectionLightSpace: 0.41
-    - _Size: 0.424
-    - _Smoothnes: 0.135
+    - _Size: 0.3
+    - _Smoothnes: 0.15
     - _Smoothness: 0.2
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1

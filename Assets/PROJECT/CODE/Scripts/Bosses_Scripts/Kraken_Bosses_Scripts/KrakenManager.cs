@@ -212,12 +212,14 @@ public class KrakenManager : EnemyBehaviourManager {
 
         ListOfTentacles[tentacleIndex].HitBox.SetActive(true);
 
+        while (anim.GetCurrentAnimatorStateInfo(0).fullPathHash == attackStateHash && anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f) {
+            yield return null;
+        }
 
         // Tempo vulnerável
-        if (!ListOfTentacles[tentacleIndex].Health.ReturnIfIsDead())
-            yield return new WaitForSeconds(downTime);
+        float vulnerableTime = ListOfTentacles[tentacleIndex].Health.ReturnIfIsDead() ? 0.2f : downTime;
 
-        else yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(vulnerableTime);
 
         // Voltando pro Idle
         anim.SetTrigger(tentacleAttack.ReturnToIdleAnimationParameter);

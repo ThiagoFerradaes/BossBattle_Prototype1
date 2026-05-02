@@ -1,0 +1,102 @@
+{
+ "SoundBanksInfo": {
+  "Platform": "Mac",
+  "BasePlatform": "Mac",
+  "SchemaVersion": "16",
+  "SoundBankVersion": "172",
+  "SoundBanks": [
+   {
+    "Id": "4273409992",
+    "Type": "Event",
+    "GUID": "{8F88759E-C673-4263-AAA3-673FD0675877}",
+    "Language": "SFX",
+    "Hash": "{8765593B-9FD6-08FB-209B-B9FE1D5C72D5}",
+    "ObjectPath": "Play_Water_Kraken",
+    "ShortName": "Play_Water_Kraken",
+    "Path": "Event/Play_Water_Kraken.bnk",
+    "Media": [
+     {
+      "Id": "266339164",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Loose",
+      "ShortName": "AMB _water_02.wav",
+      "Path": "Media/266339164.wem",
+      "CachePath": "44/{44522D47-8E0A-3C6B-D3D1-F943B310A7E2}.wem"
+     },
+     {
+      "Id": "385674597",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Loose",
+      "ShortName": "AMB _water_01.wav",
+      "Path": "Media/385674597.wem",
+      "CachePath": "66/{660D7B47-157B-2DA7-F180-1C774CA9976E}.wem"
+     },
+     {
+      "Id": "719941292",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Loose",
+      "ShortName": "AMB _water_damped_01.wav",
+      "Path": "Media/719941292.wem",
+      "CachePath": "53/{535B2214-C4D0-9F26-34CC-9C0F4F68ED9C}.wem"
+     }
+    ],
+    "Plugins": {
+     "Custom": [
+      {
+       "Id": "603340627",
+       "Name": "Guitar Distortion (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\Ambient\\Kraken Stage\\Water_Kraken\\[Effect Slot [1]: (Guitar Distortion)]\\Guitar Distortion (Custom)",
+       "GUID": "{041977BD-3C15-4FC6-A248-2C2AE7DF80C7}",
+       "LibName": "Wwise Guitar Distortion",
+       "LibId": "8257539"
+      },
+      {
+       "Id": "749865442",
+       "Name": "Parametric EQ (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\Ambient\\Kraken Stage\\Water_Kraken\\[Effect Slot [0]: (Parametric EQ)]\\Parametric EQ (Custom)",
+       "GUID": "{4779FD97-537B-468A-BD6B-BDCE32D46A13}",
+       "LibName": "Wwise Parametric EQ",
+       "LibId": "6881283"
+      }
+     ]
+    },
+    "Events": [
+     {
+      "Id": "4273409992",
+      "Name": "Play_Water_Kraken",
+      "ObjectPath": "\\Events\\Default Work Unit\\SFX\\Ambient\\Kraken Stage\\Water\\Play_Water_Kraken",
+      "GUID": "{8F88759E-C673-4263-AAA3-673FD0675877}",
+      "Color": "1",
+      "MaxAttenuation": "70",
+      "DurationType": "Infinite",
+      "MediaRefs": [
+       {
+        "Id": "266339164"
+       },
+       {
+        "Id": "385674597"
+       },
+       {
+        "Id": "719941292"
+       }
+      ],
+      "PluginRefs": {
+       "Custom": [
+        {
+         "Id": "603340627"
+        },
+        {
+         "Id": "749865442"
+        }
+       ]
+      }
+     }
+    ]
+   }
+  ],
+  "FileHash": "{4BA853A4-E103-1768-E4C5-AFFA2A0659B9}"
+ }
+}

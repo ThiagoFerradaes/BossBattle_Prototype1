@@ -22,6 +22,7 @@ public class PlayerSkillUI : MonoBehaviour {
     [SerializeField] private List<Image> dashCooldown;
     [SerializeField] private List<Image> skillOneCooldown;
     [SerializeField] private List<Image> skillTwoCooldown;
+    [SerializeField] AK.Wwise.Event fineshedCooldownSound;
 
     [Header("Charges")]
     [SerializeField] private TextMeshProUGUI dashCharge;
@@ -127,6 +128,8 @@ public class PlayerSkillUI : MonoBehaviour {
         foreach (var image in cooldownImage) {
             image.fillAmount = slot == SkillSlot.Dash ? 1 : 0;
         }
+
+        fineshedCooldownSound.Post(gameObject);
         cooldownCoroutines[slot] = null;
     }
 
