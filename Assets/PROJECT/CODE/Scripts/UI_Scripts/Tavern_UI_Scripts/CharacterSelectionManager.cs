@@ -1,4 +1,5 @@
 using AYellowpaper.SerializedCollections;
+using NaughtyAttributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,11 @@ public class CharacterSelectionManager : MonoBehaviour {
     [SerializeField] Image selectedCharacterBackgroundImage;
     [SerializeField] TextMeshProUGUI selectedCharacterName;
     [SerializeField] Button closeScreenButton;
+
+    [Header("Animations")]
+    [SerializeField] Animator anim;
+    [SerializeField] string enterAnimation;
+    [SerializeField] string exitAnimation;
 
     [Header("Descriptions")]
     [SerializeField] TextMeshProUGUI passiveDescription;
@@ -82,11 +88,15 @@ public class CharacterSelectionManager : MonoBehaviour {
 
         characterSelectionScreen.SetActive(true);
 
+        //if (anim.gameObject.activeInHierarchy) anim.Play(enterAnimation);
+
     }
 
     public void TurnScreenOff() {
         characterSelectionScreen.SetActive(false);
         skillSelectionManager.TurnScreenOff();
+
+        //if (anim.gameObject.activeInHierarchy) anim.Play(exitAnimation);
     }
 
     void ChangeSelectedCharactersImages() {
