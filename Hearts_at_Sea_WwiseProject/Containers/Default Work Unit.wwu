@@ -6079,7 +6079,7 @@
 												</Property>
 												<Property Name="Volume" Type="Real64">
 													<ValueList>
-														<Value>6</Value>
+														<Value>9</Value>
 													</ValueList>
 													<ModifierList>
 														<ModifierInfo>
@@ -6179,7 +6179,7 @@
 																<Custom>
 																	<Effect Name="Guitar Distortion (Custom)" ID="{E3D53E4C-2382-4B7F-BCE3-CACDE95F6026}" ShortID="565883361" PluginName="Wwise Guitar Distortion" CompanyID="0" PluginID="126" PluginType="3">
 																		<PropertyList>
-																			<Property Name="DistortionDrive" Type="Real32" Value="4"/>
+																			<Property Name="DistortionDrive" Type="Real32" Value="8"/>
 																			<Property Name="DistortionTone" Type="Real32" Value="78"/>
 																			<Property Name="DistortionType" Type="int32" Value="1"/>
 																			<Property Name="PreEQBand1Enable" Type="bool" Value="True"/>
@@ -7074,7 +7074,36 @@
 														<Property Name="Lowpass" Type="int16">
 															<ModifierList>
 																<ModifierInfo>
-																	<Modifier Name="" ID="{5BAFD97E-C94F-4CCC-9BD6-2F60372A1F94}"/>
+																	<Modifier Name="" ID="{5BAFD97E-C94F-4CCC-9BD6-2F60372A1F94}">
+																		<PropertyList>
+																			<Property Name="Enabled" Type="bool" Value="True"/>
+																			<Property Name="Max" Type="Real64" Value="8"/>
+																			<Property Name="Min" Type="Real64" Value="-7"/>
+																		</PropertyList>
+																	</Modifier>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
+														<Property Name="Pitch" Type="int32">
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{AC4193F4-3914-4706-A685-BBED3C1F3EF7}">
+																		<PropertyList>
+																			<Property Name="Enabled" Type="bool" Value="True"/>
+																			<Property Name="Max" Type="Real64" Value="125"/>
+																			<Property Name="Min" Type="Real64" Value="-125"/>
+																		</PropertyList>
+																	</Modifier>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
+														<Property Name="Volume" Type="Real64">
+															<ValueList>
+																<Value>-2</Value>
+															</ValueList>
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{010CD7E9-39BC-4DCD-A2DC-FF0A9EADF850}"/>
 																</ModifierInfo>
 															</ModifierList>
 														</Property>
@@ -7589,6 +7618,9 @@
 															</ModifierList>
 														</Property>
 														<Property Name="Volume" Type="Real64">
+															<ValueList>
+																<Value>1</Value>
+															</ValueList>
 															<ModifierList>
 																<ModifierInfo>
 																	<Modifier Name="" ID="{5C63EC03-FF7D-49E2-AFAD-E6EE80622C11}">
@@ -7765,7 +7797,7 @@
 																		<Custom>
 																			<Effect Name="Guitar Distortion (Custom)" ID="{2426BE9B-3A70-4CB3-9DC3-65369FE850EC}" ShortID="838246956" PluginName="Wwise Guitar Distortion" CompanyID="0" PluginID="126" PluginType="3">
 																				<PropertyList>
-																					<Property Name="DistortionDrive" Type="Real32" Value="5"/>
+																					<Property Name="DistortionDrive" Type="Real32" Value="8"/>
 																					<Property Name="DistortionType" Type="int32" Value="1"/>
 																					<Property Name="PreEQBand1Enable" Type="bool" Value="True"/>
 																					<Property Name="PreEQBand1FilterType" Type="int32" Value="1"/>
@@ -7784,153 +7816,6 @@
 										</Folder>
 									</ChildrenList>
 								</Folder>
-								<RandomSequenceContainer Name="Stalactite" ID="{BF7561D9-140A-466A-9942-9D6032AC340C}" ShortID="496754887">
-									<PropertyList>
-										<Property Name="Color" Type="int16" Value="4"/>
-										<Property Name="Lowpass" Type="int16">
-											<ModifierList>
-												<ModifierInfo>
-													<Modifier Name="" ID="{CFB57F02-192A-4274-ABAA-32D704F16BCC}">
-														<PropertyList>
-															<Property Name="Enabled" Type="bool" Value="True"/>
-															<Property Name="Max" Type="Real64" Value="11"/>
-															<Property Name="Min" Type="Real64" Value="-7"/>
-														</PropertyList>
-													</Modifier>
-												</ModifierInfo>
-											</ModifierList>
-										</Property>
-										<Property Name="NormalOrShuffle" Type="int16" Value="0"/>
-										<Property Name="Pitch" Type="int32">
-											<ModifierList>
-												<ModifierInfo>
-													<Modifier Name="" ID="{5406C69B-6B56-4186-9B2F-08C931FBC399}">
-														<PropertyList>
-															<Property Name="Enabled" Type="bool" Value="True"/>
-															<Property Name="Max" Type="Real64" Value="175"/>
-															<Property Name="Min" Type="Real64" Value="-100"/>
-														</PropertyList>
-													</Modifier>
-												</ModifierInfo>
-											</ModifierList>
-										</Property>
-										<Property Name="Volume" Type="Real64">
-											<ModifierList>
-												<ModifierInfo>
-													<Modifier Name="" ID="{265314ED-2A7B-44DA-A40E-39CE5F8DB7D9}">
-														<PropertyList>
-															<Property Name="Enabled" Type="bool" Value="True"/>
-															<Property Name="Min" Type="Real64" Value="-1.5"/>
-														</PropertyList>
-													</Modifier>
-												</ModifierInfo>
-											</ModifierList>
-										</Property>
-									</PropertyList>
-									<ReferenceList>
-										<Reference Name="Conversion">
-											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
-										</Reference>
-										<Reference Name="OutputBus">
-											<ObjectRef Name="SFX_Bus" ID="{F5C91BBD-C9DE-46C1-B10A-F7A0405036D3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
-										</Reference>
-									</ReferenceList>
-									<ChildrenList>
-										<Sound Name="Stalactite_01" ID="{BEB6C009-3447-4247-9BB9-AB1EBB77A42E}" ShortID="128343903">
-											<PropertyList>
-												<Property Name="Lowpass" Type="int16">
-													<ModifierList>
-														<ModifierInfo>
-															<Modifier Name="" ID="{2B3C270D-A3C6-4A4B-8957-3658D060C2D7}"/>
-														</ModifierInfo>
-													</ModifierList>
-												</Property>
-											</PropertyList>
-											<ReferenceList>
-												<Reference Name="Conversion">
-													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
-												</Reference>
-												<Reference Name="OutputBus">
-													<ObjectRef Name="Main Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
-												</Reference>
-											</ReferenceList>
-											<ChildrenList>
-												<AudioFileSource Name="SPFX_stalactite_explosion_Kraken_01" ID="{1DE17589-52A3-4EEF-97C6-96DF90DD267D}">
-													<Language>SFX</Language>
-													<AudioFile>SPFX_stalactite_explosion_Kraken_01.wav</AudioFile>
-													<MediaIDList>
-														<MediaID ID="733247531"/>
-													</MediaIDList>
-												</AudioFileSource>
-											</ChildrenList>
-											<ActiveSourceList>
-												<ActiveSource Name="SPFX_stalactite_explosion_Kraken_01" ID="{1DE17589-52A3-4EEF-97C6-96DF90DD267D}" Platform="Linked"/>
-											</ActiveSourceList>
-										</Sound>
-										<Sound Name="Stalactite_02" ID="{127DBAA5-8A1C-4EDA-80CF-EC38BF8B1A04}" ShortID="800300263">
-											<PropertyList>
-												<Property Name="Lowpass" Type="int16">
-													<ModifierList>
-														<ModifierInfo>
-															<Modifier Name="" ID="{C0A2201D-B6B8-48EF-9FA8-08CC685039C0}"/>
-														</ModifierInfo>
-													</ModifierList>
-												</Property>
-											</PropertyList>
-											<ReferenceList>
-												<Reference Name="Conversion">
-													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
-												</Reference>
-												<Reference Name="OutputBus">
-													<ObjectRef Name="Main Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
-												</Reference>
-											</ReferenceList>
-											<ChildrenList>
-												<AudioFileSource Name="SPFX_stalactite_explosion_Kraken_02" ID="{856AE0C5-293F-4BE9-8620-268429422648}">
-													<Language>SFX</Language>
-													<AudioFile>SPFX_stalactite_explosion_Kraken_02.wav</AudioFile>
-													<MediaIDList>
-														<MediaID ID="561574135"/>
-													</MediaIDList>
-												</AudioFileSource>
-											</ChildrenList>
-											<ActiveSourceList>
-												<ActiveSource Name="SPFX_stalactite_explosion_Kraken_02" ID="{856AE0C5-293F-4BE9-8620-268429422648}" Platform="Linked"/>
-											</ActiveSourceList>
-										</Sound>
-										<Sound Name="Stalactite_03" ID="{A0E50171-04B1-4E95-84AC-71FF01C80DC5}" ShortID="270712826">
-											<PropertyList>
-												<Property Name="Lowpass" Type="int16">
-													<ModifierList>
-														<ModifierInfo>
-															<Modifier Name="" ID="{0652BE26-1925-4001-B8F6-943D6478F9A7}"/>
-														</ModifierInfo>
-													</ModifierList>
-												</Property>
-											</PropertyList>
-											<ReferenceList>
-												<Reference Name="Conversion">
-													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
-												</Reference>
-												<Reference Name="OutputBus">
-													<ObjectRef Name="Main Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
-												</Reference>
-											</ReferenceList>
-											<ChildrenList>
-												<AudioFileSource Name="SPFX_stalactite_explosion_Kraken_03" ID="{95165FDA-7F6C-4A41-A52E-01BCB7496CE5}">
-													<Language>SFX</Language>
-													<AudioFile>SPFX_stalactite_explosion_Kraken_03.wav</AudioFile>
-													<MediaIDList>
-														<MediaID ID="788746228"/>
-													</MediaIDList>
-												</AudioFileSource>
-											</ChildrenList>
-											<ActiveSourceList>
-												<ActiveSource Name="SPFX_stalactite_explosion_Kraken_03" ID="{95165FDA-7F6C-4A41-A52E-01BCB7496CE5}" Platform="Linked"/>
-											</ActiveSourceList>
-										</Sound>
-									</ChildrenList>
-								</RandomSequenceContainer>
 								<RandomSequenceContainer Name="Rage" ID="{BF9E7060-79E5-49E7-8775-447836E94A3F}" ShortID="315320942">
 									<PropertyList>
 										<Property Name="Color" Type="int16" Value="4"/>
@@ -8965,16 +8850,7 @@
 										</Reference>
 									</ReferenceList>
 									<ChildrenList>
-										<BlendContainer Name="Get Back Up_01" ID="{1765EF9F-C561-461E-9EBE-E0308B106176}" ShortID="685328300">
-											<PropertyList>
-												<Property Name="Lowpass" Type="int16">
-													<ModifierList>
-														<ModifierInfo>
-															<Modifier Name="" ID="{50AE2CB2-FB11-465F-BA03-3327DA665322}"/>
-														</ModifierInfo>
-													</ModifierList>
-												</Property>
-											</PropertyList>
+										<RandomSequenceContainer Name="Drag Tentacle" ID="{278414E2-DF75-4C89-9CA2-BA93BA7316E8}" ShortID="752466731">
 											<ReferenceList>
 												<Reference Name="Conversion">
 													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
@@ -8984,6 +8860,146 @@
 												</Reference>
 											</ReferenceList>
 											<ChildrenList>
+												<Sound Name="Drag_03" ID="{9AE23456-8086-46CB-AB42-4E253AF66D99}" ShortID="135805169">
+													<PropertyList>
+														<Property Name="Lowpass" Type="int16">
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{C6A8C56B-FC2E-47AE-B87A-2862DECE83A3}"/>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
+														<Property Name="OverrideEffect" Type="bool" Value="True"/>
+														<Property Name="Pitch" Type="int32">
+															<ValueList>
+																<Value>-900</Value>
+															</ValueList>
+														</Property>
+													</PropertyList>
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="SFX_Bus" ID="{F5C91BBD-C9DE-46C1-B10A-F7A0405036D3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="SPFX_getBack_part01_Kraken_03" ID="{E56697BE-AADB-40F8-BFE3-228F27DEBA6F}">
+															<Language>SFX</Language>
+															<AudioFile>SPFX_getBack_part01_Kraken_03.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="272089821"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ObjectLists>
+														<ObjectList Name="Effects">
+															<EffectSlot Name="" ID="{05C91561-4394-4170-B750-413466317E94}" ShortID="450611398">
+																<ReferenceList>
+																	<Reference Name="Effect">
+																		<Custom>
+																			<Effect Name="Tremolo (Custom)" ID="{4B0EF6B8-A030-4803-907D-17B6B629DD58}" ShortID="968405278" PluginName="Wwise Tremolo" CompanyID="0" PluginID="131" PluginType="3">
+																				<PropertyList>
+																					<Property Name="ModDepth" Type="Real32" Value="55.2"/>
+																					<Property Name="ModSmoothing" Type="Real32" Value="40"/>
+																					<Property Name="ModWaveform" Type="int32" Value="3"/>
+																				</PropertyList>
+																			</Effect>
+																		</Custom>
+																	</Reference>
+																</ReferenceList>
+															</EffectSlot>
+															<EffectSlot Name="" ID="{290A4F44-634B-488B-92B6-435FC8CFFDCD}" ShortID="667242449">
+																<ReferenceList>
+																	<Reference Name="Effect">
+																		<Custom>
+																			<Effect Name="Guitar Distortion (Custom)" ID="{4B3360DB-D4B1-4D2B-9875-0041E4E315F1}" ShortID="576090634" PluginName="Wwise Guitar Distortion" CompanyID="0" PluginID="126" PluginType="3">
+																				<PropertyList>
+																					<Property Name="DistortionDrive" Type="Real32" Value="2"/>
+																					<Property Name="DistortionType" Type="int32" Value="1"/>
+																				</PropertyList>
+																			</Effect>
+																		</Custom>
+																	</Reference>
+																</ReferenceList>
+															</EffectSlot>
+														</ObjectList>
+													</ObjectLists>
+													<ActiveSourceList>
+														<ActiveSource Name="SPFX_getBack_part01_Kraken_03" ID="{E56697BE-AADB-40F8-BFE3-228F27DEBA6F}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="Drag_02" ID="{10458FE9-E04A-40FB-BB41-F539E3E37271}" ShortID="302304212">
+													<PropertyList>
+														<Property Name="Lowpass" Type="int16">
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{F832110D-9B52-47D9-9A7B-E450AE141BB9}"/>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
+														<Property Name="OverrideEffect" Type="bool" Value="True"/>
+														<Property Name="Pitch" Type="int32">
+															<ValueList>
+																<Value>-310</Value>
+															</ValueList>
+														</Property>
+													</PropertyList>
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="SFX_Bus" ID="{F5C91BBD-C9DE-46C1-B10A-F7A0405036D3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="SPFX_getBack_part01_Kraken_02" ID="{C8783EF8-2762-4772-B626-DBC0649ED126}">
+															<Language>SFX</Language>
+															<AudioFile>SPFX_getBack_part01_Kraken_02.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="338636829"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ObjectLists>
+														<ObjectList Name="Effects">
+															<EffectSlot Name="" ID="{2CDEE48E-154A-4B04-A3A9-9C10D1DA3F57}" ShortID="32893357">
+																<ReferenceList>
+																	<Reference Name="Effect">
+																		<Custom>
+																			<Effect Name="Tremolo (Custom)" ID="{AF974FF5-B887-4FFD-9BDC-1D50E928E74E}" ShortID="510951525" PluginName="Wwise Tremolo" CompanyID="0" PluginID="131" PluginType="3">
+																				<PropertyList>
+																					<Property Name="ModDepth" Type="Real32" Value="55.2"/>
+																					<Property Name="ModSmoothing" Type="Real32" Value="40"/>
+																					<Property Name="ModWaveform" Type="int32" Value="3"/>
+																				</PropertyList>
+																			</Effect>
+																		</Custom>
+																	</Reference>
+																</ReferenceList>
+															</EffectSlot>
+															<EffectSlot Name="" ID="{FD2367B1-A021-4988-A01A-1FEF3BD2A14D}" ShortID="850719567">
+																<ReferenceList>
+																	<Reference Name="Effect">
+																		<Custom>
+																			<Effect Name="Guitar Distortion (Custom)" ID="{1841EFB8-AA52-4451-A2EC-098FD7ED429B}" ShortID="1001210719" PluginName="Wwise Guitar Distortion" CompanyID="0" PluginID="126" PluginType="3">
+																				<PropertyList>
+																					<Property Name="DistortionDrive" Type="Real32" Value="2"/>
+																					<Property Name="DistortionType" Type="int32" Value="1"/>
+																				</PropertyList>
+																			</Effect>
+																		</Custom>
+																	</Reference>
+																</ReferenceList>
+															</EffectSlot>
+														</ObjectList>
+													</ObjectLists>
+													<ActiveSourceList>
+														<ActiveSource Name="SPFX_getBack_part01_Kraken_02" ID="{C8783EF8-2762-4772-B626-DBC0649ED126}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
 												<Sound Name="Drag_01" ID="{F7041827-D29F-4880-A0CD-47961F0995E3}" ShortID="346396589">
 													<PropertyList>
 														<Property Name="Lowpass" Type="int16">
@@ -9005,7 +9021,7 @@
 															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
 														</Reference>
 														<Reference Name="OutputBus">
-															<ObjectRef Name="Main Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
+															<ObjectRef Name="SFX_Bus" ID="{F5C91BBD-C9DE-46C1-B10A-F7A0405036D3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
 														</Reference>
 													</ReferenceList>
 													<ChildrenList>
@@ -9058,6 +9074,230 @@
 														<ActiveSource Name="SPFX_getBack_part01_Kraken_01" ID="{64393FCE-B6FF-4740-8276-2F0D9668FB51}" Platform="Linked"/>
 													</ActiveSourceList>
 												</Sound>
+											</ChildrenList>
+										</RandomSequenceContainer>
+										<RandomSequenceContainer Name="Rise Up" ID="{B17373C0-F42F-417B-AF81-E23A71C3C75B}" ShortID="711188603">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Main Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<Sound Name="Rising_03" ID="{1306E6DE-594C-4C94-9BCA-979F752A9FFE}" ShortID="150935495">
+													<PropertyList>
+														<Property Name="Lowpass" Type="int16">
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{A8E8536A-F576-4DC7-855B-170337F48954}"/>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
+														<Property Name="OverrideEffect" Type="bool" Value="True"/>
+														<Property Name="Pitch" Type="int32">
+															<ValueList>
+																<Value>-250</Value>
+															</ValueList>
+														</Property>
+													</PropertyList>
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="SFX_Bus" ID="{F5C91BBD-C9DE-46C1-B10A-F7A0405036D3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="SPFX_getBack_part02_Kraken_03" ID="{74CB345E-8385-4082-882D-FC5A48812E9C}">
+															<PropertyList>
+																<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+																<Property Name="TrimBegin" Type="Real64" Value="1.02954930955437"/>
+																<Property Name="TrimEnd" Type="Real64" Value="2.2195478052601"/>
+															</PropertyList>
+															<Language>SFX</Language>
+															<AudioFile>SPFX_getBack_part02_Kraken_03.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="414140636"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ObjectLists>
+														<ObjectList Name="Effects">
+															<EffectSlot Name="" ID="{01098E52-1898-4D7C-939B-B39480C84185}" ShortID="50944951">
+																<ReferenceList>
+																	<Reference Name="Effect">
+																		<Custom CreatedFrom="{180A35FE-BF4E-4BCD-8D7F-872B580E55EC}">
+																			<Effect Name="Phone_Booth (Custom)" ID="{21AA42F7-4C5E-4D2B-AC6B-BE8AF783C5DD}" ShortID="877848139" PluginName="Wwise RoomVerb" CompanyID="0" PluginID="118" PluginType="3">
+																				<PropertyList>
+																					<Property Name="DecayTime" Type="Real32" Value="0.2"/>
+																					<Property Name="Density" Type="Real32" Value="32"/>
+																					<Property Name="Diffusion" Type="Real32" Value="0"/>
+																					<Property Name="DryLevel" Type="Real32" Value="-3"/>
+																					<Property Name="ERLevel" Type="Real32" Value="-10"/>
+																					<Property Name="ERPattern" Type="int32" Value="24"/>
+																					<Property Name="Filter1Freq" Type="Real32" Value="590"/>
+																					<Property Name="Filter1Gain" Type="Real32" Value="-5"/>
+																					<Property Name="Filter1InsertPos" Type="int32" Value="2"/>
+																					<Property Name="Filter2Freq" Type="Real32" Value="6450"/>
+																					<Property Name="Filter2Gain" Type="Real32" Value="8.5"/>
+																					<Property Name="Filter3Freq" Type="Real32" Value="8440"/>
+																					<Property Name="HFDamping" Type="Real32" Value="3.4"/>
+																					<Property Name="PreDelay" Type="Real32" Value="0"/>
+																					<Property Name="Quality" Type="int32" Value="6"/>
+																					<Property Name="ReverbLevel" Type="Real32" Value="-26"/>
+																					<Property Name="RoomShape" Type="Real32" Value="38"/>
+																					<Property Name="RoomSize" Type="Real32" Value="-22"/>
+																					<Property Name="StereoWidth" Type="Real32" Value="0"/>
+																				</PropertyList>
+																			</Effect>
+																		</Custom>
+																	</Reference>
+																</ReferenceList>
+															</EffectSlot>
+															<EffectSlot Name="" ID="{8CCF7228-20F4-4952-B9C0-508AAD6CF436}" ShortID="59453831">
+																<ReferenceList>
+																	<Reference Name="Effect">
+																		<Custom>
+																			<Effect Name="Tremolo (Custom)" ID="{45579C0D-37B8-40DB-B3E7-34CC21D56887}" ShortID="841666075" PluginName="Wwise Tremolo" CompanyID="0" PluginID="131" PluginType="3">
+																				<PropertyList>
+																					<Property Name="ModDepth" Type="Real32" Value="55.2"/>
+																					<Property Name="ModSmoothing" Type="Real32" Value="40"/>
+																					<Property Name="ModWaveform" Type="int32" Value="3"/>
+																				</PropertyList>
+																			</Effect>
+																		</Custom>
+																	</Reference>
+																</ReferenceList>
+															</EffectSlot>
+															<EffectSlot Name="" ID="{16B7A767-E612-4505-833F-8E51C8EE1F51}" ShortID="65498688">
+																<ReferenceList>
+																	<Reference Name="Effect">
+																		<Custom>
+																			<Effect Name="Guitar Distortion (Custom)" ID="{22F34E2D-267C-4596-9EAA-BCF4A1161B83}" ShortID="729904335" PluginName="Wwise Guitar Distortion" CompanyID="0" PluginID="126" PluginType="3">
+																				<PropertyList>
+																					<Property Name="DistortionDrive" Type="Real32" Value="2"/>
+																					<Property Name="DistortionType" Type="int32" Value="1"/>
+																				</PropertyList>
+																			</Effect>
+																		</Custom>
+																	</Reference>
+																</ReferenceList>
+															</EffectSlot>
+														</ObjectList>
+													</ObjectLists>
+													<ActiveSourceList>
+														<ActiveSource Name="SPFX_getBack_part02_Kraken_03" ID="{74CB345E-8385-4082-882D-FC5A48812E9C}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="Rising_02" ID="{36FBBA19-C327-4791-88A9-765BC1E6559D}" ShortID="658831398">
+													<PropertyList>
+														<Property Name="Lowpass" Type="int16">
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{741CD0BE-B92B-4242-A59A-DF0B686E27A0}"/>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
+														<Property Name="OverrideEffect" Type="bool" Value="True"/>
+														<Property Name="Pitch" Type="int32">
+															<ValueList>
+																<Value>-250</Value>
+															</ValueList>
+														</Property>
+													</PropertyList>
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="SFX_Bus" ID="{F5C91BBD-C9DE-46C1-B10A-F7A0405036D3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="SPFX_getBack_part02_Kraken_02" ID="{0CCD877C-77D1-4BD7-8303-E1EB3447B4C6}">
+															<PropertyList>
+																<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+																<Property Name="TrimBegin" Type="Real64" Value="0.992779691356002"/>
+																<Property Name="TrimEnd" Type="Real64" Value="2.05909856221267"/>
+															</PropertyList>
+															<Language>SFX</Language>
+															<AudioFile>SPFX_getBack_part02_Kraken_02.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="107243958"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ObjectLists>
+														<ObjectList Name="Effects">
+															<EffectSlot Name="" ID="{329DE8C6-87E1-4036-853F-50135248725F}" ShortID="981457961">
+																<ReferenceList>
+																	<Reference Name="Effect">
+																		<Custom CreatedFrom="{180A35FE-BF4E-4BCD-8D7F-872B580E55EC}">
+																			<Effect Name="Phone_Booth (Custom)" ID="{7A607437-EA2B-49EA-95AE-6A78E787140D}" ShortID="260608724" PluginName="Wwise RoomVerb" CompanyID="0" PluginID="118" PluginType="3">
+																				<PropertyList>
+																					<Property Name="DecayTime" Type="Real32" Value="0.2"/>
+																					<Property Name="Density" Type="Real32" Value="32"/>
+																					<Property Name="Diffusion" Type="Real32" Value="0"/>
+																					<Property Name="DryLevel" Type="Real32" Value="-3"/>
+																					<Property Name="ERLevel" Type="Real32" Value="-10"/>
+																					<Property Name="ERPattern" Type="int32" Value="24"/>
+																					<Property Name="Filter1Freq" Type="Real32" Value="590"/>
+																					<Property Name="Filter1Gain" Type="Real32" Value="-5"/>
+																					<Property Name="Filter1InsertPos" Type="int32" Value="2"/>
+																					<Property Name="Filter2Freq" Type="Real32" Value="6450"/>
+																					<Property Name="Filter2Gain" Type="Real32" Value="8.5"/>
+																					<Property Name="Filter3Freq" Type="Real32" Value="8440"/>
+																					<Property Name="HFDamping" Type="Real32" Value="3.4"/>
+																					<Property Name="PreDelay" Type="Real32" Value="0"/>
+																					<Property Name="Quality" Type="int32" Value="6"/>
+																					<Property Name="ReverbLevel" Type="Real32" Value="-26"/>
+																					<Property Name="RoomShape" Type="Real32" Value="38"/>
+																					<Property Name="RoomSize" Type="Real32" Value="-22"/>
+																					<Property Name="StereoWidth" Type="Real32" Value="0"/>
+																				</PropertyList>
+																			</Effect>
+																		</Custom>
+																	</Reference>
+																</ReferenceList>
+															</EffectSlot>
+															<EffectSlot Name="" ID="{4AFE4C85-944E-404F-B10C-3621F6F9B9A9}" ShortID="439508336">
+																<ReferenceList>
+																	<Reference Name="Effect">
+																		<Custom>
+																			<Effect Name="Tremolo (Custom)" ID="{0BA3BF21-958B-4F4F-A08B-549F26FF180D}" ShortID="1029564223" PluginName="Wwise Tremolo" CompanyID="0" PluginID="131" PluginType="3">
+																				<PropertyList>
+																					<Property Name="ModDepth" Type="Real32" Value="55.2"/>
+																					<Property Name="ModSmoothing" Type="Real32" Value="40"/>
+																					<Property Name="ModWaveform" Type="int32" Value="3"/>
+																				</PropertyList>
+																			</Effect>
+																		</Custom>
+																	</Reference>
+																</ReferenceList>
+															</EffectSlot>
+															<EffectSlot Name="" ID="{6B1034B3-0B74-499D-82E3-B44E021647C3}" ShortID="77801814">
+																<ReferenceList>
+																	<Reference Name="Effect">
+																		<Custom>
+																			<Effect Name="Guitar Distortion (Custom)" ID="{EC967438-C009-4F7F-BF5F-FB7C3EBC158C}" ShortID="784944330" PluginName="Wwise Guitar Distortion" CompanyID="0" PluginID="126" PluginType="3">
+																				<PropertyList>
+																					<Property Name="DistortionDrive" Type="Real32" Value="2"/>
+																					<Property Name="DistortionType" Type="int32" Value="1"/>
+																				</PropertyList>
+																			</Effect>
+																		</Custom>
+																	</Reference>
+																</ReferenceList>
+															</EffectSlot>
+														</ObjectList>
+													</ObjectLists>
+													<ActiveSourceList>
+														<ActiveSource Name="SPFX_getBack_part02_Kraken_02" ID="{0CCD877C-77D1-4BD7-8303-E1EB3447B4C6}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
 												<Sound Name="Rising_01" ID="{B71DE27E-4905-4BC5-8504-82BB72E132B4}" ShortID="521720031">
 													<PropertyList>
 														<Property Name="Lowpass" Type="int16">
@@ -9079,11 +9319,16 @@
 															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
 														</Reference>
 														<Reference Name="OutputBus">
-															<ObjectRef Name="Main Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
+															<ObjectRef Name="SFX_Bus" ID="{F5C91BBD-C9DE-46C1-B10A-F7A0405036D3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
 														</Reference>
 													</ReferenceList>
 													<ChildrenList>
 														<AudioFileSource Name="SPFX_getBack_part02_Kraken_01" ID="{3FD535F0-059A-45DD-BBB7-E0F5B1988F5C}">
+															<PropertyList>
+																<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+																<Property Name="TrimBegin" Type="Real64" Value="1.52426780895063"/>
+																<Property Name="TrimEnd" Type="Real64" Value="2.20951972756964"/>
+															</PropertyList>
 															<Language>SFX</Language>
 															<AudioFile>SPFX_getBack_part02_Kraken_01.wav</AudioFile>
 															<MediaIDList>
@@ -9160,391 +9405,7 @@
 													</ActiveSourceList>
 												</Sound>
 											</ChildrenList>
-										</BlendContainer>
-										<BlendContainer Name="Get Back Up_02" ID="{4B4E0E8B-125D-414A-8E88-7B3F7A3486CE}" ShortID="430424882">
-											<PropertyList>
-												<Property Name="Lowpass" Type="int16">
-													<ModifierList>
-														<ModifierInfo>
-															<Modifier Name="" ID="{0E24070E-E701-49A1-8581-07D930ABE660}"/>
-														</ModifierInfo>
-													</ModifierList>
-												</Property>
-											</PropertyList>
-											<ReferenceList>
-												<Reference Name="Conversion">
-													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
-												</Reference>
-												<Reference Name="OutputBus">
-													<ObjectRef Name="Main Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
-												</Reference>
-											</ReferenceList>
-											<ChildrenList>
-												<Sound Name="Drag_02" ID="{10458FE9-E04A-40FB-BB41-F539E3E37271}" ShortID="302304212">
-													<PropertyList>
-														<Property Name="Lowpass" Type="int16">
-															<ModifierList>
-																<ModifierInfo>
-																	<Modifier Name="" ID="{F832110D-9B52-47D9-9A7B-E450AE141BB9}"/>
-																</ModifierInfo>
-															</ModifierList>
-														</Property>
-														<Property Name="OverrideEffect" Type="bool" Value="True"/>
-														<Property Name="Pitch" Type="int32">
-															<ValueList>
-																<Value>-310</Value>
-															</ValueList>
-														</Property>
-													</PropertyList>
-													<ReferenceList>
-														<Reference Name="Conversion">
-															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
-														</Reference>
-														<Reference Name="OutputBus">
-															<ObjectRef Name="Main Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
-														</Reference>
-													</ReferenceList>
-													<ChildrenList>
-														<AudioFileSource Name="SPFX_getBack_part01_Kraken_02" ID="{C8783EF8-2762-4772-B626-DBC0649ED126}">
-															<Language>SFX</Language>
-															<AudioFile>SPFX_getBack_part01_Kraken_02.wav</AudioFile>
-															<MediaIDList>
-																<MediaID ID="338636829"/>
-															</MediaIDList>
-														</AudioFileSource>
-													</ChildrenList>
-													<ObjectLists>
-														<ObjectList Name="Effects">
-															<EffectSlot Name="" ID="{2CDEE48E-154A-4B04-A3A9-9C10D1DA3F57}" ShortID="32893357">
-																<ReferenceList>
-																	<Reference Name="Effect">
-																		<Custom>
-																			<Effect Name="Tremolo (Custom)" ID="{AF974FF5-B887-4FFD-9BDC-1D50E928E74E}" ShortID="510951525" PluginName="Wwise Tremolo" CompanyID="0" PluginID="131" PluginType="3">
-																				<PropertyList>
-																					<Property Name="ModDepth" Type="Real32" Value="55.2"/>
-																					<Property Name="ModSmoothing" Type="Real32" Value="40"/>
-																					<Property Name="ModWaveform" Type="int32" Value="3"/>
-																				</PropertyList>
-																			</Effect>
-																		</Custom>
-																	</Reference>
-																</ReferenceList>
-															</EffectSlot>
-															<EffectSlot Name="" ID="{FD2367B1-A021-4988-A01A-1FEF3BD2A14D}" ShortID="850719567">
-																<ReferenceList>
-																	<Reference Name="Effect">
-																		<Custom>
-																			<Effect Name="Guitar Distortion (Custom)" ID="{1841EFB8-AA52-4451-A2EC-098FD7ED429B}" ShortID="1001210719" PluginName="Wwise Guitar Distortion" CompanyID="0" PluginID="126" PluginType="3">
-																				<PropertyList>
-																					<Property Name="DistortionDrive" Type="Real32" Value="2"/>
-																					<Property Name="DistortionType" Type="int32" Value="1"/>
-																				</PropertyList>
-																			</Effect>
-																		</Custom>
-																	</Reference>
-																</ReferenceList>
-															</EffectSlot>
-														</ObjectList>
-													</ObjectLists>
-													<ActiveSourceList>
-														<ActiveSource Name="SPFX_getBack_part01_Kraken_02" ID="{C8783EF8-2762-4772-B626-DBC0649ED126}" Platform="Linked"/>
-													</ActiveSourceList>
-												</Sound>
-												<Sound Name="Rising_02" ID="{36FBBA19-C327-4791-88A9-765BC1E6559D}" ShortID="658831398">
-													<PropertyList>
-														<Property Name="Lowpass" Type="int16">
-															<ModifierList>
-																<ModifierInfo>
-																	<Modifier Name="" ID="{741CD0BE-B92B-4242-A59A-DF0B686E27A0}"/>
-																</ModifierInfo>
-															</ModifierList>
-														</Property>
-														<Property Name="OverrideEffect" Type="bool" Value="True"/>
-														<Property Name="Pitch" Type="int32">
-															<ValueList>
-																<Value>-250</Value>
-															</ValueList>
-														</Property>
-													</PropertyList>
-													<ReferenceList>
-														<Reference Name="Conversion">
-															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
-														</Reference>
-														<Reference Name="OutputBus">
-															<ObjectRef Name="Main Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
-														</Reference>
-													</ReferenceList>
-													<ChildrenList>
-														<AudioFileSource Name="SPFX_getBack_part02_Kraken_02" ID="{0CCD877C-77D1-4BD7-8303-E1EB3447B4C6}">
-															<Language>SFX</Language>
-															<AudioFile>SPFX_getBack_part02_Kraken_02.wav</AudioFile>
-															<MediaIDList>
-																<MediaID ID="107243958"/>
-															</MediaIDList>
-														</AudioFileSource>
-													</ChildrenList>
-													<ObjectLists>
-														<ObjectList Name="Effects">
-															<EffectSlot Name="" ID="{329DE8C6-87E1-4036-853F-50135248725F}" ShortID="981457961">
-																<ReferenceList>
-																	<Reference Name="Effect">
-																		<Custom CreatedFrom="{180A35FE-BF4E-4BCD-8D7F-872B580E55EC}">
-																			<Effect Name="Phone_Booth (Custom)" ID="{7A607437-EA2B-49EA-95AE-6A78E787140D}" ShortID="260608724" PluginName="Wwise RoomVerb" CompanyID="0" PluginID="118" PluginType="3">
-																				<PropertyList>
-																					<Property Name="DecayTime" Type="Real32" Value="0.2"/>
-																					<Property Name="Density" Type="Real32" Value="32"/>
-																					<Property Name="Diffusion" Type="Real32" Value="0"/>
-																					<Property Name="DryLevel" Type="Real32" Value="-3"/>
-																					<Property Name="ERLevel" Type="Real32" Value="-10"/>
-																					<Property Name="ERPattern" Type="int32" Value="24"/>
-																					<Property Name="Filter1Freq" Type="Real32" Value="590"/>
-																					<Property Name="Filter1Gain" Type="Real32" Value="-5"/>
-																					<Property Name="Filter1InsertPos" Type="int32" Value="2"/>
-																					<Property Name="Filter2Freq" Type="Real32" Value="6450"/>
-																					<Property Name="Filter2Gain" Type="Real32" Value="8.5"/>
-																					<Property Name="Filter3Freq" Type="Real32" Value="8440"/>
-																					<Property Name="HFDamping" Type="Real32" Value="3.4"/>
-																					<Property Name="PreDelay" Type="Real32" Value="0"/>
-																					<Property Name="Quality" Type="int32" Value="6"/>
-																					<Property Name="ReverbLevel" Type="Real32" Value="-26"/>
-																					<Property Name="RoomShape" Type="Real32" Value="38"/>
-																					<Property Name="RoomSize" Type="Real32" Value="-22"/>
-																					<Property Name="StereoWidth" Type="Real32" Value="0"/>
-																				</PropertyList>
-																			</Effect>
-																		</Custom>
-																	</Reference>
-																</ReferenceList>
-															</EffectSlot>
-															<EffectSlot Name="" ID="{4AFE4C85-944E-404F-B10C-3621F6F9B9A9}" ShortID="439508336">
-																<ReferenceList>
-																	<Reference Name="Effect">
-																		<Custom>
-																			<Effect Name="Tremolo (Custom)" ID="{0BA3BF21-958B-4F4F-A08B-549F26FF180D}" ShortID="1029564223" PluginName="Wwise Tremolo" CompanyID="0" PluginID="131" PluginType="3">
-																				<PropertyList>
-																					<Property Name="ModDepth" Type="Real32" Value="55.2"/>
-																					<Property Name="ModSmoothing" Type="Real32" Value="40"/>
-																					<Property Name="ModWaveform" Type="int32" Value="3"/>
-																				</PropertyList>
-																			</Effect>
-																		</Custom>
-																	</Reference>
-																</ReferenceList>
-															</EffectSlot>
-															<EffectSlot Name="" ID="{6B1034B3-0B74-499D-82E3-B44E021647C3}" ShortID="77801814">
-																<ReferenceList>
-																	<Reference Name="Effect">
-																		<Custom>
-																			<Effect Name="Guitar Distortion (Custom)" ID="{EC967438-C009-4F7F-BF5F-FB7C3EBC158C}" ShortID="784944330" PluginName="Wwise Guitar Distortion" CompanyID="0" PluginID="126" PluginType="3">
-																				<PropertyList>
-																					<Property Name="DistortionDrive" Type="Real32" Value="2"/>
-																					<Property Name="DistortionType" Type="int32" Value="1"/>
-																				</PropertyList>
-																			</Effect>
-																		</Custom>
-																	</Reference>
-																</ReferenceList>
-															</EffectSlot>
-														</ObjectList>
-													</ObjectLists>
-													<ActiveSourceList>
-														<ActiveSource Name="SPFX_getBack_part02_Kraken_02" ID="{0CCD877C-77D1-4BD7-8303-E1EB3447B4C6}" Platform="Linked"/>
-													</ActiveSourceList>
-												</Sound>
-											</ChildrenList>
-										</BlendContainer>
-										<BlendContainer Name="Get Back Up_03" ID="{BF344D08-12CC-4E4F-A739-3CB9204F1C1E}" ShortID="22549798">
-											<PropertyList>
-												<Property Name="Lowpass" Type="int16">
-													<ModifierList>
-														<ModifierInfo>
-															<Modifier Name="" ID="{5086C28F-8134-4034-A8EE-09F54E7FAFC2}"/>
-														</ModifierInfo>
-													</ModifierList>
-												</Property>
-											</PropertyList>
-											<ReferenceList>
-												<Reference Name="Conversion">
-													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
-												</Reference>
-												<Reference Name="OutputBus">
-													<ObjectRef Name="Main Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
-												</Reference>
-											</ReferenceList>
-											<ChildrenList>
-												<Sound Name="Drag_03" ID="{9AE23456-8086-46CB-AB42-4E253AF66D99}" ShortID="135805169">
-													<PropertyList>
-														<Property Name="Lowpass" Type="int16">
-															<ModifierList>
-																<ModifierInfo>
-																	<Modifier Name="" ID="{C6A8C56B-FC2E-47AE-B87A-2862DECE83A3}"/>
-																</ModifierInfo>
-															</ModifierList>
-														</Property>
-														<Property Name="OverrideEffect" Type="bool" Value="True"/>
-														<Property Name="Pitch" Type="int32">
-															<ValueList>
-																<Value>-900</Value>
-															</ValueList>
-														</Property>
-													</PropertyList>
-													<ReferenceList>
-														<Reference Name="Conversion">
-															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
-														</Reference>
-														<Reference Name="OutputBus">
-															<ObjectRef Name="Main Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
-														</Reference>
-													</ReferenceList>
-													<ChildrenList>
-														<AudioFileSource Name="SPFX_getBack_part01_Kraken_03" ID="{E56697BE-AADB-40F8-BFE3-228F27DEBA6F}">
-															<Language>SFX</Language>
-															<AudioFile>SPFX_getBack_part01_Kraken_03.wav</AudioFile>
-															<MediaIDList>
-																<MediaID ID="272089821"/>
-															</MediaIDList>
-														</AudioFileSource>
-													</ChildrenList>
-													<ObjectLists>
-														<ObjectList Name="Effects">
-															<EffectSlot Name="" ID="{05C91561-4394-4170-B750-413466317E94}" ShortID="450611398">
-																<ReferenceList>
-																	<Reference Name="Effect">
-																		<Custom>
-																			<Effect Name="Tremolo (Custom)" ID="{4B0EF6B8-A030-4803-907D-17B6B629DD58}" ShortID="968405278" PluginName="Wwise Tremolo" CompanyID="0" PluginID="131" PluginType="3">
-																				<PropertyList>
-																					<Property Name="ModDepth" Type="Real32" Value="55.2"/>
-																					<Property Name="ModSmoothing" Type="Real32" Value="40"/>
-																					<Property Name="ModWaveform" Type="int32" Value="3"/>
-																				</PropertyList>
-																			</Effect>
-																		</Custom>
-																	</Reference>
-																</ReferenceList>
-															</EffectSlot>
-															<EffectSlot Name="" ID="{290A4F44-634B-488B-92B6-435FC8CFFDCD}" ShortID="667242449">
-																<ReferenceList>
-																	<Reference Name="Effect">
-																		<Custom>
-																			<Effect Name="Guitar Distortion (Custom)" ID="{4B3360DB-D4B1-4D2B-9875-0041E4E315F1}" ShortID="576090634" PluginName="Wwise Guitar Distortion" CompanyID="0" PluginID="126" PluginType="3">
-																				<PropertyList>
-																					<Property Name="DistortionDrive" Type="Real32" Value="2"/>
-																					<Property Name="DistortionType" Type="int32" Value="1"/>
-																				</PropertyList>
-																			</Effect>
-																		</Custom>
-																	</Reference>
-																</ReferenceList>
-															</EffectSlot>
-														</ObjectList>
-													</ObjectLists>
-													<ActiveSourceList>
-														<ActiveSource Name="SPFX_getBack_part01_Kraken_03" ID="{E56697BE-AADB-40F8-BFE3-228F27DEBA6F}" Platform="Linked"/>
-													</ActiveSourceList>
-												</Sound>
-												<Sound Name="Rising_03" ID="{1306E6DE-594C-4C94-9BCA-979F752A9FFE}" ShortID="150935495">
-													<PropertyList>
-														<Property Name="Lowpass" Type="int16">
-															<ModifierList>
-																<ModifierInfo>
-																	<Modifier Name="" ID="{A8E8536A-F576-4DC7-855B-170337F48954}"/>
-																</ModifierInfo>
-															</ModifierList>
-														</Property>
-														<Property Name="OverrideEffect" Type="bool" Value="True"/>
-														<Property Name="Pitch" Type="int32">
-															<ValueList>
-																<Value>-250</Value>
-															</ValueList>
-														</Property>
-													</PropertyList>
-													<ReferenceList>
-														<Reference Name="Conversion">
-															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
-														</Reference>
-														<Reference Name="OutputBus">
-															<ObjectRef Name="Main Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
-														</Reference>
-													</ReferenceList>
-													<ChildrenList>
-														<AudioFileSource Name="SPFX_getBack_part02_Kraken_03" ID="{74CB345E-8385-4082-882D-FC5A48812E9C}">
-															<Language>SFX</Language>
-															<AudioFile>SPFX_getBack_part02_Kraken_03.wav</AudioFile>
-															<MediaIDList>
-																<MediaID ID="414140636"/>
-															</MediaIDList>
-														</AudioFileSource>
-													</ChildrenList>
-													<ObjectLists>
-														<ObjectList Name="Effects">
-															<EffectSlot Name="" ID="{01098E52-1898-4D7C-939B-B39480C84185}" ShortID="50944951">
-																<ReferenceList>
-																	<Reference Name="Effect">
-																		<Custom CreatedFrom="{180A35FE-BF4E-4BCD-8D7F-872B580E55EC}">
-																			<Effect Name="Phone_Booth (Custom)" ID="{21AA42F7-4C5E-4D2B-AC6B-BE8AF783C5DD}" ShortID="877848139" PluginName="Wwise RoomVerb" CompanyID="0" PluginID="118" PluginType="3">
-																				<PropertyList>
-																					<Property Name="DecayTime" Type="Real32" Value="0.2"/>
-																					<Property Name="Density" Type="Real32" Value="32"/>
-																					<Property Name="Diffusion" Type="Real32" Value="0"/>
-																					<Property Name="DryLevel" Type="Real32" Value="-3"/>
-																					<Property Name="ERLevel" Type="Real32" Value="-10"/>
-																					<Property Name="ERPattern" Type="int32" Value="24"/>
-																					<Property Name="Filter1Freq" Type="Real32" Value="590"/>
-																					<Property Name="Filter1Gain" Type="Real32" Value="-5"/>
-																					<Property Name="Filter1InsertPos" Type="int32" Value="2"/>
-																					<Property Name="Filter2Freq" Type="Real32" Value="6450"/>
-																					<Property Name="Filter2Gain" Type="Real32" Value="8.5"/>
-																					<Property Name="Filter3Freq" Type="Real32" Value="8440"/>
-																					<Property Name="HFDamping" Type="Real32" Value="3.4"/>
-																					<Property Name="PreDelay" Type="Real32" Value="0"/>
-																					<Property Name="Quality" Type="int32" Value="6"/>
-																					<Property Name="ReverbLevel" Type="Real32" Value="-26"/>
-																					<Property Name="RoomShape" Type="Real32" Value="38"/>
-																					<Property Name="RoomSize" Type="Real32" Value="-22"/>
-																					<Property Name="StereoWidth" Type="Real32" Value="0"/>
-																				</PropertyList>
-																			</Effect>
-																		</Custom>
-																	</Reference>
-																</ReferenceList>
-															</EffectSlot>
-															<EffectSlot Name="" ID="{8CCF7228-20F4-4952-B9C0-508AAD6CF436}" ShortID="59453831">
-																<ReferenceList>
-																	<Reference Name="Effect">
-																		<Custom>
-																			<Effect Name="Tremolo (Custom)" ID="{45579C0D-37B8-40DB-B3E7-34CC21D56887}" ShortID="841666075" PluginName="Wwise Tremolo" CompanyID="0" PluginID="131" PluginType="3">
-																				<PropertyList>
-																					<Property Name="ModDepth" Type="Real32" Value="55.2"/>
-																					<Property Name="ModSmoothing" Type="Real32" Value="40"/>
-																					<Property Name="ModWaveform" Type="int32" Value="3"/>
-																				</PropertyList>
-																			</Effect>
-																		</Custom>
-																	</Reference>
-																</ReferenceList>
-															</EffectSlot>
-															<EffectSlot Name="" ID="{16B7A767-E612-4505-833F-8E51C8EE1F51}" ShortID="65498688">
-																<ReferenceList>
-																	<Reference Name="Effect">
-																		<Custom>
-																			<Effect Name="Guitar Distortion (Custom)" ID="{22F34E2D-267C-4596-9EAA-BCF4A1161B83}" ShortID="729904335" PluginName="Wwise Guitar Distortion" CompanyID="0" PluginID="126" PluginType="3">
-																				<PropertyList>
-																					<Property Name="DistortionDrive" Type="Real32" Value="2"/>
-																					<Property Name="DistortionType" Type="int32" Value="1"/>
-																				</PropertyList>
-																			</Effect>
-																		</Custom>
-																	</Reference>
-																</ReferenceList>
-															</EffectSlot>
-														</ObjectList>
-													</ObjectLists>
-													<ActiveSourceList>
-														<ActiveSource Name="SPFX_getBack_part02_Kraken_03" ID="{74CB345E-8385-4082-882D-FC5A48812E9C}" Platform="Linked"/>
-													</ActiveSourceList>
-												</Sound>
-											</ChildrenList>
-										</BlendContainer>
+										</RandomSequenceContainer>
 									</ChildrenList>
 									<ObjectLists>
 										<ObjectList Name="Effects">
@@ -9582,64 +9443,73 @@
 										</ObjectList>
 									</ObjectLists>
 								</RandomSequenceContainer>
-								<BlendContainer Name="All Tentacles Idle" ID="{DC3D3D05-9ACC-4BDC-AC36-4DBDBFE5F46E}" ShortID="825125160">
+								<BlendContainer Name="All Tentacles Idle" ID="{0E3253E2-7209-4340-9B3D-B4BD07BA25AE}" ShortID="363569109">
 									<PropertyList>
+										<Property Name="3DSpatialization" Type="int16" Value="2"/>
 										<Property Name="BlendBehavior" Type="int16" Value="1"/>
-										<Property Name="Color" Type="int16" Value="4"/>
+										<Property Name="CenterPercentage" Type="int32">
+											<ValueList>
+												<Value>10</Value>
+											</ValueList>
+										</Property>
 										<Property Name="InitialDelay" Type="Real64">
 											<ModifierList>
 												<ModifierInfo>
-													<Modifier Name="" ID="{184BBBCC-21E7-45DF-AD13-2CF1C63D709F}">
-														<PropertyList>
-															<Property Name="Max" Type="Real64" Value="4"/>
-															<Property Name="Min" Type="Real64" Value="-2"/>
-														</PropertyList>
-													</Modifier>
+													<Modifier Name="" ID="{2B98366B-F886-49CD-9FFE-33223615C682}"/>
 												</ModifierInfo>
 											</ModifierList>
 										</Property>
 										<Property Name="Lowpass" Type="int16">
 											<ModifierList>
 												<ModifierInfo>
-													<Modifier Name="" ID="{E3DDB0E7-2385-497F-AF22-F034B8D3FD5F}">
+													<Modifier Name="" ID="{EE6BDDC2-5371-4349-B98E-DAB8F8190C68}">
 														<PropertyList>
 															<Property Name="Enabled" Type="bool" Value="True"/>
-															<Property Name="Max" Type="Real64" Value="15"/>
-															<Property Name="Min" Type="Real64" Value="-18"/>
+															<Property Name="Max" Type="Real64" Value="13"/>
+															<Property Name="Min" Type="Real64" Value="-11"/>
 														</PropertyList>
 													</Modifier>
 												</ModifierInfo>
 											</ModifierList>
 										</Property>
-										<Property Name="OverrideEffect" Type="bool" Value="True"/>
 										<Property Name="Pitch" Type="int32">
+											<ValueList>
+												<Value>-380</Value>
+											</ValueList>
 											<ModifierList>
 												<ModifierInfo>
-													<Modifier Name="" ID="{112DD907-CCB5-44EF-B97D-75D7EDFA90B7}">
+													<Modifier Name="" ID="{7F7D9D27-E795-416E-8848-E45ECA88DC5D}">
 														<PropertyList>
 															<Property Name="Enabled" Type="bool" Value="True"/>
 															<Property Name="Max" Type="Real64" Value="175"/>
-															<Property Name="Min" Type="Real64" Value="-250"/>
+															<Property Name="Min" Type="Real64" Value="-25"/>
 														</PropertyList>
 													</Modifier>
 												</ModifierInfo>
 											</ModifierList>
 										</Property>
+										<Property Name="SpeakerPanning" Type="int16" Value="1"/>
+										<Property Name="SpeakerPanning3DSpatializationMix" Type="int32" Value="89"/>
 										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>-7</Value>
+											</ValueList>
 											<ModifierList>
 												<ModifierInfo>
-													<Modifier Name="" ID="{9F8AE63A-60C8-4552-A09A-D84C2A92CA4F}">
-														<PropertyList>
-															<Property Name="Enabled" Type="bool" Value="True"/>
-															<Property Name="Max" Type="Real64" Value="3"/>
-															<Property Name="Min" Type="Real64" Value="-1"/>
-														</PropertyList>
-													</Modifier>
+													<Modifier Name="" ID="{2B0D5E49-72B8-49B3-BAB8-5D2F813D1489}"/>
 												</ModifierInfo>
 											</ModifierList>
+										</Property>
+										<Property Name="Weight" Type="Real64">
+											<ValueList>
+												<Value>65</Value>
+											</ValueList>
 										</Property>
 									</PropertyList>
 									<ReferenceList>
+										<Reference Name="Attenuation">
+											<ObjectRef Name="Physically_Based" ID="{7AF96D5E-B0A7-4524-B96B-04F53DEAEC94}" WorkUnitID="{E312AA2F-7D32-49AE-9B3F-853E8C0370AC}"/>
+										</Reference>
 										<Reference Name="Conversion">
 											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
 										</Reference>
@@ -9648,330 +9518,571 @@
 										</Reference>
 									</ReferenceList>
 									<ChildrenList>
-										<Sound Name="Idle_01" ID="{C29C6E87-4107-444D-AB66-C718E8302B64}" ShortID="827397382">
+										<RandomSequenceContainer Name="Idle_01" ID="{198C0A56-A7C4-47EE-8998-CE52FEA4D728}" ShortID="726381663">
 											<PropertyList>
 												<Property Name="InitialDelay" Type="Real64">
 													<ModifierList>
 														<ModifierInfo>
-															<Modifier Name="" ID="{F1271554-2EE3-4DC1-B3F1-718D00F80C9E}">
-																<PropertyList>
-																	<Property Name="Enabled" Type="bool" Value="True"/>
-																	<Property Name="Max" Type="Real64" Value="1"/>
-																</PropertyList>
-															</Modifier>
-														</ModifierInfo>
-													</ModifierList>
-												</Property>
-												<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
-												<Property Name="Lowpass" Type="int16">
-													<ModifierList>
-														<ModifierInfo>
-															<Modifier Name="" ID="{0CD871C3-19CF-4C3C-A463-C9910334507E}">
-																<PropertyList>
-																	<Property Name="Enabled" Type="bool" Value="True"/>
-																	<Property Name="Max" Type="Real64" Value="10"/>
-																	<Property Name="Min" Type="Real64" Value="-8"/>
-																</PropertyList>
-															</Modifier>
+															<Modifier Name="" ID="{9C7F7CD5-5B17-4C14-9A92-8CCEF1F59E8D}"/>
 														</ModifierInfo>
 													</ModifierList>
 												</Property>
 												<Property Name="Pitch" Type="int32">
-													<ValueList>
-														<Value>-380</Value>
-													</ValueList>
 													<ModifierList>
 														<ModifierInfo>
-															<Modifier Name="" ID="{68753E13-98DB-44B8-9A8A-3924B84974B8}"/>
+															<Modifier Name="" ID="{A795ADC7-B5A7-413F-BBA9-BC0B280593F3}"/>
 														</ModifierInfo>
 													</ModifierList>
 												</Property>
-												<Property Name="Volume" Type="Real64">
-													<ModifierList>
-														<ModifierInfo>
-															<Modifier Name="" ID="{74B62D88-520A-4058-9257-46316D6D01BC}">
-																<PropertyList>
-																	<Property Name="Enabled" Type="bool" Value="True"/>
-																	<Property Name="Max" Type="Real64" Value="1"/>
-																	<Property Name="Min" Type="Real64" Value="-1"/>
-																</PropertyList>
-															</Modifier>
-														</ModifierInfo>
-													</ModifierList>
-												</Property>
+												<Property Name="PlayMechanismLoop" Type="bool" Value="True"/>
+												<Property Name="PlayMechanismSpecialTransitions" Type="bool" Value="True"/>
+												<Property Name="PlayMechanismStepOrContinuous" Type="int16" Value="0"/>
 											</PropertyList>
 											<ReferenceList>
 												<Reference Name="Conversion">
 													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
 												</Reference>
 												<Reference Name="OutputBus">
-													<ObjectRef Name="SFX_Bus" ID="{F5C91BBD-C9DE-46C1-B10A-F7A0405036D3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
+													<ObjectRef Name="Main Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
 												</Reference>
 											</ReferenceList>
 											<ChildrenList>
-												<AudioFileSource Name="SFX_idle_Kraken_01" ID="{6D16B7A7-14A7-48F9-B8DC-8F852F3DAD4D}">
+												<Sound Name="Idle_01" ID="{C29C6E87-4107-444D-AB66-C718E8302B64}" ShortID="827397382">
 													<PropertyList>
-														<Property Name="FadeOutDuration" Type="Real64" Value="0.717245615754183"/>
-														<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
-														<Property Name="TrimBegin" Type="Real64" Value="0.0974431604371035"/>
-														<Property Name="TrimEnd" Type="Real64" Value="1.01117252592512"/>
+														<Property Name="3DSpatialization" Type="int16" Value="2"/>
+														<Property Name="CenterPercentage" Type="int32">
+															<ValueList>
+																<Value>10</Value>
+															</ValueList>
+														</Property>
+														<Property Name="InitialDelay" Type="Real64">
+															<ValueList>
+																<Value>0.3</Value>
+															</ValueList>
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{F1271554-2EE3-4DC1-B3F1-718D00F80C9E}">
+																		<PropertyList>
+																			<Property Name="Max" Type="Real64" Value="1"/>
+																		</PropertyList>
+																	</Modifier>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
+														<Property Name="Lowpass" Type="int16">
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{0CD871C3-19CF-4C3C-A463-C9910334507E}">
+																		<PropertyList>
+																			<Property Name="Enabled" Type="bool" Value="True"/>
+																			<Property Name="Max" Type="Real64" Value="10"/>
+																			<Property Name="Min" Type="Real64" Value="-8"/>
+																		</PropertyList>
+																	</Modifier>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
+														<Property Name="Pitch" Type="int32">
+															<ValueList>
+																<Value>-1210</Value>
+															</ValueList>
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{68753E13-98DB-44B8-9A8A-3924B84974B8}"/>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
+														<Property Name="SpeakerPanning" Type="int16" Value="1"/>
+														<Property Name="SpeakerPanning3DSpatializationMix" Type="int32" Value="89"/>
+														<Property Name="Volume" Type="Real64">
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{74B62D88-520A-4058-9257-46316D6D01BC}">
+																		<PropertyList>
+																			<Property Name="Enabled" Type="bool" Value="True"/>
+																			<Property Name="Max" Type="Real64" Value="1"/>
+																			<Property Name="Min" Type="Real64" Value="-1"/>
+																		</PropertyList>
+																	</Modifier>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
 													</PropertyList>
-													<Language>SFX</Language>
-													<AudioFile>SFX_idle_Kraken_01.wav</AudioFile>
-													<MediaIDList>
-														<MediaID ID="25396952"/>
-													</MediaIDList>
-												</AudioFileSource>
+													<ReferenceList>
+														<Reference Name="Attenuation">
+															<ObjectRef Name="Physically_Based" ID="{7AF96D5E-B0A7-4524-B96B-04F53DEAEC94}" WorkUnitID="{E312AA2F-7D32-49AE-9B3F-853E8C0370AC}"/>
+														</Reference>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="SFX_Bus" ID="{F5C91BBD-C9DE-46C1-B10A-F7A0405036D3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="SFX_idle_Kraken_01" ID="{6D16B7A7-14A7-48F9-B8DC-8F852F3DAD4D}">
+															<PropertyList>
+																<Property Name="FadeOutDuration" Type="Real64" Value="0.717245615754183"/>
+																<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+																<Property Name="TrimBegin" Type="Real64" Value="0.0974431604371035"/>
+															</PropertyList>
+															<Language>SFX</Language>
+															<AudioFile>SFX_idle_Kraken_01.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="429998496"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<PositioningInfo>
+														<Panner Name="" ID="{7328469C-68C4-4CBF-A7A5-3115835F6125}"/>
+													</PositioningInfo>
+													<ActiveSourceList>
+														<ActiveSource Name="SFX_idle_Kraken_01" ID="{6D16B7A7-14A7-48F9-B8DC-8F852F3DAD4D}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="Silence" ID="{48463EA0-0907-4AC8-B729-4889D8744F33}" ShortID="381288636">
+													<PropertyList>
+														<Property Name="Pitch" Type="int32">
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{D2621D67-3C0A-428E-A9B9-F38B09C1CE9D}"/>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
+														<Property Name="Weight" Type="Real64">
+															<ValueList>
+																<Value>74</Value>
+															</ValueList>
+														</Property>
+													</PropertyList>
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Main Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<SourcePlugin Name="Silence" ID="{078FFC5C-6B2C-4475-8FEE-04187C9BE3A8}" ShortID="45647536" PluginName="Wwise Silence" CompanyID="0" PluginID="101">
+															<Language>SFX</Language>
+														</SourcePlugin>
+													</ChildrenList>
+													<ActiveSourceList>
+														<ActiveSource Name="Silence" ID="{078FFC5C-6B2C-4475-8FEE-04187C9BE3A8}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
 											</ChildrenList>
-											<ActiveSourceList>
-												<ActiveSource Name="SFX_idle_Kraken_01" ID="{6D16B7A7-14A7-48F9-B8DC-8F852F3DAD4D}" Platform="Linked"/>
-											</ActiveSourceList>
-										</Sound>
-										<Sound Name="Idle_02" ID="{0750CC6C-8EE2-42B7-ABC2-6060433B6E1E}" ShortID="1062327402">
+										</RandomSequenceContainer>
+										<RandomSequenceContainer Name="Idle_02" ID="{A8D42FC5-C834-4FAF-B370-9DFAE90ACAC9}" ShortID="1059518520">
 											<PropertyList>
 												<Property Name="InitialDelay" Type="Real64">
 													<ModifierList>
 														<ModifierInfo>
-															<Modifier Name="" ID="{EFF591F3-E554-469A-994C-F9C58A3078F1}">
-																<PropertyList>
-																	<Property Name="Enabled" Type="bool" Value="True"/>
-																	<Property Name="Max" Type="Real64" Value="1"/>
-																</PropertyList>
-															</Modifier>
+															<Modifier Name="" ID="{4624F8FE-805B-403D-9072-31378E37D903}"/>
 														</ModifierInfo>
 													</ModifierList>
 												</Property>
-												<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
-												<Property Name="Lowpass" Type="int16">
-													<ModifierList>
-														<ModifierInfo>
-															<Modifier Name="" ID="{E72A78AF-5704-4CEB-89DD-7F7FE8E54FD9}">
-																<PropertyList>
-																	<Property Name="Enabled" Type="bool" Value="True"/>
-																	<Property Name="Max" Type="Real64" Value="9"/>
-																	<Property Name="Min" Type="Real64" Value="-15"/>
-																</PropertyList>
-															</Modifier>
-														</ModifierInfo>
-													</ModifierList>
-												</Property>
-												<Property Name="OverrideEffect" Type="bool" Value="True"/>
 												<Property Name="Pitch" Type="int32">
-													<ValueList>
-														<Value>-500</Value>
-													</ValueList>
 													<ModifierList>
 														<ModifierInfo>
-															<Modifier Name="" ID="{E2898050-A90E-42CE-8D06-1BEDBA58C28E}">
-																<PropertyList>
-																	<Property Name="Enabled" Type="bool" Value="True"/>
-																	<Property Name="Max" Type="Real64" Value="150"/>
-																	<Property Name="Min" Type="Real64" Value="-525"/>
-																</PropertyList>
-															</Modifier>
+															<Modifier Name="" ID="{13ABEA27-0421-4B24-B737-BD00F5677FFC}"/>
 														</ModifierInfo>
 													</ModifierList>
 												</Property>
-												<Property Name="Volume" Type="Real64">
-													<ModifierList>
-														<ModifierInfo>
-															<Modifier Name="" ID="{0EE56B81-0D48-4FE1-8B55-11CAB4A9DB96}">
-																<PropertyList>
-																	<Property Name="Enabled" Type="bool" Value="True"/>
-																	<Property Name="Max" Type="Real64" Value="2"/>
-																	<Property Name="Min" Type="Real64" Value="-2"/>
-																</PropertyList>
-															</Modifier>
-														</ModifierInfo>
-													</ModifierList>
-												</Property>
+												<Property Name="PlayMechanismLoop" Type="bool" Value="True"/>
+												<Property Name="PlayMechanismSpecialTransitions" Type="bool" Value="True"/>
+												<Property Name="PlayMechanismStepOrContinuous" Type="int16" Value="0"/>
 											</PropertyList>
 											<ReferenceList>
 												<Reference Name="Conversion">
 													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
 												</Reference>
 												<Reference Name="OutputBus">
-													<ObjectRef Name="SFX_Bus" ID="{F5C91BBD-C9DE-46C1-B10A-F7A0405036D3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
+													<ObjectRef Name="Main Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
 												</Reference>
 											</ReferenceList>
 											<ChildrenList>
-												<AudioFileSource Name="SFX_idle_Kraken_02" ID="{D1118250-BE2A-469A-9782-DD3CC89916F7}">
+												<Sound Name="Idle_02" ID="{0750CC6C-8EE2-42B7-ABC2-6060433B6E1E}" ShortID="1062327402">
 													<PropertyList>
-														<Property Name="FadeOutDuration" Type="Real64" Value="0.565489874089841"/>
-														<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
-														<Property Name="TrimBegin" Type="Real64" Value="0.130989166489221"/>
-														<Property Name="TrimEnd" Type="Real64" Value="0.95685994469788"/>
+														<Property Name="3DSpatialization" Type="int16" Value="2"/>
+														<Property Name="CenterPercentage" Type="int32">
+															<ValueList>
+																<Value>10</Value>
+															</ValueList>
+														</Property>
+														<Property Name="InitialDelay" Type="Real64">
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{EFF591F3-E554-469A-994C-F9C58A3078F1}">
+																		<PropertyList>
+																			<Property Name="Max" Type="Real64" Value="1"/>
+																		</PropertyList>
+																	</Modifier>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
+														<Property Name="Lowpass" Type="int16">
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{E72A78AF-5704-4CEB-89DD-7F7FE8E54FD9}">
+																		<PropertyList>
+																			<Property Name="Enabled" Type="bool" Value="True"/>
+																			<Property Name="Max" Type="Real64" Value="9"/>
+																			<Property Name="Min" Type="Real64" Value="-15"/>
+																		</PropertyList>
+																	</Modifier>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
+														<Property Name="OverrideEffect" Type="bool" Value="True"/>
+														<Property Name="Pitch" Type="int32">
+															<ValueList>
+																<Value>-1000</Value>
+															</ValueList>
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{E2898050-A90E-42CE-8D06-1BEDBA58C28E}">
+																		<PropertyList>
+																			<Property Name="Enabled" Type="bool" Value="True"/>
+																			<Property Name="Max" Type="Real64" Value="150"/>
+																			<Property Name="Min" Type="Real64" Value="-525"/>
+																		</PropertyList>
+																	</Modifier>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
+														<Property Name="SpeakerPanning" Type="int16" Value="1"/>
+														<Property Name="SpeakerPanning3DSpatializationMix" Type="int32" Value="89"/>
+														<Property Name="Volume" Type="Real64">
+															<ValueList>
+																<Value>-6</Value>
+															</ValueList>
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{0EE56B81-0D48-4FE1-8B55-11CAB4A9DB96}">
+																		<PropertyList>
+																			<Property Name="Enabled" Type="bool" Value="True"/>
+																			<Property Name="Max" Type="Real64" Value="2"/>
+																			<Property Name="Min" Type="Real64" Value="-2"/>
+																		</PropertyList>
+																	</Modifier>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
 													</PropertyList>
-													<Language>SFX</Language>
-													<AudioFile>SFX_idle_Kraken_02.wav</AudioFile>
-													<MediaIDList>
-														<MediaID ID="664335370"/>
-													</MediaIDList>
-												</AudioFileSource>
+													<ReferenceList>
+														<Reference Name="Attenuation">
+															<ObjectRef Name="Physically_Based" ID="{7AF96D5E-B0A7-4524-B96B-04F53DEAEC94}" WorkUnitID="{E312AA2F-7D32-49AE-9B3F-853E8C0370AC}"/>
+														</Reference>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="SFX_Bus" ID="{F5C91BBD-C9DE-46C1-B10A-F7A0405036D3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="SFX_idle_Kraken_02" ID="{D1118250-BE2A-469A-9782-DD3CC89916F7}">
+															<PropertyList>
+																<Property Name="FadeOutDuration" Type="Real64" Value="0.565489874089841"/>
+																<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+																<Property Name="TrimBegin" Type="Real64" Value="0.130989166489221"/>
+															</PropertyList>
+															<Language>SFX</Language>
+															<AudioFile>SFX_idle_Kraken_02.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="31465258"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<PositioningInfo>
+														<Panner Name="" ID="{9583A89B-1FAA-4DFC-A3FE-13027FC149D7}"/>
+													</PositioningInfo>
+													<ActiveSourceList>
+														<ActiveSource Name="SFX_idle_Kraken_02" ID="{D1118250-BE2A-469A-9782-DD3CC89916F7}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="Silence" ID="{3A1857EA-0EF3-4AF7-A1B5-604BFAD8F03E}" ShortID="969761386">
+													<PropertyList>
+														<Property Name="Pitch" Type="int32">
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{6449C37F-D822-4897-9382-3EF02036DA67}"/>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
+														<Property Name="Weight" Type="Real64">
+															<ValueList>
+																<Value>80</Value>
+															</ValueList>
+														</Property>
+													</PropertyList>
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Main Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<SourcePlugin Name="Silence" ID="{8F665FCA-19C1-40D8-8E70-C3E532E01758}" ShortID="470256361" PluginName="Wwise Silence" CompanyID="0" PluginID="101">
+															<Language>SFX</Language>
+														</SourcePlugin>
+													</ChildrenList>
+													<ActiveSourceList>
+														<ActiveSource Name="Silence" ID="{8F665FCA-19C1-40D8-8E70-C3E532E01758}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
 											</ChildrenList>
-											<ActiveSourceList>
-												<ActiveSource Name="SFX_idle_Kraken_02" ID="{D1118250-BE2A-469A-9782-DD3CC89916F7}" Platform="Linked"/>
-											</ActiveSourceList>
-										</Sound>
-										<Sound Name="Idle_03" ID="{55BA2F7F-F9ED-4451-B378-18A1012C3F4E}" ShortID="262505625">
+										</RandomSequenceContainer>
+										<RandomSequenceContainer Name="Idle_03" ID="{D5DA8BF9-1592-48F9-9B34-AED2B7AB4BCA}" ShortID="530236821">
 											<PropertyList>
 												<Property Name="InitialDelay" Type="Real64">
 													<ModifierList>
 														<ModifierInfo>
-															<Modifier Name="" ID="{2EC94793-65B4-4451-8626-B63142BC7481}">
-																<PropertyList>
-																	<Property Name="Enabled" Type="bool" Value="True"/>
-																	<Property Name="Max" Type="Real64" Value="1.5"/>
-																</PropertyList>
-															</Modifier>
+															<Modifier Name="" ID="{37F345F7-C2C0-4ECB-BADA-11163F7FF340}"/>
 														</ModifierInfo>
 													</ModifierList>
 												</Property>
-												<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
-												<Property Name="Lowpass" Type="int16">
-													<ModifierList>
-														<ModifierInfo>
-															<Modifier Name="" ID="{9C9D7AF2-6820-4825-B36D-5A40BD3802D0}"/>
-														</ModifierInfo>
-													</ModifierList>
-												</Property>
-												<Property Name="OverrideEffect" Type="bool" Value="True"/>
 												<Property Name="Pitch" Type="int32">
-													<ValueList>
-														<Value>-620</Value>
-													</ValueList>
 													<ModifierList>
 														<ModifierInfo>
-															<Modifier Name="" ID="{1DDB0DA0-5B56-49D7-836B-289F090F24F4}"/>
+															<Modifier Name="" ID="{2ECE009D-E387-46BD-A4BE-1EC0258ACA72}"/>
 														</ModifierInfo>
 													</ModifierList>
 												</Property>
+												<Property Name="PlayMechanismLoop" Type="bool" Value="True"/>
+												<Property Name="PlayMechanismSpecialTransitions" Type="bool" Value="True"/>
+												<Property Name="PlayMechanismStepOrContinuous" Type="int16" Value="0"/>
 											</PropertyList>
 											<ReferenceList>
 												<Reference Name="Conversion">
 													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
 												</Reference>
 												<Reference Name="OutputBus">
-													<ObjectRef Name="SFX_Bus" ID="{F5C91BBD-C9DE-46C1-B10A-F7A0405036D3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
+													<ObjectRef Name="Main Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
 												</Reference>
 											</ReferenceList>
 											<ChildrenList>
-												<AudioFileSource Name="SFX_idle_Kraken_03" ID="{2FBF9830-DF73-4D78-BBD5-4AE2F17D9556}">
+												<Sound Name="Idle_03" ID="{55BA2F7F-F9ED-4451-B378-18A1012C3F4E}" ShortID="262505625">
 													<PropertyList>
-														<Property Name="FadeInDuration" Type="Real64" Value="0.100175744608829"/>
-														<Property Name="FadeOutDuration" Type="Real64" Value="0.380078566147499"/>
-														<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
-														<Property Name="TrimBegin" Type="Real64" Value="0.0923188234630384"/>
-														<Property Name="TrimEnd" Type="Real64" Value="0.472397389610538"/>
+														<Property Name="3DSpatialization" Type="int16" Value="2"/>
+														<Property Name="CenterPercentage" Type="int32">
+															<ValueList>
+																<Value>10</Value>
+															</ValueList>
+														</Property>
+														<Property Name="InitialDelay" Type="Real64">
+															<ValueList>
+																<Value>0.3</Value>
+															</ValueList>
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{2EC94793-65B4-4451-8626-B63142BC7481}">
+																		<PropertyList>
+																			<Property Name="Max" Type="Real64" Value="1.5"/>
+																		</PropertyList>
+																	</Modifier>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
+														<Property Name="Lowpass" Type="int16">
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{9C9D7AF2-6820-4825-B36D-5A40BD3802D0}"/>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
+														<Property Name="OverrideEffect" Type="bool" Value="True"/>
+														<Property Name="Pitch" Type="int32">
+															<ValueList>
+																<Value>-1000</Value>
+															</ValueList>
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{1DDB0DA0-5B56-49D7-836B-289F090F24F4}"/>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
+														<Property Name="SpeakerPanning" Type="int16" Value="1"/>
+														<Property Name="SpeakerPanning3DSpatializationMix" Type="int32" Value="89"/>
+														<Property Name="Weight" Type="Real64">
+															<ValueList>
+																<Value>15</Value>
+															</ValueList>
+														</Property>
 													</PropertyList>
-													<Language>SFX</Language>
-													<AudioFile>SFX_idle_Kraken_03.wav</AudioFile>
-													<MediaIDList>
-														<MediaID ID="131662449"/>
-													</MediaIDList>
-												</AudioFileSource>
+													<ReferenceList>
+														<Reference Name="Attenuation">
+															<ObjectRef Name="Physically_Based" ID="{7AF96D5E-B0A7-4524-B96B-04F53DEAEC94}" WorkUnitID="{E312AA2F-7D32-49AE-9B3F-853E8C0370AC}"/>
+														</Reference>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="SFX_Bus" ID="{F5C91BBD-C9DE-46C1-B10A-F7A0405036D3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="SFX_idle_Kraken_03" ID="{2FBF9830-DF73-4D78-BBD5-4AE2F17D9556}">
+															<PropertyList>
+																<Property Name="FadeInDuration" Type="Real64" Value="0.100175744608829"/>
+																<Property Name="FadeOutDuration" Type="Real64" Value="0.380078566147499"/>
+																<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+																<Property Name="TrimBegin" Type="Real64" Value="0.0923188234630384"/>
+															</PropertyList>
+															<Language>SFX</Language>
+															<AudioFile>SFX_idle_Kraken_03.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="345307078"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<PositioningInfo>
+														<Panner Name="" ID="{4038C494-4F4C-4353-94D1-9589660E5957}"/>
+													</PositioningInfo>
+													<ObjectLists>
+														<ObjectList Name="Effects">
+															<EffectSlot Name="" ID="{61299163-0419-46DA-BCB0-E3B536619123}" ShortID="870109038">
+																<ReferenceList>
+																	<Reference Name="Effect">
+																		<Custom>
+																			<Effect Name="Pitch Shifter (Custom)" ID="{61531ACD-9887-48F9-B017-D587834125D9}" ShortID="639145661" PluginName="Wwise Pitch Shifter" CompanyID="0" PluginID="136" PluginType="3">
+																				<PropertyList>
+																					<Property Name="DryLevel" Type="Real32" Value="-9"/>
+																					<Property Name="Pitch" Type="Real32" Value="-1100"/>
+																					<Property Name="WetLevel" Type="Real32" Value="12"/>
+																				</PropertyList>
+																			</Effect>
+																		</Custom>
+																	</Reference>
+																</ReferenceList>
+															</EffectSlot>
+															<EffectSlot Name="" ID="{978CA545-3BF9-430E-8827-A52A77FF50D9}" ShortID="254890474">
+																<ReferenceList>
+																	<Reference Name="Effect">
+																		<Custom CreatedFrom="{65397B72-19EC-43DB-B2D2-EB84437B6BDC}">
+																			<Effect Name="Boomerang (Custom)" ID="{9D3A7325-0A5D-47BE-8B44-28B1B98AFE79}" ShortID="644954682" PluginName="Wwise Tremolo" CompanyID="0" PluginID="131" PluginType="3">
+																				<PropertyList>
+																					<Property Name="ModDepth" Type="Real32" Value="90.1"/>
+																					<Property Name="ModFrequency" Type="Real32" Value="3"/>
+																					<Property Name="ModPWM" Type="Real32" Value="0"/>
+																					<Property Name="ModPhaseOffset" Type="Real32" Value="-180"/>
+																					<Property Name="ModPhaseSpread" Type="Real32" Value="136"/>
+																					<Property Name="ModWaveform" Type="int32" Value="1"/>
+																				</PropertyList>
+																			</Effect>
+																		</Custom>
+																	</Reference>
+																</ReferenceList>
+															</EffectSlot>
+															<EffectSlot Name="" ID="{106F502C-B1F0-420B-9532-0F9711776A4D}" ShortID="504773805">
+																<ReferenceList>
+																	<Reference Name="Effect">
+																		<Custom>
+																			<Effect Name="Guitar Distortion (Custom)" ID="{1A6F51E7-E17B-4AEF-863F-DE81C2C109BF}" ShortID="283726598" PluginName="Wwise Guitar Distortion" CompanyID="0" PluginID="126" PluginType="3">
+																				<PropertyList>
+																					<Property Name="DistortionDrive" Type="Real32" Value="3"/>
+																					<Property Name="DistortionTone" Type="Real32" Value="38"/>
+																					<Property Name="DistortionType" Type="int32" Value="1"/>
+																					<Property Name="WetDryMix" Type="Real32" Value="80"/>
+																				</PropertyList>
+																			</Effect>
+																		</Custom>
+																	</Reference>
+																</ReferenceList>
+															</EffectSlot>
+														</ObjectList>
+													</ObjectLists>
+													<ActiveSourceList>
+														<ActiveSource Name="SFX_idle_Kraken_03" ID="{2FBF9830-DF73-4D78-BBD5-4AE2F17D9556}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="Silence" ID="{71C987E3-2F0F-4321-A36D-948F5FBDDB98}" ShortID="626518449">
+													<PropertyList>
+														<Property Name="Pitch" Type="int32">
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{A3B2E600-E07C-4573-ACBB-2AFB40FBBF83}"/>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
+														<Property Name="Weight" Type="Real64">
+															<ValueList>
+																<Value>70</Value>
+															</ValueList>
+														</Property>
+													</PropertyList>
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Main Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<SourcePlugin Name="Silence" ID="{D251AFC4-E7D0-4319-AEF9-DFBF5788F70D}" ShortID="660423718" PluginName="Wwise Silence" CompanyID="0" PluginID="101">
+															<Language>SFX</Language>
+														</SourcePlugin>
+													</ChildrenList>
+													<ActiveSourceList>
+														<ActiveSource Name="Silence" ID="{D251AFC4-E7D0-4319-AEF9-DFBF5788F70D}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
 											</ChildrenList>
-											<ObjectLists>
-												<ObjectList Name="Effects">
-													<EffectSlot Name="" ID="{61299163-0419-46DA-BCB0-E3B536619123}" ShortID="870109038">
-														<ReferenceList>
-															<Reference Name="Effect">
-																<Custom>
-																	<Effect Name="Pitch Shifter (Custom)" ID="{61531ACD-9887-48F9-B017-D587834125D9}" ShortID="639145661" PluginName="Wwise Pitch Shifter" CompanyID="0" PluginID="136" PluginType="3">
-																		<PropertyList>
-																			<Property Name="DryLevel" Type="Real32" Value="-9"/>
-																			<Property Name="Pitch" Type="Real32" Value="-1100"/>
-																			<Property Name="WetLevel" Type="Real32" Value="12"/>
-																		</PropertyList>
-																	</Effect>
-																</Custom>
-															</Reference>
-														</ReferenceList>
-													</EffectSlot>
-													<EffectSlot Name="" ID="{978CA545-3BF9-430E-8827-A52A77FF50D9}" ShortID="254890474">
-														<ReferenceList>
-															<Reference Name="Effect">
-																<Custom CreatedFrom="{65397B72-19EC-43DB-B2D2-EB84437B6BDC}">
-																	<Effect Name="Boomerang (Custom)" ID="{9D3A7325-0A5D-47BE-8B44-28B1B98AFE79}" ShortID="644954682" PluginName="Wwise Tremolo" CompanyID="0" PluginID="131" PluginType="3">
-																		<PropertyList>
-																			<Property Name="ModDepth" Type="Real32" Value="90.1"/>
-																			<Property Name="ModFrequency" Type="Real32" Value="3"/>
-																			<Property Name="ModPWM" Type="Real32" Value="0"/>
-																			<Property Name="ModPhaseOffset" Type="Real32" Value="-180"/>
-																			<Property Name="ModPhaseSpread" Type="Real32" Value="136"/>
-																			<Property Name="ModWaveform" Type="int32" Value="1"/>
-																		</PropertyList>
-																	</Effect>
-																</Custom>
-															</Reference>
-														</ReferenceList>
-													</EffectSlot>
-													<EffectSlot Name="" ID="{106F502C-B1F0-420B-9532-0F9711776A4D}" ShortID="504773805">
-														<ReferenceList>
-															<Reference Name="Effect">
-																<Custom>
-																	<Effect Name="Guitar Distortion (Custom)" ID="{1A6F51E7-E17B-4AEF-863F-DE81C2C109BF}" ShortID="283726598" PluginName="Wwise Guitar Distortion" CompanyID="0" PluginID="126" PluginType="3">
-																		<PropertyList>
-																			<Property Name="DistortionDrive" Type="Real32" Value="3"/>
-																			<Property Name="DistortionTone" Type="Real32" Value="38"/>
-																			<Property Name="DistortionType" Type="int32" Value="1"/>
-																			<Property Name="WetDryMix" Type="Real32" Value="80"/>
-																		</PropertyList>
-																	</Effect>
-																</Custom>
-															</Reference>
-														</ReferenceList>
-													</EffectSlot>
-												</ObjectList>
-											</ObjectLists>
-											<ActiveSourceList>
-												<ActiveSource Name="SFX_idle_Kraken_03" ID="{2FBF9830-DF73-4D78-BBD5-4AE2F17D9556}" Platform="Linked"/>
-											</ActiveSourceList>
-										</Sound>
+										</RandomSequenceContainer>
 									</ChildrenList>
+									<PositioningInfo>
+										<Panner Name="" ID="{CB728DF3-8D41-4C25-A314-0E75A7E5C1E7}"/>
+									</PositioningInfo>
 									<ObjectLists>
 										<ObjectList Name="Effects">
-											<EffectSlot Name="" ID="{95DA27F8-1D82-41CC-A707-1724FD3279F5}" ShortID="840646442">
+											<EffectSlot Name="" ID="{2BF19133-D116-41E9-B26C-445953B489A3}" ShortID="103724715">
 												<ReferenceList>
 													<Reference Name="Effect">
 														<Custom>
-															<Effect Name="Pitch Shifter (Custom)" ID="{6041E6E3-955F-4A48-A949-B77EF7623212}" ShortID="684057054" PluginName="Wwise Pitch Shifter" CompanyID="0" PluginID="136" PluginType="3">
+															<Effect Name="Stereo Delay (Custom)" ID="{EC75EFCA-0407-463E-BF38-313BDB525CB1}" ShortID="715832393" PluginName="Wwise Stereo Delay" CompanyID="0" PluginID="135" PluginType="3">
 																<PropertyList>
-																	<Property Name="DryLevel" Type="Real32" Value="-9"/>
-																	<Property Name="Pitch" Type="Real32" Value="-1100"/>
-																	<Property Name="WetLevel" Type="Real32" Value="12"/>
+																	<Property Name="DryLevel" Type="Real32" Value="-8"/>
+																	<Property Name="LeftInputType" Type="int32" Value="2"/>
+																	<Property Name="RightInputType" Type="int32" Value="2"/>
+																	<Property Name="WetLevel" Type="Real32" Value="2"/>
 																</PropertyList>
 															</Effect>
 														</Custom>
 													</Reference>
 												</ReferenceList>
 											</EffectSlot>
-											<EffectSlot Name="" ID="{A8015267-163F-40A6-A136-720CB1D46A82}" ShortID="827154164">
+											<EffectSlot Name="" ID="{41B85595-BBC8-418C-BD18-9EBD487EF5E1}" ShortID="327295494">
 												<ReferenceList>
 													<Reference Name="Effect">
-														<Custom>
-															<Effect Name="Delay (Custom)" ID="{9F7649E8-7366-47DB-8844-8319A43CD110}" ShortID="409855597" PluginName="Wwise Delay" CompanyID="0" PluginID="106" PluginType="3">
+														<Custom CreatedFrom="{A1F17D99-0801-4F32-B74E-ADB2D9ACC556}">
+															<Effect Name="Fear_no_Evil (Custom)" ID="{4FE01613-5606-4A1D-9F9C-9B893AC2250A}" ShortID="58699382" PluginName="Wwise Harmonizer" CompanyID="0" PluginID="138" PluginType="3">
 																<PropertyList>
-																	<Property Name="DelayTime" Type="Real32" Value="0.07"/>
-																	<Property Name="Feedback" Type="Real32" Value="5"/>
-																	<Property Name="FeedbackEnabled" Type="bool" Value="False"/>
-																	<Property Name="WetDryMix" Type="Real32" Value="10"/>
+																	<Property Name="DryLevel" Type="Real32" Value="-3"/>
+																	<Property Name="Voice1Pitch" Type="Real32" Value="-100"/>
+																	<Property Name="Voice2Enable" Type="bool" Value="True"/>
+																	<Property Name="Voice2Pitch" Type="Real32" Value="100"/>
 																</PropertyList>
 															</Effect>
 														</Custom>
 													</Reference>
 												</ReferenceList>
 											</EffectSlot>
-											<EffectSlot Name="" ID="{8BBBC5BF-F959-43C6-B04D-879569ADC4EC}" ShortID="69080900">
+											<EffectSlot Name="" ID="{8F82E0CD-EB0D-405E-80B2-6EA78665632D}" ShortID="906850519">
 												<ReferenceList>
 													<Reference Name="Effect">
-														<Custom>
-															<Effect Name="Guitar Distortion (Custom)" ID="{C109D540-843C-4B80-9AB7-36092BAB7C4B}" ShortID="807162046" PluginName="Wwise Guitar Distortion" CompanyID="0" PluginID="126" PluginType="3">
+														<Custom CreatedFrom="{99F80B38-1C45-42CE-9BCD-E94F3885DCAA}">
+															<Effect Name="Monsterize (Custom)" ID="{A4EF4B91-376A-4947-86E6-ED81F1EB459C}" ShortID="1007302381" PluginName="Wwise Pitch Shifter" CompanyID="0" PluginID="136" PluginType="3">
 																<PropertyList>
-																	<Property Name="DistortionDrive" Type="Real32" Value="3"/>
-																	<Property Name="DistortionTone" Type="Real32" Value="38"/>
-																	<Property Name="DistortionType" Type="int32" Value="1"/>
-																	<Property Name="WetDryMix" Type="Real32" Value="80"/>
+																	<Property Name="DryLevel" Type="Real32" Value="-1"/>
+																	<Property Name="FilterFrequency" Type="Real32" Value="8250"/>
+																	<Property Name="FilterType" Type="int32" Value="2"/>
+																	<Property Name="Pitch" Type="Real32" Value="-1200"/>
+																	<Property Name="WetLevel" Type="Real32" Value="-31"/>
 																</PropertyList>
 															</Effect>
 														</Custom>
@@ -9981,6 +10092,567 @@
 										</ObjectList>
 									</ObjectLists>
 								</BlendContainer>
+								<Folder Name="Stalactite" ID="{617E2E4D-C50C-4543-9167-58E4B110D746}" ShortID="208168954">
+									<ChildrenList>
+										<RandomSequenceContainer Name="Stalactite_Explosion" ID="{BF7561D9-140A-466A-9942-9D6032AC340C}" ShortID="496754887">
+											<PropertyList>
+												<Property Name="CenterPercentage" Type="int32">
+													<ValueList>
+														<Value>22</Value>
+													</ValueList>
+												</Property>
+												<Property Name="Color" Type="int16" Value="4"/>
+												<Property Name="Lowpass" Type="int16">
+													<ModifierList>
+														<ModifierInfo>
+															<Modifier Name="" ID="{CFB57F02-192A-4274-ABAA-32D704F16BCC}">
+																<PropertyList>
+																	<Property Name="Enabled" Type="bool" Value="True"/>
+																	<Property Name="Max" Type="Real64" Value="11"/>
+																	<Property Name="Min" Type="Real64" Value="-7"/>
+																</PropertyList>
+															</Modifier>
+														</ModifierInfo>
+													</ModifierList>
+												</Property>
+												<Property Name="NormalOrShuffle" Type="int16" Value="0"/>
+												<Property Name="Pitch" Type="int32">
+													<ModifierList>
+														<ModifierInfo>
+															<Modifier Name="" ID="{5406C69B-6B56-4186-9B2F-08C931FBC399}">
+																<PropertyList>
+																	<Property Name="Enabled" Type="bool" Value="True"/>
+																	<Property Name="Max" Type="Real64" Value="175"/>
+																	<Property Name="Min" Type="Real64" Value="-100"/>
+																</PropertyList>
+															</Modifier>
+														</ModifierInfo>
+													</ModifierList>
+												</Property>
+												<Property Name="SpeakerPanning" Type="int16" Value="1"/>
+												<Property Name="Volume" Type="Real64">
+													<ModifierList>
+														<ModifierInfo>
+															<Modifier Name="" ID="{265314ED-2A7B-44DA-A40E-39CE5F8DB7D9}">
+																<PropertyList>
+																	<Property Name="Enabled" Type="bool" Value="True"/>
+																	<Property Name="Min" Type="Real64" Value="-4.5"/>
+																</PropertyList>
+															</Modifier>
+														</ModifierInfo>
+													</ModifierList>
+												</Property>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Attenuation">
+													<ObjectRef Name="Physically_Based" ID="{7AF96D5E-B0A7-4524-B96B-04F53DEAEC94}" WorkUnitID="{E312AA2F-7D32-49AE-9B3F-853E8C0370AC}"/>
+												</Reference>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="SFX_Bus" ID="{F5C91BBD-C9DE-46C1-B10A-F7A0405036D3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<Sound Name="Stalactite_01" ID="{BEB6C009-3447-4247-9BB9-AB1EBB77A42E}" ShortID="128343903">
+													<PropertyList>
+														<Property Name="Lowpass" Type="int16">
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{2B3C270D-A3C6-4A4B-8957-3658D060C2D7}"/>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
+													</PropertyList>
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Main Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="SPFX_stalactite_explosion_Kraken_01" ID="{1DE17589-52A3-4EEF-97C6-96DF90DD267D}">
+															<Language>SFX</Language>
+															<AudioFile>SPFX_stalactite_explosion_Kraken_01.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="733247531"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ActiveSourceList>
+														<ActiveSource Name="SPFX_stalactite_explosion_Kraken_01" ID="{1DE17589-52A3-4EEF-97C6-96DF90DD267D}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="Stalactite_02" ID="{127DBAA5-8A1C-4EDA-80CF-EC38BF8B1A04}" ShortID="800300263">
+													<PropertyList>
+														<Property Name="Lowpass" Type="int16">
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{C0A2201D-B6B8-48EF-9FA8-08CC685039C0}"/>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
+													</PropertyList>
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Main Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="SPFX_stalactite_explosion_Kraken_02" ID="{856AE0C5-293F-4BE9-8620-268429422648}">
+															<Language>SFX</Language>
+															<AudioFile>SPFX_stalactite_explosion_Kraken_02.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="561574135"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ActiveSourceList>
+														<ActiveSource Name="SPFX_stalactite_explosion_Kraken_02" ID="{856AE0C5-293F-4BE9-8620-268429422648}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="Stalactite_03" ID="{A0E50171-04B1-4E95-84AC-71FF01C80DC5}" ShortID="270712826">
+													<PropertyList>
+														<Property Name="Lowpass" Type="int16">
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{0652BE26-1925-4001-B8F6-943D6478F9A7}"/>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
+													</PropertyList>
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Main Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="SPFX_stalactite_explosion_Kraken_03" ID="{95165FDA-7F6C-4A41-A52E-01BCB7496CE5}">
+															<Language>SFX</Language>
+															<AudioFile>SPFX_stalactite_explosion_Kraken_03.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="788746228"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ActiveSourceList>
+														<ActiveSource Name="SPFX_stalactite_explosion_Kraken_03" ID="{95165FDA-7F6C-4A41-A52E-01BCB7496CE5}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+											</ChildrenList>
+											<PositioningInfo>
+												<Panner Name="" ID="{667E9D9F-4F1B-497D-9DB1-6D6EFA1D3C25}"/>
+											</PositioningInfo>
+											<ObjectLists>
+												<ObjectList Name="Effects">
+													<EffectSlot Name="" ID="{1D9E087D-C2E7-4DA6-95F9-7E628295289D}" ShortID="577780903">
+														<ReferenceList>
+															<Reference Name="Effect">
+																<Custom>
+																	<Effect Name="Guitar Distortion (Custom)" ID="{CD0030BB-2079-442F-85FC-5370270C8385}" ShortID="439023239" PluginName="Wwise Guitar Distortion" CompanyID="0" PluginID="126" PluginType="3">
+																		<PropertyList>
+																			<Property Name="DistortionDrive" Type="Real32" Value="8"/>
+																			<Property Name="DistortionType" Type="int32" Value="1"/>
+																		</PropertyList>
+																	</Effect>
+																</Custom>
+															</Reference>
+														</ReferenceList>
+													</EffectSlot>
+												</ObjectList>
+											</ObjectLists>
+										</RandomSequenceContainer>
+										<BlendContainer Name="Wip" ID="{99AC2FC0-143E-43A9-9F88-D0C30D56F74C}" ShortID="319533331">
+											<PropertyList>
+												<Property Name="3DSpatialization" Type="int16" Value="2"/>
+												<Property Name="BlendBehavior" Type="int16" Value="1"/>
+												<Property Name="CenterPercentage" Type="int32">
+													<ValueList>
+														<Value>14</Value>
+													</ValueList>
+												</Property>
+												<Property Name="InitialDelay" Type="Real64">
+													<ModifierList>
+														<ModifierInfo>
+															<Modifier Name="" ID="{E3847E14-362C-4507-9911-63A83E4C5ACC}"/>
+														</ModifierInfo>
+													</ModifierList>
+												</Property>
+												<Property Name="Lowpass" Type="int16">
+													<ModifierList>
+														<ModifierInfo>
+															<Modifier Name="" ID="{FB6AAACE-2550-4423-9FCC-7EF8F6B5D0A3}">
+																<PropertyList>
+																	<Property Name="Enabled" Type="bool" Value="True"/>
+																	<Property Name="Max" Type="Real64" Value="13"/>
+																	<Property Name="Min" Type="Real64" Value="-11"/>
+																</PropertyList>
+															</Modifier>
+														</ModifierInfo>
+													</ModifierList>
+												</Property>
+												<Property Name="Pitch" Type="int32">
+													<ValueList>
+														<Value>130</Value>
+													</ValueList>
+													<ModifierList>
+														<ModifierInfo>
+															<Modifier Name="" ID="{C5424A16-2DA0-416C-9C94-9500E2E3F515}">
+																<PropertyList>
+																	<Property Name="Enabled" Type="bool" Value="True"/>
+																	<Property Name="Max" Type="Real64" Value="175"/>
+																	<Property Name="Min" Type="Real64" Value="-25"/>
+																</PropertyList>
+															</Modifier>
+														</ModifierInfo>
+													</ModifierList>
+												</Property>
+												<Property Name="SpeakerPanning" Type="int16" Value="1"/>
+												<Property Name="Volume" Type="Real64">
+													<ModifierList>
+														<ModifierInfo>
+															<Modifier Name="" ID="{C0FDDE0F-DFEB-437D-8CBF-CF4CC780B8D9}"/>
+														</ModifierInfo>
+													</ModifierList>
+												</Property>
+												<Property Name="Weight" Type="Real64">
+													<ValueList>
+														<Value>65</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Attenuation">
+													<ObjectRef Name="Physically_Based" ID="{7AF96D5E-B0A7-4524-B96B-04F53DEAEC94}" WorkUnitID="{E312AA2F-7D32-49AE-9B3F-853E8C0370AC}"/>
+												</Reference>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="SFX_Bus" ID="{F5C91BBD-C9DE-46C1-B10A-F7A0405036D3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<Sound Name="Idle_01" ID="{4DBB618C-BB2B-48D9-8C97-9904F2F6B5BD}" ShortID="1063768722">
+													<PropertyList>
+														<Property Name="InitialDelay" Type="Real64">
+															<ValueList>
+																<Value>0.3</Value>
+															</ValueList>
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{8241DF52-8BF9-49C4-BA96-CC5AA8135C9B}">
+																		<PropertyList>
+																			<Property Name="Max" Type="Real64" Value="1"/>
+																		</PropertyList>
+																	</Modifier>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
+														<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+														<Property Name="Lowpass" Type="int16">
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{3C1261E3-8AA0-4C25-A961-81126E40B044}">
+																		<PropertyList>
+																			<Property Name="Enabled" Type="bool" Value="True"/>
+																			<Property Name="Max" Type="Real64" Value="10"/>
+																			<Property Name="Min" Type="Real64" Value="-8"/>
+																		</PropertyList>
+																	</Modifier>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
+														<Property Name="Pitch" Type="int32">
+															<ValueList>
+																<Value>-2180</Value>
+															</ValueList>
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{5E17EAEE-C5DA-4965-B16A-B4C9BE819FD6}">
+																		<PropertyList>
+																			<Property Name="Enabled" Type="bool" Value="True"/>
+																			<Property Name="Max" Type="Real64" Value="475"/>
+																			<Property Name="Min" Type="Real64" Value="-900"/>
+																		</PropertyList>
+																	</Modifier>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
+														<Property Name="Volume" Type="Real64">
+															<ValueList>
+																<Value>-18</Value>
+															</ValueList>
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{D5763DB4-BD27-4CDB-A91E-F3F431F2FBF4}">
+																		<PropertyList>
+																			<Property Name="Enabled" Type="bool" Value="True"/>
+																			<Property Name="Max" Type="Real64" Value="1"/>
+																			<Property Name="Min" Type="Real64" Value="-1"/>
+																		</PropertyList>
+																	</Modifier>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
+													</PropertyList>
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="SFX_Bus" ID="{F5C91BBD-C9DE-46C1-B10A-F7A0405036D3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="SFX_idle_Kraken_01" ID="{D042DC1A-39DE-440A-893A-B15903A43BD1}">
+															<PropertyList>
+																<Property Name="FadeOutDuration" Type="Real64" Value="0.388070971192697"/>
+																<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+																<Property Name="TrimBegin" Type="Real64" Value="0.0974431604371035"/>
+																<Property Name="TrimEnd" Type="Real64" Value="0.485514131629801"/>
+															</PropertyList>
+															<Language>SFX</Language>
+															<AudioFile>SFX_idle_Kraken_01.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="25396952"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ActiveSourceList>
+														<ActiveSource Name="SFX_idle_Kraken_01" ID="{D042DC1A-39DE-440A-893A-B15903A43BD1}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="Idle_03" ID="{BAC8C1A5-7901-414D-BB37-209F38A13EA4}" ShortID="992090348">
+													<PropertyList>
+														<Property Name="InitialDelay" Type="Real64">
+															<ValueList>
+																<Value>0.3</Value>
+															</ValueList>
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{DE1DC5C4-9A26-4F80-A42D-CFFD975013C0}">
+																		<PropertyList>
+																			<Property Name="Max" Type="Real64" Value="1.5"/>
+																		</PropertyList>
+																	</Modifier>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
+														<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+														<Property Name="Lowpass" Type="int16">
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{CDF38E5A-ECD1-4553-A365-A5B004A71166}">
+																		<PropertyList>
+																			<Property Name="Enabled" Type="bool" Value="True"/>
+																			<Property Name="Max" Type="Real64" Value="20"/>
+																			<Property Name="Min" Type="Real64" Value="-17"/>
+																		</PropertyList>
+																	</Modifier>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
+														<Property Name="Pitch" Type="int32">
+															<ValueList>
+																<Value>-2250</Value>
+															</ValueList>
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{20812C6A-F881-4AEB-9DB3-579296BC9F92}">
+																		<PropertyList>
+																			<Property Name="Enabled" Type="bool" Value="True"/>
+																			<Property Name="Max" Type="Real64" Value="225"/>
+																			<Property Name="Min" Type="Real64" Value="-375"/>
+																		</PropertyList>
+																	</Modifier>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
+														<Property Name="Volume" Type="Real64">
+															<ValueList>
+																<Value>-18</Value>
+															</ValueList>
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{E58AFE71-CD9E-43CF-9B79-87ACA322666F}"/>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
+														<Property Name="Weight" Type="Real64">
+															<ValueList>
+																<Value>15</Value>
+															</ValueList>
+														</Property>
+													</PropertyList>
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="SFX_Bus" ID="{F5C91BBD-C9DE-46C1-B10A-F7A0405036D3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="SFX_idle_Kraken_03" ID="{A1EA69E9-A8C4-4A5D-918C-4F2693D0269B}">
+															<PropertyList>
+																<Property Name="FadeInDuration" Type="Real64" Value="0.100175744608829"/>
+																<Property Name="FadeOutDuration" Type="Real64" Value="0.324008566381352"/>
+																<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+																<Property Name="TrimBegin" Type="Real64" Value="0.0923188234630384"/>
+															</PropertyList>
+															<Language>SFX</Language>
+															<AudioFile>SFX_idle_Kraken_03.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="131662449"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ObjectLists>
+														<ObjectList Name="Effects">
+															<EffectSlot Name="" ID="{FDBB86D8-BA8E-423C-88C2-40353C78CAB7}" ShortID="352442674">
+																<ReferenceList>
+																	<Reference Name="Effect">
+																		<Custom>
+																			<Effect Name="Pitch Shifter (Custom)" ID="{FCB179EA-D543-4662-BEDA-6B1D6498B2BD}" ShortID="740993311" PluginName="Wwise Pitch Shifter" CompanyID="0" PluginID="136" PluginType="3">
+																				<PropertyList>
+																					<Property Name="DryLevel" Type="Real32" Value="-9"/>
+																					<Property Name="Pitch" Type="Real32" Value="-1100"/>
+																					<Property Name="WetLevel" Type="Real32" Value="12"/>
+																				</PropertyList>
+																			</Effect>
+																		</Custom>
+																	</Reference>
+																</ReferenceList>
+															</EffectSlot>
+															<EffectSlot Name="" ID="{D9EE4F75-4E48-4DB7-BE49-A3BE12BAE861}" ShortID="720003573">
+																<ReferenceList>
+																	<Reference Name="Effect">
+																		<Custom CreatedFrom="{65397B72-19EC-43DB-B2D2-EB84437B6BDC}">
+																			<Effect Name="Boomerang (Custom)" ID="{41ACA5F9-148D-4B78-8505-16CD9660D126}" ShortID="649731121" PluginName="Wwise Tremolo" CompanyID="0" PluginID="131" PluginType="3">
+																				<PropertyList>
+																					<Property Name="ModDepth" Type="Real32" Value="90.1"/>
+																					<Property Name="ModFrequency" Type="Real32" Value="3"/>
+																					<Property Name="ModPWM" Type="Real32" Value="0"/>
+																					<Property Name="ModPhaseOffset" Type="Real32" Value="-180"/>
+																					<Property Name="ModPhaseSpread" Type="Real32" Value="136"/>
+																					<Property Name="ModWaveform" Type="int32" Value="1"/>
+																				</PropertyList>
+																			</Effect>
+																		</Custom>
+																	</Reference>
+																</ReferenceList>
+															</EffectSlot>
+															<EffectSlot Name="" ID="{EC130E7E-B753-4F0C-A11F-55DF03839A91}" ShortID="796991265">
+																<ReferenceList>
+																	<Reference Name="Effect">
+																		<Custom>
+																			<Effect Name="Guitar Distortion (Custom)" ID="{44F2FC45-0266-4ABD-8428-1AF2BE0A7D18}" ShortID="917876997" PluginName="Wwise Guitar Distortion" CompanyID="0" PluginID="126" PluginType="3">
+																				<PropertyList>
+																					<Property Name="DistortionDrive" Type="Real32" Value="3"/>
+																					<Property Name="DistortionTone" Type="Real32" Value="38"/>
+																					<Property Name="DistortionType" Type="int32" Value="1"/>
+																					<Property Name="WetDryMix" Type="Real32" Value="80"/>
+																				</PropertyList>
+																			</Effect>
+																		</Custom>
+																	</Reference>
+																</ReferenceList>
+															</EffectSlot>
+														</ObjectList>
+													</ObjectLists>
+													<ActiveSourceList>
+														<ActiveSource Name="SFX_idle_Kraken_03" ID="{A1EA69E9-A8C4-4A5D-918C-4F2693D0269B}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+											</ChildrenList>
+											<PositioningInfo>
+												<Panner Name="" ID="{7CC5F483-3D0C-4416-BCA9-B510D546A3AB}"/>
+											</PositioningInfo>
+											<ObjectLists>
+												<ObjectList Name="Effects">
+													<EffectSlot Name="" ID="{7E587DE4-8A49-4250-BDAB-476F4417703A}" ShortID="693350085">
+														<ReferenceList>
+															<Reference Name="Effect">
+																<Custom>
+																	<Effect Name="Stereo Delay (Custom)" ID="{05511239-B375-4D9F-92EF-0ACEC4A5E8DD}" ShortID="598168491" PluginName="Wwise Stereo Delay" CompanyID="0" PluginID="135" PluginType="3">
+																		<PropertyList>
+																			<Property Name="LeftCrossfeed" Type="Real32" Value="-22"/>
+																			<Property Name="LeftDelayTime" Type="Real32" Value="0.5"/>
+																			<Property Name="LeftFeedback" Type="Real32" Value="-1.8"/>
+																			<Property Name="LeftInputType" Type="int32" Value="2"/>
+																			<Property Name="RightCrossfeed" Type="Real32" Value="-17"/>
+																			<Property Name="RightDelayTime" Type="Real32" Value="0.82"/>
+																			<Property Name="RightFeedback" Type="Real32" Value="-4.7"/>
+																			<Property Name="RightInputType" Type="int32" Value="2"/>
+																		</PropertyList>
+																	</Effect>
+																</Custom>
+															</Reference>
+														</ReferenceList>
+													</EffectSlot>
+													<EffectSlot Name="" ID="{5D1A6A92-B627-4860-AA22-1EA923B609BE}" ShortID="855639857">
+														<ReferenceList>
+															<Reference Name="Effect">
+																<Custom>
+																	<Effect Name="Guitar Distortion (Custom)" ID="{31D52DAF-1FEC-42D4-A418-ACA2A03553B1}" ShortID="850292924" PluginName="Wwise Guitar Distortion" CompanyID="0" PluginID="126" PluginType="3">
+																		<PropertyList>
+																			<Property Name="DistortionDrive" Type="Real32" Value="18"/>
+																			<Property Name="DistortionType" Type="int32" Value="1"/>
+																			<Property Name="OutputLevel" Type="Real32" Value="3.5"/>
+																		</PropertyList>
+																	</Effect>
+																</Custom>
+															</Reference>
+														</ReferenceList>
+													</EffectSlot>
+													<EffectSlot Name="" ID="{D7240545-ECBC-4F9B-A5D5-E41AF1B627DF}" ShortID="1064134521">
+														<ReferenceList>
+															<Reference Name="Effect">
+																<Custom CreatedFrom="{A1F17D99-0801-4F32-B74E-ADB2D9ACC556}">
+																	<Effect Name="Fear_no_Evil (Custom)" ID="{EF68C4D0-4D60-443A-8733-3852555CCDBC}" ShortID="529980050" PluginName="Wwise Harmonizer" CompanyID="0" PluginID="138" PluginType="3">
+																		<PropertyList>
+																			<Property Name="DryLevel" Type="Real32" Value="-3"/>
+																			<Property Name="Voice1Pitch" Type="Real32" Value="-100"/>
+																			<Property Name="Voice2Enable" Type="bool" Value="True"/>
+																			<Property Name="Voice2Pitch" Type="Real32" Value="100"/>
+																		</PropertyList>
+																	</Effect>
+																</Custom>
+															</Reference>
+														</ReferenceList>
+													</EffectSlot>
+													<EffectSlot Name="" ID="{C52D2FFE-6C85-433F-A1AC-074787660224}" ShortID="1055298610">
+														<ReferenceList>
+															<Reference Name="Effect">
+																<Custom CreatedFrom="{99F80B38-1C45-42CE-9BCD-E94F3885DCAA}">
+																	<Effect Name="Monsterize (Custom)" ID="{27AAEBF5-E774-4558-8DF3-1F507BFB67D8}" ShortID="151950908" PluginName="Wwise Pitch Shifter" CompanyID="0" PluginID="136" PluginType="3">
+																		<PropertyList>
+																			<Property Name="DryLevel" Type="Real32" Value="-3"/>
+																			<Property Name="FilterFrequency" Type="Real32" Value="8250"/>
+																			<Property Name="FilterType" Type="int32" Value="2"/>
+																			<Property Name="Pitch" Type="Real32" Value="-1200"/>
+																			<Property Name="WetLevel" Type="Real32" Value="-19"/>
+																		</PropertyList>
+																	</Effect>
+																</Custom>
+															</Reference>
+														</ReferenceList>
+													</EffectSlot>
+												</ObjectList>
+											</ObjectLists>
+										</BlendContainer>
+									</ChildrenList>
+								</Folder>
 							</ChildrenList>
 						</Folder>
 					</ChildrenList>
@@ -10242,6 +10914,13 @@
 												<Value>4</Value>
 											</ValueList>
 										</Property>
+										<Property Name="Lowpass" Type="int16">
+											<ModifierList>
+												<ModifierInfo>
+													<Modifier Name="" ID="{D4ECE83C-2891-4A86-82B5-5528655610FD}"/>
+												</ModifierInfo>
+											</ModifierList>
+										</Property>
 										<Property Name="NormalOrShuffle" Type="int16" Value="0"/>
 										<Property Name="Pitch" Type="int32">
 											<ValueList>
@@ -10261,7 +10940,7 @@
 										<Property Name="SpeakerPanning3DSpatializationMix" Type="int32" Value="72"/>
 										<Property Name="Volume" Type="Real64">
 											<ValueList>
-												<Value>8</Value>
+												<Value>15</Value>
 											</ValueList>
 										</Property>
 									</PropertyList>
@@ -10272,7 +10951,7 @@
 													<PropertyList>
 														<Property Name="ConeAttenuation" Type="Real64">
 															<ValueList>
-																<Value>-96</Value>
+																<Value>-19</Value>
 															</ValueList>
 														</Property>
 														<Property Name="ConeHighPassFilterValue" Type="int32">
@@ -10280,7 +10959,7 @@
 																<Value>100</Value>
 															</ValueList>
 														</Property>
-														<Property Name="ConeInnerAngle" Type="int32" Value="245"/>
+														<Property Name="ConeInnerAngle" Type="int32" Value="300"/>
 														<Property Name="ConeOuterAngle" Type="int32" Value="360"/>
 														<Property Name="ConeUse" Type="bool">
 															<ValueList>
@@ -10311,7 +10990,7 @@
 																		</Point>
 																		<Point>
 																			<XPos>20</XPos>
-																			<YPos>-200</YPos>
+																			<YPos>-12.33237</YPos>
 																			<Flags>37</Flags>
 																		</Point>
 																	</PointList>
@@ -10516,7 +11195,7 @@
 												</Property>
 												<Property Name="Weight" Type="Real64">
 													<ValueList>
-														<Value>80</Value>
+														<Value>75</Value>
 													</ValueList>
 												</Property>
 											</PropertyList>
@@ -10628,6 +11307,7 @@
 											</ModifierList>
 										</Property>
 										<Property Name="SpeakerPanning" Type="int16" Value="1"/>
+										<Property Name="SpeakerPanning3DSpatializationMix" Type="int32" Value="85"/>
 										<Property Name="Volume" Type="Real64">
 											<ValueList>
 												<Value>-6</Value>
@@ -10965,14 +11645,19 @@
 										<Property Name="BlendBehavior" Type="int16" Value="1"/>
 										<Property Name="CenterPercentage" Type="int32">
 											<ValueList>
-												<Value>29</Value>
+												<Value>15</Value>
 											</ValueList>
 										</Property>
 										<Property Name="Color" Type="int16" Value="22"/>
 										<Property Name="Lowpass" Type="int16">
 											<ModifierList>
 												<ModifierInfo>
-													<Modifier Name="" ID="{6E34C1A9-5EDB-417A-8E63-FF7055D183B1}"/>
+													<Modifier Name="" ID="{6E34C1A9-5EDB-417A-8E63-FF7055D183B1}">
+														<PropertyList>
+															<Property Name="Max" Type="Real64" Value="10"/>
+															<Property Name="Min" Type="Real64" Value="-10"/>
+														</PropertyList>
+													</Modifier>
 												</ModifierInfo>
 											</ModifierList>
 										</Property>
@@ -10980,18 +11665,22 @@
 										<Property Name="Pitch" Type="int32">
 											<ModifierList>
 												<ModifierInfo>
-													<Modifier Name="" ID="{7C9AD519-DCA5-413E-8456-5F8424418899}"/>
+													<Modifier Name="" ID="{7C9AD519-DCA5-413E-8456-5F8424418899}">
+														<PropertyList>
+															<Property Name="Max" Type="Real64" Value="50"/>
+															<Property Name="Min" Type="Real64" Value="-25"/>
+														</PropertyList>
+													</Modifier>
 												</ModifierInfo>
 											</ModifierList>
 										</Property>
 										<Property Name="SpeakerPanning" Type="int16" Value="1"/>
-										<Property Name="SpeakerPanning3DSpatializationMix" Type="int32" Value="25"/>
+										<Property Name="SpeakerPanning3DSpatializationMix" Type="int32" Value="32"/>
 										<Property Name="Volume" Type="Real64">
 											<ModifierList>
 												<ModifierInfo>
 													<Modifier Name="" ID="{F6344A71-07EC-4EFB-B6EC-F19C04BFA7DA}">
 														<PropertyList>
-															<Property Name="Enabled" Type="bool" Value="True"/>
 															<Property Name="Min" Type="Real64" Value="-10"/>
 														</PropertyList>
 													</Modifier>
@@ -11169,7 +11858,7 @@
 												<Property Name="PlayMechanismStepOrContinuous" Type="int16" Value="0"/>
 												<Property Name="Volume" Type="Real64">
 													<ValueList>
-														<Value>-4</Value>
+														<Value>-6</Value>
 													</ValueList>
 													<ModifierList>
 														<ModifierInfo>
@@ -11195,12 +11884,52 @@
 											<ChildrenList>
 												<Sound Name="BoatSqueaks_01_01" ID="{4D557814-C25C-4E18-99A6-AA031ABE3F9D}" ShortID="405634510">
 													<PropertyList>
-														<Property Name="Volume" Type="Real64">
+														<Property Name="Lowpass" Type="int16">
 															<ModifierList>
 																<ModifierInfo>
-																	<Modifier Name="" ID="{D6392700-6F3E-42B3-B3CC-509BEE0D3FFC}"/>
+																	<Modifier Name="" ID="{06E0AAFD-7D6D-4D1B-A49B-46D1BBD44B97}">
+																		<PropertyList>
+																			<Property Name="Enabled" Type="bool" Value="True"/>
+																			<Property Name="Max" Type="Real64" Value="11"/>
+																			<Property Name="Min" Type="Real64" Value="-15"/>
+																		</PropertyList>
+																	</Modifier>
 																</ModifierInfo>
 															</ModifierList>
+														</Property>
+														<Property Name="Pitch" Type="int32">
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{D1A4EAF5-CCCF-43AF-AA2E-D38FF0AD8B61}">
+																		<PropertyList>
+																			<Property Name="Enabled" Type="bool" Value="True"/>
+																			<Property Name="Max" Type="Real64" Value="50"/>
+																			<Property Name="Min" Type="Real64" Value="-50"/>
+																		</PropertyList>
+																	</Modifier>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
+														<Property Name="Volume" Type="Real64">
+															<ValueList>
+																<Value>-4</Value>
+															</ValueList>
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{D6392700-6F3E-42B3-B3CC-509BEE0D3FFC}">
+																		<PropertyList>
+																			<Property Name="Enabled" Type="bool" Value="True"/>
+																			<Property Name="Max" Type="Real64" Value="1"/>
+																			<Property Name="Min" Type="Real64" Value="-2"/>
+																		</PropertyList>
+																	</Modifier>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
+														<Property Name="Weight" Type="Real64">
+															<ValueList>
+																<Value>18</Value>
+															</ValueList>
 														</Property>
 													</PropertyList>
 													<ReferenceList>
@@ -11229,12 +11958,49 @@
 												</Sound>
 												<Sound Name="BoatSqueaks_01_02" ID="{7E9875E4-F103-416E-9096-A400B2ADBC5D}" ShortID="790627201">
 													<PropertyList>
+														<Property Name="Lowpass" Type="int16">
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{B46ACD0E-F1B5-4939-84D7-CCF0B0B60902}">
+																		<PropertyList>
+																			<Property Name="Enabled" Type="bool" Value="True"/>
+																			<Property Name="Max" Type="Real64" Value="11"/>
+																			<Property Name="Min" Type="Real64" Value="-8"/>
+																		</PropertyList>
+																	</Modifier>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
+														<Property Name="Pitch" Type="int32">
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{B712C2E7-42C4-441C-9ACA-D77B6E63685C}">
+																		<PropertyList>
+																			<Property Name="Enabled" Type="bool" Value="True"/>
+																			<Property Name="Max" Type="Real64" Value="75"/>
+																			<Property Name="Min" Type="Real64" Value="-50"/>
+																		</PropertyList>
+																	</Modifier>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
 														<Property Name="Volume" Type="Real64">
 															<ModifierList>
 																<ModifierInfo>
-																	<Modifier Name="" ID="{E0993397-BDE8-4F29-8E83-5FEEF7BA9BC0}"/>
+																	<Modifier Name="" ID="{E0993397-BDE8-4F29-8E83-5FEEF7BA9BC0}">
+																		<PropertyList>
+																			<Property Name="Enabled" Type="bool" Value="True"/>
+																			<Property Name="Max" Type="Real64" Value="1"/>
+																			<Property Name="Min" Type="Real64" Value="-2"/>
+																		</PropertyList>
+																	</Modifier>
 																</ModifierInfo>
 															</ModifierList>
+														</Property>
+														<Property Name="Weight" Type="Real64">
+															<ValueList>
+																<Value>40</Value>
+															</ValueList>
 														</Property>
 													</PropertyList>
 													<ReferenceList>
@@ -11300,6 +12066,19 @@
 										</RandomSequenceContainer>
 										<RandomSequenceContainer Name="BoatSqueaks_02" ID="{EA6359A6-C858-47EE-9BBF-9B576E99AE91}" ShortID="791226261">
 											<PropertyList>
+												<Property Name="Lowpass" Type="int16">
+													<ModifierList>
+														<ModifierInfo>
+															<Modifier Name="" ID="{F9F93CE0-38FE-4616-8888-9A6924E17740}">
+																<PropertyList>
+																	<Property Name="Enabled" Type="bool" Value="True"/>
+																	<Property Name="Max" Type="Real64" Value="11"/>
+																	<Property Name="Min" Type="Real64" Value="-10"/>
+																</PropertyList>
+															</Modifier>
+														</ModifierInfo>
+													</ModifierList>
+												</Property>
 												<Property Name="NormalOrShuffle" Type="int16" Value="0"/>
 												<Property Name="Pitch" Type="int32">
 													<ModifierList>
@@ -11346,6 +12125,45 @@
 											<ChildrenList>
 												<Sound Name="BoatSqueaks_02_01" ID="{791905CF-7394-468A-94B0-6626902E03D8}" ShortID="161281837">
 													<PropertyList>
+														<Property Name="Lowpass" Type="int16">
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{0881A0BE-654B-415B-BECF-01D30BE90F63}">
+																		<PropertyList>
+																			<Property Name="Enabled" Type="bool" Value="True"/>
+																			<Property Name="Max" Type="Real64" Value="13"/>
+																			<Property Name="Min" Type="Real64" Value="-9"/>
+																		</PropertyList>
+																	</Modifier>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
+														<Property Name="Pitch" Type="int32">
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{B537C219-5503-4EBD-B882-10AD7FE3A9BF}">
+																		<PropertyList>
+																			<Property Name="Enabled" Type="bool" Value="True"/>
+																			<Property Name="Max" Type="Real64" Value="75"/>
+																			<Property Name="Min" Type="Real64" Value="-50"/>
+																		</PropertyList>
+																	</Modifier>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
+														<Property Name="Volume" Type="Real64">
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{094E85DC-64BE-44CF-861F-5D7468E1C5E6}">
+																		<PropertyList>
+																			<Property Name="Enabled" Type="bool" Value="True"/>
+																			<Property Name="Max" Type="Real64" Value="1"/>
+																			<Property Name="Min" Type="Real64" Value="-2"/>
+																		</PropertyList>
+																	</Modifier>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
 														<Property Name="Weight" Type="Real64">
 															<ValueList>
 																<Value>39</Value>
@@ -11374,6 +12192,47 @@
 													</ActiveSourceList>
 												</Sound>
 												<Sound Name="BoatSqueaks_02_02" ID="{54E0F996-7530-4B38-9C91-C045A95E940B}" ShortID="28042648">
+													<PropertyList>
+														<Property Name="Lowpass" Type="int16">
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{969B5023-2558-4E1B-84A2-9021BAB5A38D}">
+																		<PropertyList>
+																			<Property Name="Enabled" Type="bool" Value="True"/>
+																			<Property Name="Max" Type="Real64" Value="11"/>
+																			<Property Name="Min" Type="Real64" Value="-6"/>
+																		</PropertyList>
+																	</Modifier>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
+														<Property Name="Pitch" Type="int32">
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{FADB7A6C-0CDE-48B9-99DC-3539DD382A0B}">
+																		<PropertyList>
+																			<Property Name="Enabled" Type="bool" Value="True"/>
+																			<Property Name="Max" Type="Real64" Value="75"/>
+																			<Property Name="Min" Type="Real64" Value="-50"/>
+																		</PropertyList>
+																	</Modifier>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
+														<Property Name="Volume" Type="Real64">
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{6EB033AE-C1BF-4FF9-95F2-6A5DB3711D07}">
+																		<PropertyList>
+																			<Property Name="Enabled" Type="bool" Value="True"/>
+																			<Property Name="Max" Type="Real64" Value="1"/>
+																			<Property Name="Min" Type="Real64" Value="-2"/>
+																		</PropertyList>
+																	</Modifier>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
+													</PropertyList>
 													<ReferenceList>
 														<Reference Name="Conversion">
 															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
@@ -11396,6 +12255,47 @@
 													</ActiveSourceList>
 												</Sound>
 												<Sound Name="BoatSqueaks_02_03" ID="{AE6DFC87-895A-453C-9675-5689015AAFB0}" ShortID="495086142">
+													<PropertyList>
+														<Property Name="Lowpass" Type="int16">
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{74684BD4-C448-4D02-8EED-52BCCF08BA78}">
+																		<PropertyList>
+																			<Property Name="Enabled" Type="bool" Value="True"/>
+																			<Property Name="Max" Type="Real64" Value="11"/>
+																			<Property Name="Min" Type="Real64" Value="-4"/>
+																		</PropertyList>
+																	</Modifier>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
+														<Property Name="Pitch" Type="int32">
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{24D85B82-3E17-41BA-88D3-19726A446486}">
+																		<PropertyList>
+																			<Property Name="Enabled" Type="bool" Value="True"/>
+																			<Property Name="Max" Type="Real64" Value="50"/>
+																			<Property Name="Min" Type="Real64" Value="-50"/>
+																		</PropertyList>
+																	</Modifier>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
+														<Property Name="Volume" Type="Real64">
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{CFF11707-4354-4991-BB2D-0FD8A4F5118E}">
+																		<PropertyList>
+																			<Property Name="Enabled" Type="bool" Value="True"/>
+																			<Property Name="Max" Type="Real64" Value="1"/>
+																			<Property Name="Min" Type="Real64" Value="-2"/>
+																		</PropertyList>
+																	</Modifier>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
+													</PropertyList>
 													<ReferenceList>
 														<Reference Name="Conversion">
 															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
@@ -11418,6 +12318,47 @@
 													</ActiveSourceList>
 												</Sound>
 												<Sound Name="BoatSqueaks_02_04" ID="{2A8EF3CF-B5A1-43EB-BF04-6A870FD46D32}" ShortID="163941832">
+													<PropertyList>
+														<Property Name="Lowpass" Type="int16">
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{3E043681-26B2-4B2D-A216-6A8B1C3524B9}">
+																		<PropertyList>
+																			<Property Name="Enabled" Type="bool" Value="True"/>
+																			<Property Name="Max" Type="Real64" Value="11"/>
+																			<Property Name="Min" Type="Real64" Value="-9"/>
+																		</PropertyList>
+																	</Modifier>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
+														<Property Name="Pitch" Type="int32">
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{9F3B98A1-95E1-4E47-A3C0-E171CE3C555C}">
+																		<PropertyList>
+																			<Property Name="Enabled" Type="bool" Value="True"/>
+																			<Property Name="Max" Type="Real64" Value="50"/>
+																			<Property Name="Min" Type="Real64" Value="-50"/>
+																		</PropertyList>
+																	</Modifier>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
+														<Property Name="Volume" Type="Real64">
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{1473D117-034E-4B7E-883E-F47EC6547B64}">
+																		<PropertyList>
+																			<Property Name="Enabled" Type="bool" Value="True"/>
+																			<Property Name="Max" Type="Real64" Value="1"/>
+																			<Property Name="Min" Type="Real64" Value="-2"/>
+																		</PropertyList>
+																	</Modifier>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
+													</PropertyList>
 													<ReferenceList>
 														<Reference Name="Conversion">
 															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
@@ -11440,6 +12381,47 @@
 													</ActiveSourceList>
 												</Sound>
 												<Sound Name="BoatSqueaks_02_05" ID="{A565C2BC-A1DF-46CC-84C8-9F2919F592B7}" ShortID="296749907">
+													<PropertyList>
+														<Property Name="Lowpass" Type="int16">
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{E9C35F9D-7F67-4744-94AE-612B992379B3}">
+																		<PropertyList>
+																			<Property Name="Enabled" Type="bool" Value="True"/>
+																			<Property Name="Max" Type="Real64" Value="11"/>
+																			<Property Name="Min" Type="Real64" Value="-10"/>
+																		</PropertyList>
+																	</Modifier>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
+														<Property Name="Pitch" Type="int32">
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{37791E8C-EECE-41E3-86C0-CD51140A4F4F}">
+																		<PropertyList>
+																			<Property Name="Enabled" Type="bool" Value="True"/>
+																			<Property Name="Max" Type="Real64" Value="50"/>
+																			<Property Name="Min" Type="Real64" Value="-50"/>
+																		</PropertyList>
+																	</Modifier>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
+														<Property Name="Volume" Type="Real64">
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{CCEE29A1-C6C2-4A4B-9EC1-49EEE3A159F6}">
+																		<PropertyList>
+																			<Property Name="Enabled" Type="bool" Value="True"/>
+																			<Property Name="Max" Type="Real64" Value="1"/>
+																			<Property Name="Min" Type="Real64" Value="-2"/>
+																		</PropertyList>
+																	</Modifier>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
+													</PropertyList>
 													<ReferenceList>
 														<Reference Name="Conversion">
 															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
@@ -11463,6 +12445,13 @@
 												</Sound>
 												<Sound Name="BoatSilence_02_01" ID="{6114BF05-18FE-48D6-B8B8-16ACB3071B74}" ShortID="380857813">
 													<PropertyList>
+														<Property Name="Lowpass" Type="int16">
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{DA077745-3E67-4A2B-875D-D06F469C96B9}"/>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
 														<Property Name="Weight" Type="Real64">
 															<ValueList>
 																<Value>82</Value>
@@ -11536,6 +12525,32 @@
 											<ChildrenList>
 												<Sound Name="BoatBeat_01" ID="{565D93A4-67E8-4957-8123-397CEBF990CF}" ShortID="42281683">
 													<PropertyList>
+														<Property Name="Lowpass" Type="int16">
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{0FB961BF-B09B-4A8D-A48B-1A52958B5D85}">
+																		<PropertyList>
+																			<Property Name="Enabled" Type="bool" Value="True"/>
+																			<Property Name="Max" Type="Real64" Value="10"/>
+																			<Property Name="Min" Type="Real64" Value="-9"/>
+																		</PropertyList>
+																	</Modifier>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
+														<Property Name="Pitch" Type="int32">
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{E1E3EC1D-0E38-426D-8A02-A9710249C274}">
+																		<PropertyList>
+																			<Property Name="Enabled" Type="bool" Value="True"/>
+																			<Property Name="Max" Type="Real64" Value="5"/>
+																			<Property Name="Min" Type="Real64" Value="-10"/>
+																		</PropertyList>
+																	</Modifier>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
 														<Property Name="Volume" Type="Real64">
 															<ModifierList>
 																<ModifierInfo>
@@ -11606,6 +12621,23 @@
 									</PositioningInfo>
 									<ObjectLists>
 										<ObjectList Name="Effects">
+											<EffectSlot Name="" ID="{5ED60F13-79B0-43F6-8F17-C41676ED9C94}" ShortID="883738047">
+												<ReferenceList>
+													<Reference Name="Effect">
+														<Custom>
+															<Effect Name="Matrix Reverb (Custom)" ID="{825DE173-3A13-4613-9DA7-303E5A20682A}" ShortID="163868446" PluginName="Wwise Matrix Reverb" CompanyID="0" PluginID="115" PluginType="3">
+																<PropertyList>
+																	<Property Name="DryLevel" Type="Real32" Value="-2.3"/>
+																	<Property Name="HFRatio" Type="Real32" Value="0.7"/>
+																	<Property Name="PreDelay" Type="Real32" Value="0.05"/>
+																	<Property Name="ReverbTime" Type="Real32" Value="0.8"/>
+																	<Property Name="WetLevel" Type="Real32" Value="-25"/>
+																</PropertyList>
+															</Effect>
+														</Custom>
+													</Reference>
+												</ReferenceList>
+											</EffectSlot>
 											<EffectSlot Name="" ID="{53D522CE-0A5F-41E2-AE05-2EBC82F9BF2E}" ShortID="1009066372">
 												<ReferenceList>
 													<Reference Name="Effect">
@@ -11660,6 +12692,12 @@
 											</ModifierList>
 										</Property>
 										<Property Name="SpeakerPanning" Type="int16" Value="1"/>
+										<Property Name="SpeakerPanning3DSpatializationMix" Type="int32" Value="72"/>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>-10</Value>
+											</ValueList>
+										</Property>
 									</PropertyList>
 									<ReferenceList>
 										<Reference Name="Attenuation">
@@ -12240,7 +13278,14 @@
 							<ChildrenList>
 								<BlendContainer Name="Waterfall" ID="{06FF3339-353F-459D-B997-8DB17C9B5A97}" ShortID="554596114">
 									<PropertyList>
+										<Property Name="3DSpatialization" Type="int16" Value="2"/>
+										<Property Name="AttenuationDistanceScaling" Type="Real32" Value="0.75"/>
 										<Property Name="BlendBehavior" Type="int16" Value="1"/>
+										<Property Name="CenterPercentage" Type="int32">
+											<ValueList>
+												<Value>14</Value>
+											</ValueList>
+										</Property>
 										<Property Name="Color" Type="int16" Value="1"/>
 										<Property Name="Lowpass" Type="int16">
 											<ModifierList>
@@ -12250,13 +13295,109 @@
 											</ModifierList>
 										</Property>
 										<Property Name="OverrideColor" Type="bool" Value="True"/>
-										<Property Name="Volume" Type="Real64">
-											<ValueList>
-												<Value>-6</Value>
-											</ValueList>
-										</Property>
+										<Property Name="SpeakerPanning" Type="int16" Value="1"/>
+										<Property Name="SpeakerPanning3DSpatializationMix" Type="int32" Value="80"/>
 									</PropertyList>
 									<ReferenceList>
+										<Reference Name="Attenuation">
+											<Custom>
+												<Attenuation Name="Attenuation Waterfall" ID="{71ACC97F-5706-4690-A76E-744606FD749A}" ShortID="313352035">
+													<CurveUsageInfoList>
+														<VolumeDryUsage>
+															<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
+																<Curve Name="VolumeDry" ID="{CE023776-8346-4D0D-BBAD-630F3DA1E430}">
+																	<PropertyList>
+																		<Property Name="Flags" Type="int32" Value="3"/>
+																	</PropertyList>
+																	<PointList>
+																		<Point>
+																			<XPos>0</XPos>
+																			<YPos>0</YPos>
+																			<Flags>5</Flags>
+																			<SegmentShape>Log2</SegmentShape>
+																		</Point>
+																		<Point>
+																			<XPos>100</XPos>
+																			<YPos>-200</YPos>
+																			<Flags>37</Flags>
+																		</Point>
+																	</PointList>
+																</Curve>
+															</CurveUsageInfo>
+														</VolumeDryUsage>
+														<VolumeWetGameUsage>
+															<CurveUsageInfo Platform="Linked" CurveToUse="UseVolumeDry"/>
+														</VolumeWetGameUsage>
+														<VolumeWetUserUsage>
+															<CurveUsageInfo Platform="Linked" CurveToUse="UseVolumeDry"/>
+														</VolumeWetUserUsage>
+														<LowPassFilterUsage>
+															<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+														</LowPassFilterUsage>
+														<HighPassFilterUsage>
+															<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+														</HighPassFilterUsage>
+														<DualShelfUsage>
+															<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+														</DualShelfUsage>
+														<SpreadUsage>
+															<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+														</SpreadUsage>
+														<FocusUsage>
+															<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+														</FocusUsage>
+														<ObstructionVolumeUsage>
+															<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+														</ObstructionVolumeUsage>
+														<ObstructionLPFUsage>
+															<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+														</ObstructionLPFUsage>
+														<ObstructionHPFUsage>
+															<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+														</ObstructionHPFUsage>
+														<ObstructionDSFUsage>
+															<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+														</ObstructionDSFUsage>
+														<OcclusionVolumeUsage>
+															<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+														</OcclusionVolumeUsage>
+														<OcclusionLPFUsage>
+															<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+														</OcclusionLPFUsage>
+														<OcclusionHPFUsage>
+															<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+														</OcclusionHPFUsage>
+														<OcclusionDSFUsage>
+															<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+														</OcclusionDSFUsage>
+														<DiffractionVolumeUsage>
+															<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+														</DiffractionVolumeUsage>
+														<DiffractionLPFUsage>
+															<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+														</DiffractionLPFUsage>
+														<DiffractionHPFUsage>
+															<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+														</DiffractionHPFUsage>
+														<DiffractionDSFUsage>
+															<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+														</DiffractionDSFUsage>
+														<TransmissionVolumeUsage>
+															<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+														</TransmissionVolumeUsage>
+														<TransmissionLPFUsage>
+															<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+														</TransmissionLPFUsage>
+														<TransmissionHPFUsage>
+															<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+														</TransmissionHPFUsage>
+														<TransmissionDSFUsage>
+															<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+														</TransmissionDSFUsage>
+													</CurveUsageInfoList>
+												</Attenuation>
+											</Custom>
+										</Reference>
 										<Reference Name="Conversion">
 											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
 										</Reference>
@@ -12352,6 +13493,9 @@
 											</ActiveSourceList>
 										</Sound>
 									</ChildrenList>
+									<PositioningInfo>
+										<Panner Name="" ID="{9F6AFBF3-EDCF-4F31-8BB7-F0A2BE12D550}"/>
+									</PositioningInfo>
 									<ObjectLists>
 										<ObjectList Name="Effects">
 											<EffectSlot Name="" ID="{77197CB7-CDB0-4824-86BF-F39AA9B1C924}" ShortID="341593682">

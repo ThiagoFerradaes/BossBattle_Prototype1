@@ -758,7 +758,7 @@
 												<Action Name="" ID="{228E594F-4324-418D-BA71-ACD7B22F239C}" ShortID="485726643">
 													<ReferenceList>
 														<Reference Name="Target">
-															<ObjectRef Name="All Tentacles Idle" ID="{DC3D3D05-9ACC-4BDC-AC36-4DBDBFE5F46E}" WorkUnitID="{5274A5F1-8227-4981-A61F-0F3417CB92FE}"/>
+															<ObjectRef Name="All Tentacles Idle" ID="{0E3253E2-7209-4340-9B3D-B4BD07BA25AE}" WorkUnitID="{5274A5F1-8227-4981-A61F-0F3417CB92FE}"/>
 														</Reference>
 													</ReferenceList>
 												</Action>
@@ -857,12 +857,39 @@
 								</Folder>
 								<Folder Name="Stalactite" ID="{2A15589C-57EA-4D7D-A006-8A3C309B5604}" ShortID="646212306">
 									<ChildrenList>
-										<Event Name="Play_Stalactite" ID="{F4400756-587C-4889-9A3B-62371EFA10A0}">
+										<Event Name="Play_Stalactite_Explosion" ID="{F4400756-587C-4889-9A3B-62371EFA10A0}">
 											<ChildrenList>
 												<Action Name="" ID="{8FE61C56-3C19-436C-9A9D-A1FD9F51B7A7}" ShortID="712808716">
 													<ReferenceList>
 														<Reference Name="Target">
-															<ObjectRef Name="Stalactite" ID="{BF7561D9-140A-466A-9942-9D6032AC340C}" WorkUnitID="{5274A5F1-8227-4981-A61F-0F3417CB92FE}"/>
+															<ObjectRef Name="Stalactite_Explosion" ID="{BF7561D9-140A-466A-9942-9D6032AC340C}" WorkUnitID="{5274A5F1-8227-4981-A61F-0F3417CB92FE}"/>
+														</Reference>
+													</ReferenceList>
+												</Action>
+											</ChildrenList>
+										</Event>
+										<Event Name="Play_Stalactite_Wip" ID="{64298A45-5B8E-43E4-9D5F-6DB4DE3D0C24}">
+											<ChildrenList>
+												<Action Name="" ID="{4713CFD1-1FCB-44A5-BF0E-1FE288DAC3EC}" ShortID="325900256">
+													<ReferenceList>
+														<Reference Name="Target">
+															<ObjectRef Name="Wip" ID="{99AC2FC0-143E-43A9-9F88-D0C30D56F74C}" WorkUnitID="{5274A5F1-8227-4981-A61F-0F3417CB92FE}"/>
+														</Reference>
+													</ReferenceList>
+												</Action>
+											</ChildrenList>
+										</Event>
+										<Event Name="Stop_Stalactite_Wip" ID="{EF2E9802-0E31-47C4-AA41-D6B8203C7BFB}">
+											<ChildrenList>
+												<Action Name="" ID="{51C8D7F7-10D2-4392-9D7D-1302C1CCEDC4}" ShortID="591050473">
+													<PropertyList>
+														<Property Name="ActionType" Type="int16" Value="2"/>
+														<Property Name="FadeOutCurve" Type="int16" Value="5"/>
+														<Property Name="FadeTime" Type="Real64" Value="0.5"/>
+													</PropertyList>
+													<ReferenceList>
+														<Reference Name="Target">
+															<ObjectRef Name="Wip" ID="{99AC2FC0-143E-43A9-9F88-D0C30D56F74C}" WorkUnitID="{5274A5F1-8227-4981-A61F-0F3417CB92FE}"/>
 														</Reference>
 													</ReferenceList>
 												</Action>
@@ -902,12 +929,23 @@
 								</Folder>
 								<Folder Name="Getting Up" ID="{DF50673F-42CD-4D15-AF83-48D94C5121E5}" ShortID="178856677">
 									<ChildrenList>
-										<Event Name="Play_Get_Back_Up" ID="{FD38BEA0-CAB4-4DCF-8839-00D793BF222A}">
+										<Event Name="Play_Drag_Tentacle" ID="{1DA34CEB-E947-495F-A534-DFC9D4ED3682}">
 											<ChildrenList>
-												<Action Name="" ID="{8FA305A7-0AB3-4142-A086-7C0A95A2D0D3}" ShortID="265300902">
+												<Action Name="" ID="{2E401C23-1F5F-4A2F-B2A6-6CF20A5DB1A7}" ShortID="678313971">
 													<ReferenceList>
 														<Reference Name="Target">
-															<ObjectRef Name="Get Back Up" ID="{FF21ABD7-3603-4610-804D-01AE37A2456B}" WorkUnitID="{5274A5F1-8227-4981-A61F-0F3417CB92FE}"/>
+															<ObjectRef Name="Drag Tentacle" ID="{278414E2-DF75-4C89-9CA2-BA93BA7316E8}" WorkUnitID="{5274A5F1-8227-4981-A61F-0F3417CB92FE}"/>
+														</Reference>
+													</ReferenceList>
+												</Action>
+											</ChildrenList>
+										</Event>
+										<Event Name="Play_Rise_Up" ID="{3E781750-44D4-4BBE-8104-86985C02C32D}">
+											<ChildrenList>
+												<Action Name="" ID="{5558EE98-F5E8-4D4B-A970-AF06A0A2930A}" ShortID="82848931">
+													<ReferenceList>
+														<Reference Name="Target">
+															<ObjectRef Name="Rise Up" ID="{B17373C0-F42F-417B-AF81-E23A71C3C75B}" WorkUnitID="{5274A5F1-8227-4981-A61F-0F3417CB92FE}"/>
 														</Reference>
 													</ReferenceList>
 												</Action>

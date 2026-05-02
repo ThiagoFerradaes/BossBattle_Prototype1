@@ -10,61 +10,79 @@
     "Type": "Event",
     "GUID": "{4521F6A9-0335-4891-96BC-1911B1D56F56}",
     "Language": "SFX",
-    "Hash": "{72E56388-A763-CFEB-861E-103FD65BACDD}",
+    "Hash": "{763FC4F0-9E78-0B53-DC4B-CBCA73387E84}",
     "ObjectPath": "Play_All_Tentacles_Idle",
     "ShortName": "Play_All_Tentacles_Idle",
     "Path": "Event/Play_All_Tentacles_Idle.bnk",
     "Media": [
      {
-      "Id": "25396952",
-      "Language": "SFX",
-      "Streaming": "false",
-      "Location": "Loose",
-      "ShortName": "SFX_idle_Kraken_01.wav",
-      "Path": "Media/25396952.wem",
-      "CachePath": "20/{209C47A4-54E4-E9B5-6F10-7279FB352BDF}.wem"
-     },
-     {
-      "Id": "131662449",
-      "Language": "SFX",
-      "Streaming": "false",
-      "Location": "Loose",
-      "ShortName": "SFX_idle_Kraken_03.wav",
-      "Path": "Media/131662449.wem",
-      "CachePath": "15/{1571418E-BC80-BD5F-6C4C-65945D4B0716}.wem"
-     },
-     {
-      "Id": "664335370",
+      "Id": "31465258",
       "Language": "SFX",
       "Streaming": "false",
       "Location": "Loose",
       "ShortName": "SFX_idle_Kraken_02.wav",
-      "Path": "Media/664335370.wem",
-      "CachePath": "51/{518ED07B-059A-B72B-188C-5CFD066CB0E4}.wem"
+      "Path": "Media/31465258.wem",
+      "CachePath": "EC/{EC13F47E-7577-5C29-E9A3-97D73FFE8C42}.wem"
+     },
+     {
+      "Id": "345307078",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Loose",
+      "ShortName": "SFX_idle_Kraken_03.wav",
+      "Path": "Media/345307078.wem",
+      "CachePath": "98/{987244EA-2D73-A401-BA7B-4991CC7F4401}.wem"
+     },
+     {
+      "Id": "429998496",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Loose",
+      "ShortName": "SFX_idle_Kraken_01.wav",
+      "Path": "Media/429998496.wem",
+      "CachePath": "B3/{B3B6603E-7B7B-1EA7-3402-3D332B0921B7}.wem"
      }
     ],
     "Plugins": {
      "Custom": [
       {
+       "Id": "45647536",
+       "Name": "Silence",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\All Tentacles Idle\\Idle_01\\Silence\\Silence",
+       "GUID": "{078FFC5C-6B2C-4475-8FEE-04187C9BE3A8}",
+       "Color": "8",
+       "LibName": "Wwise Silence",
+       "LibId": "6619138"
+      },
+      {
+       "Id": "58699382",
+       "Name": "Fear_no_Evil (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\All Tentacles Idle\\[Effect Slot [1]: (Harmonizer)]\\Fear_no_Evil (Custom)",
+       "GUID": "{4FE01613-5606-4A1D-9F9C-9B893AC2250A}",
+       "LibName": "Wwise Harmonizer",
+       "LibId": "9043971"
+      },
+      {
        "Id": "283726598",
        "Name": "Guitar Distortion (Custom)",
-       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\All Tentacles Idle\\Idle_03\\[Effect Slot [2]: (Guitar Distortion)]\\Guitar Distortion (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\All Tentacles Idle\\Idle_03\\Idle_03\\[Effect Slot [2]: (Guitar Distortion)]\\Guitar Distortion (Custom)",
        "GUID": "{1A6F51E7-E17B-4AEF-863F-DE81C2C109BF}",
        "LibName": "Wwise Guitar Distortion",
        "LibId": "8257539"
       },
       {
-       "Id": "409855597",
-       "Name": "Delay (Custom)",
-       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\All Tentacles Idle\\[Effect Slot [1]: (Delay)]\\Delay (Custom)",
-       "GUID": "{9F7649E8-7366-47DB-8844-8319A43CD110}",
-       "LibName": "Wwise Delay",
-       "LibId": "6946819"
+       "Id": "470256361",
+       "Name": "Silence",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\All Tentacles Idle\\Idle_02\\Silence\\Silence",
+       "GUID": "{8F665FCA-19C1-40D8-8E70-C3E532E01758}",
+       "Color": "8",
+       "LibName": "Wwise Silence",
+       "LibId": "6619138"
       },
       {
        "Id": "639145661",
        "Name": "Pitch Shifter (Custom)",
-       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\All Tentacles Idle\\Idle_03\\[Effect Slot [0]: (Pitch Shifter)]\\Pitch Shifter (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\All Tentacles Idle\\Idle_03\\Idle_03\\[Effect Slot [0]: (Pitch Shifter)]\\Pitch Shifter (Custom)",
        "GUID": "{61531ACD-9887-48F9-B017-D587834125D9}",
        "LibName": "Wwise Pitch Shifter",
        "LibId": "8912899"
@@ -72,26 +90,35 @@
       {
        "Id": "644954682",
        "Name": "Boomerang (Custom)",
-       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\All Tentacles Idle\\Idle_03\\[Effect Slot [1]: (Tremolo)]\\Boomerang (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\All Tentacles Idle\\Idle_03\\Idle_03\\[Effect Slot [1]: (Tremolo)]\\Boomerang (Custom)",
        "GUID": "{9D3A7325-0A5D-47BE-8B44-28B1B98AFE79}",
        "LibName": "Wwise Tremolo",
        "LibId": "8585219"
       },
       {
-       "Id": "684057054",
-       "Name": "Pitch Shifter (Custom)",
-       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\All Tentacles Idle\\[Effect Slot [0]: (Pitch Shifter)]\\Pitch Shifter (Custom)",
-       "GUID": "{6041E6E3-955F-4A48-A949-B77EF7623212}",
-       "LibName": "Wwise Pitch Shifter",
-       "LibId": "8912899"
+       "Id": "660423718",
+       "Name": "Silence",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\All Tentacles Idle\\Idle_03\\Silence\\Silence",
+       "GUID": "{D251AFC4-E7D0-4319-AEF9-DFBF5788F70D}",
+       "Color": "8",
+       "LibName": "Wwise Silence",
+       "LibId": "6619138"
       },
       {
-       "Id": "807162046",
-       "Name": "Guitar Distortion (Custom)",
-       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\All Tentacles Idle\\[Effect Slot [2]: (Guitar Distortion)]\\Guitar Distortion (Custom)",
-       "GUID": "{C109D540-843C-4B80-9AB7-36092BAB7C4B}",
-       "LibName": "Wwise Guitar Distortion",
-       "LibId": "8257539"
+       "Id": "715832393",
+       "Name": "Stereo Delay (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\All Tentacles Idle\\[Effect Slot [0]: (Stereo Delay)]\\Stereo Delay (Custom)",
+       "GUID": "{EC75EFCA-0407-463E-BF38-313BDB525CB1}",
+       "LibName": "Wwise Stereo Delay",
+       "LibId": "8847363"
+      },
+      {
+       "Id": "1007302381",
+       "Name": "Monsterize (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\All Tentacles Idle\\[Effect Slot [2]: (Pitch Shifter)]\\Monsterize (Custom)",
+       "GUID": "{A4EF4B91-376A-4947-86E6-ED81F1EB459C}",
+       "LibName": "Wwise Pitch Shifter",
+       "LibId": "8912899"
       }
      ]
     },
@@ -102,25 +129,32 @@
       "ObjectPath": "\\Events\\Default Work Unit\\SFX\\Kraken\\Idle\\Play_All_Tentacles_Idle",
       "GUID": "{4521F6A9-0335-4891-96BC-1911B1D56F56}",
       "Color": "8",
+      "MaxAttenuation": "100",
       "DurationType": "Infinite",
       "MediaRefs": [
        {
-        "Id": "25396952"
+        "Id": "31465258"
        },
        {
-        "Id": "131662449"
+        "Id": "345307078"
        },
        {
-        "Id": "664335370"
+        "Id": "429998496"
        }
       ],
       "PluginRefs": {
        "Custom": [
         {
+         "Id": "45647536"
+        },
+        {
+         "Id": "58699382"
+        },
+        {
          "Id": "283726598"
         },
         {
-         "Id": "409855597"
+         "Id": "470256361"
         },
         {
          "Id": "639145661"
@@ -129,10 +163,13 @@
          "Id": "644954682"
         },
         {
-         "Id": "684057054"
+         "Id": "660423718"
         },
         {
-         "Id": "807162046"
+         "Id": "715832393"
+        },
+        {
+         "Id": "1007302381"
         }
        ]
       }
@@ -140,6 +177,6 @@
     ]
    }
   ],
-  "FileHash": "{A293551E-B9D2-2B5E-030B-FC53118FC106}"
+  "FileHash": "{5005EE77-4A14-EC2F-0384-825FD41901E6}"
  }
 }

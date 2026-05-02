@@ -37,6 +37,7 @@ namespace AK
         static const AkUniqueID PLAY_DEATH_SCREEN = 4097181143U;
         static const AkUniqueID PLAY_DIALOGUE_REQUIRED = 2039161124U;
         static const AkUniqueID PLAY_DOWNSTAIRS_TRANSITION = 4197013950U;
+        static const AkUniqueID PLAY_DRAG_TENTACLE = 2494797977U;
         static const AkUniqueID PLAY_ENTER_DIALOGUE = 2273838185U;
         static const AkUniqueID PLAY_ENTERING_COMBAT = 310343787U;
         static const AkUniqueID PLAY_EXIT_DIALOGUE = 3136668379U;
@@ -45,7 +46,6 @@ namespace AK
         static const AkUniqueID PLAY_FULL_ENERGY = 2347105308U;
         static const AkUniqueID PLAY_FURNITURE_OFF = 708373978U;
         static const AkUniqueID PLAY_FURNITURE_ON = 2049827036U;
-        static const AkUniqueID PLAY_GET_BACK_UP = 4001516568U;
         static const AkUniqueID PLAY_HEAT_DAMAGE_BASTIAN = 3068605067U;
         static const AkUniqueID PLAY_HEAT_UP = 842623176U;
         static const AkUniqueID PLAY_HEAT_ZONE_CHANGE = 968398296U;
@@ -66,10 +66,12 @@ namespace AK
         static const AkUniqueID PLAY_RAGE = 2604050293U;
         static const AkUniqueID PLAY_RANK_UP = 2265727464U;
         static const AkUniqueID PLAY_RELEASE = 692169189U;
+        static const AkUniqueID PLAY_RISE_UP = 4268199091U;
         static const AkUniqueID PLAY_SAIL = 236531557U;
         static const AkUniqueID PLAY_SKIP_DIALOGUE = 3302649596U;
         static const AkUniqueID PLAY_SPEAR = 910786425U;
-        static const AkUniqueID PLAY_STALACTITE = 2051749912U;
+        static const AkUniqueID PLAY_STALACTITE_EXPLOSION = 3233695216U;
+        static const AkUniqueID PLAY_STALACTITE_WIP = 1390673645U;
         static const AkUniqueID PLAY_STEAM_PUNCH = 3757338383U;
         static const AkUniqueID PLAY_TAVERN_MUSIC = 2634924088U;
         static const AkUniqueID PLAY_TONFA = 2106482138U;
@@ -79,6 +81,7 @@ namespace AK
         static const AkUniqueID PLAY_WATER = 441572235U;
         static const AkUniqueID PLAY_WATERFALL = 467174588U;
         static const AkUniqueID PLAY_WIND = 1020223172U;
+        static const AkUniqueID STOP_STALACTITE_WIP = 1304530187U;
     } // namespace EVENTS
 
     namespace SWITCHES
@@ -175,6 +178,7 @@ namespace AK
     {
         static const AkUniqueID AMBIENTVOLUME = 3546521921U;
         static const AkUniqueID GENERALVOLUME = 421429125U;
+        static const AkUniqueID IDLE_VOLUME = 2913469912U;
         static const AkUniqueID MUSICVOLUME = 2346531308U;
         static const AkUniqueID SFXVOLUME = 988953028U;
     } // namespace GAME_PARAMETERS
