@@ -19925,6 +19925,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1513531015}
+  - component: {fileID: 1513531016}
   m_Layer: 0
   m_Name: Environment
   m_TagString: Untagged
@@ -19957,6 +19958,19 @@ Transform:
   - {fileID: 1510484309}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1513531016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1513531014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7dc752f9dfe7bc4eba08a8e54fe0b54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WallsTransparencyManager
+  playerManager: {fileID: 1831079199}
 --- !u!1001 &1523396399
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23409,6 +23423,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6281380737062432938, guid: 7bc434705ba56a44a9ffdf66254a451b, type: 3}
   m_PrefabInstance: {fileID: 1830368253}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1831079199 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1437134964649686007, guid: 84ab810e30c024647b2e1693cd9807c6, type: 3}
+  m_PrefabInstance: {fileID: 465295245970360907}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7f490303c958f8488bb3e4dbc6438ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1834817942
 PrefabInstance:
   m_ObjectHideFlags: 0
