@@ -103,7 +103,7 @@ public class BastianFlameEchoManager : SkillObjectManager
             SkillAnimationEvent prefabInfo = prefabList[i];
 
             if (prefabInfo.PrefabType == TypeOfSkillPrefab.Hitbox) InstantiateSecondShoot(prefabInfo, attackIndex, area);
-            else if (prefabInfo.PrefabType == TypeOfSkillPrefab.VFX) InstantiateVFX(prefabInfo);
+            //else if (prefabInfo.PrefabType == TypeOfSkillPrefab.VFX) InstantiateVFX(prefabInfo);
         }
 
         _attackCoroutine = null;
