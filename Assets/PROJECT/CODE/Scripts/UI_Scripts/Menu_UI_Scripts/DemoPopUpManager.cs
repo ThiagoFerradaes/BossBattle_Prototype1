@@ -7,8 +7,10 @@ public class DemoPopUpManager : MonoBehaviour
     [SerializeField] GameObject demoPopUp;
     [SerializeField] GameObject firstPage;
     [SerializeField] GameObject secondPage;
+    [SerializeField] GameObject thirdPage;
     [SerializeField] Button closePopUpButton;
-    [SerializeField] Button arrowButton;
+    [SerializeField] Button firstArrowButton;
+    [SerializeField] Button secondArrowButton;
 
     [Header("Sprites")]
     [SerializeField] Sprite closeSelected;
@@ -29,14 +31,22 @@ public class DemoPopUpManager : MonoBehaviour
     void TurnPopUpDemoOn() {
         firstPage.SetActive(true);
         secondPage.SetActive(false);
+        thirdPage.SetActive(false);
 
         demoPopUp.SetActive(true);
     }
 
     void SetButtons() {
-        arrowButton.onClick.AddListener(() => {
+        firstArrowButton.onClick.AddListener(() => {
             firstPage.SetActive(false);
+            thirdPage.SetActive(false);
             secondPage.SetActive(true);
+        });
+
+        secondArrowButton.onClick.AddListener(() => {
+            firstPage.SetActive(false);
+            thirdPage.SetActive(true);
+            secondPage.SetActive(false);
         });
 
         closePopUpButton.onClick.AddListener(() => {
@@ -51,10 +61,10 @@ public class DemoPopUpManager : MonoBehaviour
     public void MouseExitCloseButton() {
         closePopUpButton.image.sprite = closeUnselected;
     }
-    public void MouseEnterArrow() {
-        arrowButton.image.sprite = arrowSelected;
+    public void MouseEnterArrow(Image image) {
+        image.sprite = arrowSelected;
     }
-    public void MouseExitArrow() {
-        arrowButton.image.sprite = arrowUnselected;
+    public void MouseExitArrow(Image image) {
+        image.sprite = arrowUnselected;
     }
 }
