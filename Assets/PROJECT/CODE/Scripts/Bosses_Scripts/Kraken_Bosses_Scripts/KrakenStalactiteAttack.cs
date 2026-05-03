@@ -12,6 +12,7 @@ public class KrakenStalactiteAttack : EnemyBehaviourSO {
     [Foldout("Attack Atributes"), SerializeField] float stalactiteHeight;
     [Foldout("Attack Atributes"), SerializeField] float floorHeight;
     [Foldout("Attack Atributes"), SerializeField] DamageAtributes damageAtributes;
+    [Foldout("Attack Atributes"), SerializeField] AK.Wwise.Event stalactiteExplosionSound;
 
     [Foldout("Cooldown"), SerializeField] float smallCooldown;
     [Foldout("Cooldown"), SerializeField] float cooldownBetweenStalactiteAndNextAttack;
@@ -122,6 +123,7 @@ public class KrakenStalactiteAttack : EnemyBehaviourSO {
         }
         stalactite.GetComponent<Collider>().enabled = false;
         stalactite.GetComponentInChildren<MeshRenderer>().enabled = false;
+        stalactiteExplosionSound.Post(stalactite);
         yield return myWaitForSeconds;
         PoolingManager.Instance.ReturnObjectToPool(stalactite, TypeOfSkillPrefab.Hitbox);
     }
