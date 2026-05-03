@@ -48,6 +48,7 @@ public class InteractionManager : MonoBehaviour
     {
         if (_interactableLayer.ContainsLayer(other.gameObject.layer))
         {
+            RegularObjectUIManager.Instance.InitializeInteractScreen();
             _listOfInteractableObjects.Add(other.gameObject);
         }
     }
@@ -56,6 +57,7 @@ public class InteractionManager : MonoBehaviour
     {
         if (_interactableLayer.ContainsLayer(other.gameObject.layer) && _listOfInteractableObjects.Contains(other.gameObject))
         {
+            RegularObjectUIManager.Instance.TurnInteractScreenOff();
             _listOfInteractableObjects.Remove(other.gameObject);
         }
     }

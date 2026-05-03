@@ -7,6 +7,7 @@ public class DashSO : CommonSkillSO
 
     [Header("Atributes")]
     [Foldout("Specific")] public float DashDuration;
+    [Foldout("Specific")] public float ExtraInvulnerabilityTime;
     [Foldout("Specific")] public float DashForce;
     [Foldout("Specific")] public float PercentOfAnimationToStartDash;
 }

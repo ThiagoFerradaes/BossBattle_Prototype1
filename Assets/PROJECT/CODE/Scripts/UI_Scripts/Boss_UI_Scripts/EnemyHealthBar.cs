@@ -48,7 +48,9 @@ public class EnemyHealthBar : MonoBehaviour
 
     void ChangeColorOnHit(float currentHealth, float maxHealth)
     {
-        if(currentHealth != maxHealth) {
+        if (!gameObject.activeInHierarchy) return;
+
+        if (currentHealth != maxHealth) {
             changeColorTentacleCoroutine ??= StartCoroutine(ChangeColorTentacle());
         }
     }

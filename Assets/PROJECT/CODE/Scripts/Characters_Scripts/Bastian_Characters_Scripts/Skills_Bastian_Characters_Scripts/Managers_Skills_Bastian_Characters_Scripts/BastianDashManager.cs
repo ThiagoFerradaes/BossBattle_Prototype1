@@ -84,15 +84,21 @@ public class BastianDashManager : SkillObjectManager {
         }
 
         movementManager.ChangeIsDashing(false);
-        healthManager.SetCanTakeDamage();
 
         animationCoroutine = null;
 
         skillManager.SkillIsInAnimation(false);
 
+        AnimationManager.Instance.ReturnToIdle(anim);
+
+        UnblockInputs();
+
+        yield return new WaitForSeconds(_info.ExtraInvulnerabilityTime);
+
+        healthManager.SetCanTakeDamage();
+        
         EndWithUnblockSkills();
 
-        AnimationManager.Instance.ReturnToIdle(anim);
     }
 
     public override void CancelSkill() {

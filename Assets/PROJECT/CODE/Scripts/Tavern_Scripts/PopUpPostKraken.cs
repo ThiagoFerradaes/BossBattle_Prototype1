@@ -26,7 +26,7 @@ public class PopUpPostKraken : MonoBehaviour {
 
     void SetButton() {
         closeButton.onClick.RemoveAllListeners();
-        closeButton.onClick.AddListener(TurnScreenOff);
+        closeButton.onClick.AddListener(CloseButton);
     }
 
     void TurnScreenOn() {
@@ -36,7 +36,11 @@ public class PopUpPostKraken : MonoBehaviour {
     void TurnScreenOff() {
         popUpScreen.SetActive(false);
         Time.timeScale = 1;
+    }
+
+    void CloseButton() {
         ProgressWhiteBoard.Instance.HasSeenPostKrakenPopUp = true;
+        TurnScreenOff();
     }
 
     public void OnMouseCloseButton(bool enter) {

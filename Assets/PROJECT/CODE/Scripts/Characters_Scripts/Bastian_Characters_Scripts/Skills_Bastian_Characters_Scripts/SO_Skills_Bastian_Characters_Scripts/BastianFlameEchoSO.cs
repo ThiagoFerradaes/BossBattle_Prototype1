@@ -27,9 +27,6 @@ public class BastianFlameEchoSO : UltimateSkillSO
     [Foldout("Specific")] public float IgnisLastOverHeatCritDamage;
     [Foldout("Specific")] public float TimeBetweenIgnis;
 
-    [Header("Animation")]
-    [Foldout("Specific")] public string AttackSpeedAnimationParameter;
-
     [Header("Ultimate Atributes")]
     [Foldout("Specific")] public float UltimateDuration;
     [Foldout("Specific")] public float TimeBetweenFirstAndSecondShoot;

@@ -8,9 +8,11 @@ public class RegularObjectUIManager : MonoBehaviour {
     public static RegularObjectUIManager Instance;
 
     [Header("Components")]
-    [SerializeField] GameObject screen;
+    [SerializeField] GameObject interactionScreen;
+    [SerializeField] GameObject interactScreen;
     [SerializeField] TextMeshProUGUI lineText;
-    [SerializeField] CanvasGroup alphaGroup;
+    [SerializeField] CanvasGroup interactionAlphaGroup;
+    [SerializeField] CanvasGroup interactAlphaGroup;
 
     [Header("Atributes")]
     [SerializeField] float screenDuration = 2f;
@@ -28,13 +30,14 @@ public class RegularObjectUIManager : MonoBehaviour {
             Destroy(gameObject);
         }
         TurnScreenOff();
+        TurnInteractScreenOff();
         SetVariables();
     }
 
     void SetVariables() {
         screenDurationWaitForSeconds = new WaitForSeconds(screenDuration);
     }
-    public void InitializeScreen(string text) {
+    public void InitializeInteractionScreen(string text) {
         lineText.text = text;
 
         screenDurationCoroutine ??= StartCoroutine(ScreenDuration());
@@ -42,19 +45,19 @@ public class RegularObjectUIManager : MonoBehaviour {
 
     IEnumerator ScreenDuration() {
 
-        alphaGroup.alpha = 0;
+        interactionAlphaGroup.alpha = 0;
 
-        screen.SetActive(true);
+        interactionScreen.SetActive(true);
 
         float timer = 0f;
 
         while (timer < fadeInDuration) {
             timer += Time.deltaTime;
-            alphaGroup.alpha = timer / fadeInDuration;
+            interactionAlphaGroup.alpha = timer / fadeInDuration;
             yield return null;
         }
 
-        alphaGroup.alpha = 1;
+        interactionAlphaGroup.alpha = 1;
 
         timer = 0f;
 
@@ -62,7 +65,7 @@ public class RegularObjectUIManager : MonoBehaviour {
 
         while (timer < fadeOutDuration) {
             timer += Time.deltaTime;
-            alphaGroup.alpha = 1 - (timer / fadeOutDuration);
+            interactionAlphaGroup.alpha = 1 - (timer / fadeOutDuration);
             yield return null;
         }
 
@@ -71,6 +74,31 @@ public class RegularObjectUIManager : MonoBehaviour {
     }
 
     void TurnScreenOff() {
-        screen.SetActive(false);
+        interactionScreen.SetActive(false);
     }
+
+    public void InitializeInteractScreen() {
+
+        interactScreen.SetActive(true);
+    }
+
+    public void TurnInteractScreenOff() {
+        interactScreen.SetActive(false);
+    }
+
+    //IEnumerator FadeIn(GameObject obj, CanvasGroup alpha) {
+    //    alpha.alpha = 0;
+
+    //    obj.SetActive(true);
+
+    //    float timer = 0f;
+
+    //    while (timer < fadeInDuration) {
+    //        timer += Time.deltaTime;
+    //        alpha.alpha = timer / fadeInDuration;
+    //        yield return null;
+    //    }
+
+    //    alpha.alpha = 1;
+    //}
 }

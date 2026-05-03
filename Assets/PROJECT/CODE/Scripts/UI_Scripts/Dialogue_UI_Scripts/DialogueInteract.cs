@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class DialogueInteract : MonoBehaviour, IInteractable {
 
-
+    
     [SerializeField] DialoguesByCharacter listOfDialogues;
     List<DialogueWithParams> _sortedList = new();
 
@@ -15,6 +15,7 @@ public class DialogueInteract : MonoBehaviour, IInteractable {
         Dialogue dialogue = ReturnADialogue();
 
         if (dialogue != null) DialogueManager.Instance.InitializeDialogue(dialogue.RootNode, handler);
+
     }
 
     Dialogue ReturnADialogue() {
