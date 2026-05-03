@@ -4,8 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class EnemyBehaviourManager : MonoBehaviour
-{
+public class EnemyBehaviourManager : MonoBehaviour {
     #region Parameters
 
     [Header("Behaviours")]
@@ -21,10 +20,8 @@ public class EnemyBehaviourManager : MonoBehaviour
     #endregion
 
     #region Initialize
-    public virtual IEnumerator Start()
-    {
-        foreach (var behaviour in listOfBehaviour.ListOfEnemyBehaviours)
-        {
+    public virtual IEnumerator Start() {
+        foreach (var behaviour in listOfBehaviour.ListOfEnemyBehaviours) {
             EnemyBehaviourSO behaviourClone = Instantiate(behaviour);
             _actualListOfBehaviours.Add(behaviourClone);
         }
@@ -40,8 +37,7 @@ public class EnemyBehaviourManager : MonoBehaviour
     #endregion
 
     #region Change Behaviour
-    public void ChangeBehaviourAtRandom(int behaviourChannel = 0)
-    {
+    public void ChangeBehaviourAtRandom(int behaviourChannel = 0) {
         if (!_openChannels.ContainsKey(behaviourChannel) || !_openChannels[behaviourChannel]) return;
 
         EnemyBehaviourSO behaviour = ChooseAnAttack(behaviourChannel);
@@ -53,9 +49,11 @@ public class EnemyBehaviourManager : MonoBehaviour
             _dictionaryOfBehaviours[behaviourChannel].StartState(this);
             ActivateChannel(behaviourChannel);
         }
+        else Debug.Log("No Behaviour");
     }
 
     EnemyBehaviourSO ChooseAnAttack(int behaviourChannel) {
+
         var validSkills = _actualListOfBehaviours
             .Where(skill => skill.Channel == behaviourChannel)
             .Where(skill => !CooldownManager.SkillInCooldown(skill))
@@ -63,7 +61,12 @@ public class EnemyBehaviourManager : MonoBehaviour
             .Where(skill => skill.MeetsCondition(this))
             .OrderByDescending(skill => skill.Priority);
 
-        return validSkills.FirstOrDefault();
+        var chosen = validSkills.FirstOrDefault();
+
+        if (chosen != null) return chosen;
+
+
+        return listOfBehaviour.DefaultBehaviour;
     }
     #endregion
 
@@ -84,8 +87,7 @@ public class EnemyBehaviourManager : MonoBehaviour
 
     public Dictionary<int, bool> ReturnActiveChannels() => _activeChannels;
 
-    public bool ReturnIfChannelIsOpen(int channel)
-    {
+    public bool ReturnIfChannelIsOpen(int channel) {
         if (!_openChannels.ContainsKey(channel)) return false;
 
         return _openChannels[channel];
