@@ -121,14 +121,15 @@ public class KrakenManager : EnemyBehaviourManager {
 
 
         Animator anim = ListOfTentacles[tentacleIndex].Anim;
-        anim.SetFloat(tentacleAttack.PreparingAttackSpeed, preparingSpeed);
-        anim.SetTrigger(tentacleAttack.AttackAnimationParameter);
-        AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
 
-        do { // PREPARING ANIMATION
-            yield return null;
-            stateInfo = anim.GetCurrentAnimatorStateInfo(0);
-        } while (!stateInfo.IsName(tentacleAttack.AttackAnimationName));
+        anim.SetFloat(tentacleAttack.PreparingAttackSpeed, preparingSpeed);
+
+        int attackHash = Animator.StringToHash(tentacleAttack.AttackAnimationName);
+        anim.CrossFade(attackHash, 0.1f, 0);
+
+        while(anim.IsInTransition(0)) yield return null;
+
+        AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
 
         int attackStateHash = stateInfo.fullPathHash;
 

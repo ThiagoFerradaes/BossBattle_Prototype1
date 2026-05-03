@@ -71,9 +71,11 @@ namespace AK
         static const AkUniqueID PLAY_SKIP_DIALOGUE = 3302649596U;
         static const AkUniqueID PLAY_SPEAR = 910786425U;
         static const AkUniqueID PLAY_STALACTITE_EXPLOSION = 3233695216U;
+        static const AkUniqueID PLAY_STALACTITE_WARNING_SIREN = 2483543495U;
         static const AkUniqueID PLAY_STALACTITE_WIP = 1390673645U;
         static const AkUniqueID PLAY_STEAM_PUNCH = 3757338383U;
         static const AkUniqueID PLAY_TAVERN_MUSIC = 2634924088U;
+        static const AkUniqueID PLAY_TENTACLE_ENTRANCE = 2336520413U;
         static const AkUniqueID PLAY_TONFA = 2106482138U;
         static const AkUniqueID PLAY_ULTIMATE_CHARGED = 3252770658U;
         static const AkUniqueID PLAY_VICTORY_SCREEN = 939402867U;

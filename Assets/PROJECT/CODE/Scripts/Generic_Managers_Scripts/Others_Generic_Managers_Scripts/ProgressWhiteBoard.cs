@@ -13,6 +13,7 @@ public class ProgressWhiteBoard : MonoBehaviour {
 
     public bool HasSeenDemoPopUp;
     public bool HasSeenPostKrakenPopUp;
+    public bool HasSeenKrakenPopUp;
 
     public event Action<ProgressBools, bool> OnChangedBoolValue;
 
