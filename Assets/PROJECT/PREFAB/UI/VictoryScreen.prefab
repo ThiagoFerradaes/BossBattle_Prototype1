@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3154913894607773245}
   - component: {fileID: 922484999268506044}
   - component: {fileID: 5737009054577849379}
+  - component: {fileID: 2926558885386001335}
   m_Layer: 5
   m_Name: VTavernButton
   m_TagString: Untagged
@@ -120,7 +121,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3154913894607773245}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5012856703009868847}
+        m_TargetAssemblyTypeName: SoundPlayer, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &5737009054577849379
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -156,6 +169,35 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 1
+--- !u!114 &2926558885386001335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1463656437734966227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.EventSystems.EventTrigger
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 5012856703009868847}
+          m_TargetAssemblyTypeName: SoundPlayer, Assembly-CSharp
+          m_MethodName: PlaySound
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1465079226409234391
 GameObject:
   m_ObjectHideFlags: 0
@@ -343,6 +385,7 @@ GameObject:
   - component: {fileID: 4973135154595447476}
   - component: {fileID: 6053201466050661440}
   - component: {fileID: 8158250370916479790}
+  - component: {fileID: 6970861854044271171}
   m_Layer: 5
   m_Name: VMenuButton
   m_TagString: Untagged
@@ -450,7 +493,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4973135154595447476}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5012856703009868847}
+        m_TargetAssemblyTypeName: SoundPlayer, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &8158250370916479790
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -486,6 +541,35 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 1
+--- !u!114 &6970861854044271171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3126965715687625575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.EventSystems.EventTrigger
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 5012856703009868847}
+          m_TargetAssemblyTypeName: SoundPlayer, Assembly-CSharp
+          m_MethodName: PlaySound
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &3349188276347368869
 GameObject:
   m_ObjectHideFlags: 0
@@ -496,6 +580,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6853434226782036594}
   - component: {fileID: 479240121273779435}
+  - component: {fileID: 5012856703009868847}
   m_Layer: 5
   m_Name: VictoryScreen
   m_TagString: Untagged
@@ -540,6 +625,30 @@ MonoBehaviour:
   tavernButton: {fileID: 922484999268506044}
   menuLoadingInfo: {fileID: 11400000, guid: 8078bc1f29578b04a900f738943ce91b, type: 2}
   tavernLoadingInfo: {fileID: 11400000, guid: 633171cb9e381e24488eaf7b96eacfd4, type: 2}
+  victoryMusic:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 404e5bcd78d07ee41afa9931c4722c27, type: 2}
+--- !u!114 &5012856703009868847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3349188276347368869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cacf80e35c763ca46a0ab01b4440f4ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SoundPlayer
+  listOfSounds:
+  - idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 68cf3618afd61b947bc448a00ecb7153, type: 2}
+  - idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 4448b77e118458d4293cb807dedf98d5, type: 2}
+  listOfSwitchs: []
 --- !u!1 &8364685655634283702
 GameObject:
   m_ObjectHideFlags: 0
