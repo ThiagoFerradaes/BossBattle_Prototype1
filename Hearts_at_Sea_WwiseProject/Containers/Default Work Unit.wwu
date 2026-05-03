@@ -835,6 +835,7 @@
 											<ChildrenList>
 												<RandomSequenceContainer Name="Hit Damage" ID="{49865225-6758-4D90-BB05-EA4C3DA8E6E0}" ShortID="233405624">
 													<PropertyList>
+														<Property Name="3DSpatialization" Type="int16" Value="2"/>
 														<Property Name="Color" Type="int16" Value="4"/>
 														<Property Name="Lowpass" Type="int16">
 															<ModifierList>
@@ -866,6 +867,7 @@
 																</ModifierInfo>
 															</ModifierList>
 														</Property>
+														<Property Name="SpeakerPanning" Type="int16" Value="1"/>
 														<Property Name="Volume" Type="Real64">
 															<ValueList>
 																<Value>1.5</Value>
@@ -883,6 +885,9 @@
 														</Property>
 													</PropertyList>
 													<ReferenceList>
+														<Reference Name="Attenuation">
+															<ObjectRef Name="Physically_Based" ID="{7AF96D5E-B0A7-4524-B96B-04F53DEAEC94}" WorkUnitID="{E312AA2F-7D32-49AE-9B3F-853E8C0370AC}"/>
+														</Reference>
 														<Reference Name="Conversion">
 															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
 														</Reference>
@@ -992,6 +997,9 @@
 															</ActiveSourceList>
 														</Sound>
 													</ChildrenList>
+													<PositioningInfo>
+														<Panner Name="" ID="{F1445E9A-8754-47D2-812C-A92B43CA47A2}"/>
+													</PositioningInfo>
 													<ObjectLists>
 														<ObjectList Name="Effects">
 															<EffectSlot Name="" ID="{EC9752A5-0570-415A-A7A9-33DAA8655B5A}" ShortID="796134652">
@@ -1061,6 +1069,7 @@
 												</RandomSequenceContainer>
 												<BlendContainer Name="Heat Damage" ID="{B454A577-3D7F-4B56-A4CA-7CA9AB7E67A9}" ShortID="730709814">
 													<PropertyList>
+														<Property Name="3DSpatialization" Type="int16" Value="2"/>
 														<Property Name="Lowpass" Type="int16">
 															<ModifierList>
 																<ModifierInfo>
@@ -1075,6 +1084,7 @@
 																</ModifierInfo>
 															</ModifierList>
 														</Property>
+														<Property Name="SpeakerPanning" Type="int16" Value="1"/>
 														<Property Name="Volume" Type="Real64">
 															<ValueList>
 																<Value>-2</Value>
@@ -1092,6 +1102,9 @@
 														</Property>
 													</PropertyList>
 													<ReferenceList>
+														<Reference Name="Attenuation">
+															<ObjectRef Name="Physically_Based" ID="{7AF96D5E-B0A7-4524-B96B-04F53DEAEC94}" WorkUnitID="{E312AA2F-7D32-49AE-9B3F-853E8C0370AC}"/>
+														</Reference>
 														<Reference Name="Conversion">
 															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
 														</Reference>
@@ -1458,6 +1471,9 @@
 															</ActiveSourceList>
 														</Sound>
 													</ChildrenList>
+													<PositioningInfo>
+														<Panner Name="" ID="{869BEF58-F4C1-40F0-828C-904E2B9FD977}"/>
+													</PositioningInfo>
 												</BlendContainer>
 											</ChildrenList>
 										</Folder>
@@ -3160,6 +3176,9 @@
 										<SwitchContainer Name="Heat Zone Change" ID="{5AFAD9DD-FCE8-460C-8311-A3459E6BE632}" ShortID="219156768">
 											<PropertyList>
 												<Property Name="Volume" Type="Real64">
+													<ValueList>
+														<Value>1</Value>
+													</ValueList>
 													<ModifierList>
 														<ModifierInfo>
 															<Modifier Name="" ID="{B91497BE-D5CD-43E8-8161-634B0188B357}"/>
@@ -3413,6 +3432,13 @@
 																<Value>360</Value>
 															</ValueList>
 														</Property>
+														<Property Name="Volume" Type="Real64">
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{82DCB9A8-1A5C-4E2B-9E4C-C406C5E6C063}"/>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
 													</PropertyList>
 													<ReferenceList>
 														<Reference Name="Conversion">
@@ -3489,6 +3515,13 @@
 															<ValueList>
 																<Value>-220</Value>
 															</ValueList>
+														</Property>
+														<Property Name="Volume" Type="Real64">
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{8DB112ED-967B-4526-98EE-62C89F9A1D45}"/>
+																</ModifierInfo>
+															</ModifierList>
 														</Property>
 													</PropertyList>
 													<ReferenceList>
@@ -3664,7 +3697,7 @@
 													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
 												</Reference>
 												<Reference Name="OutputBus">
-													<ObjectRef Name="SFX_Bus" ID="{F5C91BBD-C9DE-46C1-B10A-F7A0405036D3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
+													<ObjectRef Name="Main Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
 												</Reference>
 											</ReferenceList>
 											<ChildrenList>
@@ -3701,6 +3734,7 @@
 										</Sound>
 										<Sound Name="Dash" ID="{BC02ACCA-A86A-4DCF-907F-8381296A77A3}" ShortID="867044427">
 											<PropertyList>
+												<Property Name="3DSpatialization" Type="int16" Value="2"/>
 												<Property Name="Color" Type="int16" Value="4"/>
 												<Property Name="Lowpass" Type="int16">
 													<ModifierList>
@@ -3728,6 +3762,7 @@
 														</ModifierInfo>
 													</ModifierList>
 												</Property>
+												<Property Name="SpeakerPanning" Type="int16" Value="1"/>
 												<Property Name="Volume" Type="Real64">
 													<ModifierList>
 														<ModifierInfo>
@@ -3743,6 +3778,9 @@
 												</Property>
 											</PropertyList>
 											<ReferenceList>
+												<Reference Name="Attenuation">
+													<ObjectRef Name="Physically_Based" ID="{7AF96D5E-B0A7-4524-B96B-04F53DEAEC94}" WorkUnitID="{E312AA2F-7D32-49AE-9B3F-853E8C0370AC}"/>
+												</Reference>
 												<Reference Name="Conversion">
 													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
 												</Reference>
@@ -3763,6 +3801,9 @@
 													</MediaIDList>
 												</AudioFileSource>
 											</ChildrenList>
+											<PositioningInfo>
+												<Panner Name="" ID="{95F37380-D70D-4B78-8C32-4E12FB1933FA}"/>
+											</PositioningInfo>
 											<ObjectLists>
 												<ObjectList Name="Effects">
 													<EffectSlot Name="" ID="{BD50DBF2-7822-4A50-A1A1-1BE10F6B2461}" ShortID="652109949">
@@ -3793,6 +3834,7 @@
 											<ChildrenList>
 												<SwitchContainer Name="Axe" ID="{864F3E19-D796-45ED-9954-E7196865D980}" ShortID="424164781">
 													<PropertyList>
+														<Property Name="3DSpatialization" Type="int16" Value="2"/>
 														<Property Name="Color" Type="int16" Value="4"/>
 														<Property Name="Pitch" Type="int32">
 															<ModifierList>
@@ -3801,6 +3843,7 @@
 																</ModifierInfo>
 															</ModifierList>
 														</Property>
+														<Property Name="SpeakerPanning" Type="int16" Value="1"/>
 														<Property Name="Volume" Type="Real64">
 															<ModifierList>
 																<ModifierInfo>
@@ -3810,6 +3853,9 @@
 														</Property>
 													</PropertyList>
 													<ReferenceList>
+														<Reference Name="Attenuation">
+															<ObjectRef Name="Physically_Based" ID="{7AF96D5E-B0A7-4524-B96B-04F53DEAEC94}" WorkUnitID="{E312AA2F-7D32-49AE-9B3F-853E8C0370AC}"/>
+														</Reference>
 														<Reference Name="Conversion">
 															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
 														</Reference>
@@ -4114,6 +4160,9 @@
 															</ActiveSourceList>
 														</Sound>
 													</ChildrenList>
+													<PositioningInfo>
+														<Panner Name="" ID="{5BDE433B-D99F-4E6D-892D-C9DB0AD4F048}"/>
+													</PositioningInfo>
 													<GroupingInfo>
 														<GroupingBehaviorList>
 															<GroupingBehavior>
@@ -4159,6 +4208,7 @@
 												</SwitchContainer>
 												<SwitchContainer Name="Tonfa" ID="{25348D3E-6339-4F70-B42A-B5C27B65E711}" ShortID="755636">
 													<PropertyList>
+														<Property Name="3DSpatialization" Type="int16" Value="2"/>
 														<Property Name="Color" Type="int16" Value="4"/>
 														<Property Name="Pitch" Type="int32">
 															<ModifierList>
@@ -4167,6 +4217,7 @@
 																</ModifierInfo>
 															</ModifierList>
 														</Property>
+														<Property Name="SpeakerPanning" Type="int16" Value="1"/>
 														<Property Name="Volume" Type="Real64">
 															<ModifierList>
 																<ModifierInfo>
@@ -4176,6 +4227,9 @@
 														</Property>
 													</PropertyList>
 													<ReferenceList>
+														<Reference Name="Attenuation">
+															<ObjectRef Name="Physically_Based" ID="{7AF96D5E-B0A7-4524-B96B-04F53DEAEC94}" WorkUnitID="{E312AA2F-7D32-49AE-9B3F-853E8C0370AC}"/>
+														</Reference>
 														<Reference Name="Conversion">
 															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
 														</Reference>
@@ -4523,6 +4577,9 @@
 															</ActiveSourceList>
 														</Sound>
 													</ChildrenList>
+													<PositioningInfo>
+														<Panner Name="" ID="{11833FF2-7781-4992-8C6B-FEA99831F364}"/>
+													</PositioningInfo>
 													<GroupingInfo>
 														<GroupingBehaviorList>
 															<GroupingBehavior>
@@ -4568,6 +4625,7 @@
 												</SwitchContainer>
 												<SwitchContainer Name="Spear" ID="{FB45B7EB-3FD0-4B76-9664-577B229FD81E}" ShortID="1052129499">
 													<PropertyList>
+														<Property Name="3DSpatialization" Type="int16" Value="2"/>
 														<Property Name="Color" Type="int16" Value="4"/>
 														<Property Name="Pitch" Type="int32">
 															<ModifierList>
@@ -4576,6 +4634,7 @@
 																</ModifierInfo>
 															</ModifierList>
 														</Property>
+														<Property Name="SpeakerPanning" Type="int16" Value="1"/>
 														<Property Name="Volume" Type="Real64">
 															<ModifierList>
 																<ModifierInfo>
@@ -4585,6 +4644,9 @@
 														</Property>
 													</PropertyList>
 													<ReferenceList>
+														<Reference Name="Attenuation">
+															<ObjectRef Name="Physically_Based" ID="{7AF96D5E-B0A7-4524-B96B-04F53DEAEC94}" WorkUnitID="{E312AA2F-7D32-49AE-9B3F-853E8C0370AC}"/>
+														</Reference>
 														<Reference Name="Conversion">
 															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
 														</Reference>
@@ -4885,6 +4947,9 @@
 															</ActiveSourceList>
 														</Sound>
 													</ChildrenList>
+													<PositioningInfo>
+														<Panner Name="" ID="{336044A3-D814-4B0C-AB0E-8F802D3F4331}"/>
+													</PositioningInfo>
 													<GroupingInfo>
 														<GroupingBehaviorList>
 															<GroupingBehavior>
@@ -4930,6 +4995,7 @@
 												</SwitchContainer>
 												<RandomSequenceContainer Name="Base Attack Sword" ID="{D156F9A2-A9FD-4A4D-96F0-DB41C102B1C8}" ShortID="743821574">
 													<PropertyList>
+														<Property Name="3DSpatialization" Type="int16" Value="2"/>
 														<Property Name="Color" Type="int16" Value="4"/>
 														<Property Name="Lowpass" Type="int16">
 															<ValueList>
@@ -4961,6 +5027,7 @@
 																</ModifierInfo>
 															</ModifierList>
 														</Property>
+														<Property Name="SpeakerPanning" Type="int16" Value="1"/>
 														<Property Name="Volume" Type="Real64">
 															<ModifierList>
 																<ModifierInfo>
@@ -4976,6 +5043,9 @@
 														</Property>
 													</PropertyList>
 													<ReferenceList>
+														<Reference Name="Attenuation">
+															<ObjectRef Name="Physically_Based" ID="{7AF96D5E-B0A7-4524-B96B-04F53DEAEC94}" WorkUnitID="{E312AA2F-7D32-49AE-9B3F-853E8C0370AC}"/>
+														</Reference>
 														<Reference Name="Conversion">
 															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
 														</Reference>
@@ -5462,11 +5532,15 @@
 															</ActiveSourceList>
 														</Sound>
 													</ChildrenList>
+													<PositioningInfo>
+														<Panner Name="" ID="{9C6B9B21-57B0-4812-9366-56E6C0868FF7}"/>
+													</PositioningInfo>
 												</RandomSequenceContainer>
 											</ChildrenList>
 										</Folder>
 										<RandomSequenceContainer Name="Damage" ID="{6BFA2E92-5D92-45DB-9755-846E84178D4A}" ShortID="701596036">
 											<PropertyList>
+												<Property Name="3DSpatialization" Type="int16" Value="2"/>
 												<Property Name="Color" Type="int16" Value="4"/>
 												<Property Name="Lowpass" Type="int16">
 													<ModifierList>
@@ -5498,6 +5572,7 @@
 														</ModifierInfo>
 													</ModifierList>
 												</Property>
+												<Property Name="SpeakerPanning" Type="int16" Value="1"/>
 												<Property Name="Volume" Type="Real64">
 													<ValueList>
 														<Value>2</Value>
@@ -5515,6 +5590,9 @@
 												</Property>
 											</PropertyList>
 											<ReferenceList>
+												<Reference Name="Attenuation">
+													<ObjectRef Name="Physically_Based" ID="{7AF96D5E-B0A7-4524-B96B-04F53DEAEC94}" WorkUnitID="{E312AA2F-7D32-49AE-9B3F-853E8C0370AC}"/>
+												</Reference>
 												<Reference Name="Conversion">
 													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
 												</Reference>
@@ -5599,6 +5677,9 @@
 													</ActiveSourceList>
 												</Sound>
 											</ChildrenList>
+											<PositioningInfo>
+												<Panner Name="" ID="{A9BF9C53-CD30-4021-BF7B-29A4C6B2BDF2}"/>
+											</PositioningInfo>
 											<ObjectLists>
 												<ObjectList Name="Effects">
 													<EffectSlot Name="" ID="{FCFBF2F7-110C-43B4-BDB9-18AC3300F313}" ShortID="800698604">
@@ -6362,7 +6443,7 @@
 																<Property Name="SpeakerPanning3DSpatializationMix" Type="int32" Value="73"/>
 																<Property Name="Volume" Type="Real64">
 																	<ValueList>
-																		<Value>2</Value>
+																		<Value>4</Value>
 																	</ValueList>
 																	<ModifierList>
 																		<ModifierInfo>
@@ -6518,6 +6599,7 @@
 																							<Property Name="GainBand2" Type="Real32" Value="4"/>
 																							<Property Name="GainBand3" Type="Real32" Value="6"/>
 																							<Property Name="OnOffBand3" Type="bool" Value="True"/>
+																							<Property Name="QFactorBand3" Type="Real32" Value="0.7"/>
 																						</PropertyList>
 																					</Effect>
 																				</Custom>
@@ -11914,7 +11996,6 @@
 																<PropertyList>
 																	<Property Name="Enabled" Type="bool" Value="True"/>
 																	<Property Name="Max" Type="Real64" Value="15"/>
-																	<Property Name="Min" Type="Real64" Value="-11"/>
 																</PropertyList>
 															</Modifier>
 														</ModifierInfo>
@@ -11941,7 +12022,7 @@
 												<Property Name="SpeakerPanning3DSpatializationMix" Type="int32" Value="78"/>
 												<Property Name="Volume" Type="Real64">
 													<ValueList>
-														<Value>13</Value>
+														<Value>10</Value>
 													</ValueList>
 													<ModifierList>
 														<ModifierInfo>
@@ -18086,7 +18167,7 @@
 														<Custom>
 															<Effect Name="Guitar Distortion (Custom)" ID="{8AF0DB92-DC71-4214-9117-4917CF3AC263}" ShortID="923386215" PluginName="Wwise Guitar Distortion" CompanyID="0" PluginID="126" PluginType="3">
 																<PropertyList>
-																	<Property Name="DistortionDrive" Type="Real32" Value="2"/>
+																	<Property Name="DistortionDrive" Type="Real32" Value="3"/>
 																	<Property Name="DistortionType" Type="int32" Value="1"/>
 																</PropertyList>
 															</Effect>
