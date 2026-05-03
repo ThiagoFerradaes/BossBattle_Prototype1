@@ -890,249 +890,303 @@
 								<Property Name="OverrideColor" Type="bool" Value="True"/>
 							</PropertyList>
 							<ChildrenList>
-								<Folder Name="Idle" ID="{DE7F300A-C014-4747-AEF2-5F3A4F79E839}" ShortID="187276505">
+								<Folder Name="Tentacles" ID="{D71AC68E-EDF8-411A-837B-35E1D8D44B41}" ShortID="967164447">
 									<ChildrenList>
-										<Event Name="Play_All_Tentacles_Idle" ID="{4521F6A9-0335-4891-96BC-1911B1D56F56}">
+										<Folder Name="Idle" ID="{DE7F300A-C014-4747-AEF2-5F3A4F79E839}" ShortID="187276505">
 											<ChildrenList>
-												<Action Name="" ID="{228E594F-4324-418D-BA71-ACD7B22F239C}" ShortID="485726643">
-													<PropertyList>
-														<Property Name="FadeInCurve" Type="int16" Value="7"/>
-													</PropertyList>
-													<ReferenceList>
-														<Reference Name="Target">
-															<ObjectRef Name="All Tentacles Idle" ID="{0E3253E2-7209-4340-9B3D-B4BD07BA25AE}" WorkUnitID="{5274A5F1-8227-4981-A61F-0F3417CB92FE}"/>
-														</Reference>
-													</ReferenceList>
-												</Action>
+												<Event Name="Play_All_Tentacles_Idle" ID="{4521F6A9-0335-4891-96BC-1911B1D56F56}">
+													<ChildrenList>
+														<Action Name="" ID="{228E594F-4324-418D-BA71-ACD7B22F239C}" ShortID="485726643">
+															<PropertyList>
+																<Property Name="FadeInCurve" Type="int16" Value="7"/>
+															</PropertyList>
+															<ReferenceList>
+																<Reference Name="Target">
+																	<ObjectRef Name="All Tentacles Idle" ID="{0E3253E2-7209-4340-9B3D-B4BD07BA25AE}" WorkUnitID="{5274A5F1-8227-4981-A61F-0F3417CB92FE}"/>
+																</Reference>
+															</ReferenceList>
+														</Action>
+													</ChildrenList>
+												</Event>
 											</ChildrenList>
-										</Event>
+										</Folder>
+										<Folder Name="Attack Parts" ID="{35E3DD31-5725-4ABD-9BCF-D2CBDB6FBD7D}" ShortID="1018827841">
+											<ChildrenList>
+												<Event Name="Play_2__Air_Swing" ID="{17D6CAFC-9962-4F07-A796-82A42FFA7213}">
+													<ChildrenList>
+														<Action Name="" ID="{A7312745-01B1-4BB9-8549-EB17C7ED6E71}" ShortID="678248206">
+															<PropertyList>
+																<Property Name="FadeInCurve" Type="int16" Value="0"/>
+															</PropertyList>
+															<ReferenceList>
+																<Reference Name="Target">
+																	<ObjectRef Name="2- Air Swing" ID="{5A573E06-A221-4B04-AC21-D9598D62C94D}" WorkUnitID="{5274A5F1-8227-4981-A61F-0F3417CB92FE}"/>
+																</Reference>
+															</ReferenceList>
+														</Action>
+													</ChildrenList>
+												</Event>
+												<Event Name="Play_3__Attack_Impact" ID="{658592D4-E876-4523-93AF-257050EABC58}">
+													<ChildrenList>
+														<Action Name="" ID="{0B45D7C2-6B3D-47D4-BEA4-FB73F1666C13}" ShortID="346101928">
+															<PropertyList>
+																<Property Name="FadeInCurve" Type="int16" Value="0"/>
+															</PropertyList>
+															<ReferenceList>
+																<Reference Name="Target">
+																	<ObjectRef Name="3- Attack Impact" ID="{DF819005-CA41-4F73-90D2-9CD656DFD49E}" WorkUnitID="{5274A5F1-8227-4981-A61F-0F3417CB92FE}"/>
+																</Reference>
+															</ReferenceList>
+														</Action>
+													</ChildrenList>
+												</Event>
+												<Event Name="Play_1__Slime_Swing" ID="{58A7FAB5-005F-4C95-9A41-DEA9D93AA1EC}">
+													<ChildrenList>
+														<Action Name="" ID="{D1079E60-3C44-4142-9997-3BDA7488E5E8}" ShortID="523302661">
+															<PropertyList>
+																<Property Name="FadeInCurve" Type="int16" Value="0"/>
+															</PropertyList>
+															<ReferenceList>
+																<Reference Name="Target">
+																	<ObjectRef Name="1- Slime Swing" ID="{3AB4919D-6A76-492B-AA77-66EA0CC092AF}" WorkUnitID="{5274A5F1-8227-4981-A61F-0F3417CB92FE}"/>
+																</Reference>
+															</ReferenceList>
+														</Action>
+													</ChildrenList>
+												</Event>
+											</ChildrenList>
+										</Folder>
+										<Folder Name="Getting Up" ID="{DF50673F-42CD-4D15-AF83-48D94C5121E5}" ShortID="178856677">
+											<ChildrenList>
+												<Event Name="Play_Drag_Tentacle" ID="{1DA34CEB-E947-495F-A534-DFC9D4ED3682}">
+													<ChildrenList>
+														<Action Name="" ID="{2E401C23-1F5F-4A2F-B2A6-6CF20A5DB1A7}" ShortID="678313971">
+															<PropertyList>
+																<Property Name="FadeInCurve" Type="int16" Value="8"/>
+																<Property Name="FadeTime" Type="Real64" Value="0.5"/>
+															</PropertyList>
+															<ReferenceList>
+																<Reference Name="Target">
+																	<ObjectRef Name="Drag Tentacle" ID="{278414E2-DF75-4C89-9CA2-BA93BA7316E8}" WorkUnitID="{5274A5F1-8227-4981-A61F-0F3417CB92FE}"/>
+																</Reference>
+															</ReferenceList>
+														</Action>
+													</ChildrenList>
+												</Event>
+												<Event Name="Play_Rise_Up" ID="{3E781750-44D4-4BBE-8104-86985C02C32D}">
+													<ChildrenList>
+														<Action Name="" ID="{5558EE98-F5E8-4D4B-A970-AF06A0A2930A}" ShortID="82848931">
+															<PropertyList>
+																<Property Name="FadeInCurve" Type="int16" Value="8"/>
+																<Property Name="FadeTime" Type="Real64" Value="0.5"/>
+															</PropertyList>
+															<ReferenceList>
+																<Reference Name="Target">
+																	<ObjectRef Name="Rise Up" ID="{B17373C0-F42F-417B-AF81-E23A71C3C75B}" WorkUnitID="{5274A5F1-8227-4981-A61F-0F3417CB92FE}"/>
+																</Reference>
+															</ReferenceList>
+														</Action>
+													</ChildrenList>
+												</Event>
+											</ChildrenList>
+										</Folder>
+										<Folder Name="Entrance" ID="{DEA75232-B8D5-4E62-98A9-855840BCB65C}" ShortID="639194184">
+											<ChildrenList>
+												<Event Name="Play_Tentacle_Entrance" ID="{99234AE8-6C3A-416B-9B53-8945FFD566DD}">
+													<ChildrenList>
+														<Action Name="" ID="{CEF619D6-0F19-4930-B084-81A67D9564B6}" ShortID="864499465">
+															<PropertyList>
+																<Property Name="FadeInCurve" Type="int16" Value="2"/>
+															</PropertyList>
+															<ReferenceList>
+																<Reference Name="Target">
+																	<ObjectRef Name="Tentacle Entrance" ID="{AD3C59EA-A1A7-44CD-9F99-02FD3FFB39F1}" WorkUnitID="{5274A5F1-8227-4981-A61F-0F3417CB92FE}"/>
+																</Reference>
+															</ReferenceList>
+														</Action>
+													</ChildrenList>
+												</Event>
+											</ChildrenList>
+										</Folder>
+										<Folder Name="Damage" ID="{162A9FFC-1F75-4679-9B5F-E7FB58EC5746}" ShortID="697577460">
+											<ChildrenList>
+												<Event Name="Play_Damage_Kraken" ID="{E7D49491-A81F-4EFC-AB54-3D98AB34F0F9}">
+													<ChildrenList>
+														<Action Name="" ID="{9871F20B-CE27-4FD3-8C02-7E01AB1D8F3E}" ShortID="332471536">
+															<PropertyList>
+																<Property Name="FadeInCurve" Type="int16" Value="0"/>
+															</PropertyList>
+															<ReferenceList>
+																<Reference Name="Target">
+																	<ObjectRef Name="Damage" ID="{8D0BC615-5C3C-46F3-B8D0-B0EFEE4AB433}" WorkUnitID="{5274A5F1-8227-4981-A61F-0F3417CB92FE}"/>
+																</Reference>
+															</ReferenceList>
+														</Action>
+													</ChildrenList>
+												</Event>
+											</ChildrenList>
+										</Folder>
+										<Folder Name="Stalactite" ID="{2A15589C-57EA-4D7D-A006-8A3C309B5604}" ShortID="646212306">
+											<ChildrenList>
+												<Event Name="Play_Stalactite_Wip" ID="{64298A45-5B8E-43E4-9D5F-6DB4DE3D0C24}">
+													<ChildrenList>
+														<Action Name="" ID="{4713CFD1-1FCB-44A5-BF0E-1FE288DAC3EC}" ShortID="325900256">
+															<ReferenceList>
+																<Reference Name="Target">
+																	<ObjectRef Name="Wip" ID="{99AC2FC0-143E-43A9-9F88-D0C30D56F74C}" WorkUnitID="{5274A5F1-8227-4981-A61F-0F3417CB92FE}"/>
+																</Reference>
+															</ReferenceList>
+														</Action>
+													</ChildrenList>
+												</Event>
+												<Event Name="Stop_Stalactite_Wip" ID="{EF2E9802-0E31-47C4-AA41-D6B8203C7BFB}">
+													<ChildrenList>
+														<Action Name="" ID="{51C8D7F7-10D2-4392-9D7D-1302C1CCEDC4}" ShortID="591050473">
+															<PropertyList>
+																<Property Name="ActionType" Type="int16" Value="2"/>
+																<Property Name="FadeOutCurve" Type="int16" Value="5"/>
+																<Property Name="FadeTime" Type="Real64" Value="0.5"/>
+															</PropertyList>
+															<ReferenceList>
+																<Reference Name="Target">
+																	<ObjectRef Name="Wip" ID="{99AC2FC0-143E-43A9-9F88-D0C30D56F74C}" WorkUnitID="{5274A5F1-8227-4981-A61F-0F3417CB92FE}"/>
+																</Reference>
+															</ReferenceList>
+														</Action>
+													</ChildrenList>
+												</Event>
+											</ChildrenList>
+										</Folder>
+										<Folder Name="Preparation" ID="{36CF6533-10EE-48CA-9CF7-B6655F98B6A8}" ShortID="676832721">
+											<ChildrenList>
+												<Event Name="Play_Preparation" ID="{ED693462-E626-4E73-962F-BBEE4E926F14}">
+													<ChildrenList>
+														<Action Name="" ID="{698D5312-23EE-4C4C-9AA2-072293A9EAE9}" ShortID="962971973">
+															<PropertyList>
+																<Property Name="FadeInCurve" Type="int16" Value="7"/>
+																<Property Name="FadeTime" Type="Real64" Value="0.1"/>
+															</PropertyList>
+															<ReferenceList>
+																<Reference Name="Target">
+																	<ObjectRef Name="Preparation" ID="{956339D8-FC6D-4A96-BD4D-9212146F8C54}" WorkUnitID="{5274A5F1-8227-4981-A61F-0F3417CB92FE}"/>
+																</Reference>
+															</ReferenceList>
+														</Action>
+													</ChildrenList>
+												</Event>
+											</ChildrenList>
+										</Folder>
 									</ChildrenList>
 								</Folder>
-								<Folder Name="Attack Parts" ID="{35E3DD31-5725-4ABD-9BCF-D2CBDB6FBD7D}" ShortID="1018827841">
+								<Folder Name="Head" ID="{612B225A-B547-4B24-8259-13AE0891C126}" ShortID="1017314396">
 									<ChildrenList>
-										<Event Name="Play_4__Rocks_Cracking" ID="{96026119-D219-477F-9E0E-5D6333B402F2}">
+										<Folder Name="Rage" ID="{7B851D80-1D61-412C-AA91-CF42196704D7}" ShortID="711994134">
 											<ChildrenList>
-												<Action Name="" ID="{F5554805-4F5D-4A1B-A772-452239D1774F}" ShortID="998721733">
-													<PropertyList>
-														<Property Name="FadeInCurve" Type="int16" Value="0"/>
-													</PropertyList>
-													<ReferenceList>
-														<Reference Name="Target">
-															<ObjectRef Name="4- Rocks Cracking" ID="{D9FCC41A-291D-4E91-B55F-3BA3D77FE43A}" WorkUnitID="{5274A5F1-8227-4981-A61F-0F3417CB92FE}"/>
-														</Reference>
-													</ReferenceList>
-												</Action>
+												<Event Name="Play_Rage" ID="{4146FB0D-E81C-45CB-8CF6-51EA9DFC25EA}">
+													<ChildrenList>
+														<Action Name="" ID="{F92C5524-6BD2-4603-963D-7C094530FD85}" ShortID="529841844">
+															<ReferenceList>
+																<Reference Name="Target">
+																	<ObjectRef Name="Rage" ID="{BF9E7060-79E5-49E7-8775-447836E94A3F}" WorkUnitID="{5274A5F1-8227-4981-A61F-0F3417CB92FE}"/>
+																</Reference>
+															</ReferenceList>
+														</Action>
+													</ChildrenList>
+												</Event>
 											</ChildrenList>
-										</Event>
-										<Event Name="Play_5__Water_Splashing" ID="{5B6D2515-8FBE-4519-9CA2-1D6ECBCBDAFD}">
-											<ChildrenList>
-												<Action Name="" ID="{813AA3A8-2093-4986-BB37-58631180D575}" ShortID="862772104">
-													<PropertyList>
-														<Property Name="FadeInCurve" Type="int16" Value="0"/>
-													</PropertyList>
-													<ReferenceList>
-														<Reference Name="Target">
-															<ObjectRef Name="5- Water Splashing" ID="{A0FF8824-4C96-4785-B150-57ED3CDCB355}" WorkUnitID="{5274A5F1-8227-4981-A61F-0F3417CB92FE}"/>
-														</Reference>
-													</ReferenceList>
-												</Action>
-											</ChildrenList>
-										</Event>
-										<Event Name="Play_2__Air_Swing" ID="{17D6CAFC-9962-4F07-A796-82A42FFA7213}">
-											<ChildrenList>
-												<Action Name="" ID="{A7312745-01B1-4BB9-8549-EB17C7ED6E71}" ShortID="678248206">
-													<PropertyList>
-														<Property Name="FadeInCurve" Type="int16" Value="1"/>
-													</PropertyList>
-													<ReferenceList>
-														<Reference Name="Target">
-															<ObjectRef Name="2- Air Swing" ID="{5A573E06-A221-4B04-AC21-D9598D62C94D}" WorkUnitID="{5274A5F1-8227-4981-A61F-0F3417CB92FE}"/>
-														</Reference>
-													</ReferenceList>
-												</Action>
-											</ChildrenList>
-										</Event>
-										<Event Name="Play_3__Attack_Impact" ID="{658592D4-E876-4523-93AF-257050EABC58}">
-											<ChildrenList>
-												<Action Name="" ID="{0B45D7C2-6B3D-47D4-BEA4-FB73F1666C13}" ShortID="346101928">
-													<PropertyList>
-														<Property Name="FadeInCurve" Type="int16" Value="0"/>
-														<Property Name="FadeTime" Type="Real64" Value="0.1"/>
-													</PropertyList>
-													<ReferenceList>
-														<Reference Name="Target">
-															<ObjectRef Name="3- Attack Impact" ID="{DF819005-CA41-4F73-90D2-9CD656DFD49E}" WorkUnitID="{5274A5F1-8227-4981-A61F-0F3417CB92FE}"/>
-														</Reference>
-													</ReferenceList>
-												</Action>
-											</ChildrenList>
-										</Event>
-										<Event Name="Play_1__Slime_Swing" ID="{58A7FAB5-005F-4C95-9A41-DEA9D93AA1EC}">
-											<ChildrenList>
-												<Action Name="" ID="{D1079E60-3C44-4142-9997-3BDA7488E5E8}" ShortID="523302661">
-													<PropertyList>
-														<Property Name="FadeInCurve" Type="int16" Value="8"/>
-														<Property Name="FadeTime" Type="Real64" Value="0.2"/>
-													</PropertyList>
-													<ReferenceList>
-														<Reference Name="Target">
-															<ObjectRef Name="1- Slime Swing" ID="{3AB4919D-6A76-492B-AA77-66EA0CC092AF}" WorkUnitID="{5274A5F1-8227-4981-A61F-0F3417CB92FE}"/>
-														</Reference>
-													</ReferenceList>
-												</Action>
-											</ChildrenList>
-										</Event>
+										</Folder>
 									</ChildrenList>
 								</Folder>
-								<Folder Name="Preparation" ID="{36CF6533-10EE-48CA-9CF7-B6655F98B6A8}" ShortID="676832721">
+								<Folder Name="Environment" ID="{D72D4B47-9237-472B-BA19-73E938FE748B}" ShortID="515757547">
 									<ChildrenList>
-										<Event Name="Play_Preparation" ID="{ED693462-E626-4E73-962F-BBEE4E926F14}">
+										<Folder Name="Attack Warning" ID="{298209E5-1400-403F-AC31-D761FB136CC5}" ShortID="79347254">
 											<ChildrenList>
-												<Action Name="" ID="{698D5312-23EE-4C4C-9AA2-072293A9EAE9}" ShortID="962971973">
-													<PropertyList>
-														<Property Name="FadeInCurve" Type="int16" Value="7"/>
-														<Property Name="FadeTime" Type="Real64" Value="0.1"/>
-													</PropertyList>
-													<ReferenceList>
-														<Reference Name="Target">
-															<ObjectRef Name="Preparation" ID="{956339D8-FC6D-4A96-BD4D-9212146F8C54}" WorkUnitID="{5274A5F1-8227-4981-A61F-0F3417CB92FE}"/>
-														</Reference>
-													</ReferenceList>
-												</Action>
+												<Event Name="Play_Warning_Siren" ID="{F35BC631-E85E-4DE3-B0BC-0BBDAF9C359D}">
+													<ChildrenList>
+														<Action Name="" ID="{55208782-C74F-4988-A55D-98BA146DC705}" ShortID="723976471">
+															<PropertyList>
+																<Property Name="FadeInCurve" Type="int16" Value="8"/>
+																<Property Name="FadeTime" Type="Real64" Value="0.8"/>
+															</PropertyList>
+															<ReferenceList>
+																<Reference Name="Target">
+																	<ObjectRef Name="Warning Siren" ID="{B32DE141-4AF6-4D7C-AB90-3BAB63E120B4}" WorkUnitID="{5274A5F1-8227-4981-A61F-0F3417CB92FE}"/>
+																</Reference>
+															</ReferenceList>
+														</Action>
+													</ChildrenList>
+												</Event>
 											</ChildrenList>
-										</Event>
-									</ChildrenList>
-								</Folder>
-								<Folder Name="Damage" ID="{162A9FFC-1F75-4679-9B5F-E7FB58EC5746}" ShortID="697577460">
-									<ChildrenList>
-										<Event Name="Play_Damage_Kraken" ID="{E7D49491-A81F-4EFC-AB54-3D98AB34F0F9}">
+										</Folder>
+										<Folder Name="Attack Impact" ID="{9449052E-7BB3-4413-AAAA-3D29913D5269}" ShortID="649774368">
 											<ChildrenList>
-												<Action Name="" ID="{9871F20B-CE27-4FD3-8C02-7E01AB1D8F3E}" ShortID="332471536">
-													<PropertyList>
-														<Property Name="FadeInCurve" Type="int16" Value="0"/>
-													</PropertyList>
-													<ReferenceList>
-														<Reference Name="Target">
-															<ObjectRef Name="Damage" ID="{8D0BC615-5C3C-46F3-B8D0-B0EFEE4AB433}" WorkUnitID="{5274A5F1-8227-4981-A61F-0F3417CB92FE}"/>
-														</Reference>
-													</ReferenceList>
-												</Action>
+												<Event Name="Play_5__Water_Splashing" ID="{5B6D2515-8FBE-4519-9CA2-1D6ECBCBDAFD}">
+													<ChildrenList>
+														<Action Name="" ID="{813AA3A8-2093-4986-BB37-58631180D575}" ShortID="862772104">
+															<PropertyList>
+																<Property Name="FadeInCurve" Type="int16" Value="0"/>
+															</PropertyList>
+															<ReferenceList>
+																<Reference Name="Target">
+																	<ObjectRef Name="5- Water Splashing" ID="{A0FF8824-4C96-4785-B150-57ED3CDCB355}" WorkUnitID="{5274A5F1-8227-4981-A61F-0F3417CB92FE}"/>
+																</Reference>
+															</ReferenceList>
+														</Action>
+													</ChildrenList>
+												</Event>
+												<Event Name="Play_4__Rocks_Cracking" ID="{96026119-D219-477F-9E0E-5D6333B402F2}">
+													<ChildrenList>
+														<Action Name="" ID="{F5554805-4F5D-4A1B-A772-452239D1774F}" ShortID="998721733">
+															<PropertyList>
+																<Property Name="FadeInCurve" Type="int16" Value="0"/>
+															</PropertyList>
+															<ReferenceList>
+																<Reference Name="Target">
+																	<ObjectRef Name="4- Rocks Cracking" ID="{D9FCC41A-291D-4E91-B55F-3BA3D77FE43A}" WorkUnitID="{5274A5F1-8227-4981-A61F-0F3417CB92FE}"/>
+																</Reference>
+															</ReferenceList>
+														</Action>
+													</ChildrenList>
+												</Event>
 											</ChildrenList>
-										</Event>
-									</ChildrenList>
-								</Folder>
-								<Folder Name="Stalactite" ID="{2A15589C-57EA-4D7D-A006-8A3C309B5604}" ShortID="646212306">
-									<ChildrenList>
-										<Event Name="Play_Stalactite_Explosion" ID="{F4400756-587C-4889-9A3B-62371EFA10A0}">
+										</Folder>
+										<Folder Name="Stalactite Rocks" ID="{0B49A3B2-733D-45F2-98E1-41ECE6CD0794}" ShortID="431024462">
 											<ChildrenList>
-												<Action Name="" ID="{8FE61C56-3C19-436C-9A9D-A1FD9F51B7A7}" ShortID="712808716">
-													<PropertyList>
-														<Property Name="FadeInCurve" Type="int16" Value="0"/>
-														<Property Name="FadeTime" Type="Real64" Value="0.1"/>
-													</PropertyList>
-													<ReferenceList>
-														<Reference Name="Target">
-															<ObjectRef Name="Stalactite_Explosion" ID="{BF7561D9-140A-466A-9942-9D6032AC340C}" WorkUnitID="{5274A5F1-8227-4981-A61F-0F3417CB92FE}"/>
-														</Reference>
-													</ReferenceList>
-												</Action>
+												<Event Name="Play_Stalactite_Explosion" ID="{F4400756-587C-4889-9A3B-62371EFA10A0}">
+													<ChildrenList>
+														<Action Name="" ID="{8FE61C56-3C19-436C-9A9D-A1FD9F51B7A7}" ShortID="712808716">
+															<PropertyList>
+																<Property Name="FadeInCurve" Type="int16" Value="0"/>
+																<Property Name="FadeTime" Type="Real64" Value="0.1"/>
+															</PropertyList>
+															<ReferenceList>
+																<Reference Name="Target">
+																	<ObjectRef Name="Stalactite_Explosion" ID="{BF7561D9-140A-466A-9942-9D6032AC340C}" WorkUnitID="{5274A5F1-8227-4981-A61F-0F3417CB92FE}"/>
+																</Reference>
+															</ReferenceList>
+														</Action>
+													</ChildrenList>
+												</Event>
 											</ChildrenList>
-										</Event>
-										<Event Name="Play_Stalactite_Wip" ID="{64298A45-5B8E-43E4-9D5F-6DB4DE3D0C24}">
+										</Folder>
+										<Folder Name="Stalactite Warning" ID="{AF1F5FF5-0AF6-4BB0-9DB6-0F25798BDC59}" ShortID="935716181">
 											<ChildrenList>
-												<Action Name="" ID="{4713CFD1-1FCB-44A5-BF0E-1FE288DAC3EC}" ShortID="325900256">
-													<ReferenceList>
-														<Reference Name="Target">
-															<ObjectRef Name="Wip" ID="{99AC2FC0-143E-43A9-9F88-D0C30D56F74C}" WorkUnitID="{5274A5F1-8227-4981-A61F-0F3417CB92FE}"/>
-														</Reference>
-													</ReferenceList>
-												</Action>
+												<Event Name="Play_Stalactite_Warning_Siren" ID="{186E3001-53BE-42A1-9120-9C07C7173841}">
+													<ChildrenList>
+														<Action Name="" ID="{590D4FF4-8110-414E-A540-9238F40D4163}" ShortID="666755572">
+															<PropertyList>
+																<Property Name="FadeInCurve" Type="int16" Value="0"/>
+															</PropertyList>
+															<ReferenceList>
+																<Reference Name="Target">
+																	<ObjectRef Name="Stalactite Warning Siren" ID="{3AA76B94-6D85-4533-B97F-86E6106A8FCC}" WorkUnitID="{5274A5F1-8227-4981-A61F-0F3417CB92FE}"/>
+																</Reference>
+															</ReferenceList>
+														</Action>
+													</ChildrenList>
+												</Event>
 											</ChildrenList>
-										</Event>
-										<Event Name="Stop_Stalactite_Wip" ID="{EF2E9802-0E31-47C4-AA41-D6B8203C7BFB}">
-											<ChildrenList>
-												<Action Name="" ID="{51C8D7F7-10D2-4392-9D7D-1302C1CCEDC4}" ShortID="591050473">
-													<PropertyList>
-														<Property Name="ActionType" Type="int16" Value="2"/>
-														<Property Name="FadeOutCurve" Type="int16" Value="5"/>
-														<Property Name="FadeTime" Type="Real64" Value="0.5"/>
-													</PropertyList>
-													<ReferenceList>
-														<Reference Name="Target">
-															<ObjectRef Name="Wip" ID="{99AC2FC0-143E-43A9-9F88-D0C30D56F74C}" WorkUnitID="{5274A5F1-8227-4981-A61F-0F3417CB92FE}"/>
-														</Reference>
-													</ReferenceList>
-												</Action>
-											</ChildrenList>
-										</Event>
-									</ChildrenList>
-								</Folder>
-								<Folder Name="Warning for Attack" ID="{298209E5-1400-403F-AC31-D761FB136CC5}" ShortID="79347254">
-									<ChildrenList>
-										<Event Name="Play_Warning_Siren" ID="{F35BC631-E85E-4DE3-B0BC-0BBDAF9C359D}">
-											<ChildrenList>
-												<Action Name="" ID="{55208782-C74F-4988-A55D-98BA146DC705}" ShortID="723976471">
-													<PropertyList>
-														<Property Name="FadeInCurve" Type="int16" Value="8"/>
-														<Property Name="FadeTime" Type="Real64" Value="0.8"/>
-													</PropertyList>
-													<ReferenceList>
-														<Reference Name="Target">
-															<ObjectRef Name="Warning Siren" ID="{B32DE141-4AF6-4D7C-AB90-3BAB63E120B4}" WorkUnitID="{5274A5F1-8227-4981-A61F-0F3417CB92FE}"/>
-														</Reference>
-													</ReferenceList>
-												</Action>
-											</ChildrenList>
-										</Event>
-									</ChildrenList>
-								</Folder>
-								<Folder Name="Rage" ID="{7B851D80-1D61-412C-AA91-CF42196704D7}" ShortID="711994134">
-									<ChildrenList>
-										<Event Name="Play_Rage" ID="{4146FB0D-E81C-45CB-8CF6-51EA9DFC25EA}">
-											<ChildrenList>
-												<Action Name="" ID="{F92C5524-6BD2-4603-963D-7C094530FD85}" ShortID="529841844">
-													<ReferenceList>
-														<Reference Name="Target">
-															<ObjectRef Name="Rage" ID="{BF9E7060-79E5-49E7-8775-447836E94A3F}" WorkUnitID="{5274A5F1-8227-4981-A61F-0F3417CB92FE}"/>
-														</Reference>
-													</ReferenceList>
-												</Action>
-											</ChildrenList>
-										</Event>
-									</ChildrenList>
-								</Folder>
-								<Folder Name="Getting Up" ID="{DF50673F-42CD-4D15-AF83-48D94C5121E5}" ShortID="178856677">
-									<ChildrenList>
-										<Event Name="Play_Drag_Tentacle" ID="{1DA34CEB-E947-495F-A534-DFC9D4ED3682}">
-											<ChildrenList>
-												<Action Name="" ID="{2E401C23-1F5F-4A2F-B2A6-6CF20A5DB1A7}" ShortID="678313971">
-													<PropertyList>
-														<Property Name="FadeInCurve" Type="int16" Value="8"/>
-														<Property Name="FadeTime" Type="Real64" Value="0.5"/>
-													</PropertyList>
-													<ReferenceList>
-														<Reference Name="Target">
-															<ObjectRef Name="Drag Tentacle" ID="{278414E2-DF75-4C89-9CA2-BA93BA7316E8}" WorkUnitID="{5274A5F1-8227-4981-A61F-0F3417CB92FE}"/>
-														</Reference>
-													</ReferenceList>
-												</Action>
-											</ChildrenList>
-										</Event>
-										<Event Name="Play_Rise_Up" ID="{3E781750-44D4-4BBE-8104-86985C02C32D}">
-											<ChildrenList>
-												<Action Name="" ID="{5558EE98-F5E8-4D4B-A970-AF06A0A2930A}" ShortID="82848931">
-													<PropertyList>
-														<Property Name="FadeInCurve" Type="int16" Value="8"/>
-														<Property Name="FadeTime" Type="Real64" Value="0.5"/>
-													</PropertyList>
-													<ReferenceList>
-														<Reference Name="Target">
-															<ObjectRef Name="Rise Up" ID="{B17373C0-F42F-417B-AF81-E23A71C3C75B}" WorkUnitID="{5274A5F1-8227-4981-A61F-0F3417CB92FE}"/>
-														</Reference>
-													</ReferenceList>
-												</Action>
-											</ChildrenList>
-										</Event>
+										</Folder>
 									</ChildrenList>
 								</Folder>
 							</ChildrenList>
