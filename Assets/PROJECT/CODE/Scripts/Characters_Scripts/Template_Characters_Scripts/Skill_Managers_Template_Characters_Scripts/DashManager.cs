@@ -89,9 +89,15 @@ public class DashManager : SkillObjectManager {
 
         skillManager.SkillIsInAnimation(false);
 
-        EndWithUnblockSkills();
-
         AnimationManager.Instance.ReturnToIdle(anim);
+
+        UnblockInputs();
+
+        yield return new WaitForSeconds(_info.ExtraInvulnerabilityTime);
+
+        healthManager.SetCanTakeDamage();
+
+        EndWithUnblockSkills();
     }
 
     public override void CancelSkill() {
