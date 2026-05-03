@@ -110,6 +110,7 @@ public class EnemyHealthBar : MonoBehaviour
         if (changeColorTentacleCoroutine != null) {
             StopCoroutine(changeColorTentacleCoroutine);
             _renderer.SetPropertyBlock(null);
+            changeColorTentacleCoroutine = null;
         }
     }
     private void OnDestroy() {
