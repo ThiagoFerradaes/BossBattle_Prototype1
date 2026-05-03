@@ -32,7 +32,6 @@ public class KrakenAudio : MonoBehaviour
     [SerializeField] AK.Wwise.RTPC idleVolumeRTPC;
 
     private Coroutine fadeCoroutine;
-    private bool warningPlayed = false;
 
     public void PlayEntrance()
     {
