@@ -1,0 +1,112 @@
+{
+ "SoundBanksInfo": {
+  "Platform": "Mac",
+  "BasePlatform": "Mac",
+  "SchemaVersion": "16",
+  "SoundBankVersion": "172",
+  "SoundBanks": [
+   {
+    "Id": "2336520413",
+    "Type": "Event",
+    "GUID": "{99234AE8-6C3A-416B-9B53-8945FFD566DD}",
+    "Language": "SFX",
+    "Hash": "{F2C7AE24-73C7-45CC-59C0-F127775ED4CC}",
+    "ObjectPath": "Play_Tentacle_Entrance",
+    "ShortName": "Play_Tentacle_Entrance",
+    "Path": "Event/Play_Tentacle_Entrance.bnk",
+    "Media": [
+     {
+      "Id": "363873747",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Loose",
+      "ShortName": "SPFX_attack_waves_Kraken_01.wav",
+      "Path": "Media/363873747.wem",
+      "CachePath": "2D/{2DCE205D-1F1E-186D-E5E1-1533D2403419}.wem"
+     },
+     {
+      "Id": "761979052",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Loose",
+      "ShortName": "SFX_idle_Kraken_01.wav",
+      "Path": "Media/761979052.wem",
+      "CachePath": "E3/{E336DE06-F93E-DA50-2051-44FC02A9A7D4}.wem"
+     }
+    ],
+    "Plugins": {
+     "Custom": [
+      {
+       "Id": "65469704",
+       "Name": "Time Stretch (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\Tentacles\\Entrance\\Tentacle Entrance\\Entrance\\[Effect Slot [0]: (Time Stretch)]\\Time Stretch (Custom)",
+       "GUID": "{AC70F168-F1EC-4DC7-B4ED-55F5DF0EDEED}",
+       "LibName": "Wwise Time Stretch",
+       "LibId": "8519683"
+      },
+      {
+       "Id": "463212634",
+       "Name": "Monsterize (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\Tentacles\\Entrance\\Tentacle Entrance\\Entrance\\[Effect Slot [2]: (Pitch Shifter)]\\Monsterize (Custom)",
+       "GUID": "{3C1A50CA-3675-46B0-9532-611369B03EBB}",
+       "LibName": "Wwise Pitch Shifter",
+       "LibId": "8912899"
+      },
+      {
+       "Id": "909386132",
+       "Name": "Time Stretch (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\Tentacles\\Entrance\\Tentacle Entrance\\Wave_01\\[Effect Slot [0]: (Time Stretch)]\\Time Stretch (Custom)",
+       "GUID": "{4D351862-F21C-4854-8C98-2EBCB0A53172}",
+       "LibName": "Wwise Time Stretch",
+       "LibId": "8519683"
+      },
+      {
+       "Id": "1026259920",
+       "Name": "Fear_no_Evil (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\Tentacles\\Entrance\\Tentacle Entrance\\Entrance\\[Effect Slot [1]: (Harmonizer)]\\Fear_no_Evil (Custom)",
+       "GUID": "{2F42A574-9239-4D06-AB4B-AB2DAFAE58EE}",
+       "LibName": "Wwise Harmonizer",
+       "LibId": "9043971"
+      }
+     ]
+    },
+    "Events": [
+     {
+      "Id": "2336520413",
+      "Name": "Play_Tentacle_Entrance",
+      "ObjectPath": "\\Events\\Default Work Unit\\SFX\\Kraken\\Tentacles\\Entrance\\Play_Tentacle_Entrance",
+      "GUID": "{99234AE8-6C3A-416B-9B53-8945FFD566DD}",
+      "Color": "8",
+      "MaxAttenuation": "100",
+      "DurationType": "Infinite",
+      "MediaRefs": [
+       {
+        "Id": "363873747"
+       },
+       {
+        "Id": "761979052"
+       }
+      ],
+      "PluginRefs": {
+       "Custom": [
+        {
+         "Id": "65469704"
+        },
+        {
+         "Id": "463212634"
+        },
+        {
+         "Id": "909386132"
+        },
+        {
+         "Id": "1026259920"
+        }
+       ]
+      }
+     }
+    ]
+   }
+  ],
+  "FileHash": "{5773A062-AB63-B65F-49D6-D24FCF793367}"
+ }
+}

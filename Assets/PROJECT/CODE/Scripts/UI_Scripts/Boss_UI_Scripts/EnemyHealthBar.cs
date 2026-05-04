@@ -12,6 +12,14 @@ public class EnemyHealthBar : MonoBehaviour
     [SerializeField] float damageBarDecreaseSpeed;
     [SerializeField] bool isWorldCanvas = true;
     [SerializeField] Renderer _renderer;
+
+    [Header("Health Damage Indicator")]
+    [SerializeField] int amountOfFlahses;
+    [SerializeField] float flashDuration;
+    [SerializeField] float timeBetweenFlashes;
+
+    WaitForSeconds waitTimeBetweenFlashes, waitFlashDuration;
+
     private MaterialPropertyBlock _propBlock;
 
     Coroutine damageBarCoroutine;
@@ -23,6 +31,13 @@ public class EnemyHealthBar : MonoBehaviour
         healthManager.OnHealthChanged += UpdateHealthBar;
         healthManager.OnHealthChanged += ChangeColorOnHit;
         _propBlock = new MaterialPropertyBlock();
+
+        SetWaitForSeconds();
+    }
+
+    void SetWaitForSeconds() {
+        waitFlashDuration = new(flashDuration);
+        waitTimeBetweenFlashes = new(timeBetweenFlashes);
     }
 
     void Update()
@@ -33,20 +48,30 @@ public class EnemyHealthBar : MonoBehaviour
 
     void ChangeColorOnHit(float currentHealth, float maxHealth)
     {
-        if(currentHealth != maxHealth) {
+        if (!gameObject.activeInHierarchy) return;
+
+        if (currentHealth != maxHealth) {
             changeColorTentacleCoroutine ??= StartCoroutine(ChangeColorTentacle());
         }
     }
 
     IEnumerator ChangeColorTentacle()
     {
-        _renderer.GetPropertyBlock(_propBlock);
-        _propBlock.SetFloat("_isHit", 1f);
-        _renderer.SetPropertyBlock(_propBlock);
+        for (int i = 0; i < amountOfFlahses; i++) {
 
-        yield return new WaitForSeconds(0.1f);
+            // White
+            _renderer.GetPropertyBlock(_propBlock);
+            _propBlock.SetFloat("_isHit", 1f);
+            _renderer.SetPropertyBlock(_propBlock);
 
-        _renderer.SetPropertyBlock(null);
+            yield return waitFlashDuration;
+
+            // Normal
+            _renderer.SetPropertyBlock(null);
+
+            yield return waitTimeBetweenFlashes;
+        }
+
         changeColorTentacleCoroutine = null;
     }
 
@@ -87,6 +112,7 @@ public class EnemyHealthBar : MonoBehaviour
         if (changeColorTentacleCoroutine != null) {
             StopCoroutine(changeColorTentacleCoroutine);
             _renderer.SetPropertyBlock(null);
+            changeColorTentacleCoroutine = null;
         }
     }
     private void OnDestroy() {

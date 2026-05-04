@@ -34,6 +34,7 @@ public class DialogueManager : MonoBehaviour {
     [SerializeField] Button maskFakeButton;
     [SerializeField] Image nameBackgroundImage;
     [SerializeField] Image dialogueBackgroundImage;
+    [SerializeField] AK.Wwise.Event passDialogueSound;
 
     [Space(10)]
 
@@ -146,6 +147,8 @@ public class DialogueManager : MonoBehaviour {
             if (_onlyOneResponse) OnlyOneResponseNextNode();
         }
         else SkipLine();
+
+        passDialogueSound.Post(gameObject);
     }
 
     /// <summary>

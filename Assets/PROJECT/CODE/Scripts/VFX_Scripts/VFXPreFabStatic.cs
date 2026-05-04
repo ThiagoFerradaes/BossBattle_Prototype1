@@ -1,5 +1,6 @@
 using NaughtyAttributes;
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.VFX;
 
@@ -44,6 +45,12 @@ public class VFXPreFabStatic : MonoBehaviour
 
     private Collider myCollider;
 
+    public AK.Wwise.Event vfxSoundEvent;
+    [SerializeField, ShowIf("ShowWarningDelay"), AllowNesting]
+    private float warningResetDelay = 20f;
+    private bool ShowWarningDelay => gameObject.name == "TentacleHit_AreaOfImpact_Red";
+    private bool warningPlayed = false;
+
     void Awake()
     {
         isVFX = TryGetComponent<VisualEffect>(out myVFX);
@@ -53,6 +60,19 @@ public class VFXPreFabStatic : MonoBehaviour
     public void Initialize(VFXAtributes atributes)
     {
         gameObject.SetActive(true);
+        if (vfxSoundEvent != null)
+        {
+            vfxSoundEvent.Post(gameObject);
+            if (vfxSoundEvent.Name == "Play_Warning_Siren" || vfxSoundEvent.Name == "Play_Stalactite_Warning_Siren")
+            {
+                warningPlayed = true;
+
+                if (warningPlayed)
+                {
+                    StartCoroutine(ResetWarningAfterDelay(warningResetDelay));
+                }
+            }
+        }
         Invoke(nameof(TurnOff), atributes.VFXDuration);
     }
     public void Initialize(float duration)
@@ -64,5 +84,11 @@ public class VFXPreFabStatic : MonoBehaviour
     {
         PoolingManager.Instance.ReturnObjectToPool(this.gameObject, TypeOfSkillPrefab.VFX);
     }
-    
+
+    private IEnumerator ResetWarningAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        warningPlayed = false;
+    }
+
 }

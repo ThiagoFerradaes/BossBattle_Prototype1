@@ -3,16 +3,19 @@ using System.Collections;
 
 public class KrakenAudio : MonoBehaviour
 {
+    [Header("Entrance Audio Event")]
+    [SerializeField] AK.Wwise.Event tentacleEntranceEvent;
+
     [Header("Idle Audio Event")]
     [SerializeField] AK.Wwise.Event tentacleIdleEvent;
 
+    [Header("Rage Audio Event")]
+    [SerializeField] AK.Wwise.Event krakenRageEvent;
+
     [Header("Attack Audio Events")]
-    [SerializeField] AK.Wwise.Event warningTentacleAttackEvent;
     [SerializeField] AK.Wwise.Event tentacleSwingEvent;
     [SerializeField] AK.Wwise.Event airSwingEvent;
     [SerializeField] AK.Wwise.Event tentacleImpactEvent;
-    [SerializeField] AK.Wwise.Event rocksCrackingEvent;
-    [SerializeField] AK.Wwise.Event waterSplashingEvent;
 
     [Header("Prepare Audio Event")]
     [SerializeField] AK.Wwise.Event tentaclePrepareEvent;
@@ -29,7 +32,11 @@ public class KrakenAudio : MonoBehaviour
     [SerializeField] AK.Wwise.RTPC idleVolumeRTPC;
 
     private Coroutine fadeCoroutine;
-    private bool warningPlayed = false;
+
+    public void PlayEntrance()
+    {
+        tentacleEntranceEvent?.Post(gameObject);
+    }
 
     public void PlayIdle()
     {
@@ -37,15 +44,9 @@ public class KrakenAudio : MonoBehaviour
         FadeIdleTo(50f, 0.5f);
     }
 
-    public void PlayWarning()
+    public void PlayRage()
     {
-        if (!warningPlayed)
-        {
-            FadeIdleTo(20f, 0.5f);
-            warningTentacleAttackEvent?.Post(gameObject);
-            warningPlayed = true;
-            StartCoroutine(ResetWarningAfterDelay(20f));
-        }
+        krakenRageEvent?.Post(gameObject);
     }
 
     public void PlayTentacleSwing()
@@ -61,16 +62,6 @@ public class KrakenAudio : MonoBehaviour
     public void PlayImpact()
     {
         tentacleImpactEvent?.Post(gameObject);
-    }
-
-    public void PlayRocksCracking()
-    {
-        rocksCrackingEvent?.Post(gameObject);
-    }
-
-    public void PlayWaterSplashing()
-    {
-        waterSplashingEvent?.Post(gameObject);
     }
 
     public void PlayPrepare()
@@ -128,12 +119,6 @@ public class KrakenAudio : MonoBehaviour
         }
 
         idleVolumeRTPC?.SetValue(gameObject, targetValue);
-    }
-
-    private IEnumerator ResetWarningAfterDelay(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        warningPlayed = false;
     }
 }
 

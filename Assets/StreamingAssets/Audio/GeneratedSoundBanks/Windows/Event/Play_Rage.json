@@ -10,7 +10,7 @@
     "Type": "Event",
     "GUID": "{4146FB0D-E81C-45CB-8CF6-51EA9DFC25EA}",
     "Language": "SFX",
-    "Hash": "{F8CF54D3-69B4-DABA-C461-DF10765624C8}",
+    "Hash": "{B214D97E-7D24-76AE-8A18-64919CD883FB}",
     "ObjectPath": "Play_Rage",
     "ShortName": "Play_Rage",
     "Path": "Event/Play_Rage.bnk",
@@ -32,23 +32,22 @@
       "ShortName": "SFX_rage_Kraken_03.wav",
       "Path": "Media/309001858.wem",
       "CachePath": "4E/{4E24D184-F597-47E1-E9AF-683C7189B41E}.wem"
-     },
-     {
-      "Id": "860729886",
-      "Language": "SFX",
-      "Streaming": "false",
-      "Location": "Loose",
-      "ShortName": "SFX_rage_Kraken_01.wav",
-      "Path": "Media/860729886.wem",
-      "CachePath": "06/{06156ED2-F69C-A0FF-9CC3-077F3D972AC8}.wem"
      }
     ],
     "Plugins": {
      "Custom": [
       {
+       "Id": "468043768",
+       "Name": "Monsterize (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\Head\\Rage\\[Effect Slot [4]: (Pitch Shifter)]\\Monsterize (Custom)",
+       "GUID": "{C6F4AEC6-C670-47BC-9CDC-73AA7A99C288}",
+       "LibName": "Wwise Pitch Shifter",
+       "LibId": "8912899"
+      },
+      {
        "Id": "605397600",
        "Name": "Tremolo (Custom)",
-       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\Rage\\[Effect Slot [0]: (Tremolo)]\\Tremolo (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\Head\\Rage\\[Effect Slot [0]: (Tremolo)]\\Tremolo (Custom)",
        "GUID": "{49095D76-13DF-4FDD-9598-BA6D9D262F28}",
        "LibName": "Wwise Tremolo",
        "LibId": "8585219"
@@ -56,7 +55,7 @@
       {
        "Id": "1057884020",
        "Name": "Phone_Booth (Custom)",
-       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\Rage\\[Effect Slot [1]: (RoomVerb)]\\Phone_Booth (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\Head\\Rage\\[Effect Slot [1]: (RoomVerb)]\\Phone_Booth (Custom)",
        "GUID": "{983E7C10-0621-46DF-B25B-C22F2B897C3D}",
        "LibName": "Wwise RoomVerb",
        "LibId": "7733251"
@@ -64,7 +63,7 @@
       {
        "Id": "1072579593",
        "Name": "Guitar Distortion (Custom)",
-       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\Rage\\[Effect Slot [3]: (Guitar Distortion)]\\Guitar Distortion (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\Head\\Rage\\[Effect Slot [3]: (Guitar Distortion)]\\Guitar Distortion (Custom)",
        "GUID": "{76FF3B7E-B19E-4103-A2A1-C3C6681D0827}",
        "LibName": "Wwise Guitar Distortion",
        "LibId": "8257539"
@@ -85,9 +84,10 @@
      {
       "Id": "2604050293",
       "Name": "Play_Rage",
-      "ObjectPath": "\\Events\\Default Work Unit\\SFX\\Kraken\\Rage\\Play_Rage",
+      "ObjectPath": "\\Events\\Default Work Unit\\SFX\\Kraken\\Head\\Rage\\Play_Rage",
       "GUID": "{4146FB0D-E81C-45CB-8CF6-51EA9DFC25EA}",
       "Color": "8",
+      "MaxAttenuation": "100",
       "DurationType": "OneShot",
       "DurationMin": "1.7810183",
       "DurationMax": "3.5786297",
@@ -97,13 +97,13 @@
        },
        {
         "Id": "309001858"
-       },
-       {
-        "Id": "860729886"
        }
       ],
       "PluginRefs": {
        "Custom": [
+        {
+         "Id": "468043768"
+        },
         {
          "Id": "605397600"
         },
@@ -124,6 +124,6 @@
     ]
    }
   ],
-  "FileHash": "{53657E66-461A-6FA9-C19D-A6E8AFE2D6EB}"
+  "FileHash": "{79D5F9AA-4A1C-8A4A-9472-D4BA77F84055}"
  }
 }

@@ -465,6 +465,9 @@ MonoBehaviour:
   damageBarDecreaseSpeed: 0.006
   isWorldCanvas: 1
   _renderer: {fileID: 5516207001374078362}
+  amountOfFlahses: 2
+  flashDuration: 0.05
+  timeBetweenFlashes: 0.1
 --- !u!1 &8516267636985932693
 GameObject:
   m_ObjectHideFlags: 0
@@ -1710,14 +1713,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a206af037d92eb4c9e8bfd4a418b8b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::KrakenAudio
+  tentacleEntranceEvent:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 59f7e137d34a9cf42934b9346010bdd7, type: 2}
   tentacleIdleEvent:
     idInternal: 0
     valueGuidInternal: 
     WwiseObjectReference: {fileID: 11400000, guid: 2909b5416a443c74fa069ff651ffc9a7, type: 2}
+  krakenRageEvent:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 0}
   warningTentacleAttackEvent:
     idInternal: 0
     valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: e21490a35345dcd47b9320f18d5d163f, type: 2}
+    WwiseObjectReference: {fileID: 0}
   tentacleSwingEvent:
     idInternal: 0
     valueGuidInternal: 
@@ -1733,11 +1744,11 @@ MonoBehaviour:
   rocksCrackingEvent:
     idInternal: 0
     valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 176b49dfea4b0c6439df88f5bde5fde8, type: 2}
+    WwiseObjectReference: {fileID: 0}
   waterSplashingEvent:
     idInternal: 0
     valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: b0b560bd470fd6d47acc1f548eb83589, type: 2}
+    WwiseObjectReference: {fileID: 0}
   tentaclePrepareEvent:
     idInternal: 0
     valueGuidInternal: 

@@ -11,7 +11,8 @@ public class CyrusTonfasSkillManager : SkillObjectManager
 
         Initialize(skill);
 
-        animationCoroutine ??= StartCoroutine(AttackCoroutine(0, 0, GetAttackSpeedMultiplier()));
+        int comboIndex = _skillLevel > 1 ? 1 : 0;
+        animationCoroutine ??= StartCoroutine(AttackCoroutine(0, comboIndex, GetAttackSpeedMultiplier()));
     }
     float GetAttackSpeedMultiplier() {
         float baseSpeed = statusManager.ReturnStatusValue(StatusType.AttackSpeed);

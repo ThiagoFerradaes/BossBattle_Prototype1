@@ -47,7 +47,7 @@ public class BastianFlameEchoManager : SkillObjectManager
 
     private void OnDestroy() {
         BastianBaseAttackManager.OnShoot -= _onShootAction;
-        //BastianIgnisManager.OnIgnisShoot -= _onIgnisAction;
+        BastianIgnisManager.OnIgnisShoot -= _onIgnisAction;
     }
 
     protected override void FirstFunc() {
@@ -74,7 +74,7 @@ public class BastianFlameEchoManager : SkillObjectManager
         UnblockInputs();
 
         BastianBaseAttackManager.OnShoot += _onShootAction;
-        //BastianIgnisManager.OnIgnisShoot += _onIgnisAction;
+        BastianIgnisManager.OnIgnisShoot += _onIgnisAction;
 
         StartCoroutine(Duration());
     }
@@ -103,7 +103,7 @@ public class BastianFlameEchoManager : SkillObjectManager
             SkillAnimationEvent prefabInfo = prefabList[i];
 
             if (prefabInfo.PrefabType == TypeOfSkillPrefab.Hitbox) InstantiateSecondShoot(prefabInfo, attackIndex, area);
-            else if (prefabInfo.PrefabType == TypeOfSkillPrefab.VFX) InstantiateVFX(prefabInfo);
+            //else if (prefabInfo.PrefabType == TypeOfSkillPrefab.VFX) InstantiateVFX(prefabInfo);
         }
 
         _attackCoroutine = null;
