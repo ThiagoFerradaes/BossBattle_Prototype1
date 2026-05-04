@@ -10,7 +10,7 @@
     "Type": "Event",
     "GUID": "{4146FB0D-E81C-45CB-8CF6-51EA9DFC25EA}",
     "Language": "SFX",
-    "Hash": "{B214D97E-7D24-76AE-8A18-64919CD883FB}",
+    "Hash": "{D86CDE3C-73E9-FBAC-0BAE-A97056CB99E3}",
     "ObjectPath": "Play_Rage",
     "ShortName": "Play_Rage",
     "Path": "Event/Play_Rage.bnk",
@@ -32,6 +32,15 @@
       "ShortName": "SFX_rage_Kraken_03.wav",
       "Path": "Media/309001858.wem",
       "CachePath": "4E/{4E24D184-F597-47E1-E9AF-683C7189B41E}.wem"
+     },
+     {
+      "Id": "860729886",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Loose",
+      "ShortName": "SFX_rage_Kraken_01.wav",
+      "Path": "Media/860729886.wem",
+      "CachePath": "06/{06156ED2-F69C-A0FF-9CC3-077F3D972AC8}.wem"
      }
     ],
     "Plugins": {
@@ -39,23 +48,15 @@
       {
        "Id": "468043768",
        "Name": "Monsterize (Custom)",
-       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\Head\\Rage\\[Effect Slot [4]: (Pitch Shifter)]\\Monsterize (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\Head\\Rage\\[Effect Slot [2]: (Pitch Shifter)]\\Monsterize (Custom)",
        "GUID": "{C6F4AEC6-C670-47BC-9CDC-73AA7A99C288}",
        "LibName": "Wwise Pitch Shifter",
        "LibId": "8912899"
       },
       {
-       "Id": "605397600",
-       "Name": "Tremolo (Custom)",
-       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\Head\\Rage\\[Effect Slot [0]: (Tremolo)]\\Tremolo (Custom)",
-       "GUID": "{49095D76-13DF-4FDD-9598-BA6D9D262F28}",
-       "LibName": "Wwise Tremolo",
-       "LibId": "8585219"
-      },
-      {
        "Id": "1057884020",
        "Name": "Phone_Booth (Custom)",
-       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\Head\\Rage\\[Effect Slot [1]: (RoomVerb)]\\Phone_Booth (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\Head\\Rage\\[Effect Slot [0]: (RoomVerb)]\\Phone_Booth (Custom)",
        "GUID": "{983E7C10-0621-46DF-B25B-C22F2B897C3D}",
        "LibName": "Wwise RoomVerb",
        "LibId": "7733251"
@@ -87,25 +88,25 @@
       "ObjectPath": "\\Events\\Default Work Unit\\SFX\\Kraken\\Head\\Rage\\Play_Rage",
       "GUID": "{4146FB0D-E81C-45CB-8CF6-51EA9DFC25EA}",
       "Color": "8",
-      "MaxAttenuation": "100",
+      "MaxAttenuation": "70",
       "DurationType": "OneShot",
-      "DurationMin": "1.7810183",
-      "DurationMax": "3.5786297",
+      "DurationMin": "1.7504214",
+      "DurationMax": "3.4170246",
       "MediaRefs": [
        {
         "Id": "132351818"
        },
        {
         "Id": "309001858"
+       },
+       {
+        "Id": "860729886"
        }
       ],
       "PluginRefs": {
        "Custom": [
         {
          "Id": "468043768"
-        },
-        {
-         "Id": "605397600"
         },
         {
          "Id": "1057884020"
@@ -124,6 +125,6 @@
     ]
    }
   ],
-  "FileHash": "{64624DCC-17B7-41D9-9D72-898F35E08B97}"
+  "FileHash": "{C9AEA454-791B-596C-4869-1A81AE33DB08}"
  }
 }
