@@ -10,7 +10,7 @@
     "Type": "Event",
     "GUID": "{95303607-0E9F-420C-83AC-880A9A2CC3DF}",
     "Language": "SFX",
-    "Hash": "{1A016421-AE73-BDFD-AE40-0DC2B319FEE5}",
+    "Hash": "{95C04803-8E7D-236E-EB26-E3792E6E3D76}",
     "ObjectPath": "Play_Death_Screen",
     "ShortName": "Play_Death_Screen",
     "Path": "Event/Play_Death_Screen.bnk",
@@ -46,9 +46,17 @@
     "Plugins": {
      "Custom": [
       {
+       "Id": "45209036",
+       "Name": "Parametric EQ (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\UI\\Death Screen\\Death Screen\\Death Screen 01\\[Effect Slot [0]: (Parametric EQ)]\\Parametric EQ (Custom)",
+       "GUID": "{52D5BF96-D449-4BAD-B244-AE7A6ACC12C0}",
+       "LibName": "Wwise Parametric EQ",
+       "LibId": "6881283"
+      },
+      {
        "Id": "290744992",
        "Name": "Guitar Distortion (Custom)",
-       "ObjectPath": "\\Containers\\Default Work Unit\\UI\\Death Screen\\Death Screen\\Death Screen 01\\[Effect Slot [0]: (Guitar Distortion)]\\Guitar Distortion (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\UI\\Death Screen\\Death Screen\\Death Screen 01\\[Effect Slot [1]: (Guitar Distortion)]\\Guitar Distortion (Custom)",
        "GUID": "{832E4AB5-ACD5-49E4-8450-B72427424B24}",
        "LibName": "Wwise Guitar Distortion",
        "LibId": "8257539"
@@ -70,9 +78,17 @@
        "LibId": "8257539"
       },
       {
+       "Id": "789529713",
+       "Name": "Parametric EQ (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\UI\\Death Screen\\Death Screen\\Death Heart Loop\\[Effect Slot [0]: (Parametric EQ)]\\Parametric EQ (Custom)",
+       "GUID": "{BDB9B345-6037-4036-93DA-90F09F81A528}",
+       "LibName": "Wwise Parametric EQ",
+       "LibId": "6881283"
+      },
+      {
        "Id": "1047615131",
        "Name": "Guitar Distortion (Custom)",
-       "ObjectPath": "\\Containers\\Default Work Unit\\UI\\Death Screen\\Death Screen\\Death Heart Loop\\[Effect Slot [0]: (Guitar Distortion)]\\Guitar Distortion (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\UI\\Death Screen\\Death Screen\\Death Heart Loop\\[Effect Slot [1]: (Guitar Distortion)]\\Guitar Distortion (Custom)",
        "GUID": "{0714165A-1374-4A69-A620-AF30CD435A17}",
        "LibName": "Wwise Guitar Distortion",
        "LibId": "8257539"
@@ -101,10 +117,16 @@
       "PluginRefs": {
        "Custom": [
         {
+         "Id": "45209036"
+        },
+        {
          "Id": "290744992"
         },
         {
          "Id": "774526928"
+        },
+        {
+         "Id": "789529713"
         },
         {
          "Id": "1047615131"
@@ -115,6 +137,6 @@
     ]
    }
   ],
-  "FileHash": "{3DB27CCA-2176-4CB9-5B2E-1550C2C5E1F1}"
+  "FileHash": "{9C5F6A37-AB0D-86CB-A0AB-51EA6574D1A4}"
  }
 }
