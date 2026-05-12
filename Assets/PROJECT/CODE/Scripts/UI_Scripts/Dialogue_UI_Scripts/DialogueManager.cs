@@ -124,10 +124,12 @@ public class DialogueManager : MonoBehaviour {
     /// Adicionando funcionalinade no botão de pular
     /// </summary>
     void SkipButton() {
+
         if (_typingCoroutine != null) {
             StopCoroutine(_typingCoroutine);
-            EndDisplayLine();
+            EndDisplayLine(true);
         }
+
         HideDialogueScreen();
     }
 
@@ -236,12 +238,14 @@ public class DialogueManager : MonoBehaviour {
     /// <summary>
     /// Função chamada no final da animação de digitação, ou quando o jogador decide pular a animação
     /// </summary>
-    void EndDisplayLine() {
+    void EndDisplayLine(bool skipped = false) {
         dialogueText.text = _currentFullLine;
 
-        DecideNextStep();
-
         _typingCoroutine = null;
+
+        if (skipped) return;    
+
+        DecideNextStep();
     }
 
     /// <summary>

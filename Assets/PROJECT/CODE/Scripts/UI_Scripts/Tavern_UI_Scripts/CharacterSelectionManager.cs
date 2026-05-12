@@ -43,6 +43,8 @@ public class CharacterSelectionManager : MonoBehaviour {
     [SerializeField] Image skillTwoIcon;
     [SerializeField] Image ultimateIcon;
     [SerializedDictionary("Slot", "Button"), SerializeField] SerializedDictionary<SkillSlot, Button> dictionaryOfSkillSelectionButton;
+    [SerializedDictionary("Slot", "Button"), SerializeField] SerializedDictionary<SkillSlot, Button> dictionaryOfReadMoreButton;
+    [SerializedDictionary("Slot", "Button"), SerializeField] SerializedDictionary<SkillSlot, Button> dictionaryOfReadMoreArrowButton;
     [SerializedDictionary("Slot", "Buttons"), SerializeField] SerializedDictionary<SkillSlot, List<Button>> dictionaryOfArrows;
     [SerializeField]SkillSelectionManager skillSelectionManager;
     List<CharacterUnlockedInfo> _unlockedInfo = new();
@@ -66,6 +68,14 @@ public class CharacterSelectionManager : MonoBehaviour {
             TurnScreenOff();
         });
 
+        SetButtonsThatOpenSkillDescriptionUI();
+
+        characterSelectionBackground.onClick.AddListener(() => { skillSelectionManager.TurnScreenOff(); });
+
+        characterSelectionMask.onClick.AddListener(ClosedSkillsUi);
+    }
+
+    void SetButtonsThatOpenSkillDescriptionUI() {
         // Bot�o que abre a UI de sele��o de skill
         foreach (var slot in dictionaryOfSkillSelectionButton.Keys) {
             var tempSlot = slot;
@@ -75,9 +85,23 @@ public class CharacterSelectionManager : MonoBehaviour {
             });
         }
 
-        characterSelectionBackground.onClick.AddListener(() => { skillSelectionManager.TurnScreenOff(); });
+        // Bot�o que abre a UI de sele��o de skill
+        foreach (var slot in dictionaryOfReadMoreButton.Keys) {
+            var tempSlot = slot;
+            dictionaryOfReadMoreButton[tempSlot].onClick.AddListener(() => {
+                skillSelectionManager.Initialize(tempSlot);
+                closeScreenButton.gameObject.SetActive(false);
+            });
+        }
 
-        characterSelectionMask.onClick.AddListener(ClosedSkillsUi);
+        // Bot�o que abre a UI de sele��o de skill
+        foreach (var slot in dictionaryOfReadMoreArrowButton.Keys) {
+            var tempSlot = slot;
+            dictionaryOfReadMoreArrowButton[tempSlot].onClick.AddListener(() => {
+                skillSelectionManager.Initialize(tempSlot);
+                closeScreenButton.gameObject.SetActive(false);
+            });
+        }
     }
 
     #endregion
