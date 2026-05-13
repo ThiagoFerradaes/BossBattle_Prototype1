@@ -7,49 +7,64 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: CellShadingTavernBastian
-  m_Shader: {fileID: -6465566751694194690, guid: aab48a074781a5948b9e0799aa0b5e18, type: 3}
-  m_Parent: {fileID: 2100000, guid: 3e2aeef1a35c8d348ad946463cae9776, type: 2}
+  m_Name: JulianOutline
+  m_Shader: {fileID: -6465566751694194690, guid: 98f6857c78508cd4bba3e07540beee3f, type: 3}
+  m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
+  m_ValidKeywords:
+  - _SURFACE_TYPE_TRANSPARENT
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 3000
   stringTagMap:
-    RenderType: Opaque
+    RenderType: Transparent
   disabledShaderPasses:
   - MOTIONVECTORS
+  - SHADOWCASTER
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _BaseColor:
-        m_Texture: {fileID: 2800000, guid: ae1d82feec358014a99c3bec3ca81d03, type: 3}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _Normal:
-        m_Texture: {fileID: 2800000, guid: 819e7b3441bd7d8448c49665c564681f, type: 3}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Direction_Point: 0
-    - _FresnelIntensity: 0.1
-    - _FrsnelSpace: 0.1
-    - _GradientCut: 0.03
-    - _GradientCut_1: -0.03
-    - _HighLightSpace: -0.55
-    - _MaxBias: -0.06
+    - _AlphaClip: 0
+    - _AlphaClipTresholdControler: 0
+    - _AlphaToMask: 0
+    - _Blend: 0
+    - _CastShadows: 0
+    - _Cull: 0
+    - _DstBlend: 10
+    - _DstBlendAlpha: 10
+    - _Float: 0.73
+    - _FresnelPower: 0.6
+    - _QueueControl: 0
+    - _QueueOffset: 0
+    - _SrcBlend: 5
+    - _SrcBlendAlpha: 1
+    - _StepEdge: 0.6
+    - _Surface: 1
+    - _ZTest: 5
+    - _ZWrite: 1
+    - _ZWriteControl: 1
     m_Colors:
-    - _LightColor: {r: 1, g: 0.90881777, b: 0.88113207, a: 0}
-    - _LightColor_1: {r: 0.6150943, g: 0.498499, b: 0.45841932, a: 0}
-    - _MainLightDirection: {r: 0, g: 1, b: 0, a: 0}
-    - _ShadowColor: {r: 0.78039217, g: 0.78039217, b: 0.78039217, a: 0}
+    - _Color: {r: 0.87358487, g: 1, b: 0.8757834, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
---- !u!114 &2447513423968495341
+--- !u!114 &5446753837303346517
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}

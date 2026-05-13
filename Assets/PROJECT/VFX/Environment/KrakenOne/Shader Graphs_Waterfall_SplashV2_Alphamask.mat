@@ -7,49 +7,57 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: CellShadingTavernBastian
-  m_Shader: {fileID: -6465566751694194690, guid: aab48a074781a5948b9e0799aa0b5e18, type: 3}
-  m_Parent: {fileID: 2100000, guid: 3e2aeef1a35c8d348ad946463cae9776, type: 2}
+  m_Name: Shader Graphs_Waterfall_SplashV2_Alphamask
+  m_Shader: {fileID: -6465566751694194690, guid: 2289dd98ce65d8a458fc91881a874688, type: 3}
+  m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
-  m_InvalidKeywords: []
+  m_InvalidKeywords:
+  - _ALPHATEST_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
-  stringTagMap:
-    RenderType: Opaque
+  stringTagMap: {}
   disabledShaderPasses:
   - MOTIONVECTORS
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _BaseColor:
-        m_Texture: {fileID: 2800000, guid: ae1d82feec358014a99c3bec3ca81d03, type: 3}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _Normal:
-        m_Texture: {fileID: 2800000, guid: 819e7b3441bd7d8448c49665c564681f, type: 3}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Direction_Point: 0
-    - _FresnelIntensity: 0.1
-    - _FrsnelSpace: 0.1
-    - _GradientCut: 0.03
-    - _GradientCut_1: -0.03
-    - _HighLightSpace: -0.55
-    - _MaxBias: -0.06
+    - _AlphaClip: 0.65
+    - _Alpha_Mask_On: 0
+    - _Displacement_Scale: 5
+    - _Displacement_Time: 0.038
+    - _FresnelPower: 0
+    - _Noise_Scale: 156
+    - _Noise_Strength: 3
+    - _QueueControl: 0
+    - _QueueOffset: 0
+    - _Size: 0.424
+    - _Smoothnes: 0.135
+    - _VoronoiScale: 3
+    - _VoronoiSpeed: 1
     m_Colors:
-    - _LightColor: {r: 1, g: 0.90881777, b: 0.88113207, a: 0}
-    - _LightColor_1: {r: 0.6150943, g: 0.498499, b: 0.45841932, a: 0}
-    - _MainLightDirection: {r: 0, g: 1, b: 0, a: 0}
-    - _ShadowColor: {r: 0.78039217, g: 0.78039217, b: 0.78039217, a: 0}
+    - _Color: {r: 0.60769504, g: 1.498039, b: 1.0266805, a: 1}
+    - _Position: {r: 0.5, g: 0.2, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
---- !u!114 &2447513423968495341
+--- !u!114 &4178084430600464924
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
