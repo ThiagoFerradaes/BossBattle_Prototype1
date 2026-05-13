@@ -34,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -38}
+  m_AnchoredPosition: {x: 0, y: -21}
   m_SizeDelta: {x: 319, y: 11}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8035265681603911854
@@ -2713,7 +2713,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 13}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8886136730946967956
@@ -2771,8 +2771,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 65
-  m_fontSizeBase: 65
+  m_fontSize: 60
+  m_fontSizeBase: 60
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -4558,6 +4558,22 @@ MonoBehaviour:
       Value: {fileID: 606850902810148112}
     - Key: 3
       Value: {fileID: 7292926375272115474}
+  dictionaryOfReadMoreButton:
+    _serializedList:
+    - Key: 1
+      Value: {fileID: 41453914850259129}
+    - Key: 2
+      Value: {fileID: 2708434358612497615}
+    - Key: 3
+      Value: {fileID: 5244460437843199181}
+  dictionaryOfReadMoreArrowButton:
+    _serializedList:
+    - Key: 1
+      Value: {fileID: 1828422272587587544}
+    - Key: 2
+      Value: {fileID: 4349018120317549486}
+    - Key: 3
+      Value: {fileID: 5837943541635476396}
   dictionaryOfArrows:
     _serializedList:
     - Key: 1
@@ -5476,7 +5492,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &3899774580951790794
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8247,8 +8263,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 193}
-  m_SizeDelta: {x: 800, y: 80}
+  m_AnchoredPosition: {x: 0, y: 185}
+  m_SizeDelta: {x: 800, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6124704156803181982
 CanvasRenderer:
@@ -8351,7 +8367,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &3697253539913118674
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9026,7 +9042,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 276}
+  m_AnchoredPosition: {x: 0, y: 272}
   m_SizeDelta: {x: 800, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &5189302277088366603
@@ -14275,8 +14291,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Bastian gains heat with every base attack. Gain enough heat to get stronger
-    and stronger. After '
+  m_text: "Ao utilizar ataques normais ou algumas habilidades, Bastian esquenta.
+    Quanto mais quente Bastian estiver mais dano ele causa, mas tome cuidado, se
+    ficar quente demais Bastian come\xE7ar\xE1 a perder vida!"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 555512cb4ae62324c8d64b37660e13fc, type: 2}
   m_sharedMaterial: {fileID: 8739257572346807846, guid: 555512cb4ae62324c8d64b37660e13fc, type: 2}
@@ -14303,14 +14320,14 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 25
-  m_fontSizeBase: 25
+  m_fontSize: 24
+  m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: -5
@@ -15186,7 +15203,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5650137890610503028, guid: b23e4b9c886240d448eeb4c092602baf, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5650137890610503028, guid: b23e4b9c886240d448eeb4c092602baf, type: 3}
       propertyPath: m_AnchorMin.x
@@ -15194,7 +15211,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5650137890610503028, guid: b23e4b9c886240d448eeb4c092602baf, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5650137890610503028, guid: b23e4b9c886240d448eeb4c092602baf, type: 3}
       propertyPath: m_SizeDelta.x
@@ -15234,11 +15251,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5650137890610503028, guid: b23e4b9c886240d448eeb4c092602baf, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 450
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5650137890610503028, guid: b23e4b9c886240d448eeb4c092602baf, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -58.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5650137890610503028, guid: b23e4b9c886240d448eeb4c092602baf, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -15271,9 +15288,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+--- !u!114 &41453914850259129 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1340740317256059496, guid: b23e4b9c886240d448eeb4c092602baf, type: 3}
+  m_PrefabInstance: {fileID: 1299290874712521425}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
 --- !u!114 &1364858288541573050 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 70071100635211115, guid: b23e4b9c886240d448eeb4c092602baf, type: 3}
+  m_PrefabInstance: {fileID: 1299290874712521425}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
+--- !u!114 &1828422272587587544 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 817366448259966217, guid: b23e4b9c886240d448eeb4c092602baf, type: 3}
   m_PrefabInstance: {fileID: 1299290874712521425}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
@@ -15420,7 +15459,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5650137890610503028, guid: b23e4b9c886240d448eeb4c092602baf, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5650137890610503028, guid: b23e4b9c886240d448eeb4c092602baf, type: 3}
       propertyPath: m_AnchorMin.x
@@ -15428,7 +15467,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5650137890610503028, guid: b23e4b9c886240d448eeb4c092602baf, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5650137890610503028, guid: b23e4b9c886240d448eeb4c092602baf, type: 3}
       propertyPath: m_SizeDelta.x
@@ -15468,11 +15507,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5650137890610503028, guid: b23e4b9c886240d448eeb4c092602baf, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 450
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5650137890610503028, guid: b23e4b9c886240d448eeb4c092602baf, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -204.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5650137890610503028, guid: b23e4b9c886240d448eeb4c092602baf, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -15561,9 +15600,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+--- !u!114 &2708434358612497615 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1340740317256059496, guid: b23e4b9c886240d448eeb4c092602baf, type: 3}
+  m_PrefabInstance: {fileID: 3966842807025933991}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
 --- !u!114 &4032410308033772492 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 70071100635211115, guid: b23e4b9c886240d448eeb4c092602baf, type: 3}
+  m_PrefabInstance: {fileID: 3966842807025933991}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
+--- !u!114 &4349018120317549486 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 817366448259966217, guid: b23e4b9c886240d448eeb4c092602baf, type: 3}
   m_PrefabInstance: {fileID: 3966842807025933991}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
@@ -15690,7 +15751,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5650137890610503028, guid: b23e4b9c886240d448eeb4c092602baf, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5650137890610503028, guid: b23e4b9c886240d448eeb4c092602baf, type: 3}
       propertyPath: m_AnchorMin.x
@@ -15698,7 +15759,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5650137890610503028, guid: b23e4b9c886240d448eeb4c092602baf, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5650137890610503028, guid: b23e4b9c886240d448eeb4c092602baf, type: 3}
       propertyPath: m_SizeDelta.x
@@ -15738,11 +15799,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5650137890610503028, guid: b23e4b9c886240d448eeb4c092602baf, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 450
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5650137890610503028, guid: b23e4b9c886240d448eeb4c092602baf, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -350.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5650137890610503028, guid: b23e4b9c886240d448eeb4c092602baf, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -15791,6 +15852,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+--- !u!114 &5244460437843199181 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1340740317256059496, guid: b23e4b9c886240d448eeb4c092602baf, type: 3}
+  m_PrefabInstance: {fileID: 6508639123076304549}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
+--- !u!114 &5837943541635476396 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 817366448259966217, guid: b23e4b9c886240d448eeb4c092602baf, type: 3}
+  m_PrefabInstance: {fileID: 6508639123076304549}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
 --- !u!114 &6533497684212165582 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 70071100635211115, guid: b23e4b9c886240d448eeb4c092602baf, type: 3}

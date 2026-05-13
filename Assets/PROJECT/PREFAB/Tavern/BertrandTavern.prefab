@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7311893706588913094}
   - component: {fileID: 2769154952722252164}
-  m_Layer: 0
+  - component: {fileID: 962849326992383963}
+  m_Layer: 12
   m_Name: BertrandTavern
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,6 +56,19 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 1.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &962849326992383963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4225403022212066087}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff670188a2ddeb5478f88b8c030b1a14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueInteract
+  listOfDialogues: {fileID: 11400000, guid: 1092d0b5e31d3b247ad25df865b0757e, type: 2}
 --- !u!1 &7206574175750691948
 GameObject:
   m_ObjectHideFlags: 0
