@@ -16,7 +16,9 @@ public class CyrusUIManager : MonoBehaviour {
     [SerializeField] TextMeshProUGUI rankText;
     [SerializeField] List<LocalizedString> rankTexts;
     [SerializeField] GameObject maxRankAnimation;
-    [SerializeField] float levelUpTime;
+    [SerializeField] Animator rankLevelUpAnimator;
+    [SerializeField] float levelUpTime, animationDuration;
+    [SerializeField] string animationStateName;
 
     [Header("Skills")]
     [SerializedDictionary("SkillSlot", "Object"), SerializeField]
@@ -26,7 +28,9 @@ public class CyrusUIManager : MonoBehaviour {
     Action<SkillSlot> _onSkillLevelUp;
     Action<float, float> _onRankUP;
 
-    WaitForSeconds levelUpWaitForSeconds;
+    WaitForSeconds levelUpWaitForSeconds, animationWaitForSeconds;
+
+    Coroutine animationCooldownRoutine;
 
     #region Initialize
     private void Awake() {
@@ -34,6 +38,7 @@ public class CyrusUIManager : MonoBehaviour {
         _onSkillLevelUp = SkillLevelUp;
 
         levelUpWaitForSeconds = new(levelUpTime);
+        animationWaitForSeconds = new(animationDuration);
     }
 
     private void Start() {
@@ -77,6 +82,8 @@ public class CyrusUIManager : MonoBehaviour {
     void SkillLevelUp(SkillSlot slot)
     {
         StartCoroutine(SkillLevelUpTimer(dictionaryOfImages[slot]));
+
+        animationCooldownRoutine ??= StartCoroutine(AnimationCooldown());
     }
 
     IEnumerator SkillLevelUpTimer(GameObject image)
@@ -84,6 +91,12 @@ public class CyrusUIManager : MonoBehaviour {
         image.SetActive(true);
         yield return levelUpWaitForSeconds;
         image.SetActive(false);
+    }
+
+    IEnumerator AnimationCooldown() {
+        rankLevelUpAnimator.CrossFade(animationStateName, 0);
+        yield return animationWaitForSeconds;
+        animationCooldownRoutine = null;
     }
     #endregion
 }

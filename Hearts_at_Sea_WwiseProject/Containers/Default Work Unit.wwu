@@ -738,6 +738,7 @@
 										<Sound Name="Dash" ID="{6EE81020-80B2-479E-97E8-553A6044D787}" ShortID="453093834">
 											<PropertyList>
 												<Property Name="3DSpatialization" Type="int16" Value="2"/>
+												<Property Name="AttenuationDistanceScaling" Type="Real32" Value="0.65"/>
 												<Property Name="Lowpass" Type="int16">
 													<ModifierList>
 														<ModifierInfo>
@@ -765,6 +766,7 @@
 													</ModifierList>
 												</Property>
 												<Property Name="SpeakerPanning" Type="int16" Value="1"/>
+												<Property Name="SpeakerPanning3DSpatializationMix" Type="int32" Value="85"/>
 												<Property Name="Volume" Type="Real64">
 													<ValueList>
 														<Value>4</Value>
@@ -1482,6 +1484,12 @@
 												<SwitchContainer Name="Base Attack" ID="{9F4D98D4-58D3-4E64-A945-A19A6D309DBE}" ShortID="1059090938">
 													<PropertyList>
 														<Property Name="3DSpatialization" Type="int16" Value="2"/>
+														<Property Name="AttenuationDistanceScaling" Type="Real32" Value="0.6"/>
+														<Property Name="CenterPercentage" Type="int32">
+															<ValueList>
+																<Value>10</Value>
+															</ValueList>
+														</Property>
 														<Property Name="Lowpass" Type="int16">
 															<ModifierList>
 																<ModifierInfo>
@@ -1502,13 +1510,14 @@
 																		<PropertyList>
 																			<Property Name="Enabled" Type="bool" Value="True"/>
 																			<Property Name="Max" Type="Real64" Value="100"/>
-																			<Property Name="Min" Type="Real64" Value="-125"/>
+																			<Property Name="Min" Type="Real64" Value="-100"/>
 																		</PropertyList>
 																	</Modifier>
 																</ModifierInfo>
 															</ModifierList>
 														</Property>
 														<Property Name="SpeakerPanning" Type="int16" Value="1"/>
+														<Property Name="SpeakerPanning3DSpatializationMix" Type="int32" Value="73"/>
 														<Property Name="Volume" Type="Real64">
 															<ValueList>
 																<Value>3</Value>
@@ -2039,6 +2048,12 @@
 												<Sound Name="Release" ID="{BA2298AE-C0FD-42E0-8B9E-4A7E0DA993BC}" ShortID="554171387">
 													<PropertyList>
 														<Property Name="3DSpatialization" Type="int16" Value="2"/>
+														<Property Name="AttenuationDistanceScaling" Type="Real32" Value="0.65"/>
+														<Property Name="CenterPercentage" Type="int32">
+															<ValueList>
+																<Value>17</Value>
+															</ValueList>
+														</Property>
 														<Property Name="Lowpass" Type="int16">
 															<ModifierList>
 																<ModifierInfo>
@@ -2060,6 +2075,7 @@
 															</ModifierList>
 														</Property>
 														<Property Name="SpeakerPanning" Type="int16" Value="1"/>
+														<Property Name="SpeakerPanning3DSpatializationMix" Type="int32" Value="53"/>
 														<Property Name="Volume" Type="Real64">
 															<ValueList>
 																<Value>2</Value>
@@ -2421,6 +2437,12 @@
 												<SwitchContainer Name="Ignis" ID="{2A2C3EAB-FA06-4C0C-B171-970D61F1CC5C}" ShortID="739735828">
 													<PropertyList>
 														<Property Name="3DSpatialization" Type="int16" Value="2"/>
+														<Property Name="AttenuationDistanceScaling" Type="Real32" Value="0.65"/>
+														<Property Name="CenterPercentage" Type="int32">
+															<ValueList>
+																<Value>12</Value>
+															</ValueList>
+														</Property>
 														<Property Name="Lowpass" Type="int16">
 															<ModifierList>
 																<ModifierInfo>
@@ -2429,6 +2451,7 @@
 															</ModifierList>
 														</Property>
 														<Property Name="SpeakerPanning" Type="int16" Value="1"/>
+														<Property Name="SpeakerPanning3DSpatializationMix" Type="int32" Value="60"/>
 														<Property Name="Volume" Type="Real64">
 															<ModifierList>
 																<ModifierInfo>
@@ -5029,6 +5052,9 @@
 														</Property>
 														<Property Name="SpeakerPanning" Type="int16" Value="1"/>
 														<Property Name="Volume" Type="Real64">
+															<ValueList>
+																<Value>2</Value>
+															</ValueList>
 															<ModifierList>
 																<ModifierInfo>
 																	<Modifier Name="" ID="{0E17E10C-4623-4FDA-8D6F-CF798E613930}">
@@ -5195,7 +5221,7 @@
 																				<Custom>
 																					<Effect Name="Tremolo (Custom)" ID="{A76E791F-48B8-4878-AFDA-08BEDE3F4283}" ShortID="147615870" PluginName="Wwise Tremolo" CompanyID="0" PluginID="131" PluginType="3">
 																						<PropertyList>
-																							<Property Name="ModFrequency" Type="Real32" Value="1.26"/>
+																							<Property Name="ModFrequency" Type="Real32" Value="0.58"/>
 																							<Property Name="ModPhaseMode" Type="int32" Value="2"/>
 																							<Property Name="ModPhaseOffset" Type="Real32" Value="17"/>
 																							<Property Name="ModPhaseSpread" Type="Real32" Value="23"/>
@@ -5456,7 +5482,7 @@
 																					<Effect Name="Tremolo (Custom)" ID="{EB949EEB-B165-40E9-B3DA-D2749C72CB2E}" ShortID="1011156716" PluginName="Wwise Tremolo" CompanyID="0" PluginID="131" PluginType="3">
 																						<PropertyList>
 																							<Property Name="ModDepth" Type="Real32" Value="49"/>
-																							<Property Name="ModFrequency" Type="Real32" Value="5.4"/>
+																							<Property Name="ModFrequency" Type="Real32" Value="1.08"/>
 																							<Property Name="ModPhaseMode" Type="int32" Value="2"/>
 																							<Property Name="ModPhaseOffset" Type="Real32" Value="17"/>
 																							<Property Name="ModPhaseSpread" Type="Real32" Value="23"/>
@@ -6271,6 +6297,7 @@
 														<Sound Name="1- Slime Swing" ID="{3AB4919D-6A76-492B-AA77-66EA0CC092AF}" ShortID="480900877">
 															<PropertyList>
 																<Property Name="3DSpatialization" Type="int16" Value="2"/>
+																<Property Name="AttenuationDistanceScaling" Type="Real32" Value="0.55"/>
 																<Property Name="CenterPercentage" Type="int32">
 																	<ValueList>
 																		<Value>11</Value>
@@ -6300,10 +6327,10 @@
 																	</ModifierList>
 																</Property>
 																<Property Name="SpeakerPanning" Type="int16" Value="1"/>
-																<Property Name="SpeakerPanning3DSpatializationMix" Type="int32" Value="78"/>
+																<Property Name="SpeakerPanning3DSpatializationMix" Type="int32" Value="70"/>
 																<Property Name="Volume" Type="Real64">
 																	<ValueList>
-																		<Value>1</Value>
+																		<Value>2</Value>
 																	</ValueList>
 																	<ModifierList>
 																		<ModifierInfo>
@@ -6408,9 +6435,10 @@
 														<RandomSequenceContainer Name="3- Attack Impact" ID="{DF819005-CA41-4F73-90D2-9CD656DFD49E}" ShortID="972314811">
 															<PropertyList>
 																<Property Name="3DSpatialization" Type="int16" Value="2"/>
+																<Property Name="AttenuationDistanceScaling" Type="Real32" Value="0.55"/>
 																<Property Name="CenterPercentage" Type="int32">
 																	<ValueList>
-																		<Value>10</Value>
+																		<Value>23</Value>
 																	</ValueList>
 																</Property>
 																<Property Name="Lowpass" Type="int16">
@@ -6419,7 +6447,7 @@
 																			<Modifier Name="" ID="{9BD71A2A-D8B4-43A3-A5F7-D3A515E11EC0}">
 																				<PropertyList>
 																					<Property Name="Enabled" Type="bool" Value="True"/>
-																					<Property Name="Max" Type="Real64" Value="19"/>
+																					<Property Name="Max" Type="Real64" Value="10"/>
 																					<Property Name="Min" Type="Real64" Value="-12"/>
 																				</PropertyList>
 																			</Modifier>
@@ -6440,10 +6468,10 @@
 																	</ModifierList>
 																</Property>
 																<Property Name="SpeakerPanning" Type="int16" Value="1"/>
-																<Property Name="SpeakerPanning3DSpatializationMix" Type="int32" Value="73"/>
+																<Property Name="SpeakerPanning3DSpatializationMix" Type="int32" Value="80"/>
 																<Property Name="Volume" Type="Real64">
 																	<ValueList>
-																		<Value>4</Value>
+																		<Value>2</Value>
 																	</ValueList>
 																	<ModifierList>
 																		<ModifierInfo>
@@ -6460,7 +6488,103 @@
 															</PropertyList>
 															<ReferenceList>
 																<Reference Name="Attenuation">
-																	<ObjectRef Name="Physically_Based" ID="{7AF96D5E-B0A7-4524-B96B-04F53DEAEC94}" WorkUnitID="{E312AA2F-7D32-49AE-9B3F-853E8C0370AC}"/>
+																	<Custom>
+																		<Attenuation Name="Attenuation Attack Impact" ID="{A7E28618-C75F-4486-A772-3E5248C7997A}" ShortID="245037856">
+																			<CurveUsageInfoList>
+																				<VolumeDryUsage>
+																					<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
+																						<Curve Name="VolumeDry" ID="{7287E3CB-7381-4AEA-9465-C71AC43A77E8}">
+																							<PropertyList>
+																								<Property Name="Flags" Type="int32" Value="3"/>
+																							</PropertyList>
+																							<PointList>
+																								<Point>
+																									<XPos>0</XPos>
+																									<YPos>0</YPos>
+																									<Flags>5</Flags>
+																									<SegmentShape>InvertedSCurve</SegmentShape>
+																								</Point>
+																								<Point>
+																									<XPos>100</XPos>
+																									<YPos>-2.44883</YPos>
+																									<Flags>37</Flags>
+																								</Point>
+																							</PointList>
+																						</Curve>
+																					</CurveUsageInfo>
+																				</VolumeDryUsage>
+																				<VolumeWetGameUsage>
+																					<CurveUsageInfo Platform="Linked" CurveToUse="UseVolumeDry"/>
+																				</VolumeWetGameUsage>
+																				<VolumeWetUserUsage>
+																					<CurveUsageInfo Platform="Linked" CurveToUse="UseVolumeDry"/>
+																				</VolumeWetUserUsage>
+																				<LowPassFilterUsage>
+																					<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+																				</LowPassFilterUsage>
+																				<HighPassFilterUsage>
+																					<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+																				</HighPassFilterUsage>
+																				<DualShelfUsage>
+																					<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+																				</DualShelfUsage>
+																				<SpreadUsage>
+																					<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+																				</SpreadUsage>
+																				<FocusUsage>
+																					<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+																				</FocusUsage>
+																				<ObstructionVolumeUsage>
+																					<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+																				</ObstructionVolumeUsage>
+																				<ObstructionLPFUsage>
+																					<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+																				</ObstructionLPFUsage>
+																				<ObstructionHPFUsage>
+																					<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+																				</ObstructionHPFUsage>
+																				<ObstructionDSFUsage>
+																					<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+																				</ObstructionDSFUsage>
+																				<OcclusionVolumeUsage>
+																					<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+																				</OcclusionVolumeUsage>
+																				<OcclusionLPFUsage>
+																					<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+																				</OcclusionLPFUsage>
+																				<OcclusionHPFUsage>
+																					<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+																				</OcclusionHPFUsage>
+																				<OcclusionDSFUsage>
+																					<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+																				</OcclusionDSFUsage>
+																				<DiffractionVolumeUsage>
+																					<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+																				</DiffractionVolumeUsage>
+																				<DiffractionLPFUsage>
+																					<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+																				</DiffractionLPFUsage>
+																				<DiffractionHPFUsage>
+																					<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+																				</DiffractionHPFUsage>
+																				<DiffractionDSFUsage>
+																					<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+																				</DiffractionDSFUsage>
+																				<TransmissionVolumeUsage>
+																					<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+																				</TransmissionVolumeUsage>
+																				<TransmissionLPFUsage>
+																					<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+																				</TransmissionLPFUsage>
+																				<TransmissionHPFUsage>
+																					<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+																				</TransmissionHPFUsage>
+																				<TransmissionDSFUsage>
+																					<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+																				</TransmissionDSFUsage>
+																			</CurveUsageInfoList>
+																		</Attenuation>
+																	</Custom>
 																</Reference>
 																<Reference Name="Conversion">
 																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
@@ -6630,6 +6754,7 @@
 														<RandomSequenceContainer Name="2- Air Swing" ID="{5A573E06-A221-4B04-AC21-D9598D62C94D}" ShortID="630406996">
 															<PropertyList>
 																<Property Name="3DSpatialization" Type="int16" Value="2"/>
+																<Property Name="AttenuationDistanceScaling" Type="Real32" Value="0.55"/>
 																<Property Name="CenterPercentage" Type="int32">
 																	<ValueList>
 																		<Value>10</Value>
@@ -6665,7 +6790,7 @@
 																<Property Name="SpeakerPanning3DSpatializationMix" Type="int32" Value="85"/>
 																<Property Name="Volume" Type="Real64">
 																	<ValueList>
-																		<Value>2</Value>
+																		<Value>4</Value>
 																	</ValueList>
 																	<ModifierList>
 																		<ModifierInfo>
@@ -6877,9 +7002,22 @@
 												<BlendContainer Name="Tentacle Entrance" ID="{AD3C59EA-A1A7-44CD-9F99-02FD3FFB39F1}" ShortID="437309607">
 													<PropertyList>
 														<Property Name="3DSpatialization" Type="int16" Value="2"/>
+														<Property Name="AttenuationDistanceScaling" Type="Real32" Value="1.25"/>
 														<Property Name="BlendBehavior" Type="int16" Value="1"/>
+														<Property Name="CenterPercentage" Type="int32">
+															<ValueList>
+																<Value>10</Value>
+															</ValueList>
+														</Property>
+														<Property Name="Lowpass" Type="int16">
+															<ModifierList>
+																<ModifierInfo>
+																	<Modifier Name="" ID="{A0502F37-A7DA-4262-9236-F920D14FF1B0}"/>
+																</ModifierInfo>
+															</ModifierList>
+														</Property>
 														<Property Name="SpeakerPanning" Type="int16" Value="1"/>
-														<Property Name="SpeakerPanning3DSpatializationMix" Type="int32" Value="70"/>
+														<Property Name="SpeakerPanning3DSpatializationMix" Type="int32" Value="82"/>
 													</PropertyList>
 													<ReferenceList>
 														<Reference Name="Attenuation">
@@ -6916,6 +7054,9 @@
 																	</ModifierList>
 																</Property>
 																<Property Name="Lowpass" Type="int16">
+																	<ValueList>
+																		<Value>37</Value>
+																	</ValueList>
 																	<ModifierList>
 																		<ModifierInfo>
 																			<Modifier Name="" ID="{6E6E306C-847A-4770-BBFD-B446A21244B3}">
@@ -6942,9 +7083,6 @@
 																<Property Name="SpeakerPanning" Type="int16" Value="1"/>
 																<Property Name="SpeakerPanning3DSpatializationMix" Type="int32" Value="89"/>
 																<Property Name="Volume" Type="Real64">
-																	<ValueList>
-																		<Value>4</Value>
-																	</ValueList>
 																	<ModifierList>
 																		<ModifierInfo>
 																			<Modifier Name="" ID="{ADF5D629-EFF8-4F7E-8064-93480A7F1C7B}">
@@ -6997,7 +7135,7 @@
 																						<PropertyList>
 																							<Property Name="PitchShift" Type="Real32" Value="-2100"/>
 																							<Property Name="QualityEnable" Type="int16" Value="1"/>
-																							<Property Name="TimeStretch" Type="Real32" Value="358"/>
+																							<Property Name="TimeStretch" Type="Real32" Value="566"/>
 																							<Property Name="WindowSize" Type="int32" Value="8192"/>
 																						</PropertyList>
 																					</Effect>
@@ -7030,8 +7168,23 @@
 																							<Property Name="DryLevel" Type="Real32" Value="-1"/>
 																							<Property Name="FilterFrequency" Type="Real32" Value="8250"/>
 																							<Property Name="FilterType" Type="int32" Value="2"/>
-																							<Property Name="Pitch" Type="Real32" Value="-1200"/>
-																							<Property Name="WetLevel" Type="Real32" Value="-31"/>
+																							<Property Name="Pitch" Type="Real32" Value="-2000"/>
+																							<Property Name="WetLevel" Type="Real32" Value="-13"/>
+																						</PropertyList>
+																					</Effect>
+																				</Custom>
+																			</Reference>
+																		</ReferenceList>
+																	</EffectSlot>
+																	<EffectSlot Name="" ID="{525F83CA-F162-4296-9FD2-6346BFE9ED43}" ShortID="33221388">
+																		<ReferenceList>
+																			<Reference Name="Effect">
+																				<Custom>
+																					<Effect Name="Parametric EQ (Custom)" ID="{0CC0B32C-7FE7-4C9D-BF52-FC9F496FD1DF}" ShortID="807789752" PluginName="Wwise Parametric EQ" CompanyID="0" PluginID="105" PluginType="3">
+																						<PropertyList>
+																							<Property Name="FilterTypeBand1" Type="int32" Value="6"/>
+																							<Property Name="FrequencyBand1" Type="Real32" Value="3689.669"/>
+																							<Property Name="GainBand1" Type="Real32" Value="6.738916"/>
 																						</PropertyList>
 																					</Effect>
 																				</Custom>
@@ -7071,7 +7224,7 @@
 																</Property>
 																<Property Name="Volume" Type="Real64">
 																	<ValueList>
-																		<Value>-14</Value>
+																		<Value>-6</Value>
 																	</ValueList>
 																</Property>
 															</PropertyList>
@@ -7106,9 +7259,29 @@
 																				<Custom>
 																					<Effect Name="Time Stretch (Custom)" ID="{4D351862-F21C-4854-8C98-2EBCB0A53172}" ShortID="909386132" PluginName="Wwise Time Stretch" CompanyID="0" PluginID="130" PluginType="3">
 																						<PropertyList>
+																							<Property Name="PitchShift" Type="Real32" Value="-800"/>
 																							<Property Name="QualityEnable" Type="int16" Value="1"/>
-																							<Property Name="TimeStretch" Type="Real32" Value="162"/>
+																							<Property Name="TimeStretch" Type="Real32" Value="152"/>
 																							<Property Name="WindowSize" Type="int32" Value="8192"/>
+																						</PropertyList>
+																					</Effect>
+																				</Custom>
+																			</Reference>
+																		</ReferenceList>
+																	</EffectSlot>
+																	<EffectSlot Name="" ID="{D6E4A089-5B21-4216-A3C3-59029612C815}" ShortID="615658054">
+																		<ReferenceList>
+																			<Reference Name="Effect">
+																				<Custom>
+																					<Effect Name="Parametric EQ (Custom)" ID="{5BB71F95-B26E-44CF-AA30-31A88170A3A4}" ShortID="86417588" PluginName="Wwise Parametric EQ" CompanyID="0" PluginID="105" PluginType="3">
+																						<PropertyList>
+																							<Property Name="FrequencyBand1" Type="Real32" Value="20000"/>
+																							<Property Name="FrequencyBand3" Type="Real32" Value="11109.92"/>
+																							<Property Name="GainBand1" Type="Real32" Value="3.192118"/>
+																							<Property Name="GainBand3" Type="Real32" Value="8.748769"/>
+																							<Property Name="OnOffBand1" Type="bool" Value="False"/>
+																							<Property Name="OnOffBand2" Type="bool" Value="False"/>
+																							<Property Name="OnOffBand3" Type="bool" Value="True"/>
 																						</PropertyList>
 																					</Effect>
 																				</Custom>
@@ -7981,6 +8154,7 @@
 										<RandomSequenceContainer Name="Damage" ID="{8D0BC615-5C3C-46F3-B8D0-B0EFEE4AB433}" ShortID="509852962">
 											<PropertyList>
 												<Property Name="3DSpatialization" Type="int16" Value="2"/>
+												<Property Name="AttenuationDistanceScaling" Type="Real32" Value="0.8"/>
 												<Property Name="CenterPercentage" Type="int32">
 													<ValueList>
 														<Value>26</Value>
@@ -8015,10 +8189,10 @@
 													</ModifierList>
 												</Property>
 												<Property Name="SpeakerPanning" Type="int16" Value="1"/>
-												<Property Name="SpeakerPanning3DSpatializationMix" Type="int32" Value="84"/>
+												<Property Name="SpeakerPanning3DSpatializationMix" Type="int32" Value="71"/>
 												<Property Name="Volume" Type="Real64">
 													<ValueList>
-														<Value>-13</Value>
+														<Value>-12</Value>
 													</ValueList>
 													<ModifierList>
 														<ModifierInfo>
@@ -8883,6 +9057,7 @@
 										<RandomSequenceContainer Name="Get Back Up" ID="{FF21ABD7-3603-4610-804D-01AE37A2456B}" ShortID="45883379">
 											<PropertyList>
 												<Property Name="3DSpatialization" Type="int16" Value="2"/>
+												<Property Name="AttenuationDistanceScaling" Type="Real32" Value="0.7"/>
 												<Property Name="CenterPercentage" Type="int32">
 													<ValueList>
 														<Value>16</Value>
@@ -9633,6 +9808,7 @@
 										<BlendContainer Name="All Tentacles Idle" ID="{0E3253E2-7209-4340-9B3D-B4BD07BA25AE}" ShortID="363569109">
 											<PropertyList>
 												<Property Name="3DSpatialization" Type="int16" Value="2"/>
+												<Property Name="AttenuationDistanceScaling" Type="Real32" Value="0.55"/>
 												<Property Name="BlendBehavior" Type="int16" Value="1"/>
 												<Property Name="CenterPercentage" Type="int32">
 													<ValueList>
@@ -9676,7 +9852,7 @@
 													</ModifierList>
 												</Property>
 												<Property Name="SpeakerPanning" Type="int16" Value="1"/>
-												<Property Name="SpeakerPanning3DSpatializationMix" Type="int32" Value="89"/>
+												<Property Name="SpeakerPanning3DSpatializationMix" Type="int32" Value="88"/>
 												<Property Name="Volume" Type="Real64">
 													<ValueList>
 														<Value>-9</Value>
@@ -11020,61 +11196,134 @@
 														</ObjectList>
 													</ObjectLists>
 												</RandomSequenceContainer>
-												<RandomSequenceContainer Name="4- Rocks Cracking" ID="{D9FCC41A-291D-4E91-B55F-3BA3D77FE43A}" ShortID="66200423">
+												<BlendContainer Name="Rocks Cracking" ID="{A577A588-67BF-44D7-A60F-C30AE0B6D7EA}" ShortID="1064591172">
 													<PropertyList>
 														<Property Name="3DSpatialization" Type="int16" Value="2"/>
+														<Property Name="AttenuationDistanceScaling" Type="Real32" Value="0.6"/>
 														<Property Name="CenterPercentage" Type="int32">
 															<ValueList>
-																<Value>4</Value>
+																<Value>30</Value>
 															</ValueList>
 														</Property>
 														<Property Name="Lowpass" Type="int16">
 															<ModifierList>
 																<ModifierInfo>
-																	<Modifier Name="" ID="{FF427844-8110-4BBB-911D-F65014B3B97A}">
-																		<PropertyList>
-																			<Property Name="Enabled" Type="bool" Value="True"/>
-																			<Property Name="Max" Type="Real64" Value="8"/>
-																			<Property Name="Min" Type="Real64" Value="-11"/>
-																		</PropertyList>
-																	</Modifier>
+																	<Modifier Name="" ID="{C3B39576-AC8E-4F0A-BBC2-228E6741DC3C}"/>
 																</ModifierInfo>
 															</ModifierList>
 														</Property>
 														<Property Name="Pitch" Type="int32">
-															<ModifierList>
-																<ModifierInfo>
-																	<Modifier Name="" ID="{D173E4B9-DD4E-411D-B5CD-4459918B9655}">
-																		<PropertyList>
-																			<Property Name="Enabled" Type="bool" Value="True"/>
-																			<Property Name="Max" Type="Real64" Value="150"/>
-																			<Property Name="Min" Type="Real64" Value="-175"/>
-																		</PropertyList>
-																	</Modifier>
-																</ModifierInfo>
-															</ModifierList>
+															<ValueList>
+																<Value>630</Value>
+															</ValueList>
 														</Property>
 														<Property Name="SpeakerPanning" Type="int16" Value="1"/>
+														<Property Name="SpeakerPanning3DSpatializationMix" Type="int32" Value="78"/>
 														<Property Name="Volume" Type="Real64">
 															<ValueList>
-																<Value>1</Value>
+																<Value>-2</Value>
 															</ValueList>
-															<ModifierList>
-																<ModifierInfo>
-																	<Modifier Name="" ID="{5C63EC03-FF7D-49E2-AFAD-E6EE80622C11}">
-																		<PropertyList>
-																			<Property Name="Enabled" Type="bool" Value="True"/>
-																			<Property Name="Max" Type="Real64" Value="1"/>
-																			<Property Name="Min" Type="Real64" Value="-1"/>
-																		</PropertyList>
-																	</Modifier>
-																</ModifierInfo>
-															</ModifierList>
 														</Property>
 													</PropertyList>
 													<ReferenceList>
 														<Reference Name="Attenuation">
-															<ObjectRef Name="Physically_Based" ID="{7AF96D5E-B0A7-4524-B96B-04F53DEAEC94}" WorkUnitID="{E312AA2F-7D32-49AE-9B3F-853E8C0370AC}"/>
+															<Custom>
+																<Attenuation Name="Attenuation (Custom)" ID="{EE2BFB09-2592-422A-9ED2-D92576E584CB}" ShortID="959859334">
+																	<CurveUsageInfoList>
+																		<VolumeDryUsage>
+																			<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
+																				<Curve Name="VolumeDry" ID="{AEC5B3C4-AF38-4FF4-95BE-494773ABAFCA}">
+																					<PropertyList>
+																						<Property Name="Flags" Type="int32" Value="3"/>
+																					</PropertyList>
+																					<PointList>
+																						<Point>
+																							<XPos>0</XPos>
+																							<YPos>0</YPos>
+																							<Flags>5</Flags>
+																							<SegmentShape>InvertedSCurve</SegmentShape>
+																						</Point>
+																						<Point>
+																							<XPos>100</XPos>
+																							<YPos>-200</YPos>
+																							<Flags>37</Flags>
+																						</Point>
+																					</PointList>
+																				</Curve>
+																			</CurveUsageInfo>
+																		</VolumeDryUsage>
+																		<VolumeWetGameUsage>
+																			<CurveUsageInfo Platform="Linked" CurveToUse="UseVolumeDry"/>
+																		</VolumeWetGameUsage>
+																		<VolumeWetUserUsage>
+																			<CurveUsageInfo Platform="Linked" CurveToUse="UseVolumeDry"/>
+																		</VolumeWetUserUsage>
+																		<LowPassFilterUsage>
+																			<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+																		</LowPassFilterUsage>
+																		<HighPassFilterUsage>
+																			<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+																		</HighPassFilterUsage>
+																		<DualShelfUsage>
+																			<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+																		</DualShelfUsage>
+																		<SpreadUsage>
+																			<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+																		</SpreadUsage>
+																		<FocusUsage>
+																			<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+																		</FocusUsage>
+																		<ObstructionVolumeUsage>
+																			<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+																		</ObstructionVolumeUsage>
+																		<ObstructionLPFUsage>
+																			<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+																		</ObstructionLPFUsage>
+																		<ObstructionHPFUsage>
+																			<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+																		</ObstructionHPFUsage>
+																		<ObstructionDSFUsage>
+																			<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+																		</ObstructionDSFUsage>
+																		<OcclusionVolumeUsage>
+																			<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+																		</OcclusionVolumeUsage>
+																		<OcclusionLPFUsage>
+																			<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+																		</OcclusionLPFUsage>
+																		<OcclusionHPFUsage>
+																			<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+																		</OcclusionHPFUsage>
+																		<OcclusionDSFUsage>
+																			<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+																		</OcclusionDSFUsage>
+																		<DiffractionVolumeUsage>
+																			<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+																		</DiffractionVolumeUsage>
+																		<DiffractionLPFUsage>
+																			<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+																		</DiffractionLPFUsage>
+																		<DiffractionHPFUsage>
+																			<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+																		</DiffractionHPFUsage>
+																		<DiffractionDSFUsage>
+																			<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+																		</DiffractionDSFUsage>
+																		<TransmissionVolumeUsage>
+																			<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+																		</TransmissionVolumeUsage>
+																		<TransmissionLPFUsage>
+																			<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+																		</TransmissionLPFUsage>
+																		<TransmissionHPFUsage>
+																			<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+																		</TransmissionHPFUsage>
+																		<TransmissionDSFUsage>
+																			<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+																		</TransmissionDSFUsage>
+																	</CurveUsageInfoList>
+																</Attenuation>
+															</Custom>
 														</Reference>
 														<Reference Name="Conversion">
 															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
@@ -11084,207 +11333,565 @@
 														</Reference>
 													</ReferenceList>
 													<ChildrenList>
-														<Sound Name="Rocks Cracking_01" ID="{8ED5B79B-8D75-465F-B850-DA030145A9A9}" ShortID="888691116">
+														<RandomSequenceContainer Name="4- Rocks Cracking" ID="{D9FCC41A-291D-4E91-B55F-3BA3D77FE43A}" ShortID="66200423">
 															<PropertyList>
-																<Property Name="Lowpass" Type="int16">
-																	<ValueList>
-																		<Value>51</Value>
-																	</ValueList>
-																	<ModifierList>
-																		<ModifierInfo>
-																			<Modifier Name="" ID="{2743BAAF-43A9-4A4C-A02B-85221827F985}"/>
-																		</ModifierInfo>
-																	</ModifierList>
-																</Property>
-																<Property Name="Pitch" Type="int32">
-																	<ModifierList>
-																		<ModifierInfo>
-																			<Modifier Name="" ID="{1B9F9D2E-A385-4749-883C-B2245BDC9E12}"/>
-																		</ModifierInfo>
-																	</ModifierList>
-																</Property>
-															</PropertyList>
-															<ReferenceList>
-																<Reference Name="Conversion">
-																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
-																</Reference>
-																<Reference Name="OutputBus">
-																	<ObjectRef Name="Main Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
-																</Reference>
-															</ReferenceList>
-															<ChildrenList>
-																<AudioFileSource Name="SPFX_attack_rocks_Kraken_01" ID="{C706A117-6AFB-4049-8860-18A303F71063}">
-																	<PropertyList>
-																		<Property Name="FadeOutDuration" Type="Real64" Value="1.01616320256547"/>
-																		<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
-																		<Property Name="TrimBegin" Type="Real64" Value="1.01550233166917"/>
-																		<Property Name="TrimEnd" Type="Real64" Value="2.03166553423464"/>
-																	</PropertyList>
-																	<Language>SFX</Language>
-																	<AudioFile>SPFX_attack_rocks_Kraken_01.wav</AudioFile>
-																	<MediaIDList>
-																		<MediaID ID="863325323"/>
-																	</MediaIDList>
-																</AudioFileSource>
-															</ChildrenList>
-															<ActiveSourceList>
-																<ActiveSource Name="SPFX_attack_rocks_Kraken_01" ID="{C706A117-6AFB-4049-8860-18A303F71063}" Platform="Linked"/>
-															</ActiveSourceList>
-														</Sound>
-														<Sound Name="Rocks Cracking_02" ID="{A93CBB99-FD97-4FE7-80AA-191915980204}" ShortID="3344363">
-															<PropertyList>
-																<Property Name="Lowpass" Type="int16">
-																	<ValueList>
-																		<Value>51</Value>
-																	</ValueList>
-																	<ModifierList>
-																		<ModifierInfo>
-																			<Modifier Name="" ID="{41AF7636-B72D-4823-872C-F82AFD4BEA3E}"/>
-																		</ModifierInfo>
-																	</ModifierList>
-																</Property>
-																<Property Name="Pitch" Type="int32">
-																	<ModifierList>
-																		<ModifierInfo>
-																			<Modifier Name="" ID="{88739628-A9E5-46F3-8459-093C4BEE6E2A}"/>
-																		</ModifierInfo>
-																	</ModifierList>
-																</Property>
-															</PropertyList>
-															<ReferenceList>
-																<Reference Name="Conversion">
-																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
-																</Reference>
-																<Reference Name="OutputBus">
-																	<ObjectRef Name="Main Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
-																</Reference>
-															</ReferenceList>
-															<ChildrenList>
-																<AudioFileSource Name="SPFX_attack_rocks_Kraken_02" ID="{092118BA-DDC6-4555-95E5-B5FE6830C3FA}">
-																	<PropertyList>
-																		<Property Name="FadeOutDuration" Type="Real64" Value="1.54869401960733"/>
-																		<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
-																		<Property Name="TrimBegin" Type="Real64" Value="1.02127223194094"/>
-																		<Property Name="TrimEnd" Type="Real64" Value="2.56996625154827"/>
-																	</PropertyList>
-																	<Language>SFX</Language>
-																	<AudioFile>SPFX_attack_rocks_Kraken_02  .wav</AudioFile>
-																	<MediaIDList>
-																		<MediaID ID="188320656"/>
-																	</MediaIDList>
-																</AudioFileSource>
-															</ChildrenList>
-															<ActiveSourceList>
-																<ActiveSource Name="SPFX_attack_rocks_Kraken_02" ID="{092118BA-DDC6-4555-95E5-B5FE6830C3FA}" Platform="Linked"/>
-															</ActiveSourceList>
-														</Sound>
-														<Sound Name="Rocks Cracking_03" ID="{BC14C4CA-B55D-4ACC-A233-5407AE11CE19}" ShortID="556421945">
-															<PropertyList>
-																<Property Name="Highpass" Type="int16">
+																<Property Name="3DSpatialization" Type="int16" Value="2"/>
+																<Property Name="CenterPercentage" Type="int32">
 																	<ValueList>
 																		<Value>4</Value>
 																	</ValueList>
 																</Property>
 																<Property Name="Lowpass" Type="int16">
+																	<ModifierList>
+																		<ModifierInfo>
+																			<Modifier Name="" ID="{FF427844-8110-4BBB-911D-F65014B3B97A}">
+																				<PropertyList>
+																					<Property Name="Enabled" Type="bool" Value="True"/>
+																					<Property Name="Max" Type="Real64" Value="10"/>
+																					<Property Name="Min" Type="Real64" Value="-11"/>
+																				</PropertyList>
+																			</Modifier>
+																		</ModifierInfo>
+																	</ModifierList>
+																</Property>
+																<Property Name="OverrideEffect" Type="bool" Value="True"/>
+																<Property Name="Pitch" Type="int32">
 																	<ValueList>
-																		<Value>52</Value>
+																		<Value>130</Value>
 																	</ValueList>
 																	<ModifierList>
 																		<ModifierInfo>
-																			<Modifier Name="" ID="{4787AB07-1281-40B9-95D5-4CF35765EDF9}"/>
+																			<Modifier Name="" ID="{D173E4B9-DD4E-411D-B5CD-4459918B9655}">
+																				<PropertyList>
+																					<Property Name="Enabled" Type="bool" Value="True"/>
+																					<Property Name="Max" Type="Real64" Value="150"/>
+																					<Property Name="Min" Type="Real64" Value="-175"/>
+																				</PropertyList>
+																			</Modifier>
 																		</ModifierInfo>
 																	</ModifierList>
 																</Property>
-																<Property Name="Pitch" Type="int32">
-																	<ModifierList>
-																		<ModifierInfo>
-																			<Modifier Name="" ID="{4D1F8CCA-EDE3-4EBE-A068-30CADDE29854}"/>
-																		</ModifierInfo>
-																	</ModifierList>
-																</Property>
+																<Property Name="SpeakerPanning" Type="int16" Value="1"/>
 																<Property Name="Volume" Type="Real64">
+																	<ValueList>
+																		<Value>12</Value>
+																	</ValueList>
 																	<ModifierList>
 																		<ModifierInfo>
-																			<Modifier Name="" ID="{CFAD484F-865E-4EC6-84B4-609CD0FC8F75}"/>
+																			<Modifier Name="" ID="{5C63EC03-FF7D-49E2-AFAD-E6EE80622C11}">
+																				<PropertyList>
+																					<Property Name="Enabled" Type="bool" Value="True"/>
+																					<Property Name="Max" Type="Real64" Value="1"/>
+																					<Property Name="Min" Type="Real64" Value="-1"/>
+																				</PropertyList>
+																			</Modifier>
 																		</ModifierInfo>
 																	</ModifierList>
 																</Property>
 															</PropertyList>
 															<ReferenceList>
+																<Reference Name="Attenuation">
+																	<ObjectRef Name="Physically_Based" ID="{7AF96D5E-B0A7-4524-B96B-04F53DEAEC94}" WorkUnitID="{E312AA2F-7D32-49AE-9B3F-853E8C0370AC}"/>
+																</Reference>
 																<Reference Name="Conversion">
 																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
 																</Reference>
 																<Reference Name="OutputBus">
-																	<ObjectRef Name="Main Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
+																	<ObjectRef Name="SFX_Bus" ID="{F5C91BBD-C9DE-46C1-B10A-F7A0405036D3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
 																</Reference>
 															</ReferenceList>
 															<ChildrenList>
-																<AudioFileSource Name="SPFX_attack_rocks_Kraken_03" ID="{1EFAC6DD-0EFF-41A5-844B-A921F3BB708E}">
+																<Sound Name="Rocks Cracking_01" ID="{8ED5B79B-8D75-465F-B850-DA030145A9A9}" ShortID="888691116">
 																	<PropertyList>
-																		<Property Name="FadeInDuration" Type="Real64" Value="0.0297457931633284"/>
-																		<Property Name="FadeOutDuration" Type="Real64" Value="1.62965566661618"/>
-																		<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
-																		<Property Name="TrimBegin" Type="Real64" Value="0.976653542195944"/>
-																		<Property Name="TrimEnd" Type="Real64" Value="2.7585511464859"/>
+																		<Property Name="Lowpass" Type="int16">
+																			<ValueList>
+																				<Value>51</Value>
+																			</ValueList>
+																			<ModifierList>
+																				<ModifierInfo>
+																					<Modifier Name="" ID="{2743BAAF-43A9-4A4C-A02B-85221827F985}"/>
+																				</ModifierInfo>
+																			</ModifierList>
+																		</Property>
+																		<Property Name="Pitch" Type="int32">
+																			<ModifierList>
+																				<ModifierInfo>
+																					<Modifier Name="" ID="{1B9F9D2E-A385-4749-883C-B2245BDC9E12}"/>
+																				</ModifierInfo>
+																			</ModifierList>
+																		</Property>
 																	</PropertyList>
-																	<Language>SFX</Language>
-																	<AudioFile>SPFX_attack_rocks_Kraken_03.wav</AudioFile>
-																	<MediaIDList>
-																		<MediaID ID="1021864714"/>
-																	</MediaIDList>
-																</AudioFileSource>
+																	<ReferenceList>
+																		<Reference Name="Conversion">
+																			<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
+																		</Reference>
+																		<Reference Name="OutputBus">
+																			<ObjectRef Name="Main Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
+																		</Reference>
+																	</ReferenceList>
+																	<ChildrenList>
+																		<AudioFileSource Name="SPFX_attack_rocks_Kraken_01" ID="{C706A117-6AFB-4049-8860-18A303F71063}">
+																			<PropertyList>
+																				<Property Name="FadeOutDuration" Type="Real64" Value="1.01616320256547"/>
+																				<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+																				<Property Name="TrimBegin" Type="Real64" Value="1.01550233166917"/>
+																				<Property Name="TrimEnd" Type="Real64" Value="2.56962747897938"/>
+																			</PropertyList>
+																			<Language>SFX</Language>
+																			<AudioFile>SPFX_attack_rocks_Kraken_01.wav</AudioFile>
+																			<MediaIDList>
+																				<MediaID ID="750157357"/>
+																			</MediaIDList>
+																		</AudioFileSource>
+																	</ChildrenList>
+																	<ActiveSourceList>
+																		<ActiveSource Name="SPFX_attack_rocks_Kraken_01" ID="{C706A117-6AFB-4049-8860-18A303F71063}" Platform="Linked"/>
+																	</ActiveSourceList>
+																</Sound>
+																<Sound Name="Rocks Cracking_02" ID="{A93CBB99-FD97-4FE7-80AA-191915980204}" ShortID="3344363">
+																	<PropertyList>
+																		<Property Name="Lowpass" Type="int16">
+																			<ValueList>
+																				<Value>51</Value>
+																			</ValueList>
+																			<ModifierList>
+																				<ModifierInfo>
+																					<Modifier Name="" ID="{41AF7636-B72D-4823-872C-F82AFD4BEA3E}"/>
+																				</ModifierInfo>
+																			</ModifierList>
+																		</Property>
+																		<Property Name="Pitch" Type="int32">
+																			<ModifierList>
+																				<ModifierInfo>
+																					<Modifier Name="" ID="{88739628-A9E5-46F3-8459-093C4BEE6E2A}"/>
+																				</ModifierInfo>
+																			</ModifierList>
+																		</Property>
+																	</PropertyList>
+																	<ReferenceList>
+																		<Reference Name="Conversion">
+																			<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
+																		</Reference>
+																		<Reference Name="OutputBus">
+																			<ObjectRef Name="Main Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
+																		</Reference>
+																	</ReferenceList>
+																	<ChildrenList>
+																		<AudioFileSource Name="SPFX_attack_rocks_Kraken_02" ID="{092118BA-DDC6-4555-95E5-B5FE6830C3FA}">
+																			<PropertyList>
+																				<Property Name="FadeOutDuration" Type="Real64" Value="1.54869401960733"/>
+																				<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+																				<Property Name="TrimBegin" Type="Real64" Value="1.02127223194094"/>
+																				<Property Name="TrimEnd" Type="Real64" Value="2.56996625154827"/>
+																			</PropertyList>
+																			<Language>SFX</Language>
+																			<AudioFile>SPFX_attack_rocks_Kraken_02  .wav</AudioFile>
+																			<MediaIDList>
+																				<MediaID ID="188320656"/>
+																			</MediaIDList>
+																		</AudioFileSource>
+																	</ChildrenList>
+																	<ActiveSourceList>
+																		<ActiveSource Name="SPFX_attack_rocks_Kraken_02" ID="{092118BA-DDC6-4555-95E5-B5FE6830C3FA}" Platform="Linked"/>
+																	</ActiveSourceList>
+																</Sound>
+																<Sound Name="Rocks Cracking_03" ID="{BC14C4CA-B55D-4ACC-A233-5407AE11CE19}" ShortID="556421945">
+																	<PropertyList>
+																		<Property Name="Highpass" Type="int16">
+																			<ValueList>
+																				<Value>4</Value>
+																			</ValueList>
+																		</Property>
+																		<Property Name="Lowpass" Type="int16">
+																			<ValueList>
+																				<Value>52</Value>
+																			</ValueList>
+																			<ModifierList>
+																				<ModifierInfo>
+																					<Modifier Name="" ID="{4787AB07-1281-40B9-95D5-4CF35765EDF9}"/>
+																				</ModifierInfo>
+																			</ModifierList>
+																		</Property>
+																		<Property Name="Pitch" Type="int32">
+																			<ModifierList>
+																				<ModifierInfo>
+																					<Modifier Name="" ID="{4D1F8CCA-EDE3-4EBE-A068-30CADDE29854}"/>
+																				</ModifierInfo>
+																			</ModifierList>
+																		</Property>
+																		<Property Name="Volume" Type="Real64">
+																			<ModifierList>
+																				<ModifierInfo>
+																					<Modifier Name="" ID="{CFAD484F-865E-4EC6-84B4-609CD0FC8F75}"/>
+																				</ModifierInfo>
+																			</ModifierList>
+																		</Property>
+																	</PropertyList>
+																	<ReferenceList>
+																		<Reference Name="Conversion">
+																			<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
+																		</Reference>
+																		<Reference Name="OutputBus">
+																			<ObjectRef Name="Main Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
+																		</Reference>
+																	</ReferenceList>
+																	<ChildrenList>
+																		<AudioFileSource Name="SPFX_attack_rocks_Kraken_03" ID="{1EFAC6DD-0EFF-41A5-844B-A921F3BB708E}">
+																			<PropertyList>
+																				<Property Name="FadeInDuration" Type="Real64" Value="0.0297457931633284"/>
+																				<Property Name="FadeOutDuration" Type="Real64" Value="1.62965566661618"/>
+																				<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+																				<Property Name="TrimBegin" Type="Real64" Value="0.976653542195944"/>
+																				<Property Name="TrimEnd" Type="Real64" Value="3.12381093999387"/>
+																			</PropertyList>
+																			<Language>SFX</Language>
+																			<AudioFile>SPFX_attack_rocks_Kraken_03.wav</AudioFile>
+																			<MediaIDList>
+																				<MediaID ID="394856547"/>
+																			</MediaIDList>
+																		</AudioFileSource>
+																	</ChildrenList>
+																	<ActiveSourceList>
+																		<ActiveSource Name="SPFX_attack_rocks_Kraken_03" ID="{1EFAC6DD-0EFF-41A5-844B-A921F3BB708E}" Platform="Linked"/>
+																	</ActiveSourceList>
+																</Sound>
 															</ChildrenList>
-															<ActiveSourceList>
-																<ActiveSource Name="SPFX_attack_rocks_Kraken_03" ID="{1EFAC6DD-0EFF-41A5-844B-A921F3BB708E}" Platform="Linked"/>
-															</ActiveSourceList>
-														</Sound>
+															<PositioningInfo>
+																<Panner Name="" ID="{03AD9212-3D19-4D77-95BE-E38751E79908}"/>
+															</PositioningInfo>
+															<ObjectLists>
+																<ObjectList Name="Effects">
+																	<EffectSlot Name="" ID="{366DD269-FB29-4B3E-B88A-F12D0FC5389E}" ShortID="1010024556">
+																		<ReferenceList>
+																			<Reference Name="Effect">
+																				<Custom>
+																					<Effect Name="Parametric EQ (Custom)" ID="{2C9E7A6D-368E-421F-8BDF-7E345C4778BC}" ShortID="694844500" PluginName="Wwise Parametric EQ" CompanyID="0" PluginID="105" PluginType="3">
+																						<PropertyList>
+																							<Property Name="FilterTypeBand1" Type="int32" Value="3"/>
+																							<Property Name="FrequencyBand1" Type="Real32" Value="20000"/>
+																							<Property Name="FrequencyBand2" Type="Real32" Value="85.12601"/>
+																							<Property Name="FrequencyBand3" Type="Real32" Value="3185.354"/>
+																							<Property Name="GainBand2" Type="Real32" Value="4.807882"/>
+																							<Property Name="GainBand3" Type="Real32" Value="1.3"/>
+																							<Property Name="OnOffBand3" Type="bool" Value="True"/>
+																							<Property Name="QFactorBand1" Type="Real32" Value="0.163"/>
+																						</PropertyList>
+																					</Effect>
+																				</Custom>
+																			</Reference>
+																		</ReferenceList>
+																	</EffectSlot>
+																	<EffectSlot Name="" ID="{E9BCA86A-312E-4D87-A253-7361CEF55B28}" ShortID="208888728">
+																		<ReferenceList>
+																			<Reference Name="Effect">
+																				<Custom>
+																					<Effect Name="Matrix Reverb (Custom)" ID="{A65F2451-CDCD-4D90-91A5-9F274EA4EFAE}" ShortID="574643453" PluginName="Wwise Matrix Reverb" CompanyID="0" PluginID="115" PluginType="3">
+																						<PropertyList>
+																							<Property Name="DryLevel" Type="Real32" Value="-5.3"/>
+																							<Property Name="ProcessLFE" Type="bool" Value="False"/>
+																							<Property Name="ReverbTime" Type="Real32" Value="1"/>
+																							<Property Name="WetLevel" Type="Real32" Value="-44"/>
+																						</PropertyList>
+																					</Effect>
+																				</Custom>
+																			</Reference>
+																		</ReferenceList>
+																	</EffectSlot>
+																	<EffectSlot Name="" ID="{28FA97FA-6328-44D3-AA55-CB3DBB919EDD}" ShortID="637038748">
+																		<ReferenceList>
+																			<Reference Name="Effect">
+																				<Custom>
+																					<Effect Name="Guitar Distortion (Custom)" ID="{2426BE9B-3A70-4CB3-9DC3-65369FE850EC}" ShortID="838246956" PluginName="Wwise Guitar Distortion" CompanyID="0" PluginID="126" PluginType="3">
+																						<PropertyList>
+																							<Property Name="DistortionDrive" Type="Real32" Value="18"/>
+																							<Property Name="DistortionType" Type="int32" Value="1"/>
+																							<Property Name="PreEQBand1Enable" Type="bool" Value="True"/>
+																							<Property Name="PreEQBand1FilterType" Type="int32" Value="1"/>
+																							<Property Name="PreEQBand1Frequency" Type="Real32" Value="95"/>
+																							<Property Name="PreEQBand1Gain" Type="Real32" Value="2.5"/>
+																						</PropertyList>
+																					</Effect>
+																				</Custom>
+																			</Reference>
+																		</ReferenceList>
+																	</EffectSlot>
+																</ObjectList>
+															</ObjectLists>
+														</RandomSequenceContainer>
+														<RandomSequenceContainer Name="4- Rocks Cracking_01" ID="{B809AE7E-DBEF-4850-AD17-9CBB65142D4E}" ShortID="911519964">
+															<PropertyList>
+																<Property Name="3DSpatialization" Type="int16" Value="2"/>
+																<Property Name="CenterPercentage" Type="int32">
+																	<ValueList>
+																		<Value>4</Value>
+																	</ValueList>
+																</Property>
+																<Property Name="Lowpass" Type="int16">
+																	<ModifierList>
+																		<ModifierInfo>
+																			<Modifier Name="" ID="{9E47C580-F975-4012-93B2-72D236E46F8E}">
+																				<PropertyList>
+																					<Property Name="Enabled" Type="bool" Value="True"/>
+																					<Property Name="Max" Type="Real64" Value="10"/>
+																					<Property Name="Min" Type="Real64" Value="-11"/>
+																				</PropertyList>
+																			</Modifier>
+																		</ModifierInfo>
+																	</ModifierList>
+																</Property>
+																<Property Name="OverrideEffect" Type="bool" Value="True"/>
+																<Property Name="Pitch" Type="int32">
+																	<ValueList>
+																		<Value>130</Value>
+																	</ValueList>
+																	<ModifierList>
+																		<ModifierInfo>
+																			<Modifier Name="" ID="{4D5B9347-AE1F-4F95-8C14-AFF8A1B529BE}">
+																				<PropertyList>
+																					<Property Name="Enabled" Type="bool" Value="True"/>
+																					<Property Name="Max" Type="Real64" Value="150"/>
+																					<Property Name="Min" Type="Real64" Value="-175"/>
+																				</PropertyList>
+																			</Modifier>
+																		</ModifierInfo>
+																	</ModifierList>
+																</Property>
+																<Property Name="SpeakerPanning" Type="int16" Value="1"/>
+																<Property Name="Volume" Type="Real64">
+																	<ValueList>
+																		<Value>12</Value>
+																	</ValueList>
+																	<ModifierList>
+																		<ModifierInfo>
+																			<Modifier Name="" ID="{A0E1906A-96CD-48E2-B408-ECBBE9C7D4AB}">
+																				<PropertyList>
+																					<Property Name="Enabled" Type="bool" Value="True"/>
+																					<Property Name="Max" Type="Real64" Value="1"/>
+																					<Property Name="Min" Type="Real64" Value="-1"/>
+																				</PropertyList>
+																			</Modifier>
+																		</ModifierInfo>
+																	</ModifierList>
+																</Property>
+															</PropertyList>
+															<ReferenceList>
+																<Reference Name="Attenuation">
+																	<ObjectRef Name="Physically_Based" ID="{7AF96D5E-B0A7-4524-B96B-04F53DEAEC94}" WorkUnitID="{E312AA2F-7D32-49AE-9B3F-853E8C0370AC}"/>
+																</Reference>
+																<Reference Name="Conversion">
+																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
+																</Reference>
+																<Reference Name="OutputBus">
+																	<ObjectRef Name="SFX_Bus" ID="{F5C91BBD-C9DE-46C1-B10A-F7A0405036D3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
+																</Reference>
+															</ReferenceList>
+															<ChildrenList>
+																<Sound Name="Rocks Cracking_01" ID="{3B22EA64-10DF-460C-BB56-DE89E94EE508}" ShortID="580241466">
+																	<PropertyList>
+																		<Property Name="Lowpass" Type="int16">
+																			<ValueList>
+																				<Value>51</Value>
+																			</ValueList>
+																			<ModifierList>
+																				<ModifierInfo>
+																					<Modifier Name="" ID="{97E7CED1-C4A4-49B1-963E-A4A4F848CFDA}"/>
+																				</ModifierInfo>
+																			</ModifierList>
+																		</Property>
+																		<Property Name="Pitch" Type="int32">
+																			<ModifierList>
+																				<ModifierInfo>
+																					<Modifier Name="" ID="{FAD55F02-60E6-486A-BAEE-84A1EC313FDE}"/>
+																				</ModifierInfo>
+																			</ModifierList>
+																		</Property>
+																	</PropertyList>
+																	<ReferenceList>
+																		<Reference Name="Conversion">
+																			<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
+																		</Reference>
+																		<Reference Name="OutputBus">
+																			<ObjectRef Name="Main Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
+																		</Reference>
+																	</ReferenceList>
+																	<ChildrenList>
+																		<AudioFileSource Name="SPFX_attack_rocks_Kraken_01" ID="{96C72740-F9A1-4972-AF6F-58BDF73E80D5}">
+																			<PropertyList>
+																				<Property Name="FadeOutDuration" Type="Real64" Value="1.01616320256547"/>
+																				<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+																				<Property Name="TrimBegin" Type="Real64" Value="1.01550233166917"/>
+																				<Property Name="TrimEnd" Type="Real64" Value="2.03166553423464"/>
+																			</PropertyList>
+																			<Language>SFX</Language>
+																			<AudioFile>SPFX_attack_rocks_Kraken_01.wav</AudioFile>
+																			<MediaIDList>
+																				<MediaID ID="863325323"/>
+																			</MediaIDList>
+																		</AudioFileSource>
+																	</ChildrenList>
+																	<ActiveSourceList>
+																		<ActiveSource Name="SPFX_attack_rocks_Kraken_01" ID="{96C72740-F9A1-4972-AF6F-58BDF73E80D5}" Platform="Linked"/>
+																	</ActiveSourceList>
+																</Sound>
+																<Sound Name="Rocks Cracking_02" ID="{5F6D46A7-B7E9-423F-AD28-157DD0004020}" ShortID="762984046">
+																	<PropertyList>
+																		<Property Name="Lowpass" Type="int16">
+																			<ValueList>
+																				<Value>51</Value>
+																			</ValueList>
+																			<ModifierList>
+																				<ModifierInfo>
+																					<Modifier Name="" ID="{230C9282-C3AC-4A29-8B59-DE66529B6390}"/>
+																				</ModifierInfo>
+																			</ModifierList>
+																		</Property>
+																		<Property Name="Pitch" Type="int32">
+																			<ModifierList>
+																				<ModifierInfo>
+																					<Modifier Name="" ID="{78F2F1AD-8A5A-4FE0-A2B5-6DFFAE4E4EFC}"/>
+																				</ModifierInfo>
+																			</ModifierList>
+																		</Property>
+																	</PropertyList>
+																	<ReferenceList>
+																		<Reference Name="Conversion">
+																			<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
+																		</Reference>
+																		<Reference Name="OutputBus">
+																			<ObjectRef Name="Main Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
+																		</Reference>
+																	</ReferenceList>
+																	<ChildrenList>
+																		<AudioFileSource Name="SPFX_attack_rocks_Kraken_02" ID="{0C9499DD-DCE9-474D-94BF-BBE1A3D744A4}">
+																			<PropertyList>
+																				<Property Name="FadeOutDuration" Type="Real64" Value="1.54869401960733"/>
+																				<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+																				<Property Name="TrimBegin" Type="Real64" Value="1.02127223194094"/>
+																				<Property Name="TrimEnd" Type="Real64" Value="2.56996625154827"/>
+																			</PropertyList>
+																			<Language>SFX</Language>
+																			<AudioFile>SPFX_attack_rocks_Kraken_02  .wav</AudioFile>
+																			<MediaIDList>
+																				<MediaID ID="188320656"/>
+																			</MediaIDList>
+																		</AudioFileSource>
+																	</ChildrenList>
+																	<ActiveSourceList>
+																		<ActiveSource Name="SPFX_attack_rocks_Kraken_02" ID="{0C9499DD-DCE9-474D-94BF-BBE1A3D744A4}" Platform="Linked"/>
+																	</ActiveSourceList>
+																</Sound>
+																<Sound Name="Rocks Cracking_03" ID="{FF57B625-A865-4D34-9AB5-15F046D6C4F8}" ShortID="99394956">
+																	<PropertyList>
+																		<Property Name="Highpass" Type="int16">
+																			<ValueList>
+																				<Value>4</Value>
+																			</ValueList>
+																		</Property>
+																		<Property Name="Lowpass" Type="int16">
+																			<ValueList>
+																				<Value>52</Value>
+																			</ValueList>
+																			<ModifierList>
+																				<ModifierInfo>
+																					<Modifier Name="" ID="{9A989401-E17C-4F7A-8D99-34A0AD14224D}"/>
+																				</ModifierInfo>
+																			</ModifierList>
+																		</Property>
+																		<Property Name="Pitch" Type="int32">
+																			<ModifierList>
+																				<ModifierInfo>
+																					<Modifier Name="" ID="{2BDBB27F-9CCC-4D25-9985-8DAB5A3D7480}"/>
+																				</ModifierInfo>
+																			</ModifierList>
+																		</Property>
+																		<Property Name="Volume" Type="Real64">
+																			<ModifierList>
+																				<ModifierInfo>
+																					<Modifier Name="" ID="{126061EE-1EEE-4D5D-B7F1-4E192A48F225}"/>
+																				</ModifierInfo>
+																			</ModifierList>
+																		</Property>
+																	</PropertyList>
+																	<ReferenceList>
+																		<Reference Name="Conversion">
+																			<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
+																		</Reference>
+																		<Reference Name="OutputBus">
+																			<ObjectRef Name="Main Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
+																		</Reference>
+																	</ReferenceList>
+																	<ChildrenList>
+																		<AudioFileSource Name="SPFX_attack_rocks_Kraken_03" ID="{DA17D172-FC4E-4427-8644-923C5105D3CF}">
+																			<PropertyList>
+																				<Property Name="FadeInDuration" Type="Real64" Value="0.0297457931633284"/>
+																				<Property Name="FadeOutDuration" Type="Real64" Value="1.62965566661618"/>
+																				<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+																				<Property Name="TrimBegin" Type="Real64" Value="0.976653542195944"/>
+																				<Property Name="TrimEnd" Type="Real64" Value="2.7585511464859"/>
+																			</PropertyList>
+																			<Language>SFX</Language>
+																			<AudioFile>SPFX_attack_rocks_Kraken_03.wav</AudioFile>
+																			<MediaIDList>
+																				<MediaID ID="1021864714"/>
+																			</MediaIDList>
+																		</AudioFileSource>
+																	</ChildrenList>
+																	<ActiveSourceList>
+																		<ActiveSource Name="SPFX_attack_rocks_Kraken_03" ID="{DA17D172-FC4E-4427-8644-923C5105D3CF}" Platform="Linked"/>
+																	</ActiveSourceList>
+																</Sound>
+															</ChildrenList>
+															<PositioningInfo>
+																<Panner Name="" ID="{67D6D11A-4E7A-403D-93A3-FDFAD3D60D3D}"/>
+															</PositioningInfo>
+															<ObjectLists>
+																<ObjectList Name="Effects">
+																	<EffectSlot Name="" ID="{04E5FD43-F4B6-4258-BE2A-7E471F885159}" ShortID="771458082">
+																		<ReferenceList>
+																			<Reference Name="Effect">
+																				<Custom>
+																					<Effect Name="Parametric EQ (Custom)" ID="{2B531E73-8B15-4E8E-82B7-94C50AE825E6}" ShortID="857764484" PluginName="Wwise Parametric EQ" CompanyID="0" PluginID="105" PluginType="3">
+																						<PropertyList>
+																							<Property Name="FilterTypeBand1" Type="int32" Value="3"/>
+																							<Property Name="FrequencyBand1" Type="Real32" Value="20000"/>
+																							<Property Name="FrequencyBand2" Type="Real32" Value="85.12601"/>
+																							<Property Name="FrequencyBand3" Type="Real32" Value="3185.354"/>
+																							<Property Name="GainBand2" Type="Real32" Value="4.807882"/>
+																							<Property Name="GainBand3" Type="Real32" Value="1.3"/>
+																							<Property Name="OnOffBand3" Type="bool" Value="True"/>
+																							<Property Name="QFactorBand1" Type="Real32" Value="0.163"/>
+																						</PropertyList>
+																					</Effect>
+																				</Custom>
+																			</Reference>
+																		</ReferenceList>
+																	</EffectSlot>
+																	<EffectSlot Name="" ID="{061F876D-1387-4A86-9718-FFF72ADBEFD7}" ShortID="31215171">
+																		<ReferenceList>
+																			<Reference Name="Effect">
+																				<Custom>
+																					<Effect Name="Guitar Distortion (Custom)" ID="{1E494DFD-C8B1-423B-8F54-CB2B08A3E106}" ShortID="618855906" PluginName="Wwise Guitar Distortion" CompanyID="0" PluginID="126" PluginType="3">
+																						<PropertyList>
+																							<Property Name="DistortionDrive" Type="Real32" Value="18"/>
+																							<Property Name="DistortionType" Type="int32" Value="1"/>
+																							<Property Name="PreEQBand1Enable" Type="bool" Value="True"/>
+																							<Property Name="PreEQBand1FilterType" Type="int32" Value="1"/>
+																							<Property Name="PreEQBand1Frequency" Type="Real32" Value="95"/>
+																							<Property Name="PreEQBand1Gain" Type="Real32" Value="2.5"/>
+																						</PropertyList>
+																					</Effect>
+																				</Custom>
+																			</Reference>
+																		</ReferenceList>
+																	</EffectSlot>
+																</ObjectList>
+															</ObjectLists>
+														</RandomSequenceContainer>
 													</ChildrenList>
 													<PositioningInfo>
-														<Panner Name="" ID="{03AD9212-3D19-4D77-95BE-E38751E79908}"/>
+														<Panner Name="" ID="{118C33CE-55E9-4D7B-A3F7-FF172C9042FB}"/>
 													</PositioningInfo>
-													<ObjectLists>
-														<ObjectList Name="Effects">
-															<EffectSlot Name="" ID="{366DD269-FB29-4B3E-B88A-F12D0FC5389E}" ShortID="1010024556">
-																<ReferenceList>
-																	<Reference Name="Effect">
-																		<Custom>
-																			<Effect Name="Parametric EQ (Custom)" ID="{2C9E7A6D-368E-421F-8BDF-7E345C4778BC}" ShortID="694844500" PluginName="Wwise Parametric EQ" CompanyID="0" PluginID="105" PluginType="3">
-																				<PropertyList>
-																					<Property Name="FilterTypeBand1" Type="int32" Value="3"/>
-																					<Property Name="FrequencyBand1" Type="Real32" Value="20000"/>
-																					<Property Name="FrequencyBand2" Type="Real32" Value="897.8503"/>
-																					<Property Name="FrequencyBand3" Type="Real32" Value="3185.354"/>
-																					<Property Name="GainBand2" Type="Real32" Value="5"/>
-																					<Property Name="GainBand3" Type="Real32" Value="1.3"/>
-																					<Property Name="OnOffBand3" Type="bool" Value="True"/>
-																					<Property Name="QFactorBand1" Type="Real32" Value="0.163"/>
-																				</PropertyList>
-																			</Effect>
-																		</Custom>
-																	</Reference>
-																</ReferenceList>
-															</EffectSlot>
-															<EffectSlot Name="" ID="{28FA97FA-6328-44D3-AA55-CB3DBB919EDD}" ShortID="637038748">
-																<ReferenceList>
-																	<Reference Name="Effect">
-																		<Custom>
-																			<Effect Name="Guitar Distortion (Custom)" ID="{2426BE9B-3A70-4CB3-9DC3-65369FE850EC}" ShortID="838246956" PluginName="Wwise Guitar Distortion" CompanyID="0" PluginID="126" PluginType="3">
-																				<PropertyList>
-																					<Property Name="DistortionDrive" Type="Real32" Value="18"/>
-																					<Property Name="DistortionType" Type="int32" Value="1"/>
-																					<Property Name="PreEQBand1Enable" Type="bool" Value="True"/>
-																					<Property Name="PreEQBand1FilterType" Type="int32" Value="1"/>
-																					<Property Name="PreEQBand1Frequency" Type="Real32" Value="95"/>
-																					<Property Name="PreEQBand1Gain" Type="Real32" Value="2.5"/>
-																				</PropertyList>
-																			</Effect>
-																		</Custom>
-																	</Reference>
-																</ReferenceList>
-															</EffectSlot>
-														</ObjectList>
-													</ObjectLists>
-												</RandomSequenceContainer>
+												</BlendContainer>
 											</ChildrenList>
 										</Folder>
 										<Folder Name="Stalactite Rocks" ID="{2ED6F559-0ABB-44D1-B9DC-CD9AEBB828EF}" ShortID="129829154">
@@ -11675,7 +12282,7 @@
 														</Property>
 														<Property Name="Volume" Type="Real64">
 															<ValueList>
-																<Value>5</Value>
+																<Value>14</Value>
 															</ValueList>
 															<ModifierList>
 																<ModifierInfo>
@@ -11983,6 +12590,7 @@
 										<RandomSequenceContainer Name="Rage" ID="{BF9E7060-79E5-49E7-8775-447836E94A3F}" ShortID="315320942">
 											<PropertyList>
 												<Property Name="3DSpatialization" Type="int16" Value="2"/>
+												<Property Name="AttenuationDistanceScaling" Type="Real32" Value="0.7"/>
 												<Property Name="CenterPercentage" Type="int32">
 													<ValueList>
 														<Value>20</Value>
@@ -12004,7 +12612,7 @@
 												<Property Name="NormalOrShuffle" Type="int16" Value="0"/>
 												<Property Name="Pitch" Type="int32">
 													<ValueList>
-														<Value>-70</Value>
+														<Value>-40</Value>
 													</ValueList>
 													<ModifierList>
 														<ModifierInfo>
@@ -12012,17 +12620,17 @@
 																<PropertyList>
 																	<Property Name="Enabled" Type="bool" Value="True"/>
 																	<Property Name="Max" Type="Real64" Value="100"/>
-																	<Property Name="Min" Type="Real64" Value="-100"/>
+																	<Property Name="Min" Type="Real64" Value="-50"/>
 																</PropertyList>
 															</Modifier>
 														</ModifierInfo>
 													</ModifierList>
 												</Property>
 												<Property Name="SpeakerPanning" Type="int16" Value="1"/>
-												<Property Name="SpeakerPanning3DSpatializationMix" Type="int32" Value="78"/>
+												<Property Name="SpeakerPanning3DSpatializationMix" Type="int32" Value="60"/>
 												<Property Name="Volume" Type="Real64">
 													<ValueList>
-														<Value>10</Value>
+														<Value>14</Value>
 													</ValueList>
 													<ModifierList>
 														<ModifierInfo>
@@ -12039,7 +12647,111 @@
 											</PropertyList>
 											<ReferenceList>
 												<Reference Name="Attenuation">
-													<ObjectRef Name="Physically_Based" ID="{7AF96D5E-B0A7-4524-B96B-04F53DEAEC94}" WorkUnitID="{E312AA2F-7D32-49AE-9B3F-853E8C0370AC}"/>
+													<Custom>
+														<Attenuation Name="Attenuation Rage" ID="{CC7D7E02-B957-4394-842F-E1A616F75958}" ShortID="421384253">
+															<PropertyList>
+																<Property Name="ConeInnerAngle" Type="int32" Value="225"/>
+																<Property Name="ConeUse" Type="bool">
+																	<ValueList>
+																		<Value>True</Value>
+																	</ValueList>
+																</Property>
+															</PropertyList>
+															<CurveUsageInfoList>
+																<VolumeDryUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
+																		<Curve Name="VolumeDry" ID="{744C7378-27FC-42EB-8DE7-A205B3C10AC7}">
+																			<PropertyList>
+																				<Property Name="Flags" Type="int32" Value="3"/>
+																			</PropertyList>
+																			<PointList>
+																				<Point>
+																					<XPos>0</XPos>
+																					<YPos>0</YPos>
+																					<Flags>5</Flags>
+																					<SegmentShape>Exp2</SegmentShape>
+																				</Point>
+																				<Point>
+																					<XPos>100</XPos>
+																					<YPos>-200</YPos>
+																					<Flags>37</Flags>
+																				</Point>
+																			</PointList>
+																		</Curve>
+																	</CurveUsageInfo>
+																</VolumeDryUsage>
+																<VolumeWetGameUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="UseVolumeDry"/>
+																</VolumeWetGameUsage>
+																<VolumeWetUserUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="UseVolumeDry"/>
+																</VolumeWetUserUsage>
+																<LowPassFilterUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+																</LowPassFilterUsage>
+																<HighPassFilterUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+																</HighPassFilterUsage>
+																<DualShelfUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+																</DualShelfUsage>
+																<SpreadUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+																</SpreadUsage>
+																<FocusUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+																</FocusUsage>
+																<ObstructionVolumeUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+																</ObstructionVolumeUsage>
+																<ObstructionLPFUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+																</ObstructionLPFUsage>
+																<ObstructionHPFUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+																</ObstructionHPFUsage>
+																<ObstructionDSFUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+																</ObstructionDSFUsage>
+																<OcclusionVolumeUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+																</OcclusionVolumeUsage>
+																<OcclusionLPFUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+																</OcclusionLPFUsage>
+																<OcclusionHPFUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+																</OcclusionHPFUsage>
+																<OcclusionDSFUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+																</OcclusionDSFUsage>
+																<DiffractionVolumeUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+																</DiffractionVolumeUsage>
+																<DiffractionLPFUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+																</DiffractionLPFUsage>
+																<DiffractionHPFUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+																</DiffractionHPFUsage>
+																<DiffractionDSFUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+																</DiffractionDSFUsage>
+																<TransmissionVolumeUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+																</TransmissionVolumeUsage>
+																<TransmissionLPFUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+																</TransmissionLPFUsage>
+																<TransmissionHPFUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+																</TransmissionHPFUsage>
+																<TransmissionDSFUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+																</TransmissionDSFUsage>
+															</CurveUsageInfoList>
+														</Attenuation>
+													</Custom>
 												</Reference>
 												<Reference Name="Conversion">
 													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
@@ -12051,11 +12763,6 @@
 											<ChildrenList>
 												<Sound Name="Rage_01" ID="{04688464-71AA-4DC1-91BA-61AF5177E655}" ShortID="217420728">
 													<PropertyList>
-														<Property Name="Inclusion" Type="bool">
-															<ValueList>
-																<Value>False</Value>
-															</ValueList>
-														</Property>
 														<Property Name="Lowpass" Type="int16">
 															<ModifierList>
 																<ModifierInfo>
@@ -12173,24 +12880,6 @@
 											</PositioningInfo>
 											<ObjectLists>
 												<ObjectList Name="Effects">
-													<EffectSlot Name="" ID="{B3707CE2-3577-42AA-B744-323F914A4511}" ShortID="1019663193">
-														<ReferenceList>
-															<Reference Name="Effect">
-																<Custom>
-																	<Effect Name="Tremolo (Custom)" ID="{49095D76-13DF-4FDD-9598-BA6D9D262F28}" ShortID="605397600" PluginName="Wwise Tremolo" CompanyID="0" PluginID="131" PluginType="3">
-																		<PropertyList>
-																			<Property Name="ModDepth" Type="Real32" Value="45.8"/>
-																			<Property Name="ModFrequency" Type="Real32" Value="1.4"/>
-																			<Property Name="ModPhaseMode" Type="int32" Value="1"/>
-																			<Property Name="ModPhaseSpread" Type="Real32" Value="66"/>
-																			<Property Name="ModSmoothing" Type="Real32" Value="56"/>
-																			<Property Name="ModWaveform" Type="int32" Value="3"/>
-																		</PropertyList>
-																	</Effect>
-																</Custom>
-															</Reference>
-														</ReferenceList>
-													</EffectSlot>
 													<EffectSlot Name="" ID="{BAF07E96-E8E5-4C9D-B04C-FB9F03500AC4}" ShortID="624801110">
 														<ReferenceList>
 															<Reference Name="Effect">
@@ -12230,6 +12919,20 @@
 															</Reference>
 														</ReferenceList>
 													</EffectSlot>
+													<EffectSlot Name="" ID="{438ACC94-AA8F-4D2B-8D2E-E5C01EDB06FF}" ShortID="766979961">
+														<ReferenceList>
+															<Reference Name="Effect">
+																<Custom CreatedFrom="{99F80B38-1C45-42CE-9BCD-E94F3885DCAA}">
+																	<Effect Name="Monsterize (Custom)" ID="{C6F4AEC6-C670-47BC-9CDC-73AA7A99C288}" ShortID="468043768" PluginName="Wwise Pitch Shifter" CompanyID="0" PluginID="136" PluginType="3">
+																		<PropertyList>
+																			<Property Name="FilterFrequency" Type="Real32" Value="2000"/>
+																			<Property Name="Pitch" Type="Real32" Value="-1200"/>
+																		</PropertyList>
+																	</Effect>
+																</Custom>
+															</Reference>
+														</ReferenceList>
+													</EffectSlot>
 													<EffectSlot Name="" ID="{C939650C-660B-42B2-971C-536B2E98F986}" ShortID="761234880">
 														<ReferenceList>
 															<Reference Name="Effect">
@@ -12249,20 +12952,6 @@
 																			<Property Name="PreEQBand2Frequency" Type="Real32" Value="59"/>
 																			<Property Name="PreEQBand2Gain" Type="Real32" Value="1.5"/>
 																			<Property Name="WetDryMix" Type="Real32" Value="56"/>
-																		</PropertyList>
-																	</Effect>
-																</Custom>
-															</Reference>
-														</ReferenceList>
-													</EffectSlot>
-													<EffectSlot Name="" ID="{438ACC94-AA8F-4D2B-8D2E-E5C01EDB06FF}" ShortID="766979961">
-														<ReferenceList>
-															<Reference Name="Effect">
-																<Custom CreatedFrom="{99F80B38-1C45-42CE-9BCD-E94F3885DCAA}">
-																	<Effect Name="Monsterize (Custom)" ID="{C6F4AEC6-C670-47BC-9CDC-73AA7A99C288}" ShortID="468043768" PluginName="Wwise Pitch Shifter" CompanyID="0" PluginID="136" PluginType="3">
-																		<PropertyList>
-																			<Property Name="FilterFrequency" Type="Real32" Value="2000"/>
-																			<Property Name="Pitch" Type="Real32" Value="-1200"/>
 																		</PropertyList>
 																	</Effect>
 																</Custom>
@@ -14936,11 +15625,11 @@
 								<BlendContainer Name="Waterfall" ID="{06FF3339-353F-459D-B997-8DB17C9B5A97}" ShortID="554596114">
 									<PropertyList>
 										<Property Name="3DSpatialization" Type="int16" Value="2"/>
-										<Property Name="AttenuationDistanceScaling" Type="Real32" Value="1.3"/>
+										<Property Name="AttenuationDistanceScaling" Type="Real32" Value="1.7"/>
 										<Property Name="BlendBehavior" Type="int16" Value="1"/>
 										<Property Name="CenterPercentage" Type="int32">
 											<ValueList>
-												<Value>14</Value>
+												<Value>5</Value>
 											</ValueList>
 										</Property>
 										<Property Name="Color" Type="int16" Value="1"/>
@@ -14952,11 +15641,17 @@
 											</ModifierList>
 										</Property>
 										<Property Name="OverrideColor" Type="bool" Value="True"/>
+										<Property Name="Pitch" Type="int32">
+											<ModifierList>
+												<ModifierInfo>
+													<Modifier Name="" ID="{F3616C46-16DE-4FBD-BE84-802D200B55D2}"/>
+												</ModifierInfo>
+											</ModifierList>
+										</Property>
 										<Property Name="SpeakerPanning" Type="int16" Value="1"/>
-										<Property Name="SpeakerPanning3DSpatializationMix" Type="int32" Value="80"/>
 										<Property Name="Volume" Type="Real64">
 											<ValueList>
-												<Value>-4</Value>
+												<Value>-7</Value>
 											</ValueList>
 											<ModifierList>
 												<ModifierInfo>
@@ -15222,7 +15917,7 @@
 										<Property Name="SpeakerPanning3DSpatializationMix" Type="int32" Value="72"/>
 										<Property Name="Volume" Type="Real64">
 											<ValueList>
-												<Value>-6</Value>
+												<Value>-5</Value>
 											</ValueList>
 											<ModifierList>
 												<ModifierInfo>
@@ -16138,6 +16833,13 @@
 										<Sound Name="Death Heart Loop" ID="{6DEC7316-3C48-4636-BB80-CFAFDB58E582}" ShortID="126370109">
 											<PropertyList>
 												<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+												<Property Name="Lowpass" Type="int16">
+													<ModifierList>
+														<ModifierInfo>
+															<Modifier Name="" ID="{A2FC7E93-8316-40C1-B288-B38E4AA45B35}"/>
+														</ModifierInfo>
+													</ModifierList>
+												</Property>
 												<Property Name="OverrideEffect" Type="bool" Value="True"/>
 												<Property Name="Pitch" Type="int32">
 													<ModifierList>
@@ -16180,13 +16882,29 @@
 											</ChildrenList>
 											<ObjectLists>
 												<ObjectList Name="Effects">
+													<EffectSlot Name="" ID="{05776045-198C-4E11-9392-0CCA81185F8C}" ShortID="183321385">
+														<ReferenceList>
+															<Reference Name="Effect">
+																<Custom>
+																	<Effect Name="Parametric EQ (Custom)" ID="{BDB9B345-6037-4036-93DA-90F09F81A528}" ShortID="789529713" PluginName="Wwise Parametric EQ" CompanyID="0" PluginID="105" PluginType="3">
+																		<PropertyList>
+																			<Property Name="FilterTypeBand1" Type="int32" Value="6"/>
+																			<Property Name="FrequencyBand1" Type="Real32" Value="51.99046"/>
+																			<Property Name="GainBand1" Type="Real32" Value="5.080292"/>
+																			<Property Name="QFactorBand1" Type="Real32" Value="0.325"/>
+																		</PropertyList>
+																	</Effect>
+																</Custom>
+															</Reference>
+														</ReferenceList>
+													</EffectSlot>
 													<EffectSlot Name="" ID="{539401A6-8587-41DF-89BD-B79C4DED5C86}" ShortID="205540467">
 														<ReferenceList>
 															<Reference Name="Effect">
 																<Custom>
 																	<Effect Name="Guitar Distortion (Custom)" ID="{0714165A-1374-4A69-A620-AF30CD435A17}" ShortID="1047615131" PluginName="Wwise Guitar Distortion" CompanyID="0" PluginID="126" PluginType="3">
 																		<PropertyList>
-																			<Property Name="DistortionDrive" Type="Real32" Value="2"/>
+																			<Property Name="DistortionDrive" Type="Real32" Value="3"/>
 																			<Property Name="DistortionType" Type="int32" Value="1"/>
 																		</PropertyList>
 																	</Effect>
@@ -16202,6 +16920,13 @@
 										</Sound>
 										<Sound Name="Death Screen 01" ID="{5C5717B7-ACED-4E8D-95CE-B32857B01EFF}" ShortID="773518215">
 											<PropertyList>
+												<Property Name="Lowpass" Type="int16">
+													<ModifierList>
+														<ModifierInfo>
+															<Modifier Name="" ID="{9F8DDBB2-94A7-44C1-AA45-B6B3731B68AA}"/>
+														</ModifierInfo>
+													</ModifierList>
+												</Property>
 												<Property Name="OverrideEffect" Type="bool" Value="True"/>
 												<Property Name="Pitch" Type="int32">
 													<ModifierList>
@@ -16209,6 +16934,11 @@
 															<Modifier Name="" ID="{3112A454-CB29-40E0-9227-53C954E55946}"/>
 														</ModifierInfo>
 													</ModifierList>
+												</Property>
+												<Property Name="Volume" Type="Real64">
+													<ValueList>
+														<Value>2</Value>
+													</ValueList>
 												</Property>
 											</PropertyList>
 											<ReferenceList>
@@ -16221,6 +16951,10 @@
 											</ReferenceList>
 											<ChildrenList>
 												<AudioFileSource Name="SFX_death_screen_01" ID="{E7BB1FA8-AC06-4AAC-A0EF-7B242F9D4415}">
+													<PropertyList>
+														<Property Name="LoopBegin" Type="Real64" Value="0"/>
+														<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+													</PropertyList>
 													<Language>SFX</Language>
 													<AudioFile>SFX_death_screen_01.wav</AudioFile>
 													<MediaIDList>
@@ -16230,6 +16964,26 @@
 											</ChildrenList>
 											<ObjectLists>
 												<ObjectList Name="Effects">
+													<EffectSlot Name="" ID="{A390E049-C027-4C4B-9AA7-08A0C61B4BDD}" ShortID="633075586">
+														<ReferenceList>
+															<Reference Name="Effect">
+																<Custom>
+																	<Effect Name="Parametric EQ (Custom)" ID="{52D5BF96-D449-4BAD-B244-AE7A6ACC12C0}" ShortID="45209036" PluginName="Wwise Parametric EQ" CompanyID="0" PluginID="105" PluginType="3">
+																		<PropertyList>
+																			<Property Name="FilterTypeBand1" Type="int32" Value="6"/>
+																			<Property Name="FrequencyBand1" Type="Real32" Value="31.08274"/>
+																			<Property Name="FrequencyBand2" Type="Real32" Value="7693.72"/>
+																			<Property Name="GainBand1" Type="Real32" Value="3.9"/>
+																			<Property Name="GainBand2" Type="Real32" Value="1.9"/>
+																			<Property Name="OnOffBand2" Type="bool" Value="False"/>
+																			<Property Name="QFactorBand1" Type="Real32" Value="0.325"/>
+																			<Property Name="QFactorBand2" Type="Real32" Value="0.1"/>
+																		</PropertyList>
+																	</Effect>
+																</Custom>
+															</Reference>
+														</ReferenceList>
+													</EffectSlot>
 													<EffectSlot Name="" ID="{369714F1-B4A2-4A0F-ABAE-8F8250FB345F}" ShortID="886171448">
 														<ReferenceList>
 															<Reference Name="Effect">
@@ -16252,6 +17006,13 @@
 										</Sound>
 										<Sound Name="Death Screen 02" ID="{63E4F588-3731-4638-9610-AEF132D00B09}" ShortID="389499020">
 											<PropertyList>
+												<Property Name="Lowpass" Type="int16">
+													<ModifierList>
+														<ModifierInfo>
+															<Modifier Name="" ID="{38805730-2C92-4A79-B060-22DE190839D8}"/>
+														</ModifierInfo>
+													</ModifierList>
+												</Property>
 												<Property Name="OverrideEffect" Type="bool" Value="True"/>
 												<Property Name="Pitch" Type="int32">
 													<ModifierList>
@@ -16259,6 +17020,11 @@
 															<Modifier Name="" ID="{E029C72B-0E86-4398-AE69-24A6C66547EB}"/>
 														</ModifierInfo>
 													</ModifierList>
+												</Property>
+												<Property Name="Volume" Type="Real64">
+													<ValueList>
+														<Value>-3</Value>
+													</ValueList>
 												</Property>
 											</PropertyList>
 											<ReferenceList>
@@ -16291,8 +17057,8 @@
 																<Custom>
 																	<Effect Name="Guitar Distortion (Custom)" ID="{6C69DC9D-FC7A-41CE-ADA2-02DF4383719E}" ShortID="774526928" PluginName="Wwise Guitar Distortion" CompanyID="0" PluginID="126" PluginType="3">
 																		<PropertyList>
-																			<Property Name="DistortionDrive" Type="Real32" Value="1"/>
-																			<Property Name="DistortionType" Type="int32" Value="1"/>
+																			<Property Name="DistortionDrive" Type="Real32" Value="60"/>
+																			<Property Name="DistortionType" Type="int32" Value="3"/>
 																		</PropertyList>
 																	</Effect>
 																</Custom>
@@ -16316,6 +17082,12 @@
 																<PropertyList>
 																	<Property Name="DistortionDrive" Type="Real32" Value="2"/>
 																	<Property Name="DistortionType" Type="int32" Value="1"/>
+																	<Property Name="PostEQBand1FilterType" Type="int32" Value="1"/>
+																	<Property Name="PostEQBand1Frequency" Type="Real32" Value="57"/>
+																	<Property Name="PostEQBand1QFactor" Type="Real32" Value="7"/>
+																	<Property Name="PreEQBand1FilterType" Type="int32" Value="1"/>
+																	<Property Name="PreEQBand1Frequency" Type="Real32" Value="84"/>
+																	<Property Name="PreEQBand1QFactor" Type="Real32" Value="14.7"/>
 																</PropertyList>
 															</Effect>
 														</Custom>
@@ -16562,7 +17334,7 @@
 										</Property>
 										<Property Name="Volume" Type="Real64">
 											<ValueList>
-												<Value>-5</Value>
+												<Value>-3</Value>
 											</ValueList>
 											<ModifierList>
 												<ModifierInfo>
@@ -17962,79 +18734,15 @@
 								<Property Name="Color" Type="int16" Value="4"/>
 							</PropertyList>
 							<ChildrenList>
-								<Sound Name="Entering Combat" ID="{17C11089-2DA8-44CB-A08B-D030FE9D452F}" ShortID="1000959289">
-									<PropertyList>
-										<Property Name="Pitch" Type="int32">
-											<ValueList>
-												<Value>-530</Value>
-											</ValueList>
-											<ModifierList>
-												<ModifierInfo>
-													<Modifier Name="" ID="{007549C8-929C-4E8D-975C-D8BA09F65844}"/>
-												</ModifierInfo>
-											</ModifierList>
-										</Property>
-										<Property Name="Volume" Type="Real64">
-											<ValueList>
-												<Value>3</Value>
-											</ValueList>
-											<ModifierList>
-												<ModifierInfo>
-													<Modifier Name="" ID="{ABBEE2A1-75D3-4BA6-B319-0FB6CC8682B8}"/>
-												</ModifierInfo>
-											</ModifierList>
-										</Property>
-									</PropertyList>
-									<ReferenceList>
-										<Reference Name="Conversion">
-											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
-										</Reference>
-										<Reference Name="OutputBus">
-											<ObjectRef Name="Main Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
-										</Reference>
-									</ReferenceList>
-									<ChildrenList>
-										<AudioFileSource Name="SFX_begin_combat_01" ID="{DA46C1B9-031D-4159-A35B-9C2D42F9E5D2}">
-											<Language>SFX</Language>
-											<AudioFile>SFX_begin_combat_01.wav</AudioFile>
-											<MediaIDList>
-												<MediaID ID="266109836"/>
-											</MediaIDList>
-										</AudioFileSource>
-									</ChildrenList>
-									<ObjectLists>
-										<ObjectList Name="Effects">
-											<EffectSlot Name="" ID="{D22850B2-CDA2-45A3-AA40-8930387F3C32}" ShortID="58779621">
-												<ReferenceList>
-													<Reference Name="Effect">
-														<Custom>
-															<Effect Name="Guitar Distortion (Custom)" ID="{EC0AC1E9-6D92-4C53-A5A9-87CA93F1D4EB}" ShortID="554751218" PluginName="Wwise Guitar Distortion" CompanyID="0" PluginID="126" PluginType="3">
-																<PropertyList>
-																	<Property Name="DistortionDrive" Type="Real32" Value="24"/>
-																	<Property Name="DistortionTone" Type="Real32" Value="100"/>
-																	<Property Name="DistortionType" Type="int32" Value="1"/>
-																	<Property Name="OutputLevel" Type="Real32" Value="1"/>
-																</PropertyList>
-															</Effect>
-														</Custom>
-													</Reference>
-												</ReferenceList>
-											</EffectSlot>
-											<EffectSlot Name="" ID="{D8D222DA-F25A-408E-BC7B-6C75001AB91B}" ShortID="492284234">
-												<ReferenceList>
-													<Reference Name="Effect" PluginName="Wwise Matrix Reverb" CompanyID="0" PluginID="115" PluginType="3">
-														<ObjectRef Name="Large_Church1" ID="{9B6E8B78-EF8C-494C-AADA-D01CF51B5FAC}" WorkUnitID="{E8613F7D-BAD3-45CD-A3ED-505576F31277}"/>
-													</Reference>
-												</ReferenceList>
-											</EffectSlot>
-										</ObjectList>
-									</ObjectLists>
-									<ActiveSourceList>
-										<ActiveSource Name="SFX_begin_combat_01" ID="{DA46C1B9-031D-4159-A35B-9C2D42F9E5D2}" Platform="Linked"/>
-									</ActiveSourceList>
-								</Sound>
 								<Sound Name="Full Energy" ID="{006893EA-F460-488C-A46D-23C0148C62F6}" ShortID="596521927">
 									<PropertyList>
+										<Property Name="Lowpass" Type="int16">
+											<ModifierList>
+												<ModifierInfo>
+													<Modifier Name="" ID="{B8A55D2F-52F6-4CFC-84F6-C8E9FCEFB309}"/>
+												</ModifierInfo>
+											</ModifierList>
+										</Property>
 										<Property Name="Pitch" Type="int32">
 											<ModifierList>
 												<ModifierInfo>
@@ -18111,6 +18819,13 @@
 								</Sound>
 								<Sound Name="Ultimate Charged" ID="{DC328AFA-321B-4F1E-97E3-A850CB09FFC9}" ShortID="1009802785">
 									<PropertyList>
+										<Property Name="Lowpass" Type="int16">
+											<ModifierList>
+												<ModifierInfo>
+													<Modifier Name="" ID="{D5E5B8F6-94B8-4EBE-AAB0-478891FC04DC}"/>
+												</ModifierInfo>
+											</ModifierList>
+										</Property>
 										<Property Name="Pitch" Type="int32">
 											<ModifierList>
 												<ModifierInfo>
@@ -18181,6 +18896,96 @@
 										<ActiveSource Name="SFX_ultimate_charged_01" ID="{76875623-CB28-4AA0-9036-97F393068837}" Platform="Linked"/>
 									</ActiveSourceList>
 								</Sound>
+								<BlendContainer Name="Enter Combat" ID="{6C55FA63-49B9-4FCF-95F8-C4151529D0F1}" ShortID="70292061">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Main Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<Sound Name="Entering Combat" ID="{17C11089-2DA8-44CB-A08B-D030FE9D452F}" ShortID="1000959289">
+											<PropertyList>
+												<Property Name="Lowpass" Type="int16">
+													<ModifierList>
+														<ModifierInfo>
+															<Modifier Name="" ID="{239F03CB-44E5-4CA1-BE1B-E72519794E78}"/>
+														</ModifierInfo>
+													</ModifierList>
+												</Property>
+												<Property Name="Pitch" Type="int32">
+													<ValueList>
+														<Value>-530</Value>
+													</ValueList>
+													<ModifierList>
+														<ModifierInfo>
+															<Modifier Name="" ID="{007549C8-929C-4E8D-975C-D8BA09F65844}"/>
+														</ModifierInfo>
+													</ModifierList>
+												</Property>
+												<Property Name="Volume" Type="Real64">
+													<ValueList>
+														<Value>3</Value>
+													</ValueList>
+													<ModifierList>
+														<ModifierInfo>
+															<Modifier Name="" ID="{ABBEE2A1-75D3-4BA6-B319-0FB6CC8682B8}"/>
+														</ModifierInfo>
+													</ModifierList>
+												</Property>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{96674D6F-0B46-463E-944C-8DF657D0F0D3}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Main Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{6B577FA1-AA29-4ED7-9F0E-1C9B767DF0D1}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="SFX_begin_combat_01" ID="{DA46C1B9-031D-4159-A35B-9C2D42F9E5D2}">
+													<Language>SFX</Language>
+													<AudioFile>SFX_begin_combat_01.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="266109836"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ObjectLists>
+												<ObjectList Name="Effects">
+													<EffectSlot Name="" ID="{D22850B2-CDA2-45A3-AA40-8930387F3C32}" ShortID="58779621">
+														<ReferenceList>
+															<Reference Name="Effect">
+																<Custom>
+																	<Effect Name="Guitar Distortion (Custom)" ID="{EC0AC1E9-6D92-4C53-A5A9-87CA93F1D4EB}" ShortID="554751218" PluginName="Wwise Guitar Distortion" CompanyID="0" PluginID="126" PluginType="3">
+																		<PropertyList>
+																			<Property Name="DistortionDrive" Type="Real32" Value="24"/>
+																			<Property Name="DistortionTone" Type="Real32" Value="100"/>
+																			<Property Name="DistortionType" Type="int32" Value="1"/>
+																			<Property Name="OutputLevel" Type="Real32" Value="1"/>
+																		</PropertyList>
+																	</Effect>
+																</Custom>
+															</Reference>
+														</ReferenceList>
+													</EffectSlot>
+													<EffectSlot Name="" ID="{D8D222DA-F25A-408E-BC7B-6C75001AB91B}" ShortID="492284234">
+														<ReferenceList>
+															<Reference Name="Effect" PluginName="Wwise Matrix Reverb" CompanyID="0" PluginID="115" PluginType="3">
+																<ObjectRef Name="Large_Church1" ID="{9B6E8B78-EF8C-494C-AADA-D01CF51B5FAC}" WorkUnitID="{E8613F7D-BAD3-45CD-A3ED-505576F31277}"/>
+															</Reference>
+														</ReferenceList>
+													</EffectSlot>
+												</ObjectList>
+											</ObjectLists>
+											<ActiveSourceList>
+												<ActiveSource Name="SFX_begin_combat_01" ID="{DA46C1B9-031D-4159-A35B-9C2D42F9E5D2}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+									</ChildrenList>
+								</BlendContainer>
 							</ChildrenList>
 						</Folder>
 						<Folder Name="Loading Screen" ID="{AED3152C-5479-4F8C-BDA4-014DA383C76A}" ShortID="209887297">

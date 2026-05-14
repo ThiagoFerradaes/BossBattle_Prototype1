@@ -10,7 +10,7 @@
     "Type": "Event",
     "GUID": "{99234AE8-6C3A-416B-9B53-8945FFD566DD}",
     "Language": "SFX",
-    "Hash": "{F2C7AE24-73C7-45CC-59C0-F127775ED4CC}",
+    "Hash": "{AE231DF5-0DC2-D908-3FC8-400CEF94AF2C}",
     "ObjectPath": "Play_Tentacle_Entrance",
     "ShortName": "Play_Tentacle_Entrance",
     "Path": "Event/Play_Tentacle_Entrance.bnk",
@@ -45,12 +45,28 @@
        "LibId": "8519683"
       },
       {
+       "Id": "86417588",
+       "Name": "Parametric EQ (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\Tentacles\\Entrance\\Tentacle Entrance\\Wave_01\\[Effect Slot [1]: (Parametric EQ)]\\Parametric EQ (Custom)",
+       "GUID": "{5BB71F95-B26E-44CF-AA30-31A88170A3A4}",
+       "LibName": "Wwise Parametric EQ",
+       "LibId": "6881283"
+      },
+      {
        "Id": "463212634",
        "Name": "Monsterize (Custom)",
        "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\Tentacles\\Entrance\\Tentacle Entrance\\Entrance\\[Effect Slot [2]: (Pitch Shifter)]\\Monsterize (Custom)",
        "GUID": "{3C1A50CA-3675-46B0-9532-611369B03EBB}",
        "LibName": "Wwise Pitch Shifter",
        "LibId": "8912899"
+      },
+      {
+       "Id": "807789752",
+       "Name": "Parametric EQ (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\Tentacles\\Entrance\\Tentacle Entrance\\Entrance\\[Effect Slot [3]: (Parametric EQ)]\\Parametric EQ (Custom)",
+       "GUID": "{0CC0B32C-7FE7-4C9D-BF52-FC9F496FD1DF}",
+       "LibName": "Wwise Parametric EQ",
+       "LibId": "6881283"
       },
       {
        "Id": "909386132",
@@ -77,7 +93,7 @@
       "ObjectPath": "\\Events\\Default Work Unit\\SFX\\Kraken\\Tentacles\\Entrance\\Play_Tentacle_Entrance",
       "GUID": "{99234AE8-6C3A-416B-9B53-8945FFD566DD}",
       "Color": "8",
-      "MaxAttenuation": "100",
+      "MaxAttenuation": "125",
       "DurationType": "Infinite",
       "MediaRefs": [
        {
@@ -93,7 +109,13 @@
          "Id": "65469704"
         },
         {
+         "Id": "86417588"
+        },
+        {
          "Id": "463212634"
+        },
+        {
+         "Id": "807789752"
         },
         {
          "Id": "909386132"
@@ -107,6 +129,6 @@
     ]
    }
   ],
-  "FileHash": "{117DEF3B-531A-D0B8-C92A-4B7F8CE4CB78}"
+  "FileHash": "{FA85A60A-1F4A-B2A4-9CCD-C41DACB076B2}"
  }
 }
