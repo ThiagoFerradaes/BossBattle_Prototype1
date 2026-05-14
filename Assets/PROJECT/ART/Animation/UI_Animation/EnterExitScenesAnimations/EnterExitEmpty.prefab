@@ -461,6 +461,7 @@ GameObject:
   - component: {fileID: 4810593498059930868}
   - component: {fileID: 1311542987011420505}
   - component: {fileID: 1127918418498661135}
+  - component: {fileID: 6319295983588791987}
   m_Layer: 5
   m_Name: EnterExitEmpty
   m_TagString: Untagged
@@ -523,3 +524,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8208985323558757265}
   m_CullTransparentMesh: 1
+--- !u!114 &6319295983588791987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8208985323558757265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d36334138fbece040a48382a65480c9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnterExitAnimationManager
+  anim: {fileID: 1311542987011420505}
+  exitAnimationStateName: ExitScenesAnim
+  exitAnimationDuration: 1.5

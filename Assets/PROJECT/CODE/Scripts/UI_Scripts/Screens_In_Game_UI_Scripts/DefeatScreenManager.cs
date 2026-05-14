@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -12,6 +14,15 @@ public class DefeatScreenManager : MonoBehaviour {
     [SerializeField] LoadingScreenSO tavernLoadingInfo;
     [SerializeField] AK.Wwise.Event defeatMusic;
 
+    [Header("Animation")]
+    [SerializeField] EnterExitAnimationManager enterExitAnimationManager;
+
+    // Coroutines
+    Coroutine _exitAnimationCoroutine;
+
+    // AsyncOperation
+    AsyncOperation _loadinOperation;
+
     private void Awake() {
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
@@ -19,17 +30,9 @@ public class DefeatScreenManager : MonoBehaviour {
         SetButton();
     }
     void SetButton() {
-        menuButton.onClick.AddListener(() => {
-            LoadingScreenManager.CurrentLoadingScreenInfo = menuLoadingInfo;
-            SceneManager.LoadScene(1);
-            Time.timeScale = 1;
-        });
-        tavernButton.onClick.AddListener(() => {
-            LoadingScreenManager.CurrentLoadingScreenInfo = tavernLoadingInfo;
-            SceneManager.LoadScene(1);
-            Time.timeScale = 1;
-        });
-        retryButton.onClick.AddListener(RetryButton);
+        menuButton.onClick.AddListener(() => Exit(MenuButton));
+        tavernButton.onClick.AddListener(() => Exit(TavernButton));
+        retryButton.onClick.AddListener(() => Exit(RetryButton));
     }
 
     public void InitializeDefeatScreen() {
@@ -40,11 +43,39 @@ public class DefeatScreenManager : MonoBehaviour {
         defeatMusic.Post(gameObject);
     }
 
+    void MenuButton() {
+        LoadingScreenManager.CurrentLoadingScreenInfo = menuLoadingInfo;
+        _loadinOperation = SceneManager.LoadSceneAsync(1);
+
+        _loadinOperation.allowSceneActivation = false;
+    }
+
+    void TavernButton() {
+        LoadingScreenManager.CurrentLoadingScreenInfo = tavernLoadingInfo;
+        _loadinOperation = SceneManager.LoadSceneAsync(1);
+        _loadinOperation.allowSceneActivation = false;
+    }
+
     void RetryButton() {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        Time.timeScale = 1;
+        _loadinOperation = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
+        _loadinOperation.allowSceneActivation = false;
     }
     void TurnScreenOff() {
         defeatScreen.SetActive(false);
+    }
+
+    void Exit (Action postYieldAction) {
+        _exitAnimationCoroutine ??= StartCoroutine(ExitRoutine(postYieldAction));
+    }
+
+    IEnumerator ExitRoutine(Action postYieldAction) {
+        postYieldAction();
+
+        yield return enterExitAnimationManager.ReturnExitAnimationCoroutine(true);
+
+        _exitAnimationCoroutine = null;
+
+        _loadinOperation.allowSceneActivation = true;
+        Time.timeScale = 1;
     }
 }

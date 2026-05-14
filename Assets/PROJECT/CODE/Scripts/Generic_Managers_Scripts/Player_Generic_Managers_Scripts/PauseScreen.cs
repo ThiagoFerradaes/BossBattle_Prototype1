@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -19,7 +20,16 @@ public class PauseScreen : MonoBehaviour {
     [SerializeField] Configuration configScreen;
     [SerializeField] InputActionReference cancelAction;
 
+    [Header("Animation")]
+    [SerializeField] EnterExitAnimationManager enterAndExitAnimator;
+
     public event Action OnDespause;
+
+    // Coroutines
+    Coroutine _endAnimationCoroutine;
+
+    // AsyncOperation
+    AsyncOperation _loadSceneAsyncOperation;
 
     private void Awake() {
         if (Instance == null) Instance = this;
@@ -39,11 +49,7 @@ public class PauseScreen : MonoBehaviour {
     }
     void SetButton() {
 
-        menuButton.onClick.AddListener(() => {
-            LoadingScreenManager.CurrentLoadingScreenInfo = menuScreenInfo;
-            SceneManager.LoadScene(1);
-            Time.timeScale = 1;
-        });
+        menuButton.onClick.AddListener(MenuButton);
 
         continueButton.onClick.AddListener(() => TurnScreenOff());
 
@@ -51,9 +57,26 @@ public class PauseScreen : MonoBehaviour {
 
         configButton.onClick.AddListener(() => configScreen.InitializeConfigurationScreen());
 
-        
+
     }
 
+    void MenuButton() {
+        LoadingScreenManager.CurrentLoadingScreenInfo = menuScreenInfo;
+        _loadSceneAsyncOperation = SceneManager.LoadSceneAsync(1);
+        _loadSceneAsyncOperation.allowSceneActivation = false;
+
+        _endAnimationCoroutine ??= StartCoroutine(EndAnimationCoroutine());
+    }
+
+    IEnumerator EndAnimationCoroutine() {
+
+        yield return enterAndExitAnimator.ReturnExitAnimationCoroutine(true);
+
+        _endAnimationCoroutine = null;
+        
+        _loadSceneAsyncOperation.allowSceneActivation = true;
+        Time.timeScale = 1;
+    }
     public void Pause() {
         if (Time.timeScale == 1 && !pauseScreen.activeInHierarchy) {
             TurnScreenOn();

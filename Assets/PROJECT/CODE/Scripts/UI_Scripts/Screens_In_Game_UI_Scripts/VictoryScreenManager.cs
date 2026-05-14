@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -11,6 +13,13 @@ public class VictoryScreenManager : MonoBehaviour
     [SerializeField] LoadingScreenSO menuLoadingInfo;
     [SerializeField] LoadingScreenSO tavernLoadingInfo;
     [SerializeField] AK.Wwise.Event victoryMusic;
+    [SerializeField] EnterExitAnimationManager enterExitAnimationManager;
+
+    // Coroutines 
+    Coroutine _exitAnimationCoroutine;
+
+    // AsyncOperation
+    AsyncOperation _loadingOperation;
 
     private void Awake()
     {
@@ -21,19 +30,8 @@ public class VictoryScreenManager : MonoBehaviour
     }
     void SetButton()
     {
-        menuButton.onClick.AddListener(() =>
-        {
-            LoadingScreenManager.CurrentLoadingScreenInfo = menuLoadingInfo;
-            SceneManager.LoadScene(1);
-            Time.timeScale = 1;
-        });
-        tavernButton.onClick.AddListener(() =>
-        {
-            LoadingScreenManager.CurrentLoadingScreenInfo = tavernLoadingInfo;
-            SceneManager.LoadScene(1);
-            Time.timeScale = 1;
-        }
-        );
+        menuButton.onClick.AddListener(() => Exit(MenuButton));
+        tavernButton.onClick.AddListener(() => Exit(TavernButton));
     }
 
     public void InitializeVictoryScreen()
@@ -45,8 +43,36 @@ public class VictoryScreenManager : MonoBehaviour
         victoryMusic.Post(gameObject);
     }
 
+    void MenuButton() {
+        LoadingScreenManager.CurrentLoadingScreenInfo = menuLoadingInfo;
+        _loadingOperation = SceneManager.LoadSceneAsync(1);
+
+        _loadingOperation.allowSceneActivation = false;
+    }
+
+    void TavernButton() {
+        LoadingScreenManager.CurrentLoadingScreenInfo = tavernLoadingInfo;
+        _loadingOperation = SceneManager.LoadSceneAsync(1);
+        _loadingOperation.allowSceneActivation = false;
+    }
+
     void TurnScreenOff()
     {
         victoryScreen.SetActive(false);
+    }
+
+    void Exit(Action postYieldAction) {
+        _exitAnimationCoroutine ??= StartCoroutine(ExitRoutine(postYieldAction));
+    }
+
+    IEnumerator ExitRoutine(Action postYieldAction) {
+        postYieldAction();
+
+        yield return enterExitAnimationManager.ReturnExitAnimationCoroutine(true);
+
+        _exitAnimationCoroutine = null;
+
+        _loadingOperation.allowSceneActivation = true;
+        Time.timeScale = 1;
     }
 }

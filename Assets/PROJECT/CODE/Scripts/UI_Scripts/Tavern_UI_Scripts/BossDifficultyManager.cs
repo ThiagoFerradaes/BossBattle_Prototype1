@@ -1,5 +1,6 @@
 using NaughtyAttributes;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -34,6 +35,8 @@ public class BossDifficultyManager : MonoBehaviour
     [Foldout("Sprites"), SerializeField] LocalizedSprite CharacterSelectionSelectedLocalizedSprite;
     [Foldout("Sprites"), SerializeField] LocalizedSprite CharacterSelectionUnselectedLocalizedSprite;
 
+    [Foldout("Animation"), SerializeField] EnterExitAnimationManager enterAndExitAnimator;
+
     int _currentDifficulty = 0;
 
     public event Action OnCloseMap;
@@ -41,9 +44,16 @@ public class BossDifficultyManager : MonoBehaviour
 
     CharacterSO _currentSelectedCharacter;
 
+    // Coroutines
+    Coroutine _exitAnimationRoutine;
+
+    // AssyncOperation
+    AsyncOperation _loadingOperation;
+
     private void Awake() {
         _onChangeSelectedCharacter = OnChangeSelectedCharacter; 
         SetButtons();
+
     }
     private void Start() {
         CurrentSelectedCharacterWhiteBoard.Instance.OnSelectedCharacterChanged += _onChangeSelectedCharacter;
@@ -114,7 +124,18 @@ public class BossDifficultyManager : MonoBehaviour
     void Sail(BossDescription description) {
         LoadingScreenManager.CurrentLoadingScreenInfo = description.LoadingScreen[_currentDifficulty];
         OnCloseMap?.Invoke();
-        SceneManager.LoadScene(1);
+        _loadingOperation = SceneManager.LoadSceneAsync(1);
+        _loadingOperation.allowSceneActivation = false;
+
+        _exitAnimationRoutine ??= StartCoroutine(WaitForExitAnimationCoroutine());
+    }
+
+    IEnumerator WaitForExitAnimationCoroutine() {
+
+        yield return enterAndExitAnimator.ReturnExitAnimationCoroutine();
+
+        _exitAnimationRoutine = null;
+        _loadingOperation.allowSceneActivation = true;
     }
 
     void SelectDifficulty(int difficulty) {
