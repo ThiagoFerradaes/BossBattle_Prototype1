@@ -3,8 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerHealthUI : MonoBehaviour
-{
+public class PlayerHealthUI : MonoBehaviour {
     [Header("Health Components")]
     [SerializeField] Image healthBar;
     [SerializeField] Image damageBar;
@@ -16,6 +15,11 @@ public class PlayerHealthUI : MonoBehaviour
 
     [Header("Energy Components")]
     [SerializeField] Image energyBar;
+    [SerializeField] CanvasGroup ultimateCanvasGroup;
+    [SerializeField] GameObject ultimateReadyFlashVFX;
+    [SerializeField] float ultimateCanvasGroupNoUltimateAlpha;
+    [SerializeField] float ultimateCanvasGroupUltimateReadyAlpha;
+    [SerializeField] float ultimateReadyFlashVFXDuration;
     [SerializeField] AK.Wwise.Event soundWhenEnergyAtMax;
 
     [Header("AnimatedBackgrounds")]
@@ -30,7 +34,9 @@ public class PlayerHealthUI : MonoBehaviour
     Action<float, float> _healthChangeAction, _shieldChangeAction, _energyChangeAction;
 
     // Corrotinas
-    Coroutine damageBarCoroutine;
+    Coroutine damageBarCoroutine, flashCoroutine;
+
+    WaitForSeconds flashWaitForSeconds;
 
     private void Start() {
         _player = PlayerManager.Instance.Player;
@@ -48,13 +54,21 @@ public class PlayerHealthUI : MonoBehaviour
         UpdateHealthUI(1, 1);
         UpdateShieldUI(0, 1);
         UpdateEnergyUI(0, 1);
+
+        flashWaitForSeconds = new(ultimateReadyFlashVFXDuration);
     }
 
-    public void SetUi()
-    {
+    private void OnDestroy() {
+        _healthManager.OnHealthChanged -= _healthChangeAction;
+        _healthManager.OnShieldChanged -= _shieldChangeAction;
+        EnergyManager.OnEnergyValueChanged -= _energyChangeAction;
+    }
+
+    public void SetUi() {
         Start();
     }
-    
+
+    #region Health Region
     void UpdateHealthUI(float currentHealth, float maxHealth) {
         float oldHealth = healthBar.fillAmount;
 
@@ -81,6 +95,9 @@ public class PlayerHealthUI : MonoBehaviour
         shieldBar.fillAmount = currentShield / maxShield;
     }
 
+    #endregion
+
+    #region Energy Region
     void UpdateEnergyUI(float currentEnergy, float maxEnergy) {
         energyBar.fillAmount = currentEnergy / maxEnergy;
 
@@ -91,6 +108,7 @@ public class PlayerHealthUI : MonoBehaviour
         if (!isOn) {
             cyrusAnimatedBackground.SetActive(false);
             bastianAnimatedBackground.SetActive(false);
+            ultimateCanvasGroup.alpha = ultimateCanvasGroupNoUltimateAlpha;
             return;
         }
 
@@ -101,12 +119,20 @@ public class PlayerHealthUI : MonoBehaviour
             case Character.Bastian: bastianAnimatedBackground.SetActive(true); break;
         }
 
+        ultimateCanvasGroup.alpha = ultimateCanvasGroupUltimateReadyAlpha;
+
+        flashCoroutine ??= StartCoroutine(UltimateReadyFlashVFXCoroutine());
+
         soundWhenEnergyAtMax.Post(gameObject);
     }
 
-    private void OnDestroy() {
-        _healthManager.OnHealthChanged -= _healthChangeAction;
-        _healthManager.OnShieldChanged -= _shieldChangeAction;
-        EnergyManager.OnEnergyValueChanged -= _energyChangeAction;
+    IEnumerator UltimateReadyFlashVFXCoroutine() {
+        ultimateReadyFlashVFX.SetActive(true);
+        yield return flashWaitForSeconds;
+        ultimateReadyFlashVFX.SetActive(false);
+
+        flashCoroutine = null;
     }
+
+    #endregion
 }

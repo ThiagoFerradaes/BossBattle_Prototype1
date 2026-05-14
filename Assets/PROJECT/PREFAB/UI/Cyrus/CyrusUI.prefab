@@ -321,6 +321,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4728410743927993597}
+  - component: {fileID: 5957121290198279174}
   m_Layer: 5
   m_Name: RankText
   m_TagString: Untagged
@@ -338,7 +339,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5836686511321781181}
   - {fileID: 834020130837918481}
@@ -350,6 +351,28 @@ RectTransform:
   m_AnchoredPosition: {x: -53, y: 57}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!95 &5957121290198279174
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1964781490741475771}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4eebb112409ed254cae856c084cd3510, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2198124668745324110
 GameObject:
   m_ObjectHideFlags: 0
@@ -792,7 +815,10 @@ MonoBehaviour:
     m_WaitForCompletion: 0
     m_LocalVariables: []
   maxRankAnimation: {fileID: 404055970249916875}
+  rankLevelUpAnimator: {fileID: 5957121290198279174}
   levelUpTime: 0.5
+  animationDuration: 2
+  animationStateName: Animation
   dictionaryOfImages:
     _serializedList:
     - Key: 1
