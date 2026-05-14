@@ -15,10 +15,10 @@ public class PlayerHealthUI : MonoBehaviour {
 
     [Header("Energy Components")]
     [SerializeField] Image energyBar;
-    [SerializeField] CanvasGroup ultimateCanvasGroup;
+    [SerializeField] Image ultimateImage;
     [SerializeField] GameObject ultimateReadyFlashVFX;
-    [SerializeField] float ultimateCanvasGroupNoUltimateAlpha;
-    [SerializeField] float ultimateCanvasGroupUltimateReadyAlpha;
+    [SerializeField] Color ultimateCanvasGroupNoUltimateColor;
+    [SerializeField] Color ultimateCanvasGroupUltimateReadyColor;
     [SerializeField] float ultimateReadyFlashVFXDuration;
     [SerializeField] AK.Wwise.Event soundWhenEnergyAtMax;
 
@@ -108,7 +108,7 @@ public class PlayerHealthUI : MonoBehaviour {
         if (!isOn) {
             cyrusAnimatedBackground.SetActive(false);
             bastianAnimatedBackground.SetActive(false);
-            ultimateCanvasGroup.alpha = ultimateCanvasGroupNoUltimateAlpha;
+            ultimateImage.color = ultimateCanvasGroupNoUltimateColor;
             return;
         }
 
@@ -119,7 +119,7 @@ public class PlayerHealthUI : MonoBehaviour {
             case Character.Bastian: bastianAnimatedBackground.SetActive(true); break;
         }
 
-        ultimateCanvasGroup.alpha = ultimateCanvasGroupUltimateReadyAlpha;
+        ultimateImage.color = ultimateCanvasGroupUltimateReadyColor;
 
         flashCoroutine ??= StartCoroutine(UltimateReadyFlashVFXCoroutine());
 
