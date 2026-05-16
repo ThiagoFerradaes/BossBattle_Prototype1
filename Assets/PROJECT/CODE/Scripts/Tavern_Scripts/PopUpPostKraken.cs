@@ -7,6 +7,8 @@ public class PopUpPostKraken : MonoBehaviour {
     [SerializeField] GameObject popUpScreen;
     [SerializeField] Sprite closeButtonHoover;
     [SerializeField] Sprite closeButtonUnHoover;
+    [SerializeField] Animator enterAndExitAnimatior;
+    [SerializeField] string enterAnimationStateName;
 
     void Start() {
 
@@ -32,10 +34,14 @@ public class PopUpPostKraken : MonoBehaviour {
     void TurnScreenOn() {
         popUpScreen.SetActive(true);
         Time.timeScale = 0;
+
+        enterAndExitAnimatior.updateMode = AnimatorUpdateMode.UnscaledTime;
+        enterAndExitAnimatior.Play(enterAnimationStateName);
     }
     void TurnScreenOff() {
         popUpScreen.SetActive(false);
         Time.timeScale = 1;
+        enterAndExitAnimatior.updateMode = AnimatorUpdateMode.Normal;
     }
 
     void CloseButton() {
