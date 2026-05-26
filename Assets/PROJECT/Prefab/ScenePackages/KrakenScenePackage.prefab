@@ -1267,6 +1267,10 @@ MonoBehaviour:
   closeButton: {fileID: 6950388328522431338}
   closeButtonSelected: {fileID: 958699022, guid: baedb4a02b06b5749a80811681ac50f4, type: 3}
   closeButtonUnSelected: {fileID: -1879273905, guid: baedb4a02b06b5749a80811681ac50f4, type: 3}
+  combatMusic:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 0}
 --- !u!1 &6546381054389583693
 GameObject:
   m_ObjectHideFlags: 0
@@ -1912,6 +1916,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4136320398230416597}
     m_Modifications:
+    - target: {fileID: 479240121273779435, guid: 7a101884363179e45af468e6e0227d0d, type: 3}
+      propertyPath: enterExitAnimationManager
+      value: 
+      objectReference: {fileID: 106670054947703020}
     - target: {fileID: 1465079226409234391, guid: 7a101884363179e45af468e6e0227d0d, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -2060,7 +2068,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4810593498059930868, guid: 0ef1ee4d0bbb39746ad5784a43cf1ccb, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -132.09651
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4810593498059930868, guid: 0ef1ee4d0bbb39746ad5784a43cf1ccb, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2107,6 +2115,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0ef1ee4d0bbb39746ad5784a43cf1ccb, type: 3}
+--- !u!114 &106670054947703020 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6319295983588791987, guid: 0ef1ee4d0bbb39746ad5784a43cf1ccb, type: 3}
+  m_PrefabInstance: {fileID: 6253338168486567519}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d36334138fbece040a48382a65480c9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnterExitAnimationManager
 --- !u!224 &1444240006328804011 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4810593498059930868, guid: 0ef1ee4d0bbb39746ad5784a43cf1ccb, type: 3}
@@ -2120,6 +2139,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4136320398230416597}
     m_Modifications:
+    - target: {fileID: 1350004843148010860, guid: 236214b26c271bb438dfbe830242277b, type: 3}
+      propertyPath: enterExitAnimationManager
+      value: 
+      objectReference: {fileID: 106670054947703020}
     - target: {fileID: 6810627657790674539, guid: 236214b26c271bb438dfbe830242277b, type: 3}
       propertyPath: m_Name
       value: DefeatScreen
@@ -2207,6 +2230,10 @@ PrefabInstance:
     - target: {fileID: 8232176373806252673, guid: 236214b26c271bb438dfbe830242277b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997709353921157684, guid: 236214b26c271bb438dfbe830242277b, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4278916125
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2374,6 +2401,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8254240346806342092, guid: dc357ee133909a646b87acd060025104, type: 3}
+      propertyPath: enterAndExitAnimator
+      value: 
+      objectReference: {fileID: 106670054947703020}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

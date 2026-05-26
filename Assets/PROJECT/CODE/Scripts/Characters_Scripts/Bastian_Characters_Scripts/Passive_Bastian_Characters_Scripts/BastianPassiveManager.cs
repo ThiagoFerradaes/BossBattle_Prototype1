@@ -25,6 +25,7 @@ public class BastianPassiveManager : PassiveSkillManager {
 
     // Actions
     public event Action<float, float> OnHeatGain;
+    public event Action<HeatArea> OnHeatAreaChange;
 
     #region Initialize
     private void Awake() {
@@ -199,6 +200,7 @@ public class BastianPassiveManager : PassiveSkillManager {
     void ChangeHeatArea(HeatArea newArea) {
         bool increasedHeat = _heatArea < newArea;
         _heatArea = newArea;
+        OnHeatAreaChange?.Invoke(_heatArea);
 
         int switchIndex = Mathf.Clamp((int)(_heatArea - 1), 0, 5);
 

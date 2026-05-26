@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -23,7 +24,14 @@ public class MenuButtons : MonoBehaviour
     [Header("Canvas")]
     [SerializeField] Configuration configCanvas;
 
+    [Header("Animation")]
+    [SerializeField] EnterExitAnimationManager enterAndExitAnimator;
+
+    // AssyncOperation
     AsyncOperation asyncOperation;
+
+    // Coroutines
+    Coroutine exitAnimationCoroutine;
 
     private void Awake() {
         tavernButton.onClick.AddListener(LoadLoadingScreen);
@@ -36,6 +44,19 @@ public class MenuButtons : MonoBehaviour
     void LoadLoadingScreen() {
         LoadingScreenManager.CurrentLoadingScreenInfo = tavernLoadingScreenInfo;
         asyncOperation = SceneManager.LoadSceneAsync(1, LoadSceneMode.Single);
+        asyncOperation.allowSceneActivation = false;
+
+        exitAnimationCoroutine ??= StartCoroutine(ExitAnimationRoutine());
+    }
+
+    IEnumerator ExitAnimationRoutine() {
+
+        yield return enterAndExitAnimator.ReturnExitAnimationCoroutine();
+
+        exitAnimationCoroutine = null;
+
+        asyncOperation.allowSceneActivation = true;
+
     }
     public void HandleButtonBackGroundOn(Button button) {
 

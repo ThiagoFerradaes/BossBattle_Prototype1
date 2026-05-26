@@ -2323,6 +2323,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8691609565315667104}
   - component: {fileID: 9037334271524610557}
+  - component: {fileID: 3248719984660981390}
   m_Layer: 5
   m_Name: Supreme
   m_TagString: Untagged
@@ -2376,6 +2377,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!225 &3248719984660981390
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4618182486591530873}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &4859510551869639451
 GameObject:
   m_ObjectHideFlags: 0
@@ -3662,6 +3675,11 @@ MonoBehaviour:
   damageBarDecreaseSpeed: 0.006
   shieldBar: {fileID: 4063590583221702567}
   energyBar: {fileID: 2532121884174527979}
+  ultimateImage: {fileID: 7784151851750719635}
+  ultimateReadyFlashVFX: {fileID: 4456670266208110918}
+  ultimateCanvasGroupNoUltimateColor: {r: 0.25490198, g: 0.25490198, b: 0.25490198, a: 1}
+  ultimateCanvasGroupUltimateReadyColor: {r: 1, g: 1, b: 1, a: 1}
+  ultimateReadyFlashVFXDuration: 5
   soundWhenEnergyAtMax:
     idInternal: 0
     valueGuidInternal: 

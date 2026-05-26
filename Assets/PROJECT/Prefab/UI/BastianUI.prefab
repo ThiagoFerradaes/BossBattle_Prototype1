@@ -441,6 +441,9 @@ MonoBehaviour:
   heatText: {fileID: 1614507746949540227}
   info: {fileID: 11400000, guid: ab342c355cef860498469dc0546176d8, type: 2}
   barAnimation: {fileID: 2651004613196312902}
+  anim: {fileID: 3111881496409949926}
+  animationCooldown: 2
+  animationStateName: Animation
 --- !u!1 &4601595446063967779
 GameObject:
   m_ObjectHideFlags: 0
@@ -525,6 +528,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5328705724237091459}
+  - component: {fileID: 3111881496409949926}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -542,7 +546,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 8895422564451933883}
   - {fileID: 2996632522118700753}
@@ -553,6 +557,28 @@ RectTransform:
   m_AnchoredPosition: {x: -210, y: -84.4}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!95 &3111881496409949926
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5969817494601867792}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7b55fed2ca60ebc42bf237878e5f9bdb, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &7570900578439103660
 GameObject:
   m_ObjectHideFlags: 0

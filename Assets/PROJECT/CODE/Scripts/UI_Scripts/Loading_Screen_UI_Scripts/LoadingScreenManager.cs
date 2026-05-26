@@ -18,16 +18,17 @@ public class LoadingScreenManager : MonoBehaviour {
     [Foldout("Tip"), SerializeField] float tipDuration;
     [Foldout("Tip"), SerializeField] float tipChangingDuration;
     [Foldout("Tip"), SerializeField] GameObject tipObject;
-    [Foldout("Tip"), SerializeField, Range(0,1)] float maxTipAlpha;
-    [Foldout("Tip"), SerializeField, Range(0,1)] float minTipAlpha;
+    [Foldout("Tip"), SerializeField, Range(0, 1)] float maxTipAlpha;
+    [Foldout("Tip"), SerializeField, Range(0, 1)] float minTipAlpha;
 
     [Foldout("Save"), SerializeField] LocalizeSpriteEvent bossSavingIcon;
     [Foldout("Save"), SerializeField] GameObject savingIcon;
     [Foldout("Save"), SerializeField] float saveIconFadeTime;
-    [Foldout("Save"), SerializeField, Range(0,1)] float maxSaveIconAlpha;
-    [Foldout("Save"), SerializeField, Range(0,1)] float minSaveIconAlpha;
+    [Foldout("Save"), SerializeField, Range(0, 1)] float maxSaveIconAlpha;
+    [Foldout("Save"), SerializeField, Range(0, 1)] float minSaveIconAlpha;
 
     [Foldout("Loading"), SerializeField] Image loadingBar;
+    [Foldout("Loading"), SerializeField] EnterExitAnimationManager enterAndExitAnimator;
     [Foldout("Loading"), SerializeField] float loadingScreenMinTime;
 
 
@@ -42,6 +43,8 @@ public class LoadingScreenManager : MonoBehaviour {
 
     WaitForSecondsRealtime _realSecondsToWait = new(0.1f);
     WaitForEndOfFrame _waitForFrame = new();
+
+    Coroutine _waitAnimationCoroutine;
 
     #region Load Flow
     private void Start() {
@@ -90,10 +93,13 @@ public class LoadingScreenManager : MonoBehaviour {
             loadingBar.fillAmount = progress;
 
             if (loadingScreenTimer >= loadingScreenMinTime && loadingOperation.progress >= 0.9f)
-                EndLoad();
+                _waitAnimationCoroutine ??= StartCoroutine(EndLoad());
         }
     }
-    void EndLoad() {
+    IEnumerator EndLoad() {
+
+        yield return enterAndExitAnimator.ReturnExitAnimationCoroutine();
+
         if (savingFadeCoroutine != null) {
             StopCoroutine(savingFadeCoroutine);
             savingFadeCoroutine = null;
@@ -103,20 +109,19 @@ public class LoadingScreenManager : MonoBehaviour {
 
         Application.runInBackground = true;
 
+        _waitAnimationCoroutine = null;
         isLoadingComplete = true;
         loadingOperation.allowSceneActivation = true;
         loadingOperation = null;
     }
 
     #region UI Elements
-    IEnumerator SavingIconFade()
-    {
+    IEnumerator SavingIconFade() {
         bossSavingIcon.AssetReference = CurrentLoadingScreenInfo.SavingIcon;
 
         CanvasGroup canvasG = savingIcon.GetComponent<CanvasGroup>();
 
-        while (true)
-        {
+        while (true) {
 
             yield return canvasG.DOFade(minSaveIconAlpha, saveIconFadeTime).SetUpdate(true).WaitForCompletion();
 
@@ -125,8 +130,7 @@ public class LoadingScreenManager : MonoBehaviour {
         }
     }
 
-    void HandleTip()
-    {
+    void HandleTip() {
         List<Tip> list = new(CurrentLoadingScreenInfo.ListOfTips);
 
         int rng = Random.Range(0, list.Count);

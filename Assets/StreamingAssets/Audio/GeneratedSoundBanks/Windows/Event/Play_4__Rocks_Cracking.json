@@ -10,7 +10,7 @@
     "Type": "Event",
     "GUID": "{96026119-D219-477F-9E0E-5D6333B402F2}",
     "Language": "SFX",
-    "Hash": "{5472A4B6-BDC6-846F-26D7-E800EDFC9E11}",
+    "Hash": "{04A9F7F2-1804-EB4A-DFC9-45F79E6A736F}",
     "ObjectPath": "Play_4__Rocks_Cracking",
     "ShortName": "Play_4__Rocks_Cracking",
     "Path": "Event/Play_4__Rocks_Cracking.bnk",
@@ -23,6 +23,24 @@
       "ShortName": "SPFX_attack_rocks_Kraken_02  .wav",
       "Path": "Media/188320656.wem",
       "CachePath": "64/{6445EF12-907F-4696-B5E5-5DC24E72CA32}.wem"
+     },
+     {
+      "Id": "394856547",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Loose",
+      "ShortName": "SPFX_attack_rocks_Kraken_03.wav",
+      "Path": "Media/394856547.wem",
+      "CachePath": "8C/{8C8A80DA-FB62-4926-F5C6-C9F43FE04DFB}.wem"
+     },
+     {
+      "Id": "750157357",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Loose",
+      "ShortName": "SPFX_attack_rocks_Kraken_01.wav",
+      "Path": "Media/750157357.wem",
+      "CachePath": "F3/{F3122DEE-BFC4-D2CD-362F-39FC2F0F6549}.wem"
      },
      {
       "Id": "863325323",
@@ -46,9 +64,25 @@
     "Plugins": {
      "Custom": [
       {
+       "Id": "574643453",
+       "Name": "Matrix Reverb (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\Environment\\Attack Impact\\Rocks Cracking\\4- Rocks Cracking\\[Effect Slot [1]: (Matrix Reverb)]\\Matrix Reverb (Custom)",
+       "GUID": "{A65F2451-CDCD-4D90-91A5-9F274EA4EFAE}",
+       "LibName": "Wwise Matrix Reverb",
+       "LibId": "7536643"
+      },
+      {
+       "Id": "618855906",
+       "Name": "Guitar Distortion (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\Environment\\Attack Impact\\Rocks Cracking\\4- Rocks Cracking_01\\[Effect Slot [1]: (Guitar Distortion)]\\Guitar Distortion (Custom)",
+       "GUID": "{1E494DFD-C8B1-423B-8F54-CB2B08A3E106}",
+       "LibName": "Wwise Guitar Distortion",
+       "LibId": "8257539"
+      },
+      {
        "Id": "694844500",
        "Name": "Parametric EQ (Custom)",
-       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\Environment\\Attack Impact\\4- Rocks Cracking\\[Effect Slot [0]: (Parametric EQ)]\\Parametric EQ (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\Environment\\Attack Impact\\Rocks Cracking\\4- Rocks Cracking\\[Effect Slot [0]: (Parametric EQ)]\\Parametric EQ (Custom)",
        "GUID": "{2C9E7A6D-368E-421F-8BDF-7E345C4778BC}",
        "LibName": "Wwise Parametric EQ",
        "LibId": "6881283"
@@ -56,10 +90,18 @@
       {
        "Id": "838246956",
        "Name": "Guitar Distortion (Custom)",
-       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\Environment\\Attack Impact\\4- Rocks Cracking\\[Effect Slot [1]: (Guitar Distortion)]\\Guitar Distortion (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\Environment\\Attack Impact\\Rocks Cracking\\4- Rocks Cracking\\[Effect Slot [2]: (Guitar Distortion)]\\Guitar Distortion (Custom)",
        "GUID": "{2426BE9B-3A70-4CB3-9DC3-65369FE850EC}",
        "LibName": "Wwise Guitar Distortion",
        "LibId": "8257539"
+      },
+      {
+       "Id": "857764484",
+       "Name": "Parametric EQ (Custom)",
+       "ObjectPath": "\\Containers\\Default Work Unit\\SFX\\Kraken\\Environment\\Attack Impact\\Rocks Cracking\\4- Rocks Cracking_01\\[Effect Slot [0]: (Parametric EQ)]\\Parametric EQ (Custom)",
+       "GUID": "{2B531E73-8B15-4E8E-82B7-94C50AE825E6}",
+       "LibName": "Wwise Parametric EQ",
+       "LibId": "6881283"
       }
      ]
     },
@@ -70,13 +112,19 @@
       "ObjectPath": "\\Events\\Default Work Unit\\SFX\\Kraken\\Environment\\Attack Impact\\Play_4__Rocks_Cracking",
       "GUID": "{96026119-D219-477F-9E0E-5D6333B402F2}",
       "Color": "8",
-      "MaxAttenuation": "100",
+      "MaxAttenuation": "60.000004",
       "DurationType": "OneShot",
-      "DurationMin": "0.9318258",
-      "DurationMax": "1.9714373",
+      "DurationMin": "0.91555524",
+      "DurationMax": "1.5314815",
       "MediaRefs": [
        {
         "Id": "188320656"
+       },
+       {
+        "Id": "394856547"
+       },
+       {
+        "Id": "750157357"
        },
        {
         "Id": "863325323"
@@ -88,10 +136,19 @@
       "PluginRefs": {
        "Custom": [
         {
+         "Id": "574643453"
+        },
+        {
+         "Id": "618855906"
+        },
+        {
          "Id": "694844500"
         },
         {
          "Id": "838246956"
+        },
+        {
+         "Id": "857764484"
         }
        ]
       }
@@ -99,6 +156,6 @@
     ]
    }
   ],
-  "FileHash": "{9B02F27F-DD2D-7D72-CB94-C408D8390E62}"
+  "FileHash": "{BFCABE67-DA2E-F084-9590-BAAE6AE49390}"
  }
 }

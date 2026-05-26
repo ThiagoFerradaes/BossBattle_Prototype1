@@ -7,7 +7,8 @@ public class KrakenPopUp : MonoBehaviour
     [SerializeField] Button closeButton;
     [SerializeField] Sprite closeButtonSelected;
     [SerializeField] Sprite closeButtonUnSelected;
-    
+    [SerializeField] AK.Wwise.Event combatMusic;
+
     void Start()
     {
         if (ProgressWhiteBoard.Instance.HasSeenKrakenPopUp) TurnScreenOff();
@@ -16,6 +17,8 @@ public class KrakenPopUp : MonoBehaviour
 
     void TurnScreenOn() {
         screen.SetActive(true);
+
+        combatMusic.Post(gameObject);
 
         Time.timeScale = 0;
 
