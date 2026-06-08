@@ -57,7 +57,7 @@ public class LilianWokeManager : SkillObjectManager
     {
         if (_isBuffed) return;
 
-        statusManager.ChangeStatus(StatusType.BaseAttack, _info.AncestralDamageBuffPercent, true);
+        statusManager.ChangeStatus(StatusType.Attack, _info.AncestralDamageBuffPercent, true);
 
         _isBuffed = true;
     }
@@ -67,7 +67,7 @@ public class LilianWokeManager : SkillObjectManager
 
         if (!_isBuffed) return;
 
-        statusManager.ChangeStatus(StatusType.BaseAttack, _info.AncestralDamageBuffPercent, false);
+        statusManager.ChangeStatus(StatusType.Attack, _info.AncestralDamageBuffPercent, false);
 
         _isBuffed = false;
     }

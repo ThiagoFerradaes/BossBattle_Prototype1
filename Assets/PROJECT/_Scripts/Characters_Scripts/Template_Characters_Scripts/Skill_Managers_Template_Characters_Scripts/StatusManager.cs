@@ -1,3 +1,4 @@
+using AYellowpaper.SerializedCollections;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +8,7 @@ public class StatusManager : MonoBehaviour {
     #region Parameter
 
     [SerializeField] StatusSO baseStatus;
-    Dictionary<StatusType, float> _listOfStatus = new();
+    [SerializeField] SerializedDictionary<StatusType, float> _listOfStatus = new();
 
     #endregion
 

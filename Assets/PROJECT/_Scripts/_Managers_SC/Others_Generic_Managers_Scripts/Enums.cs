@@ -56,7 +56,7 @@ public enum GraciaTypeOfSkill { Left, Right };
 public enum GraciaAura { Blue, Yellow, Red, Green, Null };
 
 public enum StatusType {
-    MaxHealth, MaxAmountOfShield, BaseAttack, Defense, MoveSpeed, AttackSpeed, EnergyRecharge
+    MaxHealth, MaxAmountOfShield, Attack, Defense, MoveSpeed, AttackSpeed, EnergyRecharge
 }
 
 public enum TypeOfSkillPrefab { Hitbox, VFX, PreCastRange, Manager }

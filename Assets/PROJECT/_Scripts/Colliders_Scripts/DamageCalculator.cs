@@ -84,13 +84,13 @@ public class DamageAtributes {
     }
 }
 public static class DamageCalculator {
-    public static float CalculateDamage( // Considerando o crítico do personagem
+    public static float CalculateDamage( 
         DamageAtributes atributes,
         StatusManager statusDealer,
         StatusManager statusReciever
         ) {
 
-        float rawDamage = atributes.Damage * statusDealer.ReturnStatusValue(StatusType.BaseAttack);
+        float rawDamage = atributes.Damage * statusDealer.ReturnStatusValue(StatusType.Attack);
 
         float targetDefense = statusReciever.ReturnStatusValue(StatusType.Defense); 
 

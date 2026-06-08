@@ -30,7 +30,7 @@ public class StatusSO : ScriptableObject {
     public List<Status> StatusList = new() {
         {new(StatusType.MaxHealth, 100) },
         {new(StatusType.MaxAmountOfShield, 25) },
-        {new(StatusType.BaseAttack, 1) },
+        {new(StatusType.Attack, 1) },
         {new(StatusType.Defense, 100) },
         {new(StatusType.MoveSpeed, 5.5f) },
         {new(StatusType.AttackSpeed, 1) },

@@ -17,8 +17,8 @@ public class BastianPassiveSO : PassiveSO {
     public AK.Wwise.Event LooseHealthSound;
 
     [Header("Attack Speed Gain")]
-    [Range(0, 1)] public float AmountOfAttackSpeedGainHeat;
-    [Range(0, 1)] public float AmountOfAttackSpeedGainSuperHeat;
+    [Range(0, 1)] public float AmountOfAttackGainHeat;
+    [Range(0, 1)] public float AmountOfAttackGainOverHeat;
 
     [Header("Loose Heat")]
     public float HeatLostPerTime;

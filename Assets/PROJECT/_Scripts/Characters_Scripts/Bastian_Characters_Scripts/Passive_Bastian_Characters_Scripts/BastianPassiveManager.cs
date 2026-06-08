@@ -134,34 +134,52 @@ public class BastianPassiveManager : PassiveSkillManager {
         }
     }
     void EnterCoolArea() {
-        if (_currentHeatZone == BastianHeatArea.CoolArea) return;
 
-        if (_currentHeatZone == BastianHeatArea.HeatArea) {
-            _statusManager.ChangeStatus(StatusType.AttackSpeed, _info.AmountOfAttackSpeedGainHeat, false);
-        }
-        else if (_currentHeatZone >= BastianHeatArea.HeatArea) {
-            _statusManager.ChangeStatus(StatusType.AttackSpeed, _info.AmountOfAttackSpeedGainSuperHeat, false);
+        switch (_currentHeatZone) {
+            case BastianHeatArea.CoolArea:
+                return;
+            case BastianHeatArea.HeatArea:
+                _statusManager.ChangeStatus(StatusType.Attack, _info.AmountOfAttackGainHeat, false);
+                break;
+            case BastianHeatArea.OverHeatArea:
+                _statusManager.ChangeStatus(StatusType.Attack, _info.AmountOfAttackGainHeat, false);
+                _statusManager.ChangeStatus(StatusType.Attack, _info.AmountOfAttackGainOverHeat, false);
+                break;
+
         }
 
         ChangeHeatArea(BastianHeatArea.CoolArea);
     }
 
     void EnterHeatArea() {
-        if (_currentHeatZone == BastianHeatArea.HeatArea) return;
 
-        if (_currentHeatZone == BastianHeatArea.CoolArea) {
-            _statusManager.ChangeStatus(StatusType.AttackSpeed, _info.AmountOfAttackSpeedGainHeat, true);
-        }
-        else if (_currentHeatZone >= BastianHeatArea.OverHeatArea) {
-            _statusManager.ChangeStatus(StatusType.AttackSpeed, _info.AmountOfAttackSpeedGainSuperHeat, false);
-            _statusManager.ChangeStatus(StatusType.AttackSpeed, _info.AmountOfAttackSpeedGainHeat, true);
+        switch (_currentHeatZone) {
+            case BastianHeatArea.HeatArea:
+                return;
+            case BastianHeatArea.CoolArea:
+                _statusManager.ChangeStatus(StatusType.Attack, _info.AmountOfAttackGainHeat, true);
+                break;
+            case BastianHeatArea.OverHeatArea:
+                _statusManager.ChangeStatus(StatusType.Attack, _info.AmountOfAttackGainOverHeat, false);
+                break;
         }
 
         ChangeHeatArea(BastianHeatArea.HeatArea);
     }
 
     void EnterOverHeatArea() {
-        if (_currentHeatZone == BastianHeatArea.OverHeatArea) return;
+
+        switch (_currentHeatZone) {
+            case BastianHeatArea.OverHeatArea:
+                return;
+            case BastianHeatArea.HeatArea:
+                _statusManager.ChangeStatus(StatusType.Attack, _info.AmountOfAttackGainOverHeat, true);
+                break;
+            case BastianHeatArea.CoolArea:
+                _statusManager.ChangeStatus(StatusType.Attack, _info.AmountOfAttackGainHeat, true);
+                _statusManager.ChangeStatus(StatusType.Attack, _info.AmountOfAttackGainOverHeat, true);
+                break;
+        }
 
         ChangeHeatArea(BastianHeatArea.OverHeatArea);
     }
