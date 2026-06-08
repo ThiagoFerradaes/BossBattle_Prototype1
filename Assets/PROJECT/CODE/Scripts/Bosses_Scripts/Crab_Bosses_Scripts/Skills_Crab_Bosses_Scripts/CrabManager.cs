@@ -2,7 +2,7 @@ using DG.Tweening;
 using System.Collections;
 using UnityEngine;
 
-public enum CrabArenaWall { Up, Left, Right, None}
+
 public class CrabManager : EnemyBehaviourManager
 {
     #region Parameters

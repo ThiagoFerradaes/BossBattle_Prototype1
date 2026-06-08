@@ -4,7 +4,6 @@ using System;
 using Unity.Cinemachine;
 using UnityEngine;
 
-public enum Character { Cyrus, Bastian, Lilian, Gracia, Julian, Betrand, Carmen , Null }
 public class PlayerManager : MonoBehaviour {
     // Singleton
     public static PlayerManager Instance;

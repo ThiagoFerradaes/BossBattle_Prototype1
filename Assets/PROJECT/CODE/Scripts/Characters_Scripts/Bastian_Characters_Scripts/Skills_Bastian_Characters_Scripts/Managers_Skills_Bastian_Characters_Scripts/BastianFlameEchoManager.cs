@@ -12,8 +12,8 @@ public class BastianFlameEchoManager : SkillObjectManager
     StatusManager _statusManager;
 
     // Actions
-    Action<int, HeatArea> _onShootAction;
-    Action<HeatArea> _onIgnisAction;
+    Action<int, BastianHeatArea> _onShootAction;
+    Action<BastianHeatArea> _onIgnisAction;
 
     // Coroutines
     Coroutine _ignisCoroutine, _attackCoroutine;
@@ -41,8 +41,8 @@ public class BastianFlameEchoManager : SkillObjectManager
         _attackSpeedMultiplier = GetAttackSpeedMultiplier();
         animationCoroutine ??= StartCoroutine(AttackCoroutine(0, 1, _attackSpeedMultiplier));
 
-        _onShootAction = (int attackIdex, HeatArea area) => _attackCoroutine ??= StartCoroutine(SecondaryShoot(attackIdex, area));
-        _onIgnisAction = (HeatArea area) => _ignisCoroutine ??= StartCoroutine(SecondaryIgnis(area));
+        _onShootAction = (int attackIdex, BastianHeatArea area) => _attackCoroutine ??= StartCoroutine(SecondaryShoot(attackIdex, area));
+        _onIgnisAction = (BastianHeatArea area) => _ignisCoroutine ??= StartCoroutine(SecondaryIgnis(area));
     }
 
     private void OnDestroy() {
@@ -90,7 +90,7 @@ public class BastianFlameEchoManager : SkillObjectManager
         EndWithUnblockSkills();
     }
 
-    IEnumerator SecondaryShoot(int attackIndex, HeatArea area)
+    IEnumerator SecondaryShoot(int attackIndex, BastianHeatArea area)
     {
         float realTimer = _info.TimeBetweenFirstAndSecondShoot / _statusManager.ReturnStatusValue(StatusType.AttackSpeed);
         yield return new WaitForSeconds(realTimer);
@@ -109,7 +109,7 @@ public class BastianFlameEchoManager : SkillObjectManager
         _attackCoroutine = null;
     }
 
-    IEnumerator SecondaryIgnis(HeatArea area) {
+    IEnumerator SecondaryIgnis(BastianHeatArea area) {
         float realTimer = _info.TimeBetweenIgnis / _statusManager.ReturnStatusValue(StatusType.AttackSpeed);
         yield return new WaitForSeconds(realTimer);
 
@@ -136,7 +136,7 @@ public class BastianFlameEchoManager : SkillObjectManager
         base.EndWithUnblockSkills();
     }
 
-    void InstantiateSecondShoot(SkillAnimationEvent prefabInfo, int attackIndex, HeatArea area) {
+    void InstantiateSecondShoot(SkillAnimationEvent prefabInfo, int attackIndex, BastianHeatArea area) {
         DamageAtributes atributes = attackIndex switch {
             1 => _info.FirstAttackDamageAtributes,
             2 => _info.SecondAttackDamageAtributes,
@@ -164,13 +164,13 @@ public class BastianFlameEchoManager : SkillObjectManager
         
         hitbox.Initialize(newContext);
 
-        if (area < HeatArea.OverHeatArea) {
+        if (area < BastianHeatArea.OverHeatArea) {
             BastianPassiveManager.Instance.GainHeat(_info.SHeatGain);
         }
         else BastianPassiveManager.Instance.GainHeat(_info.SHeatGainOverHeat);
     }
 
-    void InstantiateIgnis(SkillAnimationEvent prefabInfo, HeatArea area) {
+    void InstantiateIgnis(SkillAnimationEvent prefabInfo, BastianHeatArea area) {
         GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFab, TypeOfSkillPrefab.Hitbox);
 
         preFab.transform.localScale = _info.IgnisDamageAtributes.Size;

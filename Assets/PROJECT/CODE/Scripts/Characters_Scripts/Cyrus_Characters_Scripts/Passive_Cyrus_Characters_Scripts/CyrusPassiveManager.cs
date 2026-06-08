@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum CyrusRank { E, D, C, B, A, S, SS }
 public class CyrusPassiveManager : PassiveSkillManager {
 
     #region Parameters
@@ -15,7 +14,7 @@ public class CyrusPassiveManager : PassiveSkillManager {
     CyrusPassiveSO _info;
 
     // Atributes
-    CyrusRank _currentRank = CyrusRank.E;
+    BattleRank _currentRank = BattleRank.E;
     Dictionary<SkillSlot, int> _skillLevel = new() {
         { SkillSlot.SkillOne, 0 },
         { SkillSlot.SkillTwo, 0 },
@@ -63,7 +62,7 @@ public class CyrusPassiveManager : PassiveSkillManager {
     #endregion
 
     #region ExpGain
-    private bool HasReachedMaxRank => _currentRank >= CyrusRank.SS;
+    private bool HasReachedMaxRank => _currentRank >= BattleRank.SS;
 
     public void AddUseSkill(SkillSlot slot, int amountOfUsesToUpgrade, List<Sprite> listOfSprites)
     {
@@ -94,12 +93,12 @@ public class CyrusPassiveManager : PassiveSkillManager {
 
         _currentRank++;
 
-        int maxEnum = Enum.GetValues(typeof(CyrusRank)).Length;
+        int maxEnum = Enum.GetValues(typeof(BattleRank)).Length;
 
         OnSkillLevelUp?.Invoke(slot);
         OnRankLevelUp?.Invoke((int)_currentRank, maxEnum - 1);
 
-        if (_currentRank == CyrusRank.SS) {
+        if (_currentRank == BattleRank.SS) {
             ReachRankSS();
         }
     }
@@ -113,7 +112,7 @@ public class CyrusPassiveManager : PassiveSkillManager {
     #region Getters
     public int ReturnSkillLevel(SkillSlot slot) => _skillLevel[slot];
 
-    public CyrusRank ReturnCyrusRank() => _currentRank;
+    public BattleRank ReturnCyrusRank() => _currentRank;
 
     #endregion
 

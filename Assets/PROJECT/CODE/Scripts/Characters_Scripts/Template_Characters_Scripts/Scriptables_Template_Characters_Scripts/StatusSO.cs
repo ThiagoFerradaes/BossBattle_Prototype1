@@ -2,9 +2,6 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum StatusType {
-    MaxHealth, MaxAmountOfShield, BaseAttack, Defense, MoveSpeed, AttackSpeed, EnergyRecharge
-}
 
 [Serializable]
 public class Status {

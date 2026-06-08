@@ -43,15 +43,8 @@ MonoBehaviour:
   PassiveIcon: {fileID: 522889846, guid: ab75e1b1a9aedbc45b40c78d83e17be3, type: 3}
   PassiveCharacter: 1
   MaxHeat: 100
-  HeatToHitHeatArea: 25
-  HeatToHitSuperHeatArea: 55
-  HeatToHitOverHeatArea: 97
-  HeatToHitLastOverHeatArea: 99
-  CoolColor: {r: 1, g: 0.9431342, b: 0.5613208, a: 1}
-  HeatColor: {r: 1, g: 0.6839332, b: 0.21226418, a: 1}
-  SuperHeatColor: {r: 1, g: 0.47772455, b: 0.36470592, a: 1}
-  OverHeatColor: {r: 0.8490566, g: 0.19359818, b: 0.1802243, a: 1}
-  LastOverHeatColor: {r: 0.4056604, g: 0.039075535, b: 0.032529376, a: 1}
+  HeatToHitHeatArea: 33
+  AmountOfHeatToHitOverHeatArea: 66
   CoolText:
     m_TableReference:
       m_TableCollectionName: GUID:0c1fcb9508b9d2e4c9d8071f6fc131fe
@@ -70,29 +63,11 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
-  SuperHeatText:
-    m_TableReference:
-      m_TableCollectionName: GUID:0c1fcb9508b9d2e4c9d8071f6fc131fe
-    m_TableEntryReference:
-      m_KeyId: 9770192896
-      m_Key: 
-    m_FallbackState: 0
-    m_WaitForCompletion: 0
-    m_LocalVariables: []
   OverHeatText:
     m_TableReference:
       m_TableCollectionName: GUID:0c1fcb9508b9d2e4c9d8071f6fc131fe
     m_TableEntryReference:
       m_KeyId: 13758976000
-      m_Key: 
-    m_FallbackState: 0
-    m_WaitForCompletion: 0
-    m_LocalVariables: []
-  LastOverHeatText:
-    m_TableReference:
-      m_TableCollectionName: GUID:0c1fcb9508b9d2e4c9d8071f6fc131fe
-    m_TableEntryReference:
-      m_KeyId: 15705133056
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -132,11 +107,15 @@ MonoBehaviour:
   TimeToLooseHeat: 0.1
   TimeToLooseAllHeatAfterLastHit: 2.5
   HeatCanvas: {fileID: 3092176265611451432, guid: 8a244766733037f4184b5212f7e3e2d9, type: 3}
-  PercentOfMaxHealthLostPerTimeSuperHeat: 1
-  PercentOfMaxHealthLostPerTimeOverHeat: 2
-  PercentOfMaxHealthLostPerTimeExtremeHeat: 3
-  TimeToLooseHealth: 1
-  MinAreaToLooseHealth: 2
+  AmountOfHealthToLoosePerArea:
+    _serializedList:
+    - Key: 0
+      Value: 0
+    - Key: 1
+      Value: 0
+    - Key: 2
+      Value: 0.02
+  HealthLostByHeatCooldown: 1
   references:
     version: 2
     RefIds: []

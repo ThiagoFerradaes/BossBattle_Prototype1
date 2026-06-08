@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public enum TypeOfArena { Ring, Square, Paths }
 
 public class ArenaManager : MonoBehaviour
 {

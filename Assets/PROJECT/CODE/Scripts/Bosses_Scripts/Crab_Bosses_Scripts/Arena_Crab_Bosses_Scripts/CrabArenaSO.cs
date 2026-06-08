@@ -2,7 +2,6 @@ using AYellowpaper.SerializedCollections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum CrabArenaState { LowTide, IncomingTide,  HighTide, OutgoingTide }
 
 [CreateAssetMenu(menuName = "Bosses/ Arena/ CrabArena")]
 public class CrabArenaSO : ScriptableObject

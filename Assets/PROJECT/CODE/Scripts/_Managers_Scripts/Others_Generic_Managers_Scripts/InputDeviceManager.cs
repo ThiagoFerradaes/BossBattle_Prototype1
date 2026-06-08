@@ -5,10 +5,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.SceneManagement;
 
-public enum InputType {
-    MouseKeyboard,
-    Gamepad
-}
+
 public class InputDeviceManager : MonoBehaviour {
     [SerializeField] GameObject firstButtonSelected;
 

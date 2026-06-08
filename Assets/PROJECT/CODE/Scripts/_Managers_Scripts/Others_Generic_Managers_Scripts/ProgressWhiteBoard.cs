@@ -3,8 +3,7 @@ using System;
 using UnityEngine;
 
 
-public enum ProgressBools { IsKrakenDefeated, HasTalkedToLilianBGFDemo, LilianTwo, TalkedToBastian, TalkedToCyrus, AskedAboutLilian, TalkedtoLilianORBastian, 
-hasTalkedToBertrand}
+
 
 public class ProgressWhiteBoard : MonoBehaviour {
 

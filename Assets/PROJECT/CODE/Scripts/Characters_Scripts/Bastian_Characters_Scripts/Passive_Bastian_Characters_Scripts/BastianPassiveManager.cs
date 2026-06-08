@@ -3,16 +3,16 @@ using System.Collections;
 using System.Threading;
 using UnityEngine;
 
-public enum HeatArea { CoolArea = 0, HeatArea = 1, OverHeatArea = 2 }
+
 public class BastianPassiveManager : PassiveSkillManager {
 
     // Singleton
     public static BastianPassiveManager Instance;
 
     // Atributes
-    float _currentHeat;
+    float _currentHeatValue;
     bool _looseAllHeat, _canLooseHeat;
-    HeatArea _heatArea = HeatArea.CoolArea;
+    BastianHeatArea _currentHeatZone = BastianHeatArea.CoolArea;
     [HideInInspector] public bool CanShoot = true;
 
     // Components
@@ -22,10 +22,11 @@ public class BastianPassiveManager : PassiveSkillManager {
 
     // Corrotines
     Coroutine _heatLostCoroutine, _looseAllHeatCoroutine, _looseHealthCoroutine;
+    WaitForSeconds _healthLostCooldown;
 
     // Actions
     public event Action<float, float> OnHeatGain;
-    public event Action<HeatArea> OnHeatAreaChange;
+    public event Action<BastianHeatArea> OnHeatAreaChange;
 
     #region Initialize
     private void Awake() {
@@ -40,15 +41,19 @@ public class BastianPassiveManager : PassiveSkillManager {
     public override void OnStart(PassiveSO skill, GameObject parent) {
         base.OnStart(skill, parent);
 
+        // Atribuindo variáveis se possível
         if (_info == null) _info = skill as BastianPassiveSO;
         if (_statusManager == null) _statusManager = parent.GetComponent<StatusManager>();
         if (_healthManager == null) _healthManager = parent.GetComponent<HealthManager>();
+        _healthLostCooldown ??= new(_info.HealthLostByHeatCooldown);
 
         gameObject.SetActive(true);
 
         SetCanLooseHeat(true);
 
+        // Ligando corrotinas
         _heatLostCoroutine ??= StartCoroutine(HeatLostPerTime());
+        _looseHealthCoroutine ??= StartCoroutine(LooseHealthOverTime());
 
         AditionalUIManager.Instance.InstantiateUI(_info.HeatCanvas);
 
@@ -58,57 +63,49 @@ public class BastianPassiveManager : PassiveSkillManager {
 
     #region SetHeat
     public void SetCanLooseHeat(bool canLooseHeat) => _canLooseHeat = canLooseHeat;
-    public void SetHeatToAmount(float newHeatAmount)
-    {
-        _currentHeat = newHeatAmount;
+    public void SetHeatToAmount(float newHeatAmount) {
+        _currentHeatValue = newHeatAmount;
     }
-    public void GainHeat(float amountOfHeat) {
+    public void GainHeat(float amountOfHeatValueGained) {
 
-        if (amountOfHeat <= 0) return;
+        if (amountOfHeatValueGained <= 0) return;
 
-        if (_currentHeat + amountOfHeat <= _info.HeatToHitOverHeatArea)
-            _currentHeat += amountOfHeat;
-        else if (_currentHeat < _info.HeatToHitOverHeatArea) {
-            _currentHeat = _info.HeatToHitOverHeatArea;
+        if (_currentHeatValue + amountOfHeatValueGained <= _info.AmountOfHeatToHitOverHeatArea)
+            _currentHeatValue += amountOfHeatValueGained;
+        else if (_currentHeatValue < _info.AmountOfHeatToHitOverHeatArea) {
+            _currentHeatValue = _info.AmountOfHeatToHitOverHeatArea;
         }
         else {
-            _currentHeat++;
+            _currentHeatValue++;
         }
 
-        if (_currentHeat == _info.MaxHeat) {
+        if (_currentHeatValue == _info.MaxHeat) {
             _looseAllHeat = true;
             _looseAllHeatCoroutine ??= StartCoroutine(HeatLostAfterLastHit());
         }
 
-        _currentHeat = Mathf.Min(_currentHeat, _info.MaxHeat);
+        _currentHeatValue = Mathf.Min(_currentHeatValue, _info.MaxHeat);
 
         CheckHeat();
 
-        OnHeatGain?.Invoke(_currentHeat, _info.MaxHeat);
+        OnHeatGain?.Invoke(_currentHeatValue, _info.MaxHeat);
     }
 
     public void LooseHeat(float amountOfHeat) {
-        _currentHeat -= amountOfHeat;
+        _currentHeatValue -= amountOfHeat;
 
-        _currentHeat = Mathf.Max(_currentHeat, 0);
+        _currentHeatValue = Mathf.Max(_currentHeatValue, 0);
 
         CheckHeat();
 
-        OnHeatGain?.Invoke(_currentHeat, _info.MaxHeat);
+        OnHeatGain?.Invoke(_currentHeatValue, _info.MaxHeat);
     }
 
     void LooseHealth() {
         float currentHealth = _healthManager.ReturnCurrentHealth();
         float maxHealth = _healthManager.ReturnMaxHealth();
-        float healthMultiplier = _info.PercentOfMaxHealthLostPerTimeOverHeat;
-        //    _heatArea switch
-        //{
-        //    HeatArea.SuperHeatArea => _info.PercentOfMaxHealthLostPerTimeSuperHeat,
-        //    HeatArea.OverHeatArea => _info.PercentOfMaxHealthLostPerTimeOverHeat,
-        //    HeatArea.ExtremeHeatArea => _info.PercentOfMaxHealthLostPerTimeExtremeHeat,
-        //    _ => 0
-        //};
-        float healthToLoose = maxHealth * healthMultiplier / 100;
+        float healthMultiplier = _info.AmountOfHealthToLoosePerArea[_currentHeatZone];
+        float healthToLoose = maxHealth * healthMultiplier;
 
         float damage = Mathf.Min(healthToLoose, Mathf.Max(0, currentHealth - 1));
         if (damage > 0) _healthManager.TakeDamage(damage, false, _info.LooseHealthSound);
@@ -116,28 +113,20 @@ public class BastianPassiveManager : PassiveSkillManager {
     #endregion
 
     #region CheckHeat
-    public HeatArea ReturnCurrentHeatArea () => _heatArea;
-    public void LooseAllHeat() => _currentHeat = 0;
-    public float ReturnCurrentHeat() => _currentHeat;
-    public bool ReturnMinHeat(HeatArea minHeatArea)
-    {
-        return _heatArea >= minHeatArea;
+    public BastianHeatArea ReturnCurrentHeatArea() => _currentHeatZone;
+    public void LooseAllHeat() => _currentHeatValue = 0;
+    public float ReturnCurrentHeat() => _currentHeatValue;
+    public bool ReturnMinHeat(BastianHeatArea minHeatArea) {
+        return _currentHeatZone >= minHeatArea;
     }
-    public bool ReturnMaxHeat(HeatArea minHeatArea)
-    {
-        return _heatArea <= minHeatArea;
+    public bool ReturnMaxHeat(BastianHeatArea minHeatArea) {
+        return _currentHeatZone <= minHeatArea;
     }
     void CheckHeat() {
-        //if (_currentHeat >= _info.HeatToHitLastOverHeatArea) {
-        //    LastOverHeatHit();
-        //}
-        if (_currentHeat >= _info.HeatToHitOverHeatArea) {
+        if (_currentHeatValue >= _info.AmountOfHeatToHitOverHeatArea) {
             EnterOverHeatArea();
         }
-        //else if (_currentHeat >= _info.HeatToHitSuperHeatArea) {
-        //    EnterSuperHeatArea();
-        //}
-        else if (_currentHeat >= _info.HeatToHitHeatArea) {
+        else if (_currentHeatValue >= _info.HeatToHitHeatArea) {
             EnterHeatArea();
         }
         else {
@@ -145,65 +134,44 @@ public class BastianPassiveManager : PassiveSkillManager {
         }
     }
     void EnterCoolArea() {
-        if (_heatArea == HeatArea.CoolArea) return;
+        if (_currentHeatZone == BastianHeatArea.CoolArea) return;
 
-        if (_heatArea == HeatArea.HeatArea) {
+        if (_currentHeatZone == BastianHeatArea.HeatArea) {
             _statusManager.ChangeStatus(StatusType.AttackSpeed, _info.AmountOfAttackSpeedGainHeat, false);
         }
-        else if (_heatArea >= HeatArea.HeatArea) {
+        else if (_currentHeatZone >= BastianHeatArea.HeatArea) {
             _statusManager.ChangeStatus(StatusType.AttackSpeed, _info.AmountOfAttackSpeedGainSuperHeat, false);
         }
 
-        ChangeHeatArea(HeatArea.CoolArea);
+        ChangeHeatArea(BastianHeatArea.CoolArea);
     }
 
     void EnterHeatArea() {
-        if (_heatArea == HeatArea.HeatArea) return;
+        if (_currentHeatZone == BastianHeatArea.HeatArea) return;
 
-        if (_heatArea == HeatArea.CoolArea) {
+        if (_currentHeatZone == BastianHeatArea.CoolArea) {
             _statusManager.ChangeStatus(StatusType.AttackSpeed, _info.AmountOfAttackSpeedGainHeat, true);
         }
-        //else if (_heatArea >= HeatArea.SuperHeatArea) {
-        //    _statusManager.ChangeStatus(StatusType.AttackSpeed, _info.AmountOfAttackSpeedGainSuperHeat, false);
-        //    _statusManager.ChangeStatus(StatusType.AttackSpeed, _info.AmountOfAttackSpeedGainHeat, true);
-        //}
+        else if (_currentHeatZone >= BastianHeatArea.OverHeatArea) {
+            _statusManager.ChangeStatus(StatusType.AttackSpeed, _info.AmountOfAttackSpeedGainSuperHeat, false);
+            _statusManager.ChangeStatus(StatusType.AttackSpeed, _info.AmountOfAttackSpeedGainHeat, true);
+        }
 
-        ChangeHeatArea(HeatArea.HeatArea);
+        ChangeHeatArea(BastianHeatArea.HeatArea);
     }
-
-    //void EnterSuperHeatArea() {
-    //    if (_heatArea == HeatArea.SuperHeatArea) return;
-
-    //    if (_heatArea == HeatArea.CoolArea) {
-    //        _statusManager.ChangeStatus(StatusType.AttackSpeed, _info.AmountOfAttackSpeedGainSuperHeat, true);
-    //    }
-    //    else if (_heatArea == HeatArea.HeatArea) {
-    //        _statusManager.ChangeStatus(StatusType.AttackSpeed, _info.AmountOfAttackSpeedGainHeat, false);
-    //        _statusManager.ChangeStatus(StatusType.AttackSpeed, _info.AmountOfAttackSpeedGainSuperHeat, true);
-    //    }
-
-    //    ChangeHeatArea(HeatArea.SuperHeatArea);
-    //    if (!_looseAllHeat) _looseHealthCoroutine ??= StartCoroutine(LooseHealthOverTime());
-    //}
 
     void EnterOverHeatArea() {
-        if (_heatArea == HeatArea.OverHeatArea) return;
+        if (_currentHeatZone == BastianHeatArea.OverHeatArea) return;
 
-        ChangeHeatArea(HeatArea.OverHeatArea);
+        ChangeHeatArea(BastianHeatArea.OverHeatArea);
     }
 
-    //void LastOverHeatHit() {
-    //    if (_heatArea == HeatArea.ExtremeHeatArea) return;
+    void ChangeHeatArea(BastianHeatArea newArea) {
+        bool increasedHeat = _currentHeatZone < newArea;
+        _currentHeatZone = newArea;
+        OnHeatAreaChange?.Invoke(_currentHeatZone);
 
-    //    ChangeHeatArea(HeatArea.ExtremeHeatArea);
-    //}
-
-    void ChangeHeatArea(HeatArea newArea) {
-        bool increasedHeat = _heatArea < newArea;
-        _heatArea = newArea;
-        OnHeatAreaChange?.Invoke(_heatArea);
-
-        int switchIndex = Mathf.Clamp((int)(_heatArea - 1), 0, 5);
+        int switchIndex = Mathf.Clamp((int)(_currentHeatZone - 1), 0, 5);
 
         if (!increasedHeat) return;
 
@@ -217,7 +185,7 @@ public class BastianPassiveManager : PassiveSkillManager {
     IEnumerator HeatLostPerTime() {
         while (true) {
             yield return new WaitForSeconds(_info.TimeToLooseHeat);
-            if ((_currentHeat < _info.HeatToHitOverHeatArea || _looseAllHeat) && _canLooseHeat) LooseHeat(_info.HeatLostPerTime);
+            if ((_currentHeatValue < _info.AmountOfHeatToHitOverHeatArea || _looseAllHeat) && _canLooseHeat) LooseHeat(_info.HeatLostPerTime);
         }
     }
 
@@ -225,7 +193,7 @@ public class BastianPassiveManager : PassiveSkillManager {
         CanShoot = false;
 
         float timer = 0;
-        float amountOfHeatPerSecond = _info.MaxHeat/_info.TimeToLooseAllHeatAfterLastHit;
+        float amountOfHeatPerSecond = _info.MaxHeat / _info.TimeToLooseAllHeatAfterLastHit;
 
         while (timer < _info.TimeToLooseAllHeatAfterLastHit) {
             timer += Time.deltaTime;
@@ -240,12 +208,10 @@ public class BastianPassiveManager : PassiveSkillManager {
     }
 
     IEnumerator LooseHealthOverTime() {
-        while (_heatArea >= _info.MinAreaToLooseHealth) {
+        while (true) {
             LooseHealth();
-            yield return new WaitForSeconds(_info.TimeToLooseHealth);
+            yield return _healthLostCooldown;
         }
-
-        _looseHealthCoroutine = null;
     }
 
     #endregion

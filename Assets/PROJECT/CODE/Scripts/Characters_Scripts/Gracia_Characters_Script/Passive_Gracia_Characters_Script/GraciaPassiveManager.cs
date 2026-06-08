@@ -2,8 +2,6 @@ using System;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public enum GraciaTypeOfSkill { Left, Right };
-public enum GraciaAura { Blue, Yellow, Red, Green, Null };
 public class GraciaPassiveManager : PassiveSkillManager {
     #region Paramethers
 

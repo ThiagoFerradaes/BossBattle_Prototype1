@@ -2,12 +2,7 @@ using AYellowpaper.SerializedCollections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum TypesOfAudio {
-    Global,
-    Music,
-    SFX,
-    Ambient
-}
+
 public class AudioConfig : ConfigScreen {
 
     [Header("Sliders")]

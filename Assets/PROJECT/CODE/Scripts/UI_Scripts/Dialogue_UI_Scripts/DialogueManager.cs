@@ -9,12 +9,7 @@ using UnityEngine.UI;
 using static UnityEngine.Audio.ProcessorInstance;
 
 
-public enum TypeOfDialogueSpritePosition { Left, Right }
-public enum ExpressionTypeDialogue {
-    Angry_S, Angry_N, Anxious_S, Anxious_N, Curious_S, Curious_N,
-    Default_S, Default_N, Intense_S, Intense_N, Laughing_S, Laughing_N, Satisfied_S, Satisfied_N, Surprise_S, Surprised_N, Vulnerable_S,
-    Vulnerable_N, Special_1, Special_2, Special_3
-}
+
 
 public class DialogueManager : MonoBehaviour {
 

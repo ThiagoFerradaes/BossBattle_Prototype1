@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 // Script responsable for the walk and rotation of characters that use inputs to walk and rotate
 // Uses the camera as the reference for what is foward
-public enum RotationType { MouseRotation, MoveRotation }
+
 [RequireComponent(typeof(Rigidbody), typeof(StunManager), typeof(StatusManager))]
 public class PlayerMovementManager : MonoBehaviour {
 

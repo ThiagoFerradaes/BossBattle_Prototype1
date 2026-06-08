@@ -15,7 +15,7 @@ public class BastianBaseAttackManager : SkillObjectManager {
     Coroutine _timerBetweenAttacksCoroutine;
 
     // Actions
-    public static event Action<int, HeatArea> OnShoot;
+    public static event Action<int, BastianHeatArea> OnShoot;
 
     float _attackSpeedMultiplier;
     public override void HandleInput(SkillSO skill, InputAction.CallbackContext ctx) {

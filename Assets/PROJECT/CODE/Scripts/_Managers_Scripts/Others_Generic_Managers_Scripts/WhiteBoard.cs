@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 
-public enum Bosses { Kraken, Crab, Thalassia, Voodoo, Birds, Ecdna }
 
 public enum SkillType { Classic, Alternative }
 [Serializable]

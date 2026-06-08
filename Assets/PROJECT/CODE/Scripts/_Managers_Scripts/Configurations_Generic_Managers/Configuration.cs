@@ -13,13 +13,7 @@ using UnityEngine.Localization.Components;
 using UnityEngine.Localization.Settings;
 using UnityEngine.UI;
 
-public enum ConfigurationScreen {
-    Gameplay,
-    Graphics,
-    Audio,
-    Language,
-    Tutorial
-}
+
 public class Configuration : MonoBehaviour {
 
     [SerializeField, Foldout("Components")] LocalizeStringEvent screenTitle;

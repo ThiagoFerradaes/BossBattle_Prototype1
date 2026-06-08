@@ -30,7 +30,7 @@ public class HeatUIManager : MonoBehaviour {
         BastianPassiveManager.Instance.OnHeatAreaChange += UpdateText;
         BastianPassiveManager.Instance.OnHeatGain += _updateHeatBarAction;
 
-        UpdateText(HeatArea.CoolArea);
+        UpdateText(BastianHeatArea.CoolArea);
 
         barAnimation.SetActive(false);
     }
@@ -42,22 +42,22 @@ public class HeatUIManager : MonoBehaviour {
     void UpdateHeatBar(float currentHeat, float maxHeat) {
         heatBar.fillAmount = currentHeat / maxHeat;
 
-        barAnimation.SetActive(currentHeat >= info.HeatToHitSuperHeatArea);
+        barAnimation.SetActive(currentHeat >= info.AmountOfHeatToHitOverHeatArea);
     }
 
-    void UpdateText(HeatArea newHeatArea) {
+    void UpdateText(BastianHeatArea newHeatArea) {
 
         switch (newHeatArea) {
-            case HeatArea.CoolArea:
+            case BastianHeatArea.CoolArea:
                 heatText.text = info.CoolText.GetLocalizedString();
                 break;
-            case HeatArea.HeatArea:
+            case BastianHeatArea.HeatArea:
                 heatText.text = info.HeatText.GetLocalizedString();
                 break;
             //case HeatArea.SuperHeatArea:
             //    heatText.text = info.SuperHeatText.GetLocalizedString();
             //    break;
-            case HeatArea.OverHeatArea:
+            case BastianHeatArea.OverHeatArea:
                 heatText.text = info.OverHeatText.GetLocalizedString();
                 break;
             //case HeatArea.ExtremeHeatArea:
