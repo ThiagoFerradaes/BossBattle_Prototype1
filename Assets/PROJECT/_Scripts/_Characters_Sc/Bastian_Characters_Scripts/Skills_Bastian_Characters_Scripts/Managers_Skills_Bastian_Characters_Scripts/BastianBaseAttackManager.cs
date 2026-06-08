@@ -106,8 +106,6 @@ public class BastianBaseAttackManager : SkillObjectManager {
         preFab.transform.localScale = Vector3.one * _info.ProjectileSize;
         preFab.transform.SetPositionAndRotation(parent.transform.position + prefabInfo.PreFabPosition, parent.transform.rotation);
 
-        //float pen = BastianPassiveManager.Instance.ReturnMinHeat(HeatArea.SuperHeatArea) ? _info.PenetrationOnSuperHeat : 0;
-
         DamageAtributes atributes = _attackIndex switch {
             1 => _info.FirstAttackAtributes,
             2 => _info.SecondAttackAtributes,
@@ -117,7 +115,6 @@ public class BastianBaseAttackManager : SkillObjectManager {
 
         DamageAtributes newAtributes = new(atributes);
 
-        //newAtributes.ExtraAtributes[ExtraDamageContextAtributes.Penetration] = pen;
         newAtributes.Speed *= _attackSpeedMultiplier;
 
         DamageContext newContext = new(

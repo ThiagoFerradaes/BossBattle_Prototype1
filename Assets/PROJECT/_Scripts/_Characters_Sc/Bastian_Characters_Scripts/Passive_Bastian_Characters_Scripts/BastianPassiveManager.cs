@@ -11,7 +11,7 @@ public class BastianPassiveManager : PassiveSkillManager {
 
     // Atributes
     float _currentHeatValue;
-    bool _looseAllHeat, _canLooseHeat;
+    bool _isLoosingAllHeat, _canLooseHeat;
     BastianHeatArea _currentHeatZone = BastianHeatArea.CoolArea;
     [HideInInspector] public bool CanShoot = true;
 
@@ -22,7 +22,7 @@ public class BastianPassiveManager : PassiveSkillManager {
 
     // Corrotines
     Coroutine _heatLostCoroutine, _looseAllHeatCoroutine, _looseHealthCoroutine;
-    WaitForSeconds _healthLostCooldown;
+    WaitForSeconds _healthLostCooldown, _heatLostCooldown;
 
     // Actions
     public event Action<float, float> OnHeatGain;
@@ -45,7 +45,10 @@ public class BastianPassiveManager : PassiveSkillManager {
         if (_info == null) _info = skill as BastianPassiveSO;
         if (_statusManager == null) _statusManager = parent.GetComponent<StatusManager>();
         if (_healthManager == null) _healthManager = parent.GetComponent<HealthManager>();
+
+        // Wait for seconds
         _healthLostCooldown ??= new(_info.HealthLostByHeatCooldown);
+        _heatLostCooldown ??= new(_info.TimeToLooseHeat);
 
         gameObject.SetActive(true);
 
@@ -70,21 +73,13 @@ public class BastianPassiveManager : PassiveSkillManager {
 
         if (amountOfHeatValueGained <= 0) return;
 
-        if (_currentHeatValue + amountOfHeatValueGained <= _info.AmountOfHeatToHitOverHeatArea)
-            _currentHeatValue += amountOfHeatValueGained;
-        else if (_currentHeatValue < _info.AmountOfHeatToHitOverHeatArea) {
-            _currentHeatValue = _info.AmountOfHeatToHitOverHeatArea;
-        }
-        else {
-            _currentHeatValue++;
-        }
+        _currentHeatValue += amountOfHeatValueGained;
+        
+        _currentHeatValue = Mathf.Min(_currentHeatValue, _info.MaxHeat);
 
         if (_currentHeatValue == _info.MaxHeat) {
-            _looseAllHeat = true;
             _looseAllHeatCoroutine ??= StartCoroutine(HeatLostAfterLastHit());
         }
-
-        _currentHeatValue = Mathf.Min(_currentHeatValue, _info.MaxHeat);
 
         CheckHeat();
 
@@ -126,7 +121,7 @@ public class BastianPassiveManager : PassiveSkillManager {
         if (_currentHeatValue >= _info.AmountOfHeatToHitOverHeatArea) {
             EnterOverHeatArea();
         }
-        else if (_currentHeatValue >= _info.HeatToHitHeatArea) {
+        else if (_currentHeatValue >= _info.AmountOfHeatToHitHeatArea) {
             EnterHeatArea();
         }
         else {
@@ -202,18 +197,19 @@ public class BastianPassiveManager : PassiveSkillManager {
     #region HeatCoroutines
     IEnumerator HeatLostPerTime() {
         while (true) {
-            yield return new WaitForSeconds(_info.TimeToLooseHeat);
-            if ((_currentHeatValue < _info.AmountOfHeatToHitOverHeatArea || _looseAllHeat) && _canLooseHeat) LooseHeat(_info.HeatLostPerTime);
+            yield return _heatLostCooldown;
+            if (!_isLoosingAllHeat && _canLooseHeat) LooseHeat(_info.HeatLostPerTime);
         }
     }
 
     IEnumerator HeatLostAfterLastHit() {
         CanShoot = false;
+        _isLoosingAllHeat = true;
 
         float timer = 0;
-        float amountOfHeatPerSecond = _info.MaxHeat / _info.TimeToLooseAllHeatAfterLastHit;
+        float amountOfHeatPerSecond = _info.MaxHeat / _info.TimeToLooseAllHeat;
 
-        while (timer < _info.TimeToLooseAllHeatAfterLastHit) {
+        while (timer < _info.TimeToLooseAllHeat) {
             timer += Time.deltaTime;
             float amountOfHeatToLoose = amountOfHeatPerSecond * Time.deltaTime;
             LooseHeat(amountOfHeatToLoose);
@@ -221,7 +217,7 @@ public class BastianPassiveManager : PassiveSkillManager {
         }
 
         _looseAllHeatCoroutine = null;
-        _looseAllHeat = false;
+        _isLoosingAllHeat = false;
         CanShoot = true;
     }
 

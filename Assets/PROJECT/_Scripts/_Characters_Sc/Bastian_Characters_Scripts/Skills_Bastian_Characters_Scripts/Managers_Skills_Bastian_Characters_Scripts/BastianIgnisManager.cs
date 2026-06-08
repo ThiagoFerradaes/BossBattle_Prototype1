@@ -59,10 +59,7 @@ public class BastianIgnisManager : SkillObjectManager {
         preFab.transform.localScale = _info.SkillDamageAtributes.Size;
         preFab.transform.SetPositionAndRotation(parent.transform.position + prefabInfo.PreFabPosition, parent.transform.rotation);
 
-        //float pen = BastianPassiveManager.Instance.ReturnMinHeat(HeatArea.SuperHeatArea) ? _info.PenetrationOnSuperHeat : 0;
-
-        DamageAtributes atributes = new(_info.SkillDamageAtributes);
-        //atributes.ExtraAtributes[ExtraDamageContextAtributes.Penetration] = pen;
+        DamageAtributes atributes = _info.SkillDamageAtributes;
         
         DamageContext newContext = new(
             atributes,
@@ -83,10 +80,6 @@ public class BastianIgnisManager : SkillObjectManager {
         _info.SkillSound.Post(parent);
 
         BastianPassiveManager.Instance.GainHeat(_info.HeatGain);
-
-        //if (BastianPassiveManager.Instance.ReturnMaxHeat(HeatArea.SuperHeatArea))
-        //    BastianPassiveManager.Instance.GainHeat(_info.HeatGain);
-        //else BastianPassiveManager.Instance.GainHeat(1);
 
     }
 }

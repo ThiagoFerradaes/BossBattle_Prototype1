@@ -15,7 +15,7 @@ public class DamageContext {
 }
 [Serializable]
 public class DamageAtributes {
-    [Header ("Main Atributes")]
+    [Header("Main Atributes")]
     public LayerMask UnitsToHit;
 
     [Header("Floats")]
@@ -84,20 +84,16 @@ public class DamageAtributes {
     }
 }
 public static class DamageCalculator {
-    public static float CalculateDamage( 
-        DamageAtributes atributes,
-        StatusManager statusDealer,
-        StatusManager statusReciever
-        ) {
+    public static float CalculateDamage(DamageAtributes atributes, StatusManager statusDealer, StatusManager statusReciever) {
 
         float rawDamage = atributes.Damage * statusDealer.ReturnStatusValue(StatusType.Attack);
 
-        float targetDefense = statusReciever.ReturnStatusValue(StatusType.Defense); 
+        float targetDefense = 100 * statusReciever.ReturnStatusValue(StatusType.Defense);
 
         float penetration = 0;
-        
+
         if (atributes.ExtraAtributes.ContainsKey(ExtraDamageContextAtributes.Penetration))
-            penetration = Mathf.Min(0.75f, atributes.ExtraAtributes[ExtraDamageContextAtributes.Penetration]/100);
+            penetration = Mathf.Min(0.75f, atributes.ExtraAtributes[ExtraDamageContextAtributes.Penetration] / 100);
 
         targetDefense *= (1 - penetration);
 

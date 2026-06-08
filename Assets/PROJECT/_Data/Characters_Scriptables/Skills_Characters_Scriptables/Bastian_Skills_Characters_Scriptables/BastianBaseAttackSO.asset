@@ -49,17 +49,17 @@ MonoBehaviour:
   ListOfAnimationsInfo:
   - AnimationClip: {fileID: 7400000, guid: d7a6991a756c2b64388f424b738b8a38, type: 2}
     AnimationLayer: 0
-    AnimationBaseSpeed: 5
+    AnimationBaseSpeed: 7
     Loop: 0
     AnimationExitTime: 0.7
   - AnimationClip: {fileID: 7400000, guid: de40b68da9f5c2f4cade9d4faf4f0992, type: 2}
     AnimationLayer: 0
-    AnimationBaseSpeed: 6
+    AnimationBaseSpeed: 8
     Loop: 0
     AnimationExitTime: 0.65
   - AnimationClip: {fileID: 7400000, guid: fa0b5b8564a0f2c4d916f84d91abd8da, type: 2}
     AnimationLayer: 0
-    AnimationBaseSpeed: 4
+    AnimationBaseSpeed: 6
     Loop: 0
     AnimationExitTime: 0.7
   Prefabs:
@@ -185,7 +185,6 @@ MonoBehaviour:
   ChargeCooldown: 0
   DealDamage: 1
   SkillDamageAtributes:
-    DamageType: 0
     UnitsToHit:
       serializedVersion: 2
       m_Bits: 0
@@ -205,7 +204,6 @@ MonoBehaviour:
       _serializedList: []
   AttackSpeedAnimationParameter: AttackSpeed
   FirstAttackAtributes:
-    DamageType: 0
     UnitsToHit:
       serializedVersion: 2
       m_Bits: 128
@@ -222,15 +220,8 @@ MonoBehaviour:
     TimeStopped: 0
     MinDistanceBack: 0
     ExtraAtributes:
-      _serializedList:
-      - Key: 0
-        Value: 50
-      - Key: 1
-        Value: 0
-      - Key: 2
-        Value: 252
+      _serializedList: []
   SecondAttackAtributes:
-    DamageType: 0
     UnitsToHit:
       serializedVersion: 2
       m_Bits: 128
@@ -247,15 +238,8 @@ MonoBehaviour:
     TimeStopped: 0
     MinDistanceBack: 0
     ExtraAtributes:
-      _serializedList:
-      - Key: 0
-        Value: 50
-      - Key: 1
-        Value: 0
-      - Key: 2
-        Value: 252
+      _serializedList: []
   ThirdAttackAtributes:
-    DamageType: 0
     UnitsToHit:
       serializedVersion: 2
       m_Bits: 128
@@ -272,13 +256,7 @@ MonoBehaviour:
     TimeStopped: 0
     MinDistanceBack: 0
     ExtraAtributes:
-      _serializedList:
-      - Key: 0
-        Value: 50
-      - Key: 1
-        Value: 0
-      - Key: 2
-        Value: 252
+      _serializedList: []
   AttackDistance: 7
   ProjectileSpeed: 20
   ProjectileSize: 0.5
@@ -311,9 +289,6 @@ MonoBehaviour:
   CooldownBetweenAttacks: 0
   MaxTimeBetweenAttacks: 1
   HeatGain: 4
-  PenetrationOnSuperHeat: 50
-  CritChanceOverHeat: 100
-  LastOverHeatCritDamage: 800
   references:
     version: 2
     RefIds: []

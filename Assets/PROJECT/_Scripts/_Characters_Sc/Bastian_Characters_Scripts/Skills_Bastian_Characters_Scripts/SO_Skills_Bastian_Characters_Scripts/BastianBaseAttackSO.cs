@@ -23,8 +23,4 @@ public class BastianBaseAttackSO : CommonSkillSO {
 
     [Header("Passive")]
     [Foldout("Specific")] public float HeatGain;
-    [Foldout("Specific")] public float PenetrationOnSuperHeat;
-    [Foldout("Specific")] public float CritChanceOverHeat;
-    [Foldout("Specific")] public float LastOverHeatCritDamage;
-
 }
