@@ -54,15 +54,15 @@ public class HeatUIManager : MonoBehaviour {
             case HeatArea.HeatArea:
                 heatText.text = info.HeatText.GetLocalizedString();
                 break;
-            case HeatArea.SuperHeatArea:
-                heatText.text = info.SuperHeatText.GetLocalizedString();
-                break;
+            //case HeatArea.SuperHeatArea:
+            //    heatText.text = info.SuperHeatText.GetLocalizedString();
+            //    break;
             case HeatArea.OverHeatArea:
                 heatText.text = info.OverHeatText.GetLocalizedString();
                 break;
-            case HeatArea.ExtremeHeatArea:
-                heatText.text = info.LastOverHeatText.GetLocalizedString();
-                break;
+            //case HeatArea.ExtremeHeatArea:
+            //    heatText.text = info.LastOverHeatText.GetLocalizedString();
+            //    break;
         }
 
         animationRoutine ??= StartCoroutine(AnimationRoutine());

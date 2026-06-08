@@ -136,12 +136,6 @@ public class CyrusKanaboSkillManager : SkillObjectManager {
 
             DamageAtributes newAtributes = new(_info.ExplosionAtributes);
 
-            if (_skillLevel > 1)
-                newAtributes.ExtraAtributes[ExtraDamageContextAtributes.CritRate] = _info.ExplosionCritRateLevelTwo;
-
-            if (_skillLevel > 2)
-                newAtributes.ExtraAtributes[ExtraDamageContextAtributes.CritDamage] = _info.ExplosionCritDamageLevelThree;
-
             DamageContext newContext = new(newAtributes, statusManager);
 
             InstantDamageHitBox collider = hitbox.GetComponent<InstantDamageHitBox>();

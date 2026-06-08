@@ -121,10 +121,7 @@ public class GraciaAttackManager : SkillObjectManager {
         preFab.transform.SetParent(null);
 
         // Calculando o dano do ataque
-        DamageAtributes newAtribues = new(atributes);
-        newAtribues.ExtraAtributes[ExtraDamageContextAtributes.CritRate] = CalculateCritRate();
-        newAtribues.ExtraAtributes[ExtraDamageContextAtributes.CritDamage] = CalculateCritDamage();
-        DamageContext newContext = new(newAtribues, statusManager);
+        DamageContext newContext = new(atributes, statusManager);
 
 
         // Ativando a hitbox
@@ -138,22 +135,6 @@ public class GraciaAttackManager : SkillObjectManager {
         hitbox.OnHit += () => {
             energyManager.GainEnergy(_info.FlatEnergyGainPerHit);
         };
-    }
-
-    float CalculateCritRate() {
-        float attackCritRateMultiplier = _attackIndex switch {
-            1 => GraciaPassiveManager.Instance.ReturnCriValues().FirstAttackCritRateValue,
-            2 => GraciaPassiveManager.Instance.ReturnCriValues().SecondAttackCritRateValue,
-            3 => GraciaPassiveManager.Instance.ReturnCriValues().ThirdAttackCritRateValue,
-            _ => GraciaPassiveManager.Instance.ReturnCriValues().FirstAttackCritRateValue
-        };
-        return statusManager.ReturnStatusValue(StatusType.CritRate) + attackCritRateMultiplier;
-    }
-
-    float CalculateCritDamage() {
-        float critDamage = GraciaPassiveManager.Instance.ReturnCritDamage();
-        if (_attackIndex == 3) return statusManager.ReturnStatusValue(StatusType.CritDamage) + critDamage;
-        else return statusManager.ReturnStatusValue(StatusType.CritDamage);
     }
 
     #endregion

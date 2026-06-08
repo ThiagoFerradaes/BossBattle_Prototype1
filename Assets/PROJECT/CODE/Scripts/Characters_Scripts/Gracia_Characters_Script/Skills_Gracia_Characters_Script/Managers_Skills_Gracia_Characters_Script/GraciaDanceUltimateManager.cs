@@ -232,9 +232,7 @@ public class GraciaDanceUltimateManager : SkillObjectManager
                 hitbox.transform.SetParent(null);
 
                 // Atributos do dano
-                DamageAtributes newAtributes = new(_info.RedAtributes);
-                newAtributes.ExtraAtributes[ExtraDamageContextAtributes.CritRate] = _info.RedCritRatePerLevel[_skillLevel];
-                DamageContext newContext = new(newAtributes, statusManager);
+                DamageContext newContext = new(_info.RedAtributes, statusManager);
 
                 // Ligando a hitbox
                 InstantDamageHitBox collider = hitbox.GetComponent<InstantDamageHitBox>();

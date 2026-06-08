@@ -5,8 +5,7 @@ using UnityEngine;
 
 public enum TypeOfSkillPrefab { Hitbox, VFX, PreCastRange, Manager }
 public enum TypeOfCollider { Instant, Continuos, Projectile, Boomerang}
-public enum DamageType { Abyssal, Ancestral, Pure }
-public enum ExtraDamageContextAtributes { Penetration, CritRate, CritDamage }
+public enum ExtraDamageContextAtributes { Penetration }
 public class DamageContext {
     public DamageAtributes Atributes;
     public StatusManager StatusManager;
@@ -19,7 +18,6 @@ public class DamageContext {
 [Serializable]
 public class DamageAtributes {
     [Header ("Main Atributes")]
-    public DamageType DamageType;
     public LayerMask UnitsToHit;
 
     [Header("Floats")]
@@ -68,7 +66,6 @@ public class DamageAtributes {
     public SerializedDictionary<ExtraDamageContextAtributes, float> ExtraAtributes;
 
     public DamageAtributes(DamageAtributes source) {
-        DamageType = source.DamageType;
         UnitsToHit = source.UnitsToHit;
         Damage = source.Damage;
         HitShield = source.HitShield;
@@ -89,38 +86,15 @@ public class DamageAtributes {
     }
 }
 public static class DamageCalculator {
-    public static (float, bool) CalculateDamage( // Considerando o crítico do personagem
+    public static float CalculateDamage( // Considerando o crítico do personagem
         DamageAtributes atributes,
         StatusManager statusDealer,
         StatusManager statusReciever
         ) {
 
-        float rawDamage = atributes.DamageType switch {
-            DamageType.Abyssal => atributes.Damage * statusDealer.ReturnStatusValue(StatusType.BaseAttack),
-            DamageType.Ancestral => atributes.Damage * statusDealer.ReturnStatusValue(StatusType.SkillAttack),
-            DamageType.Pure => atributes.Damage,
-            _ => atributes.Damage
-        };
+        float rawDamage = atributes.Damage * statusDealer.ReturnStatusValue(StatusType.BaseAttack);
 
-        // Vendo se critou
-        bool isCrit;
-        if (atributes.ExtraAtributes.ContainsKey(ExtraDamageContextAtributes.CritRate))
-            isCrit = UnityEngine.Random.value <= atributes.ExtraAtributes[ExtraDamageContextAtributes.CritRate]/100;
-        else isCrit = UnityEngine.Random.value <= statusDealer.ReturnStatusValue(StatusType.CritRate) / 100;
-
-        // Vendo dano crítico
-        if (isCrit) {
-            if (atributes.ExtraAtributes.ContainsKey(ExtraDamageContextAtributes.CritDamage))
-                rawDamage *= atributes.ExtraAtributes[ExtraDamageContextAtributes.CritDamage]/100;
-            else rawDamage *= statusDealer.ReturnStatusValue(StatusType.CritDamage) / 100;
-        }
-
-        float targetDefense = atributes.DamageType switch {
-            DamageType.Abyssal => statusReciever.ReturnStatusValue(StatusType.Defense),
-            DamageType.Ancestral => statusReciever.ReturnStatusValue(StatusType.SkillDefense),
-            DamageType.Pure => 0,
-            _ => 0
-        };
+        float targetDefense = statusReciever.ReturnStatusValue(StatusType.Defense); 
 
         float penetration = 0;
         
@@ -131,7 +105,7 @@ public static class DamageCalculator {
 
         float finalDamage = rawDamage * (100 / (100 + targetDefense));
 
-        return (Mathf.Max(1, finalDamage), isCrit);
+        return (Mathf.Max(1, finalDamage));
     }
 
 }

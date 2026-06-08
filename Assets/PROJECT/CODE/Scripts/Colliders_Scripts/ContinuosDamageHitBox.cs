@@ -67,26 +67,15 @@ public class ContinuosDamageHitBox : MonoBehaviour {
 
                 if (!health.ReturnIfCanTakeDamage()) continue;
 
-                (float, bool) newDamage;
-                if (_damageAtributes.ExtraAtributes.ContainsKey(ExtraDamageContextAtributes.CritRate) &&
-                    _damageAtributes.ExtraAtributes.ContainsKey(ExtraDamageContextAtributes.CritDamage)) {
-                    newDamage = DamageCalculator.CalculateDamage(
+                float newDamage = DamageCalculator.CalculateDamage(
                     _damageAtributes,
                     _dealerStatus,
-                    recieverManager
-                    );
-                }
-                else {
-                    newDamage = DamageCalculator.CalculateDamage(
-                    _damageAtributes,
-                    _dealerStatus,
-                    recieverManager
-                    );
-                }
+                    recieverManager);
+ 
 
                 if (unit.layer == LayerMask.NameToLayer("Enemy")) PopUpManager.Instance.DamageDone(
-                    (int)newDamage.Item1, health.transform.position, newDamage.Item2, _damageAtributes.DamageType);
-                health.TakeDamage(newDamage.Item1, _damageAtributes.HitShield);
+                    (int)newDamage, health.transform.position);
+                health.TakeDamage(newDamage, _damageAtributes.HitShield);
 
                 OnHit?.Invoke();
 

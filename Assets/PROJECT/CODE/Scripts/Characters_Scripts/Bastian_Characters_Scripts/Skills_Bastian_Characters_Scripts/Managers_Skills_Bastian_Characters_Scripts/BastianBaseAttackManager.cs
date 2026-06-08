@@ -106,10 +106,7 @@ public class BastianBaseAttackManager : SkillObjectManager {
         preFab.transform.localScale = Vector3.one * _info.ProjectileSize;
         preFab.transform.SetPositionAndRotation(parent.transform.position + prefabInfo.PreFabPosition, parent.transform.rotation);
 
-        float pen = BastianPassiveManager.Instance.ReturnMinHeat(HeatArea.SuperHeatArea) ? _info.PenetrationOnSuperHeat : 0;
-        float critChance = BastianPassiveManager.Instance.ReturnMinHeat(HeatArea.OverHeatArea) ? _info.CritChanceOverHeat : 0;
-        float additionalCriDmg = BastianPassiveManager.Instance.ReturnMinHeat(HeatArea.ExtremeHeatArea) ? _info.LastOverHeatCritDamage : 0;
-        float critDamage = statusManager.ReturnStatusValue(StatusType.CritDamage) + additionalCriDmg;
+        //float pen = BastianPassiveManager.Instance.ReturnMinHeat(HeatArea.SuperHeatArea) ? _info.PenetrationOnSuperHeat : 0;
 
         DamageAtributes atributes = _attackIndex switch {
             1 => _info.FirstAttackAtributes,
@@ -120,9 +117,7 @@ public class BastianBaseAttackManager : SkillObjectManager {
 
         DamageAtributes newAtributes = new(atributes);
 
-        newAtributes.ExtraAtributes[ExtraDamageContextAtributes.Penetration] = pen;
-        newAtributes.ExtraAtributes[ExtraDamageContextAtributes.CritRate] = critChance;
-        newAtributes.ExtraAtributes[ExtraDamageContextAtributes.CritDamage] = critDamage;
+        //newAtributes.ExtraAtributes[ExtraDamageContextAtributes.Penetration] = pen;
         newAtributes.Speed *= _attackSpeedMultiplier;
 
         DamageContext newContext = new(

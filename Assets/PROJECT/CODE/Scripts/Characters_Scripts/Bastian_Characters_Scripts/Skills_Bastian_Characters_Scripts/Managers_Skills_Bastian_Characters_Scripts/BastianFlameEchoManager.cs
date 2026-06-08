@@ -144,16 +144,11 @@ public class BastianFlameEchoManager : SkillObjectManager
             _ => _info.FirstAttackDamageAtributes,
         };
 
-        float pen = area >= HeatArea.SuperHeatArea ? _info.SPenetrationOnSuperHeat : 0;
-        float critChance = area >= HeatArea.OverHeatArea ? _info.SCritChanceOverHeat : 0;
-        float additionalCriDmg = area >= HeatArea.ExtremeHeatArea ? _info.SLastOverHeatCritDamage : 0;
-        float critDamage = statusManager.ReturnStatusValue(StatusType.CritDamage) + additionalCriDmg;
+        //float pen = area >= HeatArea.SuperHeatArea ? _info.SPenetrationOnSuperHeat : 0;
 
         DamageAtributes newAtributes = new(atributes);
 
-        newAtributes.ExtraAtributes[ExtraDamageContextAtributes.Penetration] = pen;
-        newAtributes.ExtraAtributes[ExtraDamageContextAtributes.CritRate] = critChance;
-        newAtributes.ExtraAtributes[ExtraDamageContextAtributes.CritDamage] = critDamage;
+        //newAtributes.ExtraAtributes[ExtraDamageContextAtributes.Penetration] = pen;
 
         GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFab, TypeOfSkillPrefab.Hitbox);
 
@@ -181,15 +176,10 @@ public class BastianFlameEchoManager : SkillObjectManager
         preFab.transform.localScale = _info.IgnisDamageAtributes.Size;
         preFab.transform.SetPositionAndRotation(parent.transform.position + prefabInfo.PreFabPosition, parent.transform.rotation);
 
-        float pen = area >= HeatArea.SuperHeatArea ? _info.IgnisPenetrationOnSuperHeat : 0;
-        float critChance = area >= HeatArea.OverHeatArea ? _info.IgnisCritChanceOverHeat : 0;
-        float additionalCriDmg = area >= HeatArea.ExtremeHeatArea ? _info.IgnisLastOverHeatCritDamage : 0;
-        float critDamage = statusManager.ReturnStatusValue(StatusType.CritDamage) + additionalCriDmg;
+        //float pen = area >= HeatArea.SuperHeatArea ? _info.IgnisPenetrationOnSuperHeat : 0;
 
         DamageAtributes atributes = new(_info.IgnisDamageAtributes);
-        atributes.ExtraAtributes[ExtraDamageContextAtributes.Penetration] = pen;
-        atributes.ExtraAtributes[ExtraDamageContextAtributes.CritRate] = critChance;
-        atributes.ExtraAtributes[ExtraDamageContextAtributes.CritDamage] = critDamage;
+        //atributes.ExtraAtributes[ExtraDamageContextAtributes.Penetration] = pen;
 
         DamageContext newContext = new(
             atributes,
@@ -199,8 +189,10 @@ public class BastianFlameEchoManager : SkillObjectManager
         ProjectileDamageHitBox hitbox = preFab.GetComponent<ProjectileDamageHitBox>();
         hitbox.Initialize(newContext);
 
-        if (BastianPassiveManager.Instance.ReturnMaxHeat(HeatArea.SuperHeatArea))
-            BastianPassiveManager.Instance.GainHeat(_info.IgnisHeatGain);
-        else BastianPassiveManager.Instance.GainHeat(_info.IgnisHeatGainOverHeat);
+        BastianPassiveManager.Instance.GainHeat(_info.IgnisHeatGain);
+
+        //if (BastianPassiveManager.Instance.ReturnMaxHeat(HeatArea.SuperHeatArea))
+        //    BastianPassiveManager.Instance.GainHeat(_info.IgnisHeatGain);
+        //else BastianPassiveManager.Instance.GainHeat(_info.IgnisHeatGainOverHeat);
     }
 }

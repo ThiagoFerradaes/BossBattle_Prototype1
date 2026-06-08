@@ -52,10 +52,7 @@ public class BastianLastWhisper : SkillObjectManager
         newPreFab.transform.SetLocalPositionAndRotation(pos, Quaternion.identity);
         newPreFab.transform.SetParent(null);
 
-        float pen = BastianPassiveManager.Instance.ReturnMinHeat(HeatArea.SuperHeatArea) ? _info.PenetrationOnSuperHeat : 0;
-        float critChance = BastianPassiveManager.Instance.ReturnMinHeat(HeatArea.OverHeatArea) ? _info.CritChanceOverHeat : 0;
-        float additionalCriDmg = BastianPassiveManager.Instance.ReturnMinHeat(HeatArea.ExtremeHeatArea) ? _info.LastOverHeatCritDamage : 0;
-        float critDamage = statusManager.ReturnStatusValue(StatusType.CritDamage) + additionalCriDmg;
+        //float pen = BastianPassiveManager.Instance.ReturnMinHeat(HeatArea.SuperHeatArea) ? _info.PenetrationOnSuperHeat : 0;
         float damage = _info.Atributes.Damage + (_info.HeatDamageMultiplier * BastianPassiveManager.Instance.ReturnCurrentHeat());
 
         DamageAtributes atributes = new(_info.Atributes)
@@ -63,9 +60,7 @@ public class BastianLastWhisper : SkillObjectManager
             Damage = damage
         };
 
-        atributes.ExtraAtributes[ExtraDamageContextAtributes.Penetration] = pen;
-        atributes.ExtraAtributes[ExtraDamageContextAtributes.CritRate] = critChance;
-        atributes.ExtraAtributes[ExtraDamageContextAtributes.CritDamage] = critDamage;
+        //atributes.ExtraAtributes[ExtraDamageContextAtributes.Penetration] = pen;
 
         DamageContext newContext = new(
             atributes,

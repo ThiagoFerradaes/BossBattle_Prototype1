@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum StatusType {
-    MaxHealth, MaxAmountOfShield, BaseAttack, SkillAttack, Defense, SkillDefense
-        , MoveSpeed, AttackSpeed, CritRate, CritDamage, EnergyRecharge
+    MaxHealth, MaxAmountOfShield, BaseAttack, Defense, MoveSpeed, AttackSpeed, EnergyRecharge
 }
 
 [Serializable]
@@ -35,13 +34,9 @@ public class StatusSO : ScriptableObject {
         {new(StatusType.MaxHealth, 100) },
         {new(StatusType.MaxAmountOfShield, 25) },
         {new(StatusType.BaseAttack, 1) },
-        {new(StatusType.SkillAttack, 1) },
         {new(StatusType.Defense, 100) },
-        {new(StatusType.SkillDefense, 100) },
         {new(StatusType.MoveSpeed, 5.5f) },
         {new(StatusType.AttackSpeed, 1) },
-        {new(StatusType.CritRate, 5) },
-        {new(StatusType.CritDamage, 200) },
         {new(StatusType.EnergyRecharge, 1) },
     };
 }

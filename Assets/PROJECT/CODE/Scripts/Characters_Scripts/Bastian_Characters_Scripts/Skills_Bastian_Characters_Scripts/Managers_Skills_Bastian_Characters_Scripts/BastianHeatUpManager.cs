@@ -56,8 +56,10 @@ public class BastianHeatUpManager : SkillObjectManager
     {
         float currentHeat = BastianPassiveManager.Instance.ReturnCurrentHeat();
 
-        if (currentHeat < _info.AmountOfHeatToSetUp) BastianPassiveManager.Instance.SetHeatToAmount(_info.AmountOfHeatToSetUp);
-        else if (BastianPassiveManager.Instance.ReturnMaxHeat(HeatArea.SuperHeatArea)) BastianPassiveManager.Instance.GainHeat(_info.ExtraAmountOfHeat);
+        BastianPassiveManager.Instance.SetHeatToAmount(_info.AmountOfHeatToSetUp);
+
+        //if (currentHeat < _info.AmountOfHeatToSetUp) BastianPassiveManager.Instance.SetHeatToAmount(_info.AmountOfHeatToSetUp);
+        //else if (BastianPassiveManager.Instance.ReturnMaxHeat(HeatArea.SuperHeatArea)) BastianPassiveManager.Instance.GainHeat(_info.ExtraAmountOfHeat);
     }
 
     protected override void FourthFunc()

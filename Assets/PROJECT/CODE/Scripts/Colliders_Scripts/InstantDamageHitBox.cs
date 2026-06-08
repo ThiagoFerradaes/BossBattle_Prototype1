@@ -71,18 +71,18 @@ public class InstantDamageHitBox : MonoBehaviour {
         if (!health.ReturnIfCanTakeDamage()) return;
 
 
-        (float, bool) newDamage = DamageCalculator.CalculateDamage(
+        float newDamage = DamageCalculator.CalculateDamage(
                 _damageAtributes,
                 _statusManager,
                 recieverStatus
                 );
 
         if (other.gameObject.layer == LayerMask.NameToLayer("Enemy")) PopUpManager.Instance.
-                DamageDone((int)newDamage.Item1, other.transform.position, newDamage.Item2, _damageAtributes.DamageType);
+                DamageDone((int)newDamage, other.transform.position);
 
         if (_damageAtributes.BreakShield) health.BreakShield();
 
-        health.TakeDamage(newDamage.Item1, _damageAtributes.HitShield);
+        health.TakeDamage(newDamage, _damageAtributes.HitShield);
 
         if (!_hasHitted) {
             _hasHitted = true;

@@ -215,10 +215,6 @@ public class GraciaDashUltimateManager : SkillObjectManager {
 
         // Decidindo atributos
         DamageAtributes newAtributes = new(_info.Atributes);
-        if (_currentAura == GraciaAura.Red) {
-            newAtributes.ExtraAtributes[ExtraDamageContextAtributes.CritRate] = _info.RedCritRate;
-            newAtributes.ExtraAtributes[ExtraDamageContextAtributes.CritDamage] = _info.RedCritDamage;
-        }
         newAtributes.Damage *= (1 + _info.DamageIncreasePerLevel[_skillLevel]);
         DamageContext newContext = new(newAtributes, statusManager);
 

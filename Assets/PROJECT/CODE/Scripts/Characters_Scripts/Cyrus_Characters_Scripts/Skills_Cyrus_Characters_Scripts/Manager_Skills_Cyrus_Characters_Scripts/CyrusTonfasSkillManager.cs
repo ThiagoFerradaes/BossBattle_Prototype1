@@ -58,12 +58,6 @@ public class CyrusTonfasSkillManager : SkillObjectManager
 
         DamageAtributes newAtributes = new(_info.Atributes);
 
-        if (_skillLevel >= 3) {
-            newAtributes.ExtraAtributes[ExtraDamageContextAtributes.CritRate] = _info.CritRateLevelThree;
-            newAtributes.ExtraAtributes[ExtraDamageContextAtributes.CritDamage] = _info.CritDamageLevelThree;
-        }
-
-
         DamageContext newContext = new(newAtributes, statusManager);
 
         InstantDamageHitBox collider = hitbox.GetComponent<InstantDamageHitBox>();

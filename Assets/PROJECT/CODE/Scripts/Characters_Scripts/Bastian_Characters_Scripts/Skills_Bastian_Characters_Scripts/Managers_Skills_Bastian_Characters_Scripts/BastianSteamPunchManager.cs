@@ -60,15 +60,10 @@ public class BastianSteamPunchManager : SkillObjectManager
         newPreFab.transform.SetLocalPositionAndRotation(prefab.PreFabPosition, Quaternion.identity);
         newPreFab.transform.SetParent(null);
 
-        float pen = BastianPassiveManager.Instance.ReturnMinHeat(HeatArea.SuperHeatArea) ? _info.PenetrationOnSuperHeat : 0;
-        float critChance = BastianPassiveManager.Instance.ReturnMinHeat(HeatArea.OverHeatArea) ? _info.CritChanceOverHeat : 0;
-        float additionalCriDmg = BastianPassiveManager.Instance.ReturnMinHeat(HeatArea.ExtremeHeatArea) ? _info.LastOverHeatCritDamage : 0;
-        float critDamage = statusManager.ReturnStatusValue(StatusType.CritDamage) + additionalCriDmg;
+        //float pen = BastianPassiveManager.Instance.ReturnMinHeat(HeatArea.SuperHeatArea) ? _info.PenetrationOnSuperHeat : 0;
 
         DamageAtributes atributes = new(_info.SkillDamageAtributes);
-        atributes.ExtraAtributes[ExtraDamageContextAtributes.Penetration] = pen;
-        atributes.ExtraAtributes[ExtraDamageContextAtributes.CritRate] = critChance;
-        atributes.ExtraAtributes[ExtraDamageContextAtributes.CritDamage] = critDamage;
+        //atributes.ExtraAtributes[ExtraDamageContextAtributes.Penetration] = pen;
         atributes.Speed *= _attackSpeedMultiplier;
 
         DamageContext newContext = new(
