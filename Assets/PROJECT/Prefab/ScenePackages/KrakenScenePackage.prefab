@@ -137,6 +137,75 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   shakeDuration: 0.528
+--- !u!1 &491017839750421551
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5465253125667130741}
+  - component: {fileID: 9204892269845902851}
+  m_Layer: 0
+  m_Name: BattleRankingManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5465253125667130741
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 491017839750421551}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5862209693414514865}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9204892269845902851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 491017839750421551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af4de3769bddd36428513766e6240a59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BattleRankingManager
+  dictionaryOfRanksPoints:
+    _serializedList:
+    - Key: 0
+      Value: 120
+    - Key: 1
+      Value: 240
+    - Key: 2
+      Value: 480
+    - Key: 3
+      Value: 760
+    - Key: 4
+      Value: 1520
+    - Key: 5
+      Value: 3100
+    - Key: 6
+      Value: 6200
+  minTimeMultiplierValue: 1
+  maxTimeMultiplierValue: 1.5
+  maxTimeNoDamageTaken: 120
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!1 &1023353579346976178
 GameObject:
   m_ObjectHideFlags: 0
@@ -166,6 +235,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 5465253125667130741}
   - {fileID: 7815330021887902568}
   - {fileID: 2712318072634131185}
   - {fileID: 6431438605472983620}

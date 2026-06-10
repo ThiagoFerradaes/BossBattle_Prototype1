@@ -3,9 +3,15 @@ using System;
 using UnityEngine;
 
 public class BattleRankManager : MonoBehaviour {
+
+    // Manager atributes
     float _totalScorePoints;
+    float _lastTimePlayerGotHit;
     BattleRank _currentRank = BattleRank.E;
+
+    // Future scriptable
     public SerializedDictionary<BattleRank, float> dictionaryOfRanksPoints;
+    public float minTimeMultiplierValue, maxTimeMultiplierValue, maxTimeNoDamageTaken;
     public LayerMask enemyLayer, playerLayer;
 
 
@@ -16,6 +22,7 @@ public class BattleRankManager : MonoBehaviour {
     public static event Action<float, float> OnPointGained;
     public static event Action<BattleRank> OnRankChanged;
 
+    #region Start Region
     private void Awake() {
         SubscribeToEvents();
     }
@@ -25,18 +32,28 @@ public class BattleRankManager : MonoBehaviour {
     }
 
     void SubscribeToEvents() {
-        HitBox.OnHitTarget += HitBox_OnHitTarget;
+        HitBox.OnHitTarget += GainPoints;
     }
 
     void UnsubscribeToEvents() {
-        HitBox.OnHitTarget -= HitBox_OnHitTarget;
+        HitBox.OnHitTarget -= GainPoints;
     }
 
-    private void HitBox_OnHitTarget(LayerMask obj) {
+    private void Start() {
+        SetLastTimePlayerGotHit();
+    }
+
+    #endregion
+
+    private void GainPoints(LayerMask obj) {
 
         if (enemyLayer.ContainsLayer(obj)) {
-            _totalScorePoints += 10;
+            _totalScorePoints += 10 * ReturnTimeNoDamageTakenMultiplier();
             CheckPoints();
+        }
+
+        else if (playerLayer.ContainsLayer(obj)) {
+            SetLastTimePlayerGotHit();
         }
 
     }
@@ -56,5 +73,17 @@ public class BattleRankManager : MonoBehaviour {
             _currentRank++;
             OnRankChanged?.Invoke(_currentRank);
         }
+    }
+
+    private void SetLastTimePlayerGotHit() {
+        _lastTimePlayerGotHit = Time.time;
+    }
+
+    float ReturnTimeNoDamageTakenMultiplier() {
+        float currentTimeWithoutTakingDamage = Time.time - _lastTimePlayerGotHit;
+        float currentTimeAvarege = Mathf.Clamp01(currentTimeWithoutTakingDamage / maxTimeNoDamageTaken);
+        float currentMultiplier = Mathf.Lerp(minTimeMultiplierValue, maxTimeMultiplierValue, currentTimeAvarege);
+
+        return currentMultiplier;
     }
 }
