@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 
 
 
-public class InstantDamageHitBox : MonoBehaviour {
+public class InstantDamageHitBox : HitBox {
     #region Parameters
 
     DamageAtributes _damageAtributes;
@@ -87,6 +87,7 @@ public class InstantDamageHitBox : MonoBehaviour {
         if (!_hasHitted) {
             _hasHitted = true;
             OnHit?.Invoke();
+            CallOnHitTargetEvent(other.gameObject.layer);
         }
     }
 

@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-public class ProjectileDamageHitBox : MonoBehaviour {
+public class ProjectileDamageHitBox : HitBox {
 
     DamageAtributes _damageAtributes;
     StatusManager _statusManager;
@@ -75,6 +75,7 @@ public class ProjectileDamageHitBox : MonoBehaviour {
 
         OnHit?.Invoke();
         OnCollision?.Invoke(other);
+        CallOnHitTargetEvent(other.gameObject.layer);
 
         if (!_damageAtributes.CrossEnemy) End();
     }
