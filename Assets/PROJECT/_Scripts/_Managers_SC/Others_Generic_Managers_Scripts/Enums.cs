@@ -69,3 +69,5 @@ public enum ExpressionTypeDialogue {
     Default_S, Default_N, Intense_S, Intense_N, Laughing_S, Laughing_N, Satisfied_S, Satisfied_N, Surprise_S, Surprised_N, Vulnerable_S,
     Vulnerable_N, Special_1, Special_2, Special_3
 }
+
+public enum Combo { ComboOne, ComboTwo, ComboThree, ComboFour, ComboFive }

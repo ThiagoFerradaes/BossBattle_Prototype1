@@ -197,9 +197,35 @@ MonoBehaviour:
       Value: 3100
     - Key: 6
       Value: 6200
+  dictionaryOfHitsPerCombo:
+    _serializedList:
+    - Key: 0
+      Value: 5
+    - Key: 1
+      Value: 10
+    - Key: 2
+      Value: 15
+    - Key: 3
+      Value: 20
+    - Key: 4
+      Value: 2
+  dictionaryOfMultipliersByCombo:
+    _serializedList:
+    - Key: 0
+      Value: 1
+    - Key: 1
+      Value: 1.25
+    - Key: 2
+      Value: 1.5
+    - Key: 3
+      Value: 2
+    - Key: 4
+      Value: 3
   minTimeMultiplierValue: 1
   maxTimeMultiplierValue: 1.5
   maxTimeNoDamageTaken: 120
+  comboCooldown: 2
+  comboMaxDuration: 2
   enemyLayer:
     serializedVersion: 2
     m_Bits: 128
@@ -1884,6 +1910,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4136320398230416597}
     m_Modifications:
+    - target: {fileID: 3432283552618098044, guid: 85d989d864a4b9340931271d8a9cb8c3, type: 3}
+      propertyPath: m_Name
+      value: RankContainer
+      objectReference: {fileID: 0}
     - target: {fileID: 8762746641837217339, guid: 85d989d864a4b9340931271d8a9cb8c3, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

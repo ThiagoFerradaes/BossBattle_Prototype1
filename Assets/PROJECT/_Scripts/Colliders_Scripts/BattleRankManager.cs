@@ -1,5 +1,6 @@
 using AYellowpaper.SerializedCollections;
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class BattleRankManager : MonoBehaviour {
@@ -7,11 +8,20 @@ public class BattleRankManager : MonoBehaviour {
     // Manager atributes
     float _totalScorePoints;
     float _lastTimePlayerGotHit;
+    float _lastTimeAddedToCombo;
+    int _comboIndex;
+    bool _canStartCombo = true;
+    Combo _currentCombo = Combo.ComboOne;
     BattleRank _currentRank = BattleRank.E;
 
+    Coroutine _comboDurationCoroutine;
+
     // Future scriptable
-    public SerializedDictionary<BattleRank, float> dictionaryOfRanksPoints;
+    [Tooltip("The total amount of hits to get to the next rank")] public SerializedDictionary<BattleRank, float> dictionaryOfRanksPoints;
+    [Tooltip("The total amount of hits to get to the next combo")] public SerializedDictionary<Combo, int> dictionaryOfHitsPerCombo;
+    [Tooltip("The multiplier based on the current combo")] public SerializedDictionary<Combo, float> dictionaryOfMultipliersByCombo;
     public float minTimeMultiplierValue, maxTimeMultiplierValue, maxTimeNoDamageTaken;
+    public float comboCooldown, comboMaxDuration;
     public LayerMask enemyLayer, playerLayer;
 
 
@@ -21,6 +31,8 @@ public class BattleRankManager : MonoBehaviour {
     /// </summary>
     public static event Action<float, float> OnPointGained;
     public static event Action<BattleRank> OnRankChanged;
+    public static event Action<Combo> OnComboChanged;
+    public static event Action OnComboStarted, OnComboFinished;
 
     #region Start Region
     private void Awake() {
@@ -48,7 +60,19 @@ public class BattleRankManager : MonoBehaviour {
     private void GainPoints(LayerMask obj) {
 
         if (enemyLayer.ContainsLayer(obj)) {
-            _totalScorePoints += 10 * ReturnTimeNoDamageTakenMultiplier();
+
+            AddToCombo();
+
+            _comboDurationCoroutine ??= StartCoroutine(ComboDurationTimer());
+
+            float timePoints = 10 * ReturnTimeNoDamageTakenMultiplier();
+            float comboM =  10 * ReturnComboMultiplier();
+            float scoreAdd = timePoints + comboM;
+
+            _totalScorePoints += scoreAdd;
+
+            Debug.Log($"Total scored recieved: {scoreAdd} TimePoints: {timePoints} ComboPoints: {comboM}");
+
             CheckPoints();
         }
 
@@ -75,6 +99,7 @@ public class BattleRankManager : MonoBehaviour {
         }
     }
 
+    #region Time without taking damage region
     private void SetLastTimePlayerGotHit() {
         _lastTimePlayerGotHit = Time.time;
     }
@@ -86,4 +111,50 @@ public class BattleRankManager : MonoBehaviour {
 
         return currentMultiplier;
     }
+
+    #endregion
+
+    #region Combo multiplier
+
+    float ReturnComboMultiplier() {
+        return dictionaryOfMultipliersByCombo[_currentCombo];
+    }
+
+    void AddToCombo() {
+        if (!_canStartCombo) return;
+
+        _lastTimeAddedToCombo = Time.time;
+
+        _comboIndex++;
+
+        if (_currentCombo >= Combo.ComboFive) return;
+
+        if (_comboIndex >= dictionaryOfHitsPerCombo[_currentCombo]) {
+            _currentCombo++;
+            OnComboChanged?.Invoke(_currentCombo);
+        }
+    }
+
+    IEnumerator ComboDurationTimer() {
+
+        OnComboStarted?.Invoke();
+
+        while (Time.time - _lastTimeAddedToCombo < comboMaxDuration) yield return null;
+
+        OnComboFinished?.Invoke();
+
+        _canStartCombo = false;
+        _currentCombo = Combo.ComboOne;
+        _comboIndex = 0;
+
+        float endTime = Time.time;
+
+        while (Time.time - endTime < comboCooldown) yield return null;
+
+        _canStartCombo = true;
+        _comboDurationCoroutine = null;
+    }
+
+
+    #endregion
 }
