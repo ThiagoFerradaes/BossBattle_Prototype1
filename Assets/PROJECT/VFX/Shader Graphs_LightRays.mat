@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-6986491716699018103
+--- !u!114 &-8809976574731730378
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20,39 +20,23 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Shader Graphs_LightWindowEmission
-  m_Shader: {fileID: -6465566751694194690, guid: 05337e8435b905a42890bf5e40d2310e, type: 3}
+  m_Name: Shader Graphs_LightRays
+  m_Shader: {fileID: -6465566751694194690, guid: 3a2a61a9fad09b94d990e2418c263edf, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords:
-  - _SURFACE_TYPE_TRANSPARENT
+  m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
-  stringTagMap:
-    RenderType: Transparent
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
   disabledShaderPasses:
   - MOTIONVECTORS
-  - SHADOWCASTER
-  - DepthOnly
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _SampleTexture2D_1739d7253a9e4b69ab5952d3e8f02bb8_Texture_1_Texture2D:
-        m_Texture: {fileID: 2800000, guid: 0a0df5f4e8a92974698b867f2566c124, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _SampleTexture2D_7b37131309fc4a0788795eab7924d782_Texture_1_Texture2D:
-        m_Texture: {fileID: 2800000, guid: 2d71f616ef842cc4db3c3a571c9cd55d, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _SampleTexture2D_e2fd8e6a41514f51800b368cfc210cfa_Texture_1_Texture2D:
-        m_Texture: {fileID: 2800000, guid: ad0b4551b2323e54e97aacc2d859fdcb, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -67,23 +51,12 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _AlphaClip: 0
-    - _AlphaToMask: 0
-    - _Blend: 2
-    - _CastShadows: 0
-    - _Cull: 0
-    - _DstBlend: 1
-    - _DstBlendAlpha: 1
-    - _Float: 1
+    - _NoiseSize: 0.75
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _SrcBlend: 5
-    - _SrcBlendAlpha: 1
-    - _Surface: 1
-    - _ZTest: 4
-    - _ZWrite: 0
-    - _ZWriteControl: 0
     m_Colors:
-    - _Color: {r: 4, g: 1.5169798, b: 0, a: 0}
+    - _Color: {r: 3.9698112, g: 3.6442754, b: 1.4306301, a: 0}
+    - _Color_1: {r: 0.30258647, g: 2.0640721, b: 0.9195049, a: 0}
+    - _Vector2: {r: 5, g: 0.75, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
