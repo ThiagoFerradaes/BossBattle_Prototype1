@@ -49,7 +49,7 @@ public class BastianReleaseManager : SkillObjectManager {
     protected override void FourthFunc() {
         base.FourthFunc();
 
-        statusManager.ChangeStatus(StatusType.AttackSpeed, _info.AttackSpeedGain, true, _info.AttackSpeedDuration);
+        statusManager.ChangeStatusMultiplier(StatusType.AttackSpeed, _info.AttackSpeedGain, true, _info.AttackSpeedDuration);
 
         EndWithUnblockSkills();
     }

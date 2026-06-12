@@ -8,7 +8,8 @@ public class StatusManager : MonoBehaviour {
     #region Parameter
 
     [SerializeField] StatusSO baseStatus;
-    [SerializeField] SerializedDictionary<StatusType, float> _listOfStatus = new();
+    [SerializeField] SerializedDictionary<StatusType, float> _listOfBaseStatus = new();
+    [SerializeField] SerializedDictionary<StatusType, float> _listOfStatusMultiplicator = new();
 
     #endregion
 
@@ -19,47 +20,83 @@ public class StatusManager : MonoBehaviour {
 
     void PopulateDictionary() {
         foreach (var status in baseStatus.StatusList) {
-            _listOfStatus[status.Type] = status.Value;
+            _listOfBaseStatus[status.Type] = status.Value;
+        }
+        foreach (var status in baseStatus.StatusList) {
+            _listOfStatusMultiplicator[status.Type] = 1;
         }
     }
     #endregion
 
     #region Getter
     public float ReturnStatusValue(StatusType type) {
-        return _listOfStatus.TryGetValue(type, out float value) ? value : 0f;
+        float baseStatus = _listOfBaseStatus.TryGetValue(type, out float value) ? value : 0f;
+        float statusMultiplicator = _listOfStatusMultiplicator.TryGetValue(type, out float multiplicator) ? multiplicator : 0f;
+        float finalStatus = baseStatus * statusMultiplicator;
+        return finalStatus;
     }
 
     #endregion
 
-    #region Change Status Value
+    #region Change Status Multiplier Value
     /// <summary>
     /// The percent value has to be between 0 and 1
     /// </summary>
     /// <param name="type"></param>
     /// <param name="percent"></param>
     /// <param name="increase"></param>
-    public void ChangeStatus(StatusType type, float percent, bool increase) {
-        if (!_listOfStatus.ContainsKey(type)) return;
+    public void ChangeStatusMultiplier(StatusType type, float percent, bool increase) {
+        if (!_listOfStatusMultiplicator.ContainsKey(type)) return;
 
         percent = Mathf.Abs(percent);
 
-        //Debug.Log($"Status: {type} old value: {_listOfStatus[type]}");
-        if (increase) _listOfStatus[type] *= (1 + percent);
-        else _listOfStatus[type] /= (1 + percent);
-        _listOfStatus[type] = Mathf.Max(0.01f, _listOfStatus[type]);
-        //Debug.Log($"Status: {type} new value: {_listOfStatus[type]}");
+        if (increase) _listOfStatusMultiplicator[type] *= (1 + percent);
+        else _listOfStatusMultiplicator[type] /= (1 + percent);
+        _listOfStatusMultiplicator[type] = Mathf.Max(0.01f, _listOfStatusMultiplicator[type]);
 
     }
-    public void ChangeStatus(StatusType type, float percent, bool increase, float duration) {
-        StartCoroutine(ChangeValueRoutine(type, percent, increase, duration));
+    public void ChangeStatusMultiplier(StatusType type, float percent, bool increase, float duration) {
+        StartCoroutine(ChangeMultiplierValueRoutine(type, percent, increase, duration));
     }
-    IEnumerator ChangeValueRoutine(StatusType type, float percent, bool increase, float duration) {
+    IEnumerator ChangeMultiplierValueRoutine(StatusType type, float percent, bool increase, float duration) {
 
-        ChangeStatus(type, percent, increase);
+        ChangeStatusMultiplier(type, percent, increase);
 
         yield return new WaitForSeconds(duration);
 
-        ChangeStatus(type, percent, !increase);
+        ChangeStatusMultiplier(type, percent, !increase);
+    }
+
+
+    #endregion
+
+    #region Change Base Status Value
+
+    public void ChangeBaseStatusByFixAmount() {
+
+    }
+
+    public void ChangeBaseStatusByPercent(StatusType type, float percent, bool increase) {
+        if (!_listOfBaseStatus.ContainsKey(type)) return;
+
+        percent = Mathf.Abs(percent);
+
+        if (increase) _listOfBaseStatus[type] *= (1 + percent);
+        else _listOfBaseStatus[type] /= (1 + percent);
+        _listOfBaseStatus[type] = Mathf.Max(0.01f, _listOfBaseStatus[type]);
+    }
+
+    public void ChangeBaseStatusByPercent(StatusType type, float percent, bool increase, float duration) {
+        StartCoroutine(ChangeBaseValueRoutine(type, percent, increase, duration));
+    }
+
+    IEnumerator ChangeBaseValueRoutine(StatusType type, float percent, bool increase, float duration) {
+
+        ChangeBaseStatusByPercent(type, percent, increase);
+
+        yield return new WaitForSeconds(duration);
+
+        ChangeBaseStatusByPercent(type, percent, !increase);
     }
 
     #endregion

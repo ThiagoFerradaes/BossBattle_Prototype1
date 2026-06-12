@@ -134,11 +134,11 @@ public class BastianPassiveManager : PassiveSkillManager {
             case BastianHeatArea.CoolArea:
                 return;
             case BastianHeatArea.HeatArea:
-                _statusManager.ChangeStatus(StatusType.Attack, _info.AmountOfAttackGainHeat, false);
+                _statusManager.ChangeStatusMultiplier(StatusType.Attack, _info.AmountOfAttackGainHeat, false);
                 break;
             case BastianHeatArea.OverHeatArea:
-                _statusManager.ChangeStatus(StatusType.Attack, _info.AmountOfAttackGainHeat, false);
-                _statusManager.ChangeStatus(StatusType.Attack, _info.AmountOfAttackGainOverHeat, false);
+                _statusManager.ChangeStatusMultiplier(StatusType.Attack, _info.AmountOfAttackGainHeat, false);
+                _statusManager.ChangeStatusMultiplier(StatusType.Attack, _info.AmountOfAttackGainOverHeat, false);
                 break;
 
         }
@@ -152,10 +152,10 @@ public class BastianPassiveManager : PassiveSkillManager {
             case BastianHeatArea.HeatArea:
                 return;
             case BastianHeatArea.CoolArea:
-                _statusManager.ChangeStatus(StatusType.Attack, _info.AmountOfAttackGainHeat, true);
+                _statusManager.ChangeStatusMultiplier(StatusType.Attack, _info.AmountOfAttackGainHeat, true);
                 break;
             case BastianHeatArea.OverHeatArea:
-                _statusManager.ChangeStatus(StatusType.Attack, _info.AmountOfAttackGainOverHeat, false);
+                _statusManager.ChangeStatusMultiplier(StatusType.Attack, _info.AmountOfAttackGainOverHeat, false);
                 break;
         }
 
@@ -168,11 +168,11 @@ public class BastianPassiveManager : PassiveSkillManager {
             case BastianHeatArea.OverHeatArea:
                 return;
             case BastianHeatArea.HeatArea:
-                _statusManager.ChangeStatus(StatusType.Attack, _info.AmountOfAttackGainOverHeat, true);
+                _statusManager.ChangeStatusMultiplier(StatusType.Attack, _info.AmountOfAttackGainOverHeat, true);
                 break;
             case BastianHeatArea.CoolArea:
-                _statusManager.ChangeStatus(StatusType.Attack, _info.AmountOfAttackGainHeat, true);
-                _statusManager.ChangeStatus(StatusType.Attack, _info.AmountOfAttackGainOverHeat, true);
+                _statusManager.ChangeStatusMultiplier(StatusType.Attack, _info.AmountOfAttackGainHeat, true);
+                _statusManager.ChangeStatusMultiplier(StatusType.Attack, _info.AmountOfAttackGainOverHeat, true);
                 break;
         }
 

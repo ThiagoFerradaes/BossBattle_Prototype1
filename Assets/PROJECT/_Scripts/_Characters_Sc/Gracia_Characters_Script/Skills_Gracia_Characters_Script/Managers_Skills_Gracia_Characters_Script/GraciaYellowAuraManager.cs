@@ -52,7 +52,7 @@ public class GraciaYellowAuraManager : SkillObjectManager {
     void IncreaseAttackSpeed() {
         int skillLevel = _passiveManager.ReturnCurrentSkillArea(_info.TypeOfSkill);
         _attackSpeedMultiplier = _info.AttackSpeedBuffList[skillLevel].Value;
-        statusManager.ChangeStatus(StatusType.AttackSpeed, _attackSpeedMultiplier, true);
+        statusManager.ChangeStatusMultiplier(StatusType.AttackSpeed, _attackSpeedMultiplier, true);
 
         _skillDurationRoutine ??= StartCoroutine(SkillDuration());
     }
@@ -72,7 +72,7 @@ public class GraciaYellowAuraManager : SkillObjectManager {
     }
 
     void ResetAttackSpeed() {
-        statusManager.ChangeStatus(StatusType.AttackSpeed, _attackSpeedMultiplier, false);
+        statusManager.ChangeStatusMultiplier(StatusType.AttackSpeed, _attackSpeedMultiplier, false);
     }
 
     protected override void FourthFunc() {

@@ -106,7 +106,7 @@ public class CyrusPassiveManager : PassiveSkillManager {
     void ReachRankSS() {
         foreach(var status in _info.ListOfStatusToBuff.Keys) {
             float percent = _info.ListOfStatusToBuff[status] / 100;
-            _statusManager.ChangeStatus(status, percent, true);
+            _statusManager.ChangeStatusMultiplier(status, percent, true);
         }
     }
     #region Getters
