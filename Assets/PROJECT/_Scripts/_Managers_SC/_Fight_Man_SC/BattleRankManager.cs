@@ -17,12 +17,7 @@ public class BattleRankManager : MonoBehaviour {
     Coroutine _comboDurationCoroutine;
 
     // Future scriptable
-    [Tooltip("The total amount of hits to get to the next rank")] public SerializedDictionary<BattleRank, float> dictionaryOfRanksPoints;
-    [Tooltip("The total amount of hits to get to the next combo")] public SerializedDictionary<Combo, int> dictionaryOfHitsPerCombo;
-    [Tooltip("The multiplier based on the current combo")] public SerializedDictionary<Combo, float> dictionaryOfMultipliersByCombo;
-    public float minTimeMultiplierValue, maxTimeMultiplierValue, maxTimeNoDamageTaken;
-    public float comboCooldown, comboMaxDuration;
-    public LayerMask enemyLayer, playerLayer;
+    [SerializeField] BattleRankSO battleRankSO;
 
 
     // Eventos
@@ -59,7 +54,7 @@ public class BattleRankManager : MonoBehaviour {
 
     private void GainPoints(LayerMask obj) {
 
-        if (enemyLayer.ContainsLayer(obj)) {
+        if (battleRankSO.EnemyLayer.ContainsLayer(obj)) {
 
             AddToCombo();
 
@@ -76,7 +71,7 @@ public class BattleRankManager : MonoBehaviour {
             CheckPoints();
         }
 
-        else if (playerLayer.ContainsLayer(obj)) {
+        else if (battleRankSO.PlayerLayer.ContainsLayer(obj)) {
             SetLastTimePlayerGotHit();
         }
 
@@ -87,13 +82,13 @@ public class BattleRankManager : MonoBehaviour {
             return;
         }
 
-        float currentRankLowValue = _currentRank <= BattleRank.E ? 0 : dictionaryOfRanksPoints[_currentRank - 1];
-        float currentRankMaxValue = dictionaryOfRanksPoints[_currentRank] - currentRankLowValue;
+        float currentRankLowValue = _currentRank <= BattleRank.E ? 0 : battleRankSO.DictionaryOfRanksPoints[_currentRank - 1];
+        float currentRankMaxValue = battleRankSO.DictionaryOfRanksPoints[_currentRank] - currentRankLowValue;
         float currentRankPoint = _totalScorePoints - currentRankLowValue;
 
         OnPointGained?.Invoke(currentRankPoint, currentRankMaxValue);
 
-        if (_totalScorePoints >= dictionaryOfRanksPoints[_currentRank]) {
+        if (_totalScorePoints >= battleRankSO.DictionaryOfRanksPoints[_currentRank]) {
             _currentRank++;
             OnRankChanged?.Invoke(_currentRank);
         }
@@ -106,8 +101,8 @@ public class BattleRankManager : MonoBehaviour {
 
     float ReturnTimeNoDamageTakenMultiplier() {
         float currentTimeWithoutTakingDamage = Time.time - _lastTimePlayerGotHit;
-        float currentTimeAvarege = Mathf.Clamp01(currentTimeWithoutTakingDamage / maxTimeNoDamageTaken);
-        float currentMultiplier = Mathf.Lerp(minTimeMultiplierValue, maxTimeMultiplierValue, currentTimeAvarege);
+        float currentTimeAvarege = Mathf.Clamp01(currentTimeWithoutTakingDamage / battleRankSO.MaxTimeNoDamageTaken);
+        float currentMultiplier = Mathf.Lerp(battleRankSO.MinTimeMultiplierValue, battleRankSO.MaxTimeMultiplierValue, currentTimeAvarege);
 
         return currentMultiplier;
     }
@@ -117,7 +112,7 @@ public class BattleRankManager : MonoBehaviour {
     #region Combo multiplier
 
     float ReturnComboMultiplier() {
-        return dictionaryOfMultipliersByCombo[_currentCombo];
+        return battleRankSO.DictionaryOfMultipliersByCombo[_currentCombo];
     }
 
     void AddToCombo() {
@@ -129,7 +124,7 @@ public class BattleRankManager : MonoBehaviour {
 
         if (_currentCombo >= Combo.ComboFive) return;
 
-        if (_comboIndex >= dictionaryOfHitsPerCombo[_currentCombo]) {
+        if (_comboIndex >= battleRankSO.DictionaryOfHitsPerCombo[_currentCombo]) {
             _currentCombo++;
             OnComboChanged?.Invoke(_currentCombo);
         }
@@ -139,7 +134,7 @@ public class BattleRankManager : MonoBehaviour {
 
         OnComboStarted?.Invoke();
 
-        while (Time.time - _lastTimeAddedToCombo < comboMaxDuration) yield return null;
+        while (Time.time - _lastTimeAddedToCombo < battleRankSO.ComboMaxDuration) yield return null;
 
         OnComboFinished?.Invoke();
 
@@ -149,7 +144,7 @@ public class BattleRankManager : MonoBehaviour {
 
         float endTime = Time.time;
 
-        while (Time.time - endTime < comboCooldown) yield return null;
+        while (Time.time - endTime < battleRankSO.ComboCooldown) yield return null;
 
         _canStartCombo = true;
         _comboDurationCoroutine = null;
