@@ -9,6 +9,7 @@ public class BattleRankManager : MonoBehaviour {
     float _totalScorePoints;
     float _lastTimePlayerGotHit;
     float _lastTimeAddedToCombo;
+    float _pointsGainedMultiplier = 1;
     int _comboIndex;
     bool _canStartCombo = true;
     Combo _currentCombo = Combo.ComboOne;
@@ -16,7 +17,6 @@ public class BattleRankManager : MonoBehaviour {
 
     Coroutine _comboDurationCoroutine;
 
-    // Future scriptable
     [SerializeField] BattleRankSO battleRankSO;
 
 
@@ -29,8 +29,15 @@ public class BattleRankManager : MonoBehaviour {
     public static event Action<Combo> OnComboChanged;
     public static event Action OnComboStarted, OnComboFinished;
 
+    //Singleton 
+    public static BattleRankManager Instance;
+
     #region Start Region
     private void Awake() {
+
+        if (Instance == null) Instance = this;
+        else Destroy(this);
+
         SubscribeToEvents();
     }
 
@@ -52,6 +59,8 @@ public class BattleRankManager : MonoBehaviour {
 
     #endregion
 
+    #region Points Region
+
     private void GainPoints(LayerMask obj) {
 
         if (battleRankSO.EnemyLayer.ContainsLayer(obj)) {
@@ -61,12 +70,10 @@ public class BattleRankManager : MonoBehaviour {
             _comboDurationCoroutine ??= StartCoroutine(ComboDurationTimer());
 
             float timePoints = 10 * ReturnTimeNoDamageTakenMultiplier();
-            float comboM =  10 * ReturnComboMultiplier();
-            float scoreAdd = timePoints + comboM;
+            float comboM = 10 * ReturnComboMultiplier();
+            float scoreAdd = (timePoints + comboM) * _pointsGainedMultiplier;
 
             _totalScorePoints += scoreAdd;
-
-            Debug.Log($"Total scored recieved: {scoreAdd} TimePoints: {timePoints} ComboPoints: {comboM}");
 
             CheckPoints();
         }
@@ -93,6 +100,16 @@ public class BattleRankManager : MonoBehaviour {
             OnRankChanged?.Invoke(_currentRank);
         }
     }
+
+    /// <summary>
+    /// Values between 0 and 1
+    /// </summary>
+    /// <param name="percentToIncrease"></param>
+    public void IncreasePointsMultiplier(float percentToIncrease) {
+        _pointsGainedMultiplier *= 1 + percentToIncrease;
+    }
+
+    #endregion
 
     #region Time without taking damage region
     private void SetLastTimePlayerGotHit() {

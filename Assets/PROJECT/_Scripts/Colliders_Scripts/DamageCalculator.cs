@@ -88,7 +88,7 @@ public static class DamageCalculator {
 
         float rawDamage = atributes.Damage * statusDealer.ReturnStatusValue(StatusType.Attack);
 
-        float targetDefense = 100 * statusReciever.ReturnStatusValue(StatusType.Defense);
+        float targetDefense = statusReciever.ReturnStatusValue(StatusType.Defense);
 
         float penetration = 0;
 

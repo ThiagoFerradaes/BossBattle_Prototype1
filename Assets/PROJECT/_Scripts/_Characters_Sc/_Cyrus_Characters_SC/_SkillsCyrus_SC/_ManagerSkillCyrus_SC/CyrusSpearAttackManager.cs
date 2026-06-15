@@ -31,14 +31,14 @@ public class CyrusSpearAttackManager : SkillObjectManager {
             cooldownManager = skillManager.CooldownManager;
         }
 
-        _skillLevel = CyrusPassiveManager.Instance.ReturnSkillLevel(slot);
+        //_skillLevel = CyrusPassiveManager.Instance.ReturnSkillLevel(slot);
     }
 
     #region Attack Animation & Instantiates
 
     protected override void FirstFunc() {
-        float cooldown = _skillLevel >= 3 ? _info.Level3Cooldown : _info.Cooldown;
-        cooldownManager.SetCooldownSingleCharge(slot, cooldown);
+        //float cooldown = _skillLevel >= 3 ? _info.Level3Cooldown : _info.Cooldown;
+        cooldownManager.SetCooldownSingleCharge(slot, _info.Cooldown);
 
         base.FirstFunc();
     }
@@ -64,13 +64,13 @@ public class CyrusSpearAttackManager : SkillObjectManager {
 
         preFab.transform.SetParent(null);
 
-        float penetration = _skillLevel > 2 ? _info.Level3Penetration : 0;
+        //float penetration = _skillLevel > 2 ? _info.Level3Penetration : 0;
 
-        DamageAtributes atributes = new(_info.SkillDamageAtributes);
-        atributes.ExtraAtributes[ExtraDamageContextAtributes.Penetration] = penetration;
+        //DamageAtributes atributes = new(_info.SkillDamageAtributes);
+        //atributes.ExtraAtributes[ExtraDamageContextAtributes.Penetration] = penetration;
 
         DamageContext newContext = new(
-            atributes,
+            _info.SkillDamageAtributes,
             parent.GetComponent<StatusManager>()
             );
 
@@ -83,8 +83,8 @@ public class CyrusSpearAttackManager : SkillObjectManager {
 
         hitbox.OnHit += () => {
             energyManager.GainEnergy(_info.FlatEnergyGainPerHit);
-            if (_skillLevel < 3) CyrusPassiveManager.Instance.AddUseSkill(slot, _info.AmountOfUsesPerLevel[_skillLevel], _info.ListOfSprites);
-            if (_skillLevel > 0) cooldownManager.ResetCooldown(SkillSlot.Dash);
+            //if (_skillLevel < 3) CyrusPassiveManager.Instance.AddUseSkill(slot, _info.AmountOfUsesPerLevel[_skillLevel], _info.ListOfSprites);
+            //if (_skillLevel > 0) cooldownManager.ResetCooldown(SkillSlot.Dash);
         };
     }
 

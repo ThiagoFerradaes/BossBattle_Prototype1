@@ -137,9 +137,9 @@ public class CyrusAxeAttackManager : SkillObjectManager {
     #region Calculations
     float ReturnDamage() {
 
-        float maxChargeTime = _skillLevel >= 2 ? _info.MaxChargeTime : _info.NewMaxChargeTime;
+        //float maxChargeTime = _skillLevel >= 2 ? _info.MaxChargeTime : _info.NewMaxChargeTime;
 
-        float damage = (_chargeTimer * _info.MaxDamage) / maxChargeTime;
+        float damage = (_chargeTimer * _info.MaxDamage) / _info.MaxChargeTime;
         return Mathf.Clamp(damage, _info.MinDamage, _info.MaxDamage);
     }
 
@@ -179,7 +179,7 @@ public class CyrusAxeAttackManager : SkillObjectManager {
 
         DamageAtributes atributes = new(_info.SkillDamageAtributes) {
             Damage = ReturnDamage(),
-            BreakShield = ReturnBreakShield()
+            //BreakShield = ReturnBreakShield()
         };
 
         DamageContext newContext = new(
@@ -197,8 +197,8 @@ public class CyrusAxeAttackManager : SkillObjectManager {
         // On Hit
         hitbox.OnHit += () => {
             energyManager.GainEnergy(_info.FlatEnergyGainPerHit);
-            if (_skillLevel < 3) CyrusPassiveManager.Instance.AddUseSkill(slot, _info.AmountOfUsesPerLevel[_skillLevel], _info.ListOfSprites);
-            if (_skillLevel == 3) InstantiateBrokenRocks();
+            //if (_skillLevel < 3) CyrusPassiveManager.Instance.AddUseSkill(slot, _info.AmountOfUsesPerLevel[_skillLevel], _info.ListOfSprites);
+            //if (_skillLevel == 3) InstantiateBrokenRocks();
         };
     }
 

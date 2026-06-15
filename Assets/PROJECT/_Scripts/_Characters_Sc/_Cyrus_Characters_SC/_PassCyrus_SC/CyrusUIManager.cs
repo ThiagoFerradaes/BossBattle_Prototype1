@@ -14,7 +14,7 @@ public class CyrusUIManager : MonoBehaviour {
     [SerializeField] Image rankProgresBar;
     [SerializeField] GameObject rankLevelUpImage;
     [SerializeField] TextMeshProUGUI rankText;
-    [SerializeField] List<LocalizedString> rankTexts;
+    //[SerializeField] SerializedDictionary<BattleRank, LocalizedString> rankTexts;
     [SerializeField] GameObject maxRankAnimation;
     [SerializeField] Animator rankLevelUpAnimator;
     [SerializeField] float levelUpTime, animationDuration;
@@ -26,7 +26,7 @@ public class CyrusUIManager : MonoBehaviour {
 
     // Actions
     Action<SkillSlot> _onSkillLevelUp;
-    Action<float, float> _onRankUP;
+    Action<BattleRank> _onRankUP;
 
     WaitForSeconds levelUpWaitForSeconds, animationWaitForSeconds;
 
@@ -35,59 +35,60 @@ public class CyrusUIManager : MonoBehaviour {
     #region Initialize
     private void Awake() {
         _onRankUP = RankUp;
-        _onSkillLevelUp = SkillLevelUp;
+        //_onSkillLevelUp = SkillLevelUp;
 
         levelUpWaitForSeconds = new(levelUpTime);
         animationWaitForSeconds = new(animationDuration);
     }
 
     private void Start() {
-        CyrusPassiveManager.Instance.OnRankLevelUp += _onRankUP;
-        CyrusPassiveManager.Instance.OnSkillLevelUp  += _onSkillLevelUp;
+        BattleRankManager.OnRankChanged += _onRankUP;
+        //CyrusPassiveManager.Instance.OnRankLevelUp += _onRankUP;
+        //CyrusPassiveManager.Instance.OnSkillLevelUp  += _onSkillLevelUp;
 
         TurnLevelUpSkillOff();
 
         maxRankAnimation.SetActive(false);
-        rankLevelUpImage.gameObject.SetActive(false);
+        rankLevelUpImage.SetActive(false);
     }
 
     private void OnDestroy() {
-        CyrusPassiveManager.Instance.OnRankLevelUp -= _onRankUP;
-        CyrusPassiveManager.Instance.OnSkillLevelUp -= _onSkillLevelUp;
+        BattleRankManager.OnRankChanged -= _onRankUP;
+        //CyrusPassiveManager.Instance.OnRankLevelUp -= _onRankUP;
+        //CyrusPassiveManager.Instance.OnSkillLevelUp -= _onSkillLevelUp;
     }
 
     #endregion
 
     #region UI
-    void RankUp(float currentRank, float maxRank) {
-        rankProgresBar.fillAmount = currentRank/maxRank;
-        UpdateText(currentRank);
+    void RankUp(BattleRank currentRank) {
+        float amountOfRanks = Enum.GetValues(typeof(BattleRank)).Length;
+        rankProgresBar.fillAmount = (float)currentRank / amountOfRanks;
+        //UpdateText(currentRank);
 
-        if (currentRank == maxRank) {
+        if ((int)currentRank == amountOfRanks) {
             maxRankAnimation.SetActive(true);
         }
 
-        StartCoroutine(SkillLevelUpTimer(rankLevelUpImage));
+        //StartCoroutine(SkillLevelUpTimer(rankLevelUpImage));
     }
-    private void UpdateText(float currentRank) {
-        rankText.text = rankTexts[(int)currentRank].GetLocalizedString();
-    }
+    //private void UpdateText(BattleRank currentRank) {
+    //    rankText.text = rankTexts[currentRank].GetLocalizedString();
+    //}
     void TurnLevelUpSkillOff() {
-        RankUp(0, 1);
+        RankUp(BattleRank.E);
         foreach (var skill in dictionaryOfImages) {
             skill.Value.SetActive(false);
         }
     }
 
-    void SkillLevelUp(SkillSlot slot)
-    {
+    void SkillLevelUp(SkillSlot slot) {
         StartCoroutine(SkillLevelUpTimer(dictionaryOfImages[slot]));
 
         animationCooldownRoutine ??= StartCoroutine(AnimationCooldown());
     }
 
-    IEnumerator SkillLevelUpTimer(GameObject image)
-    {
+    IEnumerator SkillLevelUpTimer(GameObject image) {
         image.SetActive(true);
         yield return levelUpWaitForSeconds;
         image.SetActive(false);

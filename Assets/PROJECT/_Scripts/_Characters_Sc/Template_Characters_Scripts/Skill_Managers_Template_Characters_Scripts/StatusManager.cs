@@ -72,31 +72,10 @@ public class StatusManager : MonoBehaviour {
 
     #region Change Base Status Value
 
-    public void ChangeBaseStatusByFixAmount() {
-
-    }
-
-    public void ChangeBaseStatusByPercent(StatusType type, float percent, bool increase) {
+    public void SetBaseStatus(StatusType type, float newValue) {
         if (!_listOfBaseStatus.ContainsKey(type)) return;
 
-        percent = Mathf.Abs(percent);
-
-        if (increase) _listOfBaseStatus[type] *= (1 + percent);
-        else _listOfBaseStatus[type] /= (1 + percent);
-        _listOfBaseStatus[type] = Mathf.Max(0.01f, _listOfBaseStatus[type]);
-    }
-
-    public void ChangeBaseStatusByPercent(StatusType type, float percent, bool increase, float duration) {
-        StartCoroutine(ChangeBaseValueRoutine(type, percent, increase, duration));
-    }
-
-    IEnumerator ChangeBaseValueRoutine(StatusType type, float percent, bool increase, float duration) {
-
-        ChangeBaseStatusByPercent(type, percent, increase);
-
-        yield return new WaitForSeconds(duration);
-
-        ChangeBaseStatusByPercent(type, percent, !increase);
+        _listOfBaseStatus[type] = newValue;
     }
 
     #endregion
