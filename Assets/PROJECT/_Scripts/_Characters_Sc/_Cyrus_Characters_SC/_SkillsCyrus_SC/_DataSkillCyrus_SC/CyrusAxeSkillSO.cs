@@ -15,14 +15,8 @@ public class CyrusAxeSkillSO : CommonSkillSO
     [Foldout("Specific")] public List<Sprite> ListOfSprites;
     [Foldout("Specific")] public List<AK.Wwise.Switch> ListOfSwitches;
 
-    [Header("Level 1 & 2 Buffs")]
-    [Foldout("Specific")] public float Level1AmountOfShield;
-    [Foldout("Specific")] public float Level2AmountOfShield;
+    [Header("Max Buffs")]
+    [Foldout("Specific")] public float AmountOfShield;
     [Foldout("Specific")] public float ShieldDuration;
-    [Foldout("Specific")] public float NewMaxChargeTime;
-    [Foldout("Specific"), SerializedDictionary("Level", "Amount")] public SerializedDictionary<int, int> AmountOfUsesPerLevel;
-
-    [Header("Level 3 Buff")]
-    [Foldout("Specific")] public DamageAtributes RocksAtributes;
 
 }

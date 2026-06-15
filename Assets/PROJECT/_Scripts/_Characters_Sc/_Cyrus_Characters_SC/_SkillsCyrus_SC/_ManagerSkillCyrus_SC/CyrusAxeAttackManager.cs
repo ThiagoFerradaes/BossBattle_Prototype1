@@ -13,7 +13,6 @@ public class CyrusAxeAttackManager : SkillObjectManager {
     // Atributes
     bool _isHoldingInput;
     float _chargeTimer;
-    int _skillLevel;
 
     // Coroutine
     Coroutine _chargeTimeCoroutine;
@@ -47,8 +46,6 @@ public class CyrusAxeAttackManager : SkillObjectManager {
 
         if (_info == null) _info = skill as CyrusAxeSkillSO;
 
-        _skillLevel = CyrusPassiveManager.Instance.ReturnSkillLevel(slot);
-
     }
 
     public override void PreCast(SkillSO skill) {
@@ -74,8 +71,7 @@ public class CyrusAxeAttackManager : SkillObjectManager {
         if (_info.PreCastOn && ConfigurationWhiteBoard.Instance.PreCastOn) SetSkillRangeIndicator(skill);
 
         // Checando n�vel
-        if (_skillLevel == 1) healthManager.RecieveShield(_info.Level1AmountOfShield, _info.ShieldDuration);
-        else if (_skillLevel > 1) healthManager.RecieveShield(_info.Level2AmountOfShield, _info.ShieldDuration);
+        if (BattleRankManager.Instance.ReturnCurrentRank() == BattleRank.SS) healthManager.RecieveShield(_info.AmountOfShield, _info.ShieldDuration);
     }
 
     void InstantiateUpAxeVFX() {
@@ -103,7 +99,7 @@ public class CyrusAxeAttackManager : SkillObjectManager {
 
         _chargeTimer = 0;
 
-        float maxChargeTime = _skillLevel >= 2 ? _info.NewMaxChargeTime : _info.MaxChargeTime;
+        float maxChargeTime = _info.MaxChargeTime;
 
         while (_isHoldingInput || _chargeTimer < _info.MinimalChargeTime) {
             _chargeTimer += Time.deltaTime;
@@ -137,17 +133,13 @@ public class CyrusAxeAttackManager : SkillObjectManager {
     #region Calculations
     float ReturnDamage() {
 
-        //float maxChargeTime = _skillLevel >= 2 ? _info.MaxChargeTime : _info.NewMaxChargeTime;
-
         float damage = (_chargeTimer * _info.MaxDamage) / _info.MaxChargeTime;
         return Mathf.Clamp(damage, _info.MinDamage, _info.MaxDamage);
     }
 
     bool ReturnBreakShield() {
 
-        float maxChargeTime = _skillLevel >= 2 ? _info.MaxChargeTime : _info.NewMaxChargeTime;
-
-        if (_chargeTimer >= maxChargeTime) return true;
+        if (_chargeTimer >= _info.MaxChargeTime) return true;
         else return false;
     }
     #endregion
@@ -179,7 +171,7 @@ public class CyrusAxeAttackManager : SkillObjectManager {
 
         DamageAtributes atributes = new(_info.SkillDamageAtributes) {
             Damage = ReturnDamage(),
-            //BreakShield = ReturnBreakShield()
+            BreakShield = ReturnBreakShield()
         };
 
         DamageContext newContext = new(
@@ -190,15 +182,13 @@ public class CyrusAxeAttackManager : SkillObjectManager {
         InstantDamageHitBox hitbox = preFab.GetComponent<InstantDamageHitBox>();
         hitbox.Initialize(newContext);
 
-        AK.Wwise.Switch newSwitch = _info.ListOfSwitches[_skillLevel];
-        newSwitch.SetValue(parent);
-        _info.SkillSound.Post(parent);
+        //AK.Wwise.Switch newSwitch = _info.ListOfSwitches[_skillLevel];
+        //newSwitch.SetValue(parent);
+        //_info.SkillSound.Post(parent);
 
         // On Hit
         hitbox.OnHit += () => {
             energyManager.GainEnergy(_info.FlatEnergyGainPerHit);
-            //if (_skillLevel < 3) CyrusPassiveManager.Instance.AddUseSkill(slot, _info.AmountOfUsesPerLevel[_skillLevel], _info.ListOfSprites);
-            //if (_skillLevel == 3) InstantiateBrokenRocks();
         };
     }
 
@@ -214,29 +204,7 @@ public class CyrusAxeAttackManager : SkillObjectManager {
         preFab.GetComponent<VFXPreFabStatic>().Initialize(prefabInfo.VFXAtribute);
 
     }
-    void InstantiateBrokenRocks() {
 
-        // Instanciando as pedrinhas - hit box
-
-        GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(_info.Prefabs[2][0].PreFab, TypeOfSkillPrefab.Hitbox);
-        preFab.transform.localScale = _info.RocksAtributes.Size;
-        preFab.transform.SetParent(parent.transform, false);
-        preFab.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
-
-        DamageContext newContext = new(
-            _info.RocksAtributes,
-            parent.GetComponent<StatusManager>()
-            );
-
-        ContinuosDamageHitBox hitbox = preFab.GetComponent<ContinuosDamageHitBox>();
-        hitbox.Initialize(newContext);
-
-        if (_info.Prefabs[2].Count <= 1 || _info.Prefabs[2][1].PrefabType != TypeOfSkillPrefab.VFX) { Debug.Log("Nenhum VFX de pedrinhas do machado"); return; }
-
-        SkillAnimationEvent rocksVFXEvent = _info.Prefabs[2][1];
-
-        InstantiateVFX(rocksVFXEvent);
-    }
     #endregion
 
     #endregion

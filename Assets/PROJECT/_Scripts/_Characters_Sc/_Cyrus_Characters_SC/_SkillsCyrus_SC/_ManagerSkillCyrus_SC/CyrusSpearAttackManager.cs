@@ -8,9 +8,6 @@ public class CyrusSpearAttackManager : SkillObjectManager {
     // Components
     CyrusSpearSkillSO _info;
 
-    // Atributes
-    int _skillLevel = 0;
-
     #endregion
 
     #region Methods
@@ -19,7 +16,7 @@ public class CyrusSpearAttackManager : SkillObjectManager {
         if (!gameObject.activeInHierarchy) {
             gameObject.SetActive(true);
 
-            int combo = _skillLevel >= 2 ? 1 : 0;
+            int combo = BattleRankManager.Instance.ReturnCurrentRank() == BattleRank.SS ? 1 : 0;
             animationCoroutine ??= StartCoroutine(AttackCoroutine(0, combo));
         }
 
@@ -37,8 +34,8 @@ public class CyrusSpearAttackManager : SkillObjectManager {
     #region Attack Animation & Instantiates
 
     protected override void FirstFunc() {
-        //float cooldown = _skillLevel >= 3 ? _info.Level3Cooldown : _info.Cooldown;
-        cooldownManager.SetCooldownSingleCharge(slot, _info.Cooldown);
+        float cooldown = BattleRankManager.Instance.ReturnCurrentRank() == BattleRank.SS ? _info.UpgradeCooldown : _info.Cooldown;
+        cooldownManager.SetCooldownSingleCharge(slot, cooldown);
 
         base.FirstFunc();
     }
@@ -53,7 +50,7 @@ public class CyrusSpearAttackManager : SkillObjectManager {
     public override void InstantiateHitBox(SkillAnimationEvent prefabInfo) {
         GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFab, TypeOfSkillPrefab.Hitbox);
 
-        float zSize = _skillLevel >= 2 ? _info.Level2Range : _info.SkillDamageAtributes.Size.z;
+        float zSize = BattleRankManager.Instance.ReturnCurrentRank() == BattleRank.SS ? _info.UpgradeRange : _info.SkillDamageAtributes.Size.z;
         preFab.transform.localScale = new(_info.SkillDamageAtributes.Size.x, _info.SkillDamageAtributes.Size.y, zSize);
 
         preFab.transform.SetParent(parent.transform, false);
@@ -64,11 +61,6 @@ public class CyrusSpearAttackManager : SkillObjectManager {
 
         preFab.transform.SetParent(null);
 
-        //float penetration = _skillLevel > 2 ? _info.Level3Penetration : 0;
-
-        //DamageAtributes atributes = new(_info.SkillDamageAtributes);
-        //atributes.ExtraAtributes[ExtraDamageContextAtributes.Penetration] = penetration;
-
         DamageContext newContext = new(
             _info.SkillDamageAtributes,
             parent.GetComponent<StatusManager>()
@@ -77,14 +69,12 @@ public class CyrusSpearAttackManager : SkillObjectManager {
         InstantDamageHitBox hitbox = preFab.GetComponent<InstantDamageHitBox>();
         hitbox.Initialize(newContext);
 
-        AK.Wwise.Switch newSwitch = _info.ListOfSwitches[_skillLevel];
-        newSwitch.SetValue(parent);
-        _info.SkillSound.Post(parent);
+        //AK.Wwise.Switch newSwitch = _info.ListOfSwitches[_skillLevel];
+        //newSwitch.SetValue(parent);
+        //_info.SkillSound.Post(parent);
 
         hitbox.OnHit += () => {
             energyManager.GainEnergy(_info.FlatEnergyGainPerHit);
-            //if (_skillLevel < 3) CyrusPassiveManager.Instance.AddUseSkill(slot, _info.AmountOfUsesPerLevel[_skillLevel], _info.ListOfSprites);
-            //if (_skillLevel > 0) cooldownManager.ResetCooldown(SkillSlot.Dash);
         };
     }
 

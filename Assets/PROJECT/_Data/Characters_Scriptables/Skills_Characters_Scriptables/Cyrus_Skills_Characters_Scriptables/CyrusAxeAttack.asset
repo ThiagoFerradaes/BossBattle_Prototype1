@@ -164,7 +164,6 @@ MonoBehaviour:
   ChargeCooldown: 0
   DealDamage: 1
   SkillDamageAtributes:
-    DamageType: 0
     UnitsToHit:
       serializedVersion: 2
       m_Bits: 128
@@ -184,8 +183,8 @@ MonoBehaviour:
       _serializedList: []
   MinimalChargeTime: 0.5
   MaxChargeTime: 1.8
-  MinDamage: 65
-  MaxDamage: 230
+  MinDamage: 40
+  MaxDamage: 200
   ListOfSprites:
   - {fileID: -1464031636, guid: 3bd66792082ea9042a60054da7e52502, type: 3}
   - {fileID: -1843985705, guid: 3bd66792082ea9042a60054da7e52502, type: 3}
@@ -212,37 +211,8 @@ MonoBehaviour:
     groupIdInternal: 0
     groupGuidInternal: 
     WwiseObjectReference: {fileID: 11400000, guid: 549af455e1f5177489d53295b6265e62, type: 2}
-  Level1AmountOfShield: 25
-  Level2AmountOfShield: 55
+  AmountOfShield: 50
   ShieldDuration: 8
-  NewMaxChargeTime: 0.9
-  AmountOfUsesPerLevel:
-    _serializedList:
-    - Key: 0
-      Value: 1
-    - Key: 1
-      Value: 2
-    - Key: 2
-      Value: 2
-  RocksAtributes:
-    DamageType: 1
-    UnitsToHit:
-      serializedVersion: 2
-      m_Bits: 128
-    Damage: 30
-    HitShield: 1
-    BreakShield: 0
-    Size: {x: 4, y: 4, z: 4}
-    TypeOfPrefab: 1
-    HitBoxDuration: 6
-    DamageCooldown: 0.25
-    Distance: 5
-    Speed: 10
-    CrossEnemy: 0
-    TimeStopped: 0
-    MinDistanceBack: 0
-    ExtraAtributes:
-      _serializedList: []
   references:
     version: 2
     RefIds: []

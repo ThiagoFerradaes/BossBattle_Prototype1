@@ -7,11 +7,9 @@ using UnityEngine;
 public class CyrusSpearSkillSO : CommonSkillSO
 {
 
-    [Header("Level Up Buffs")]
-    [Foldout("Specific")] public float Level2Range;
-    [Foldout("Specific")] public float Level3Penetration;
-    [Foldout("Specific")] public float Level3Cooldown;
-    [Foldout("Specific"), SerializedDictionary("Level", "Amount")] public SerializedDictionary<int, int> AmountOfUsesPerLevel;
+    [Header("Max Buffs")]
+    [Foldout("Specific")] public float UpgradeRange;
+    [Foldout("Specific")] public float UpgradeCooldown;
     [Foldout("Specific")] public List<Sprite> ListOfSprites;
     [Foldout("Specific")] public List<AK.Wwise.Switch> ListOfSwitches;
 }

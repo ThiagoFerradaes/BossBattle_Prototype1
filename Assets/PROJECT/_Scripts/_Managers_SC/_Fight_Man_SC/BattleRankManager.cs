@@ -109,6 +109,8 @@ public class BattleRankManager : MonoBehaviour {
         _pointsGainedMultiplier *= 1 + percentToIncrease;
     }
 
+    public BattleRank ReturnCurrentRank() => _currentRank;
+
     #endregion
 
     #region Time without taking damage region
