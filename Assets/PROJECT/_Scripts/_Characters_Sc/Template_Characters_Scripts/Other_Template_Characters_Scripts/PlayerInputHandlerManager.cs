@@ -1,5 +1,5 @@
 using NaughtyAttributes;
-using Unity.Burst.CompilerServices;
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,12 +8,10 @@ public class PlayerInputHandlerManager : MonoBehaviour
 {
     [SerializeField] private InteractionManager interactionManager;
     [SerializeField] private PlayerMovementManager moveManager;
-#pragma warning disable CS0414
-    [SerializeField] private bool hasSkills = true;
-#pragma warning restore CS0414
-    [SerializeField, ShowIf("hasSkills"), AllowNesting] private PlayerSkillManager skillManager;
 
     bool _canInput = true;
+
+    public static event Action<SkillSlot, InputAction.CallbackContext> OnSkillInputPerformed;
 
     private void Awake()
     {
@@ -49,7 +47,7 @@ public class PlayerInputHandlerManager : MonoBehaviour
     {
         if (CheckIfCantInput()) return;
 
-        skillManager.BaseAttack(ctx);
+        OnSkillInputPerformed?.Invoke(SkillSlot.BaseAttack, ctx);
 
     }
 
@@ -57,25 +55,25 @@ public class PlayerInputHandlerManager : MonoBehaviour
     {
         if (CheckIfCantInput()) return;
 
-        skillManager.SkillOne(ctx);
+        OnSkillInputPerformed?.Invoke(SkillSlot.SkillOne, ctx);
     }
     public void OnSkillTwo(InputAction.CallbackContext ctx)
     {
         if (CheckIfCantInput()) return;
 
-        skillManager.SkillTwo(ctx);
+        OnSkillInputPerformed?.Invoke(SkillSlot.SkillTwo, ctx);
     }
     public void OnUltimate(InputAction.CallbackContext ctx)
     {
         if (CheckIfCantInput()) return;
 
-        skillManager.Ultimate(ctx);
+        OnSkillInputPerformed?.Invoke(SkillSlot.Ultimate, ctx);
     }
     public void OnDash(InputAction.CallbackContext ctx)
     {
         if (CheckIfCantInput()) return;
 
-        skillManager.Dash(ctx);
+        OnSkillInputPerformed?.Invoke(SkillSlot.Dash, ctx);
     }
     bool CheckIfCantInput(bool withTime = true)
     {

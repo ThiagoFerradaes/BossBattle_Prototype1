@@ -9,7 +9,6 @@ public class ConfigurationWhiteBoard : MonoBehaviour
     [Space(10)]
 
     [Header("Gameplay")]
-    public bool PreCastOn = false;
     public bool DashToMouse = true;
 
     [Space(10)]

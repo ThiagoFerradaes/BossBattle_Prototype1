@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public abstract class SkillObjectManager : MonoBehaviour {
     #region Parameters
-    protected bool _preCasted;
+    //protected bool _preCasted;
     bool _hasStarted;
 
     protected PlayerSkillManager skillManager;
@@ -42,6 +42,7 @@ public abstract class SkillObjectManager : MonoBehaviour {
         }
 
         this.slot = slot;
+
         HandleInput(skill, ctx);
 
         _stopSkill = () => CancelSkill();
@@ -49,44 +50,20 @@ public abstract class SkillObjectManager : MonoBehaviour {
         skillManager.OnStopSkills += _stopSkill;
     }
 
+
     #region Inputs
     public virtual void HandleInput(SkillSO skill, InputAction.CallbackContext ctx) {
-        if (ctx.phase == InputActionPhase.Started) {
-            _preCasted = true;
-            PreCast(skill);
-        }
-        if (ctx.phase == InputActionPhase.Canceled && _preCasted) {
-            ReleaseInput(skill);
-        }
-    }
-    public virtual void PreCast(SkillSO skill) {
+
+        if (ctx.phase != InputActionPhase.Started) return;
 
         movementManager.BlockWalk(skill.BlockWalkWhilePreCasting);
-        skillManager.BlockAllButOneSkill(slot, true);
 
-        if (skill.PreCastOn && ConfigurationWhiteBoard.Instance.PreCastOn) {
+        movementManager.RotateToMouseDirection(false);
 
-            movementManager.ChangeRotationType(RotationType.MouseRotation);
-
-            SetSkillRangeIndicator(skill);
-        }
-
-        else {
-
-            movementManager.RotateMouse(false);
-
-            ReleaseInput(skill);
-        }
-    }
-
-    public virtual void ReleaseInput(SkillSO skill) {
-
-        _preCasted = false;
-        ReleaseSkillRangeIndicator();
         skillManager.BlockAllSkills(true);
-        movementManager.ChangeRotationType(RotationType.MoveRotation);
 
         UseSkill(skill);
+
     }
 
     public virtual void UnblockInputs() {
@@ -97,29 +74,6 @@ public abstract class SkillObjectManager : MonoBehaviour {
         skillManager.MoveManager.ChangeRotationType(RotationType.MoveRotation);
     }
     public virtual void UseSkill(SkillSO skill) { }
-    #endregion
-
-    #region RangeIndicator
-    public virtual void SetSkillRangeIndicator(SkillSO skill) {
-        currentSkillRange = PoolingManager.Instance.ReturnPrefabFromPool(skill.SkillObjectRangeObject, TypeOfSkillPrefab.PreCastRange);
-
-        currentSkillRange.transform.SetParent(parent.transform);
-
-        float groundY = ArenaManager.Instance.FindGroundHeight(parent.transform.position);
-        Vector3 groundPos = new(0, groundY - parent.transform.position.y, 0);
-
-        currentSkillRange.transform.SetLocalPositionAndRotation(groundPos, Quaternion.identity);
-
-        currentSkillRange.SetActive(true);
-    }
-
-    void ReleaseSkillRangeIndicator() {
-        if (currentSkillRange == null) return;
-
-        PoolingManager.Instance.ReturnObjectToPool(currentSkillRange, TypeOfSkillPrefab.PreCastRange);
-        currentSkillRange = null;
-
-    }
     #endregion
 
     #region End
@@ -139,9 +93,7 @@ public abstract class SkillObjectManager : MonoBehaviour {
 
     public virtual void CancelSkill() {
         StopAllCoroutines();
-        ReleaseSkillRangeIndicator();
 
-        _preCasted = false;
         skillManager.SkillIsInAnimation(false);
 
         animationCoroutine = null;

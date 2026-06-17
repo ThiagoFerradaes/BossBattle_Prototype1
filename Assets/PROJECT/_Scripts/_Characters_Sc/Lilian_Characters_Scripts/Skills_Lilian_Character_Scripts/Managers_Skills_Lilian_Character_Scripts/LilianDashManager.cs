@@ -15,25 +15,6 @@ public class LilianDashManager : SkillObjectManager
     #endregion
 
     #region Methods
-    public override void PreCast(SkillSO skill) {
-
-        movementManager.BlockWalk(skill.BlockWalkWhilePreCasting);
-        skillManager.BlockAllButOneSkill(slot, true);
-
-        if (skill.PreCastOn && ConfigurationWhiteBoard.Instance.PreCastOn) {
-
-            movementManager.ChangeRotationType(RotationType.MouseRotation);
-
-            SetSkillRangeIndicator(skill);
-        }
-
-        else {
-
-            if (ConfigurationWhiteBoard.Instance.DashToMouse) movementManager.RotateMouse(false);
-
-            ReleaseInput(skill);
-        }
-    }
     public override void UseSkill(SkillSO skill) {
         Initialize(skill);
 

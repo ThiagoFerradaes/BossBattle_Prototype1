@@ -46,11 +46,20 @@ public class PlayerSkillManager : MonoBehaviour {
         }
 
         _onStun = (bool isStunned) => {
-            _isInSkillAnimation = false; 
-            if(isStunned) OnStopSkills?.Invoke(); 
-            BlockAllSkills(isStunned); 
+            _isInSkillAnimation = false;
+            if (isStunned) OnStopSkills?.Invoke();
+            BlockAllSkills(isStunned);
         };
 
+        SubscribeToEvents();
+    }
+
+    private void SubscribeToEvents() {
+        PlayerInputHandlerManager.OnSkillInputPerformed += HandleSkillInput;
+    }
+
+    void UnsubscribeToEvents() {
+        PlayerInputHandlerManager.OnSkillInputPerformed -= HandleSkillInput;
     }
 
     private void Start() {
@@ -64,6 +73,8 @@ public class PlayerSkillManager : MonoBehaviour {
         StunManager.OnStun -= _onStun;
         OnSkillsSet = null;
         OnStopSkills = null;
+
+        UnsubscribeToEvents();
     }
     void SetSkills() {
         CurrentSelectedCharacterWhiteBoard whiteboard = CurrentSelectedCharacterWhiteBoard.Instance;
@@ -100,36 +111,36 @@ public class PlayerSkillManager : MonoBehaviour {
     #endregion
 
     #region Inputs
-    public void BaseAttack(InputAction.CallbackContext ctx) {
-        HandleSkillInput(ctx, (CommonSkillSO)_skills[SkillSlot.BaseAttack], SkillSlot.BaseAttack, () => IsSkillAvailable(SkillSlot.BaseAttack));
-    }
-
-    public void SkillOne(InputAction.CallbackContext ctx) {
-        HandleSkillInput(ctx, (CommonSkillSO)_skills[SkillSlot.SkillOne], SkillSlot.SkillOne, () => IsSkillAvailable(SkillSlot.SkillOne));
-    }
-
-    public void SkillTwo(InputAction.CallbackContext ctx) {
-        HandleSkillInput(ctx, (CommonSkillSO)_skills[SkillSlot.SkillTwo], SkillSlot.SkillTwo, () => IsSkillAvailable(SkillSlot.SkillTwo));
-    }
-
-    public void Ultimate(InputAction.CallbackContext ctx) {
-        HandleSkillInput(ctx, (UltimateSkillSO)_skills[SkillSlot.Ultimate], SkillSlot.Ultimate, () => IsSkillAvailable(SkillSlot.Ultimate));
-    }
-
-    public void Dash(InputAction.CallbackContext ctx) {
-        HandleSkillInput(ctx, (CommonSkillSO)_skills[SkillSlot.Dash], SkillSlot.Dash, () => IsSkillAvailable(SkillSlot.Dash));
+    private void HandleSkillInput(SkillSlot slot, InputAction.CallbackContext ctx) {
+        switch (slot) {
+            case SkillSlot.BaseAttack: 
+                HandleSkillInput(ctx, (CommonSkillSO)_skills[SkillSlot.BaseAttack], SkillSlot.BaseAttack);
+                break;
+            case SkillSlot.SkillOne: 
+                HandleSkillInput(ctx, (CommonSkillSO)_skills[SkillSlot.SkillOne], SkillSlot.SkillOne);
+                break;
+            case SkillSlot.SkillTwo: 
+                HandleSkillInput(ctx, (CommonSkillSO)_skills[SkillSlot.SkillTwo], SkillSlot.SkillTwo);
+                break;
+            case SkillSlot.Ultimate: 
+                HandleSkillInput(ctx, (UltimateSkillSO)_skills[SkillSlot.Ultimate], SkillSlot.Ultimate);
+                break;
+            case SkillSlot.Dash: 
+                HandleSkillInput(ctx, (CommonSkillSO)_skills[SkillSlot.Dash], SkillSlot.Dash);
+                break;
+        }
     }
     #endregion
 
     #region Skills
-    private void HandleSkillInput(InputAction.CallbackContext ctx, CommonSkillSO skill, SkillSlot slot, Func<bool> canUseCondition) {
+    private void HandleSkillInput(InputAction.CallbackContext ctx, CommonSkillSO skill, SkillSlot slot) {
         if (ctx.phase == InputActionPhase.Canceled && skill != null && skill.Cancelable) {
             _currentSkill = skill;
             UseSkill(ctx, _currentSkill, slot);
             return;
         }
 
-        if (!canUseCondition() || !IsSkillReady(slot))
+        if (!IsSkillAvailable(slot) || !IsSkillReady(slot))
             return;
 
         if (skill != null) {
@@ -137,14 +148,14 @@ public class PlayerSkillManager : MonoBehaviour {
             UseSkill(ctx, _currentSkill, slot);
         }
     }
-    private void HandleSkillInput(InputAction.CallbackContext ctx, UltimateSkillSO skill, SkillSlot slot, Func<bool> canUseCondition) {
+    private void HandleSkillInput(InputAction.CallbackContext ctx, UltimateSkillSO skill, SkillSlot slot) {
         if (ctx.phase == InputActionPhase.Canceled && skill != null && skill.Cancelable) {
             _currentSkill = skill;
             UseSkill(ctx, _currentSkill, slot);
             return;
         }
 
-        if (!canUseCondition() || !HaveEnergy() || Time.timeScale == 0)
+        if (!IsSkillAvailable(slot) || !HaveEnergy() || Time.timeScale == 0)
             return;
 
         if (skill != null) {

@@ -134,7 +134,7 @@ public class PlayerMovementManager : MonoBehaviour {
         if (!_canRotate || !_canMove || Time.timeScale == 0) return;
 
         if (_rotationType == RotationType.MouseRotation) {
-            RotateMouse(true);
+            RotateToMouseDirection(true);
         }
 
         else {
@@ -152,7 +152,7 @@ public class PlayerMovementManager : MonoBehaviour {
     /// Rotate the character towards the mouse direction
     /// </summary>
     /// <param name="lerp"></param>
-    public void RotateMouse(bool lerp) {
+    public void RotateToMouseDirection(bool lerp) {
         if (!_canRotate || !_canMove || Time.timeScale == 0) return;
 
         Ray ray = Camera.main.ScreenPointToRay(_mousePosition);

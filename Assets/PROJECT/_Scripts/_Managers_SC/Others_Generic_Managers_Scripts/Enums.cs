@@ -37,7 +37,8 @@ public enum SkillSlot {
     SkillTwo = 2,
     Ultimate = 3,
     Dash = 4,
-    Passive = 5
+    Passive = 5, 
+    ExtraCharacterSkill = 6
 }
 
 public enum Character { Cyrus, Bastian, Lilian, Gracia, Julian, Betrand, Carmen, Null }

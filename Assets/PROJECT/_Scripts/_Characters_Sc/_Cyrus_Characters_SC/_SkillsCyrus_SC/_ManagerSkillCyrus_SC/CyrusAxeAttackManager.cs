@@ -29,14 +29,12 @@ public class CyrusAxeAttackManager : SkillObjectManager {
         Initialize(skill);
 
         if (ctx.phase == InputActionPhase.Started) {
-            _preCasted = true;
             _isHoldingInput = true;
-            PreCast(skill);
+            StartAxeCharge();
         }
-        if (ctx.phase == InputActionPhase.Canceled && _preCasted) {
-            _preCasted = false;
+        if (ctx.phase == InputActionPhase.Canceled && _isHoldingInput) {
             _isHoldingInput = false;
-            ReleaseInput(skill);
+            UseSkill(_info);
         }
     }
 
@@ -48,10 +46,10 @@ public class CyrusAxeAttackManager : SkillObjectManager {
 
     }
 
-    public override void PreCast(SkillSO skill) {
+    public void StartAxeCharge() {
 
         // Bloqueando movimenta��o e outros inputs
-        movementManager.BlockWalk(skill.BlockWalkWhilePreCasting);
+        movementManager.BlockWalk(_info.BlockWalkWhilePreCasting);
         movementManager.ChangeRotationType(RotationType.MouseRotation);
         skillManager.BlockAllSkills(true);
 
@@ -66,9 +64,6 @@ public class CyrusAxeAttackManager : SkillObjectManager {
 
         // Come�ar o cooldown
         cooldownManager.SetCooldownWithCharges(slot, _info);
-
-        // Ligando o Range do prefab
-        if (_info.PreCastOn && ConfigurationWhiteBoard.Instance.PreCastOn) SetSkillRangeIndicator(skill);
 
         // Checando n�vel
         if (BattleRankManager.Instance.ReturnCurrentRank() == BattleRank.SS) healthManager.RecieveShield(_info.AmountOfShield, _info.ShieldDuration);
@@ -108,8 +103,8 @@ public class CyrusAxeAttackManager : SkillObjectManager {
         }
 
         if (_chargeTimer >= maxChargeTime) {
-            _preCasted = false;
-            ReleaseInput(_info);
+            _isHoldingInput = false;
+            UseSkill(_info);
         }
 
         _chargeTimeCoroutine = null;
@@ -152,7 +147,7 @@ public class CyrusAxeAttackManager : SkillObjectManager {
             _chargeTimeCoroutine = null;
         }
 
-        _preCasted = false;
+        //_preCasted = false;
         _isHoldingInput = false;
 
         EndWithUnblockSkills();
