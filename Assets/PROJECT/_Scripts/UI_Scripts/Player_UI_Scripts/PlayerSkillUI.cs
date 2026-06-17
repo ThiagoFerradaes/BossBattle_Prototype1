@@ -77,17 +77,31 @@ public class PlayerSkillUI : MonoBehaviour {
         };
     }
     private void SubscribeEvents() {
-        WhiteBoard.OnCooldownSet -= StartCooldownUI;
-        WhiteBoard.OnCooldownSet += StartCooldownUI;
+        PlayerSkillCooldownManager.OnCooldownSet -= StartCooldownUI;
+        PlayerSkillCooldownManager.OnCooldownSet += StartCooldownUI;
 
         EnergyManager.OnEnergyValueChanged -= _energyGainAction;
         EnergyManager.OnEnergyValueChanged += _energyGainAction;
 
-        WhiteBoard.OnChargesSet -= _setChargeNumber;
-        WhiteBoard.OnChargesSet += _setChargeNumber;
+        PlayerSkillCooldownManager.OnChargesSet -= _setChargeNumber;
+        PlayerSkillCooldownManager.OnChargesSet += _setChargeNumber;
 
-        WhiteBoard.OnChargesChange -= _changeChargeNumber;
-        WhiteBoard.OnChargesChange += _changeChargeNumber;
+        PlayerSkillCooldownManager.OnChargesChange -= _changeChargeNumber;
+        PlayerSkillCooldownManager.OnChargesChange += _changeChargeNumber;
+
+    }
+
+    void UnsubscribeToEvents() {
+        PlayerSkillCooldownManager.OnCooldownSet -= StartCooldownUI;
+
+        EnergyManager.OnEnergyValueChanged -= _energyGainAction;
+
+        PlayerSkillCooldownManager.OnChargesSet -= _setChargeNumber;
+        PlayerSkillCooldownManager.OnChargesChange -= _changeChargeNumber;
+    }
+
+    private void OnDestroy() {
+        UnsubscribeToEvents();
 
     }
 
@@ -208,12 +222,7 @@ public class PlayerSkillUI : MonoBehaviour {
         }
     }
 
-    private void OnDestroy() {
-        WhiteBoard.OnCooldownSet -= StartCooldownUI;
-        EnergyManager.OnEnergyValueChanged -= _energyGainAction;
-        WhiteBoard.OnChargesSet -= _setChargeNumber;
-        WhiteBoard.OnChargesChange -= _changeChargeNumber;
-    }
+
     #endregion
 }
 

@@ -54,16 +54,6 @@ public class WhiteBoard : MonoBehaviour {
     [SerializeField] List<CharacterUnlockedInfo> _listOfCharactersUnlockedInfo = new();
 
     Dictionary<Bosses, int> _dictionaryOfUnlockedPhasesByBosses = new();
-
-    public static event Action<SkillSlot, float> OnCooldownSet;
-    public static event Action<SkillSlot, int, bool> OnChargesSet;
-    public static event Action<SkillSlot, int, bool> OnChargesChange;
-
-    
-    public void SetCooldown(SkillSlot slot, float cooldown) => OnCooldownSet?.Invoke(slot, cooldown);
-    
-    public void SetCharges(SkillSlot slot, int charges, bool hasCharges) => OnChargesSet?.Invoke(slot, charges, hasCharges);
-    public void SetChargesChange(SkillSlot slot, int charges, bool hasCharges) => OnChargesChange?.Invoke(slot, charges, hasCharges);
     
     private void Awake() {
         if (Instance == null) {

@@ -11,7 +11,6 @@ public abstract class SkillObjectManager : MonoBehaviour {
     protected PlayerSkillManager skillManager;
     protected PlayerMovementManager movementManager;
     protected GameObject parent;
-    protected GameObject currentSkillRange;
     protected SkillSlot slot;
     protected Animator anim;
     protected PlayerSkillCooldownManager cooldownManager;
