@@ -1,0 +1,294 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aebd344eefd21004c880e3e7a9bbbd06, type: 3}
+  m_Name: BastianBaseAttackSO
+  m_EditorClassIdentifier: Assembly-CSharp::BastianBaseAttackSO
+  HasMapDescription: 0
+  MapDescriptionInfo:
+    SkillName:
+      m_TableReference:
+        m_TableCollectionName: 
+      m_TableEntryReference:
+        m_KeyId: 0
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    SkillShortDescription:
+      m_TableReference:
+        m_TableCollectionName: 
+      m_TableEntryReference:
+        m_KeyId: 0
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    SkillLongDescription:
+      m_TableReference:
+        m_TableCollectionName: 
+      m_TableEntryReference:
+        m_KeyId: 0
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    UISkillSpriteIcon: {fileID: 0}
+    MapSkillSpriteIcon: {fileID: 0}
+    MapSkillSelectedSpriteIcon: {fileID: 0}
+    MapLockSkillSpriteIcon: {fileID: 0}
+  SkillManagerObject: {fileID: 7423082187053757486, guid: 847e527322c9b4a4685bbcceebc6b21c, type: 3}
+  ListOfAnimationsInfo:
+  - AnimationClip: {fileID: 7400000, guid: d7a6991a756c2b64388f424b738b8a38, type: 2}
+    AnimationLayer: 0
+    AnimationBaseSpeed: 7
+    Loop: 0
+    AnimationExitTime: 0.7
+  - AnimationClip: {fileID: 7400000, guid: de40b68da9f5c2f4cade9d4faf4f0992, type: 2}
+    AnimationLayer: 0
+    AnimationBaseSpeed: 8
+    Loop: 0
+    AnimationExitTime: 0.65
+  - AnimationClip: {fileID: 7400000, guid: fa0b5b8564a0f2c4d916f84d91abd8da, type: 2}
+    AnimationLayer: 0
+    AnimationBaseSpeed: 6
+    Loop: 0
+    AnimationExitTime: 0.7
+  Prefabs:
+    _serializedList:
+    - Key: 1
+      Value:
+      - TimeToSpawnPreFab: 0.1
+        PrefabType: 1
+        PreFab: {fileID: 418339772562576118, guid: fdbe6bae940e8fc4d9d402bb7dd3be60, type: 3}
+        PreFabPosition: {x: 0, y: 1, z: 0}
+        VFXAtribute:
+          VFXType: 2
+          VFXDuration: 0
+          VFXPosCollisionDuration: 1
+          CrossEnemy: 0
+          TimeStopped: 0
+          MinDistanceBack: 0.1
+          UnitsToHit:
+            serializedVersion: 2
+            m_Bits: 192
+          VFXSpeed: 20
+          Distance: 7
+      - TimeToSpawnPreFab: 0.6
+        PrefabType: 0
+        PreFab: {fileID: 5556882484380889040, guid: 73183662ed7be604f90dff0cc2f277ff, type: 3}
+        PreFabPosition: {x: 0, y: 1, z: 0}
+        VFXAtribute:
+          VFXType: 0
+          VFXDuration: 0
+          VFXPosCollisionDuration: 0
+          CrossEnemy: 0
+          TimeStopped: 0
+          MinDistanceBack: 0.1
+          UnitsToHit:
+            serializedVersion: 2
+            m_Bits: 0
+          VFXSpeed: 0
+          Distance: 0
+    - Key: 2
+      Value:
+      - TimeToSpawnPreFab: 0.6
+        PrefabType: 0
+        PreFab: {fileID: 5556882484380889040, guid: 73183662ed7be604f90dff0cc2f277ff, type: 3}
+        PreFabPosition: {x: 0, y: 1, z: 0}
+        VFXAtribute:
+          VFXType: 0
+          VFXDuration: 0
+          VFXPosCollisionDuration: 0
+          CrossEnemy: 0
+          TimeStopped: 0
+          MinDistanceBack: 0.1
+          UnitsToHit:
+            serializedVersion: 2
+            m_Bits: 0
+          VFXSpeed: 0
+          Distance: 0
+      - TimeToSpawnPreFab: 0.6
+        PrefabType: 1
+        PreFab: {fileID: 418339772562576118, guid: 62659ee79868b3843b74f250bb6d27b3, type: 3}
+        PreFabPosition: {x: 0, y: 1, z: 0}
+        VFXAtribute:
+          VFXType: 2
+          VFXDuration: 0.2
+          VFXPosCollisionDuration: 1
+          CrossEnemy: 0
+          TimeStopped: 0
+          MinDistanceBack: 0.1
+          UnitsToHit:
+            serializedVersion: 2
+            m_Bits: 192
+          VFXSpeed: 20
+          Distance: 7
+    - Key: 3
+      Value:
+      - TimeToSpawnPreFab: 0.55
+        PrefabType: 0
+        PreFab: {fileID: 5556882484380889040, guid: 73183662ed7be604f90dff0cc2f277ff, type: 3}
+        PreFabPosition: {x: 0, y: 1, z: 0}
+        VFXAtribute:
+          VFXType: 0
+          VFXDuration: 0
+          VFXPosCollisionDuration: 0
+          CrossEnemy: 0
+          TimeStopped: 0
+          MinDistanceBack: 0.1
+          UnitsToHit:
+            serializedVersion: 2
+            m_Bits: 0
+          VFXSpeed: 0
+          Distance: 0
+      - TimeToSpawnPreFab: 0.55
+        PrefabType: 1
+        PreFab: {fileID: 418339772562576118, guid: 4023352ecf205ef41bba787a05946aab, type: 3}
+        PreFabPosition: {x: 0, y: 1, z: 0}
+        VFXAtribute:
+          VFXType: 2
+          VFXDuration: 0
+          VFXPosCollisionDuration: 1
+          CrossEnemy: 0
+          TimeStopped: 0
+          MinDistanceBack: 0.1
+          UnitsToHit:
+            serializedVersion: 2
+            m_Bits: 192
+          VFXSpeed: 20
+          Distance: 7
+  SkillObjectRangeObject: {fileID: 5203434260948203345, guid: ade6d2bcd504d27418184cc1070b8f59, type: 3}
+  BlockWalkWhilePreCasting: 1
+  BlockDashWhilePreCasting: 1
+  PreCastOn: 1
+  SkillCharacter: 1
+  Cancelable: 0
+  Slot: 0
+  SkillType: 0
+  SkillSound:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 85764c1a101019b4bb28654a53f9977e, type: 2}
+  FlatEnergyGainPerHit: 1
+  Cooldown: 0.6
+  HasCharges: 0
+  Charges: 1
+  ChargeCooldown: 0
+  DealDamage: 1
+  SkillDamageAtributes:
+    UnitsToHit:
+      serializedVersion: 2
+      m_Bits: 0
+    Damage: 0
+    HitShield: 0
+    BreakShield: 0
+    Size: {x: 1, y: 1, z: 1}
+    TypeOfPrefab: 0
+    HitBoxDuration: 0.1
+    DamageCooldown: 0.1
+    Distance: 5
+    Speed: 10
+    CrossEnemy: 0
+    TimeStopped: 0
+    MinDistanceBack: 0
+    ExtraAtributes:
+      _serializedList: []
+  AttackSpeedAnimationParameter: AttackSpeed
+  FirstAttackAtributes:
+    UnitsToHit:
+      serializedVersion: 2
+      m_Bits: 128
+    Damage: 20
+    HitShield: 1
+    BreakShield: 0
+    Size: {x: 1, y: 1, z: 1}
+    TypeOfPrefab: 2
+    HitBoxDuration: 0.1
+    DamageCooldown: 0.1
+    Distance: 7
+    Speed: 20
+    CrossEnemy: 0
+    TimeStopped: 0
+    MinDistanceBack: 0
+    ExtraAtributes:
+      _serializedList: []
+  SecondAttackAtributes:
+    UnitsToHit:
+      serializedVersion: 2
+      m_Bits: 128
+    Damage: 15
+    HitShield: 1
+    BreakShield: 0
+    Size: {x: 1, y: 1, z: 1}
+    TypeOfPrefab: 2
+    HitBoxDuration: 0.1
+    DamageCooldown: 0.1
+    Distance: 7
+    Speed: 20
+    CrossEnemy: 0
+    TimeStopped: 0
+    MinDistanceBack: 0
+    ExtraAtributes:
+      _serializedList: []
+  ThirdAttackAtributes:
+    UnitsToHit:
+      serializedVersion: 2
+      m_Bits: 128
+    Damage: 30
+    HitShield: 1
+    BreakShield: 0
+    Size: {x: 1, y: 1, z: 1}
+    TypeOfPrefab: 2
+    HitBoxDuration: 0.1
+    DamageCooldown: 0.1
+    Distance: 7
+    Speed: 20
+    CrossEnemy: 0
+    TimeStopped: 0
+    MinDistanceBack: 0
+    ExtraAtributes:
+      _serializedList: []
+  AttackDistance: 7
+  ProjectileSpeed: 20
+  ProjectileSize: 0.5
+  Switchs:
+  - idInternal: 0
+    valueGuidInternal: 
+    groupIdInternal: 0
+    groupGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 49895feebfc2c824faea5c5fc0fc5f76, type: 2}
+  - idInternal: 0
+    valueGuidInternal: 
+    groupIdInternal: 0
+    groupGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 3c6a919538eb5974e8642ed79eee38b7, type: 2}
+  - idInternal: 0
+    valueGuidInternal: 
+    groupIdInternal: 0
+    groupGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: ae86b5e41079bfd49bef12ca1fb4e34a, type: 2}
+  - idInternal: 0
+    valueGuidInternal: 
+    groupIdInternal: 0
+    groupGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: c416c987d629a7b4ca93ba54d43b88d9, type: 2}
+  - idInternal: 0
+    valueGuidInternal: 
+    groupIdInternal: 0
+    groupGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 8131cfb34d0a86d489ce8001ff49b350, type: 2}
+  CooldownBetweenAttacks: 0
+  MaxTimeBetweenAttacks: 1
+  HeatGain: 4
+  references:
+    version: 2
+    RefIds: []

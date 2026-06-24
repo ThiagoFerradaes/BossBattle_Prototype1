@@ -1,0 +1,131 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54b8ba90945568c4aa18eb4e05bdbcc9, type: 3}
+  m_Name: BastianIgnisSO
+  m_EditorClassIdentifier: Assembly-CSharp::BastianIgnisSO
+  HasMapDescription: 1
+  MapDescriptionInfo:
+    SkillName:
+      m_TableReference:
+        m_TableCollectionName: GUID:2eafd25b541933744a0e4b250efe288e
+      m_TableEntryReference:
+        m_KeyId: 22051115029
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    SkillShortDescription:
+      m_TableReference:
+        m_TableCollectionName: GUID:2eafd25b541933744a0e4b250efe288e
+      m_TableEntryReference:
+        m_KeyId: 22051115030
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    SkillLongDescription:
+      m_TableReference:
+        m_TableCollectionName: GUID:2eafd25b541933744a0e4b250efe288e
+      m_TableEntryReference:
+        m_KeyId: 22051115031
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    UISkillSpriteIcon: {fileID: -1536632686, guid: 3bd66792082ea9042a60054da7e52502, type: 3}
+    MapSkillSpriteIcon: {fileID: 1371370310, guid: cee67a2d50b177a4a83653c67d610c6c, type: 3}
+    MapSkillSelectedSpriteIcon: {fileID: -310980374, guid: cee67a2d50b177a4a83653c67d610c6c, type: 3}
+    MapLockSkillSpriteIcon: {fileID: 2141064758, guid: ab75e1b1a9aedbc45b40c78d83e17be3, type: 3}
+  SkillManagerObject: {fileID: 7445460037325849934, guid: 22280efc82182854198cab135883fe26, type: 3}
+  ListOfAnimationsInfo:
+  - AnimationClip: {fileID: 7400000, guid: 648ba7877e9814a40a218d63279b997d, type: 2}
+    AnimationLayer: 0
+    AnimationBaseSpeed: 3
+    Loop: 0
+    AnimationExitTime: 0.7
+  Prefabs:
+    _serializedList:
+    - Key: 0
+      Value:
+      - TimeToSpawnPreFab: 0.4
+        PrefabType: 0
+        PreFab: {fileID: 5556882484380889040, guid: 73183662ed7be604f90dff0cc2f277ff, type: 3}
+        PreFabPosition: {x: 0, y: 1, z: 0}
+        VFXAtribute:
+          VFXType: 0
+          VFXDuration: 0
+          VFXPosCollisionDuration: 0
+          CrossEnemy: 0
+          TimeStopped: 0
+          MinDistanceBack: 0
+          UnitsToHit:
+            serializedVersion: 2
+            m_Bits: 0
+          VFXSpeed: 0
+          Distance: 0
+      - TimeToSpawnPreFab: 0.5
+        PrefabType: 1
+        PreFab: {fileID: 4924003528972884429, guid: 60cf0431affc69a46b58c0760a74c28c, type: 3}
+        PreFabPosition: {x: 0, y: 1, z: 0}
+        VFXAtribute:
+          VFXType: 2
+          VFXDuration: 0
+          VFXPosCollisionDuration: 1
+          CrossEnemy: 1
+          TimeStopped: 0
+          MinDistanceBack: 0
+          UnitsToHit:
+            serializedVersion: 2
+            m_Bits: 192
+          VFXSpeed: 30
+          Distance: 20
+  SkillObjectRangeObject: {fileID: 5203434260948203345, guid: 33b85ce993cf5ac42bc2d8a1f986e21e, type: 3}
+  BlockWalkWhilePreCasting: 1
+  BlockDashWhilePreCasting: 1
+  PreCastOn: 0
+  SkillCharacter: 1
+  Cancelable: 0
+  Slot: 2
+  SkillType: 0
+  SkillSound:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: b6961ea86b33feb4f8692c271732c9e1, type: 2}
+  FlatEnergyGainPerHit: 5
+  Cooldown: 5
+  HasCharges: 1
+  Charges: 2
+  ChargeCooldown: 0.5
+  DealDamage: 1
+  SkillDamageAtributes:
+    UnitsToHit:
+      serializedVersion: 2
+      m_Bits: 128
+    Damage: 80
+    HitShield: 1
+    BreakShield: 0
+    Size: {x: 1, y: 1, z: 1}
+    TypeOfPrefab: 2
+    HitBoxDuration: 0.1
+    DamageCooldown: 0.1
+    Distance: 12
+    Speed: 30
+    CrossEnemy: 1
+    TimeStopped: 0
+    MinDistanceBack: 0
+    ExtraAtributes:
+      _serializedList: []
+  AttackSpeedAnimationParameter: AttackSpeed
+  HeatGain: 10
+  references:
+    version: 2
+    RefIds: []

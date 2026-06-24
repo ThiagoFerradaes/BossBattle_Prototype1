@@ -1,0 +1,172 @@
+using System;
+using System.Collections;
+using UnityEditor;
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+public class BastianFlameEchoManager : SkillObjectManager {
+    // Components
+    BastianFlameEchoSO _info;
+    EnergyManager _energyManager;
+    StatusManager _statusManager;
+
+    // Actions
+    Action<int, BastianHeatArea> _onShootAction;
+    Action<BastianHeatArea> _onIgnisAction;
+
+    // Coroutines
+    Coroutine _ignisCoroutine, _attackCoroutine;
+
+    float _attackSpeedMultiplier;
+    public override void HandleInput(SkillSO skill, InputAction.CallbackContext ctx) {
+        if (!BastianPassiveManager.Instance.CanShoot) {
+            return;
+        }
+
+        base.HandleInput(skill, ctx);
+    }
+    public override void UseSkill(SkillSO skill) {
+        base.UseSkill(skill);
+
+        if (_info == null) _info = skill as BastianFlameEchoSO;
+        if (_energyManager == null) _energyManager = parent.GetComponent<EnergyManager>();
+        if (_statusManager == null) _statusManager = parent.gameObject.GetComponent<StatusManager>();
+
+        gameObject.SetActive(true);
+
+        _attackSpeedMultiplier = GetAttackSpeedMultiplier();
+        animationCoroutine ??= StartCoroutine(AttackCoroutine(0, 1, _attackSpeedMultiplier));
+
+        _onShootAction = (int attackIdex, BastianHeatArea area) => _attackCoroutine ??= StartCoroutine(SecondaryShoot(attackIdex, area));
+        _onIgnisAction = (BastianHeatArea area) => _ignisCoroutine ??= StartCoroutine(SecondaryIgnis(area));
+    }
+
+    private void OnDestroy() {
+        BastianBaseAttackManager.OnShoot -= _onShootAction;
+        BastianIgnisManager.OnIgnisShoot -= _onIgnisAction;
+    }
+
+    protected override void FirstFunc() {
+        base.FirstFunc();
+
+        _energyManager.LooseAllEnergy();
+
+        _info.SkillSound.Post(parent);
+    }
+
+    float GetAttackSpeedMultiplier() {
+        float baseSpeed = statusManager.ReturnStatusValue(StatusType.AttackSpeed);
+        return Mathf.Max(0.1f, baseSpeed);
+    }
+
+    protected override void FourthFunc() {
+        animationCoroutine = null;
+
+        // Avisando que n�o ta mais em anima��o
+        skillManager.SkillIsInAnimation(false);
+
+        // Desbloqueando inputs
+        UnblockInputs();
+
+        BastianBaseAttackManager.OnShoot += _onShootAction;
+        BastianIgnisManager.OnIgnisShoot += _onIgnisAction;
+
+        StartCoroutine(Duration());
+    }
+
+    IEnumerator Duration() {
+        _energyManager.SetCanGainEnergy(false);
+        yield return new WaitForSeconds(_info.UltimateDuration);
+
+        BastianBaseAttackManager.OnShoot -= _onShootAction;
+        BastianIgnisManager.OnIgnisShoot -= _onIgnisAction;
+
+        EndWithUnblockSkills();
+    }
+
+    IEnumerator SecondaryShoot(int attackIndex, BastianHeatArea area) {
+        float realTimer = _info.TimeBetweenFirstAndSecondShoot / _statusManager.ReturnStatusValue(StatusType.AttackSpeed);
+        yield return new WaitForSeconds(realTimer);
+
+        var prefabList = _info.Prefabs[attackIndex];
+        prefabList.Sort((a, b) => a.TimeToSpawnPreFab.CompareTo(b.TimeToSpawnPreFab));
+
+        for (int i = 0; i < prefabList.Count; i++) {
+            SkillAnimationEvent prefabInfo = prefabList[i];
+
+            if (prefabInfo.PrefabType == TypeOfSkillPrefab.Hitbox) InstantiateSecondShoot(prefabInfo, attackIndex, area);
+        }
+
+        _attackCoroutine = null;
+    }
+
+    IEnumerator SecondaryIgnis(BastianHeatArea area) {
+        float realTimer = _info.TimeBetweenIgnis / _statusManager.ReturnStatusValue(StatusType.AttackSpeed);
+        yield return new WaitForSeconds(realTimer);
+
+        var prefabList = _info.Prefabs[3];
+        prefabList.Sort((a, b) => a.TimeToSpawnPreFab.CompareTo(b.TimeToSpawnPreFab));
+
+        for (int i = 0; i < prefabList.Count; i++) {
+            SkillAnimationEvent prefabInfo = prefabList[i];
+
+            if (prefabInfo.PrefabType == TypeOfSkillPrefab.Hitbox) InstantiateIgnis(prefabInfo, area);
+            else if (prefabInfo.PrefabType == TypeOfSkillPrefab.VFX) InstantiateVFX(prefabInfo);
+        }
+
+        _ignisCoroutine = null;
+    }
+
+    public override void EndWithUnblockSkills() {
+        BastianBaseAttackManager.OnShoot -= _onShootAction;
+        BastianIgnisManager.OnIgnisShoot -= _onIgnisAction;
+
+        _energyManager.SetCanGainEnergy(true);
+
+        base.EndWithUnblockSkills();
+    }
+
+    void InstantiateSecondShoot(SkillAnimationEvent prefabInfo, int attackIndex, BastianHeatArea area) {
+        DamageAtributes atributes = attackIndex switch {
+            1 => _info.FirstAttackDamageAtributes,
+            2 => _info.SecondAttackDamageAtributes,
+            3 => _info.ThirdAttackDamageAtributes,
+            _ => _info.FirstAttackDamageAtributes,
+        };
+
+        GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFab, TypeOfSkillPrefab.Hitbox);
+
+        preFab.transform.localScale = _info.ProjectileSize * Vector3.one;
+        preFab.transform.SetPositionAndRotation(parent.transform.position + prefabInfo.PreFabPosition, parent.transform.rotation);
+
+        DamageContext newContext = new(
+            atributes,
+            parent.GetComponent<StatusManager>()
+            );
+
+        ProjectileDamageHitBox hitbox = preFab.GetComponent<ProjectileDamageHitBox>();
+
+        hitbox.Initialize(newContext);
+
+        BastianPassiveManager.Instance.GainHeat(_info.SHeatGain);
+    }
+
+    void InstantiateIgnis(SkillAnimationEvent prefabInfo, BastianHeatArea area) {
+        GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFab, TypeOfSkillPrefab.Hitbox);
+
+        preFab.transform.localScale = _info.IgnisDamageAtributes.Size;
+        preFab.transform.SetPositionAndRotation(parent.transform.position + prefabInfo.PreFabPosition, parent.transform.rotation);
+
+        DamageAtributes atributes = _info.IgnisDamageAtributes;
+
+        DamageContext newContext = new(
+            atributes,
+            parent.GetComponent<StatusManager>()
+            );
+
+        ProjectileDamageHitBox hitbox = preFab.GetComponent<ProjectileDamageHitBox>();
+        hitbox.Initialize(newContext);
+
+        BastianPassiveManager.Instance.GainHeat(_info.IgnisHeatGain);
+    }
+}

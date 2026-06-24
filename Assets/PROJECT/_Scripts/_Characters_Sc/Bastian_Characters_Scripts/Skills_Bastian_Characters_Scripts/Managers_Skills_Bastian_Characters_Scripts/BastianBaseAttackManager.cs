@@ -1,0 +1,155 @@
+using System;
+using System.Collections;
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+public class BastianBaseAttackManager : SkillObjectManager {
+
+    // Components
+    BastianBaseAttackSO _info;
+
+    // Atributes
+    int _attackIndex = 1;
+
+    // Coroutine
+    Coroutine _timerBetweenAttacksCoroutine;
+
+    // Actions
+    public static event Action<int, BastianHeatArea> OnShoot;
+
+    float _attackSpeedMultiplier;
+    public override void HandleInput(SkillSO skill, InputAction.CallbackContext ctx) {
+        if (!BastianPassiveManager.Instance.CanShoot) {
+            return;
+        }
+
+        base.HandleInput(skill, ctx);
+    }
+    public override void UseSkill(SkillSO skill) {
+
+
+        if (_info == null) _info = skill as BastianBaseAttackSO;
+
+        if (!gameObject.activeInHierarchy) {
+            gameObject.SetActive(true);
+        }
+
+        if (_timerBetweenAttacksCoroutine != null) {
+            StopCoroutine(_timerBetweenAttacksCoroutine);
+            _timerBetweenAttacksCoroutine = null;
+        }
+
+        _attackSpeedMultiplier = GetAttackSpeedMultiplier();
+        animationCoroutine ??= StartCoroutine(AttackCoroutine(_attackIndex - 1, _attackIndex, _attackSpeedMultiplier));
+    }
+
+    protected override void FirstFunc() { 
+        skillManager.SkillIsInAnimation(true);
+    }
+
+    protected override void FourthFunc() {
+
+        // Definindo Cooldown
+        float cooldown = _attackIndex < 3 ? _info.CooldownBetweenAttacks : _info.Cooldown;
+
+        float realCooldown = cooldown / _attackSpeedMultiplier;
+
+        cooldownManager.SetCooldownSingleCharge(slot, realCooldown);
+
+        // Resetando Index
+        _attackIndex = _attackIndex < 3 ? _attackIndex + 1 : 1;
+
+        // Corrotina
+        animationCoroutine = null;
+
+        _timerBetweenAttacksCoroutine ??= StartCoroutine(CooldownBetweenAttacks());
+
+        // Desbloqueando inputs
+        UnblockInputs();
+
+        // Avisando que n�o est� mais em anima��o
+        skillManager.SkillIsInAnimation(false);
+    }
+
+    IEnumerator CooldownBetweenAttacks() {
+        float timer = 0;
+
+        while (timer <= _info.MaxTimeBetweenAttacks) {
+            timer += Time.deltaTime;
+            yield return null;
+        }
+        EndWithUnblockSkills();
+    }
+
+    float GetAttackSpeedMultiplier() {
+        float baseSpeed = statusManager.ReturnStatusValue(StatusType.AttackSpeed);
+        return Mathf.Max(0.1f, baseSpeed);
+    }
+    public override void CancelSkill() {
+
+        if (_timerBetweenAttacksCoroutine != null) {
+            StopCoroutine(_timerBetweenAttacksCoroutine);
+            _timerBetweenAttacksCoroutine = null;
+        }
+
+        _attackIndex = 1;
+        base.CancelSkill();
+    }
+    public override void EndWithUnblockSkills() {
+        _attackIndex = 1;
+        _timerBetweenAttacksCoroutine = null;
+        base.EndWithUnblockSkills();
+    }
+    public override void InstantiateHitBox(SkillAnimationEvent prefabInfo) {
+        GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefabInfo.PreFab, TypeOfSkillPrefab.Hitbox);
+
+        preFab.transform.localScale = Vector3.one * _info.ProjectileSize;
+        preFab.transform.SetPositionAndRotation(parent.transform.position + prefabInfo.PreFabPosition, parent.transform.rotation);
+
+        DamageAtributes atributes = _attackIndex switch {
+            1 => _info.FirstAttackAtributes,
+            2 => _info.SecondAttackAtributes,
+            3 => _info.ThirdAttackAtributes,
+            _ => _info.FirstAttackAtributes,
+        };
+
+        DamageAtributes newAtributes = new(atributes);
+
+        newAtributes.Speed *= _attackSpeedMultiplier;
+
+        DamageContext newContext = new(
+            newAtributes,
+            parent.GetComponent<StatusManager>()
+            );
+
+        ProjectileDamageHitBox hitbox = preFab.GetComponent<ProjectileDamageHitBox>();
+        hitbox.Initialize(newContext);
+
+        hitbox.OnHit += () => {
+            energyManager.GainEnergy(_info.FlatEnergyGainPerHit);
+        };
+
+
+        OnShoot?.Invoke(_attackIndex, BastianPassiveManager.Instance.ReturnCurrentHeatArea());
+
+        int heatArea = (int)BastianPassiveManager.Instance.ReturnCurrentHeatArea();
+        AK.Wwise.Switch newSwitch = _info.Switchs[heatArea];
+        newSwitch.SetValue(parent);
+        _info.SkillSound.Post(parent);
+
+        BastianPassiveManager.Instance.GainHeat(_info.HeatGain);
+    }
+
+    public override void InstantiateVFX(SkillAnimationEvent prefab, Vector3? finalPosition = null) {
+        GameObject preFab = PoolingManager.Instance.ReturnPrefabFromPool(prefab.PreFab, TypeOfSkillPrefab.VFX);
+
+        preFab.transform.SetParent(parent.transform, false);
+        preFab.transform.SetLocalPositionAndRotation(prefab.PreFabPosition, Quaternion.identity);
+        preFab.transform.SetParent(null);
+
+        VFXAtributes newAtribute = new(prefab.VFXAtribute);
+        newAtribute.VFXSpeed *= _attackSpeedMultiplier;
+
+        preFab.GetComponent<VFXPreFabProjectile>().Initialize(newAtribute);
+    }
+}

@@ -1,0 +1,100 @@
+using System;
+using System.Collections;
+using System.Linq;
+using UnityEngine;
+using Random = UnityEngine.Random;
+
+
+
+public class InstantDamageHitBox : HitBox {
+    #region Parameters
+
+    DamageAtributes _damageAtributes;
+    StatusManager _statusManager;
+    Collider _collider;
+
+    public event Action OnHit;
+    bool _hasHitted;
+
+    #endregion
+
+    #region Methods
+
+    void Awake() {
+        if (TryGetComponent<Collider>(out Collider collider)) {
+            _collider = collider;
+            _collider.enabled = false;
+        }
+    }
+    public void Initialize(DamageContext context, bool hasTimer = true) {
+        _damageAtributes = context.Atributes;
+        _statusManager = context.StatusManager;
+
+        if (_collider != null) _collider.enabled = true;
+
+        _hasHitted = false;
+        OnHit = null;
+
+        gameObject.SetActive(true);
+
+        if (hasTimer) StartCoroutine(AttackDuration());
+    }
+    public void ForceEnd() => End();
+    IEnumerator AttackDuration() {
+        float timer = 0;
+        while (timer < _damageAtributes.HitBoxDuration) {
+            timer += Time.deltaTime;
+            yield return null;
+        }
+
+        End();
+    }
+
+    private void OnTriggerEnter(Collider other) {
+        if (!_damageAtributes.UnitsToHit.ContainsLayer(other.gameObject.layer)) return;
+
+        if (!other.TryGetComponent<HealthManager>(out HealthManager health)) {
+            health = other.GetComponentInParent<HealthManager>();
+            if (health == null) {
+                Debug.Log("No HealthManager found in this object or its parents");
+                return;
+            }
+        }
+        if (!other.TryGetComponent<StatusManager>(out StatusManager recieverStatus)) {
+            recieverStatus = other.GetComponentInParent<StatusManager>();
+            if (recieverStatus == null) {
+                Debug.Log("No StatusManager found in this object or its parents");
+                return;
+            }
+        }
+
+        if (!health.ReturnIfCanTakeDamage()) return;
+
+
+        float newDamage = DamageCalculator.CalculateDamage(
+                _damageAtributes,
+                _statusManager,
+                recieverStatus
+                );
+
+        if (other.gameObject.layer == LayerMask.NameToLayer("Enemy")) PopUpManager.Instance.
+                DamageDone((int)newDamage, other.transform.position);
+
+        if (_damageAtributes.BreakShield) health.BreakShield();
+
+        health.TakeDamage(newDamage, _damageAtributes.HitShield);
+
+        if (!_hasHitted) {
+            _hasHitted = true;
+            OnHit?.Invoke();
+            CallOnHitTargetEvent(other.gameObject.layer);
+        }
+    }
+
+    void End() {
+        _hasHitted = false;
+        OnHit = null;
+        PoolingManager.Instance.ReturnObjectToPool(this.gameObject, TypeOfSkillPrefab.Hitbox);
+    }
+    #endregion
+}
